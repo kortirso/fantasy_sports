@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     get 'logout', to: 'sessions#destroy'
   end
 
+  resource :home, only: %i[show]
+
   root 'welcome#index'
 end

@@ -48,7 +48,7 @@ describe Users::RegistrationsController, type: :controller do
       it 'redirects to dashboard path' do
         post :create, params: { user: { email: 'user@gmail.com', password: '12345678', password_confirmation: '12345678' } }
 
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to home_path
       end
     end
   end

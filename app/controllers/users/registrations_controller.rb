@@ -2,6 +2,8 @@
 
 module Users
   class RegistrationsController < ApplicationController
+    skip_before_action :authenticate
+
     def new
       @user = User.new
     end
@@ -22,7 +24,7 @@ module Users
     private
 
     def after_registration_path
-      root_path
+      home_path
     end
 
     def user_params

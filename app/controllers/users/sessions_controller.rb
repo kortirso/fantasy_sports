@@ -2,6 +2,7 @@
 
 module Users
   class SessionsController < ApplicationController
+    skip_before_action :authenticate
     before_action :find_user, only: %i[create]
     before_action :authenticate_user, only: %i[create]
 
@@ -40,7 +41,7 @@ module Users
     end
 
     def after_login_path
-      root_path
+      home_path
     end
 
     def after_logout_path
