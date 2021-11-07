@@ -86,6 +86,39 @@ ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
 
 
 --
+-- Name: leagues_seasons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.leagues_seasons (
+    id bigint NOT NULL,
+    league_id integer,
+    name character varying DEFAULT ''::character varying NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: leagues_seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.leagues_seasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leagues_seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.leagues_seasons_id_seq OWNED BY public.leagues_seasons.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -201,6 +234,13 @@ ALTER TABLE ONLY public.leagues ALTER COLUMN id SET DEFAULT nextval('public.leag
 
 
 --
+-- Name: leagues_seasons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues_seasons ALTER COLUMN id SET DEFAULT nextval('public.leagues_seasons_id_seq'::regclass);
+
+
+--
 -- Name: sports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -235,6 +275,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.leagues
     ADD CONSTRAINT leagues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: leagues_seasons leagues_seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues_seasons
+    ADD CONSTRAINT leagues_seasons_pkey PRIMARY KEY (id);
 
 
 --
@@ -277,6 +325,13 @@ CREATE INDEX index_leagues_on_sport_id ON public.leagues USING btree (sport_id);
 
 
 --
+-- Name: index_leagues_seasons_on_league_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_leagues_seasons_on_league_id ON public.leagues_seasons USING btree (league_id);
+
+
+--
 -- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -302,6 +357,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211103182015'),
 ('20211107094646'),
 ('20211107102501'),
-('20211107164729');
+('20211107164729'),
+('20211107185742');
 
 
