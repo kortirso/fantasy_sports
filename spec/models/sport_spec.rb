@@ -9,5 +9,6 @@ describe Sport, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:leagues).dependent(:destroy) }
+    it { is_expected.to have_many(:sports_positions).class_name('Sports::Position').dependent(:destroy) }
   end
 end

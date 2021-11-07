@@ -126,6 +126,41 @@ ALTER SEQUENCE public.sports_id_seq OWNED BY public.sports.id;
 
 
 --
+-- Name: sports_positions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sports_positions (
+    id bigint NOT NULL,
+    sport_id integer,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    total_amount integer DEFAULT 0 NOT NULL,
+    min_game_amount integer DEFAULT 0 NOT NULL,
+    max_game_amount integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: sports_positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sports_positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sports_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sports_positions_id_seq OWNED BY public.sports_positions.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -173,6 +208,13 @@ ALTER TABLE ONLY public.sports ALTER COLUMN id SET DEFAULT nextval('public.sport
 
 
 --
+-- Name: sports_positions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sports_positions ALTER COLUMN id SET DEFAULT nextval('public.sports_positions_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -212,6 +254,14 @@ ALTER TABLE ONLY public.sports
 
 
 --
+-- Name: sports_positions sports_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sports_positions
+    ADD CONSTRAINT sports_positions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -224,6 +274,13 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_leagues_on_sport_id ON public.leagues USING btree (sport_id);
+
+
+--
+-- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sports_positions_on_sport_id ON public.sports_positions USING btree (sport_id);
 
 
 --
@@ -244,6 +301,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211101190250'),
 ('20211103182015'),
 ('20211107094646'),
-('20211107102501');
+('20211107102501'),
+('20211107164729');
 
 
