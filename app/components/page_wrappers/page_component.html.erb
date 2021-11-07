@@ -1,4 +1,9 @@
 <%= render Shared::FlashComponent.new %>
-<%= link_to 'Logout', users_logout_path %>
 
-<%= content %>
+<header class='page-navigation'>
+  <%= link_to 'Logout', users_logout_path %>
+</header>
+
+<div class='page-content'>
+  <%= content %>
+</div>

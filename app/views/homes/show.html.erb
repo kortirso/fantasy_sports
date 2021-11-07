@@ -1,3 +1,5 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <p>1</p>
+  <% @sports.each do |sport| %>
+    <h2><%= sport.name['en'] %></h2>
+  <% end %>
 <% end %>
