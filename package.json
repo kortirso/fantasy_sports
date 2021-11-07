@@ -1,0 +1,32 @@
+{
+  "name": "app",
+  "private": true,
+  "dependencies": {
+    "@rails/ujs": "^6.1.4-1",
+    "@rails/webpacker": "^6.0.0-rc.5",
+    "autoprefixer": "^10.3.6",
+    "css-loader": "^6.3.0",
+    "mini-css-extract-plugin": "^2.3.0",
+    "postcss": "^8.3.8",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.1.1",
+    "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "./node_modules/@rails/webpacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "@webpack-cli/serve": "^1.5.2",
+    "webpack-dev-server": "^4.3.0"
+  }
+}

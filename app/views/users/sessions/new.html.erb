@@ -1,0 +1,16 @@
+<%= render PageWrappers::UsersComponent.new do %>
+  <section class='user-form'>
+    <%= form_with model: User.new, url: users_login_path, method: :post do |form| %>
+      <h2>Login</h2>
+      <div class='form-field'>
+        <%= form.label :email, 'Email', class: 'form-label' %>
+        <%= form.text_field :email, class: 'form-value' %>
+      </div>
+      <div class='form-field'>
+        <%= form.label :password, 'Password', class: 'form-label' %>
+        <%= form.password_field :password, class: 'form-value' %>
+      </div>
+      <%= form.submit 'Sign in', class: 'button' %>
+    <% end %>
+  </section>
+<% end %>

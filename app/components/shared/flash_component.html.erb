@@ -1,0 +1,13 @@
+<div class='flash-block'>
+  <% flash.each do |key, message| %>
+    <div class='flash <%= key %>'>
+      <% if message.is_a?(Array) %>
+        <% message.each do |value| %>
+          <p><%= value %></p>
+        <% end %>
+      <% else %>
+        <%= message %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,27 @@
+.flash-block {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  .flash {
+    margin-bottom: 1rem;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+
+    &.notice {
+      background: green;
+    }
+
+    &.alert {
+      background: orange;
+    }
+
+    p {
+      margin: 0 0 .5rem;
+
+      &:nth-last-of-type(1) {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
