@@ -9,7 +9,7 @@ module Users
     def create
       service_call = Users::CreateService.call(params: user_params)
       if service_call.success?
-        session[:gamify_user_id] = service_call.result.id
+        session[:fantasy_sports_user_id] = service_call.result.id
         flash[:notice] = 'You are signed up'
         redirect_to after_registration_path
       else

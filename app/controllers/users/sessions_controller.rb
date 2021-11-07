@@ -8,13 +8,13 @@ module Users
     def new; end
 
     def create
-      session[:gamify_user_id] = @user.id
+      session[:fantasy_sports_user_id] = @user.id
       flash[:notice] = 'You are logged in'
       redirect_to after_login_path
     end
 
     def destroy
-      session[:gamify_user_id] = nil
+      session[:fantasy_sports_user_id] = nil
       flash[:notice] = 'You are logged out'
       redirect_to after_logout_path
     end

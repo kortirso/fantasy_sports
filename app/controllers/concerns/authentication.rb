@@ -10,7 +10,7 @@ module Authentication
   private
 
   def current_user
-    Current.user ||= User.find_by(id: session[:gamify_user_id]) if session[:gamify_user_id]
+    Current.user ||= User.find_by(id: session[:fantasy_sports_user_id]) if session[:fantasy_sports_user_id]
   end
 
   def authenticate
