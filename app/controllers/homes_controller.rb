@@ -8,6 +8,6 @@ class HomesController < ApplicationController
   private
 
   def find_sports
-    @sports = Sport.order(id: :asc)
+    @sports = Sport.order(id: :asc).includes(:leagues)
   end
 end

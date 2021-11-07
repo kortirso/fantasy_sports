@@ -54,6 +54,38 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: leagues; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.leagues (
+    id bigint NOT NULL,
+    sport_id integer,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: leagues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.leagues_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leagues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -127,6 +159,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: leagues id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues ALTER COLUMN id SET DEFAULT nextval('public.leagues_id_seq'::regclass);
+
+
+--
 -- Name: sports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -146,6 +185,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: leagues leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues
+    ADD CONSTRAINT leagues_pkey PRIMARY KEY (id);
 
 
 --
@@ -173,6 +220,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_leagues_on_sport_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_leagues_on_sport_id ON public.leagues USING btree (sport_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -189,6 +243,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211101190000'),
 ('20211101190250'),
 ('20211103182015'),
-('20211107094646');
+('20211107094646'),
+('20211107102501');
 
 

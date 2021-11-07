@@ -1,5 +1,14 @@
 <%= render PageWrappers::PageComponent.new do %>
   <% @sports.each do |sport| %>
-    <h2><%= sport.name['en'] %></h2>
+    <div class='sport'>
+      <h2><%= sport.name['ru'] %></h2>
+      <div class='sport-leagues'>
+        <% sport.leagues.each do |league| %>
+          <div class='league'>
+            <h3><%= league.name['ru'] %></h3>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 <% end %>

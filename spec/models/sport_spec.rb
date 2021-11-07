@@ -6,4 +6,8 @@ describe Sport, type: :model do
 
     expect(sport).to be_valid
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:leagues).dependent(:destroy) }
+  end
 end
