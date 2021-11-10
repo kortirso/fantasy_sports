@@ -5,9 +5,9 @@ if Sport.count.zero?
 end
 
 if League.count.zero?
-  football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
-  basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }
-  hockey.leagues.create name: { en: 'NHL', ru: 'НХЛ' }
+  rpl = football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
+  nba = basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }
+  nhl = hockey.leagues.create name: { en: 'NHL', ru: 'НХЛ' }
 end
 
 if Sports::Position.count.zero?
@@ -85,4 +85,24 @@ if Sports::Position.count.zero?
     min_game_amount: 3,
     max_game_amount: 9
   )
+end
+
+if Leagues::Season.count.zero?
+  rpl2022 = rpl.leagues_seasons.create name: '2021/2022', active: true
+  nba2022 = nba.leagues_seasons.create name: '2021/2022', active: true
+  nhl2022 = nhl.leagues_seasons.create name: '2021/2022', active: true
+end
+
+if Team.count.zero?
+  spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }
+  zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }
+  lokomotiv = Team.create name: { en: 'Lokomotiv', ru: 'Локомотив' }
+  cska = Team.create name: { en: 'CSKA', ru: 'ЦСКА' }
+end
+
+if Leagues::Seasons::Team.count.zero?
+  Leagues::Seasons::Team.create team: spartak, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: zenit, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: lokomotiv, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: cska, leagues_season: rpl2022
 end

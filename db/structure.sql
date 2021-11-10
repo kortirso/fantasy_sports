@@ -133,6 +133,38 @@ ALTER SEQUENCE public.leagues_seasons_id_seq OWNED BY public.leagues_seasons.id;
 
 
 --
+-- Name: leagues_seasons_teams; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.leagues_seasons_teams (
+    id bigint NOT NULL,
+    leagues_season_id integer,
+    team_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: leagues_seasons_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.leagues_seasons_teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leagues_seasons_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.leagues_seasons_teams_id_seq OWNED BY public.leagues_seasons_teams.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -286,6 +318,13 @@ ALTER TABLE ONLY public.leagues_seasons ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: leagues_seasons_teams id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues_seasons_teams ALTER COLUMN id SET DEFAULT nextval('public.leagues_seasons_teams_id_seq'::regclass);
+
+
+--
 -- Name: sports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -335,6 +374,14 @@ ALTER TABLE ONLY public.leagues
 
 ALTER TABLE ONLY public.leagues_seasons
     ADD CONSTRAINT leagues_seasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: leagues_seasons_teams leagues_seasons_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leagues_seasons_teams
+    ADD CONSTRAINT leagues_seasons_teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -392,6 +439,13 @@ CREATE INDEX index_leagues_seasons_on_league_id ON public.leagues_seasons USING 
 
 
 --
+-- Name: index_leagues_seasons_teams_on_leagues_season_id_and_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_leagues_seasons_teams_on_leagues_season_id_and_team_id ON public.leagues_seasons_teams USING btree (leagues_season_id, team_id);
+
+
+--
 -- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -419,6 +473,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211107102501'),
 ('20211107164729'),
 ('20211107185742'),
-('20211110190942');
+('20211110190942'),
+('20211110192129');
 
 

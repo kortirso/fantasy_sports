@@ -5,5 +5,8 @@ module Leagues
     self.table_name = :leagues_seasons
 
     belongs_to :league
+
+    has_many :leagues_seasons_teams, class_name: 'Leagues::Seasons::Team', inverse_of: :leagues_season, dependent: :destroy
+    has_many :teams, through: :leagues_seasons_teams
   end
 end

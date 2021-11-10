@@ -6,4 +6,9 @@ describe Team, type: :model do
 
     expect(team).to be_valid
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:leagues_seasons_teams).class_name('Leagues::Seasons::Team').dependent(:destroy) }
+    it { is_expected.to have_many(:leagues_seasons).through(:leagues_seasons_teams) }
+  end
 end
