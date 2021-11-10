@@ -38,10 +38,10 @@ gem 'action_policy', '0.6.0'
 # validations
 gem 'dry-validation', '~> 1.7'
 
+# Catch unsafe migrations in development
+gem 'strong_migrations', '~> 0.7'
+
 group :development, :test do
-  gem 'database_cleaner', '~> 1.8.5'
-  gem 'factory_bot_rails', '6.2.0'
-  gem 'rspec-rails', '5.0.2'
 end
 
 group :development do
@@ -50,7 +50,10 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner', '~> 1.8.5'
+  gem 'factory_bot_rails', '6.2.0'
   gem 'rails-controller-testing', '1.0.5'
+  gem 'rspec-rails', '5.0.2'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'json_spec', '1.1.5'
 end
