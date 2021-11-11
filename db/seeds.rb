@@ -98,6 +98,9 @@ if Team.count.zero?
   zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }
   lokomotiv = Team.create name: { en: 'Lokomotiv', ru: 'Локомотив' }
   cska = Team.create name: { en: 'CSKA', ru: 'ЦСКА' }
+  dinamo = Team.create name: { en: 'Dinamo', ru: 'Динамо' }
+  sochi = Team.create name: { en: 'Sochi', ru: 'Сочи' }
+  krasnodar = Team.create name: { en: 'Krasnodar', ru: 'Краснодар' }
 end
 
 if Leagues::Seasons::Team.count.zero?
@@ -105,4 +108,7 @@ if Leagues::Seasons::Team.count.zero?
   Leagues::Seasons::Team.create team: zenit, leagues_season: rpl2022
   Leagues::Seasons::Team.create team: lokomotiv, leagues_season: rpl2022
   Leagues::Seasons::Team.create team: cska, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: dinamo, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: sochi, leagues_season: rpl2022
+  Leagues::Seasons::Team.create team: krasnodar, leagues_season: rpl2022
 end
