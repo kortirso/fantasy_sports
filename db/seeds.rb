@@ -124,3 +124,24 @@ dzyuba = football_forward.players.create name: { en: 'Dzyuba Artem', ru: 'Дзю
 sobolev = football_forward.players.create name: { en: 'Sobolev Alexander', ru: 'Соболев Александр' }
 smolov = football_forward.players.create name: { en: 'Smolov Fyodor', ru: 'Смолов Фёдор' }
 zabolotnyy = football_forward.players.create name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
+
+Teams::Player.create team: spartak, player: maksimenko
+Teams::Player.create team: lokomotiv, player: guilherme
+Teams::Player.create team: cska, player: akinfeev
+Teams::Player.create team: dinamo, player: shunin
+Teams::Player.create team: krasnodar, player: safonov
+Teams::Player.create team: zenit, player: rakitskyi
+Teams::Player.create team: zenit, player: lovren
+Teams::Player.create team: spartak, player: dzhikiia
+Teams::Player.create team: cska, player: fernandes
+Teams::Player.create team: spartak, player: gigot
+Teams::Player.create team: zenit, player: ozdoev
+Teams::Player.create team: spartak, player: zobnin
+Teams::Player.create team: lokomotiv, player: zhemaletdinov
+Teams::Player.create team: cska, player: dzagoev
+Teams::Player.create team: zenit, player: mostovoy
+Teams::Player.create team: zenit, player: azmoun
+Teams::Player.create team: zenit, player: dzyuba
+Teams::Player.create team: spartak, player: sobolev
+Teams::Player.create team: lokomotiv, player: smolov
+Teams::Player.create team: cska, player: zabolotnyy

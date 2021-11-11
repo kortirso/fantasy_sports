@@ -303,6 +303,39 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 
 --
+-- Name: teams_players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teams_players (
+    id bigint NOT NULL,
+    team_id integer,
+    player_id integer,
+    active boolean DEFAULT true NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teams_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teams_players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teams_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teams_players_id_seq OWNED BY public.teams_players.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -385,6 +418,13 @@ ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_
 
 
 --
+-- Name: teams_players id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teams_players ALTER COLUMN id SET DEFAULT nextval('public.teams_players_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -464,6 +504,14 @@ ALTER TABLE ONLY public.teams
 
 
 --
+-- Name: teams_players teams_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teams_players
+    ADD CONSTRAINT teams_players_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -507,6 +555,13 @@ CREATE INDEX index_sports_positions_on_sport_id ON public.sports_positions USING
 
 
 --
+-- Name: index_teams_players_on_team_id_and_player_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teams_players_on_team_id_and_player_id ON public.teams_players USING btree (team_id, player_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -529,6 +584,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211107185742'),
 ('20211110190942'),
 ('20211110192129'),
-('20211111182627');
+('20211111182627'),
+('20211111192625');
 
 
