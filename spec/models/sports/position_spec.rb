@@ -9,5 +9,6 @@ describe Sports::Position, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:sport) }
+    it { is_expected.to have_many(:players).dependent(:nullify) }
   end
 end

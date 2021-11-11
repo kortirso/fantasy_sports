@@ -165,6 +165,38 @@ ALTER SEQUENCE public.leagues_seasons_teams_id_seq OWNED BY public.leagues_seaso
 
 
 --
+-- Name: players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.players (
+    id bigint NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    sports_position_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.players_id_seq OWNED BY public.players.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -325,6 +357,13 @@ ALTER TABLE ONLY public.leagues_seasons_teams ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: players id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.players ALTER COLUMN id SET DEFAULT nextval('public.players_id_seq'::regclass);
+
+
+--
 -- Name: sports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -382,6 +421,14 @@ ALTER TABLE ONLY public.leagues_seasons
 
 ALTER TABLE ONLY public.leagues_seasons_teams
     ADD CONSTRAINT leagues_seasons_teams_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: players players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.players
+    ADD CONSTRAINT players_pkey PRIMARY KEY (id);
 
 
 --
@@ -446,6 +493,13 @@ CREATE UNIQUE INDEX index_leagues_seasons_teams_on_leagues_season_id_and_team_id
 
 
 --
+-- Name: index_players_on_sports_position_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_players_on_sports_position_id ON public.players USING btree (sports_position_id);
+
+
+--
 -- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -474,6 +528,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211107164729'),
 ('20211107185742'),
 ('20211110190942'),
-('20211110192129');
+('20211110192129'),
+('20211111182627');
 
 
