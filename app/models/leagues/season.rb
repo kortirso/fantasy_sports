@@ -8,5 +8,7 @@ module Leagues
 
     has_many :leagues_seasons_teams, class_name: 'Leagues::Seasons::Team', inverse_of: :leagues_season, dependent: :destroy
     has_many :teams, through: :leagues_seasons_teams
+
+    has_many :weeks, foreign_key: :leagues_season_id, dependent: :destroy
   end
 end

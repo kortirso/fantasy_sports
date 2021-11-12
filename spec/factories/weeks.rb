@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :week do
+    position { 1 }
+    association :leagues_season
+  end
+end

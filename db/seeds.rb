@@ -145,3 +145,12 @@ Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: dzyuba
 Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev
 Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy
+
+rpl2022.weeks.create position: 1, active: true
+rpl2022.weeks.create position: 2
+rpl2022.weeks.create position: 3
+rpl2022.weeks.create position: 4
+rpl2022.weeks.create position: 5
+rpl2022.weeks.create position: 6
+rpl2022.weeks.create position: 7
+rpl2022.weeks.create position: 8

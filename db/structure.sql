@@ -369,6 +369,39 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: weeks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.weeks (
+    id bigint NOT NULL,
+    leagues_season_id integer,
+    "position" integer DEFAULT 1 NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: weeks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.weeks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: weeks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
+
+
+--
 -- Name: leagues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -429,6 +462,13 @@ ALTER TABLE ONLY public.teams_players ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: weeks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_id_seq'::regclass);
 
 
 --
@@ -520,6 +560,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: weeks weeks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.weeks
+    ADD CONSTRAINT weeks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: index_leagues_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -569,6 +617,13 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
+-- Name: index_weeks_on_leagues_season_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_weeks_on_leagues_season_id ON public.weeks USING btree (leagues_season_id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -585,6 +640,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211110190942'),
 ('20211110192129'),
 ('20211111182627'),
-('20211111192625');
+('20211111192625'),
+('20211112185530');
 
 
