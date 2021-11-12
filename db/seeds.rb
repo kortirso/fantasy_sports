@@ -93,13 +93,13 @@ dinamo = Team.create name: { en: 'Dinamo', ru: 'Динамо' }
 sochi = Team.create name: { en: 'Sochi', ru: 'Сочи' }
 krasnodar = Team.create name: { en: 'Krasnodar', ru: 'Краснодар' }
 
-Leagues::Seasons::Team.create team: spartak, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: zenit, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: lokomotiv, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: cska, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: dinamo, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: sochi, leagues_season: rpl2022
-Leagues::Seasons::Team.create team: krasnodar, leagues_season: rpl2022
+spartak_rpl2022 = Leagues::Seasons::Team.create team: spartak, leagues_season: rpl2022
+zenit_rpl2022 = Leagues::Seasons::Team.create team: zenit, leagues_season: rpl2022
+lokomotiv_rpl2022 = Leagues::Seasons::Team.create team: lokomotiv, leagues_season: rpl2022
+cska_rpl2022 = Leagues::Seasons::Team.create team: cska, leagues_season: rpl2022
+dinamo_rpl2022 = Leagues::Seasons::Team.create team: dinamo, leagues_season: rpl2022
+sochi_rpl2022 = Leagues::Seasons::Team.create team: sochi, leagues_season: rpl2022
+krasnodar_rpl2022 = Leagues::Seasons::Team.create team: krasnodar, leagues_season: rpl2022
 
 maksimenko = football_goalkeeper.players.create name: { en: 'Maksimenko Alexander', ru: 'Максименко Александр' }
 guilherme = football_goalkeeper.players.create name: { en: 'Guilherme Marinato', ru: 'Гилерме Маринато' }
@@ -125,23 +125,23 @@ sobolev = football_forward.players.create name: { en: 'Sobolev Alexander', ru: '
 smolov = football_forward.players.create name: { en: 'Smolov Fyodor', ru: 'Смолов Фёдор' }
 zabolotnyy = football_forward.players.create name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
 
-Teams::Player.create team: spartak, player: maksimenko
-Teams::Player.create team: lokomotiv, player: guilherme
-Teams::Player.create team: cska, player: akinfeev
-Teams::Player.create team: dinamo, player: shunin
-Teams::Player.create team: krasnodar, player: safonov
-Teams::Player.create team: zenit, player: rakitskyi
-Teams::Player.create team: zenit, player: lovren
-Teams::Player.create team: spartak, player: dzhikiia
-Teams::Player.create team: cska, player: fernandes
-Teams::Player.create team: spartak, player: gigot
-Teams::Player.create team: zenit, player: ozdoev
-Teams::Player.create team: spartak, player: zobnin
-Teams::Player.create team: lokomotiv, player: zhemaletdinov
-Teams::Player.create team: cska, player: dzagoev
-Teams::Player.create team: zenit, player: mostovoy
-Teams::Player.create team: zenit, player: azmoun
-Teams::Player.create team: zenit, player: dzyuba
-Teams::Player.create team: spartak, player: sobolev
-Teams::Player.create team: lokomotiv, player: smolov
-Teams::Player.create team: cska, player: zabolotnyy
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: maksimenko
+Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: guilherme
+Teams::Player.create leagues_seasons_team: cska_rpl2022, player: akinfeev
+Teams::Player.create leagues_seasons_team: dinamo_rpl2022, player: shunin
+Teams::Player.create leagues_seasons_team: krasnodar_rpl2022, player: safonov
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: rakitskyi
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: lovren
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: dzhikiia
+Teams::Player.create leagues_seasons_team: cska_rpl2022, player: fernandes
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: gigot
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: ozdoev
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: zobnin
+Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: zhemaletdinov
+Teams::Player.create leagues_seasons_team: cska_rpl2022, player: dzagoev
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: mostovoy
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: azmoun
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: dzyuba
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev
+Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov
+Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy

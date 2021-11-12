@@ -8,7 +8,7 @@ describe Teams::Player, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:team) }
+    it { is_expected.to belong_to(:leagues_seasons_team).class_name('::Leagues::Seasons::Team') }
     it { is_expected.to belong_to(:player).class_name('::Player') }
   end
 end

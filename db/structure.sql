@@ -308,7 +308,7 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 CREATE TABLE public.teams_players (
     id bigint NOT NULL,
-    team_id integer,
+    leagues_seasons_team_id integer,
     player_id integer,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -555,10 +555,10 @@ CREATE INDEX index_sports_positions_on_sport_id ON public.sports_positions USING
 
 
 --
--- Name: index_teams_players_on_team_id_and_player_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_teams_players_on_leagues_seasons_team_id_and_player_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_players_on_team_id_and_player_id ON public.teams_players USING btree (team_id, player_id);
+CREATE INDEX index_teams_players_on_leagues_seasons_team_id_and_player_id ON public.teams_players USING btree (leagues_seasons_team_id, player_id);
 
 
 --
