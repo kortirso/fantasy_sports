@@ -75,7 +75,9 @@ CREATE TABLE public.games (
     id bigint NOT NULL,
     week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    home_team_id integer,
+    visitor_team_id integer
 );
 
 
@@ -695,6 +697,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211111182627'),
 ('20211111192625'),
 ('20211112185530'),
-('20211113170404');
+('20211113170404'),
+('20211113172635');
 
 
