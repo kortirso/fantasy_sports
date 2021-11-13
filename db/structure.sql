@@ -101,6 +101,39 @@ ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 
 --
+-- Name: games_players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.games_players (
+    id bigint NOT NULL,
+    game_id integer,
+    player_id integer,
+    statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: games_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.games_players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: games_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.games_players_id_seq OWNED BY public.games_players.id;
+
+
+--
 -- Name: leagues; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -442,6 +475,13 @@ ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_
 
 
 --
+-- Name: games_players id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games_players ALTER COLUMN id SET DEFAULT nextval('public.games_players_id_seq'::regclass);
+
+
+--
 -- Name: leagues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -525,6 +565,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.games
     ADD CONSTRAINT games_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: games_players games_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games_players
+    ADD CONSTRAINT games_players_pkey PRIMARY KEY (id);
 
 
 --
@@ -623,6 +671,13 @@ CREATE INDEX index_games_on_week_id ON public.games USING btree (week_id);
 
 
 --
+-- Name: index_games_players_on_game_id_and_player_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_games_players_on_game_id_and_player_id ON public.games_players USING btree (game_id, player_id);
+
+
+--
 -- Name: index_leagues_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -698,6 +753,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211111192625'),
 ('20211112185530'),
 ('20211113170404'),
-('20211113172635');
+('20211113172635'),
+('20211113185715');
 
 
