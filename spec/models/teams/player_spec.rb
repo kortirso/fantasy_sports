@@ -10,5 +10,7 @@ describe Teams::Player, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:leagues_seasons_team).class_name('::Leagues::Seasons::Team') }
     it { is_expected.to belong_to(:player).class_name('::Player') }
+    it { is_expected.to have_many(:games_players).class_name('::Games::Player').with_foreign_key(:teams_player_id).dependent(:destroy) }
+    it { is_expected.to have_many(:games).through(:games_players) }
   end
 end

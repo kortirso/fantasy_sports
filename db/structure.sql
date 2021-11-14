@@ -76,8 +76,8 @@ CREATE TABLE public.games (
     week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    home_team_id integer,
-    visitor_team_id integer
+    home_season_team_id integer,
+    visitor_season_team_id integer
 );
 
 
@@ -107,7 +107,7 @@ ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 CREATE TABLE public.games_players (
     id bigint NOT NULL,
     game_id integer,
-    player_id integer,
+    teams_player_id integer,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -671,10 +671,10 @@ CREATE INDEX index_games_on_week_id ON public.games USING btree (week_id);
 
 
 --
--- Name: index_games_players_on_game_id_and_player_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_games_players_on_game_id_and_teams_player_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_games_players_on_game_id_and_player_id ON public.games_players USING btree (game_id, player_id);
+CREATE UNIQUE INDEX index_games_players_on_game_id_and_teams_player_id ON public.games_players USING btree (game_id, teams_player_id);
 
 
 --

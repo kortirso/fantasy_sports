@@ -5,6 +5,6 @@ module Games
     self.table_name = :games_players
 
     belongs_to :game
-    belongs_to :player, class_name: '::Player'
+    belongs_to :teams_player, class_name: '::Teams::Player'
   end
 end

@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :games_player, class: 'Games::Player' do
     statistic { {} }
     association :game
-    association :player
+    association :teams_player
   end
 end

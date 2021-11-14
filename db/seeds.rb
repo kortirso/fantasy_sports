@@ -146,11 +146,25 @@ Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev
 Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy
 
-rpl2022.weeks.create position: 1, active: true
-rpl2022.weeks.create position: 2
-rpl2022.weeks.create position: 3
-rpl2022.weeks.create position: 4
-rpl2022.weeks.create position: 5
-rpl2022.weeks.create position: 6
-rpl2022.weeks.create position: 7
-rpl2022.weeks.create position: 8
+week1 = rpl2022.weeks.create position: 1, active: true
+week2 = rpl2022.weeks.create position: 2
+week3 = rpl2022.weeks.create position: 3
+week4 = rpl2022.weeks.create position: 4
+week5 = rpl2022.weeks.create position: 5
+week6 = rpl2022.weeks.create position: 6
+week7 = rpl2022.weeks.create position: 7
+week8 = rpl2022.weeks.create position: 8
+
+game1 = week1.games.create home_team: cska, visitor_team: lokomotiv
+game2 = week2.games.create home_team: zenit, visitor_team: krasnodar
+game3 = week2.games.create home_team: dinamo, visitor_team: cska
+game4 = week3.games.create home_team: lokomotiv, visitor_team: zenit
+game5 = week4.games.create home_team: lokomotiv, visitor_team: krasnodar
+game6 = week5.games.create home_team: spartak, visitor_team: sochi
+game7 = week5.games.create home_team: zenit, visitor_team: cska
+game8 = week5.games.create home_team: dinamo, visitor_team: lokomotiv
+game9 = week6.games.create home_team: sochi, visitor_team: dinamo
+game10 = week6.games.create home_team: cska, visitor_team: spartak
+game11 = week7.games.create home_team: krasnodar, visitor_team: sochi
+game12 = week8.games.create home_team: cska, visitor_team: krasnodar
+game13 = week8.games.create home_team: zenit, visitor_team: sochi

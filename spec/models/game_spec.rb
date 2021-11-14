@@ -9,9 +9,9 @@ describe Game, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:week) }
-    it { is_expected.to belong_to(:home_team).class_name('Team').with_foreign_key(:home_team_id) }
-    it { is_expected.to belong_to(:visitor_team).class_name('Team').with_foreign_key(:visitor_team_id) }
-    it { is_expected.to have_many(:games_players).class_name('Games::Player').dependent(:destroy) }
-    it { is_expected.to have_many(:players).through(:games_players) }
+    it { is_expected.to belong_to(:home_season_team).class_name('Leagues::Seasons::Team').with_foreign_key(:home_season_team_id) }
+    it { is_expected.to belong_to(:visitor_season_team).class_name('Leagues::Seasons::Team').with_foreign_key(:visitor_season_team_id) }
+    it { is_expected.to have_many(:games_players).class_name('::Games::Player').dependent(:destroy) }
+    it { is_expected.to have_many(:teams_players).through(:games_players) }
   end
 end

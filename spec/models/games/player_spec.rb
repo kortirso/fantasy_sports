@@ -9,6 +9,6 @@ describe Games::Player, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:game) }
-    it { is_expected.to belong_to(:player).class_name('::Player') }
+    it { is_expected.to belong_to(:teams_player).class_name('::Teams::Player') }
   end
 end
