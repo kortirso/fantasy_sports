@@ -10,5 +10,7 @@ module Leagues
     has_many :teams, through: :leagues_seasons_teams
 
     has_many :weeks, foreign_key: :leagues_season_id, dependent: :destroy
+
+    has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
   end
 end

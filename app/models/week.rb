@@ -5,5 +5,7 @@ class Week < ApplicationRecord
 
   has_many :games, dependent: :destroy
 
+  has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
+
   scope :active, -> { where(active: true) }
 end

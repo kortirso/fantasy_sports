@@ -68,6 +68,39 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: fantasy_leagues; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_leagues (
+    id bigint NOT NULL,
+    name character varying DEFAULT ''::character varying NOT NULL,
+    leagueable_id integer,
+    leagueable_type character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_leagues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_leagues_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_leagues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_leagues_id_seq OWNED BY public.fantasy_leagues.id;
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -468,6 +501,13 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
+-- Name: fantasy_leagues id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_leagues ALTER COLUMN id SET DEFAULT nextval('public.fantasy_leagues_id_seq'::regclass);
+
+
+--
 -- Name: games id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -557,6 +597,14 @@ ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: fantasy_leagues fantasy_leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_leagues
+    ADD CONSTRAINT fantasy_leagues_pkey PRIMARY KEY (id);
 
 
 --
@@ -664,6 +712,13 @@ ALTER TABLE ONLY public.weeks
 
 
 --
+-- Name: index_fantasy_leagues_on_leagueable_id_and_leagueable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fantasy_leagues_on_leagueable_id_and_leagueable_type ON public.fantasy_leagues USING btree (leagueable_id, leagueable_type);
+
+
+--
 -- Name: index_games_on_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -754,6 +809,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211112185530'),
 ('20211113170404'),
 ('20211113172635'),
-('20211113185715');
+('20211113185715'),
+('20211114192023');
 
 
