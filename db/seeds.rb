@@ -112,12 +112,19 @@ lovren = football_defender.players.create name: { en: 'Lovren Dejan', ru: 'Ло�
 dzhikiia = football_defender.players.create name: { en: 'Dzhikiia Georgy', ru: 'Джикия Георгий' }
 fernandes = football_defender.players.create name: { en: 'Fernandes Mario', ru: 'Фернандес Марио' }
 gigot = football_defender.players.create name: { en: 'Gigot Samuel', ru: 'Жиго Самуэль' }
+karavaev = football_defender.players.create name: { en: 'Karavaev Vyacheslav', ru: 'Караваев Вячеслав' }
+diveev = football_defender.players.create name: { en: 'Diveev Igor', ru: 'Дивеев Игорь' }
 
 ozdoev = football_midfielder.players.create name: { en: 'Ozdoev Magomed', ru: 'Оздоев Магомед' }
 zobnin = football_midfielder.players.create name: { en: 'Zobnin Roman', ru: 'Зобнин Роман' }
 zhemaletdinov = football_midfielder.players.create name: { en: 'Zhemaletdinov Rifat', ru: 'Жемалетдинов Рифат' }
 dzagoev = football_midfielder.players.create name: { en: 'Dzagoev Alan', ru: 'Дзагоев Алан' }
 mostovoy = football_midfielder.players.create name: { en: 'Mostovoy Andrey', ru: 'Мостовой Андрей' }
+barinov = football_midfielder.players.create name: { en: 'Barinov Dmitry', ru: 'Баринов Дмитрий' }
+fomin = football_midfielder.players.create name: { en: 'Fomin Daniil', ru: 'Фомин Даниил' }
+bakaev = football_midfielder.players.create name: { en: 'Bakaev Zelimkhan', ru: 'Бакаев Зелимхан' }
+ionov = football_midfielder.players.create name: { en: 'Ionov Alexey', ru: 'Ионов Алексей' }
+sutormin = football_midfielder.players.create name: { en: 'Sutormin Alexey', ru: 'Сутормин Алексей' }
 
 azmoun = football_forward.players.create name: { en: 'Azmoun Sardar', ru: 'Азмун Сердар' }
 dzyuba = football_forward.players.create name: { en: 'Dzyuba Artem', ru: 'Дзюба Артём' }
@@ -130,16 +137,26 @@ Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: guilherme
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: akinfeev
 Teams::Player.create leagues_seasons_team: dinamo_rpl2022, player: shunin
 Teams::Player.create leagues_seasons_team: krasnodar_rpl2022, player: safonov
+
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: rakitskyi
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: lovren
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: karavaev
 Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: dzhikiia
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: fernandes
 Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: gigot
+Teams::Player.create leagues_seasons_team: cska_rpl2022, player: diveev
+
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: ozdoev
 Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: zobnin
 Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: zhemaletdinov
+Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: barinov
+Teams::Player.create leagues_seasons_team: dinamo_rpl2022, player: fomin
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: dzagoev
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: mostovoy
+Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: bakaev
+Teams::Player.create leagues_seasons_team: krasnodar_rpl2022, player: ionov
+Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: sutormin
+
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: azmoun
 Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: dzyuba
 Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev
@@ -155,16 +172,16 @@ week6 = rpl2022.weeks.create position: 6
 week7 = rpl2022.weeks.create position: 7
 week8 = rpl2022.weeks.create position: 8
 
-game1 = week1.games.create home_team: cska, visitor_team: lokomotiv
-game2 = week2.games.create home_team: zenit, visitor_team: krasnodar
-game3 = week2.games.create home_team: dinamo, visitor_team: cska
-game4 = week3.games.create home_team: lokomotiv, visitor_team: zenit
-game5 = week4.games.create home_team: lokomotiv, visitor_team: krasnodar
-game6 = week5.games.create home_team: spartak, visitor_team: sochi
-game7 = week5.games.create home_team: zenit, visitor_team: cska
-game8 = week5.games.create home_team: dinamo, visitor_team: lokomotiv
-game9 = week6.games.create home_team: sochi, visitor_team: dinamo
-game10 = week6.games.create home_team: cska, visitor_team: spartak
-game11 = week7.games.create home_team: krasnodar, visitor_team: sochi
-game12 = week8.games.create home_team: cska, visitor_team: krasnodar
-game13 = week8.games.create home_team: zenit, visitor_team: sochi
+Games::CreateService.call(week: week1, home_season_team: cska_rpl2022, visitor_season_team: lokomotiv_rpl2022)
+Games::CreateService.call(week: week2, home_season_team: zenit_rpl2022, visitor_season_team: krasnodar_rpl2022)
+Games::CreateService.call(week: week2, home_season_team: dinamo_rpl2022, visitor_season_team: cska_rpl2022)
+Games::CreateService.call(week: week3, home_season_team: lokomotiv_rpl2022, visitor_season_team: zenit_rpl2022)
+Games::CreateService.call(week: week4, home_season_team: lokomotiv_rpl2022, visitor_season_team: krasnodar_rpl2022)
+Games::CreateService.call(week: week5, home_season_team: spartak_rpl2022, visitor_season_team: sochi_rpl2022)
+Games::CreateService.call(week: week5, home_season_team: zenit_rpl2022, visitor_season_team: cska_rpl2022)
+Games::CreateService.call(week: week5, home_season_team: dinamo_rpl2022, visitor_season_team: lokomotiv_rpl2022)
+Games::CreateService.call(week: week6, home_season_team: sochi_rpl2022, visitor_season_team: dinamo_rpl2022)
+Games::CreateService.call(week: week6, home_season_team: cska_rpl2022, visitor_season_team: spartak_rpl2022)
+Games::CreateService.call(week: week7, home_season_team: krasnodar_rpl2022, visitor_season_team: sochi_rpl2022)
+Games::CreateService.call(week: week8, home_season_team: cska_rpl2022, visitor_season_team: krasnodar_rpl2022)
+Games::CreateService.call(week: week8, home_season_team: zenit_rpl2022, visitor_season_team: sochi_rpl2022)
