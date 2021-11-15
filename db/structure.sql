@@ -469,6 +469,39 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: users_teams; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_teams (
+    id bigint NOT NULL,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id integer,
+    name character varying DEFAULT ''::character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: users_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_teams_id_seq OWNED BY public.users_teams.id;
+
+
+--
 -- Name: weeks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -583,6 +616,13 @@ ALTER TABLE ONLY public.teams_players ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: users_teams id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_teams ALTER COLUMN id SET DEFAULT nextval('public.users_teams_id_seq'::regclass);
 
 
 --
@@ -705,6 +745,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: users_teams users_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_teams
+    ADD CONSTRAINT users_teams_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: weeks weeks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -790,6 +838,20 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
+-- Name: index_users_teams_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_teams_on_user_id ON public.users_teams USING btree (user_id);
+
+
+--
+-- Name: index_users_teams_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_teams_on_uuid ON public.users_teams USING btree (uuid);
+
+
+--
 -- Name: index_weeks_on_leagues_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -819,6 +881,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211113172635'),
 ('20211113185715'),
 ('20211114192023'),
-('20211115161032');
+('20211115161032'),
+('20211115185128');
 
 
