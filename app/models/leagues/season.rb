@@ -12,6 +12,8 @@ module Leagues
     has_many :weeks, foreign_key: :leagues_season_id, dependent: :destroy
 
     has_many :all_fantasy_leagues, class_name: '::FantasyLeague', foreign_key: :leagues_season_id, dependent: :destroy
+    has_many :users_teams, through: :all_fantasy_leagues
+
     has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
   end
 end

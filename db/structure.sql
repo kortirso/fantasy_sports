@@ -102,6 +102,38 @@ ALTER SEQUENCE public.fantasy_leagues_id_seq OWNED BY public.fantasy_leagues.id;
 
 
 --
+-- Name: fantasy_leagues_teams; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_leagues_teams (
+    id bigint NOT NULL,
+    fantasy_league_id integer,
+    users_team_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_leagues_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_leagues_teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_leagues_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_leagues_teams_id_seq OWNED BY public.fantasy_leagues_teams.id;
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -542,6 +574,13 @@ ALTER TABLE ONLY public.fantasy_leagues ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: fantasy_leagues_teams id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_leagues_teams ALTER COLUMN id SET DEFAULT nextval('public.fantasy_leagues_teams_id_seq'::regclass);
+
+
+--
 -- Name: games id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -646,6 +685,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.fantasy_leagues
     ADD CONSTRAINT fantasy_leagues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fantasy_leagues_teams fantasy_leagues_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_leagues_teams
+    ADD CONSTRAINT fantasy_leagues_teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -758,6 +805,13 @@ ALTER TABLE ONLY public.users_teams
 
 ALTER TABLE ONLY public.weeks
     ADD CONSTRAINT weeks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fantasy_team_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX fantasy_team_index ON public.fantasy_leagues_teams USING btree (fantasy_league_id, users_team_id);
 
 
 --
@@ -882,6 +936,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211113185715'),
 ('20211114192023'),
 ('20211115161032'),
-('20211115185128');
+('20211115185128'),
+('20211115190546');
 
 

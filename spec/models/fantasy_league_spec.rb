@@ -9,5 +9,7 @@ describe FantasyLeague, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:leagueable) }
+    it { is_expected.to have_many(:fantasy_leagues_teams).class_name('::FantasyLeagues::Team').with_foreign_key(:fantasy_league_id).dependent(:destroy) }
+    it { is_expected.to have_many(:users_teams).through(:fantasy_leagues_teams) }
   end
 end
