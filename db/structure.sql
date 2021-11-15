@@ -77,7 +77,8 @@ CREATE TABLE public.fantasy_leagues (
     leagueable_id integer,
     leagueable_type character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    leagues_season_id integer
 );
 
 
@@ -719,6 +720,13 @@ CREATE INDEX index_fantasy_leagues_on_leagueable_id_and_leagueable_type ON publi
 
 
 --
+-- Name: index_fantasy_leagues_on_leagues_season_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fantasy_leagues_on_leagues_season_id ON public.fantasy_leagues USING btree (leagues_season_id);
+
+
+--
 -- Name: index_games_on_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -810,6 +818,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211113170404'),
 ('20211113172635'),
 ('20211113185715'),
-('20211114192023');
+('20211114192023'),
+('20211115161032');
 
 

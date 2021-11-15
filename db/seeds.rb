@@ -85,6 +85,10 @@ rpl2022 = rpl.leagues_seasons.create name: '2021/2022', active: true
 nba2022 = nba.leagues_seasons.create name: '2021/2022', active: true
 nhl2022 = nhl.leagues_seasons.create name: '2021/2022', active: true
 
+overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall'
+overall_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: nba2022, name: 'Overall'
+overall_fantasy_nhl_league = nhl2022.all_fantasy_leagues.create leagueable: nhl2022, name: 'Overall'
+
 spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }
 zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }
 lokomotiv = Team.create name: { en: 'Lokomotiv', ru: 'Локомотив' }
@@ -163,7 +167,7 @@ Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev
 Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy
 
-week1 = rpl2022.weeks.create position: 1, active: true
+week1 = rpl2022.weeks.create position: 1
 week2 = rpl2022.weeks.create position: 2
 week3 = rpl2022.weeks.create position: 3
 week4 = rpl2022.weeks.create position: 4
@@ -171,6 +175,8 @@ week5 = rpl2022.weeks.create position: 5
 week6 = rpl2022.weeks.create position: 6
 week7 = rpl2022.weeks.create position: 7
 week8 = rpl2022.weeks.create position: 8
+
+week1_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: week1, name: 'Week 1'
 
 Games::CreateService.call(week: week1, home_season_team: cska_rpl2022, visitor_season_team: lokomotiv_rpl2022)
 Games::CreateService.call(week: week2, home_season_team: zenit_rpl2022, visitor_season_team: krasnodar_rpl2022)
