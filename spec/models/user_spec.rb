@@ -10,7 +10,7 @@ describe User, type: :model do
   it { is_expected.to define_enum_for :role }
 
   describe 'associations' do
-    it { is_expected.to have_many(:users_teams).class_name('::Users::Team').dependent(:destroy) }
+    it { is_expected.to have_many(:fantasy_teams).dependent(:destroy) }
   end
 
   describe 'roles?' do

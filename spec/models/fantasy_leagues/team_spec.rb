@@ -9,6 +9,6 @@ describe FantasyLeagues::Team, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:fantasy_league).class_name('::FantasyLeague').with_foreign_key(:fantasy_league_id) }
-    it { is_expected.to belong_to(:users_team).class_name('::Users::Team').with_foreign_key(:users_team_id) }
+    it { is_expected.to belong_to(:fantasy_team).class_name('::FantasyTeam').with_foreign_key(:fantasy_team_id) }
   end
 end
