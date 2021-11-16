@@ -167,6 +167,38 @@ ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
 
 
 --
+-- Name: fantasy_teams_players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_teams_players (
+    id bigint NOT NULL,
+    fantasy_team_id integer,
+    teams_player_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_teams_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_teams_players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_teams_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_teams_players_id_seq OWNED BY public.fantasy_teams_players.id;
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -589,6 +621,13 @@ ALTER TABLE ONLY public.fantasy_teams ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: fantasy_teams_players id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_players ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_players_id_seq'::regclass);
+
+
+--
 -- Name: games id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -705,6 +744,14 @@ ALTER TABLE ONLY public.fantasy_teams
 
 
 --
+-- Name: fantasy_teams_players fantasy_teams_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_players
+    ADD CONSTRAINT fantasy_teams_players_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: games games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -813,6 +860,13 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_team_index ON public.fantasy_leagues_teams USING btree (fantasy_league_id, fantasy_team_id);
+
+
+--
+-- Name: fantasy_teams_and_players_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
 
 
 --
@@ -939,6 +993,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211115161032'),
 ('20211115185128'),
 ('20211115190546'),
-('20211116183814');
+('20211116183814'),
+('20211116191813');
 
 

@@ -10,6 +10,9 @@ module Teams
     has_many :games_players, class_name: '::Games::Player', foreign_key: :teams_player_id, dependent: :destroy
     has_many :games, through: :games_players
 
+    has_many :fantasy_teams_players, class_name: 'FantasyTeams::Player', foreign_key: :teams_player_id, dependent: :destroy
+    has_many :fantasy_teams, through: :fantasy_teams_players
+
     scope :active, -> { where(active: true) }
   end
 end
