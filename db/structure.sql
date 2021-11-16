@@ -274,7 +274,8 @@ CREATE TABLE public.leagues_seasons (
     name character varying DEFAULT ''::character varying NOT NULL,
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -937,6 +938,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211114192023'),
 ('20211115161032'),
 ('20211115185128'),
-('20211115190546');
+('20211115190546'),
+('20211116183814');
 
 
