@@ -6,6 +6,7 @@
         <% sport.leagues.each do |league| %>
           <div class='league'>
             <h3><%= league.name['ru'] %></h3>
+            <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(league: league, user: Current.user) %>
           </div>
         <% end %>
       </div>

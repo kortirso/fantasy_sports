@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FantasyTeam < ApplicationRecord
+  include Uuidable
+
   belongs_to :user
 
   has_many :fantasy_leagues_teams, class_name: 'FantasyLeagues::Team', foreign_key: :fantasy_team_id, dependent: :destroy

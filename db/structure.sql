@@ -10,20 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
-
-
---
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -139,11 +125,12 @@ ALTER SEQUENCE public.fantasy_leagues_teams_id_seq OWNED BY public.fantasy_leagu
 
 CREATE TABLE public.fantasy_teams (
     id bigint NOT NULL,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    uuid uuid NOT NULL,
     user_id integer,
     name character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    completed boolean DEFAULT false NOT NULL
 );
 
 
@@ -307,7 +294,7 @@ CREATE TABLE public.leagues_seasons (
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid NOT NULL
 );
 
 
@@ -994,6 +981,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211115185128'),
 ('20211115190546'),
 ('20211116183814'),
-('20211116191813');
+('20211116191813'),
+('20211119150305');
 
 

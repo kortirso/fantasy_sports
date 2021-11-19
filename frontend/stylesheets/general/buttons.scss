@@ -1,11 +1,15 @@
 .button {
   display: inline-block;
-  background: $scienceBlue;
-  color: $white;
-  border: none;
-  border-radius: .25rem;
+  background: $gray200;
+  color: $gray800;
+  border: 1px solid $gray300;
+  border-radius: .125rem;
   padding: .5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
+
+  &:hover {
+    background: $gray300;
+  }
 }

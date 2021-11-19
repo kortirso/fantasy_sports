@@ -4,6 +4,8 @@ module Leagues
   class Season < ApplicationRecord
     self.table_name = :leagues_seasons
 
+    include Uuidable
+
     belongs_to :league
 
     has_many :leagues_seasons_teams, class_name: 'Leagues::Seasons::Team', inverse_of: :leagues_season, dependent: :destroy
@@ -15,5 +17,7 @@ module Leagues
     has_many :fantasy_teams, through: :all_fantasy_leagues
 
     has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
+
+    scope :active, -> { where(active: true) }
   end
 end

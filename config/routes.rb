@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   resource :home, only: %i[show]
+  resources :fantasy_teams, only: %i[show create]
 
   root 'welcome#index'
 end

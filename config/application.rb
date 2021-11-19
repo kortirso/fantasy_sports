@@ -46,7 +46,5 @@ module FantasySports
       g.javascripts false
       g.helper false
     end
-
-    config.active_record.partial_inserts = true
   end
 end
