@@ -1,2 +1,10 @@
 <%= render PageWrappers::PageComponent.new do %>
+  <% if @fantasy_team.completed? %>
+
+  <% else %>
+    <div class='form-field'>
+      <label class='form-label'>Fantasy team name</label>
+      <input class='form-value' value='<%= @fantasy_team.name %>' />
+    </div>
+  <% end %>
 <% end %>
