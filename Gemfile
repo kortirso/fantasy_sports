@@ -41,6 +41,9 @@ gem 'dry-validation', '~> 1.7'
 # Catch unsafe migrations in development
 gem 'strong_migrations', '~> 0.7'
 
+# api serializer
+gem 'jsonapi-serializer', '2.2.0'
+
 group :development, :test do
 end
 

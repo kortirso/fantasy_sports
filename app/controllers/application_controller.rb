@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
   include Authentication
 
   before_action :authenticate
+
+  private
+
+  def request_fields
+    return if params[:fields].blank?
+
+    params[:fields].split(',')
+  end
 end

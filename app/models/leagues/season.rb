@@ -8,8 +8,9 @@ module Leagues
 
     belongs_to :league
 
-    has_many :leagues_seasons_teams, class_name: 'Leagues::Seasons::Team', inverse_of: :leagues_season, dependent: :destroy
+    has_many :leagues_seasons_teams, class_name: 'Leagues::Seasons::Team', foreign_key: :leagues_season_id, dependent: :destroy
     has_many :teams, through: :leagues_seasons_teams
+    has_many :active_teams_players, through: :leagues_seasons_teams
 
     has_many :weeks, foreign_key: :leagues_season_id, dependent: :destroy
 

@@ -497,7 +497,8 @@ CREATE TABLE public.teams_players (
     player_id integer,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    price_cents integer DEFAULT 0 NOT NULL
 );
 
 
@@ -982,6 +983,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211115190546'),
 ('20211116183814'),
 ('20211116191813'),
-('20211119150305');
+('20211119150305'),
+('20211119191040');
 
 

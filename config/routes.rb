@@ -12,6 +12,12 @@ Rails.application.routes.draw do
 
   resource :home, only: %i[show]
   resources :fantasy_teams, only: %i[show create]
+  resources :sports, only: %i[] do
+    get 'positions', on: :collection, to: 'sports/positions#index'
+  end
+  resources :teams, only: %i[index] do
+    get 'players', on: :collection, to: 'teams/players#index'
+  end
 
   root 'welcome#index'
 end
