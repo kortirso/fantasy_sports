@@ -4,6 +4,10 @@ header.page-navigation {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  a {
+    margin-right: 1rem;
+  }
 }
 
 .page-content {

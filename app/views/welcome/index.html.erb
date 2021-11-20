@@ -1,10 +1,1 @@
-<header>
-  <% if Current.user.present? %>
-    <%= link_to 'Logout', users_logout_path %>
-  <% else %>
-    <%= link_to 'Login', users_login_path %>
-    <%= link_to 'Sign Up', users_sign_up_path %>
-  <% end %>
-
-  <%= render Shared::FlashComponent.new %>
-</header>
+<%= render PageWrappers::UsersComponent.new %>

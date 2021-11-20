@@ -1,3 +1,19 @@
+<%= render Shared::FlashComponent.new %>
+
+<header class='page-navigation'>
+  <div>
+    <%= link_to 'Home', root_path %>
+  </div>
+  <div>
+    <% if Current.user.present? %>
+      <%= link_to 'Logout', users_logout_path %>
+    <% else %>
+      <%= link_to 'Login', users_login_path %>
+      <%= link_to 'Sign Up', users_sign_up_path %>
+    <% end %>
+  </div>
+</header>
+
 <div class='users-page'>
   <div class='users-content'>
     <%= content %>
