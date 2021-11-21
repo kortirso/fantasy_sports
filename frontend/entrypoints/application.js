@@ -4,7 +4,7 @@
 // a relevant structure within app/packs and only use these pack files to reference
 // that code so it'll be compiled.
 
-require('@rails/ujs').start() // eslint-disable-line no-undef
+require("@rails/ujs").start() // eslint-disable-line no-undef
 
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
@@ -20,3 +20,5 @@ require('@rails/ujs').start() // eslint-disable-line no-undef
 // Activate Active Storage
 // import * as ActiveStorage from "@rails/activestorage"
 // ActiveStorage.start()
+
+import "components/fantasy_team_picker_component"

@@ -1,0 +1,104 @@
+#fantasy-team-picker {
+  display: flex;
+  flex-direction: row;
+
+  #fantasy-team-members {
+    flex: 1;
+
+    #team-players-by-positions {
+      .sport-position {
+        h3 {
+
+        }
+
+        .position-members {
+          display: flex;
+          flex-direction: row;
+          margin-right: 1rem;
+
+          .position-member {
+            display: flex;
+            flex-direction: column;
+            width: 8rem;
+            overflow: hidden;
+            border-radius: .125rem;
+            margin-right: .5rem;
+
+            .member-name {
+              text-align: center;
+              background: $green600;
+              color: $white;
+              padding: .125rem 0;
+            }
+
+            .member-price {
+              text-align: center;
+              background: $green400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #fantasy-players {
+    width: 25rem;
+
+    .team-player {
+      display: flex;
+      flex-direction: row;
+      padding-bottom: .25rem;
+      padding-left: .25rem;
+      margin-bottom: .25rem;
+      border-bottom: 1px solid $gray200;
+
+      .team-player-info {
+        flex: 1;
+
+        .team-player-name {
+          font-size: 1.125rem;
+          margin-bottom: .25rem;
+        }
+
+        .team-player-stats {
+          display: flex;
+          flex-direction: row;
+
+          .team-name {
+            text-transform: uppercase;
+            font-size: .9rem;
+            margin-right: 1rem;
+          }
+
+          .position-name {
+            font-size: .9rem;
+          }
+        }
+      }
+
+      .team-player-price {
+        width: 3rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .action {
+        width: 2rem;
+        cursor: pointer;
+        border: 1px solid $gray300;
+        border-radius: .125rem;
+        margin-right: .25rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: $gray300;
+        }
+      }
+    }
+  }
+}

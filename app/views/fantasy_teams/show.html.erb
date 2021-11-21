@@ -2,9 +2,43 @@
   <% if @fantasy_team.completed? %>
 
   <% else %>
-    <div class='form-field'>
-      <label class='form-label'>Fantasy team name</label>
-      <input class='form-value' value='<%= @fantasy_team.name %>' />
+    <div id='fantasy-team-picker'>
+      <div id='fantasy-team-members'>
+        <div class='form-field'>
+          <label class='form-label'>Fantasy team name</label>
+          <input class='form-value' value='<%= @fantasy_team.name %>' />
+        </div>
+        <p>
+          Money remaining - {{ budget }}
+        </p>
+        <div id='team-players-by-positions'>
+          <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+            <h3>{{ sportPosition.name['en'] }}</h3>
+            <div class='position-members'>
+              <div v-for='teamMember in teamMembersForPosition(sportPosition.id)' :key='teamMember.id' class='position-member'>
+                <p class='member-name'>{{ teamMember.player.name['en'].split(' ')[0] }}</p>
+                <p class='member-price'>{{ teamMember.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id='fantasy-players'>
+        <h2>Player selection</h2>
+        <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
+          <div class='team-player-info'>
+            <p class='team-player-name'>{{ teamPlayer.player.name['en'].split(' ')[0] }}</p>
+            <div class='team-player-stats'>
+              <span class='team-name'>{{ teamNameById(teamPlayer.team.id)['en'] }}</span>
+              <span class='position-name'>{{ sportPositionNameById(teamPlayer.player.sports_position_id)['en'] }}</span>
+            </div>
+          </div>
+          <div class='team-player-price'>{{ teamPlayer.price }}</div>
+          <div class='action' v-on:click="addTeamMember(teamPlayer)">+</div>
+          <div class='action'>-</div>
+        </div>
+      </div>
     </div>
   <% end %>
 <% end %>
