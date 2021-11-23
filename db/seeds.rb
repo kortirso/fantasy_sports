@@ -1,6 +1,6 @@
-football = Sport.create name: { en: 'Football', ru: 'Футбол' }
-basketball = Sport.create name: { en: 'Basketball', ru: 'Баскетбол' }
-hockey = Sport.create name: { en: 'Hockey', ru: 'Хоккей' }
+football = Sport.create name: { en: 'Football', ru: 'Футбол' }, max_team_players: 3
+basketball = Sport.create name: { en: 'Basketball', ru: 'Баскетбол' }, max_team_players: 2
+hockey = Sport.create name: { en: 'Hockey', ru: 'Хоккей' }, max_team_players: 2
 
 rpl = football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
 nba = basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }

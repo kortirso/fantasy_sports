@@ -4,8 +4,8 @@ module FantasyTeams
   class CreateService
     prepend ApplicationService
 
-    def call(league:, user:)
-      @league = league
+    def call(season:, user:)
+      @season = season
       @user   = user
 
       validate_fantasy_team_uniqueness
@@ -18,13 +18,13 @@ module FantasyTeams
     private
 
     def validate_fantasy_team_uniqueness
-      return unless @league.active_season.fantasy_teams.exists?(user: @user)
+      return unless @season.fantasy_teams.exists?(user: @user)
 
       fail!('Fantasy team is already exists')
     end
 
     def connect_fantasy_team_with_main_league
-      overall_fantasy_league = @league.active_season.fantasy_leagues.find_by(name: 'Overall')
+      overall_fantasy_league = @season.fantasy_leagues.find_by(name: 'Overall')
       overall_fantasy_league.fantasy_leagues_teams.create(fantasy_team: @result)
     end
   end

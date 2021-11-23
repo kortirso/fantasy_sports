@@ -13,8 +13,8 @@ module ApplicationService
 
   attr_reader :errors, :result
 
-  def initialize
-    super
+  def initialize(args={})
+    super(**args)
     @errors = []
   end
 

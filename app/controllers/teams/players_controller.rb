@@ -14,7 +14,7 @@ module Teams
     private
 
     def find_teams_players
-      @teams_players = League.find(params[:league_id]).active_season.active_teams_players.includes(:leagues_seasons_team, :player)
+      @teams_players = Leagues::Season.active.find(params[:season_id]).active_teams_players.includes(:leagues_seasons_team, :player)
     end
   end
 end

@@ -24,20 +24,46 @@
             border-radius: .125rem;
             margin-right: .5rem;
 
+            .member-team-name {
+              line-height: 1.25rem;
+              text-align: center;
+              padding: .125rem 0;
+
+              &.empty {
+                height: 1.5rem;
+              }
+            }
+
             .member-name {
               text-align: center;
               background: $green600;
               color: $white;
               padding: .125rem 0;
+              line-height: 1.25rem;
+
+              &.empty {
+                height: 1.5rem;
+                background: $gray300;
+              }
             }
 
             .member-price {
               text-align: center;
               background: $green400;
+              line-height: 1.25rem;
+
+              &.empty {
+                height: 1.25rem;
+                background: $gray200;
+              }
             }
           }
         }
       }
+    }
+
+    #submit-button {
+      margin-top: 2rem;
     }
   }
 

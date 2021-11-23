@@ -2,13 +2,13 @@
 
 describe Sports::PositionsController, type: :controller do
   describe 'GET#index' do
-    let!(:league) { create :league }
+    let!(:leagues_season) { create :leagues_season, active: true }
 
     context 'without additional params' do
       before do
-        create_list :sports_position, 2, sport: league.sport
+        create_list :sports_position, 2, sport: leagues_season.league.sport
 
-        get :index, params: { league_id: league.id }
+        get :index, params: { season_id: leagues_season.id }
       end
 
       it 'returns status 200' do
@@ -30,9 +30,9 @@ describe Sports::PositionsController, type: :controller do
 
     context 'with additional params' do
       before do
-        create_list :sports_position, 2, sport: league.sport
+        create_list :sports_position, 2, sport: leagues_season.league.sport
 
-        get :index, params: { league_id: league.id, fields: 'min_game_amount,max_game_amount' }
+        get :index, params: { season_id: leagues_season.id, fields: 'min_game_amount,max_game_amount' }
       end
 
       it 'returns status 200' do

@@ -8,7 +8,7 @@ describe Teams::PlayersController, type: :controller do
     before do
       create_list :teams_player, 2, leagues_seasons_team: leagues_seasons_team
 
-      get :index, params: { league_id: leagues_season.league_id }
+      get :index, params: { season_id: leagues_season.id }
     end
 
     it 'returns status 200' do

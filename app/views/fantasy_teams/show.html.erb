@@ -2,28 +2,40 @@
   <% if @fantasy_team.completed? %>
 
   <% else %>
-    <div id='fantasy-team-picker'>
+    <div
+      id='fantasy-team-picker'
+      data-season-id='<%= @season.id %>'
+      data-fantasy-team-uuid='<%= @fantasy_team.uuid %>'
+    >
       <div id='fantasy-team-members'>
         <div class='form-field'>
           <label class='form-label'>Fantasy team name</label>
-          <input class='form-value' value='<%= @fantasy_team.name %>' />
+          <input class='form-value' v-model='teamName' />
         </div>
-        <p>
-          Money remaining - {{ budget }}
-        </p>
+        <p>Money remaining - {{ budget }}</p>
         <div id='team-players-by-positions'>
           <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
             <h3>{{ sportPosition.name['en'] }}</h3>
             <div class='position-members'>
               <div v-for='teamMember in teamMembersForPosition(sportPosition.id)' :key='teamMember.id' class='position-member'>
+                <p class='member-team-name'>{{ teamNameById(teamMember.team.id)['en'] }}</p>
                 <p class='member-name'>{{ teamMember.player.name['en'].split(' ')[0] }}</p>
                 <p class='member-price'>{{ teamMember.price }}</p>
+              </div>
+              <div
+                v-for='value in [...Array(sportPositionById(sportPosition.id).totalAmount - teamMembersForPosition(sportPosition.id).length).keys()]'
+                :key='value'
+                class='position-member'
+              >
+                <p class='member-team-name empty'></p>
+                <p class='member-name empty'></p>
+                <p class='member-price empty'></p>
               </div>
             </div>
           </div>
         </div>
+        <button id='submit-button' class='button' @click='submit'>Save fantasy team</button>
       </div>
-
       <div id='fantasy-players'>
         <h2>Player selection</h2>
         <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
@@ -31,12 +43,12 @@
             <p class='team-player-name'>{{ teamPlayer.player.name['en'].split(' ')[0] }}</p>
             <div class='team-player-stats'>
               <span class='team-name'>{{ teamNameById(teamPlayer.team.id)['en'] }}</span>
-              <span class='position-name'>{{ sportPositionNameById(teamPlayer.player.sports_position_id)['en'] }}</span>
+              <span class='position-name'>{{ sportPositionById(teamPlayer.player.sports_position_id).name['en'] }}</span>
             </div>
           </div>
           <div class='team-player-price'>{{ teamPlayer.price }}</div>
-          <div class='action' v-on:click="addTeamMember(teamPlayer)">+</div>
-          <div class='action'>-</div>
+          <div class='action' @click="addTeamMember(teamPlayer)">+</div>
+          <div class='action' @click="removeTeamMember(teamPlayer)">-</div>
         </div>
       </div>
     </div>

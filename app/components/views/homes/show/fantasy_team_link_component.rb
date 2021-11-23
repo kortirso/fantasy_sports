@@ -4,9 +4,9 @@ module Views
   module Homes
     module Show
       class FantasyTeamLinkComponent < ViewComponent::Base
-        def initialize(league:, user:)
-          @league       = league
-          @fantasy_team = @league.active_season.fantasy_teams.find_by(user: user)
+        def initialize(season:, user:)
+          @season       = season
+          @fantasy_team = @season.fantasy_teams.find_by(user: user)
 
           super()
         end

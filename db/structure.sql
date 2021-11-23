@@ -160,9 +160,7 @@ ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
 CREATE TABLE public.fantasy_teams_players (
     id bigint NOT NULL,
     fantasy_team_id integer,
-    teams_player_id integer,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    teams_player_id integer
 );
 
 
@@ -398,7 +396,8 @@ CREATE TABLE public.sports (
     id bigint NOT NULL,
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    max_team_players integer DEFAULT 1 NOT NULL
 );
 
 
@@ -984,6 +983,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211116183814'),
 ('20211116191813'),
 ('20211119150305'),
-('20211119191040');
+('20211119191040'),
+('20211122194657');
 
 

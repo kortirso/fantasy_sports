@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe FantasyTeams::CreateService, type: :service do
-  subject(:service_call) { described_class.call(league: leagues_season.league, user: user) }
+  subject(:service_call) { described_class.call(season: leagues_season, user: user) }
 
   let!(:leagues_season) { create :leagues_season, active: true }
   let!(:user) { create :user }

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resource :home, only: %i[show]
-  resources :fantasy_teams, only: %i[show create]
+  resources :fantasy_teams, only: %i[show create update]
   resources :sports, only: %i[] do
     get 'positions', on: :collection, to: 'sports/positions#index'
   end

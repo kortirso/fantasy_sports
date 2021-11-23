@@ -17,7 +17,7 @@ module Sports
     private
 
     def find_sports_positions
-      @sports_positions = League.find(params[:league_id]).sport.sports_positions.order(id: :asc)
+      @sports_positions = Leagues::Season.find(params[:season_id]).league.sport.sports_positions.order(id: :asc)
     end
   end
 end
