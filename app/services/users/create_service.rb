@@ -19,7 +19,7 @@ module Users
 
       @result.save
     rescue ActiveRecord::RecordNotUnique
-      fail!('Email is already used')
+      fail!(I18n.t('services.users.create.email_exists'))
     end
 
     private
@@ -32,7 +32,7 @@ module Users
       @result = User.new(params)
       return if @result.valid?
 
-      fail!('Credentials are invalid')
+      fail!(I18n.t('services.users.create.invalid'))
     end
   end
 end

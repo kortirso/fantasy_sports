@@ -9,17 +9,17 @@
     >
       <div id='fantasy-team-members'>
         <div class='form-field'>
-          <label class='form-label'>Fantasy team name</label>
+          <label class='form-label'><%= t('views.fantasy_teams.show.team_name') %></label>
           <input class='form-value' v-model='teamName' />
         </div>
-        <p>Money remaining - {{ budget }}</p>
+        <p><%= t('views.fantasy_teams.show.money_remaining') %> - {{ budget }}</p>
         <div id='team-players-by-positions'>
           <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
-            <h3>{{ sportPosition.name['en'] }}</h3>
+            <h3>{{ localizeValue(sportPosition.name) }}</h3>
             <div class='position-members'>
               <div v-for='teamMember in teamMembersForPosition(sportPosition.id)' :key='teamMember.id' class='position-member'>
-                <p class='member-team-name'>{{ teamNameById(teamMember.team.id)['en'] }}</p>
-                <p class='member-name'>{{ teamMember.player.name['en'].split(' ')[0] }}</p>
+                <p class='member-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+                <p class='member-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
                 <p class='member-price'>{{ teamMember.price }}</p>
               </div>
               <div
@@ -34,16 +34,16 @@
             </div>
           </div>
         </div>
-        <button id='submit-button' class='button' @click='submit'>Save fantasy team</button>
+        <button id='submit-button' class='button' @click='submit'><%= t('views.fantasy_teams.show.save') %></button>
       </div>
       <div id='fantasy-players'>
-        <h2>Player selection</h2>
+        <h2><%= t('views.fantasy_teams.show.selection') %></h2>
         <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
           <div class='team-player-info'>
-            <p class='team-player-name'>{{ teamPlayer.player.name['en'].split(' ')[0] }}</p>
+            <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
             <div class='team-player-stats'>
-              <span class='team-name'>{{ teamNameById(teamPlayer.team.id)['en'] }}</span>
-              <span class='position-name'>{{ sportPositionById(teamPlayer.player.sports_position_id).name['en'] }}</span>
+              <span class='team-name'>{{ localizeValue(teamNameById(teamPlayer.team.id)) }}</span>
+              <span class='position-name'>{{ localizeValue(sportPositionById(teamPlayer.player.sports_position_id).name) }}</span>
             </div>
           </div>
           <div class='team-player-price'>{{ teamPlayer.price }}</div>

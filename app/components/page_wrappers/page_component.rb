@@ -2,5 +2,6 @@
 
 module PageWrappers
   class PageComponent < ViewComponent::Base
+    include ApplicationHelper
   end
 end

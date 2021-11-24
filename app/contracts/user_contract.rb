@@ -12,17 +12,17 @@ class UserContract < ApplicationContract
 
   rule(:email) do
     unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
-      key.failure('has invalid format')
+      key.failure(:invalid)
     end
   end
 
   rule(:password, :password_confirmation) do
-    key(:passwords).failure('must be equal') if values[:password] != values[:password_confirmation]
+    key(:passwords).failure(:different) if values[:password] != values[:password_confirmation]
   end
 
   rule(:password) do
     if values[:password].size < Rails.configuration.minimum_password_length
-      key.failure("must be greater or equal #{Rails.configuration.minimum_password_length} characters")
+      key.failure(I18n.t('dry_validation.errors.user.password_length', length: Rails.configuration.minimum_password_length))
     end
   end
 end

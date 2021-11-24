@@ -4,9 +4,9 @@ describe HomesController, type: :controller do
   describe 'GET#show' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :show
+        get :show, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_path
+        expect(response).to redirect_to users_login_en_path
       end
     end
 
@@ -14,7 +14,7 @@ describe HomesController, type: :controller do
       sign_in_user
 
       it 'renders show template' do
-        get :show
+        get :show, params: { locale: 'en' }
 
         expect(response).to render_template :show
       end

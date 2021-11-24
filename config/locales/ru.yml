@@ -1,0 +1,56 @@
+ru:
+  components:
+    page_wrappers:
+      page_component:
+        home: Главная
+        logout: Выход
+        change_locale: Изменить локаль
+      users_component:
+        home: Главная
+        logout: Выход
+        change_locale: Изменить локаль
+        login: Вход
+        sign_up: Регистрация
+    views:
+      homes:
+        show:
+          fantasy_team_link_component:
+            create: Создать команду
+  controllers:
+    authentication:
+      permission: Доступ запрещён
+    users:
+      registrations:
+        success_create: Вы зарегистрированы
+      sessions:
+        success_create: Вы вошли
+        success_destroy: Вы вышли
+        invalid: Неверные данные
+    fantasy_teams:
+      success_create: Команда создана
+  services:
+    fantasy_teams:
+      create:
+        exists: Команда уже создана
+    users:
+      create:
+        email_exists: Email уже используется
+        invalid: Данные не верны
+  views:
+    fantasy_teams:
+      show:
+        team_name: Название команды
+        money_remaining: Остаток средств на команду
+        save: Сохранить команду
+        selection: Выбор игроков
+    users:
+      registrations:
+        new:
+          sing_up: Регистрация
+          password: Пароль
+          password_confirmation: Подтверждение пароля
+          create: Создать пользователя
+      sessions:
+        new:
+          login: Вход
+          sign_in: Войти

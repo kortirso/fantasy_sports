@@ -16,7 +16,7 @@ module Authentication
   def authenticate
     return if Current.user
 
-    flash[:alert] = 'Permission is denied'
+    flash[:alert] = t('controllers.authentication.permission')
     redirect_to users_login_path
   end
 end

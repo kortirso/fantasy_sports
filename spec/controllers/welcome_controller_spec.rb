@@ -3,7 +3,7 @@
 describe WelcomeController, type: :controller do
   describe 'GET#index' do
     it 'renders index template' do
-      get :index
+      get :index, params: { locale: 'en' }
 
       expect(response).to render_template :index
     end

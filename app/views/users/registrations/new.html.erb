@@ -1,20 +1,20 @@
 <%= render PageWrappers::UsersComponent.new do %>
   <section class='user-form'>
     <%= form_with model: @user, url: users_sign_up_path, method: :post do |form| %>
-      <h2>Signup</h2>
+      <h2><%= t('views.users.registrations.new.sign_up') %></h2>
       <div class='form-field'>
         <%= form.label :email, 'Email', class: 'form-label' %>
         <%= form.text_field :email, class: 'form-value' %>
       </div>
       <div class='form-field'>
-        <%= form.label :password, 'Password', class: 'form-label' %>
+        <%= form.label :password, t('views.users.registrations.new.password'), class: 'form-label' %>
         <%= form.password_field :password, class: 'form-value' %>
       </div>
       <div class='form-field'>
-        <%= form.label :password_confirmation, 'Password confirmation', class: 'form-label' %>
+        <%= form.label :password_confirmation, t('views.users.registrations.new.password_confirmation'), class: 'form-label' %>
         <%= form.password_field :password_confirmation, class: 'form-value' %>
       </div>
-      <%= form.submit 'Create user', class: 'button' %>
+      <%= form.submit t('views.users.registrations.new.create'), class: 'button' %>
     <% end %>
   </section>
 <% end %>

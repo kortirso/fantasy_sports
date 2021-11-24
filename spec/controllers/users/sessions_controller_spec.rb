@@ -3,7 +3,7 @@
 describe Users::SessionsController, type: :controller do
   describe 'GET#new' do
     it 'renders new template' do
-      get :new
+      get :new, params: { locale: 'en' }
 
       expect(response).to render_template :new
     end
@@ -12,7 +12,7 @@ describe Users::SessionsController, type: :controller do
   describe 'POST#create' do
     context 'for unexisted user' do
       it 'renders new template' do
-        post :create, params: { user: { email: 'unexisted@gmail.com', password: '1' } }
+        post :create, params: { user: { email: 'unexisted@gmail.com', password: '1' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
@@ -23,7 +23,7 @@ describe Users::SessionsController, type: :controller do
 
       context 'for invalid password' do
         it 'renders new template' do
-          post :create, params: { user: { email: user.email, password: 'invalid_password' } }
+          post :create, params: { user: { email: user.email, password: 'invalid_password' }, locale: 'en' }
 
           expect(response).to render_template :new
         end
@@ -31,7 +31,7 @@ describe Users::SessionsController, type: :controller do
 
       context 'for empty password' do
         it 'renders new template' do
-          post :create, params: { user: { email: user.email, password: '' } }
+          post :create, params: { user: { email: user.email, password: '' }, locale: 'en' }
 
           expect(response).to render_template :new
         end
@@ -39,9 +39,9 @@ describe Users::SessionsController, type: :controller do
 
       context 'for valid password' do
         it 'redirects to dashboard path' do
-          post :create, params: { user: { email: user.email, password: user.password } }
+          post :create, params: { user: { email: user.email, password: user.password }, locale: 'en' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to home_en_path
         end
       end
     end
@@ -49,9 +49,9 @@ describe Users::SessionsController, type: :controller do
 
   describe 'GET#destroy' do
     it 'redirects to root path' do
-      get :destroy
+      get :destroy, params: { locale: 'en' }
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to root_en_path
     end
   end
 end

@@ -8,7 +8,7 @@ describe Sports::PositionsController, type: :controller do
       before do
         create_list :sports_position, 2, sport: leagues_season.league.sport
 
-        get :index, params: { season_id: leagues_season.id }
+        get :index, params: { season_id: leagues_season.id, locale: 'en' }
       end
 
       it 'returns status 200' do
@@ -32,7 +32,7 @@ describe Sports::PositionsController, type: :controller do
       before do
         create_list :sports_position, 2, sport: leagues_season.league.sport
 
-        get :index, params: { season_id: leagues_season.id, fields: 'min_game_amount,max_game_amount' }
+        get :index, params: { season_id: leagues_season.id, fields: 'min_game_amount,max_game_amount', locale: 'en' }
       end
 
       it 'returns status 200' do

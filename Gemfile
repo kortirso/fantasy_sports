@@ -44,6 +44,9 @@ gem 'strong_migrations', '~> 0.7'
 # api serializer
 gem 'jsonapi-serializer', '2.2.0'
 
+# translating
+gem 'route_translator', '~> 11.0'
+
 group :development, :test do
 end
 

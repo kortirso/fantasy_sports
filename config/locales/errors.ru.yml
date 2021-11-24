@@ -1,0 +1,24 @@
+ru:
+  dry_validation:
+    rules:
+      password_confirmation: Подтверждение пароля
+      password: Пароль
+      passwords: Пароли
+      name: Название
+    errors:
+      user:
+        password_length: должен быть больше или равняться %{length} символам
+        rules:
+          email:
+            filled?: не может быть пустым
+            invalid: имеет неверный формат
+          password:
+            filled?: не может быть пустым
+          password_confirmation:
+            filled?: не может быть пустым
+          passwords:
+            different: должны совпадать
+      fantasy_team:
+        rules:
+          name:
+            filled?: не может быть пустым

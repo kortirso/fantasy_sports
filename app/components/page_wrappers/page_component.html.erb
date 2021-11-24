@@ -1,10 +1,13 @@
-<%= render Shared::FlashComponent.new %>
-
 <header class='page-navigation'>
   <div>
-    <%= link_to 'Home', home_path %>
+    <%= link_to t('components.page_wrappers.page_component.home'), home_path %>
   </div>
-  <%= link_to 'Logout', users_logout_path %>
+  <div>
+    <% I18n.available_locales.each do |locale| %>
+      <%= link_to locale, change_locale(locale), aria: { label: t('components.page_wrappers.page_component.change_locale') } %>
+    <% end %>
+    <%= link_to t('components.page_wrappers.page_component.logout'), users_logout_path %>
+  </div>
 </header>
 
 <div class='page-content'>

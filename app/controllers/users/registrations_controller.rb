@@ -12,7 +12,7 @@ module Users
       service_call = Users::CreateService.call(params: user_params)
       if service_call.success?
         session[:fantasy_sports_user_id] = service_call.result.id
-        flash[:notice] = 'You are signed up'
+        flash[:notice] = t('controllers.users.registrations.success_create')
         redirect_to after_registration_path
       else
         @user = User.new(user_params)

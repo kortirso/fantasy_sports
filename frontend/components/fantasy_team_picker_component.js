@@ -1,6 +1,8 @@
 import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 
+import { localizeValue } from "./utils/localize"
+
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
   request.headers.set("X-CSRF-TOKEN", document.querySelector("meta[name='csrf-token']").getAttribute("content"))
@@ -34,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     computed: {
     },
     methods: {
+      localizeValue: function(value) {
+        return localizeValue(value)
+      },
       getTeams: function() {
         this.$http.get(`/teams?season_id=${seasonId}`).then(function(data) {
           data.body.teams.data.forEach((element) => {

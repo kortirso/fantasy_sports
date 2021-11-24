@@ -3,7 +3,7 @@
 describe Users::RegistrationsController, type: :controller do
   describe 'GET#new' do
     it 'renders new template' do
-      get :new
+      get :new, params: { locale: 'en' }
 
       expect(response).to render_template :new
     end
@@ -12,7 +12,7 @@ describe Users::RegistrationsController, type: :controller do
   describe 'POST#create' do
     context 'for invalid credentials' do
       it 'renders new template' do
-        post :create, params: { user: { email: '', password: '1' } }
+        post :create, params: { user: { email: '', password: '1' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
@@ -20,7 +20,7 @@ describe Users::RegistrationsController, type: :controller do
 
     context 'for short password' do
       it 'renders new template' do
-        post :create, params: { user: { email: 'user@gmail.com', password: '1' } }
+        post :create, params: { user: { email: 'user@gmail.com', password: '1' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
@@ -28,7 +28,7 @@ describe Users::RegistrationsController, type: :controller do
 
     context 'without password confirmation' do
       it 'renders new template' do
-        post :create, params: { user: { email: 'user@gmail.com', password: '12345678' } }
+        post :create, params: { user: { email: 'user@gmail.com', password: '12345678' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
@@ -38,7 +38,7 @@ describe Users::RegistrationsController, type: :controller do
       let(:user) { create :user }
 
       it 'renders new template' do
-        post :create, params: { user: { email: user.email, password: '12345678', password_confirmation: '12345678' } }
+        post :create, params: { user: { email: user.email, password: '12345678', password_confirmation: '12345678' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
@@ -46,9 +46,9 @@ describe Users::RegistrationsController, type: :controller do
 
     context 'for valid data' do
       it 'redirects to dashboard path' do
-        post :create, params: { user: { email: 'user@gmail.com', password: '12345678', password_confirmation: '12345678' } }
+        post :create, params: { user: { email: 'user@gmail.com', password: '12345678', password_confirmation: '12345678' }, locale: 'en' }
 
-        expect(response).to redirect_to home_path
+        expect(response).to redirect_to home_en_path
       end
     end
   end

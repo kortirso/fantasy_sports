@@ -20,7 +20,7 @@ module FantasyTeams
     def validate_fantasy_team_uniqueness
       return unless @season.fantasy_teams.exists?(user: @user)
 
-      fail!('Fantasy team is already exists')
+      fail!(I18n.t('services.fantasy_teams.create.exists'))
     end
 
     def connect_fantasy_team_with_main_league

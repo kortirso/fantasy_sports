@@ -10,13 +10,13 @@ module Users
 
     def create
       session[:fantasy_sports_user_id] = @user.id
-      flash[:notice] = 'You are logged in'
+      flash[:notice] = t('controllers.users.sessions.success_create')
       redirect_to after_login_path
     end
 
     def destroy
       session[:fantasy_sports_user_id] = nil
-      flash[:notice] = 'You are logged out'
+      flash[:notice] = t('controllers.users.sessions.success_destroy')
       redirect_to after_logout_path
     end
 
@@ -36,7 +36,7 @@ module Users
     end
 
     def failed_sign_in
-      flash[:alert] = 'Invalid credentials'
+      flash[:alert] = t('controllers.users.sessions.invalid')
       render :new
     end
 
