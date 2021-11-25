@@ -561,9 +561,9 @@ CREATE TABLE public.weeks (
     id bigint NOT NULL,
     leagues_season_id integer,
     "position" integer DEFAULT 1 NOT NULL,
-    active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -984,6 +984,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211116191813'),
 ('20211119150305'),
 ('20211119191040'),
-('20211122194657');
+('20211122194657'),
+('20211125182342');
 
 

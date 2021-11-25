@@ -7,5 +7,5 @@ class Week < ApplicationRecord
 
   has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
 
-  scope :active, -> { where(active: true) }
+  enum status: { inactive: 0, coming: 1, active: 2 }
 end

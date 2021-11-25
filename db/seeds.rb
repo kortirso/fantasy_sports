@@ -167,7 +167,7 @@ Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev, pri
 Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov, price_cents: 1000
 Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy, price_cents: 1000
 
-week1 = rpl2022.weeks.create position: 1
+week1 = rpl2022.weeks.create position: 1, status: 'coming'
 week2 = rpl2022.weeks.create position: 2
 week3 = rpl2022.weeks.create position: 3
 week4 = rpl2022.weeks.create position: 4
