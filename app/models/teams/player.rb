@@ -13,6 +13,9 @@ module Teams
     has_many :fantasy_teams_players, class_name: 'FantasyTeams::Player', foreign_key: :teams_player_id, dependent: :destroy
     has_many :fantasy_teams, through: :fantasy_teams_players
 
+    has_many :fantasy_teams_lineups_players, class_name: '::FantasyTeams::Lineups::Player', foreign_key: :teams_player_id, dependent: :destroy
+    has_many :fantasy_teams_lineups, through: :fantasy_teams_lineups_players
+
     delegate :team, to: :leagues_seasons_team
 
     scope :active, -> { where(active: true) }

@@ -14,5 +14,7 @@ describe Teams::Player, type: :model do
     it { is_expected.to have_many(:games).through(:games_players) }
     it { is_expected.to have_many(:fantasy_teams_players).class_name('FantasyTeams::Player').with_foreign_key(:teams_player_id).dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_teams).through(:fantasy_teams_players) }
+    it { is_expected.to have_many(:fantasy_teams_lineups_players).class_name('::FantasyTeams::Lineups::Player').with_foreign_key(:teams_player_id).dependent(:destroy) }
+    it { is_expected.to have_many(:fantasy_teams_lineups).through(:fantasy_teams_lineups_players) }
   end
 end

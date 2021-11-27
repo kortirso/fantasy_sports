@@ -154,6 +154,70 @@ ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
 
 
 --
+-- Name: fantasy_teams_lineups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_teams_lineups (
+    id bigint NOT NULL,
+    fantasy_team_id integer,
+    week_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_teams_lineups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_teams_lineups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_teams_lineups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_teams_lineups_id_seq OWNED BY public.fantasy_teams_lineups.id;
+
+
+--
+-- Name: fantasy_teams_lineups_players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_teams_lineups_players (
+    id bigint NOT NULL,
+    fantasy_teams_lineup_id integer,
+    teams_player_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_teams_lineups_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_teams_lineups_players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_teams_lineups_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_teams_lineups_players_id_seq OWNED BY public.fantasy_teams_lineups_players.id;
+
+
+--
 -- Name: fantasy_teams_players; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -608,6 +672,20 @@ ALTER TABLE ONLY public.fantasy_teams ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: fantasy_teams_lineups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_lineups ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_lineups_id_seq'::regclass);
+
+
+--
+-- Name: fantasy_teams_lineups_players id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_lineups_players ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_lineups_players_id_seq'::regclass);
+
+
+--
 -- Name: fantasy_teams_players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -720,6 +798,22 @@ ALTER TABLE ONLY public.fantasy_leagues
 
 ALTER TABLE ONLY public.fantasy_leagues_teams
     ADD CONSTRAINT fantasy_leagues_teams_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fantasy_teams_lineups fantasy_teams_lineups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_lineups
+    ADD CONSTRAINT fantasy_teams_lineups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fantasy_teams_lineups_players fantasy_teams_lineups_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_lineups_players
+    ADD CONSTRAINT fantasy_teams_lineups_players_pkey PRIMARY KEY (id);
 
 
 --
@@ -871,6 +965,13 @@ CREATE INDEX index_fantasy_leagues_on_leagues_season_id ON public.fantasy_league
 
 
 --
+-- Name: index_fantasy_teams_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_fantasy_teams_lineups_on_fantasy_team_id_and_week_id ON public.fantasy_teams_lineups USING btree (fantasy_team_id, week_id);
+
+
+--
 -- Name: index_fantasy_teams_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -955,6 +1056,13 @@ CREATE INDEX index_weeks_on_leagues_season_id ON public.weeks USING btree (leagu
 
 
 --
+-- Name: lineup_player_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX lineup_player_index ON public.fantasy_teams_lineups_players USING btree (fantasy_teams_lineup_id, teams_player_id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -985,6 +1093,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211119150305'),
 ('20211119191040'),
 ('20211122194657'),
-('20211125182342');
+('20211125182342'),
+('20211127112751'),
+('20211127113709');
 
 

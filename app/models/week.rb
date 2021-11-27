@@ -7,5 +7,8 @@ class Week < ApplicationRecord
 
   has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
 
+  has_many :fantasy_teams_lineups, class_name: 'FantasyTeams::Lineup', foreign_key: :week_id, dependent: :destroy
+  has_many :fantasy_teams, through: :fantasy_teams_lineups
+
   enum status: { inactive: 0, coming: 1, active: 2 }
 end
