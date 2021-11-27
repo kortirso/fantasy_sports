@@ -7,7 +7,7 @@ describe FantasyTeamValidator, type: :service do
     let(:params) { { name: '' } }
 
     it 'result contains error' do
-      expect(validator_call.first).to eq('Name must be filled')
+      expect(validator_call.first).to eq("Name can't be blank")
     end
   end
 
