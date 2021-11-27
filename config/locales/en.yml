@@ -3,6 +3,9 @@ en:
     page_wrappers:
       page_component:
         home: Home
+        team: Team
+        transfers: Transfers
+        points: Points
         logout: Logout
         change_locale: Change locale
       users_component:

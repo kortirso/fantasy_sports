@@ -1,6 +1,11 @@
 <header class='page-navigation'>
   <div>
     <%= link_to t('components.page_wrappers.page_component.home'), home_path %>
+    <% if @fantasy_team&.completed? && @fantasy_team.user == Current.user %>
+      <%= link_to t('components.page_wrappers.page_component.team'), fantasy_team_path(@fantasy_team.uuid) %>
+      <%= link_to t('components.page_wrappers.page_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid) %>
+      <%= link_to t('components.page_wrappers.page_component.points'), fantasy_team_points_path(@fantasy_team.uuid) %>
+    <% end %>
   </div>
   <div>
     <% I18n.available_locales.each do |locale| %>

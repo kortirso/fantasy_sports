@@ -1,4 +1,4 @@
-<%= render PageWrappers::PageComponent.new do %>
+<%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <% if @fantasy_team.completed? %>
 
   <% else %>

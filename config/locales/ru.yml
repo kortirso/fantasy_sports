@@ -3,6 +3,9 @@ ru:
     page_wrappers:
       page_component:
         home: Главная
+        team: Команды
+        transfers: Трансферы
+        points: Очки
         logout: Выход
         change_locale: Изменить локаль
       users_component:
