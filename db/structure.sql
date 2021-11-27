@@ -195,7 +195,8 @@ CREATE TABLE public.fantasy_teams_lineups_players (
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    change_order integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1096,6 +1097,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211122194657'),
 ('20211125182342'),
 ('20211127112751'),
-('20211127113709');
+('20211127113709'),
+('20211127175217');
 
 
