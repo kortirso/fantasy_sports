@@ -193,6 +193,7 @@ CREATE TABLE public.fantasy_teams_lineups_players (
     id bigint NOT NULL,
     fantasy_teams_lineup_id integer,
     teams_player_id integer,
+    active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
