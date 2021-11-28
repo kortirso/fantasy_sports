@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
-describe FantasyTeams::UpdateService, type: :service do
-  subject(:service_call) { described_class.new(transfers_validator: transfers_validator).call(fantasy_team: fantasy_team, params: params) }
+describe FantasyTeams::CompleteService, type: :service do
+  subject(:service_call) {
+    described_class.new(
+      transfers_validator: transfers_validator,
+      lineup_creator:      lineup_creator
+    ).call(fantasy_team: fantasy_team, params: params)
+  }
 
   let!(:fantasy_team) { create :fantasy_team }
   let!(:teams_player) { create :teams_player }
   let(:params) { { name: name, teams_players_ids: [teams_player.id] } }
   let(:transfers_validator) { double }
+  let(:lineup_creator) { double }
+
+  before do
+    allow(lineup_creator).to receive(:call)
+  end
 
   context 'for invalid params' do
     let(:name) { '' }
@@ -19,6 +29,12 @@ describe FantasyTeams::UpdateService, type: :service do
 
     it 'and does not create fantasy team players' do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
+    end
+
+    it 'and does not call lineup_creator' do
+      service_call
+
+      expect(lineup_creator).not_to have_received(:call)
     end
 
     it 'and it fails' do
@@ -45,6 +61,12 @@ describe FantasyTeams::UpdateService, type: :service do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
     end
 
+    it 'and does not call lineup_creator' do
+      service_call
+
+      expect(lineup_creator).not_to have_received(:call)
+    end
+
     it 'and it fails' do
       service = service_call
 
@@ -67,6 +89,12 @@ describe FantasyTeams::UpdateService, type: :service do
 
     it 'and creates fantasy team players' do
       expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
+    end
+
+    it 'and calls lineup_creator' do
+      service_call
+
+      expect(lineup_creator).to have_received(:call)
     end
 
     it 'and it succeed' do

@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 module FantasyTeams
-  class UpdateService
+  class CompleteService
     prepend ApplicationService
 
     def initialize(
       fantasy_team_validator: FantasyTeamValidator,
-      transfers_validator:    FantasyTeams::Players::TransfersValidator
+      transfers_validator:    FantasyTeams::Players::TransfersValidator,
+      lineup_creator:         FantasyTeams::Lineups::CreateService
     )
       @fantasy_team_validator = fantasy_team_validator
       @transfers_validator    = transfers_validator
+      @lineup_creator         = lineup_creator
     end
 
     def call(fantasy_team:, params:)
@@ -23,6 +25,7 @@ module FantasyTeams
 
       @fantasy_team.update(fantasy_team_params(params))
       create_fantasy_teams_players(params[:teams_players_ids])
+      @lineup_creator.call(fantasy_team: @fantasy_team)
     end
 
     private

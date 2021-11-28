@@ -194,8 +194,6 @@ CREATE TABLE public.fantasy_teams_lineups_players (
     fantasy_teams_lineup_id integer,
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
     change_order integer DEFAULT 0 NOT NULL
 );
 
@@ -463,7 +461,8 @@ CREATE TABLE public.sports (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    max_team_players integer DEFAULT 1 NOT NULL
+    max_team_players integer DEFAULT 1 NOT NULL,
+    kind integer DEFAULT 0 NOT NULL
 );
 
 
@@ -498,7 +497,9 @@ CREATE TABLE public.sports_positions (
     min_game_amount integer DEFAULT 0 NOT NULL,
     max_game_amount integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    kind integer DEFAULT 0 NOT NULL,
+    default_amount integer DEFAULT 1 NOT NULL
 );
 
 
@@ -1098,6 +1099,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125182342'),
 ('20211127112751'),
 ('20211127113709'),
-('20211127175217');
+('20211127175217'),
+('20211127191254'),
+('20211128160416');
 
 

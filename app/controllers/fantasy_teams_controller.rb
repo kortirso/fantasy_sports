@@ -18,7 +18,7 @@ class FantasyTeamsController < ApplicationController
   end
 
   def update
-    service_call = FantasyTeams::UpdateService.call(fantasy_team: @fantasy_team, params: fantasy_team_params)
+    service_call = FantasyTeams::CompleteService.call(fantasy_team: @fantasy_team, params: fantasy_team_params)
     if service_call.success?
       render json: { redirect_path: fantasy_team_path(@fantasy_team.uuid) }, status: :ok
     else

@@ -1,83 +1,107 @@
-football = Sport.create name: { en: 'Football', ru: 'Футбол' }, max_team_players: 3
-basketball = Sport.create name: { en: 'Basketball', ru: 'Баскетбол' }, max_team_players: 2
-hockey = Sport.create name: { en: 'Hockey', ru: 'Хоккей' }, max_team_players: 2
+football = Sport.create kind: 'football', name: { en: 'Football', ru: 'Футбол' }, max_team_players: 3
+basketball = Sport.create kind: 'basketball', name: { en: 'Basketball', ru: 'Баскетбол' }, max_team_players: 2
+hockey = Sport.create kind: 'hockey', name: { en: 'Hockey', ru: 'Хоккей' }, max_team_players: 2
 
 rpl = football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
 nba = basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }
 nhl = hockey.leagues.create name: { en: 'NHL', ru: 'НХЛ' }
 
 football_goalkeeper = football.sports_positions.create(
+  kind:            :goalkeeper,
   name:            { en: 'Goalkeeper', ru: 'Вратарь' },
   total_amount:    2,
+  default_amount:  1,
   min_game_amount: 1,
   max_game_amount: 1
 )
 football_defender = football.sports_positions.create(
+  kind:            :defender,
   name:            { en: 'Defender', ru: 'Защитник' },
   total_amount:    5,
+  default_amount:  4,
   min_game_amount: 3,
   max_game_amount: 5
 )
 football_midfielder = football.sports_positions.create(
+  kind:            :midfielder,
   name:            { en: 'Midfielder', ru: 'Полузащитник' },
   total_amount:    5,
-  min_game_amount: 1,
+  default_amount:  4,
+  min_game_amount: 2,
   max_game_amount: 5
 )
 football_forward = football.sports_positions.create(
+  kind:            :forward,
   name:            { en: 'Forward', ru: 'Нападающий' },
   total_amount:    3,
+  default_amount:  2,
   min_game_amount: 1,
   max_game_amount: 3
 )
 
 basketball.sports_positions.create(
+  kind:            :center,
   name:            { en: 'Center', ru: 'Центровой' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 basketball.sports_positions.create(
+  kind:            :power_forward,
   name:            { en: 'Power Forward', ru: 'Тяжёлый форвард' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 basketball.sports_positions.create(
+  kind:            :small_forward,
   name:            { en: 'Small Forward', ru: 'Лёгкий форвард' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 basketball.sports_positions.create(
+  kind:            :point_guard,
   name:            { en: 'Point Guard', ru: 'Разыгрывающий защитник' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 basketball.sports_positions.create(
+  kind:            :shooting_guard,
   name:            { en: 'Shooting Guard', ru: 'Атакующий защитник' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 
 hockey.sports_positions.create(
+  kind:            :goalkeeper,
   name:            { en: 'Goalie', ru: 'Вратарь' },
   total_amount:    2,
-  min_game_amount: 1,
+  default_amount:  2,
+  min_game_amount: 2,
   max_game_amount: 2
 )
 hockey.sports_positions.create(
+  kind:            :defender,
   name:            { en: 'Defenseman', ru: 'Защитник' },
   total_amount:    6,
-  min_game_amount: 2,
+  default_amount:  6,
+  min_game_amount: 6,
   max_game_amount: 6
 )
 hockey.sports_positions.create(
+  kind:            :forward,
   name:            { en: 'Forward', ru: 'Нападающий' },
   total_amount:    9,
-  min_game_amount: 3,
+  default_amount:  9,
+  min_game_amount: 9,
   max_game_amount: 9
 )
 
