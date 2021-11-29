@@ -1,7 +1,8 @@
 const currentLocale = document.getElementById("current_locale").value
 
 function localizeValue(value) {
-  return value[currentLocale] || value['en']
+  if (value) return value[currentLocale] || value['en']
+  return value
 }
 
 export { localizeValue }

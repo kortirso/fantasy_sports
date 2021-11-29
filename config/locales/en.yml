@@ -41,11 +41,14 @@ en:
         invalid: Credentials are invalid
   views:
     fantasy_teams:
-      show:
-        team_name: Fantasy team name
-        money_remaining: Money renaining
-        save: Save fantasy team
-        selection: Player selection
+      transfers:
+        index:
+          team_name: Fantasy team name
+          money_remaining: Money renaining
+          save: Save fantasy team
+          selection: Player selection
+          reset: Reset team
+          make_transfers: Complete transfers
     users:
       registrations:
         new:

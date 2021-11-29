@@ -3,7 +3,7 @@ ru:
     page_wrappers:
       page_component:
         home: Главная
-        team: Команды
+        team: Команда
         transfers: Трансферы
         points: Очки
         logout: Выход
@@ -41,11 +41,14 @@ ru:
         invalid: Данные не верны
   views:
     fantasy_teams:
-      show:
-        team_name: Название команды
-        money_remaining: Остаток средств на команду
-        save: Сохранить команду
-        selection: Выбор игроков
+      transfers:
+        index:
+          team_name: Название команды
+          money_remaining: Остаток средств на команду
+          save: Сохранить команду
+          selection: Выбор игроков
+          reset: Сбросить трансферы
+          make_transfers: Выполнить трансферы
     users:
       registrations:
         new:

@@ -8,11 +8,11 @@
   >
     <div id='fantasy-team-members'>
       <div class='form-field' v-if='!completed'>
-        <label class='form-label'><%= t('views.fantasy_teams.show.team_name') %></label>
+        <label class='form-label'><%= t('views.fantasy_teams.transfers.index.team_name') %></label>
         <input class='form-value' v-model='teamName' />
       </div>
-      <p><%= t('views.fantasy_teams.show.money_remaining') %> - {{ budget }}</p>
-      <button id='reset-button' class='button' @click='resetTransfers()'><%= t('views.fantasy_teams.show.reset') %></button>
+      <p><%= t('views.fantasy_teams.transfers.index.money_remaining') %> - {{ budget }}</p>
+      <button id='reset-button' class='button' @click='resetTransfers()'><%= t('views.fantasy_teams.transfers.index.reset') %></button>
       <div id='team-players-by-positions'>
         <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
           <h3>{{ localizeValue(sportPosition.name) }}</h3>
@@ -24,7 +24,7 @@
               <div class='action' @click="removeTeamMember(teamMember)">-</div>
             </div>
             <div
-              v-if='sportPositionById(sportPosition.id)'
+              v-if='Object.keys(sportsPositionsById).length > 0'
               v-for='value in [...Array(sportPositionById(sportPosition.id).totalAmount - teamMembersForPosition(sportPosition.id).length).keys()]'
               :key='value'
               class='position-member'
@@ -38,18 +38,18 @@
       </div>
       <button id='submit-button' class='button' @click='submit'>
         <% if @fantasy_team.completed? %>
-          <%= t('views.fantasy_teams.show.make_transfers') %>
+          <%= t('views.fantasy_teams.transfers.index.make_transfers') %>
         <% else %>
-          <%= t('views.fantasy_teams.show.save') %>
+          <%= t('views.fantasy_teams.transfers.index.save') %>
         <% end %>
       </button>
     </div>
     <div id='fantasy-players'>
-      <h2><%= t('views.fantasy_teams.show.selection') %></h2>
+      <h2><%= t('views.fantasy_teams.transfers.index.selection') %></h2>
       <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
         <div class='team-player-info'>
           <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
-          <div class='team-player-stats'>
+          <div class='team-player-stats' v-if='Object.keys(sportsPositionsById).length > 0'>
             <span class='team-name'>{{ localizeValue(teamNameById(teamPlayer.team.id)) }}</span>
             <span class='position-name'>{{ localizeValue(sportPositionById(teamPlayer.player.sports_position_id).name) }}</span>
           </div>
