@@ -3,16 +3,24 @@
 describe FantasyTeamValidator, type: :service do
   subject(:validator_call) { described_class.call(params: params) }
 
-  context 'for invalid params' do
-    let(:params) { { name: '' } }
+  context 'for invalid name' do
+    let(:params) { { name: '', budget_cents: 500 } }
 
     it 'result contains error' do
       expect(validator_call.first).to eq("Name can't be blank")
     end
   end
 
+  context 'for invalid budget_cents' do
+    let(:params) { { name: 'Ny Team', budget_cents: nil } }
+
+    it 'result contains error' do
+      expect(validator_call.first).to eq('Budget must be an integer')
+    end
+  end
+
   context 'for valid params' do
-    let(:params) { { name: 'My team' } }
+    let(:params) { { name: 'My team', budget_cents: 500 } }
 
     it 'result does not contain errors' do
       expect(validator_call.size.zero?).to be_truthy

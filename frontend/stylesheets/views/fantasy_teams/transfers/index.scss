@@ -1,4 +1,4 @@
-#fantasy-team-picker {
+#fantasy-team-transfers {
   display: flex;
   flex-direction: row;
 
@@ -17,12 +17,32 @@
           margin-right: 1rem;
 
           .position-member {
+            position: relative;
             display: flex;
             flex-direction: column;
-            width: 8rem;
+            width: 10rem;
             overflow: hidden;
             border-radius: .125rem;
             margin-right: .5rem;
+            padding-top: .5rem;
+
+            .action {
+              position: absolute;
+              top: 0;
+              width: 1.5rem;
+              height: 1.5rem;
+              cursor: pointer;
+              border: 1px solid $gray300;
+              border-radius: .125rem;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+
+              &:hover {
+                background: $gray300;
+              }
+            }
 
             .member-team-name {
               line-height: 1.25rem;
@@ -60,6 +80,10 @@
           }
         }
       }
+    }
+
+    #reset-button {
+      margin-top: 1rem;
     }
 
     #submit-button {

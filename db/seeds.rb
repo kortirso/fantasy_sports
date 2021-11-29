@@ -1,6 +1,27 @@
-football = Sport.create kind: 'football', name: { en: 'Football', ru: 'Футбол' }, max_team_players: 3
-basketball = Sport.create kind: 'basketball', name: { en: 'Basketball', ru: 'Баскетбол' }, max_team_players: 2
-hockey = Sport.create kind: 'hockey', name: { en: 'Hockey', ru: 'Хоккей' }, max_team_players: 2
+football =
+  Sport.create(
+    kind:                    :football,
+    name:                    { en: 'Football', ru: 'Футбол' },
+    max_team_players:        3,
+    free_transfers_per_week: 1,
+    points_per_transfer:     1
+  )
+basketball =
+  Sport.create(
+    kind:                    :basketball,
+    name:                    { en: 'Basketball', ru: 'Баскетбол' },
+    max_team_players:        2,
+    free_transfers_per_week: 1,
+    points_per_transfer:     1
+  )
+hockey =
+  Sport.create(
+    kind:                    :hockey,
+    name:                    { en: 'Hockey', ru: 'Хоккей' },
+    max_team_players:        2,
+    free_transfers_per_week: 1,
+    points_per_transfer:     1
+  )
 
 rpl = football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
 nba = basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }

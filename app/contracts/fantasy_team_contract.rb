@@ -6,5 +6,6 @@ class FantasyTeamContract < ApplicationContract
   schema do
     optional(:id)
     required(:name).filled(:string)
+    required(:budget_cents).filled(:integer)
   end
 end

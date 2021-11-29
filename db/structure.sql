@@ -130,7 +130,9 @@ CREATE TABLE public.fantasy_teams (
     name character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    completed boolean DEFAULT false NOT NULL
+    completed boolean DEFAULT false NOT NULL,
+    budget_cents integer DEFAULT 10000 NOT NULL,
+    free_transfers integer DEFAULT 0 NOT NULL
 );
 
 
@@ -462,7 +464,9 @@ CREATE TABLE public.sports (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     max_team_players integer DEFAULT 1 NOT NULL,
-    kind integer DEFAULT 0 NOT NULL
+    kind integer DEFAULT 0 NOT NULL,
+    free_transfers_per_week integer DEFAULT 1 NOT NULL,
+    points_per_transfer integer DEFAULT 1 NOT NULL
 );
 
 
@@ -1101,6 +1105,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211127113709'),
 ('20211127175217'),
 ('20211127191254'),
-('20211128160416');
+('20211128160416'),
+('20211129074409'),
+('20211129075659');
 
 

@@ -1,5 +1,9 @@
 <% if @fantasy_team %>
-  <%= link_to @fantasy_team.name, fantasy_team_path(id: @fantasy_team.uuid), class: 'button' %>
+  <% if @fantasy_team.completed? %>
+  <%= link_to @fantasy_team.name, fantasy_team_path(@fantasy_team.uuid), class: 'button' %>
+  <% else %>
+    <%= link_to @fantasy_team.name, fantasy_team_transfers_path(@fantasy_team.uuid), class: 'button' %>
+  <% end %>
 <% else %>
   <%= link_to t('components.views.homes.show.fantasy_team_link_component.create'), fantasy_teams_path(season_id: @season.id), class: 'button', method: :post %>
 <% end %>

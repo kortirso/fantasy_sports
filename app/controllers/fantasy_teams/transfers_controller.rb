@@ -10,6 +10,7 @@ module FantasyTeams
 
     def find_fantasy_team
       @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:fantasy_team_id])
+      @season = @fantasy_team.fantasy_leagues.first.leagues_season
     end
   end
 end

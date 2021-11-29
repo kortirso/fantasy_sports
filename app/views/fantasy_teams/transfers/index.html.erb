@@ -1,3 +1,62 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-
+  <div
+    id='fantasy-team-transfers'
+    data-season-id='<%= @season.id %>'
+    data-fantasy-team-uuid='<%= @fantasy_team.uuid %>'
+    data-fantasy-team-completed='<%= @fantasy_team.completed? %>'
+    data-fantasy-team-budget='<%= @fantasy_team.budget_cents / 100.0 %>'
+  >
+    <div id='fantasy-team-members'>
+      <div class='form-field' v-if='!completed'>
+        <label class='form-label'><%= t('views.fantasy_teams.show.team_name') %></label>
+        <input class='form-value' v-model='teamName' />
+      </div>
+      <p><%= t('views.fantasy_teams.show.money_remaining') %> - {{ budget }}</p>
+      <button id='reset-button' class='button' @click='resetTransfers()'><%= t('views.fantasy_teams.show.reset') %></button>
+      <div id='team-players-by-positions'>
+        <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+          <h3>{{ localizeValue(sportPosition.name) }}</h3>
+          <div class='position-members'>
+            <div v-for='teamMember in teamMembersForPosition(sportPosition.id)' :key='teamMember.id' class='position-member'>
+              <p class='member-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+              <p class='member-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+              <p class='member-price'>{{ teamMember.price }}</p>
+              <div class='action' @click="removeTeamMember(teamMember)">-</div>
+            </div>
+            <div
+              v-if='sportPositionById(sportPosition.id)'
+              v-for='value in [...Array(sportPositionById(sportPosition.id).totalAmount - teamMembersForPosition(sportPosition.id).length).keys()]'
+              :key='value'
+              class='position-member'
+            >
+              <p class='member-team-name empty'></p>
+              <p class='member-name empty'></p>
+              <p class='member-price empty'></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id='submit-button' class='button' @click='submit'>
+        <% if @fantasy_team.completed? %>
+          <%= t('views.fantasy_teams.show.make_transfers') %>
+        <% else %>
+          <%= t('views.fantasy_teams.show.save') %>
+        <% end %>
+      </button>
+    </div>
+    <div id='fantasy-players'>
+      <h2><%= t('views.fantasy_teams.show.selection') %></h2>
+      <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
+        <div class='team-player-info'>
+          <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
+          <div class='team-player-stats'>
+            <span class='team-name'>{{ localizeValue(teamNameById(teamPlayer.team.id)) }}</span>
+            <span class='position-name'>{{ localizeValue(sportPositionById(teamPlayer.player.sports_position_id).name) }}</span>
+          </div>
+        </div>
+        <div class='team-player-price'>{{ teamPlayer.price }}</div>
+        <div class='action' @click="addTeamMember(teamPlayer)">+</div>
+      </div>
+    </div>
+  </div>
 <% end %>

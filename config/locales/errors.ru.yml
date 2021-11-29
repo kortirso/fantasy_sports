@@ -5,6 +5,7 @@ ru:
       password: Пароль
       passwords: Пароли
       name: Название
+      budget_cents: Бюджет
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
@@ -22,3 +23,5 @@ ru:
         rules:
           name:
             filled?: не может быть пустым
+          budget_cents:
+            filled?: должен быть указан

@@ -8,17 +8,17 @@ Vue.http.interceptors.push(function(request) {
   request.headers.set("X-CSRF-TOKEN", document.querySelector("meta[name='csrf-token']").getAttribute("content"))
 })
 
-const elementSelector = "#fantasy-team-picker"
+const transfersViewSelector = "#fantasy-team-transfers"
 
 document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector(elementSelector)
+  const element = document.querySelector(transfersViewSelector)
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
   const team = new Vue({
-    el: elementSelector,
+    el: transfersViewSelector,
     data: {
       teamName: "My team",
       teamsById: {},
@@ -26,12 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
       sportsPositionsById: {},
       teamsPlayers: [],
       teamMembers: [],
-      budget: 100
+      existedTeamMembers: [],
+      budget: parseFloat(element.dataset.fantasyTeamBudget),
+      completed: element.dataset.fantasyTeamCompleted === 'true'
     },
     created() {
       this.getTeams()
       this.getSportsPositions()
       this.getTeamsPlayers()
+
+      if (this.completed) this.getFantasyTeamPlayers()
     },
     computed: {
     },
@@ -40,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return localizeValue(value)
       },
       getTeams: function() {
-        this.$http.get(`/teams?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(`/teams.json?season_id=${seasonId}`).then(function(data) {
           data.body.teams.data.forEach((element) => {
             this.teamsById[element.id] = element.attributes.name
           })
         })
       },
       getSportsPositions: function() {
-        this.$http.get(`/sports/positions?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(`/sports/positions.json?season_id=${seasonId}`).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
             this.sportsPositionsById[element.id] = { name: element.attributes.name, totalAmount: element.attributes.total_amount }
             return element.attributes
@@ -55,8 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getTeamsPlayers: function() {
-        this.$http.get(`/teams/players?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(`/teams/players.json?season_id=${seasonId}`).then(function(data) {
           this.teamsPlayers = data.body.teams_players.data.map((element) => element.attributes)
+        })
+      },
+      getFantasyTeamPlayers: function() {
+        this.$http.get(`/fantasy_teams/${fantasyTeamUuid}/players.json`).then(function(data) {
+          this.teamMembers = data.body.teams_players.data.map((element) => element.attributes)
         })
       },
       teamNameById: function(teamId) {
@@ -79,19 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (playersFromTeam.length === 3) return
 
         this.teamMembers.push(teamPlayer)
-        this.updateBudget()
+        this.updateBudget(- teamPlayer.price)
       },
       removeTeamMember: function(teamPlayer) {
         const teamMembers = this.teamMembers
-        const playerIndex = teamMembers.indexOf(teamPlayer)
+        const teamPlayerInArray = this.teamMembers.find((element) => {
+          return element.id === teamPlayer.id
+        })
+        if (teamPlayerInArray === undefined) return
+
+        const playerIndex = teamMembers.indexOf(teamPlayerInArray)
         if (playerIndex === -1) return
 
         teamMembers.splice(playerIndex, 1)
         this.teamMembers = teamMembers
-        this.updateBudget()
+        this.updateBudget(teamPlayer.price)
       },
-      updateBudget: function() {
-        this.budget = 100 - this.teamMembers.reduce((acc, element) => acc + element.price, 0)
+      resetTransfers: function() {
+        this.getFantasyTeamPlayers()
+        this.budget = parseFloat(element.dataset.fantasyTeamBudget)
+      },
+      updateBudget: function(value) {
+        this.budget += value
       },
       teamMembersForPosition: function(sportPositionId) {
         return this.teamMembers.filter((element) => {
@@ -102,9 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return this.teamMembers.includes(teamPlayer)
       },
       submit: function() {
+        if (this.completed) return
+
         const payload = {
           fantasy_team: {
-            name: this.teamName,
+            name:              this.teamName,
+            budget_cents:      this.budget * 100,
             teams_players_ids: this.teamMembers.map((element) => element.id)
           }
         }

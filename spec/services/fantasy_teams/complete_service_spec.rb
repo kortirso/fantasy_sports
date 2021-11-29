@@ -5,12 +5,12 @@ describe FantasyTeams::CompleteService, type: :service do
     described_class.new(
       transfers_validator: transfers_validator,
       lineup_creator:      lineup_creator
-    ).call(fantasy_team: fantasy_team, params: params)
+    ).call(fantasy_team: fantasy_team, params: params, teams_players_ids: [teams_player.id])
   }
 
   let!(:fantasy_team) { create :fantasy_team }
   let!(:teams_player) { create :teams_player }
-  let(:params) { { name: name, teams_players_ids: [teams_player.id] } }
+  let(:params) { { name: name, budget_cents: 500 } }
   let(:transfers_validator) { double }
   let(:lineup_creator) { double }
 

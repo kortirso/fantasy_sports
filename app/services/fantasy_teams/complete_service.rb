@@ -14,25 +14,21 @@ module FantasyTeams
       @lineup_creator         = lineup_creator
     end
 
-    def call(fantasy_team:, params:)
+    def call(fantasy_team:, params:, teams_players_ids:)
       @fantasy_team = fantasy_team
 
-      validate_params(fantasy_team_params(params))
+      validate_params(params)
       return if failure?
 
-      validate_players(params[:teams_players_ids])
+      validate_players(teams_players_ids)
       return if failure?
 
-      @fantasy_team.update(fantasy_team_params(params))
-      create_fantasy_teams_players(params[:teams_players_ids])
+      @fantasy_team.update(params.merge(completed: true))
+      create_fantasy_teams_players(teams_players_ids)
       @lineup_creator.call(fantasy_team: @fantasy_team)
     end
 
     private
-
-    def fantasy_team_params(params)
-      params.slice(:name).merge(completed: true)
-    end
 
     def validate_params(params)
       fails!(@fantasy_team_validator.call(params: params))

@@ -2,6 +2,7 @@ en:
   dry_validation:
     rules:
       password_confirmation: Password confirmation
+      budget_cents: Budget
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -18,4 +19,6 @@ en:
       fantasy_team:
         rules:
           name:
+            filled?: can't be blank
+          budget_cents:
             filled?: can't be blank

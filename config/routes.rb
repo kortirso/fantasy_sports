@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :fantasy_teams, only: %i[show create update] do
       resources :transfers, only: %i[index], module: 'fantasy_teams'
       resources :points, only: %i[index], module: 'fantasy_teams'
+      resources :players, only: %i[index], module: 'fantasy_teams'
     end
     resources :sports, only: %i[] do
       get 'positions', on: :collection, to: 'sports/positions#index'
