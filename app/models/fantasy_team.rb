@@ -13,4 +13,6 @@ class FantasyTeam < ApplicationRecord
 
   has_many :fantasy_teams_lineups, class_name: 'FantasyTeams::Lineup', foreign_key: :fantasy_team_id, dependent: :destroy
   has_many :weeks, through: :fantasy_teams_lineups
+
+  scope :completed, -> { where(completed: true) }
 end

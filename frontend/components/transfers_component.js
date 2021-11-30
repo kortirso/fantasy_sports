@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const seasonId = element.dataset.seasonId
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
-  const team = new Vue({
+  const transfersComponent = new Vue({
     el: transfersViewSelector,
     data: {
       teamName: "My team",

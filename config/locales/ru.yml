@@ -49,6 +49,8 @@ ru:
           selection: Выбор игроков
           reset: Сбросить трансферы
           make_transfers: Выполнить трансферы
+      show:
+        save_team: Сохранить изменения команды
     users:
       registrations:
         new:

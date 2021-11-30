@@ -38,9 +38,8 @@ class FantasyTeamsController < ApplicationController
   end
 
   def find_fantasy_team_lineup
-    return unless @fantasy_team.completed?
-
     @lineup = @fantasy_team.fantasy_teams_lineups.last
+    @season = @fantasy_team.fantasy_leagues.first.leagues_season
   end
 
   def find_leagues_season

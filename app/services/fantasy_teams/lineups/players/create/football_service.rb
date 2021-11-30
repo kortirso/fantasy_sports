@@ -3,7 +3,7 @@
 module FantasyTeams
   module Lineups
     module Players
-      module ForSport
+      module Create
         class FootballService
           prepend ApplicationService
 

@@ -18,7 +18,7 @@ module FantasyTeams
     end
 
     def find_fantasy_team_players
-      @teams_players = @fantasy_team.teams_players.active
+      @teams_players = @fantasy_team.teams_players.active.includes(:leagues_seasons_team, :player)
     end
   end
 end

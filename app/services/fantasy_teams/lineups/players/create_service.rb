@@ -3,13 +3,13 @@
 module FantasyTeams
   module Lineups
     module Players
-      class CreateForSportService
+      class CreateService
         prepend ApplicationService
 
         def initialize(
-          football_service: FantasyTeams::Lineups::Players::ForSport::FootballService
+          create_football_service: FantasyTeams::Lineups::Players::Create::FootballService
         )
-          @football_service = football_service
+          @create_football_service = create_football_service
         end
 
         def call(lineup:)
@@ -20,7 +20,7 @@ module FantasyTeams
 
         def service_for_call(lineup)
           case lineup.week.leagues_season.league.sport.kind
-          when Sport::FOOTBALL then @football_service
+          when Sport::FOOTBALL then @create_football_service
           end
         end
       end

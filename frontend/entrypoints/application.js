@@ -21,4 +21,5 @@ require("@rails/ujs").start() // eslint-disable-line no-undef
 // import * as ActiveStorage from "@rails/activestorage"
 // ActiveStorage.start()
 
-import "components/fantasy_team_picker_component"
+import "components/transfers_component"
+import "components/squad_component"

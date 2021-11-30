@@ -1,3 +1,43 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  
+  <div
+    id='fantasy-team-squad'
+    data-season-id='<%= @season.id %>'
+    data-lineup-id='<%= @lineup.id %>'
+  >
+    <div id='fantasy-team-members'>
+      <div id='team-players-by-positions'>
+        <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+          <h3>{{ localizeValue(sportPosition.name) }}</h3>
+          <div class='position-members'>
+            <div
+              class='player-card'
+              v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }"
+              v-for='teamMember in activePlayersForPosition(sportPosition.id)'
+              :key='teamMember.id'
+            >
+              <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+              <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+              <div class='action' @click="changeActivePlayer(teamMember)">+/-</div>
+            </div>
+          </div>
+        </div>
+        <h3><%= t('views.fantasy_teams.show.substitutions') %></h3>
+        <div class='position-members'>
+          <div
+            class='player-card'
+            v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }"
+            v-for='teamMember in reservePlayers()'
+            :key='teamMember.id'
+          >
+            <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+            <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+            <div class='action' @click="changeReservePlayer(teamMember)">+/-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id='submit-button' class='button' @click='submit'>
+      <%= t('views.fantasy_teams.show.save_team') %>
+    </button>
+  </div>
 <% end %>

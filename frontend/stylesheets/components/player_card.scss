@@ -1,0 +1,58 @@
+.player-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  overflow: hidden;
+  border-radius: .125rem;
+  margin-right: .5rem;
+  padding: .5rem 1rem;
+  border-radius: .125rem;
+
+  .action {
+    background: $white;
+    position: absolute;
+    top: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    border: 1px solid $gray300;
+    border-radius: .125rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: $gray300;
+    }
+  }
+
+  .player-team-name {
+    line-height: 1.25rem;
+    text-align: center;
+    padding: .125rem 0 .5rem;
+  }
+
+  .player-name {
+    text-align: center;
+    background: $green600;
+    color: $white;
+    padding: .125rem 0;
+    line-height: 1.25rem;
+  }
+
+  .player-price {
+    text-align: center;
+    background: $green400;
+    line-height: 1.25rem;
+  }
+
+  &.for-change {
+    background: $red400semi;
+  }
+
+  &.to-change {
+    background: $green400semi;
+  }
+}

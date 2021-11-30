@@ -49,6 +49,8 @@ en:
           selection: Player selection
           reset: Reset team
           make_transfers: Complete transfers
+      show:
+        save_team: Save the team
     users:
       registrations:
         new:

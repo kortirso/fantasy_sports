@@ -6,7 +6,7 @@ module FantasyTeams
       prepend ApplicationService
 
       def initialize(
-        lineup_players_creator: FantasyTeams::Lineups::Players::CreateForSportService
+        lineup_players_creator: FantasyTeams::Lineups::Players::CreateService
       )
         @lineup_players_creator = lineup_players_creator
       end
