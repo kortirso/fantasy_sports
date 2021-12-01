@@ -38,7 +38,7 @@ class FantasyTeamsController < ApplicationController
   end
 
   def find_fantasy_team_relationships
-    @lineup = @fantasy_team.lineups.last
+    @lineup = @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
     @season = @fantasy_team.fantasy_leagues.first.season
   end
 

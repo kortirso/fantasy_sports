@@ -13,8 +13,8 @@ module Seasons
     has_many :active_teams_players, -> { Teams::Player.active }, foreign_key: :seasons_team_id, class_name: 'Teams::Player'
     has_many :active_players, through: :active_teams_players, source: :player
 
-    has_many :games, ->(leagues_season_team) {
-      unscope(:where).where(home_season_team: leagues_season_team).or(where(visitor_season_team: leagues_season_team))
+    has_many :games, ->(season_team) {
+      unscope(:where).where(home_season_team: season_team).or(where(visitor_season_team: season_team))
     }
     has_many :home_season_games, class_name: 'Game', foreign_key: :home_season_team_id, dependent: :destroy
     has_many :visitor_season_games, class_name: 'Game', foreign_key: :visitor_season_team_id, dependent: :destroy

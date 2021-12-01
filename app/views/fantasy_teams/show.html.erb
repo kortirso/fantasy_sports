@@ -18,6 +18,7 @@
             >
               <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
               <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+              <p class='player-price'>{{ oppositeTeamNames(teamMember) }}</p>
               <div class='action' @click="changeActivePlayer(teamMember)">+/-</div>
             </div>
           </div>
@@ -32,6 +33,7 @@
           >
             <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
             <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+            <p class='player-price'>{{ oppositeTeamNames(teamMember) }}</p>
             <div class='action' @click="changeReservePlayer(teamMember)">+/-</div>
           </div>
         </div>

@@ -7,7 +7,10 @@ module Lineups
 
     def show
       render json: {
-        lineup_players: Lineups::PlayerSerializer.new(@lineup_players).serializable_hash
+        lineup_players: Lineups::PlayerSerializer.new(
+          @lineup_players,
+          { params: { fields: request_fields, week_id: @lineup.week_id } }
+        ).serializable_hash
       }, status: :ok
     end
 
@@ -30,7 +33,7 @@ module Lineups
     end
 
     def find_lineup_players
-      @lineup_players = @lineup.lineups_players.includes(teams_player: [:player, :seasons_team])
+      @lineup_players = @lineup.lineups_players.includes(teams_player: [:player, :seasons_team, games_players: :game])
     end
 
     def lineup_players_params

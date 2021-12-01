@@ -51,17 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
       getSportsPositions: function() {
         this.$http.get(localizeRoute(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`)).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
-            this.sportsPositionsById[element.id] = {
-              name:          element.attributes.name,
-              minGameAmount: element.attributes.min_game_amount,
-              maxGameAmount: element.attributes.max_game_amount
-            }
+            this.sportsPositionsById[element.id] = element.attributes
             return element.attributes
           })
         })
       },
       getLineupPlayers: function() {
-        this.$http.get(localizeRoute(`/lineups/${lineupId}/players.json`)).then(function(data) {
+        this.$http.get(localizeRoute(`/lineups/${lineupId}/players.json?fields=opposite_teams`)).then(function(data) {
           this.players = data.body.lineup_players.data.map((element) => element.attributes)
         })
       },
@@ -85,6 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
           return element.active
         })
       },
+      oppositeTeamNames: function(teamMember) {
+        const values = teamMember.team.opposite_team_ids
+        if (values.length === 0) return "-"
+
+        return values.map((element) => localizeValue(this.teamNameById(element))).join(", ")
+      },
       changeActivePlayer: function(teamMember) {
         // beginning of change selection
         if (this.changePlayerId === null) {
@@ -98,10 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // skip change if current position player amount will left less than minimum
             const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionId).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].minGameAmount) return
+            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].min_game_amount) return
             // and if change position player amount will be more than maximum
             const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionId).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].maxGameAmount) return
+            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].max_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id
@@ -122,10 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // skip change if current position player amount will left more than maximum
             const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionId).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].maxGameAmount) return
+            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].max_game_amount) return
             // and if change position player amount will be less than minimum
             const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionId).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].minGameAmount) return
+            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].min_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id
