@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :fantasy_teams, dependent: :destroy
-  has_many :fantasy_teams_lineups, class_name: 'FantasyTeams::Lineup', through: :fantasy_teams
+  has_many :lineups, through: :fantasy_teams
 
   enum role: { regular: 0, admin: 1 }
 end

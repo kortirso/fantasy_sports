@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :fantasy_league do
     name { 'Fantasy League #1' }
-    association :leagueable, factory: :leagues_season
-    association :leagues_season
+    association :leagueable, factory: :season
+    association :season
   end
 end

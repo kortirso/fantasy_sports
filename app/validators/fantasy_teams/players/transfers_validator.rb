@@ -6,9 +6,9 @@ module FantasyTeams
       BUDGET_LIMIT_CENTS = 10000
 
       def call(fantasy_team:, teams_players_ids:)
-        @season           = fantasy_team.fantasy_leagues.first.leagues_season
+        @season           = fantasy_team.fantasy_leagues.first.season
         @max_team_players = @season.league.sport.max_team_players
-        @teams_players    = @season.active_teams_players.where(id: teams_players_ids).includes(:player, :leagues_seasons_team)
+        @teams_players    = @season.active_teams_players.where(id: teams_players_ids).includes(:player, :seasons_team)
 
         initialize_counters
         collect_data
@@ -31,7 +31,7 @@ module FantasyTeams
       def collect_data
         @teams_players.each do |teams_player|
           @sports_position_ids.push(teams_player.player.sports_position_id)
-          @team_ids.push(teams_player.leagues_seasons_team.team_id)
+          @team_ids.push(teams_player.seasons_team.team_id)
           @total_price_cents += teams_player.price_cents
         end
       end

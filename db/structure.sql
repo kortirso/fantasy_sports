@@ -64,7 +64,7 @@ CREATE TABLE public.fantasy_leagues (
     leagueable_type character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    leagues_season_id integer
+    season_id integer
 );
 
 
@@ -153,70 +153,6 @@ CREATE SEQUENCE public.fantasy_teams_id_seq
 --
 
 ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
-
-
---
--- Name: fantasy_teams_lineups; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.fantasy_teams_lineups (
-    id bigint NOT NULL,
-    fantasy_team_id integer,
-    week_id integer,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: fantasy_teams_lineups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.fantasy_teams_lineups_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: fantasy_teams_lineups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.fantasy_teams_lineups_id_seq OWNED BY public.fantasy_teams_lineups.id;
-
-
---
--- Name: fantasy_teams_lineups_players; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.fantasy_teams_lineups_players (
-    id bigint NOT NULL,
-    fantasy_teams_lineup_id integer,
-    teams_player_id integer,
-    active boolean DEFAULT false NOT NULL,
-    change_order integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: fantasy_teams_lineups_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.fantasy_teams_lineups_players_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: fantasy_teams_lineups_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.fantasy_teams_lineups_players_id_seq OWNED BY public.fantasy_teams_lineups_players.id;
 
 
 --
@@ -348,57 +284,23 @@ ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
 
 
 --
--- Name: leagues_seasons; Type: TABLE; Schema: public; Owner: -
+-- Name: lineups; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.leagues_seasons (
+CREATE TABLE public.lineups (
     id bigint NOT NULL,
-    league_id integer,
-    name character varying DEFAULT ''::character varying NOT NULL,
-    active boolean DEFAULT false NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    uuid uuid NOT NULL
-);
-
-
---
--- Name: leagues_seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.leagues_seasons_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: leagues_seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.leagues_seasons_id_seq OWNED BY public.leagues_seasons.id;
-
-
---
--- Name: leagues_seasons_teams; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.leagues_seasons_teams (
-    id bigint NOT NULL,
-    leagues_season_id integer,
-    team_id integer,
+    fantasy_team_id integer,
+    week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: leagues_seasons_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: lineups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.leagues_seasons_teams_id_seq
+CREATE SEQUENCE public.lineups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -407,10 +309,42 @@ CREATE SEQUENCE public.leagues_seasons_teams_id_seq
 
 
 --
--- Name: leagues_seasons_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: lineups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.leagues_seasons_teams_id_seq OWNED BY public.leagues_seasons_teams.id;
+ALTER SEQUENCE public.lineups_id_seq OWNED BY public.lineups.id;
+
+
+--
+-- Name: lineups_players; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lineups_players (
+    id bigint NOT NULL,
+    lineup_id integer,
+    teams_player_id integer,
+    active boolean DEFAULT false NOT NULL,
+    change_order integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: lineups_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lineups_players_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lineups_players_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lineups_players_id_seq OWNED BY public.lineups_players.id;
 
 
 --
@@ -452,6 +386,72 @@ ALTER SEQUENCE public.players_id_seq OWNED BY public.players.id;
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: seasons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.seasons (
+    id bigint NOT NULL,
+    league_id integer,
+    name character varying DEFAULT ''::character varying NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    uuid uuid NOT NULL
+);
+
+
+--
+-- Name: seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.seasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.seasons_id_seq OWNED BY public.seasons.id;
+
+
+--
+-- Name: seasons_teams; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.seasons_teams (
+    id bigint NOT NULL,
+    season_id integer,
+    team_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: seasons_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.seasons_teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: seasons_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.seasons_teams_id_seq OWNED BY public.seasons_teams.id;
 
 
 --
@@ -563,7 +563,7 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 CREATE TABLE public.teams_players (
     id bigint NOT NULL,
-    leagues_seasons_team_id integer,
+    seasons_team_id integer,
     player_id integer,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -630,7 +630,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 CREATE TABLE public.weeks (
     id bigint NOT NULL,
-    leagues_season_id integer,
+    season_id integer,
     "position" integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -679,20 +679,6 @@ ALTER TABLE ONLY public.fantasy_teams ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: fantasy_teams_lineups id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.fantasy_teams_lineups ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_lineups_id_seq'::regclass);
-
-
---
--- Name: fantasy_teams_lineups_players id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.fantasy_teams_lineups_players ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_lineups_players_id_seq'::regclass);
-
-
---
 -- Name: fantasy_teams_players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -721,17 +707,17 @@ ALTER TABLE ONLY public.leagues ALTER COLUMN id SET DEFAULT nextval('public.leag
 
 
 --
--- Name: leagues_seasons id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: lineups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.leagues_seasons ALTER COLUMN id SET DEFAULT nextval('public.leagues_seasons_id_seq'::regclass);
+ALTER TABLE ONLY public.lineups ALTER COLUMN id SET DEFAULT nextval('public.lineups_id_seq'::regclass);
 
 
 --
--- Name: leagues_seasons_teams id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: lineups_players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.leagues_seasons_teams ALTER COLUMN id SET DEFAULT nextval('public.leagues_seasons_teams_id_seq'::regclass);
+ALTER TABLE ONLY public.lineups_players ALTER COLUMN id SET DEFAULT nextval('public.lineups_players_id_seq'::regclass);
 
 
 --
@@ -739,6 +725,20 @@ ALTER TABLE ONLY public.leagues_seasons_teams ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.players ALTER COLUMN id SET DEFAULT nextval('public.players_id_seq'::regclass);
+
+
+--
+-- Name: seasons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seasons ALTER COLUMN id SET DEFAULT nextval('public.seasons_id_seq'::regclass);
+
+
+--
+-- Name: seasons_teams id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seasons_teams ALTER COLUMN id SET DEFAULT nextval('public.seasons_teams_id_seq'::regclass);
 
 
 --
@@ -808,22 +808,6 @@ ALTER TABLE ONLY public.fantasy_leagues_teams
 
 
 --
--- Name: fantasy_teams_lineups fantasy_teams_lineups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.fantasy_teams_lineups
-    ADD CONSTRAINT fantasy_teams_lineups_pkey PRIMARY KEY (id);
-
-
---
--- Name: fantasy_teams_lineups_players fantasy_teams_lineups_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.fantasy_teams_lineups_players
-    ADD CONSTRAINT fantasy_teams_lineups_players_pkey PRIMARY KEY (id);
-
-
---
 -- Name: fantasy_teams fantasy_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -864,19 +848,19 @@ ALTER TABLE ONLY public.leagues
 
 
 --
--- Name: leagues_seasons leagues_seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lineups lineups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.leagues_seasons
-    ADD CONSTRAINT leagues_seasons_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.lineups
+    ADD CONSTRAINT lineups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: leagues_seasons_teams leagues_seasons_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lineups_players lineups_players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.leagues_seasons_teams
-    ADD CONSTRAINT leagues_seasons_teams_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.lineups_players
+    ADD CONSTRAINT lineups_players_pkey PRIMARY KEY (id);
 
 
 --
@@ -893,6 +877,22 @@ ALTER TABLE ONLY public.players
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: seasons_teams seasons_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seasons_teams
+    ADD CONSTRAINT seasons_teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -965,17 +965,10 @@ CREATE INDEX index_fantasy_leagues_on_leagueable_id_and_leagueable_type ON publi
 
 
 --
--- Name: index_fantasy_leagues_on_leagues_season_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_fantasy_leagues_on_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fantasy_leagues_on_leagues_season_id ON public.fantasy_leagues USING btree (leagues_season_id);
-
-
---
--- Name: index_fantasy_teams_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_fantasy_teams_lineups_on_fantasy_team_id_and_week_id ON public.fantasy_teams_lineups USING btree (fantasy_team_id, week_id);
+CREATE INDEX index_fantasy_leagues_on_season_id ON public.fantasy_leagues USING btree (season_id);
 
 
 --
@@ -1014,17 +1007,10 @@ CREATE INDEX index_leagues_on_sport_id ON public.leagues USING btree (sport_id);
 
 
 --
--- Name: index_leagues_seasons_on_league_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_leagues_seasons_on_league_id ON public.leagues_seasons USING btree (league_id);
-
-
---
--- Name: index_leagues_seasons_teams_on_leagues_season_id_and_team_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_leagues_seasons_teams_on_leagues_season_id_and_team_id ON public.leagues_seasons_teams USING btree (leagues_season_id, team_id);
+CREATE UNIQUE INDEX index_lineups_on_fantasy_team_id_and_week_id ON public.lineups USING btree (fantasy_team_id, week_id);
 
 
 --
@@ -1035,6 +1021,20 @@ CREATE INDEX index_players_on_sports_position_id ON public.players USING btree (
 
 
 --
+-- Name: index_seasons_on_league_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_seasons_on_league_id ON public.seasons USING btree (league_id);
+
+
+--
+-- Name: index_seasons_teams_on_season_id_and_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_seasons_teams_on_season_id_and_team_id ON public.seasons_teams USING btree (season_id, team_id);
+
+
+--
 -- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1042,10 +1042,10 @@ CREATE INDEX index_sports_positions_on_sport_id ON public.sports_positions USING
 
 
 --
--- Name: index_teams_players_on_leagues_seasons_team_id_and_player_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_teams_players_on_seasons_team_id_and_player_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_players_on_leagues_seasons_team_id_and_player_id ON public.teams_players USING btree (leagues_seasons_team_id, player_id);
+CREATE INDEX index_teams_players_on_seasons_team_id_and_player_id ON public.teams_players USING btree (seasons_team_id, player_id);
 
 
 --
@@ -1056,17 +1056,17 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
--- Name: index_weeks_on_leagues_season_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_weeks_on_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_weeks_on_leagues_season_id ON public.weeks USING btree (leagues_season_id);
+CREATE INDEX index_weeks_on_season_id ON public.weeks USING btree (season_id);
 
 
 --
 -- Name: lineup_player_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX lineup_player_index ON public.fantasy_teams_lineups_players USING btree (fantasy_teams_lineup_id, teams_player_id);
+CREATE UNIQUE INDEX lineup_player_index ON public.lineups_players USING btree (lineup_id, teams_player_id);
 
 
 --

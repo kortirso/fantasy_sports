@@ -3,19 +3,19 @@
 describe FantasyTeams::Players::TransfersValidator, type: :service do
   subject(:validator_call) { described_class.call(fantasy_team: fantasy_team, teams_players_ids: teams_players_ids) }
 
-  let!(:leagues_season) { create :leagues_season, active: true }
+  let!(:season) { create :season, active: true }
   let!(:team) { create :team }
-  let!(:leagues_seasons_team) { create :leagues_seasons_team, team: team, leagues_season: leagues_season }
-  let!(:sports_position1) { create :sports_position, sport: leagues_season.league.sport, total_amount: 2 }
-  let!(:sports_position2) { create :sports_position, sport: leagues_season.league.sport, total_amount: 1 }
+  let!(:seasons_team) { create :seasons_team, team: team, season: season }
+  let!(:sports_position1) { create :sports_position, sport: season.league.sport, total_amount: 2 }
+  let!(:sports_position2) { create :sports_position, sport: season.league.sport, total_amount: 1 }
   let!(:player1) { create :player, sports_position: sports_position1 }
   let!(:player2) { create :player, sports_position: sports_position1 }
   let!(:player3) { create :player, sports_position: sports_position2 }
-  let!(:teams_player1) { create :teams_player, player: player1, leagues_seasons_team: leagues_seasons_team, active: true }
-  let!(:teams_player2) { create :teams_player, player: player2, leagues_seasons_team: leagues_seasons_team, active: true }
-  let!(:teams_player3) { create :teams_player, player: player3, leagues_seasons_team: leagues_seasons_team, active: true }
+  let!(:teams_player1) { create :teams_player, player: player1, seasons_team: seasons_team, active: true }
+  let!(:teams_player2) { create :teams_player, player: player2, seasons_team: seasons_team, active: true }
+  let!(:teams_player3) { create :teams_player, player: player3, seasons_team: seasons_team, active: true }
   let!(:fantasy_team) { create :fantasy_team }
-  let!(:fantasy_league) { create :fantasy_league, leagues_season: leagues_season }
+  let!(:fantasy_league) { create :fantasy_league, season: season }
   let(:teams_players_ids) {
     [
       teams_player1.id,
@@ -26,7 +26,7 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
 
   before do
     create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
-    leagues_season.league.sport.update(max_team_players: 3)
+    season.league.sport.update(max_team_players: 3)
   end
 
   context 'for invalid amount of players by positions' do
@@ -44,7 +44,7 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
 
   context 'for invalid amount of players from one team' do
     before do
-      leagues_season.league.sport.update(max_team_players: 2)
+      season.league.sport.update(max_team_players: 2)
     end
 
     it 'result contains error' do

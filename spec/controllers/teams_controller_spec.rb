@@ -2,12 +2,12 @@
 
 describe TeamsController, type: :controller do
   describe 'GET#index' do
-    let!(:leagues_season) { create :leagues_season, active: true }
+    let!(:season) { create :season, active: true }
 
     before do
-      create_list :leagues_seasons_team, 2, leagues_season: leagues_season
+      create_list :seasons_team, 2, season: season
 
-      get :index, params: { season_id: leagues_season.id, locale: 'en' }
+      get :index, params: { season_id: season.id, locale: 'en' }
     end
 
     it 'returns status 200' do

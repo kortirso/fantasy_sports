@@ -2,6 +2,7 @@
   <div
     id='fantasy-team-transfers'
     data-season-id='<%= @season.id %>'
+    data-sport-id='<%= @season.league.sport_id %>'
     data-fantasy-team-uuid='<%= @fantasy_team.uuid %>'
     data-fantasy-team-completed='<%= @fantasy_team.completed? %>'
     data-fantasy-team-budget='<%= @fantasy_team.budget_cents / 100.0 %>'
@@ -12,7 +13,14 @@
         <input class='form-value' v-model='teamName' />
       </div>
       <p><%= t('views.fantasy_teams.transfers.index.money_remaining') %> - {{ budget }}</p>
-      <button id='reset-button' class='button' @click='resetTransfers()'><%= t('views.fantasy_teams.transfers.index.reset') %></button>
+      <button
+        id='reset-button'
+        class='button'
+        v-if='completed'
+        @click='resetTransfers()'
+      >
+        <%= t('views.fantasy_teams.transfers.index.reset') %>
+      </button>
       <div id='team-players-by-positions'>
         <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
           <h3>{{ localizeValue(sportPosition.name) }}</h3>

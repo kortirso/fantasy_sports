@@ -8,7 +8,7 @@ describe Week, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:leagues_season).class_name('::Leagues::Season') }
+    it { is_expected.to belong_to(:season) }
     it { is_expected.to have_many(:games).dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_leagues).dependent(:destroy) }
   end

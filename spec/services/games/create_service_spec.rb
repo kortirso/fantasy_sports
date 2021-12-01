@@ -5,12 +5,12 @@ describe Games::CreateService, type: :service do
 
   context 'for valid params' do
     let(:week) { create :week }
-    let(:season_team1) { create :leagues_seasons_team }
-    let(:season_team2) { create :leagues_seasons_team }
+    let(:season_team1) { create :seasons_team }
+    let(:season_team2) { create :seasons_team }
 
     before do
-      create_list :teams_player, 4, leagues_seasons_team: season_team1
-      create_list :teams_player, 5, leagues_seasons_team: season_team2
+      create_list :teams_player, 4, seasons_team: season_team1
+      create_list :teams_player, 5, seasons_team: season_team2
     end
 
     it 'creates Game' do

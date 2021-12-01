@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
+  const sportId = element.dataset.sportId
   const lineupId = element.dataset.lineupId
 
   const transfersComponent = new Vue({
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getSportsPositions: function() {
-        this.$http.get(`/sports/positions.json?season_id=${seasonId}&fields=min_game_amount,max_game_amount`).then(function(data) {
+        this.$http.get(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
             this.sportsPositionsById[element.id] = {
               name:          element.attributes.name,
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getLineupPlayers: function() {
-        this.$http.get(`/fantasy_teams/lineups/${lineupId}/players.json`).then(function(data) {
+        this.$http.get(`/lineups/${lineupId}/players.json`).then(function(data) {
           this.players = data.body.lineup_players.data.map((element) => element.attributes)
         })
       },
@@ -168,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
         }
-        this.$http.patch(`/fantasy_teams/lineups/${lineupId}/players.json`, { lineup_players: payload }).then(function(data) {
+        this.$http.patch(`/lineups/${lineupId}/players.json`, { lineup_players: payload }).then(function(data) {
         })
       }
     }

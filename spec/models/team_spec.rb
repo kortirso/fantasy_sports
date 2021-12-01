@@ -8,7 +8,7 @@ describe Team, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:leagues_seasons_teams).class_name('Leagues::Seasons::Team').dependent(:destroy) }
-    it { is_expected.to have_many(:leagues_seasons).through(:leagues_seasons_teams) }
+    it { is_expected.to have_many(:seasons_teams).class_name('Seasons::Team').dependent(:destroy) }
+    it { is_expected.to have_many(:seasons).through(:seasons_teams) }
   end
 end

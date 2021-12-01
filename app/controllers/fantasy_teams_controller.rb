@@ -2,8 +2,8 @@
 
 class FantasyTeamsController < ApplicationController
   before_action :find_fantasy_team, only: %i[show update]
-  before_action :find_fantasy_team_lineup, only: %i[show]
-  before_action :find_leagues_season, only: %i[create]
+  before_action :find_fantasy_team_relationships, only: %i[show]
+  before_action :find_season, only: %i[create]
 
   def show; end
 
@@ -37,13 +37,13 @@ class FantasyTeamsController < ApplicationController
     @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:id])
   end
 
-  def find_fantasy_team_lineup
-    @lineup = @fantasy_team.fantasy_teams_lineups.last
-    @season = @fantasy_team.fantasy_leagues.first.leagues_season
+  def find_fantasy_team_relationships
+    @lineup = @fantasy_team.lineups.last
+    @season = @fantasy_team.fantasy_leagues.first.season
   end
 
-  def find_leagues_season
-    @season = Leagues::Season.active.find_by(id: params[:season_id])
+  def find_season
+    @season = Season.active.find_by(id: params[:season_id])
   end
 
   def fantasy_team_params

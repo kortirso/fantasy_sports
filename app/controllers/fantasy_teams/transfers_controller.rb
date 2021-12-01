@@ -3,6 +3,7 @@
 module FantasyTeams
   class TransfersController < ApplicationController
     before_action :find_fantasy_team
+    before_action :find_season
 
     def index; end
 
@@ -10,7 +11,10 @@ module FantasyTeams
 
     def find_fantasy_team
       @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:fantasy_team_id])
-      @season = @fantasy_team.fantasy_leagues.first.leagues_season
+    end
+
+    def find_season
+      @season = @fantasy_team.fantasy_leagues.first.season
     end
   end
 end

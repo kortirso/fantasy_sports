@@ -8,7 +8,7 @@ module Lineups
         CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4]
 
         def call(lineup:, lineup_players_params:)
-          @lineups_players_ids = lineup.fantasy_teams_lineups_players.order(id: :asc).pluck(:id)
+          @lineups_players_ids = lineup.lineups_players.order(id: :asc).pluck(:id)
 
           initialize_counters
           validate_players_data(lineup_players_params)

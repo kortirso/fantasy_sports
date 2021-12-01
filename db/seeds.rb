@@ -126,9 +126,9 @@ hockey.sports_positions.create(
   max_game_amount: 9
 )
 
-rpl2022 = rpl.leagues_seasons.create name: '2021/2022', active: true
-nba2022 = nba.leagues_seasons.create name: '2021/2022', active: true
-nhl2022 = nhl.leagues_seasons.create name: '2021/2022', active: true
+rpl2022 = rpl.seasons.create name: '2021/2022', active: true
+nba2022 = nba.seasons.create name: '2021/2022', active: true
+nhl2022 = nhl.seasons.create name: '2021/2022', active: true
 
 overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall'
 overall_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: nba2022, name: 'Overall'
@@ -142,13 +142,13 @@ dinamo = Team.create name: { en: 'Dinamo', ru: 'Динамо' }
 sochi = Team.create name: { en: 'Sochi', ru: 'Сочи' }
 krasnodar = Team.create name: { en: 'Krasnodar', ru: 'Краснодар' }
 
-spartak_rpl2022 = Leagues::Seasons::Team.create team: spartak, leagues_season: rpl2022
-zenit_rpl2022 = Leagues::Seasons::Team.create team: zenit, leagues_season: rpl2022
-lokomotiv_rpl2022 = Leagues::Seasons::Team.create team: lokomotiv, leagues_season: rpl2022
-cska_rpl2022 = Leagues::Seasons::Team.create team: cska, leagues_season: rpl2022
-dinamo_rpl2022 = Leagues::Seasons::Team.create team: dinamo, leagues_season: rpl2022
-sochi_rpl2022 = Leagues::Seasons::Team.create team: sochi, leagues_season: rpl2022
-krasnodar_rpl2022 = Leagues::Seasons::Team.create team: krasnodar, leagues_season: rpl2022
+spartak_rpl2022 = Seasons::Team.create team: spartak, season: rpl2022
+zenit_rpl2022 = Seasons::Team.create team: zenit, season: rpl2022
+lokomotiv_rpl2022 = Seasons::Team.create team: lokomotiv, season: rpl2022
+cska_rpl2022 = Seasons::Team.create team: cska, season: rpl2022
+dinamo_rpl2022 = Seasons::Team.create team: dinamo, season: rpl2022
+sochi_rpl2022 = Seasons::Team.create team: sochi, season: rpl2022
+krasnodar_rpl2022 = Seasons::Team.create team: krasnodar, season: rpl2022
 
 maksimenko = football_goalkeeper.players.create name: { en: 'Maksimenko Alexander', ru: 'Максименко Александр' }
 guilherme = football_goalkeeper.players.create name: { en: 'Guilherme Marinato', ru: 'Гилерме Маринато' }
@@ -181,36 +181,36 @@ sobolev = football_forward.players.create name: { en: 'Sobolev Alexander', ru: '
 smolov = football_forward.players.create name: { en: 'Smolov Fyodor', ru: 'Смолов Фёдор' }
 zabolotnyy = football_forward.players.create name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
 
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: maksimenko, price_cents: 450
-Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: guilherme, price_cents: 450
-Teams::Player.create leagues_seasons_team: cska_rpl2022, player: akinfeev, price_cents: 450
-Teams::Player.create leagues_seasons_team: dinamo_rpl2022, player: shunin, price_cents: 450
-Teams::Player.create leagues_seasons_team: krasnodar_rpl2022, player: safonov, price_cents: 450
+Teams::Player.create seasons_team: spartak_rpl2022, player: maksimenko, price_cents: 450
+Teams::Player.create seasons_team: lokomotiv_rpl2022, player: guilherme, price_cents: 450
+Teams::Player.create seasons_team: cska_rpl2022, player: akinfeev, price_cents: 450
+Teams::Player.create seasons_team: dinamo_rpl2022, player: shunin, price_cents: 450
+Teams::Player.create seasons_team: krasnodar_rpl2022, player: safonov, price_cents: 450
 
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: rakitskyi, price_cents: 500
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: lovren, price_cents: 500
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: karavaev, price_cents: 500
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: dzhikiia, price_cents: 500
-Teams::Player.create leagues_seasons_team: cska_rpl2022, player: fernandes, price_cents: 500
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: gigot, price_cents: 500
-Teams::Player.create leagues_seasons_team: cska_rpl2022, player: diveev, price_cents: 500
+Teams::Player.create seasons_team: zenit_rpl2022, player: rakitskyi, price_cents: 500
+Teams::Player.create seasons_team: zenit_rpl2022, player: lovren, price_cents: 500
+Teams::Player.create seasons_team: zenit_rpl2022, player: karavaev, price_cents: 500
+Teams::Player.create seasons_team: spartak_rpl2022, player: dzhikiia, price_cents: 500
+Teams::Player.create seasons_team: cska_rpl2022, player: fernandes, price_cents: 500
+Teams::Player.create seasons_team: spartak_rpl2022, player: gigot, price_cents: 500
+Teams::Player.create seasons_team: cska_rpl2022, player: diveev, price_cents: 500
 
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: ozdoev, price_cents: 700
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: zobnin, price_cents: 700
-Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: zhemaletdinov, price_cents: 700
-Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: barinov, price_cents: 700
-Teams::Player.create leagues_seasons_team: dinamo_rpl2022, player: fomin, price_cents: 700
-Teams::Player.create leagues_seasons_team: cska_rpl2022, player: dzagoev, price_cents: 700
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: mostovoy, price_cents: 700
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: bakaev, price_cents: 700
-Teams::Player.create leagues_seasons_team: krasnodar_rpl2022, player: ionov, price_cents: 700
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: sutormin, price_cents: 700
+Teams::Player.create seasons_team: zenit_rpl2022, player: ozdoev, price_cents: 700
+Teams::Player.create seasons_team: spartak_rpl2022, player: zobnin, price_cents: 700
+Teams::Player.create seasons_team: lokomotiv_rpl2022, player: zhemaletdinov, price_cents: 700
+Teams::Player.create seasons_team: lokomotiv_rpl2022, player: barinov, price_cents: 700
+Teams::Player.create seasons_team: dinamo_rpl2022, player: fomin, price_cents: 700
+Teams::Player.create seasons_team: cska_rpl2022, player: dzagoev, price_cents: 700
+Teams::Player.create seasons_team: zenit_rpl2022, player: mostovoy, price_cents: 700
+Teams::Player.create seasons_team: spartak_rpl2022, player: bakaev, price_cents: 700
+Teams::Player.create seasons_team: krasnodar_rpl2022, player: ionov, price_cents: 700
+Teams::Player.create seasons_team: zenit_rpl2022, player: sutormin, price_cents: 700
 
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: azmoun, price_cents: 1000
-Teams::Player.create leagues_seasons_team: zenit_rpl2022, player: dzyuba, price_cents: 1000
-Teams::Player.create leagues_seasons_team: spartak_rpl2022, player: sobolev, price_cents: 1000
-Teams::Player.create leagues_seasons_team: lokomotiv_rpl2022, player: smolov, price_cents: 1000
-Teams::Player.create leagues_seasons_team: cska_rpl2022, player: zabolotnyy, price_cents: 1000
+Teams::Player.create seasons_team: zenit_rpl2022, player: azmoun, price_cents: 1000
+Teams::Player.create seasons_team: zenit_rpl2022, player: dzyuba, price_cents: 1000
+Teams::Player.create seasons_team: spartak_rpl2022, player: sobolev, price_cents: 1000
+Teams::Player.create seasons_team: lokomotiv_rpl2022, player: smolov, price_cents: 1000
+Teams::Player.create seasons_team: cska_rpl2022, player: zabolotnyy, price_cents: 1000
 
 week1 = rpl2022.weeks.create position: 1, status: 'coming'
 week2 = rpl2022.weeks.create position: 2

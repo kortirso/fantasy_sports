@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 describe FantasyTeams::CreateService, type: :service do
-  subject(:service_call) { described_class.call(season: leagues_season, user: user) }
+  subject(:service_call) { described_class.call(season: season, user: user) }
 
-  let!(:leagues_season) { create :leagues_season, active: true }
+  let!(:season) { create :season, active: true }
   let!(:user) { create :user }
   let!(:fantasy_league) {
-    create :fantasy_league, leagueable: leagues_season, leagues_season: leagues_season, name: 'Overall'
+    create :fantasy_league, leagueable: season, season: season, name: 'Overall'
   }
 
   context 'for existed fantasy team' do
@@ -35,7 +35,7 @@ describe FantasyTeams::CreateService, type: :service do
     it 'and it belongs to league active season' do
       service_call
 
-      expect(leagues_season.league.active_season.fantasy_teams.exists?(user: user)).to be_truthy
+      expect(season.league.active_season.fantasy_teams.exists?(user: user)).to be_truthy
     end
 
     it 'and it succeed' do

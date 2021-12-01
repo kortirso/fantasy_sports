@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
+  const sportId = element.dataset.sportId
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
   const transfersComponent = new Vue({
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getSportsPositions: function() {
-        this.$http.get(`/sports/positions.json?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(`/sports/${sportId}/positions.json`).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
             this.sportsPositionsById[element.id] = { name: element.attributes.name, totalAmount: element.attributes.total_amount }
             return element.attributes
@@ -59,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getTeamsPlayers: function() {
-        this.$http.get(`/teams/players.json?season_id=${seasonId}`).then(function(data) {
-          this.teamsPlayers = data.body.teams_players.data.map((element) => element.attributes)
+        this.$http.get(`/seasons/${seasonId}/players.json`).then(function(data) {
+          this.teamsPlayers = data.body.season_players.data.map((element) => element.attributes)
         })
       },
       getFantasyTeamPlayers: function() {

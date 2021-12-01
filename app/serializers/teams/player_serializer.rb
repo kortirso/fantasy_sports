@@ -17,9 +17,9 @@ module Teams
     end
 
     attribute :team do |object|
-      leagues_seasons_team = object.leagues_seasons_team
+      seasons_team = object.seasons_team
       {
-        id: leagues_seasons_team.team_id
+        id: seasons_team.team_id
       }
     end
   end
