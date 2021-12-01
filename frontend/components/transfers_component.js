@@ -1,7 +1,7 @@
 import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 
-import { localizeValue } from "./utils/localize"
+import { localizeValue, localizeRoute } from "./utils/localize"
 
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
@@ -45,14 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return localizeValue(value)
       },
       getTeams: function() {
-        this.$http.get(`/teams.json?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(localizeRoute(`/teams.json?season_id=${seasonId}`)).then(function(data) {
           data.body.teams.data.forEach((element) => {
             this.teamsById[element.id] = element.attributes.name
           })
         })
       },
       getSportsPositions: function() {
-        this.$http.get(`/sports/${sportId}/positions.json`).then(function(data) {
+        this.$http.get(localizeRoute(`/sports/${sportId}/positions.json`)).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
             this.sportsPositionsById[element.id] = { name: element.attributes.name, totalAmount: element.attributes.total_amount }
             return element.attributes
@@ -60,12 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getTeamsPlayers: function() {
-        this.$http.get(`/seasons/${seasonId}/players.json`).then(function(data) {
+        this.$http.get(localizeRoute(`/seasons/${seasonId}/players.json`)).then(function(data) {
           this.teamsPlayers = data.body.season_players.data.map((element) => element.attributes)
         })
       },
       getFantasyTeamPlayers: function() {
-        this.$http.get(`/fantasy_teams/${fantasyTeamUuid}/players.json`).then(function(data) {
+        this.$http.get(localizeRoute(`/fantasy_teams/${fantasyTeamUuid}/players.json`)).then(function(data) {
           this.teamMembers = data.body.teams_players.data.map((element) => element.attributes)
         })
       },
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
             teams_players_ids: this.teamMembers.map((element) => element.id)
           }
         }
-        this.$http.patch(`/fantasy_teams/${fantasyTeamUuid}.json`, payload).then(function(data) {
+        this.$http.patch(localizeRoute(`/fantasy_teams/${fantasyTeamUuid}.json`), payload).then(function(data) {
           window.location = data.body.redirect_path
         })
       }

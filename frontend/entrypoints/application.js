@@ -23,3 +23,5 @@ require("@rails/ujs").start() // eslint-disable-line no-undef
 
 import "components/transfers_component"
 import "components/squad_component"
+
+import "../locales"

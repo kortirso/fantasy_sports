@@ -1,25 +1,27 @@
 import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
+import { t }       from "ttag"
 
-import { localizeValue } from "./utils/localize"
+import { localizeValue, localizeRoute } from "./utils/localize"
+import { showAlerts } from "./utils/alerts"
 
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
   request.headers.set("X-CSRF-TOKEN", document.querySelector("meta[name='csrf-token']").getAttribute("content"))
 })
 
-const transfersViewSelector = "#fantasy-team-squad"
+const squadViewSelector = "#fantasy-team-squad"
 
 document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector(transfersViewSelector)
+  const element = document.querySelector(squadViewSelector)
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
   const sportId = element.dataset.sportId
   const lineupId = element.dataset.lineupId
 
-  const transfersComponent = new Vue({
-    el: transfersViewSelector,
+  const squadComponent = new Vue({
+    el: squadViewSelector,
     data: {
       teamsById: {},
       sportsPositions: [],
@@ -40,14 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return localizeValue(value)
       },
       getTeams: function() {
-        this.$http.get(`/teams.json?season_id=${seasonId}`).then(function(data) {
+        this.$http.get(localizeRoute(`/teams.json?season_id=${seasonId}`)).then(function(data) {
           data.body.teams.data.forEach((element) => {
             this.teamsById[element.id] = element.attributes.name
           })
         })
       },
       getSportsPositions: function() {
-        this.$http.get(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`).then(function(data) {
+        this.$http.get(localizeRoute(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`)).then(function(data) {
           this.sportsPositions = data.body.sports_positions.data.map((element) => {
             this.sportsPositionsById[element.id] = {
               name:          element.attributes.name,
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getLineupPlayers: function() {
-        this.$http.get(`/lineups/${lineupId}/players.json`).then(function(data) {
+        this.$http.get(localizeRoute(`/lineups/${lineupId}/players.json`)).then(function(data) {
           this.players = data.body.lineup_players.data.map((element) => element.attributes)
         })
       },
@@ -169,7 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
         }
-        this.$http.patch(`/lineups/${lineupId}/players.json`, { lineup_players: payload }).then(function(data) {
+        this.$http.patch(localizeRoute(`/lineups/${lineupId}/players.json`), { lineup_players: payload }).then(function(data) {
+          showAlerts("notice", `<p>${t`Lineup is saved`}</p>`)
         })
       }
     }
