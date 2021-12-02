@@ -11,38 +11,6 @@
   #fantasy-team-members {
     flex: 1;
 
-    #team-players-by-positions {
-      .sport-position {
-        h3 {
-
-        }
-
-        .position-members {
-          .player-card {
-            .player-team-name {
-              &.empty {
-                height: 1.5rem;
-              }
-            }
-
-            .player-name {
-              &.empty {
-                height: 1.5rem;
-                background: $gray300;
-              }
-            }
-
-            .player-price {
-              &.empty {
-                height: 1.25rem;
-                background: $gray200;
-              }
-            }
-          }
-        }
-      }
-    }
-
     #reset-button {
       margin-top: 1rem;
     }
