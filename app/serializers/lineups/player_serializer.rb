@@ -4,6 +4,10 @@ module Lineups
   class PlayerSerializer < ApplicationSerializer
     attributes :id, :active, :change_order
 
+    attribute :points do |object|
+      object.points.present? ? points : '-'
+    end
+
     attribute :player do |object|
       player = object.teams_player.player
       {

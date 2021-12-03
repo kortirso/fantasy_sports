@@ -41,6 +41,9 @@ ru:
         invalid: Данные не верны
   views:
     fantasy_teams:
+      points:
+        index:
+          total_points: Набранные очки
       transfers:
         index:
           team_name: Название команды

@@ -1,3 +1,45 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-
+  <div
+    id='fantasy-team-points'
+    data-season-id='<%= @season.id %>'
+    data-sport-id='<%= @season.league.sport_id %>'
+    data-lineup-id='<%= @lineup.id %>'
+  >
+    <div class='lineup-points'>
+      <div id='total-points'>
+        <p><%= t('views.fantasy_teams.points.index.total_points') %></p>
+        <p><%= @lineup.points %></p>
+      </div>
+    </div>
+    <div id='fantasy-team-members'>
+      <div id='team-players-by-positions'>
+        <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+          <h3>{{ localizeValue(sportPosition.name) }}</h3>
+          <div class='position-members'>
+            <div
+              class='player-card'
+              v-for='teamMember in activePlayersForPosition(sportPosition.id)'
+              :key='teamMember.id'
+            >
+              <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+              <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+              <p class='player-value'>{{ teamMember.points }}</p>
+            </div>
+          </div>
+        </div>
+        <h3><%= t('views.fantasy_teams.show.substitutions') %></h3>
+        <div class='position-members'>
+          <div
+            class='player-card'
+            v-for='teamMember in reservePlayers()'
+            :key='teamMember.id'
+          >
+            <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+            <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+            <p class='player-value'>{{ teamMember.points }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

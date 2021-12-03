@@ -228,7 +228,8 @@ CREATE TABLE public.games_players (
     teams_player_id integer,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    points integer
 );
 
 
@@ -292,7 +293,8 @@ CREATE TABLE public.lineups (
     fantasy_team_id integer,
     week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    points integer DEFAULT 0 NOT NULL
 );
 
 
@@ -324,7 +326,8 @@ CREATE TABLE public.lineups_players (
     lineup_id integer,
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
-    change_order integer DEFAULT 0 NOT NULL
+    change_order integer DEFAULT 0 NOT NULL,
+    points integer
 );
 
 
@@ -1107,6 +1110,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211127191254'),
 ('20211128160416'),
 ('20211129074409'),
-('20211129075659');
+('20211129075659'),
+('20211203095529');
 
 
