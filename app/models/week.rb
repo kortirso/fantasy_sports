@@ -16,4 +16,12 @@ class Week < ApplicationRecord
   has_many :fantasy_teams, through: :lineups
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2 }
+
+  def previous
+    Week.find_by(season_id: season_id, position: position - 1)
+  end
+
+  def next
+    Week.find_by(season_id: season_id, position: position + 1)
+  end
 end
