@@ -4,6 +4,7 @@ import { t }       from "ttag"
 
 import { localizeValue, localizeRoute } from "./utils/localize"
 import { showAlerts } from "./utils/alerts"
+import { sportsData } from "./utils/sports"
 
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
-  const sportId = element.dataset.sportId
+  const sportKind = element.dataset.sportKind
   const lineupId = element.dataset.lineupId
 
   const squadComponent = new Vue({
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data: {
       teamsById: {},
       sportsPositions: [],
-      sportsPositionsById: {},
+      sportsPositionsByKind: {},
       players: []
     },
     created() {
@@ -47,11 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getSportsPositions: function() {
-        this.$http.get(localizeRoute(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`)).then(function(data) {
-          this.sportsPositions = data.body.sports_positions.data.map((element) => {
-            this.sportsPositionsById[element.id] = element.attributes
-            return element.attributes
-          })
+        Object.entries(sportsData.positions).forEach(([positionKind, element]) => {
+          if (element.sport_kind !== sportKind) return
+
+          element.position_kind = positionKind
+          this.sportsPositions.push(element)
+          this.sportsPositionsByKind[positionKind] = { name: element.name, totalAmount: element.total_amount }
+          return element.attributes
         })
       },
       getLineupPlayers: function() {
@@ -62,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       teamNameById: function(teamId) {
         return this.teamsById[teamId]
       },
-      activePlayersForPosition: function(sportPositionId) {
+      activePlayersForPosition: function(sportPositionKind) {
         return this.players.filter((element) => {
-          return element.active && element.player.sports_position_id === sportPositionId
+          return element.active && element.player.position_kind === sportPositionKind
         })
       },
       reservePlayers: function() {
