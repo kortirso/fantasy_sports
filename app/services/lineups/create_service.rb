@@ -12,9 +12,9 @@ module Lineups
 
     def call(fantasy_team:, week: nil)
       week    ||= fantasy_team.fantasy_leagues.first.season.weeks.coming.first
-      @record = Lineup.create(fantasy_team: fantasy_team, week: week)
+      @result = Lineup.create(fantasy_team: fantasy_team, week: week)
 
-      @lineup_players_creator.call(lineup: @record)
+      @lineup_players_creator.call(lineup: @result)
     rescue ActiveRecord::RecordNotUnique
       fail!(I18n.t('services.fantasy_teams.lineups.create.record_exists'))
     end
