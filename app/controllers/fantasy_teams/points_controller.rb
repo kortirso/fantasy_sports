@@ -15,7 +15,7 @@ module FantasyTeams
 
     def find_fantasy_team_relationships
       @lineup = @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::ACTIVE }).first
-      @season = @fantasy_team.fantasy_leagues.first.season
+      @season = @fantasy_team.fantasy_leagues.first.season if @lineup
     end
   end
 end

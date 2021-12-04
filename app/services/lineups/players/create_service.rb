@@ -18,8 +18,8 @@ module Lineups
       private
 
       def service_for_call(lineup)
-        case lineup.week.season.league.sport.kind
-        when Sport::FOOTBALL then @create_football_players_service
+        case lineup.fantasy_team.sport_kind
+        when Sportable::FOOTBALL then @create_football_players_service
         end
       end
     end

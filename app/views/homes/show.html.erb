@@ -1,9 +1,9 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <% @sports.each do |sport| %>
+  <% Sports.all.each do |sport_kind, values| %>
     <div class='sport'>
-      <h2><%= localized_value(sport.name) %></h2>
+      <h2><%= localized_value(values['name']) %></h2>
       <div class='sport-leagues'>
-        <% sport.leagues.each do |league| %>
+        <% @leagues[sport_kind].each do |league| %>
           <div class='league'>
             <h3><%= localized_value(league.name) %></h3>
             <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(season: league.active_season, user: Current.user) %>

@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :player do
     name { { en: 'Akinfeev Igor', ru: 'Акинфеев Игорь' } }
-    association :sports_position
+    position_kind { Positionable::GOALKEEPER }
   end
 end

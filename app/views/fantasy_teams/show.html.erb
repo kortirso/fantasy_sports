@@ -2,18 +2,18 @@
   <div
     id='fantasy-team-squad'
     data-season-id='<%= @season.id %>'
-    data-sport-id='<%= @season.league.sport_id %>'
+    data-sport-kind='<%= @season.league.sport_kind %>'
     data-lineup-id='<%= @lineup.id %>'
   >
     <div id='fantasy-team-members'>
       <div id='team-players-by-positions'>
-        <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+        <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
           <h3>{{ localizeValue(sportPosition.name) }}</h3>
           <div class='position-members'>
             <div
               class='player-card'
               v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }"
-              v-for='teamMember in activePlayersForPosition(sportPosition.id)'
+              v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
               :key='teamMember.id'
             >
               <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>

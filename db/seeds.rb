@@ -1,130 +1,6 @@
-football =
-  Sport.create(
-    kind:                    :football,
-    name:                    { en: 'Football', ru: 'Футбол' },
-    max_team_players:        3,
-    free_transfers_per_week: 1,
-    points_per_transfer:     1
-  )
-basketball =
-  Sport.create(
-    kind:                    :basketball,
-    name:                    { en: 'Basketball', ru: 'Баскетбол' },
-    max_team_players:        2,
-    free_transfers_per_week: 1,
-    points_per_transfer:     1
-  )
-hockey =
-  Sport.create(
-    kind:                    :hockey,
-    name:                    { en: 'Hockey', ru: 'Хоккей' },
-    max_team_players:        2,
-    free_transfers_per_week: 1,
-    points_per_transfer:     1
-  )
-
-rpl = football.leagues.create name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' }
-nba = basketball.leagues.create name: { en: 'NBA', ru: 'НБА' }
-nhl = hockey.leagues.create name: { en: 'NHL', ru: 'НХЛ' }
-
-football_goalkeeper = football.sports_positions.create(
-  kind:            :goalkeeper,
-  name:            { en: 'Goalkeeper', ru: 'Вратарь' },
-  total_amount:    2,
-  default_amount:  1,
-  min_game_amount: 1,
-  max_game_amount: 1
-)
-football_defender = football.sports_positions.create(
-  kind:            :defender,
-  name:            { en: 'Defender', ru: 'Защитник' },
-  total_amount:    5,
-  default_amount:  4,
-  min_game_amount: 3,
-  max_game_amount: 5
-)
-football_midfielder = football.sports_positions.create(
-  kind:            :midfielder,
-  name:            { en: 'Midfielder', ru: 'Полузащитник' },
-  total_amount:    5,
-  default_amount:  4,
-  min_game_amount: 2,
-  max_game_amount: 5
-)
-football_forward = football.sports_positions.create(
-  kind:            :forward,
-  name:            { en: 'Forward', ru: 'Нападающий' },
-  total_amount:    3,
-  default_amount:  2,
-  min_game_amount: 1,
-  max_game_amount: 3
-)
-
-basketball.sports_positions.create(
-  kind:            :center,
-  name:            { en: 'Center', ru: 'Центровой' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-basketball.sports_positions.create(
-  kind:            :power_forward,
-  name:            { en: 'Power Forward', ru: 'Тяжёлый форвард' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-basketball.sports_positions.create(
-  kind:            :small_forward,
-  name:            { en: 'Small Forward', ru: 'Лёгкий форвард' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-basketball.sports_positions.create(
-  kind:            :point_guard,
-  name:            { en: 'Point Guard', ru: 'Разыгрывающий защитник' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-basketball.sports_positions.create(
-  kind:            :shooting_guard,
-  name:            { en: 'Shooting Guard', ru: 'Атакующий защитник' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-
-hockey.sports_positions.create(
-  kind:            :goalkeeper,
-  name:            { en: 'Goalie', ru: 'Вратарь' },
-  total_amount:    2,
-  default_amount:  2,
-  min_game_amount: 2,
-  max_game_amount: 2
-)
-hockey.sports_positions.create(
-  kind:            :defender,
-  name:            { en: 'Defenseman', ru: 'Защитник' },
-  total_amount:    6,
-  default_amount:  6,
-  min_game_amount: 6,
-  max_game_amount: 6
-)
-hockey.sports_positions.create(
-  kind:            :forward,
-  name:            { en: 'Forward', ru: 'Нападающий' },
-  total_amount:    9,
-  default_amount:  9,
-  min_game_amount: 9,
-  max_game_amount: 9
-)
+rpl = League.create(sport_kind: 'football', name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' })
+nba = League.create(sport_kind: 'basketball', name: { en: 'NBA', ru: 'НБА' })
+nhl = League.create(sport_kind: 'hockey', name: { en: 'NHL', ru: 'НХЛ' })
 
 rpl2022 = rpl.seasons.create name: '2021/2022', active: true
 nba2022 = nba.seasons.create name: '2021/2022', active: true
@@ -150,36 +26,36 @@ dinamo_rpl2022 = Seasons::Team.create team: dinamo, season: rpl2022
 sochi_rpl2022 = Seasons::Team.create team: sochi, season: rpl2022
 krasnodar_rpl2022 = Seasons::Team.create team: krasnodar, season: rpl2022
 
-maksimenko = football_goalkeeper.players.create name: { en: 'Maksimenko Alexander', ru: 'Максименко Александр' }
-guilherme = football_goalkeeper.players.create name: { en: 'Guilherme Marinato', ru: 'Гилерме Маринато' }
-akinfeev = football_goalkeeper.players.create name: { en: 'Akinfeev Igor', ru: 'Акинфеев Игорь' }
-shunin = football_goalkeeper.players.create name: { en: 'Shunin Anton', ru: 'Шунин Антон' }
-safonov = football_goalkeeper.players.create name: { en: 'Safonov Matvey', ru: 'Сафонов Матвей' }
+maksimenko = Player.create position_kind: 'football_goalkeeper', name: { en: 'Maksimenko Alexander', ru: 'Максименко Александр' }
+guilherme = Player.create position_kind: 'football_goalkeeper', name: { en: 'Guilherme Marinato', ru: 'Гилерме Маринато' }
+akinfeev = Player.create position_kind: 'football_goalkeeper', name: { en: 'Akinfeev Igor', ru: 'Акинфеев Игорь' }
+shunin = Player.create position_kind: 'football_goalkeeper', name: { en: 'Shunin Anton', ru: 'Шунин Антон' }
+safonov = Player.create position_kind: 'football_goalkeeper', name: { en: 'Safonov Matvey', ru: 'Сафонов Матвей' }
 
-rakitskyi = football_defender.players.create name: { en: 'Rakitskyi Yaroslav', ru: 'Ракицкий Ярослав' }
-lovren = football_defender.players.create name: { en: 'Lovren Dejan', ru: 'Ловрен Деян' }
-dzhikiia = football_defender.players.create name: { en: 'Dzhikiia Georgy', ru: 'Джикия Георгий' }
-fernandes = football_defender.players.create name: { en: 'Fernandes Mario', ru: 'Фернандес Марио' }
-gigot = football_defender.players.create name: { en: 'Gigot Samuel', ru: 'Жиго Самуэль' }
-karavaev = football_defender.players.create name: { en: 'Karavaev Vyacheslav', ru: 'Караваев Вячеслав' }
-diveev = football_defender.players.create name: { en: 'Diveev Igor', ru: 'Дивеев Игорь' }
+rakitskyi = Player.create position_kind: 'football_defender', name: { en: 'Rakitskyi Yaroslav', ru: 'Ракицкий Ярослав' }
+lovren = Player.create position_kind: 'football_defender', name: { en: 'Lovren Dejan', ru: 'Ловрен Деян' }
+dzhikiia = Player.create position_kind: 'football_defender', name: { en: 'Dzhikiia Georgy', ru: 'Джикия Георгий' }
+fernandes = Player.create position_kind: 'football_defender', name: { en: 'Fernandes Mario', ru: 'Фернандес Марио' }
+gigot = Player.create position_kind: 'football_defender', name: { en: 'Gigot Samuel', ru: 'Жиго Самуэль' }
+karavaev = Player.create position_kind: 'football_defender', name: { en: 'Karavaev Vyacheslav', ru: 'Караваев Вячеслав' }
+diveev = Player.create position_kind: 'football_defender', name: { en: 'Diveev Igor', ru: 'Дивеев Игорь' }
 
-ozdoev = football_midfielder.players.create name: { en: 'Ozdoev Magomed', ru: 'Оздоев Магомед' }
-zobnin = football_midfielder.players.create name: { en: 'Zobnin Roman', ru: 'Зобнин Роман' }
-zhemaletdinov = football_midfielder.players.create name: { en: 'Zhemaletdinov Rifat', ru: 'Жемалетдинов Рифат' }
-dzagoev = football_midfielder.players.create name: { en: 'Dzagoev Alan', ru: 'Дзагоев Алан' }
-mostovoy = football_midfielder.players.create name: { en: 'Mostovoy Andrey', ru: 'Мостовой Андрей' }
-barinov = football_midfielder.players.create name: { en: 'Barinov Dmitry', ru: 'Баринов Дмитрий' }
-fomin = football_midfielder.players.create name: { en: 'Fomin Daniil', ru: 'Фомин Даниил' }
-bakaev = football_midfielder.players.create name: { en: 'Bakaev Zelimkhan', ru: 'Бакаев Зелимхан' }
-ionov = football_midfielder.players.create name: { en: 'Ionov Alexey', ru: 'Ионов Алексей' }
-sutormin = football_midfielder.players.create name: { en: 'Sutormin Alexey', ru: 'Сутормин Алексей' }
+ozdoev = Player.create position_kind: 'football_midfielder', name: { en: 'Ozdoev Magomed', ru: 'Оздоев Магомед' }
+zobnin = Player.create position_kind: 'football_midfielder', name: { en: 'Zobnin Roman', ru: 'Зобнин Роман' }
+zhemaletdinov = Player.create position_kind: 'football_midfielder', name: { en: 'Zhemaletdinov Rifat', ru: 'Жемалетдинов Рифат' }
+dzagoev = Player.create position_kind: 'football_midfielder', name: { en: 'Dzagoev Alan', ru: 'Дзагоев Алан' }
+mostovoy = Player.create position_kind: 'football_midfielder', name: { en: 'Mostovoy Andrey', ru: 'Мостовой Андрей' }
+barinov = Player.create position_kind: 'football_midfielder', name: { en: 'Barinov Dmitry', ru: 'Баринов Дмитрий' }
+fomin = Player.create position_kind: 'football_midfielder', name: { en: 'Fomin Daniil', ru: 'Фомин Даниил' }
+bakaev = Player.create position_kind: 'football_midfielder', name: { en: 'Bakaev Zelimkhan', ru: 'Бакаев Зелимхан' }
+ionov = Player.create position_kind: 'football_midfielder', name: { en: 'Ionov Alexey', ru: 'Ионов Алексей' }
+sutormin = Player.create position_kind: 'football_midfielder', name: { en: 'Sutormin Alexey', ru: 'Сутормин Алексей' }
 
-azmoun = football_forward.players.create name: { en: 'Azmoun Sardar', ru: 'Азмун Сердар' }
-dzyuba = football_forward.players.create name: { en: 'Dzyuba Artem', ru: 'Дзюба Артём' }
-sobolev = football_forward.players.create name: { en: 'Sobolev Alexander', ru: 'Соболев Александр' }
-smolov = football_forward.players.create name: { en: 'Smolov Fyodor', ru: 'Смолов Фёдор' }
-zabolotnyy = football_forward.players.create name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
+azmoun = Player.create position_kind: 'football_forward', name: { en: 'Azmoun Sardar', ru: 'Азмун Сердар' }
+dzyuba = Player.create position_kind: 'football_forward', name: { en: 'Dzyuba Artem', ru: 'Дзюба Артём' }
+sobolev = Player.create position_kind: 'football_forward', name: { en: 'Sobolev Alexander', ru: 'Соболев Александр' }
+smolov = Player.create position_kind: 'football_forward', name: { en: 'Smolov Fyodor', ru: 'Смолов Фёдор' }
+zabolotnyy = Player.create position_kind: 'football_forward', name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
 
 Teams::Player.create seasons_team: spartak_rpl2022, player: maksimenko, price_cents: 450
 Teams::Player.create seasons_team: lokomotiv_rpl2022, player: guilherme, price_cents: 450

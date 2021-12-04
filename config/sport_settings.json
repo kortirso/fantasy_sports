@@ -1,0 +1,120 @@
+{
+  "sports": {
+    "football": {
+      "name": { "en": "Football", "ru": "Футбол" },
+      "max_team_players": 3,
+      "free_transfers_per_week": 1,
+      "points_per_transfer": 1
+    },
+    "basketball": {
+      "name": { "en": "Basketball", "ru": "Баскетбол" },
+      "max_team_players": 2,
+      "free_transfers_per_week": 1,
+      "points_per_transfer": 1
+    },
+    "hockey": {
+      "name": { "en": "Hockey", "ru": "Хоккей" },
+      "max_team_players": 2,
+      "free_transfers_per_week": 1,
+      "points_per_transfer": 1
+    }
+  },
+  "positions": {
+    "football_goalkeeper": {
+      "sport_kind": "football",
+      "name": { "en": "Goalkeeper", "ru": "Вратарь" },
+      "total_amount": 2,
+      "default_amount": 1,
+      "min_game_amount": 1,
+      "max_game_amount": 1
+    },
+    "football_defender": {
+      "sport_kind": "football",
+      "name": { "en": "Defender", "ru": "Защитник" },
+      "total_amount": 5,
+      "default_amount": 4,
+      "min_game_amount": 3,
+      "max_game_amount": 5
+    },
+    "football_midfielder": {
+      "sport_kind": "football",
+      "name": { "en": "Midfielder", "ru": "Полузащитник" },
+      "total_amount": 5,
+      "default_amount": 4,
+      "min_game_amount": 2,
+      "max_game_amount": 5
+    },
+    "football_forward": {
+      "sport_kind": "football",
+      "name": { "en": "Forward", "ru": "Нападающий" },
+      "total_amount": 3,
+      "default_amount": 2,
+      "min_game_amount": 1,
+      "max_game_amount": 3
+    },
+    "basketball_center": {
+      "sport_kind": "basketball",
+      "name": { "en": "Center", "ru": "Центровой" },
+      "total_amount": 2,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "basketball_power_forward": {
+      "sport_kind": "basketball",
+      "name": { "en": "Power Forward", "ru": "Тяжёлый форвард" },
+      "total_amount": 2,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "basketball_small_forward": {
+      "sport_kind": "basketball",
+      "name": { "en": "Small Forward", "ru": "Лёгкий форвард" },
+      "total_amount": 2,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "basketball_point_guard": {
+      "sport_kind": "basketball",
+      "name": { "en": "Point Guard", "ru": "Разыгрывающий защитник" },
+      "total_amount": 2,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "basketball_shooting_guard": {
+      "sport_kind": "basketball",
+      "name": { "en": "Shooting Guard", "ru": "Атакующий защитник" },
+      "total_amount": 2,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "hockey_goalkeeper": {
+      "sport_kind": "hockey",
+      "name": { "en": "Goalie", "ru": "Вратарь" },
+      "total_amount": 3,
+      "default_amount": 2,
+      "min_game_amount": 2,
+      "max_game_amount": 2
+    },
+    "hockey_defender": {
+      "sport_kind": "hockey",
+      "name": { "en": "Defenseman", "ru": "Защитник" },
+      "total_amount": 7,
+      "default_amount": 6,
+      "min_game_amount": 6,
+      "max_game_amount": 6
+    },
+    "hockey_forward": {
+      "sport_kind": "hockey",
+      "name": { "en": "Forward", "ru": "Нападающий" },
+      "total_amount": 11,
+      "default_amount": 9,
+      "min_game_amount": 9,
+      "max_game_amount": 9
+    }
+  }
+}

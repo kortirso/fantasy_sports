@@ -11,7 +11,7 @@ module FantasyTeams
       validate_fantasy_team_uniqueness
       return if failure?
 
-      @result = user.fantasy_teams.create(name: 'My team')
+      @result = user.fantasy_teams.create(name: 'My team', sport_kind: season.league.sport_kind)
       connect_fantasy_team_with_main_league
     end
 

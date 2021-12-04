@@ -128,6 +128,7 @@ CREATE TABLE public.fantasy_teams (
     uuid uuid NOT NULL,
     user_id integer,
     name character varying DEFAULT ''::character varying NOT NULL,
+    sport_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     completed boolean DEFAULT false NOT NULL,
@@ -226,6 +227,7 @@ CREATE TABLE public.games_players (
     id bigint NOT NULL,
     game_id integer,
     teams_player_id integer,
+    position_kind integer DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -258,7 +260,7 @@ ALTER SEQUENCE public.games_players_id_seq OWNED BY public.games_players.id;
 
 CREATE TABLE public.leagues (
     id bigint NOT NULL,
-    sport_id integer,
+    sport_kind integer DEFAULT 0 NOT NULL,
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -357,7 +359,7 @@ ALTER SEQUENCE public.lineups_players_id_seq OWNED BY public.lineups_players.id;
 CREATE TABLE public.players (
     id bigint NOT NULL,
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
-    sports_position_id integer,
+    position_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -455,78 +457,6 @@ CREATE SEQUENCE public.seasons_teams_id_seq
 --
 
 ALTER SEQUENCE public.seasons_teams_id_seq OWNED BY public.seasons_teams.id;
-
-
---
--- Name: sports; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sports (
-    id bigint NOT NULL,
-    name jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    max_team_players integer DEFAULT 1 NOT NULL,
-    kind integer DEFAULT 0 NOT NULL,
-    free_transfers_per_week integer DEFAULT 1 NOT NULL,
-    points_per_transfer integer DEFAULT 1 NOT NULL
-);
-
-
---
--- Name: sports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.sports_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: sports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.sports_id_seq OWNED BY public.sports.id;
-
-
---
--- Name: sports_positions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sports_positions (
-    id bigint NOT NULL,
-    sport_id integer,
-    name jsonb DEFAULT '{}'::jsonb NOT NULL,
-    total_amount integer DEFAULT 0 NOT NULL,
-    min_game_amount integer DEFAULT 0 NOT NULL,
-    max_game_amount integer DEFAULT 0 NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    kind integer DEFAULT 0 NOT NULL,
-    default_amount integer DEFAULT 1 NOT NULL
-);
-
-
---
--- Name: sports_positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.sports_positions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: sports_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.sports_positions_id_seq OWNED BY public.sports_positions.id;
 
 
 --
@@ -745,20 +675,6 @@ ALTER TABLE ONLY public.seasons_teams ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: sports id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sports ALTER COLUMN id SET DEFAULT nextval('public.sports_id_seq'::regclass);
-
-
---
--- Name: sports_positions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sports_positions ALTER COLUMN id SET DEFAULT nextval('public.sports_positions_id_seq'::regclass);
-
-
---
 -- Name: teams id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -899,22 +815,6 @@ ALTER TABLE ONLY public.seasons_teams
 
 
 --
--- Name: sports sports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sports
-    ADD CONSTRAINT sports_pkey PRIMARY KEY (id);
-
-
---
--- Name: sports_positions sports_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.sports_positions
-    ADD CONSTRAINT sports_positions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1003,24 +903,10 @@ CREATE UNIQUE INDEX index_games_players_on_game_id_and_teams_player_id ON public
 
 
 --
--- Name: index_leagues_on_sport_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_leagues_on_sport_id ON public.leagues USING btree (sport_id);
-
-
---
 -- Name: index_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_lineups_on_fantasy_team_id_and_week_id ON public.lineups USING btree (fantasy_team_id, week_id);
-
-
---
--- Name: index_players_on_sports_position_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_players_on_sports_position_id ON public.players USING btree (sports_position_id);
 
 
 --
@@ -1035,13 +921,6 @@ CREATE INDEX index_seasons_on_league_id ON public.seasons USING btree (league_id
 --
 
 CREATE UNIQUE INDEX index_seasons_teams_on_season_id_and_team_id ON public.seasons_teams USING btree (season_id, team_id);
-
-
---
--- Name: index_sports_positions_on_sport_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sports_positions_on_sport_id ON public.sports_positions USING btree (sport_id);
 
 
 --
@@ -1082,9 +961,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211101190000'),
 ('20211101190250'),
 ('20211103182015'),
-('20211107094646'),
 ('20211107102501'),
-('20211107164729'),
 ('20211107185742'),
 ('20211110190942'),
 ('20211110192129'),
@@ -1102,13 +979,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211116191813'),
 ('20211119150305'),
 ('20211119191040'),
-('20211122194657'),
 ('20211125182342'),
 ('20211127112751'),
 ('20211127113709'),
 ('20211127175217'),
-('20211127191254'),
-('20211128160416'),
 ('20211129074409'),
 ('20211129075659'),
 ('20211203095529');

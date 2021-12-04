@@ -44,6 +44,7 @@ ru:
       points:
         index:
           total_points: Набранные очки
+          no_lineups: На данный момент нет активной игровой недели
       transfers:
         index:
           team_name: Название команды

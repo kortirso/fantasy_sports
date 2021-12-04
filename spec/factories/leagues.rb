@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :league do
     name { { en: 'Football', ru: 'Футбол' } }
-    association :sport
+    sport_kind { Sportable::FOOTBALL }
   end
 end

@@ -2,6 +2,7 @@ import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 
 import { localizeValue, localizeRoute } from "./utils/localize"
+import { sportsData } from "./utils/sports"
 
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
-  const sportId = element.dataset.sportId
+  const sportKind = element.dataset.sportKind
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
   const transfersComponent = new Vue({
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       teamName: "My team",
       teamsById: {},
       sportsPositions: [],
-      sportsPositionsById: {},
+      sportsPositionsByKind: {},
       teamsPlayers: [],
       teamMembers: [],
       existedTeamMembers: [],
@@ -52,11 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getSportsPositions: function() {
-        this.$http.get(localizeRoute(`/sports/${sportId}/positions.json`)).then(function(data) {
-          this.sportsPositions = data.body.sports_positions.data.map((element) => {
-            this.sportsPositionsById[element.id] = { name: element.attributes.name, totalAmount: element.attributes.total_amount }
-            return element.attributes
-          })
+        Object.entries(sportsData.positions).forEach(([positionKind, element]) => {
+          if (element.sport_kind !== sportKind) return
+
+          element.position_kind = positionKind
+          this.sportsPositions.push(element)
+          this.sportsPositionsByKind[positionKind] = { name: element.name, totalAmount: element.total_amount }
+          return element.attributes
         })
       },
       getTeamsPlayers: function() {
@@ -72,15 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
       teamNameById: function(teamId) {
         return this.teamsById[teamId]
       },
-      sportPositionById: function(sportPositionId) {
-        return this.sportsPositionsById[sportPositionId]
+      sportPositionByKind: function(sportPositionKind) {
+        return this.sportsPositionsByKind[sportPositionKind]
       },
       addTeamMember: function(teamPlayer) {
         // if player is already in team
         if (this.playerInTheTeam(teamPlayer)) return
         // if all position already in use
-        const sportPositionId = teamPlayer.player.sports_position_id
-        const positionsLeft = this.sportPositionById(sportPositionId).totalAmount - this.teamMembersForPosition(sportPositionId).length
+        const sportPositionKind = teamPlayer.player.position_kind
+        const positionsLeft = this.sportPositionByKind(sportPositionKind).totalAmount - this.teamMembersForPosition(sportPositionKind).length
         if (positionsLeft === 0) return
         // if there are already 3 players from one team
         const playersFromTeam = this.teamMembers.filter((element) => {
@@ -112,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
       updateBudget: function(value) {
         this.budget += value
       },
-      teamMembersForPosition: function(sportPositionId) {
+      teamMembersForPosition: function(sportPositionKind) {
         return this.teamMembers.filter((element) => {
-          return element.player.sports_position_id === sportPositionId
+          return element.player.position_kind === sportPositionKind
         })
       },
       playerInTheTeam: function(teamPlayer) {

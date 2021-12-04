@@ -3,6 +3,7 @@ class CreateGamesPlayers < ActiveRecord::Migration[7.0]
     create_table :games_players do |t|
       t.integer :game_id
       t.integer :teams_player_id
+      t.integer :position_kind, null: false, default: 0
       t.jsonb :statistic, null: false, default: {}
       t.timestamps
     end

@@ -10,8 +10,8 @@ module Lineups
           prepare_data
           @lineup = lineup
 
-          @sport.sports_positions.each { |sports_position|
-            collect_teams_players(teams_players_by_position[sports_position.id], sports_position.default_amount)
+          Sports.positions_for_sport('football').each { |position_kind, values|
+            collect_teams_players(teams_players_by_position[position_kind], values['default_amount'])
           }
 
           Lineups::Player.upsert_all(@teams_players)
@@ -20,7 +20,6 @@ module Lineups
         private
 
         def prepare_data
-          @sport         = Sport.football.first
           @teams_players = []
           @change_order  = 1
         end
@@ -28,7 +27,7 @@ module Lineups
         def teams_players_by_position
           @teams_players_by_position ||=
             @lineup.fantasy_team.teams_players.active.includes(:player).group_by { |e|
-              e.player.sports_position_id
+              e.player.position_kind
             }
         end
 

@@ -44,6 +44,7 @@ en:
       points:
         index:
           total_points: Total points
+          no_lineups: There is no active week
       transfers:
         index:
           team_name: Fantasy team name

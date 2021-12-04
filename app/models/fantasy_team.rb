@@ -2,6 +2,7 @@
 
 class FantasyTeam < ApplicationRecord
   include Uuidable
+  include Sportable
 
   belongs_to :user
 

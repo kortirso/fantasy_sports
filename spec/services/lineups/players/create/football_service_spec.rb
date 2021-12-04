@@ -4,8 +4,7 @@ describe Lineups::Players::Create::FootballService, type: :service do
   subject(:service_call) { described_class.call(lineup: lineup) }
 
   let!(:lineup) { create :lineup }
-  let!(:sports_position) { create :sports_position, sport: lineup.week.season.league.sport, default_amount: 1 }
-  let!(:players) { create_list :player, 3, sports_position: sports_position }
+  let!(:players) { create_list :player, 3, position_kind: Positionable::GOALKEEPER }
   let!(:teams_player1) { create :teams_player, player: players[0], active: true }
   let!(:teams_player2) { create :teams_player, player: players[1], active: true }
   let!(:teams_player3) { create :teams_player, player: players[2], active: true }
@@ -14,6 +13,12 @@ describe Lineups::Players::Create::FootballService, type: :service do
     create :fantasy_teams_player, teams_player: teams_player1, fantasy_team: lineup.fantasy_team
     create :fantasy_teams_player, teams_player: teams_player2, fantasy_team: lineup.fantasy_team
     create :fantasy_teams_player, teams_player: teams_player3, fantasy_team: lineup.fantasy_team
+
+    allow(Sports).to receive(:positions_for_sport).and_return({
+      'football_goalkeeper' => {
+        'default_amount' => 1
+      }
+    })
   end
 
   it 'creates 1 active lineup player' do

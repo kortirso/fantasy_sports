@@ -15,10 +15,6 @@ describe Lineups::Players::CreateService, type: :service do
   end
 
   context 'for football' do
-    before do
-      lineup.week.season.league.sport.update(kind: Sport::FOOTBALL)
-    end
-
     it 'calls football_service' do
       service_call
 

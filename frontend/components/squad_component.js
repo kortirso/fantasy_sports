@@ -4,6 +4,7 @@ import { t }       from "ttag"
 
 import { localizeValue, localizeRoute } from "./utils/localize"
 import { showAlerts } from "./utils/alerts"
+import { sportsData } from "./utils/sports"
 
 Vue.use(VueResource)
 Vue.http.interceptors.push(function(request) {
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (element === null) return
 
   const seasonId = element.dataset.seasonId
-  const sportId = element.dataset.sportId
+  const sportKind = element.dataset.sportKind
   const lineupId = element.dataset.lineupId
 
   const squadComponent = new Vue({
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data: {
       teamsById: {},
       sportsPositions: [],
-      sportsPositionsById: {},
+      sportsPositionsByKind: {},
       players: [],
       changePlayerId: null,
       changeOptionIds: []
@@ -49,11 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getSportsPositions: function() {
-        this.$http.get(localizeRoute(`/sports/${sportId}/positions.json?fields=min_game_amount,max_game_amount`)).then(function(data) {
-          this.sportsPositions = data.body.sports_positions.data.map((element) => {
-            this.sportsPositionsById[element.id] = element.attributes
-            return element.attributes
-          })
+        Object.entries(sportsData.positions).forEach(([positionKind, element]) => {
+          if (element.sport_kind !== sportKind) return
+
+          element.position_kind = positionKind
+          this.sportsPositions.push(element)
+          this.sportsPositionsByKind[positionKind] = { name: element.name, totalAmount: element.total_amount }
+          return element.attributes
         })
       },
       getLineupPlayers: function() {
@@ -64,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
       teamNameById: function(teamId) {
         return this.teamsById[teamId]
       },
-      activePlayersForPosition: function(sportPositionId) {
+      activePlayersForPosition: function(sportPositionKind) {
         return this.players.filter((element) => {
-          return element.active && element.player.sports_position_id === sportPositionId
+          return element.active && element.player.position_kind === sportPositionKind
         })
       },
       reservePlayers: function() {
@@ -90,20 +93,20 @@ document.addEventListener("DOMContentLoaded", () => {
       changeActivePlayer: function(teamMember) {
         // beginning of change selection
         if (this.changePlayerId === null) {
-          const positionId = teamMember.player.sports_position_id
+          const positionKind = teamMember.player.position_kind
           this.reservePlayers().forEach((element) => {
-            const nextPositionId = element.player.sports_position_id
+            const nextPositionKind = element.player.position_kind
             // allow change for the same position
-            if (nextPositionId === positionId) {
+            if (nextPositionKind === positionKind) {
               this.changeOptionIds.push(element.id)
               return
             }
             // skip change if current position player amount will left less than minimum
-            const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionId).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].min_game_amount) return
+            const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionKind).length
+            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionKind].min_game_amount) return
             // and if change position player amount will be more than maximum
-            const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionId).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].max_game_amount) return
+            const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionKind).length
+            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionKind].max_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id
@@ -114,20 +117,20 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       changeReservePlayer: function(teamMember) {
         if (this.changePlayerId === null) {
-          const positionId = teamMember.player.sports_position_id
+          const positionKind = teamMember.player.position_kind
           this.activePlayers().forEach((element) => {
-            const nextPositionId = element.player.sports_position_id
+            const nextPositionKind = element.player.position_kind
             // allow change for the same position
-            if (nextPositionId === positionId) {
+            if (nextPositionKind === positionKind) {
               this.changeOptionIds.push(element.id)
               return
             }
             // skip change if current position player amount will left more than maximum
-            const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionId).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionId].max_game_amount) return
+            const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionKind).length
+            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionKind].max_game_amount) return
             // and if change position player amount will be less than minimum
-            const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionId).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionId].min_game_amount) return
+            const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionKind).length
+            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionKind].min_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id

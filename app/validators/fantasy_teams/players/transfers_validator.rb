@@ -6,8 +6,9 @@ module FantasyTeams
       BUDGET_LIMIT_CENTS = 10000
 
       def call(fantasy_team:, teams_players_ids:)
-        @season           = fantasy_team.fantasy_leagues.first.season
-        @max_team_players = @season.league.sport.max_team_players
+        @fantasy_team     = fantasy_team
+        @season           = @fantasy_team.fantasy_leagues.first.season
+        @max_team_players = Sports.sport(@fantasy_team.sport_kind)['max_team_players']
         @teams_players    = @season.active_teams_players.where(id: teams_players_ids).includes(:player, :seasons_team)
 
         initialize_counters
@@ -22,25 +23,25 @@ module FantasyTeams
       private
 
       def initialize_counters
-        @errors              = []
-        @sports_position_ids = []
-        @team_ids            = []
-        @total_price_cents   = 0
+        @errors            = []
+        @position_kinds    = []
+        @team_ids          = []
+        @total_price_cents = 0
       end
 
       def collect_data
         @teams_players.each do |teams_player|
-          @sports_position_ids.push(teams_player.player.sports_position_id)
+          @position_kinds.push(teams_player.player.position_kind)
           @team_ids.push(teams_player.seasons_team.team_id)
           @total_price_cents += teams_player.price_cents
         end
       end
 
       def validate_players_positions
-        @season.league.sport.sports_positions.each do |position|
-          next if @sports_position_ids.count(position.id) == position.total_amount
+        Sports.positions_for_sport(@fantasy_team.sport_kind).each do |position_kind, values|
+          next if @position_kinds.count(position_kind) == values['total_amount']
 
-          @errors.push("Invalid players amount at position #{position.name['en']}")
+          @errors.push("Invalid players amount at position #{values['name']['en']}")
         end
       end
 

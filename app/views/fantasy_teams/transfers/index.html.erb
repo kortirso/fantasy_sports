@@ -2,7 +2,7 @@
   <div
     id='fantasy-team-transfers'
     data-season-id='<%= @season.id %>'
-    data-sport-id='<%= @season.league.sport_id %>'
+    data-sport-kind='<%= @season.league.sport_kind %>'
     data-fantasy-team-uuid='<%= @fantasy_team.uuid %>'
     data-fantasy-team-completed='<%= @fantasy_team.completed? %>'
     data-fantasy-team-budget='<%= @fantasy_team.budget_cents / 100.0 %>'
@@ -22,18 +22,18 @@
         <%= t('views.fantasy_teams.transfers.index.reset') %>
       </button>
       <div id='team-players-by-positions'>
-        <div v-for='sportPosition in sportsPositions' :key='sportPosition.id' class='sport-position'>
+        <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
           <h3>{{ localizeValue(sportPosition.name) }}</h3>
           <div class='position-members'>
-            <div v-for='teamMember in teamMembersForPosition(sportPosition.id)' :key='teamMember.id' class='player-card'>
+            <div v-for='teamMember in teamMembersForPosition(sportPosition.position_kind)' :key='teamMember.id' class='player-card'>
               <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
               <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
               <p class='player-value'>{{ teamMember.price }}</p>
               <div class='action' @click="removeTeamMember(teamMember)">-</div>
             </div>
             <div
-              v-if='Object.keys(sportsPositionsById).length > 0'
-              v-for='value in [...Array(sportPositionById(sportPosition.id).totalAmount - teamMembersForPosition(sportPosition.id).length).keys()]'
+              v-if='Object.keys(sportsPositionsByKind).length > 0'
+              v-for='value in [...Array(sportPositionByKind(sportPosition.position_kind).totalAmount - teamMembersForPosition(sportPosition.position_kind).length).keys()]'
               :key='value'
               class='player-card'
             >
@@ -57,9 +57,9 @@
       <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
         <div class='team-player-info'>
           <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
-          <div class='team-player-stats' v-if='Object.keys(sportsPositionsById).length > 0'>
+          <div class='team-player-stats' v-if='Object.keys(sportsPositionsByKind).length > 0'>
             <span class='team-name'>{{ localizeValue(teamNameById(teamPlayer.team.id)) }}</span>
-            <span class='position-name'>{{ localizeValue(sportPositionById(teamPlayer.player.sports_position_id).name) }}</span>
+            <span class='position-name'>{{ localizeValue(sportPositionByKind(teamPlayer.player.position_kind).name) }}</span>
           </div>
         </div>
         <div class='team-player-price'>{{ teamPlayer.price }}</div>
