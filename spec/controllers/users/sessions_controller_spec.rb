@@ -18,7 +18,7 @@ describe Users::SessionsController, type: :controller do
       end
     end
 
-    context 'for exissted user' do
+    context 'for existed user' do
       let(:user) { create :user }
 
       context 'for invalid password' do
@@ -40,6 +40,14 @@ describe Users::SessionsController, type: :controller do
       context 'for valid password' do
         it 'redirects to dashboard path' do
           post :create, params: { user: { email: user.email, password: user.password }, locale: 'en' }
+
+          expect(response).to redirect_to home_en_path
+        end
+      end
+
+      context 'for valid password and upcased email' do
+        it 'redirects to dashboard path' do
+          post :create, params: { user: { email: user.email.upcase, password: user.password }, locale: 'en' }
 
           expect(response).to redirect_to home_en_path
         end
