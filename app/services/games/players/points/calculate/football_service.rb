@@ -22,13 +22,13 @@ module Games
             'B'  => 'bonus_points'
           }
 
-          def call(position_kind:, statistics:)
+          def call(position_kind:, statistic:)
             @position_kind = position_kind
-            @result = statistics.inject(0) do |acc, (param, value)|
+            @result = statistic.inject(0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]
               next unless method_name
 
-              acc + self.send(method_name, value)
+              acc + self.send(method_name, value.to_i)
             end
           end
 
@@ -52,7 +52,9 @@ module Games
             value * 3
           end
 
-          def clean_sheets_points(_)
+          def clean_sheets_points(value)
+            return 0 if value.zero?
+
             case @position_kind
             when Positionable::GOALKEEPER, Positionable::DEFENDER then 4
             when Positionable::MIDFIELDER then 1

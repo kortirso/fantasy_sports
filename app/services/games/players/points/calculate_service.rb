@@ -12,10 +12,10 @@ module Games
           @football_service = football_service
         end
 
-        def call(position_kind:, statistics:)
+        def call(position_kind:, statistic:)
           @result =
-            service_for_call(Sports.position(position_kind).sport_kind)
-            .call(position_kind: position_kind, statistics: statistics)
+            service_for_call(Sports.position(position_kind)['sport_kind'])
+            .call(position_kind: position_kind, statistic: statistic)
             .result
         end
 

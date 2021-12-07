@@ -2,7 +2,7 @@
 
 module Games
   module Players
-    module Statistics
+    module Statistic
       class UpdateService
         prepend ApplicationService
 
@@ -12,10 +12,10 @@ module Games
           @points_calculate_service = points_calculate_service
         end
 
-        def call(games_player:, statistics: {})
-          calculate_call = @points_calculate_service.call(position_kind: games_player.position_kind, statistics: statistics)
+        def call(games_player:, statistic: {})
+          @result = @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
 
-          games_player.update(points: calculate_call.result, statistics: statistics)
+          games_player.update(points: @result, statistic: statistic)
         end
       end
     end

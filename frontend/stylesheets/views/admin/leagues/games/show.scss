@@ -1,0 +1,19 @@
+#games-players-stats {
+  table {
+    .player-name {
+      width: 15rem;
+      text-align: left;
+    }
+
+    .games-player-input {
+      width: 3rem;
+      height: 3rem;
+      text-align: center;
+      padding: 0;
+    }
+  }
+
+  #update-statistic {
+    margin-top: 2rem;
+  }
+}

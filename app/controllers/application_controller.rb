@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   include Authentication
   include Localization
 
+  authorize :user, through: :current_user
+
   before_action :authenticate
 
   private

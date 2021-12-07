@@ -20,8 +20,10 @@ ru:
           fantasy_team_link_component:
             create: Создать команду
   controllers:
-    authentication:
+    admin:
       permission: Доступ запрещён
+    authentication:
+      permission: Необходимо войти
     users:
       registrations:
         success_create: Вы зарегистрированы
@@ -40,6 +42,19 @@ ru:
         email_exists: Email уже используется
         invalid: Данные не верны
   views:
+    admin:
+      leagues:
+        show:
+          header: Список игр активной недели
+          header_no_week: Нет активной недели
+        games:
+          show:
+            back: Назад к лиге
+            name: Имя игрока
+            submit: Обновить статистику
+    homes:
+      show:
+        admin_league: Администрирование
     fantasy_teams:
       points:
         index:

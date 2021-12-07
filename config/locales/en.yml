@@ -20,6 +20,8 @@ en:
           fantasy_team_link_component:
             create: Create fantasy team
   controllers:
+    admin:
+      permission: Unauthorized
     authentication:
       permission: Permission is denied
     users:
@@ -40,6 +42,19 @@ en:
         email_exists: Email is already used
         invalid: Credentials are invalid
   views:
+    admin:
+      leagues:
+        show:
+          header: Games list of active week
+          header_no_week: There is no active week
+        games:
+          show:
+            back: Back to league
+            name: Player name
+            submit: Update statistic
+    homes:
+      show:
+        admin_league: Admin league
     fantasy_teams:
       points:
         index:

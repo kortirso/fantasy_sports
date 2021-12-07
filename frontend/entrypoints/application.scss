@@ -1,11 +1,12 @@
 @import '../stylesheets/base.scss';
 
 @import '../stylesheets/general/colors.scss';
-@import '../stylesheets/general/buttons.scss';
-@import '../stylesheets/general/forms.scss';
+@import '../stylesheets/general/grid.scss';
 
 @import '../stylesheets/components/flash.scss';
 @import '../stylesheets/components/player_card.scss';
+@import '../stylesheets/components/buttons.scss';
+@import '../stylesheets/components/forms.scss';
 
 @import '../stylesheets/page_wrappers/home.scss';
 @import '../stylesheets/page_wrappers/page.scss';
@@ -14,3 +15,4 @@
 @import '../stylesheets/views/fantasy_teams/points/index.scss';
 @import '../stylesheets/views/fantasy_teams/transfers/index.scss';
 @import '../stylesheets/views/fantasy_teams/show.scss';
+@import '../stylesheets/views/admin/leagues/games/show.scss';

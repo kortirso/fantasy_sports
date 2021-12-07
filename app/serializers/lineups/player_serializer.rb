@@ -5,7 +5,7 @@ module Lineups
     attributes :id, :active, :change_order
 
     attribute :points do |object|
-      object.points.present? ? points : '-'
+      object.points.present? ? object.points : '-'
     end
 
     attribute :player do |object|

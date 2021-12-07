@@ -1,0 +1,4 @@
+<%= render PageWrappers::PageComponent.new do %>
+  <%= link_to t('views.admin.leagues.games.show.back'), admin_league_path(@league.id), class: 'button' %>
+  <%= render Views::Admin::Leagues::Games::Show::GamesPlayersComponent.new(game: @game) %>
+<% end %>

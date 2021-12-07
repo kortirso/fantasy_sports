@@ -17,6 +17,8 @@ class Week < ApplicationRecord
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2 }
 
+  scope :active, -> { where(status: ACTIVE) }
+
   def previous
     Week.find_by(season_id: season_id, position: position - 1)
   end
