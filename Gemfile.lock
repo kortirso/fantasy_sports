@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/kortirso/que
+  revision: 595140894ec930c28420759772cb53b2a72b4bc6
+  specs:
+    que (1.0.0.beta4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -239,6 +245,7 @@ DEPENDENCIES
   jwt (= 2.2.3)
   pg (~> 1.1)
   puma (~> 5.0)
+  que!
   rails (~> 7.0.0.rc1)
   rails-controller-testing (= 1.0.5)
   route_translator (~> 11.0)

@@ -47,6 +47,9 @@ gem 'jsonapi-serializer', '2.2.0'
 # translating
 gem 'route_translator', '~> 11.0'
 
+# active jobs adapter
+gem 'que', git: 'https://github.com/kortirso/que'
+
 group :development, :test do
 end
 
