@@ -5,6 +5,8 @@ module Weeks
     prepend ApplicationService
 
     def call(week:)
+      return if week.nil?
+
       week.update(status: Week::ACTIVE)
     end
   end

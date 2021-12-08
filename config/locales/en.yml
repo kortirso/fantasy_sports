@@ -37,6 +37,9 @@ en:
     fantasy_teams:
       create:
         exists: Fantasy team is already exists
+    weeks:
+      change:
+        record_is_not_exists: Week is not exist
     users:
       create:
         email_exists: Email is already used

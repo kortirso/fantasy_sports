@@ -37,6 +37,9 @@ ru:
     fantasy_teams:
       create:
         exists: Команда уже создана
+    weeks:
+      change:
+        record_is_not_exists: Неделя не существует
     users:
       create:
         email_exists: Email уже используется

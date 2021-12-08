@@ -15,14 +15,16 @@ module Weeks
     end
 
     def call(week_id:)
-      @week = Week.coming.find(week_id)
+      @week = Week.coming.find_by(id: week_id)
+      fail!(I18n.t('services.weeks.change.record_is_not_exists')) if @week.nil?
+      return if failure?
 
-      update_closest_weeks
+      update_weeks
     end
 
     private
 
-    def update_closest_weeks
+    def update_weeks
       ActiveRecord::Base.transaction do
         @finish_service.call(week: @week.previous)
         @start_service.call(week: @week)
