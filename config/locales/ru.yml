@@ -20,6 +20,8 @@ ru:
           fantasy_team_link_component:
             create: Создать команду
   controllers:
+    application:
+      page_not_found: Страница не найдена
     admin:
       permission: Доступ запрещён
     authentication:

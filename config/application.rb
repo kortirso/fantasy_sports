@@ -51,5 +51,10 @@ module FantasySports
       g.javascripts false
       g.helper false
     end
+
+    # Catch 404s
+    config.after_initialize do |app|
+      app.routes.append { match '*path', to: 'application#page_not_found', via: :all }
+    end
   end
 end

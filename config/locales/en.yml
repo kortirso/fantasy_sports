@@ -20,6 +20,8 @@ en:
           fantasy_team_link_component:
             create: Create fantasy team
   controllers:
+    application:
+      page_not_found: Page is not found
     admin:
       permission: Unauthorized
     authentication:
