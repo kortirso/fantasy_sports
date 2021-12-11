@@ -1,5 +1,8 @@
 ru:
   components:
+    shared:
+      page_not_found_component:
+        title: Страница не найдена
     page_wrappers:
       page_component:
         home: Главная

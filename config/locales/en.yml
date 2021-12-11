@@ -1,5 +1,8 @@
 en:
   components:
+    shared:
+      page_not_found_component:
+        title: Page is not found
     page_wrappers:
       page_component:
         home: Home

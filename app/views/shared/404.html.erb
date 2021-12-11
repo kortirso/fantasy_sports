@@ -1,0 +1,9 @@
+<% if Current.user %>
+  <%= render PageWrappers::PageComponent.new do %>
+    <%= render Shared::PageNotFoundComponent.new %>
+  <% end %>
+<% else %>
+  <%= render PageWrappers::UsersComponent.new do %>
+    <%= render Shared::PageNotFoundComponent.new %>
+  <% end %>
+<% end %>

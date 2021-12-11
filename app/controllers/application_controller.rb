@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   authorize :user, through: :current_user
 
   before_action :authenticate
+  skip_before_action :authenticate, only: %i[page_not_found]
 
   rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
 
