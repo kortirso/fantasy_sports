@@ -27,7 +27,7 @@ class FantasyTeamsController < ApplicationController
     if service_call.success?
       render json: { redirect_path: fantasy_team_path(@fantasy_team.uuid) }, status: :ok
     else
-      render json: { errors: service_call.errors }, status: :unprocessable_entity
+      json_response_with_errors(service_call.errors, 422)
     end
   end
 
@@ -44,7 +44,7 @@ class FantasyTeamsController < ApplicationController
   end
 
   def find_season
-    @season = Season.active.find_by(id: params[:season_id])
+    @season = Season.active.find(params[:season_id])
   end
 
   def fantasy_team_params

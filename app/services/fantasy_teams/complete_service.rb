@@ -23,9 +23,11 @@ module FantasyTeams
       validate_players(teams_players_ids)
       return if failure?
 
-      @fantasy_team.update(params.merge(completed: true))
-      create_fantasy_teams_players(teams_players_ids)
-      @lineup_creator.call(fantasy_team: @fantasy_team)
+      ActiveRecord::Base.transaction do
+        @fantasy_team.update(params.merge(completed: true))
+        create_fantasy_teams_players(teams_players_ids)
+        @lineup_creator.call(fantasy_team: @fantasy_team)
+      end
     end
 
     private
