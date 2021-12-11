@@ -35,7 +35,7 @@ module Lineups
           teams_players[0...default_active_players].each { |teams_player|
             @teams_players.push(active_teams_player_data(teams_player))
           }
-          teams_players[default_active_players..-1].each { |teams_player|
+          teams_players[default_active_players..].each { |teams_player|
             @teams_players.push(inactive_teams_player_data(teams_player))
             @change_order += 1
           }

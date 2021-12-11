@@ -33,11 +33,11 @@ module Lineups
     end
 
     def find_lineup_players
-      @lineup_players = @lineup.lineups_players.includes(teams_player: [:player, :seasons_team])
+      @lineup_players = @lineup.lineups_players.includes(teams_player: %i[player seasons_team])
     end
 
     def lineup_players_params
-      params.require(:lineup_players).permit(data: [[:id, :active, :change_order]]).to_h
+      params.require(:lineup_players).permit(data: [%i[id active change_order]]).to_h
     end
   end
 end

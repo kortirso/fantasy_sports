@@ -11,7 +11,7 @@ module Lineups
     end
 
     def call(fantasy_team:, week: nil)
-      week    ||= fantasy_team.fantasy_leagues.first.season.weeks.coming.first
+      week ||= fantasy_team.fantasy_leagues.first.season.weeks.coming.first
       @result = Lineup.create(fantasy_team: fantasy_team, week: week)
 
       @lineup_players_creator.call(lineup: @result)

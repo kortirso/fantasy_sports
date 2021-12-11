@@ -22,7 +22,12 @@ class UserContract < ApplicationContract
 
   rule(:password) do
     if values[:password].size < Rails.configuration.minimum_password_length
-      key.failure(I18n.t('dry_validation.errors.user.password_length', length: Rails.configuration.minimum_password_length))
+      key.failure(
+        I18n.t(
+          'dry_validation.errors.user.password_length',
+          length: Rails.configuration.minimum_password_length
+        )
+      )
     end
   end
 end

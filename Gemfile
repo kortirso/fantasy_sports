@@ -51,6 +51,10 @@ gem 'route_translator', '~> 11.0'
 gem 'que', git: 'https://github.com/kortirso/que'
 
 group :development, :test do
+  gem 'rubocop', '~> 1.23', require: false
+  gem 'rubocop-performance', '~> 1.12', require: false
+  gem 'rubocop-rails', '~> 2.12', require: false
+  gem 'rubocop-rspec', '~> 2.6', require: false
 end
 
 group :development do
@@ -61,8 +65,8 @@ end
 group :test do
   gem 'database_cleaner', '~> 1.8.5'
   gem 'factory_bot_rails', '6.2.0'
+  gem 'json_spec', '1.1.5'
   gem 'rails-controller-testing', '1.0.5'
   gem 'rspec-rails', '5.0.2'
   gem 'shoulda-matchers', '~> 5.0'
-  gem 'json_spec', '1.1.5'
 end

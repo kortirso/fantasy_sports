@@ -5,7 +5,7 @@ module Lineups
     module ForSport
       class FootballValidator < ApplicationValidator
         ACTIVE_PLAYERS_LIMIT = 11
-        CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4]
+        CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4].freeze
 
         def call(lineup:, lineup_players_params:)
           @lineups_players_ids = lineup.lineups_players.order(id: :asc).ids

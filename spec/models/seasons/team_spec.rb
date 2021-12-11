@@ -12,10 +12,10 @@ describe Seasons::Team, type: :model do
     it { is_expected.to belong_to(:team).class_name('::Team') }
     it { is_expected.to have_many(:teams_players).class_name('Teams::Player').dependent(:destroy) }
     it { is_expected.to have_many(:players).through(:teams_players) }
-    it { is_expected.to have_many(:active_teams_players).class_name('Teams::Player').with_foreign_key(:seasons_team_id) }
+    it { is_expected.to have_many(:active_teams_players).class_name('Teams::Player') }
     it { is_expected.to have_many(:active_players).through(:active_teams_players) }
-    it { is_expected.to have_many(:home_season_games).class_name('Game').with_foreign_key(:home_season_team_id).dependent(:destroy) }
-    it { is_expected.to have_many(:visitor_season_games).class_name('Game').with_foreign_key(:visitor_season_team_id).dependent(:destroy) }
+    it { is_expected.to have_many(:home_season_games).class_name('Game').dependent(:destroy) }
+    it { is_expected.to have_many(:visitor_season_games).class_name('Game').dependent(:destroy) }
 
     context 'for all games' do
       let(:seasons_team) { create :seasons_team }

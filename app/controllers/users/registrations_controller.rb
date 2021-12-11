@@ -10,18 +10,22 @@ module Users
 
     def create
       service_call = Users::CreateService.call(params: user_params)
-      if service_call.success?
-        session[:fantasy_sports_user_id] = service_call.result.id
-        flash[:notice] = t('controllers.users.registrations.success_create')
-        redirect_to after_registration_path
-      else
-        @user = User.new(user_params)
-        flash[:alert] = service_call.errors
-        render :new
-      end
+      service_call.success? ? success_create_response(service_call) : failed_create_response(service_call)
     end
 
     private
+
+    def success_create_response(service_call)
+      session[:fantasy_sports_user_id] = service_call.result.id
+      flash[:notice] = t('controllers.users.registrations.success_create')
+      redirect_to after_registration_path
+    end
+
+    def failed_create_response(service_call)
+      @user = User.new(user_params)
+      flash[:alert] = service_call.errors
+      render :new
+    end
 
     def after_registration_path
       home_path

@@ -16,7 +16,7 @@ module Sports
   end
 
   def positions_for_sport(value)
-    positions.select { |_,v| v['sport_kind'] == value }
+    positions.select { |_, v| v['sport_kind'] == value }
   end
 
   def position(value)

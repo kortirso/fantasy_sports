@@ -54,7 +54,11 @@ describe Users::RegistrationsController, type: :controller do
 
     context 'for existed user' do
       let!(:user) { create :user }
-      let(:request) { post :create, params: { user: { email: user.email, password: '12345678', password_confirmation: '12345678' }, locale: 'en' } }
+      let(:request) {
+        post :create, params: {
+          user: { email: user.email, password: '12345678', password_confirmation: '12345678' }, locale: 'en'
+        }
+      }
 
       it 'does not create new user' do
         expect { request }.not_to change(User, :count)

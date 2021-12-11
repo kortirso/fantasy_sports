@@ -28,12 +28,12 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
     allow(Sports).to receive(:sport).and_return({ 'max_team_players' => 3 })
     allow(Sports).to receive(:positions_for_sport).and_return({
       'football_goalkeeper' => {
-        'name' => { 'en' => 'Goalkeeper', 'ru' => 'Вратарь' },
-        'total_amount' => 2,
+        'name'         => { 'en' => 'Goalkeeper', 'ru' => 'Вратарь' },
+        'total_amount' => 2
       },
-      'football_defender' =>   {
-        'name' => { 'en' => 'Defender', 'ru' => 'Защитник' },
-        'total_amount' => 1,
+      'football_defender'   => {
+        'name'         => { 'en' => 'Defender', 'ru' => 'Защитник' },
+        'total_amount' => 1
       }
     })
   end
@@ -47,7 +47,7 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
     }
 
     it 'result contains error' do
-      expect(validator_call.first).to eq("Invalid players amount at position Goalkeeper")
+      expect(validator_call.first).to eq('Invalid players amount at position Goalkeeper')
     end
   end
 

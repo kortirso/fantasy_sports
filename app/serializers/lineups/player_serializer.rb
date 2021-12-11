@@ -5,7 +5,7 @@ module Lineups
     attributes :id, :active, :change_order
 
     attribute :points do |object|
-      object.points.present? ? object.points : '-'
+      object.points.presence || '-'
     end
 
     attribute :player do |object|
@@ -29,7 +29,7 @@ module Lineups
           .flatten
           .uniq
         opposite_team_ids = Seasons::Team.where(id: (seasons_teams_ids - [seasons_team.id])).pluck(:team_id)
-        fields.merge!(opposite_team_ids: opposite_team_ids)
+        fields[:opposite_team_ids] = opposite_team_ids
       end
 
       fields

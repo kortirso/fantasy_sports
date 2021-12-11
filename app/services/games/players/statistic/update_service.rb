@@ -13,7 +13,8 @@ module Games
         end
 
         def call(games_player:, statistic: {})
-          @result = @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
+          @result =
+            @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
 
           games_player.update(points: @result, statistic: statistic)
         end

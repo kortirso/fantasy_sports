@@ -25,16 +25,13 @@ module Statable
   private
 
   def generate_default_statistic
-    return if self.id
+    return if id
 
-    self.statistic = select_default_statistic.inject({}) { |acc, value|
-      acc[value] = 0
-      acc
-    }
+    self.statistic = select_default_statistic.index_with(0)
   end
 
   def select_default_statistic
-    case Sports.position(self.position_kind)['sport_kind']
+    case Sports.position(position_kind)['sport_kind']
     when Sportable::FOOTBALL then FOOTBALL_STATS
     else []
     end

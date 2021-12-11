@@ -20,15 +20,15 @@ module Games
             'RC' => 'red_cards_points',
             'S'  => 'saves_points',
             'B'  => 'bonus_points'
-          }
+          }.freeze
 
           def call(position_kind:, statistic:)
             @position_kind = position_kind
             @result = statistic.inject(0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]
-              next unless method_name
+              next acc unless method_name
 
-              acc + self.send(method_name, value.to_i)
+              acc + send(method_name, value.to_i)
             end
           end
 

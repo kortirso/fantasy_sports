@@ -10,7 +10,7 @@ class Season < ApplicationRecord
   has_many :active_teams_players, through: :seasons_teams
 
   has_many :weeks, dependent: :destroy
-  has_one :active_week, -> { Week.active }, class_name: 'Week', foreign_key: :season_id
+  has_one :active_week, -> { Week.active }, class_name: 'Week', foreign_key: :season_id # rubocop: disable Rails/HasManyOrHasOneDependent
 
   has_many :all_fantasy_leagues, class_name: 'FantasyLeague', foreign_key: :season_id, dependent: :destroy
   has_many :fantasy_teams, through: :all_fantasy_leagues

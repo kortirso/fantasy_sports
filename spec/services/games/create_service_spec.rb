@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 describe Games::CreateService, type: :service do
-  subject(:service_call) { described_class.call(week: week, home_season_team: season_team1, visitor_season_team: season_team2) }
+  subject(:service_call) {
+    described_class.call(week: week, home_season_team: season_team1, visitor_season_team: season_team2)
+  }
 
   context 'for valid params' do
     let(:week) { create :week }

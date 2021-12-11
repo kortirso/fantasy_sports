@@ -8,7 +8,7 @@ describe Lineups::Player, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:lineup).class_name('::Lineup').with_foreign_key(:lineup_id) }
-    it { is_expected.to belong_to(:teams_player).class_name('::Teams::Player').with_foreign_key(:teams_player_id) }
+    it { is_expected.to belong_to(:lineup).class_name('::Lineup') }
+    it { is_expected.to belong_to(:teams_player).class_name('::Teams::Player') }
   end
 end
