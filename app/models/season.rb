@@ -17,5 +17,8 @@ class Season < ApplicationRecord
 
   has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
 
+  has_many :players_seasons, class_name: 'Players::Season', dependent: :destroy
+  has_many :players, through: :players_seasons
+
   scope :active, -> { where(active: true) }
 end

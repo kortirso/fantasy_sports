@@ -20,6 +20,7 @@ module Teams
     has_many :lineups, through: :lineups_players
 
     delegate :team, to: :seasons_team
+    delegate :season, to: :seasons_team
 
     scope :active, -> { where(active: true) }
   end

@@ -542,7 +542,9 @@ CREATE TABLE public.players (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     position_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    points integer DEFAULT 0 NOT NULL,
+    statistic jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -563,6 +565,40 @@ CREATE SEQUENCE public.players_id_seq
 --
 
 ALTER SEQUENCE public.players_id_seq OWNED BY public.players.id;
+
+
+--
+-- Name: players_seasons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.players_seasons (
+    id bigint NOT NULL,
+    player_id integer,
+    season_id integer,
+    points integer DEFAULT 0 NOT NULL,
+    statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: players_seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.players_seasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: players_seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.players_seasons_id_seq OWNED BY public.players_seasons.id;
 
 
 --
@@ -890,6 +926,13 @@ ALTER TABLE ONLY public.players ALTER COLUMN id SET DEFAULT nextval('public.play
 
 
 --
+-- Name: players_seasons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.players_seasons ALTER COLUMN id SET DEFAULT nextval('public.players_seasons_id_seq'::regclass);
+
+
+--
 -- Name: que_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1024,6 +1067,14 @@ ALTER TABLE ONLY public.lineups_players
 
 ALTER TABLE ONLY public.players
     ADD CONSTRAINT players_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: players_seasons players_seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.players_seasons
+    ADD CONSTRAINT players_seasons_pkey PRIMARY KEY (id);
 
 
 --
@@ -1170,6 +1221,13 @@ CREATE UNIQUE INDEX index_lineups_on_fantasy_team_id_and_week_id ON public.lineu
 
 
 --
+-- Name: index_players_seasons_on_player_id_and_season_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_players_seasons_on_player_id_and_season_id ON public.players_seasons USING btree (player_id, season_id);
+
+
+--
 -- Name: index_seasons_on_league_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1281,6 +1339,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211129074409'),
 ('20211129075659'),
 ('20211203095529'),
-('20211208164726');
+('20211208164726'),
+('20211214153104'),
+('20211215174418');
 
 

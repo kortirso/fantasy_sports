@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       getTeamsPlayers: function() {
-        this.$http.get(localizeRoute(`/seasons/${seasonId}/players.json`)).then(function(data) {
+        this.$http.get(localizeRoute(`/seasons/${seasonId}/players.json?fields=season_statistic`)).then(function(data) {
           this.teamsPlayers = data.body.season_players.data.map((element) => element.attributes)
         })
       },
