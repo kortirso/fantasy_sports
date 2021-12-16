@@ -3,10 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.0.rc1'
+gem 'rails', '7.0.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
@@ -45,7 +45,7 @@ gem 'strong_migrations', '~> 0.7'
 gem 'jsonapi-serializer', '2.2.0'
 
 # translating
-gem 'route_translator', '~> 11.0'
+gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator', branch: 'master'
 
 # active jobs adapter
 gem 'que', git: 'https://github.com/kortirso/que'
