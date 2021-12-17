@@ -38,6 +38,9 @@ en:
         invalid: Invalid credentials
     fantasy_teams:
       success_create: Fantasy team is created
+    lineups:
+      players:
+        lineup_update: Lineup is updated
   services:
     fantasy_teams:
       create:

@@ -20,7 +20,7 @@ module Lineups
         lineup_players_params: lineup_players_params[:data]
       )
       if service_call.success?
-        render json: { errors: [] }, status: :ok
+        render json: { message: t('controllers.lineups.players.lineup_update') }, status: :ok
       else
         render json: { errors: service_call.errors }, status: :unprocessable_entity
       end

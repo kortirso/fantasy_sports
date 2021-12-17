@@ -48,7 +48,7 @@ if (element !== null) {
 
           element.position_kind = positionKind
           this.sportsPositions.push(element)
-          this.sportsPositionsByKind[positionKind] = { name: element.name, totalAmount: element.total_amount }
+          this.sportsPositionsByKind[positionKind] = element
           return element.attributes
         })
       },
@@ -99,10 +99,10 @@ if (element !== null) {
             }
             // skip change if current position player amount will left less than minimum
             const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionKind).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionKind].min_game_amount) return
+            if (activePlayersOnCurrentPosition === this.sportsPositionsByKind[positionKind].min_game_amount) return
             // and if change position player amount will be more than maximum
             const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionKind).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionKind].max_game_amount) return
+            if (activePlayersOnNextPosition === this.sportsPositionsByKind[nextPositionKind].max_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id
@@ -123,10 +123,10 @@ if (element !== null) {
             }
             // skip change if current position player amount will left more than maximum
             const activePlayersOnCurrentPosition = this.activePlayersForPosition(positionKind).length
-            if (activePlayersOnCurrentPosition === this.sportsPositionsById[positionKind].max_game_amount) return
+            if (activePlayersOnCurrentPosition === this.sportsPositionsByKind[positionKind].max_game_amount) return
             // and if change position player amount will be less than minimum
             const activePlayersOnNextPosition = this.activePlayersForPosition(nextPositionKind).length
-            if (activePlayersOnNextPosition === this.sportsPositionsById[nextPositionKind].min_game_amount) return
+            if (activePlayersOnNextPosition === this.sportsPositionsByKind[nextPositionKind].min_game_amount) return
             this.changeOptionIds.push(element.id)
           })
           if (this.changeOptionIds.length > 0) this.changePlayerId = teamMember.id
@@ -159,8 +159,8 @@ if (element !== null) {
         this.changePlayerId = null
         this.changeOptionIds = []
 
-        Vue.set(this.players, changePlayerIndex, changePlayerInArray)
-        Vue.set(this.players, changeablePlayerIndex, changeablePlayerInArray)
+        //Vue.set(this.players, changePlayerIndex, changePlayerInArray)
+        //Vue.set(this.players, changeablePlayerIndex, changeablePlayerInArray)
       },
       submit() {
         const payload = {
@@ -172,9 +172,25 @@ if (element !== null) {
             }
           })
         }
-        this.$http.patch(localizeRoute(`/lineups/${lineupId}/players.json`), { lineup_players: payload }).then(function(data) {
-          showAlerts("notice", `<p>${t`Lineup is saved`}</p>`)
-        })
+        fetch(
+          localizeRoute(`/lineups/${lineupId}/players.json`),
+          {
+            method:  "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+            },
+            body:    JSON.stringify({ lineup_players: payload })
+          }
+        )
+          .then(response => response.json())
+          .then(function(data) {
+            if (data.message) {
+              showAlerts("notice", `<p>${data.message}</p>`)
+            } else {
+              data.errors.forEach((error) => showAlerts("alert", `<p>${error}</p>`))
+            }
+          })
       }
     }
   }).mount(squadViewSelector)

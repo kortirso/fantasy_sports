@@ -38,6 +38,9 @@ ru:
         invalid: Неверные данные
     fantasy_teams:
       success_create: Команда создана
+    lineups:
+      players:
+        lineup_update: Состав обновлён
   services:
     fantasy_teams:
       create:
