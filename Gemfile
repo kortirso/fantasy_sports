@@ -17,8 +17,12 @@ gem 'puma', '~> 5.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# Use Webpack to manage app-like JavaScript modules in Rails
-gem 'webpacker', '6.0.0.rc.5'
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem 'sass-rails'
+gem 'sprockets-rails'
+
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem 'importmap-rails'
 
 # A framework for building view components
 gem 'view_component', '2.40.0', require: 'view_component/engine'

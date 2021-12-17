@@ -4,8 +4,9 @@
     <title>Fantasy Sports</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_importmap_tags %>
+    <script type='esms-options'>{ "polyfillEnable": ["json-modules"] }</script>
   </head>
   <body>
     <input type='hidden' id='current_locale' value='<%= I18n.locale %>' />

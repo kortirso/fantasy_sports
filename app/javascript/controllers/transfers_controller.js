@@ -1,36 +1,29 @@
-import Vue         from "vue/dist/vue.esm"
-import VueResource from "vue-resource"
+import * as Vue from "vue"
 
-import { localizeValue, localizeRoute } from "./utils/localize"
-import { sportsData } from "./utils/sports"
-
-Vue.use(VueResource)
-Vue.http.interceptors.push(function(request) {
-  request.headers.set("X-CSRF-TOKEN", document.querySelector("meta[name='csrf-token']").getAttribute("content"))
-})
+import { localizeValue, localizeRoute } from "utils/localize"
+import { sportsData } from "utils/sports"
 
 const transfersViewSelector = "#fantasy-team-transfers"
 
-document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector(transfersViewSelector)
-  if (element === null) return
-
+const element = document.querySelector(transfersViewSelector)
+if (element !== null) {
   const seasonId = element.dataset.seasonId
   const sportKind = element.dataset.sportKind
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
-  const transfersComponent = new Vue({
-    el: transfersViewSelector,
-    data: {
-      teamName: "My team",
-      teamsById: {},
-      sportsPositions: [],
-      sportsPositionsByKind: {},
-      teamsPlayers: [],
-      teamMembers: [],
-      existedTeamMembers: [],
-      budget: parseFloat(element.dataset.fantasyTeamBudget),
-      completed: element.dataset.fantasyTeamCompleted === 'true'
+  Vue.createApp({
+    data() {
+      return {
+        teamName: "My team",
+        teamsById: {},
+        sportsPositions: [],
+        sportsPositionsByKind: {},
+        teamsPlayers: [],
+        teamMembers: [],
+        existedTeamMembers: [],
+        budget: parseFloat(element.dataset.fantasyTeamBudget),
+        completed: element.dataset.fantasyTeamCompleted === 'true'
+      }
     },
     created() {
       this.getTeams()
@@ -39,20 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (this.completed) this.getFantasyTeamPlayers()
     },
-    computed: {
-    },
     methods: {
-      localizeValue: function(value) {
+      localizeValue(value) {
         return localizeValue(value)
       },
-      getTeams: function() {
-        this.$http.get(localizeRoute(`/teams.json?season_id=${seasonId}`)).then(function(data) {
-          data.body.teams.data.forEach((element) => {
-            this.teamsById[element.id] = element.attributes.name
+      getTeams() {
+        const _this = this
+        fetch(localizeRoute(`/teams.json?season_id=${seasonId}`))
+          .then(response => response.json())
+          .then(function(data) {
+            data.teams.data.forEach((element) => {
+              _this.teamsById[element.id] = element.attributes.name
+            })
           })
-        })
       },
-      getSportsPositions: function() {
+      getSportsPositions() {
         Object.entries(sportsData.positions).forEach(([positionKind, element]) => {
           if (element.sport_kind !== sportKind) return
 
@@ -62,23 +56,29 @@ document.addEventListener("DOMContentLoaded", () => {
           return element.attributes
         })
       },
-      getTeamsPlayers: function() {
-        this.$http.get(localizeRoute(`/seasons/${seasonId}/players.json?fields=season_statistic`)).then(function(data) {
-          this.teamsPlayers = data.body.season_players.data.map((element) => element.attributes)
-        })
+      getTeamsPlayers() {
+        const _this = this
+        fetch(localizeRoute(`/seasons/${seasonId}/players.json?fields=season_statistic`))
+          .then(response => response.json())
+          .then(function(data) {
+            _this.teamsPlayers = data.season_players.data.map((element) => element.attributes)
+          })
       },
-      getFantasyTeamPlayers: function() {
-        this.$http.get(localizeRoute(`/fantasy_teams/${fantasyTeamUuid}/players.json`)).then(function(data) {
-          this.teamMembers = data.body.teams_players.data.map((element) => element.attributes)
-        })
+      getFantasyTeamPlayers() {
+        const _this = this
+        fetch(localizeRoute(`/fantasy_teams/${fantasyTeamUuid}/players.json`))
+          .then(response => response.json())
+          .then(function(data) {
+            _this.teamMembers = data.teams_players.data.map((element) => element.attributes)
+          })
       },
-      teamNameById: function(teamId) {
+      teamNameById(teamId) {
         return this.teamsById[teamId]
       },
-      sportPositionByKind: function(sportPositionKind) {
+      sportPositionByKind(sportPositionKind) {
         return this.sportsPositionsByKind[sportPositionKind]
       },
-      addTeamMember: function(teamPlayer) {
+      addTeamMember(teamPlayer) {
         // if player is already in team
         if (this.playerInTheTeam(teamPlayer)) return
         // if all position already in use
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.teamMembers.push(teamPlayer)
         this.updateBudget(- teamPlayer.price)
       },
-      removeTeamMember: function(teamPlayer) {
+      removeTeamMember(teamPlayer) {
         const teamMembers = this.teamMembers
         const teamPlayerInArray = this.teamMembers.find((element) => {
           return element.id === teamPlayer.id
@@ -108,22 +108,22 @@ document.addEventListener("DOMContentLoaded", () => {
         this.teamMembers = teamMembers
         this.updateBudget(teamPlayer.price)
       },
-      resetTransfers: function() {
+      resetTransfers() {
         this.getFantasyTeamPlayers()
         this.budget = parseFloat(element.dataset.fantasyTeamBudget)
       },
-      updateBudget: function(value) {
+      updateBudget(value) {
         this.budget += value
       },
-      teamMembersForPosition: function(sportPositionKind) {
+      teamMembersForPosition(sportPositionKind) {
         return this.teamMembers.filter((element) => {
           return element.player.position_kind === sportPositionKind
         })
       },
-      playerInTheTeam: function(teamPlayer) {
+      playerInTheTeam(teamPlayer) {
         return this.teamMembers.includes(teamPlayer)
       },
-      submit: function() {
+      submit() {
         if (this.completed) return
 
         const payload = {
@@ -133,10 +133,21 @@ document.addEventListener("DOMContentLoaded", () => {
             teams_players_ids: this.teamMembers.map((element) => element.id)
           }
         }
-        this.$http.patch(localizeRoute(`/fantasy_teams/${fantasyTeamUuid}.json`), payload).then(function(data) {
-          window.location = data.body.redirect_path
-        })
+        fetch(
+          localizeRoute(`/fantasy_teams/${fantasyTeamUuid}.json`),
+          {
+            method:  "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+            },
+            body:    JSON.stringify(payload)
+          }
+        )
+          .then(function(data) {
+            window.location = data.redirect_path
+          })
       }
     }
-  })
-})
+  }).mount(transfersViewSelector)
+}

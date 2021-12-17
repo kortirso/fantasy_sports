@@ -1,55 +1,48 @@
-import Vue         from "vue/dist/vue.esm"
-import VueResource from "vue-resource"
-import { t }       from "ttag"
+import * as Vue from "vue"
 
-import { localizeValue, localizeRoute } from "./utils/localize"
-import { showAlerts } from "./utils/alerts"
-import { sportsData } from "./utils/sports"
-
-Vue.use(VueResource)
-Vue.http.interceptors.push(function(request) {
-  request.headers.set("X-CSRF-TOKEN", document.querySelector("meta[name='csrf-token']").getAttribute("content"))
-})
+import { localizeValue, localizeRoute } from "utils/localize"
+import { showAlerts } from "utils/alerts"
+import { sportsData } from "utils/sports"
 
 const squadViewSelector = "#fantasy-team-squad"
 
-document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector(squadViewSelector)
-  if (element === null) return
-
+const element = document.querySelector(squadViewSelector)
+if (element !== null) {
   const seasonId = element.dataset.seasonId
   const sportKind = element.dataset.sportKind
   const lineupId = element.dataset.lineupId
 
-  const squadComponent = new Vue({
-    el: squadViewSelector,
-    data: {
-      teamsById: {},
-      sportsPositions: [],
-      sportsPositionsByKind: {},
-      players: [],
-      changePlayerId: null,
-      changeOptionIds: []
+  Vue.createApp({
+    data() {
+      return {
+        teamsById: {},
+        sportsPositions: [],
+        sportsPositionsByKind: {},
+        players: [],
+        changePlayerId: null,
+        changeOptionIds: []
+      }
     },
     created() {
       this.getTeams()
       this.getSportsPositions()
       this.getLineupPlayers()
     },
-    computed: {
-    },
     methods: {
-      localizeValue: function(value) {
+      localizeValue(value) {
         return localizeValue(value)
       },
-      getTeams: function() {
-        this.$http.get(localizeRoute(`/teams.json?season_id=${seasonId}`)).then(function(data) {
-          data.body.teams.data.forEach((element) => {
-            this.teamsById[element.id] = element.attributes.name
+      getTeams() {
+        const _this = this
+        fetch(localizeRoute(`/teams.json?season_id=${seasonId}`))
+          .then(response => response.json())
+          .then(function(data) {
+            data.teams.data.forEach((element) => {
+              _this.teamsById[element.id] = element.attributes.name
+            })
           })
-        })
       },
-      getSportsPositions: function() {
+      getSportsPositions() {
         Object.entries(sportsData.positions).forEach(([positionKind, element]) => {
           if (element.sport_kind !== sportKind) return
 
@@ -59,38 +52,41 @@ document.addEventListener("DOMContentLoaded", () => {
           return element.attributes
         })
       },
-      getLineupPlayers: function() {
-        this.$http.get(localizeRoute(`/lineups/${lineupId}/players.json?fields=opposite_teams`)).then(function(data) {
-          this.players = data.body.lineup_players.data.map((element) => element.attributes)
-        })
+      getLineupPlayers() {
+        const _this = this
+        fetch(localizeRoute(`/lineups/${lineupId}/players.json?fields=opposite_teams`))
+          .then(response => response.json())
+          .then(function(data) {
+            _this.players = data.lineup_players.data.map((element) => element.attributes)
+          })
       },
-      teamNameById: function(teamId) {
+      teamNameById(teamId) {
         return this.teamsById[teamId]
       },
-      activePlayersForPosition: function(sportPositionKind) {
+      activePlayersForPosition(sportPositionKind) {
         return this.players.filter((element) => {
           return element.active && element.player.position_kind === sportPositionKind
         })
       },
-      reservePlayers: function() {
+      reservePlayers() {
         return this.players.filter((element) => {
           return !element.active
         }).sort((a, b) => {
           return a.change_order > b.change_order
         })
       },
-      activePlayers: function() {
+      activePlayers() {
         return this.players.filter((element) => {
           return element.active
         })
       },
-      oppositeTeamNames: function(teamMember) {
+      oppositeTeamNames(teamMember) {
         const values = teamMember.team.opposite_team_ids
         if (values.length === 0) return "-"
 
         return values.map((element) => localizeValue(this.teamNameById(element))).join(", ")
       },
-      changeActivePlayer: function(teamMember) {
+      changeActivePlayer(teamMember) {
         // beginning of change selection
         if (this.changePlayerId === null) {
           const positionKind = teamMember.player.position_kind
@@ -115,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
           this.changePlayers(teamMember.id, false)
         }
       },
-      changeReservePlayer: function(teamMember) {
+      changeReservePlayer(teamMember) {
         if (this.changePlayerId === null) {
           const positionKind = teamMember.player.position_kind
           this.activePlayers().forEach((element) => {
@@ -139,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
           this.changePlayers(teamMember.id, true)
         }
       },
-      changePlayers: function(changeableId, stateForInitialPlayer) {
+      changePlayers(changeableId, stateForInitialPlayer) {
         // this.changePlayerId - id of initial player
         // stateForInitialPlayer - new state for initial player
         // changeableId - id of changeable player
@@ -166,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Vue.set(this.players, changePlayerIndex, changePlayerInArray)
         Vue.set(this.players, changeablePlayerIndex, changeablePlayerInArray)
       },
-      submit: function() {
+      submit() {
         const payload = {
           data: this.players.map((element) => {
             return {
@@ -181,5 +177,5 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       }
     }
-  })
-})
+  }).mount(squadViewSelector)
+}
