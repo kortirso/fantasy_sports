@@ -10,11 +10,12 @@ class FantasyTeamsController < ApplicationController
   def create
     service_call = FantasyTeams::CreateService.call(season: @season, user: Current.user)
     if service_call.success?
-      flash[:notice] = t('controllers.fantasy_teams.success_create')
-      redirect_to fantasy_team_transfers_path(service_call.result.uuid)
+      redirect_to(
+        fantasy_team_transfers_path(service_call.result.uuid),
+        notice: t('controllers.fantasy_teams.success_create')
+      )
     else
-      flash[:alert] = service_call.errors
-      redirect_to home_path
+      redirect_to home_path, alert: service_call.errors
     end
   end
 

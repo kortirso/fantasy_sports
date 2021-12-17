@@ -17,14 +17,12 @@ module Users
 
     def success_create_response(service_call)
       session[:fantasy_sports_user_id] = service_call.result.id
-      flash[:notice] = t('controllers.users.registrations.success_create')
-      redirect_to after_registration_path
+      redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 
     def failed_create_response(service_call)
       @user = User.new(user_params)
-      flash[:alert] = service_call.errors
-      render :new
+      render :new, alert: service_call.errors
     end
 
     def after_registration_path

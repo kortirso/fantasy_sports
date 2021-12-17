@@ -8,7 +8,6 @@ class AdminController < ApplicationController
   def authorize_admin
     return if Current.user.admin?
 
-    flash[:alert] = t('controllers.admin.permission')
-    redirect_to home_path
+    redirect_to home_path, alert: t('controllers.admin.permission')
   end
 end
