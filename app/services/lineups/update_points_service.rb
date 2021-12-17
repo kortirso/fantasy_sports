@@ -7,7 +7,6 @@ module Lineups
     def call(lineup_ids:)
       Lineup
         .where(id: lineup_ids)
-        .includes(:lineups_players)
         .each { |lineup| lineup.update(points: lineup.lineups_players.active.pluck(:points).sum(&:to_i)) }
     end
   end

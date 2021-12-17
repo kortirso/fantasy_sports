@@ -9,6 +9,15 @@ GIT
       addressable (~> 2.7)
 
 GIT
+  remote: https://github.com/flyerhzm/bullet
+  revision: af53f0a7b828147dffe3af8750bcb8cfde5ee1be
+  branch: master
+  specs:
+    bullet (6.1.5)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
+
+GIT
   remote: https://github.com/kortirso/que
   revision: 865bf4366f61e7b27e19098c5cae59159f9b922f
   specs:
@@ -277,6 +286,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    uniform_notifier (1.14.2)
     view_component (2.40.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
@@ -292,6 +302,7 @@ DEPENDENCIES
   action_policy (= 0.6.0)
   bcrypt (= 3.1.16)
   bootsnap (>= 1.4.4)
+  bullet!
   database_cleaner (~> 1.8.5)
   dry-validation (~> 1.7)
   factory_bot_rails (= 6.2.0)

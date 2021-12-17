@@ -55,6 +55,7 @@ gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator'
 gem 'que', git: 'https://github.com/kortirso/que'
 
 group :development, :test do
+  gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
   gem 'rubocop', '~> 1.23', require: false
   gem 'rubocop-performance', '~> 1.12', require: false
   gem 'rubocop-rails', '~> 2.12', require: false
