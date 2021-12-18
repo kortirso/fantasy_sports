@@ -21,7 +21,7 @@ describe Lineups::PlayersController, type: :controller do
         end
       end
 
-      context 'for existed lineupof another user' do
+      context 'for existed lineup of another user' do
         let!(:lineup) { create :lineup }
 
         it 'returns json not_found status with errors' do
@@ -76,6 +76,73 @@ describe Lineups::PlayersController, type: :controller do
 
           it 'and contains lineups player team opposite_team_ids' do
             expect(response.body).to have_json_path('lineup_players/data/0/attributes/team/opposite_team_ids')
+          end
+        end
+      end
+    end
+  end
+
+  describe 'PATCH#update' do
+    context 'for unlogged users' do
+      it 'redirects to login path' do
+        patch :update, params: { lineup_id: 'unexisted', locale: 'en', lineup_players: { data: [{}] } }
+
+        expect(response).to redirect_to users_login_en_path
+      end
+    end
+
+    context 'for logged users' do
+      sign_in_user
+
+      context 'for not existed lineup' do
+        it 'returns json not_found status with errors' do
+          patch :update, params: { lineup_id: 'unexisted', locale: 'en', lineup_players: { data: [{}] } }
+
+          expect(response.status).to eq 404
+        end
+      end
+
+      context 'for existed lineup of another user' do
+        let!(:lineup) { create :lineup }
+
+        it 'returns json not_found status with errors' do
+          patch :update, params: { lineup_id: lineup.id, locale: 'en', lineup_players: { data: [{}] } }
+
+          expect(response.status).to eq 404
+        end
+      end
+
+      context 'for existed lineup of user' do
+        let!(:fantasy_team) { create :fantasy_team, user: @current_user }
+        let!(:lineup) { create :lineup, fantasy_team: fantasy_team }
+        let!(:lineups_player) { create :lineups_player, lineup: lineup }
+        let(:service_object) { double }
+
+        before do
+          allow(::Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
+          allow(service_object).to receive(:success?).and_return(update_result)
+          allow(service_object).to receive(:errors).and_return(['Error'])
+
+          patch :update, params: {
+            lineup_id:      lineup.id,
+            locale:         'en',
+            lineup_players: { data: [{ 'id' => lineups_player.id, 'active' => true, 'change_order' => 0 }] }
+          }
+        end
+
+        context 'for invalid data' do
+          let(:update_result) { false }
+
+          it 'returns status 422' do
+            expect(response.status).to eq 422
+          end
+        end
+
+        context 'for valid data' do
+          let(:update_result) { true }
+
+          it 'returns status 200' do
+            expect(response.status).to eq 200
           end
         end
       end

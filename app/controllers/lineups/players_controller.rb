@@ -16,8 +16,8 @@ module Lineups
 
     def update
       service_call = Lineups::Players::UpdateService.call(
-        lineup:                @lineup,
-        lineup_players_params: lineup_players_params[:data]
+        lineup:                 @lineup,
+        lineups_players_params: lineups_players_params
       )
       if service_call.success?
         render json: { message: t('controllers.lineups.players.lineup_update') }, status: :ok
@@ -36,8 +36,17 @@ module Lineups
       @lineup_players = @lineup.lineups_players.includes(teams_player: %i[player seasons_team])
     end
 
-    def lineup_players_params
-      params.require(:lineup_players).permit(data: [%i[id active change_order]]).to_h
+    def lineups_players_params
+      params
+        .require(:lineup_players)
+        .permit(data: [%i[id active change_order]])
+        .to_h[:data]
+        .map { |hash|
+          hash['id'] = hash['id'].to_i
+          hash['active'] = hash['active'] == 'true' || hash['active'] == true
+          hash['change_order'] = hash['change_order'].to_i
+          hash
+        }
     end
   end
 end

@@ -7,11 +7,11 @@ module Lineups
         ACTIVE_PLAYERS_LIMIT = 11
         CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4].freeze
 
-        def call(lineup:, lineup_players_params:)
+        def call(lineup:, lineups_players_params:)
           @lineups_players_ids = lineup.lineups_players.order(id: :asc).ids
 
           initialize_counters
-          validate_players_data(lineup_players_params)
+          validate_players_data(lineups_players_params)
           validate_active_players_count
           validate_change_orders
 
@@ -27,13 +27,11 @@ module Lineups
           @positive_change_orders = []
         end
 
-        def validate_players_data(lineup_players_params)
-          lineup_players_params.each do |lineup_player_params|
-            params_hash = lineup_player_params.symbolize_keys
-
-            @players_ids.push(params_hash[:id])
-            @active_players += 1 if params_hash[:active]
-            @positive_change_orders.push(params_hash[:change_order]) unless params_hash[:change_order].zero?
+        def validate_players_data(lineups_players_params)
+          lineups_players_params.each do |params_hash|
+            @players_ids.push(params_hash['id'])
+            @active_players += 1 if params_hash['active'] == true
+            @positive_change_orders.push(params_hash['change_order']) unless params_hash['change_order'].zero?
           end
         end
 

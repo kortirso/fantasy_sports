@@ -34,7 +34,7 @@ module Players
 
         if @games_players_statistic.key?(player_id)
           @games_players_statistic[player_id]
-            .deep_merge(game_player_hash(games_player)) { |_k, a_value, b_value|
+            .deep_merge!(games_player_hash(games_player)) { |_k, a_value, b_value|
               a_value + b_value
             }
         else

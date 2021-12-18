@@ -12,21 +12,21 @@ module Lineups
           @football_players_validator = football_players_validator
         end
 
-        def call(lineup:, lineup_players_params:)
-          validate_params(lineup, lineup_players_params)
+        def call(lineup:, lineups_players_params:)
+          validate_params(lineup, lineups_players_params)
           return if failure?
 
-          update_lineups_players(lineup, lineup_players_params)
+          update_lineups_players(lineup, lineups_players_params)
         end
 
         private
 
-        def validate_params(lineup, lineup_players_params)
-          fails!(@football_players_validator.call(lineup: lineup, lineup_players_params: lineup_players_params))
+        def validate_params(lineup, lineups_players_params)
+          fails!(@football_players_validator.call(lineup: lineup, lineups_players_params: lineups_players_params))
         end
 
-        def update_lineups_players(lineup, lineup_players_params)
-          grouped_params = lineup_players_params.index_by { |players_param| players_param['id'] }
+        def update_lineups_players(lineup, lineups_players_params)
+          grouped_params = lineups_players_params.index_by { |players_param| players_param['id'] }
           lineup.lineups_players.includes(:lineup, :teams_player).each do |lineups_player|
             lineups_player.update(grouped_params[lineups_player.id].except(:id))
           end

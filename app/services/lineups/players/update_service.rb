@@ -11,8 +11,9 @@ module Lineups
         @update_football_players_service = update_football_players_service
       end
 
-      def call(lineup:, lineup_players_params:)
-        service_for_call(lineup).call(lineup: lineup, lineup_players_params: lineup_players_params)
+      def call(lineup:, lineups_players_params:)
+        call_result = service_for_call(lineup).call(lineup: lineup, lineups_players_params: lineups_players_params)
+        fails!(call_result.errors) if call_result.failure?
       end
 
       private
