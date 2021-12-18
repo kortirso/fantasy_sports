@@ -16,12 +16,12 @@ module Players
       private
 
       def collect_statistic_of_players
-        @game_players_statistic = {}
-        games_player.each { |game_player| collect_statistic_of_player(game_player) }
+        @games_players_statistic = {}
+        games_players.each { |games_player| collect_statistic_of_player(games_player) }
       end
 
       def update_players_seasons
-        @game_players_statistic.each do |player_id, values|
+        @games_players_statistic.each do |player_id, values|
           Player.find(player_id).update(
             points:    values[:points],
             statistic: values[:statistic]
@@ -29,20 +29,20 @@ module Players
         end
       end
 
-      def collect_statistic_of_player(game_player)
-        player_id = game_player.teams_player.player_id
+      def collect_statistic_of_player(games_player)
+        player_id = games_player.teams_player.player_id
 
-        if @game_players_statistic.key?(player_id)
-          @game_players_statistic[player_id]
-            .deep_merge(game_player_hash(game_player)) { |_k, a_value, b_value|
+        if @games_players_statistic.key?(player_id)
+          @games_players_statistic[player_id]
+            .deep_merge(game_player_hash(games_player)) { |_k, a_value, b_value|
               a_value + b_value
             }
         else
-          @game_players_statistic[player_id] = game_player_hash(game_player)
+          @games_players_statistic[player_id] = games_player_hash(games_player)
         end
       end
 
-      def games_player
+      def games_players
         Games::Player
           .joins(game: :week)
           .includes(teams_player: :player)
@@ -50,10 +50,10 @@ module Players
           .where(players: { id: @player_ids })
       end
 
-      def game_player_hash(game_player)
+      def games_player_hash(games_player)
         {
-          points:    game_player.points.to_i,
-          statistic: game_player.statistic || {}
+          points:    games_player.points.to_i,
+          statistic: games_player.statistic || {}
         }
       end
     end

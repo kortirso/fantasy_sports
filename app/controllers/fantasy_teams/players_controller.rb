@@ -15,6 +15,7 @@ module FantasyTeams
 
     def find_fantasy_team
       @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:fantasy_team_id])
+      page_not_found if @fantasy_team.nil?
     end
 
     def find_fantasy_team_players

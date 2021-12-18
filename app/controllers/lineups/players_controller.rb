@@ -29,7 +29,7 @@ module Lineups
     private
 
     def find_lineup
-      @lineup = Current.user.lineups.find_by(id: params[:lineup_id])
+      @lineup = Current.user.lineups.find(params[:lineup_id])
     end
 
     def find_lineup_players

@@ -8,6 +8,8 @@ SimpleCov.start do
   add_group 'Services', 'app/services'
   add_group 'Validators', 'app/validators'
   add_group 'Jobs', 'app/jobs'
+  add_group 'Serializers', 'app/serializers'
+  add_group 'Policies', 'app/policies'
 end
 
 RSpec.configure do |config|

@@ -22,7 +22,7 @@ module Lineups
           lineups_players.update_all(points: points)
           lineup_ids.push(lineups_players.pluck(:lineup_id))
         end
-        @lineups_update_points_service.call(lineup_ids: lineup_ids.flatten.uniq)
+        @lineups_update_points_service.call(lineup_ids: lineup_ids.flatten.uniq.sort)
       end
     end
   end
