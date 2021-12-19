@@ -38,7 +38,7 @@ describe Weeks::ChangeService, type: :service do
   end
 
   context 'for existed coming week' do
-    let(:week) { create :week, status: Week::COMING }
+    let!(:week) { create :week, status: Week::COMING }
 
     it 'calls services', :aggregate_failures do
       service_call

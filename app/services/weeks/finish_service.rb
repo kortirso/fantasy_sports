@@ -6,6 +6,7 @@ module Weeks
 
     def call(week:)
       return if week.nil?
+      return unless week.active?
 
       week.update(status: Week::INACTIVE)
     end

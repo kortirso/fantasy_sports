@@ -314,7 +314,8 @@ CREATE TABLE public.fantasy_teams (
     updated_at timestamp(6) without time zone NOT NULL,
     completed boolean DEFAULT false NOT NULL,
     budget_cents integer DEFAULT 10000 NOT NULL,
-    free_transfers integer DEFAULT 0 NOT NULL
+    free_transfers integer DEFAULT 0 NOT NULL,
+    transfers_limited boolean DEFAULT false NOT NULL
 );
 
 
@@ -1341,6 +1342,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211203095529'),
 ('20211208164726'),
 ('20211214153104'),
-('20211215174418');
+('20211215174418'),
+('20211219120512');
 
 

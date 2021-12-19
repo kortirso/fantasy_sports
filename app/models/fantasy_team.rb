@@ -22,4 +22,5 @@ class FantasyTeam < ApplicationRecord
   has_many :weeks, through: :fantasy_teams_lineups
 
   scope :completed, -> { where(completed: true) }
+  scope :with_unlimited_transfers, -> { where(transfers_limited: false) }
 end
