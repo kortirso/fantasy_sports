@@ -25,6 +25,8 @@ ru:
   controllers:
     application:
       page_not_found: Страница не найдена
+    maintenable:
+      maintenance: Лига находится на обслуживании
     admin:
       permission: Доступ запрещён
     authentication:

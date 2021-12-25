@@ -445,7 +445,8 @@ CREATE TABLE public.leagues (
     sport_kind integer DEFAULT 0 NOT NULL,
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    maintenance boolean DEFAULT false NOT NULL
 );
 
 
@@ -1343,6 +1344,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208164726'),
 ('20211214153104'),
 ('20211215174418'),
-('20211219120512');
+('20211219120512'),
+('20211224184836');
 
 

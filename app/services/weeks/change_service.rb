@@ -25,11 +25,17 @@ module Weeks
     private
 
     def update_weeks
+      update_league_maintenance(true)
       ActiveRecord::Base.transaction do
         @finish_service.call(week: @week.previous)
         @start_service.call(week: @week)
         @coming_service.call(week: @week.next)
       end
+      update_league_maintenance(false)
+    end
+
+    def update_league_maintenance(maintenance)
+      @week.league.update(maintenance: maintenance)
     end
   end
 end

@@ -113,36 +113,63 @@ describe Lineups::PlayersController, type: :controller do
       end
 
       context 'for existed lineup of user' do
+        let!(:fantasy_league) { create :fantasy_league }
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
-        let!(:lineup) { create :lineup, fantasy_team: fantasy_team }
+        let!(:week) { create :week, season: fantasy_league.season }
+        let!(:lineup) { create :lineup, fantasy_team: fantasy_team, week: week }
         let!(:lineups_player) { create :lineups_player, lineup: lineup }
-        let(:service_object) { double }
 
-        before do
-          allow(::Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
-          allow(service_object).to receive(:success?).and_return(update_result)
-          allow(service_object).to receive(:errors).and_return(['Error'])
+        context 'for league at maintenance' do
+          before do
+            create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
 
-          patch :update, params: {
-            lineup_id:      lineup.id,
-            locale:         'en',
-            lineup_players: { data: [{ 'id' => lineups_player.id, 'active' => true, 'change_order' => 0 }] }
-          }
-        end
+            fantasy_league.season.league.update(maintenance: true)
 
-        context 'for invalid data' do
-          let(:update_result) { false }
+            patch :update, params: {
+              lineup_id:      lineup.id,
+              locale:         'en',
+              lineup_players: { data: [{ 'id' => lineups_player.id, 'active' => true, 'change_order' => 0 }] }
+            }
+          end
 
           it 'returns status 422' do
             expect(response.status).to eq 422
           end
+
+          it 'and returns error about maintenance' do
+            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
+          end
         end
 
-        context 'for valid data' do
-          let(:update_result) { true }
+        context 'for standard league' do
+          let(:service_object) { double }
 
-          it 'returns status 200' do
-            expect(response.status).to eq 200
+          before do
+            allow(::Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
+            allow(service_object).to receive(:success?).and_return(update_result)
+            allow(service_object).to receive(:errors).and_return(['Error'])
+
+            patch :update, params: {
+              lineup_id:      lineup.id,
+              locale:         'en',
+              lineup_players: { data: [{ 'id' => lineups_player.id, 'active' => true, 'change_order' => 0 }] }
+            }
+          end
+
+          context 'for invalid data' do
+            let(:update_result) { false }
+
+            it 'returns status 422' do
+              expect(response.status).to eq 422
+            end
+          end
+
+          context 'for valid data' do
+            let(:update_result) { true }
+
+            it 'returns status 200' do
+              expect(response.status).to eq 200
+            end
           end
         end
       end

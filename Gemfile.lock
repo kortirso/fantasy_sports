@@ -254,8 +254,6 @@ GEM
       rubocop (~> 1.19)
     ruby-next-core (0.13.3)
     ruby-progressbar (1.11.0)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -322,10 +320,9 @@ DEPENDENCIES
   rubocop-performance (~> 1.12)
   rubocop-rails (~> 2.12)
   rubocop-rspec (~> 2.6)
-  sass-rails
+  sassc-rails
   shoulda-matchers (~> 5.0)
   simplecov
-  sprockets-rails
   strong_migrations (~> 0.7)
   view_component (= 2.40.0)
 

@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 class FantasyTeamsController < ApplicationController
+  include Maintenable
+
   before_action :find_fantasy_team, only: %i[show update]
   before_action :find_fantasy_team_relationships, only: %i[show]
   before_action :find_season, only: %i[create]
+  before_action :check_league_maintenance, only: %i[show]
+  before_action :find_league, only: %i[update]
+  before_action :validate_league_maintenance, only: %i[update]
 
   def show; end
 
@@ -46,6 +51,10 @@ class FantasyTeamsController < ApplicationController
 
   def find_season
     @season = Season.active.find(params[:season_id])
+  end
+
+  def find_league
+    @league = @fantasy_team.fantasy_leagues.first.season.league
   end
 
   def fantasy_team_params

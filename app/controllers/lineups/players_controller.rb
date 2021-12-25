@@ -2,8 +2,12 @@
 
 module Lineups
   class PlayersController < ApplicationController
+    include Maintenable
+
     before_action :find_lineup
     before_action :find_lineup_players, only: %i[show]
+    before_action :find_league, only: %i[update]
+    before_action :validate_league_maintenance, only: %i[update]
 
     def show
       render json: {
@@ -34,6 +38,10 @@ module Lineups
 
     def find_lineup_players
       @lineup_players = @lineup.lineups_players.includes(teams_player: %i[player seasons_team])
+    end
+
+    def find_league
+      @league = @lineup.week.league
     end
 
     def lineups_players_params
