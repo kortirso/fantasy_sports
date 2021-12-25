@@ -2,8 +2,11 @@
 
 module FantasyTeams
   class TransfersController < ApplicationController
+    include Maintenable
+
     before_action :find_fantasy_team
     before_action :find_season
+    before_action :check_league_maintenance
 
     def index; end
 

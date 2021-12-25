@@ -25,6 +25,8 @@ en:
   controllers:
     application:
       page_not_found: Page is not found
+    maintenable:
+      maintenance: League is on maintenance
     admin:
       permission: Unauthorized
     authentication:

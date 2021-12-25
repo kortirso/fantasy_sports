@@ -19,6 +19,8 @@ class Week < ApplicationRecord
 
   scope :active, -> { where(status: ACTIVE) }
 
+  delegate :league, to: :season
+
   def previous
     Week.find_by(season_id: season_id, position: position - 1)
   end

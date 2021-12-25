@@ -18,8 +18,7 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'sass-rails'
-gem 'sprockets-rails'
+gem 'sassc-rails'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'

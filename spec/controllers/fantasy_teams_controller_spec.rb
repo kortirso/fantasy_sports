@@ -146,59 +146,85 @@ describe FantasyTeamsController, type: :controller do
       end
 
       context 'for existed fantasy team' do
+        let!(:fantasy_league) { create :fantasy_league }
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
-        let(:complete_service) { double }
 
         before do
-          allow(FantasyTeams::CompleteService).to receive(:call).and_return(complete_service)
+          create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
         end
 
-        context 'for invalid data' do
-          let(:request) {
-            patch :update, params: {
-              id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: '', budget_cents: 50_000 }
-            }
-          }
-
+        context 'for league at maintenance' do
           before do
-            allow(complete_service).to receive(:success?).and_return(false)
-            allow(complete_service).to receive(:errors).and_return([])
-          end
+            fantasy_league.season.league.update(maintenance: true)
 
-          it 'calls complete service' do
-            request
-
-            expect(FantasyTeams::CompleteService).to have_received(:call)
-          end
-
-          it 'and returns json unprocessable_entity status with errors' do
-            request
-
-            expect(response.status).to eq 422
-          end
-        end
-
-        context 'for valid data' do
-          let(:request) {
             patch :update, params: {
               id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: 'New name', budget_cents: 50_000 }
             }
-          }
+          end
+
+          it 'returns status 422' do
+            expect(response.status).to eq 422
+          end
+
+          it 'and returns error about maintenance' do
+            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
+          end
+        end
+
+        context 'for standard league' do
+          let(:complete_service) { double }
 
           before do
-            allow(complete_service).to receive(:success?).and_return(true)
+            allow(FantasyTeams::CompleteService).to receive(:call).and_return(complete_service)
           end
 
-          it 'calls complete service' do
-            request
+          context 'for invalid data' do
+            let(:request) {
+              patch :update, params: {
+                id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: '', budget_cents: 50_000 }
+              }
+            }
 
-            expect(FantasyTeams::CompleteService).to have_received(:call)
+            before do
+              allow(complete_service).to receive(:success?).and_return(false)
+              allow(complete_service).to receive(:errors).and_return([])
+            end
+
+            it 'calls complete service' do
+              request
+
+              expect(FantasyTeams::CompleteService).to have_received(:call)
+            end
+
+            it 'and returns json unprocessable_entity status with errors' do
+              request
+
+              expect(response.status).to eq 422
+            end
           end
 
-          it 'and returns json ok status' do
-            request
+          context 'for valid data' do
+            let(:request) {
+              patch :update, params: {
+                id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: 'New name', budget_cents: 50_000 }
+              }
+            }
 
-            expect(response.status).to eq 200
+            before do
+              allow(complete_service).to receive(:success?).and_return(true)
+            end
+
+            it 'calls complete service' do
+              request
+
+              expect(FantasyTeams::CompleteService).to have_received(:call)
+            end
+
+            it 'and returns json ok status' do
+              request
+
+              expect(response.status).to eq 200
+            end
           end
         end
       end
