@@ -1,6 +1,7 @@
 import * as Vue from "vue"
 
 import { localizeValue, localizeRoute } from "utils/localize"
+import { showAlerts } from "utils/alerts"
 import { sportsData } from "utils/sports"
 
 const transfersViewSelector = "#fantasy-team-transfers"
@@ -124,29 +125,70 @@ if (element !== null) {
         return this.teamMembers.includes(teamPlayer)
       },
       submit() {
-        if (this.completed) return
+        if (this.completed) {
+          const onlyValidate = false
 
-        const payload = {
-          fantasy_team: {
-            name:              this.teamName,
-            budget_cents:      this.budget * 100,
-            teams_players_ids: this.teamMembers.map((element) => element.id)
+          const payload = {
+            fantasy_team: {
+              teams_players_ids: this.teamMembers.map((element) => element.id),
+              only_validate:     onlyValidate
+            }
           }
+          fetch(
+            localizeRoute(`/fantasy_teams/${fantasyTeamUuid}/transfers.json`),
+            {
+              method:  "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+              },
+              body:    JSON.stringify(payload)
+            }
+          )
+            .then(response => response.json())
+            .then(function(data) {
+              if (onlyValidate) {
+                if (data.result) {
+                  showAlerts("notice", `<p>Points penalty - ${data.result.points_penalty}</p>`)
+                } else {
+                  data.errors.forEach((error) => showAlerts("alert", `<p>${error}</p>`))
+                }
+              } else {
+                if (data.result) {
+                  showAlerts("notice", `<p>${data.result}</p>`)
+                } else {
+                  data.errors.forEach((error) => showAlerts("alert", `<p>${error}</p>`))
+                }
+              }
+            })
+        } else {
+          const payload = {
+            fantasy_team: {
+              name:              this.teamName,
+              budget_cents:      this.budget * 100,
+              teams_players_ids: this.teamMembers.map((element) => element.id)
+            }
+          }
+          fetch(
+            localizeRoute(`/fantasy_teams/${fantasyTeamUuid}.json`),
+            {
+              method:  "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+              },
+              body:    JSON.stringify(payload)
+            }
+          )
+            .then(response => response.json())
+            .then(function(data) {
+              if (data.redirect_path) {
+                window.location = data.redirect_path
+              } else {
+                data.errors.forEach((error) => showAlerts("alert", `<p>${error}</p>`))
+              }
+            })
         }
-        fetch(
-          localizeRoute(`/fantasy_teams/${fantasyTeamUuid}.json`),
-          {
-            method:  "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
-            },
-            body:    JSON.stringify(payload)
-          }
-        )
-          .then(function(data) {
-            window.location = data.redirect_path
-          })
       }
     }
   }).mount(transfersViewSelector)

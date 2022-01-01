@@ -8,6 +8,6 @@ class HomesController < ApplicationController
   private
 
   def find_leagues
-    @leagues = League.all.group_by(&:sport_kind)
+    @leagues = League.all.includes(:active_season).group_by(&:sport_kind)
   end
 end

@@ -47,6 +47,9 @@ en:
     fantasy_teams:
       create:
         exists: Fantasy team is already exists
+      transfers:
+        perform:
+          success: Transfers are completed
     weeks:
       change:
         record_is_not_exists: Week is not exist
@@ -74,13 +77,15 @@ en:
           total_points: Total points
           no_lineups: There is no active week
       transfers:
-        index:
+        show:
           team_name: Fantasy team name
           money_remaining: Money renaining
           save: Save fantasy team
           selection: Player selection
           reset: Reset team
           make_transfers: Complete transfers
+          transfers_remaining: Free transfers for a week
+          unlimited: Unlimited
       show:
         save_team: Save the team
     users:

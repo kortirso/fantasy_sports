@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resource :home, only: %i[show]
     resources :fantasy_teams, only: %i[show create update] do
       scope module: :fantasy_teams do
-        resources :transfers, only: %i[index]
+        resource :transfers, only: %i[show update]
         resources :points, only: %i[index]
         resources :players, only: %i[index]
       end
