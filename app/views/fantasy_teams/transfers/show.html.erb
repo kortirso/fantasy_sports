@@ -9,17 +9,18 @@
   >
     <div id='fantasy-team-members'>
       <div class='form-field' v-if='!completed'>
-        <label class='form-label'><%= t('views.fantasy_teams.transfers.index.team_name') %></label>
+        <label class='form-label'><%= t('views.fantasy_teams.transfers.show.team_name') %></label>
         <input class='form-value' v-model='teamName' />
       </div>
-      <p><%= t('views.fantasy_teams.transfers.index.money_remaining') %> - {{ budget }}</p>
+      <p><%= t('views.fantasy_teams.transfers.show.money_remaining') %> - {{ budget }}</p>
+      <p><%= t('views.fantasy_teams.transfers.show.transfers_remaining') %> - <%= @fantasy_team.transfers_limited? ? @fantasy_team.free_transfers : t('views.fantasy_teams.transfers.show.unlimited') %></p>
       <button
         id='reset-button'
         class='button'
         v-if='completed'
         @click='resetTransfers()'
       >
-        <%= t('views.fantasy_teams.transfers.index.reset') %>
+        <%= t('views.fantasy_teams.transfers.show.reset') %>
       </button>
       <div id='team-players-by-positions'>
         <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
@@ -46,14 +47,14 @@
       </div>
       <button id='submit-button' class='button' @click='submit'>
         <% if @fantasy_team.completed? %>
-          <%= t('views.fantasy_teams.transfers.index.make_transfers') %>
+          <%= t('views.fantasy_teams.transfers.show.make_transfers') %>
         <% else %>
-          <%= t('views.fantasy_teams.transfers.index.save') %>
+          <%= t('views.fantasy_teams.transfers.show.save') %>
         <% end %>
       </button>
     </div>
     <div id='fantasy-players'>
-      <h2><%= t('views.fantasy_teams.transfers.index.selection') %></h2>
+      <h2><%= t('views.fantasy_teams.transfers.show.selection') %></h2>
       <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
         <div class='team-player-info'>
           <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>

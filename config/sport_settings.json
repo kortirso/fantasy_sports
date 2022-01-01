@@ -4,19 +4,19 @@
       "name": { "en": "Football", "ru": "Футбол" },
       "max_team_players": 3,
       "free_transfers_per_week": 1,
-      "points_per_transfer": 1
+      "points_per_transfer": 4
     },
     "basketball": {
       "name": { "en": "Basketball", "ru": "Баскетбол" },
       "max_team_players": 2,
       "free_transfers_per_week": 1,
-      "points_per_transfer": 1
+      "points_per_transfer": 4
     },
     "hockey": {
       "name": { "en": "Hockey", "ru": "Хоккей" },
       "max_team_players": 2,
       "free_transfers_per_week": 1,
-      "points_per_transfer": 1
+      "points_per_transfer": 4
     }
   },
   "positions": {

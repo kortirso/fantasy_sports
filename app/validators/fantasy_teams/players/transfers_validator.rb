@@ -5,7 +5,7 @@ module FantasyTeams
     class TransfersValidator < ApplicationValidator
       BUDGET_LIMIT_CENTS = 10_000
 
-      def call(fantasy_team:, teams_players_ids:)
+      def call(fantasy_team:, teams_players_ids:, budget_limit: BUDGET_LIMIT_CENTS)
         @fantasy_team     = fantasy_team
         @season           = @fantasy_team.fantasy_leagues.first.season
         @max_team_players = Sports.sport(@fantasy_team.sport_kind)['max_team_players']
@@ -15,7 +15,7 @@ module FantasyTeams
         collect_data
         validate_players_positions
         validate_players_teams
-        validate_players_price
+        validate_players_price(budget_limit)
 
         @errors
       end
@@ -55,8 +55,8 @@ module FantasyTeams
           }
       end
 
-      def validate_players_price
-        return if @total_price_cents <= BUDGET_LIMIT_CENTS
+      def validate_players_price(budget_limit)
+        return if @total_price_cents <= budget_limit
 
         @errors.push("Fantasy team's price is too high")
       end

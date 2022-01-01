@@ -47,6 +47,9 @@ ru:
     fantasy_teams:
       create:
         exists: Команда уже создана
+      transfers:
+        perform:
+          success: Трансферы выполнены
     weeks:
       change:
         record_is_not_exists: Неделя не существует
@@ -74,13 +77,15 @@ ru:
           total_points: Набранные очки
           no_lineups: На данный момент нет активной игровой недели
       transfers:
-        index:
+        show:
           team_name: Название команды
           money_remaining: Остаток средств на команду
           save: Сохранить команду
           selection: Выбор игроков
           reset: Сбросить трансферы
           make_transfers: Выполнить трансферы
+          transfers_remaining: Бесплатные трансферы на неделю
+          unlimited: Без лимита
       show:
         save_team: Сохранить изменения команды
     users:

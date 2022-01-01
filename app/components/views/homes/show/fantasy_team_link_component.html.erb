@@ -5,5 +5,5 @@
     <%= link_to @fantasy_team.name, fantasy_team_transfers_path(@fantasy_team.uuid), class: 'button' %>
   <% end %>
 <% else %>
-  <%= link_to t('components.views.homes.show.fantasy_team_link_component.create'), fantasy_teams_path(season_id: @season.id), class: 'button', method: :post %>
+  <%= button_to t('components.views.homes.show.fantasy_team_link_component.create'), fantasy_teams_path(season_id: @season.id), class: 'button' %>
 <% end %>
