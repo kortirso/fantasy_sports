@@ -86,6 +86,11 @@ en:
           make_transfers: Complete transfers
           transfers_remaining: Free transfers for a week
           unlimited: Unlimited
+          view_by_position: View by position
+          view_by_team: View by team
+          all_players: All players
+          all_teams: All teams
+          sort_by: Sort by
       show:
         save_team: Save the team
     users:

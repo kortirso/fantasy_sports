@@ -12,10 +12,15 @@ if (element !== null) {
   const sportKind = element.dataset.sportKind
   const fantasyTeamUuid = element.dataset.fantasyTeamUuid
 
-  Vue.createApp({
+  const playerSortParams = [
+    "points"
+  ]
+
+  const app = Vue.createApp({
     data() {
       return {
         teamName: "My team",
+        teams: [],
         teamsById: {},
         sportsPositions: [],
         sportsPositionsByKind: {},
@@ -23,7 +28,17 @@ if (element !== null) {
         teamMembers: [],
         existedTeamMembers: [],
         budget: parseFloat(element.dataset.fantasyTeamBudget),
-        completed: element.dataset.fantasyTeamCompleted === 'true'
+        completed: element.dataset.fantasyTeamCompleted === 'true',
+        filterByPositionIsOpen: false,
+        filterByPosition: null,
+        filterByTeamIsOpen: false,
+        filterByTeam: null,
+        sortByIsOpen: false,
+        sortBy: "points",
+        sortByNameValues: {
+          "points": { "en": "Total points", "ru": "Сумма очков" },
+          "price": { "en": "Price", "ru": "Цена" }
+        }
       }
     },
     created() {
@@ -32,6 +47,32 @@ if (element !== null) {
       this.getTeamsPlayers()
 
       if (this.completed) this.getFantasyTeamPlayers()
+    },
+    computed: {
+      filterByPositionValue() {
+        if (this.filterByPosition) return localizeValue(this.filterByPosition.name)
+
+        return localizeValue({ "en": "All players", "ru": "Все игроки" })
+      },
+      filterByTeamValue() {
+        if (this.filterByTeam) return localizeValue(this.filterByTeam.name)
+
+        return localizeValue({ "en": "All teams", "ru": "Все команды" })
+      },
+      filteredTeamsPlayers() {
+        return this.teamsPlayers.filter((element) => {
+          if (this.filterByPosition !== null && this.filterByPosition.position_kind !== element.player.position_kind) return false
+          if (this.filterByTeam !== null && this.filterByTeam.id !== element.team.id) return false
+
+          return true
+        }).sort((a, b) => {
+          if (playerSortParams.includes(this.sortBy)) {
+            return a.player[this.sortBy] < b.player[this.sortBy]
+          } else {
+            return a[this.sortBy] < b[this.sortBy]
+          }
+        })
+      },
     },
     methods: {
       localizeValue(value) {
@@ -42,8 +83,9 @@ if (element !== null) {
         fetch(localizeRoute(`/teams.json?season_id=${seasonId}`))
           .then(response => response.json())
           .then(function(data) {
-            data.teams.data.forEach((element) => {
+            _this.teams = data.teams.data.map((element) => {
               _this.teamsById[element.id] = element.attributes.name
+              return element.attributes
             })
           })
       },
@@ -54,7 +96,6 @@ if (element !== null) {
           element.position_kind = positionKind
           this.sportsPositions.push(element)
           this.sportsPositionsByKind[positionKind] = { name: element.name, totalAmount: element.total_amount }
-          return element.attributes
         })
       },
       getTeamsPlayers() {
@@ -189,7 +230,30 @@ if (element !== null) {
               }
             })
         }
+      },
+      closeAllSelects() {
+        this.filterByPositionIsOpen = false
+        this.filterByTeamIsOpen = false
+        this.sortByIsOpen = false
+      },
+      toggleSelect(value) {
+        const currentValue = this[value]
+        this.closeAllSelects()
+        this[value] = !currentValue
+      },
+      selectFilterByPosition(value = null) {
+        this.filterByPosition = value
+        this.filterByPositionIsOpen = false
+      },
+      selectFilterByTeam(value = null) {
+        this.filterByTeam = value
+        this.filterByTeamIsOpen = false
+      },
+      selectSortBy(value) {
+        this.sortBy = value
+        this.sortByIsOpen = false
       }
     }
-  }).mount(transfersViewSelector)
+  })
+  app.mount(transfersViewSelector)
 }
