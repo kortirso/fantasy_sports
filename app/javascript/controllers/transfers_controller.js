@@ -25,6 +25,7 @@ if (element !== null) {
         sportsPositions: [],
         sportsPositionsByKind: {},
         teamsPlayers: [],
+        filteredTeamsPlayers: [],
         teamMembers: [],
         existedTeamMembers: [],
         budget: parseFloat(element.dataset.fantasyTeamBudget),
@@ -38,7 +39,11 @@ if (element !== null) {
         sortByNameValues: {
           "points": { "en": "Total points", "ru": "Сумма очков" },
           "price": { "en": "Price", "ru": "Цена" }
-        }
+        },
+        filteredTeamsPlayersAmount: 0,
+        lastPageIndex: 0,
+        page: 0,
+        perPage: 20
       }
     },
     created() {
@@ -59,19 +64,16 @@ if (element !== null) {
 
         return localizeValue({ "en": "All teams", "ru": "Все команды" })
       },
-      filteredTeamsPlayers() {
-        return this.teamsPlayers.filter((element) => {
-          if (this.filterByPosition !== null && this.filterByPosition.position_kind !== element.player.position_kind) return false
-          if (this.filterByTeam !== null && this.filterByTeam.id !== element.team.id) return false
+      renderedTeamsPlayers() {
+        this.filteredTeamsPlayersAmount = this.filteredTeamsPlayers.length
+        this.lastPageIndex = Math.round(this.filteredTeamsPlayersAmount / this.perPage)
 
-          return true
-        }).sort((a, b) => {
-          if (playerSortParams.includes(this.sortBy)) {
-            return a.player[this.sortBy] < b.player[this.sortBy]
-          } else {
-            return a[this.sortBy] < b[this.sortBy]
-          }
-        })
+        let renderResult = this.filteredTeamsPlayers
+        if (this.lastPageIndex > 0) {
+          renderResult = renderResult.slice(this.page * this.perPage, this.page * this.perPage + this.perPage)
+        }
+
+        return renderResult
       },
     },
     methods: {
@@ -104,6 +106,7 @@ if (element !== null) {
           .then(response => response.json())
           .then(function(data) {
             _this.teamsPlayers = data.season_players.data.map((element) => element.attributes)
+            _this.filterTeamsPlayers()
           })
       },
       getFantasyTeamPlayers() {
@@ -244,14 +247,42 @@ if (element !== null) {
       selectFilterByPosition(value = null) {
         this.filterByPosition = value
         this.filterByPositionIsOpen = false
+        this.filterTeamsPlayers()
       },
       selectFilterByTeam(value = null) {
         this.filterByTeam = value
         this.filterByTeamIsOpen = false
+        this.filterTeamsPlayers()
       },
       selectSortBy(value) {
         this.sortBy = value
         this.sortByIsOpen = false
+        this.filterTeamsPlayers()
+      },
+      paginationDown() {
+        if (this.page === 0) return
+
+        this.page = this.page - 1
+      },
+      paginationUp() {
+        if (this.page === this.lastPageIndex) return
+
+        this.page = this.page + 1
+      },
+      filterTeamsPlayers() {
+        this.page = 0
+        this.filteredTeamsPlayers = this.teamsPlayers.filter((element) => {
+          if (this.filterByPosition !== null && this.filterByPosition.position_kind !== element.player.position_kind) return false
+          if (this.filterByTeam !== null && this.filterByTeam.id !== element.team.id) return false
+
+          return true
+        }).sort((a, b) => {
+          if (playerSortParams.includes(this.sortBy)) {
+            return a.player[this.sortBy] < b.player[this.sortBy]
+          } else {
+            return a[this.sortBy] < b[this.sortBy]
+          }
+        })
       }
     }
   })

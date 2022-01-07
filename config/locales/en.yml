@@ -91,6 +91,7 @@ en:
           all_players: All players
           all_teams: All teams
           sort_by: Sort by
+          players_shown: Players shown
       show:
         save_team: Save the team
     users:

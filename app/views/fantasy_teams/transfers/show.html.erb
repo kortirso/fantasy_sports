@@ -95,7 +95,8 @@
           </ul>
         </div>
       </div>
-      <div v-for='teamPlayer in filteredTeamsPlayers' :key='teamPlayer.id' class='team-player'>
+      <p class='players-shown'><%= t('views.fantasy_teams.transfers.show.players_shown') %> - {{ filteredTeamsPlayers.length }}</p>
+      <div v-for='teamPlayer in renderedTeamsPlayers' :key='teamPlayer.id' class='team-player'>
         <div class='team-player-info'>
           <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
           <div class='team-player-stats' v-if='Object.keys(sportsPositionsByKind).length > 0'>
@@ -106,6 +107,12 @@
         <div class='team-player-price'>{{ teamPlayer.price }}</div>
         <div class='team-player-price'>{{ teamPlayer.player.points }}</div>
         <div class='action' @click="addTeamMember(teamPlayer)">+</div>
+      </div>
+
+      <div class='pagination flex flex-row justify-center items-center' v-if='filteredTeamsPlayersAmount > perPage'>
+        <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationDown()'>-</span>
+        <span class='pagination-counter'>{{ `${page + 1} of ${lastPageIndex + 1}` }}</span>
+        <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationUp()'>+</span>
       </div>
     </div>
   </div>
