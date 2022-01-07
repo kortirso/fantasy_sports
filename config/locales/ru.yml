@@ -86,6 +86,12 @@ ru:
           make_transfers: Выполнить трансферы
           transfers_remaining: Бесплатные трансферы на неделю
           unlimited: Без лимита
+          view_by_position: Выбрать позицию
+          view_by_team: Выбрать команду
+          all_players: Все игроки
+          all_teams: Все команды
+          sort_by: Сортировка
+          players_shown: Показано игроков
       show:
         save_team: Сохранить изменения команды
     users:

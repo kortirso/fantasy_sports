@@ -138,7 +138,6 @@ GEM
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffi (1.15.4)
-    foreman (0.87.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.8.11)
@@ -304,7 +303,6 @@ DEPENDENCIES
   database_cleaner (~> 1.8.5)
   dry-validation (~> 1.7)
   factory_bot_rails (= 6.2.0)
-  foreman (~> 0.87)
   importmap-rails
   json_spec (= 1.1.5)
   jsonapi-serializer (= 2.2.0)

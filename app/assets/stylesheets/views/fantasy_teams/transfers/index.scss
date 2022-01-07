@@ -28,8 +28,7 @@
     .team-player {
       display: flex;
       flex-direction: row;
-      padding-bottom: .25rem;
-      padding-left: .25rem;
+      padding: 0 .25rem .25rem;
       margin-bottom: .25rem;
       border-bottom: 1px solid $gray200;
 
@@ -70,7 +69,6 @@
         cursor: pointer;
         border: 1px solid $gray300;
         border-radius: .125rem;
-        margin-right: .25rem;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -79,6 +77,26 @@
         &:hover {
           background: $gray300;
         }
+      }
+    }
+
+    .players-shown {
+      margin-bottom: 1rem;
+    }
+
+    .pagination {
+      padding: .5rem 0;
+
+      .pagination-nav {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1px solid $gray300;
+      }
+
+      .pagination-counter {
+        margin: 0 1rem;
       }
     }
   }

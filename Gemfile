@@ -26,9 +26,6 @@ gem 'importmap-rails'
 # A framework for building view components
 gem 'view_component', '2.40.0', require: 'view_component/engine'
 
-# Manage Procfile-based applications
-gem 'foreman', '~> 0.87'
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '3.1.16'
 

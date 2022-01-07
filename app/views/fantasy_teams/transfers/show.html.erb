@@ -55,7 +55,48 @@
     </div>
     <div id='fantasy-players'>
       <h2><%= t('views.fantasy_teams.transfers.show.selection') %></h2>
-      <div v-for='teamPlayer in teamsPlayers' :key='teamPlayer.id' class='team-player'>
+      <div class='form-field'>
+        <label class='form-label'><%= t('views.fantasy_teams.transfers.show.view_by_position') %></label>
+        <div class='form-select' :class="{ 'is-open': filterByPositionIsOpen }">
+          <div class='form-value' @click="toggleSelect('filterByPositionIsOpen')">{{ filterByPositionValue }}</div>
+          <ul class='form-select-dropdown'>
+            <li @click='selectFilterByPosition()'>
+              <%= t('views.fantasy_teams.transfers.show.all_players') %>
+            </li>
+            <li v-for='sportsPosition in sportsPositions' :key='sportsPosition.position_kind' @click='selectFilterByPosition(sportsPosition)'>
+              {{ localizeValue(sportsPosition.name) }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='form-field'>
+        <label class='form-label'><%= t('views.fantasy_teams.transfers.show.view_by_team') %></label>
+        <div class='form-select' :class="{ 'is-open': filterByTeamIsOpen }">
+          <div class='form-value' @click="toggleSelect('filterByTeamIsOpen')">{{ filterByTeamValue }}</div>
+          <ul class='form-select-dropdown'>
+            <li @click='selectFilterByTeam()'>
+              <%= t('views.fantasy_teams.transfers.show.all_teams') %>
+            </li>
+            <li v-for='team in teams' :key='team.id' @click='selectFilterByTeam(team)'>
+              {{ localizeValue(team.name) }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='form-field'>
+        <label class='form-label'><%= t('views.fantasy_teams.transfers.show.sort_by') %></label>
+        <div class='form-select' :class="{ 'is-open': sortByIsOpen }">
+          <div class='form-value' @click="toggleSelect('sortByIsOpen')">
+            {{ localizeValue(sortByNameValues[sortBy]) }}
+          </div>
+          <ul class='form-select-dropdown'>
+            <li @click="selectSortBy('points')">{{ localizeValue(sortByNameValues.points) }}</li>
+            <li @click="selectSortBy('price')">{{ localizeValue(sortByNameValues.price) }}</li>
+          </ul>
+        </div>
+      </div>
+      <p class='players-shown'><%= t('views.fantasy_teams.transfers.show.players_shown') %> - {{ filteredTeamsPlayers.length }}</p>
+      <div v-for='teamPlayer in renderedTeamsPlayers' :key='teamPlayer.id' class='team-player'>
         <div class='team-player-info'>
           <p class='team-player-name'>{{ localizeValue(teamPlayer.player.name).split(' ')[0] }}</p>
           <div class='team-player-stats' v-if='Object.keys(sportsPositionsByKind).length > 0'>
@@ -66,6 +107,12 @@
         <div class='team-player-price'>{{ teamPlayer.price }}</div>
         <div class='team-player-price'>{{ teamPlayer.player.points }}</div>
         <div class='action' @click="addTeamMember(teamPlayer)">+</div>
+      </div>
+
+      <div class='pagination flex flex-row justify-center items-center' v-if='filteredTeamsPlayersAmount > perPage'>
+        <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationDown()'>-</span>
+        <span class='pagination-counter'>{{ `${page + 1} of ${lastPageIndex + 1}` }}</span>
+        <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationUp()'>+</span>
       </div>
     </div>
   </div>
