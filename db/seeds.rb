@@ -58,8 +58,8 @@ smolov = Player.create position_kind: 'football_forward', name: { en: 'Smolov Fy
 zabolotnyy = Player.create position_kind: 'football_forward', name: { en: 'Zabolotnyy Anton', ru: 'Заболотный Антон' }
 
 Teams::Player.create seasons_team: spartak_rpl2022, player: maksimenko, price_cents: 450
-Teams::Player.create seasons_team: lokomotiv_rpl2022, player: guilherme, price_cents: 450
-Teams::Player.create seasons_team: cska_rpl2022, player: akinfeev, price_cents: 450
+Teams::Player.create seasons_team: lokomotiv_rpl2022, player: guilherme, price_cents: 450, shirt_number: 1
+Teams::Player.create seasons_team: cska_rpl2022, player: akinfeev, price_cents: 450, shirt_number: 35
 Teams::Player.create seasons_team: dinamo_rpl2022, player: shunin, price_cents: 450
 Teams::Player.create seasons_team: krasnodar_rpl2022, player: safonov, price_cents: 450
 

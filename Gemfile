@@ -50,6 +50,10 @@ gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator'
 # active jobs adapter
 gem 'que', git: 'https://github.com/kortirso/que'
 
+# http client
+gem 'faraday', '~> 1.9'
+gem 'faraday_middleware', '~> 1.2'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
   gem 'rubocop', '~> 1.23', require: false

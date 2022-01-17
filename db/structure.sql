@@ -378,7 +378,9 @@ CREATE TABLE public.games (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     home_season_team_id integer,
-    visitor_season_team_id integer
+    visitor_season_team_id integer,
+    source integer,
+    external_id character varying
 );
 
 
@@ -768,7 +770,8 @@ CREATE TABLE public.teams_players (
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    price_cents integer DEFAULT 0 NOT NULL
+    price_cents integer DEFAULT 0 NOT NULL,
+    shirt_number integer
 );
 
 
@@ -1345,6 +1348,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211214153104'),
 ('20211215174418'),
 ('20211219120512'),
-('20211224184836');
+('20211224184836'),
+('20220110183050'),
+('20220110184922');
 
 
