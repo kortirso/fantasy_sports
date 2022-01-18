@@ -4,15 +4,15 @@ module Games
   class CreateService
     prepend ApplicationService
 
-    def call(week:, home_season_team:, visitor_season_team:)
-      create_game(week, home_season_team, visitor_season_team)
-      create_games_players(home_season_team, visitor_season_team)
+    def call(attributes)
+      create_game(attributes)
+      create_games_players(attributes[:home_season_team], attributes[:visitor_season_team])
     end
 
     private
 
-    def create_game(week, home_season_team, visitor_season_team)
-      @result = week.games.create home_season_team: home_season_team, visitor_season_team: visitor_season_team
+    def create_game(attributes)
+      @result = ::Game.create attributes
     end
 
     def create_games_players(home_season_team, visitor_season_team)
