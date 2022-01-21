@@ -125,7 +125,7 @@ if (element !== null) {
       },
       addTeamMember(teamPlayer) {
         // if player is already in team
-        if (this.playerInTheTeam(teamPlayer)) return
+        if (this.playerInTheTeam(teamPlayer)) return showAlerts("alert", `<p>Player already in the team</p>`)
         // if all position already in use
         const sportPositionKind = teamPlayer.player.position_kind
         const positionsLeft = this.sportPositionByKind(sportPositionKind).totalAmount - this.teamMembersForPosition(sportPositionKind).length
@@ -134,7 +134,7 @@ if (element !== null) {
         const playersFromTeam = this.teamMembers.filter((element) => {
           return element.team.id === teamPlayer.team.id
         })
-        if (playersFromTeam.length === 3) return
+        if (playersFromTeam.length === 3) return showAlerts("alert", `<p>Your team already contains 3 players from this team</p>`)
 
         this.teamMembers.push(teamPlayer)
         this.updateBudget(- teamPlayer.price)
@@ -166,7 +166,7 @@ if (element !== null) {
         })
       },
       playerInTheTeam(teamPlayer) {
-        return this.teamMembers.includes(teamPlayer)
+        return this.teamMembers.map((element) => element.id).includes(teamPlayer.id)
       },
       submit() {
         if (this.completed) {
