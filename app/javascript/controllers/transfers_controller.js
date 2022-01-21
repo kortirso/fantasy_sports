@@ -278,9 +278,9 @@ if (element !== null) {
           return true
         }).sort((a, b) => {
           if (playerSortParams.includes(this.sortBy)) {
-            return a.player[this.sortBy] < b.player[this.sortBy]
+            return a.player[this.sortBy] < b.player[this.sortBy] ? 1 : -1
           } else {
-            return a[this.sortBy] < b[this.sortBy]
+            return a[this.sortBy] < b[this.sortBy] ? 1 : -1
           }
         })
       }

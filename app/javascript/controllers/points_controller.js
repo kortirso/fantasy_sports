@@ -70,7 +70,7 @@ if (element !== null) {
         return this.players.filter((element) => {
           return !element.active
         }).sort((a, b) => {
-          return a.change_order > b.change_order
+          return a.change_order > b.change_order ? 1 : -1
         })
       }
     }
