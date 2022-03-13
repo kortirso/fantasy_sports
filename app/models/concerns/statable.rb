@@ -3,20 +3,26 @@
 module Statable
   extend ActiveSupport::Concern
 
-  MP = 'MP'
-  GS = 'GS'
-  A  = 'A'
-  CS = 'CS'
-  GC = 'GC'
-  OG = 'OG'
-  PS = 'PS'
-  PM = 'PM'
-  YC = 'YC'
-  RC = 'RC'
-  S  = 'S'
-  B  = 'B'
+  MP = 'MP' # minutes played
+  GS = 'GS' # goals scored
+  A  = 'A' # assists
+  CS = 'CS' # clean sheet
+  GC = 'GC' # goals conceded
+  OG = 'OG' # own goals
+  PS = 'PS' # penalties saved
+  PM = 'PM' # penalties missed
+  YC = 'YC' # yellow cards
+  RC = 'RC' # red cards
+  S  = 'S' # saves
+  B  = 'B' # bonus points
+  P  = 'P' # points
+  REB = 'REB' # rebounds
+  BLK = 'BLK' # blocks
+  STL = 'STL' # steals
+  TO  = 'TO' # turnovers
 
   FOOTBALL_STATS = [MP, GS, A, CS, GC, OG, PS, PM, YC, RC, S, B].freeze
+  BASKETBALL_STATS = [P, REB, A, BLK, STL, TO].freeze
 
   included do
     after_initialize :generate_default_statistic
@@ -33,6 +39,7 @@ module Statable
   def select_default_statistic
     case Sports.position(position_kind)['sport_kind']
     when Sportable::FOOTBALL then FOOTBALL_STATS
+    when Sportable::BASKETBALL then BASKETBALL_STATS
     else []
     end
   end

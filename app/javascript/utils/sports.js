@@ -2,18 +2,24 @@ const sportsData = {
   "sports": {
     "football": {
       "name": { "en": "Football", "ru": "Футбол" },
+      "max_players": 15,
+      "max_active_players": 11,
       "max_team_players": 3,
       "free_transfers_per_week": 1,
       "points_per_transfer": 1
     },
     "basketball": {
       "name": { "en": "Basketball", "ru": "Баскетбол" },
+      "max_players": 10,
+      "max_active_players": 10,
       "max_team_players": 2,
       "free_transfers_per_week": 1,
       "points_per_transfer": 1
     },
     "hockey": {
       "name": { "en": "Hockey", "ru": "Хоккей" },
+      "max_players": 21,
+      "max_active_players": 17,
       "max_team_players": 2,
       "free_transfers_per_week": 1,
       "points_per_transfer": 1

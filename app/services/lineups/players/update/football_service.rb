@@ -7,9 +7,9 @@ module Lineups
         prepend ApplicationService
 
         def initialize(
-          football_players_validator: Lineups::Players::ForSport::FootballValidator
+          players_validator: Lineups::PlayersValidator
         )
-          @football_players_validator = football_players_validator
+          @players_validator = players_validator.new(sport_kind: Sportable::FOOTBALL)
         end
 
         def call(lineup:, lineups_players_params:)
@@ -22,7 +22,7 @@ module Lineups
         private
 
         def validate_params(lineup, lineups_players_params)
-          fails!(@football_players_validator.call(lineup: lineup, lineups_players_params: lineups_players_params))
+          fails!(@players_validator.call(lineup: lineup, lineups_players_params: lineups_players_params))
         end
 
         def update_lineups_players(lineup, lineups_players_params)
