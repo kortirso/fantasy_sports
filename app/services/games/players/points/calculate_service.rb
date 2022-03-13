@@ -7,9 +7,11 @@ module Games
         prepend ApplicationService
 
         def initialize(
-          football_service: Games::Players::Points::Calculate::FootballService
+          football_service:   Games::Players::Points::Calculate::FootballService,
+          basketball_service: Games::Players::Points::Calculate::BasketballService
         )
           @football_service = football_service
+          @basketball_service = basketball_service
         end
 
         def call(position_kind:, statistic:)
@@ -24,6 +26,7 @@ module Games
         def service_for_call(sport_kind)
           case sport_kind
           when Sportable::FOOTBALL then @football_service
+          when Sportable::BASKETBALL then @basketball_service
           end
         end
       end

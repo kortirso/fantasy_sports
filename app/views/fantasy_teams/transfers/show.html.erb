@@ -22,22 +22,28 @@
       >
         <%= t('views.fantasy_teams.transfers.show.reset') %>
       </button>
-      <div id='team-players-by-positions'>
-        <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
-          <h3>{{ localizeValue(sportPosition.name) }}</h3>
-          <div class='position-members'>
-            <div v-for='teamMember in teamMembersForPosition(sportPosition.position_kind)' :key='teamMember.id' class='player-card'>
+      <div id='team-players-by-positions' class='<%= @season.league.sport_kind %>'>
+        <div
+          v-for='sportPosition in sportsPositions'
+          :key='sportPosition.position_kind'
+          class='sport-position'
+          :class="[sportPosition.name.en.split(' ').join('-')]"
+        >
+          <div v-for='teamMember in teamMembersForPosition(sportPosition.position_kind)' :key='teamMember.id' class='player-card-box'>
+            <div class='player-card'>
               <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
               <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
               <p class='player-value'>{{ teamMember.price }}</p>
               <div class='action' @click="removeTeamMember(teamMember)">-</div>
             </div>
-            <div
-              v-if='Object.keys(sportsPositionsByKind).length > 0'
-              v-for='value in [...Array(sportPositionByKind(sportPosition.position_kind).totalAmount - teamMembersForPosition(sportPosition.position_kind).length).keys()]'
-              :key='value'
-              class='player-card'
-            >
+          </div>
+          <div
+            v-if='Object.keys(sportsPositionsByKind).length > 0'
+            v-for='value in [...Array(sportPositionByKind(sportPosition.position_kind).totalAmount - teamMembersForPosition(sportPosition.position_kind).length).keys()]'
+            :key='value'
+            class='player-card-box'
+          >
+            <div class='player-card'>
               <p class='player-team-name empty'></p>
               <p class='player-name empty'></p>
               <p class='player-value empty'></p>

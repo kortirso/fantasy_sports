@@ -6,16 +6,19 @@
     data-lineup-id='<%= @lineup.id %>'
   >
     <div id='fantasy-team-members'>
-      <div id='team-players-by-positions'>
-        <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
-          <h3>{{ localizeValue(sportPosition.name) }}</h3>
-          <div class='position-members'>
-            <div
-              class='player-card'
-              v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }"
-              v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
-              :key='teamMember.id'
-            >
+      <div id='team-players-by-positions' class='<%= @season.league.sport_kind %>'>
+        <div
+          v-for='sportPosition in sportsPositions'
+          :key='sportPosition.position_kind'
+          class='sport-position'
+          :class="[sportPosition.name.en.split(' ').join('-')]"
+        >
+          <div
+            class='player-card-box'
+            v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
+            :key='teamMember.id'
+          >
+            <div class='player-card' v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }">
               <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
               <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
               <p class='player-value'>{{ oppositeTeamNames(teamMember) }}</p>
@@ -23,24 +26,28 @@
             </div>
           </div>
         </div>
-        <h3><%= t('views.fantasy_teams.show.substitutions') %></h3>
-        <div class='position-members'>
-          <div
-            class='player-card'
-            v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }"
-            v-for='teamMember in reservePlayers()'
-            :key='teamMember.id'
-          >
-            <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
-            <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
-            <p class='player-value'>{{ oppositeTeamNames(teamMember) }}</p>
-            <div class='action' @click="changeReservePlayer(teamMember)">+/-</div>
+        <% if Sports.sport(@season.league.sport_kind)['changes'] %>
+          <div class='sport-position substitution'>
+            <div
+              class='player-card-box'
+              v-for='teamMember in reservePlayers()'
+              :key='teamMember.id'
+            >
+              <div class='player-card' v-bind:class="{ 'for-change': changePlayerId === teamMember.id, 'to-change': changeOptionIds.includes(teamMember.id) }">
+                <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+                <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+                <p class='player-value'>{{ oppositeTeamNames(teamMember) }}</p>
+                <div class='action' @click="changeReservePlayer(teamMember)">+/-</div>
+              </div>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
+      <button id='submit-button' class='button' @click='submit'>
+        <%= t('views.fantasy_teams.show.save_team') %>
+      </button>
     </div>
-    <button id='submit-button' class='button' @click='submit'>
-      <%= t('views.fantasy_teams.show.save_team') %>
-    </button>
+    <div id='fantasy-team-statistic'>
+    </div>
   </div>
 <% end %>

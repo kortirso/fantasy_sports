@@ -5,22 +5,61 @@ module Lineups
     class CreateService
       prepend ApplicationService
 
-      def initialize(
-        create_football_players_service: Lineups::Players::Create::FootballService
-      )
-        @create_football_players_service = create_football_players_service
-      end
-
       def call(lineup:)
-        service_for_call(lineup).call(lineup: lineup)
+        prepare_data
+        @lineup = lineup
+
+        Sports.positions_for_sport(sport).each { |position_kind, values|
+          collect_teams_players(teams_players_by_position[position_kind], values['default_amount'])
+        }
+
+        Lineups::Player.upsert_all(@teams_players)
       end
 
       private
 
-      def service_for_call(lineup)
-        case lineup.fantasy_team.sport_kind
-        when Sportable::FOOTBALL then @create_football_players_service
-        end
+      def prepare_data
+        @teams_players = []
+        @change_order  = 1
+      end
+
+      def sport
+        @lineup.fantasy_team.sport_kind
+      end
+
+      def teams_players_by_position
+        @teams_players_by_position ||=
+          @lineup.fantasy_team.teams_players.active.includes(:player).group_by { |e|
+            e.player.position_kind
+          }
+      end
+
+      def collect_teams_players(teams_players, default_active_players)
+        teams_players[0...default_active_players].each { |teams_player|
+          @teams_players.push(active_teams_player_data(teams_player))
+        }
+        teams_players[default_active_players..].each { |teams_player|
+          @teams_players.push(inactive_teams_player_data(teams_player))
+          @change_order += 1
+        }
+      end
+
+      def active_teams_player_data(teams_player)
+        {
+          teams_player_id: teams_player.id,
+          lineup_id:       @lineup.id,
+          active:          true,
+          change_order:    0
+        }
+      end
+
+      def inactive_teams_player_data(teams_player)
+        {
+          teams_player_id: teams_player.id,
+          lineup_id:       @lineup.id,
+          active:          false,
+          change_order:    @change_order
+        }
       end
     end
   end

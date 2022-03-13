@@ -1,5 +1,81 @@
 #fantasy-team-squad {
+  display: flex;
+  flex-direction: row;
+
   #submit-button {
     margin-top: 2rem;
+  }
+
+  #fantasy-team-members {
+    flex: 1;
+  }
+
+  #fantasy-team-statistic {
+    width: 25rem;
+  }
+}
+
+#team-players-by-positions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  .sport-position {
+    display: flex;
+    flex-direction: row;
+
+    &.substitution {
+      margin-top: 2rem;
+    }
+  }
+
+  &.football {
+    .sport-position {
+      margin-bottom: 2rem;
+
+      .player-card-box {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      &.Goalkeeper, &.Forward {
+        padding: 0 10rem;
+      }
+    }
+  }
+
+  &.basketball {
+    position: relative;
+    height: 40rem;
+
+    .sport-position {
+      position: absolute;
+
+      &.Center {
+        top: 50%;
+        left: 40%;
+      }
+
+      &.Power-Forward {
+        top: 75%;
+        left: 10%;
+      }
+
+      &.Small-Forward {
+        top: 75%;
+        left: 60%;
+      }
+
+      &.Point-Guard {
+        top: 10%;
+        left: 30%;
+      }
+
+      &.Shooting-Guard {
+        top: 30%;
+        left: 5%;
+      }
+    }
   }
 }
