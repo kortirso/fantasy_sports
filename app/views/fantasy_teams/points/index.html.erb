@@ -13,33 +13,38 @@
         </div>
       </div>
       <div id='fantasy-team-members'>
-        <div id='team-players-by-positions'>
-          <div v-for='sportPosition in sportsPositions' :key='sportPosition.position_kind' class='sport-position'>
-            <h3>{{ localizeValue(sportPosition.name) }}</h3>
-            <div class='position-members'>
-              <div
-                class='player-card'
-                v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
-                :key='teamMember.id'
-              >
+        <div id='team-players-by-positions' class='<%= @season.league.sport_kind %>'>
+          <div
+            v-for='sportPosition in sportsPositions'
+            :key='sportPosition.position_kind'
+            class='sport-position'
+            :class="[sportPosition.name.en.split(' ').join('-')]"
+          >
+            <div
+              class='player-card-box'
+              v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
+              :key='teamMember.id'
+            >
+              <div class='player-card'>
                 <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
                 <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
                 <p class='player-value'>{{ teamMember.points }}</p>
               </div>
             </div>
           </div>
-          <h3><%= t('views.fantasy_teams.show.substitutions') %></h3>
-          <div class='position-members'>
+          <% if Sports.sport(@season.league.sport_kind)['changes'] %>
             <div
-              class='player-card'
+              class='player-card-box'
               v-for='teamMember in reservePlayers()'
               :key='teamMember.id'
             >
-              <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
-              <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
-              <p class='player-value'>{{ teamMember.points }}</p>
+              <div class='player-card'>
+                <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
+                <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
+                <p class='player-value'>{{ teamMember.points }}</p>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

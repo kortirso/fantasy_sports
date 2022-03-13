@@ -1,24 +1,33 @@
 # frozen_string_literal: true
 
 describe Lineups::Players::CreateService, type: :service do
-  subject(:service_call) {
-    described_class.new(
-      create_football_players_service: create_football_players_service
-    ).call(lineup: lineup)
-  }
-
-  let!(:lineup) { create :lineup }
-  let(:create_football_players_service) { double }
-
-  before do
-    allow(create_football_players_service).to receive(:call)
-  end
+  subject(:service_call) { described_class.call(lineup: lineup) }
 
   context 'for football' do
-    it 'calls football_service' do
-      service_call
+    let!(:lineup) { create :lineup }
+    let!(:players) { create_list :player, 3, position_kind: Positionable::GOALKEEPER }
+    let!(:teams_player1) { create :teams_player, player: players[0], active: true }
+    let!(:teams_player2) { create :teams_player, player: players[1], active: true }
+    let!(:teams_player3) { create :teams_player, player: players[2], active: true }
 
-      expect(create_football_players_service).to have_received(:call)
+    before do
+      create :fantasy_teams_player, teams_player: teams_player1, fantasy_team: lineup.fantasy_team
+      create :fantasy_teams_player, teams_player: teams_player2, fantasy_team: lineup.fantasy_team
+      create :fantasy_teams_player, teams_player: teams_player3, fantasy_team: lineup.fantasy_team
+
+      allow(Sports).to receive(:positions_for_sport).and_return({
+        'football_goalkeeper' => {
+          'default_amount' => 1
+        }
+      })
+    end
+
+    it 'creates 1 active lineup player' do
+      expect { service_call }.to change(lineup.lineups_players.active, :count).by(1)
+    end
+
+    it 'and creates 1 not active lineup player' do
+      expect { service_call }.to change(lineup.lineups_players.inactive, :count).by(2)
     end
 
     it 'and it succeed' do

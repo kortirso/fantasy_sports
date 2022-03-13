@@ -6,21 +6,34 @@ module Lineups
       prepend ApplicationService
 
       def initialize(
-        update_football_players_service: Lineups::Players::Update::FootballService
+        players_validator_service: Lineups::PlayersValidator
       )
-        @update_football_players_service = update_football_players_service
+        @players_validator_service = players_validator_service
       end
 
       def call(lineup:, lineups_players_params:)
-        call_result = service_for_call(lineup).call(lineup: lineup, lineups_players_params: lineups_players_params)
-        fails!(call_result.errors) if call_result.failure?
+        @lineup = lineup
+
+        validate_params(lineups_players_params)
+        return if failure?
+
+        update_lineups_players(lineups_players_params)
       end
 
       private
 
-      def service_for_call(lineup)
-        case lineup.fantasy_team.sport_kind
-        when Sportable::FOOTBALL then @update_football_players_service
+      def validate_params(lineups_players_params)
+        fails!(players_validator.call(lineup: @lineup, lineups_players_params: lineups_players_params))
+      end
+
+      def players_validator
+        @players_validator_service.new(sport_kind: @lineup.fantasy_team.sport_kind)
+      end
+
+      def update_lineups_players(lineups_players_params)
+        grouped_params = lineups_players_params.index_by { |players_param| players_param.symbolize_keys[:id] }
+        @lineup.lineups_players.includes(:lineup, :teams_player).each do |lineups_player|
+          lineups_player.update(grouped_params[lineups_player.id].except(:id))
         end
       end
     end

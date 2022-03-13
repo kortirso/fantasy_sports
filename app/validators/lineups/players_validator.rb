@@ -8,7 +8,7 @@ module Lineups
       settings = Sports.sport(sport_kind)
 
       @active_players_limit = settings['max_active_players']
-      @validate_changes = settings['max_players'] != settings['max_active_players']
+      @validate_changes = settings['changes']
     end
 
     def call(lineup:, lineups_players_params:)
