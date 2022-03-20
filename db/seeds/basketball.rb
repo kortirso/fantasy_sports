@@ -53,7 +53,7 @@ phoenix99 = Player.create position_kind: 'basketball_power_forward', name: { en:
 
 golden_state30 = Player.create position_kind: 'basketball_point_guard', name: { en: 'Curry Stephen', ru: 'Карри Стефен' }
 golden_state22 = Player.create position_kind: 'basketball_power_forward', name: { en: 'Wiggins Andrew', ru: 'Уиггинс Эндрю' }
-golden_state32 = Player.create position_kind: 'basketball_small_forward', name: { en: 'Porter Otto', ru: 'Портер Отто' }
+golden_state32 = Player.create position_kind: 'basketball_small_forward', name: { en: 'Porter Jr. Otto', ru: 'Портер Отто' }
 
 dallas77 = Player.create position_kind: 'basketball_shooting_guard', name: { en: 'Doncic Luka', ru: 'Дончич Лука' }
 dallas13 = Player.create position_kind: 'basketball_shooting_guard', name: { en: 'Brunson Jalen', ru: 'Брансон Джейлен' }
@@ -113,3 +113,51 @@ week1 = nba2022.weeks.create position: 1, status: 'coming'
 week2 = nba2022.weeks.create position: 2
 
 week1_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: week1, name: 'Week 1'
+
+Games::CreateService.call(
+  week:                week1,
+  home_season_team:    lal_nba2022,
+  visitor_season_team: golden_state_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473409'
+)
+
+Games::CreateService.call(
+  week:                week1,
+  home_season_team:    phoenix_nba2022,
+  visitor_season_team: denver_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473421'
+)
+
+Games::CreateService.call(
+  week:                week1,
+  home_season_team:    miami_nba2022,
+  visitor_season_team: milwaukee_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473423'
+)
+
+Games::CreateService.call(
+  week:                week1,
+  home_season_team:    lal_nba2022,
+  visitor_season_team: phoenix_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473432'
+)
+
+Games::CreateService.call(
+  week:                week2,
+  home_season_team:    denver_nba2022,
+  visitor_season_team: dallas_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473482'
+)
+
+Games::CreateService.call(
+  week:                week2,
+  home_season_team:    boston_nba2022,
+  visitor_season_team: chicago_nba2022,
+  source:              Sourceable::BALLDONTLIE,
+  external_id:         '473507'
+)

@@ -54,6 +54,9 @@ gem 'que', git: 'https://github.com/kortirso/que'
 gem 'faraday', '~> 1.9'
 gem 'faraday_middleware', '~> 1.2'
 
+# Pretty print
+gem 'awesome_print'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
   gem 'rubocop', '~> 1.23', require: false
