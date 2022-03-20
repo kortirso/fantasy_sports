@@ -2,10 +2,8 @@ rpl = League.create(sport_kind: 'football', name: { en: 'Russian Premier Liga', 
 nhl = League.create(sport_kind: 'hockey', name: { en: 'NHL', ru: 'НХЛ' })
 
 rpl2022 = rpl.seasons.create name: '2021/2022', active: true
-nhl2022 = nhl.seasons.create name: '2021/2022', active: true
 
 overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall'
-overall_fantasy_nhl_league = nhl2022.all_fantasy_leagues.create leagueable: nhl2022, name: 'Overall'
 
 spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }
 zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }
