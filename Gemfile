@@ -20,9 +20,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sassc-rails'
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
-
 # A framework for building view components
 gem 'view_component', '2.40.0', require: 'view_component/engine'
 
@@ -56,6 +53,11 @@ gem 'faraday_middleware', '~> 1.2'
 
 # Pretty print
 gem 'awesome_print'
+
+# jsbundling
+gem 'jsbundling-rails', '~> 1.0'
+
+gem 'foreman'
 
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'

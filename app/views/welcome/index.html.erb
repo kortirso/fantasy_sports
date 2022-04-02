@@ -1,1 +1,3 @@
-<%= render PageWrappers::UsersComponent.new %>
+<%= render PageWrappers::UsersComponent.new do %>
+  <%= react_component 'Welcome', name: 'React' %>
+<% end %>
