@@ -265,7 +265,7 @@ if (element !== null) {
         this.page = this.page - 1
       },
       paginationUp() {
-        if (this.page === this.lastPageIndex) return
+        if (this.page === this.lastPageIndex - 1) return
 
         this.page = this.page + 1
       },

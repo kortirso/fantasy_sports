@@ -117,7 +117,7 @@
 
       <div class='pagination flex flex-row justify-center items-center' v-if='filteredTeamsPlayersAmount > perPage'>
         <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationDown()'>-</span>
-        <span class='pagination-counter'>{{ `${page + 1} of ${lastPageIndex + 1}` }}</span>
+        <span class='pagination-counter'>{{ `${page + 1} of ${lastPageIndex}` }}</span>
         <span class='pagination-nav flex flex-row justify-center items-center' @click='paginationUp()'>+</span>
       </div>
     </div>
