@@ -8,7 +8,7 @@ const currentLocale =
 export const localizeValue = (value?: KeyValue) => {
   if (!value) return '';
 
-  return value[currentLocale];
+  return value[currentLocale] || value[DEFAULT_LOCALE];
 };
 
 export const localizeRoute = (value: string) => {

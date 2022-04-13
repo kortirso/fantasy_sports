@@ -212,7 +212,7 @@ const TransfersComponent = (
               {playersByPosition(positionKind).map((item: TeamsPlayer) => (
                 <div className="player-card-box" key={item.id}>
                   <div className="player-card">
-                    <p className="player-team-name">{localizeValue(teamNames[item.team.id])}</p>
+                    <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
                     <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
                     <p className="player-value">{item.price}</p>
                     <div className="action" onClick={() => removeTeamMember(item)}>
@@ -246,7 +246,7 @@ const TransfersComponent = (
           title="View by team"
           items={Object.entries(teamNames).reduce(
             (result, [key, values]) => {
-              result[key] = localizeValue(values);
+              result[key] = localizeValue(values.name);
               return result;
             },
             { all: localizeValue({ 'en': 'All teams', 'ru': 'Все команды' }) } as KeyValue,
@@ -268,9 +268,9 @@ const TransfersComponent = (
             <div className="team-player-info">
               <p className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</p>
               <div className="team-player-stats">
-                <span className="team-name">{localizeValue(teamNames[item.team.id])}</span>
+                <span className="team-name">{teamNames[item.team.id]?.short_name}</span>
                 <span className="position-name">
-                  {localizeValue(sportPositions[item.player.position_kind].name)}
+                  {localizeValue(sportPositions[item.player.position_kind].short_name)}
                 </span>
               </div>
             </div>

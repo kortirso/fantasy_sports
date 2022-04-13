@@ -1,26 +1,25 @@
 rpl = League.create(sport_kind: 'football', name: { en: 'Russian Premier Liga', ru: 'Российская Премьер-Лига' })
-nhl = League.create(sport_kind: 'hockey', name: { en: 'NHL', ru: 'НХЛ' })
 
 rpl2022 = rpl.seasons.create name: '2021/2022', active: true
 
 overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall'
 
-spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }
-zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }
-lokomotiv = Team.create name: { en: 'Lokomotiv', ru: 'Локомотив' }
-cska = Team.create name: { en: 'CSKA', ru: 'ЦСКА' }
-dinamo = Team.create name: { en: 'Dinamo', ru: 'Динамо' }
-sochi = Team.create name: { en: 'Sochi', ru: 'Сочи' }
-krasnodar = Team.create name: { en: 'Krasnodar', ru: 'Краснодар' }
-rubin = Team.create name: { en: 'Rubin', ru: 'Рубин' }
-khimki = Team.create name: { en: 'Khimki', ru: 'Химки' }
-rostov = Team.create name: { en: 'Rostov', ru: 'Ростов' }
-akhmat = Team.create name: { en: 'Akhmat', ru: 'Ахмат' }
-ural = Team.create name: { en: 'Ural', ru: 'Урал' }
-ufa = Team.create name: { en: 'Ufa', ru: 'Уфа' }
-arsenal = Team.create name: { en: 'Arsenal', ru: 'Арсенал' }
-krylia = Team.create name: { en: 'Krylia Sovetov', ru: 'Крылья Советов' }
-novgorod = Team.create name: { en: 'Nizhny Novgorod', ru: 'Нижний Новгород' }
+spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }, short_name: 'СПАР'
+zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }, short_name: 'ЗЕН'
+lokomotiv = Team.create name: { en: 'Lokomotiv', ru: 'Локомотив' }, short_name: 'ЛОК'
+cska = Team.create name: { en: 'CSKA', ru: 'ЦСКА' }, short_name: 'ЦСКА'
+dinamo = Team.create name: { en: 'Dinamo', ru: 'Динамо' }, short_name: 'ДИН'
+sochi = Team.create name: { en: 'Sochi', ru: 'Сочи' }, short_name: 'СОЧ'
+krasnodar = Team.create name: { en: 'Krasnodar', ru: 'Краснодар' }, short_name: 'КРАС'
+rubin = Team.create name: { en: 'Rubin', ru: 'Рубин' }, short_name: 'РУБ'
+khimki = Team.create name: { en: 'Khimki', ru: 'Химки' }, short_name: 'ХИМ'
+rostov = Team.create name: { en: 'Rostov', ru: 'Ростов' }, short_name: 'РОСТ'
+akhmat = Team.create name: { en: 'Akhmat', ru: 'Ахмат' }, short_name: 'АХМ'
+ural = Team.create name: { en: 'Ural', ru: 'Урал' }, short_name: 'УРАЛ'
+ufa = Team.create name: { en: 'Ufa', ru: 'Уфа' }, short_name: 'УФА'
+arsenal = Team.create name: { en: 'Arsenal', ru: 'Арсенал' }, short_name: 'АРС'
+krylia = Team.create name: { en: 'Krylia Sovetov', ru: 'Крылья Советов' }, short_name: 'КРЛ'
+novgorod = Team.create name: { en: 'Nizhny Novgorod', ru: 'Нижний Новгород' }, short_name: 'НОВГ'
 
 spartak_rpl2022 = Seasons::Team.create team: spartak, season: rpl2022
 zenit_rpl2022 = Seasons::Team.create team: zenit, season: rpl2022

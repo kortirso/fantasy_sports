@@ -8,7 +8,7 @@ export const sportsData: SportsData = {
       max_active_players: 11,
       max_team_players: 3,
       free_transfers_per_week: 1,
-      points_per_transfer: 1,
+      points_per_transfer: 4,
       changes: true,
     },
     basketball: {
@@ -17,7 +17,7 @@ export const sportsData: SportsData = {
       max_active_players: 10,
       max_team_players: 2,
       free_transfers_per_week: 1,
-      points_per_transfer: 1,
+      points_per_transfer: 4,
       changes: false,
     },
     hockey: {
@@ -26,7 +26,7 @@ export const sportsData: SportsData = {
       max_active_players: 17,
       max_team_players: 2,
       free_transfers_per_week: 1,
-      points_per_transfer: 1,
+      points_per_transfer: 4,
       changes: true,
     },
   },
@@ -34,6 +34,7 @@ export const sportsData: SportsData = {
     football: {
       football_goalkeeper: {
         name: { en: 'Goalkeeper', ru: 'Вратарь' },
+        short_name: { en: 'GKP', ru: 'ВРТ' },
         total_amount: 2,
         default_amount: 1,
         min_game_amount: 1,
@@ -41,6 +42,7 @@ export const sportsData: SportsData = {
       },
       football_defender: {
         name: { en: 'Defender', ru: 'Защитник' },
+        short_name: { en: 'DEF', ru: 'ЗАЩ' },
         total_amount: 5,
         default_amount: 4,
         min_game_amount: 3,
@@ -48,6 +50,7 @@ export const sportsData: SportsData = {
       },
       football_midfielder: {
         name: { en: 'Midfielder', ru: 'Полузащитник' },
+        short_name: { en: 'MID', ru: 'ПЗАЩ' },
         total_amount: 5,
         default_amount: 4,
         min_game_amount: 2,
@@ -55,6 +58,7 @@ export const sportsData: SportsData = {
       },
       football_forward: {
         name: { en: 'Forward', ru: 'Нападающий' },
+        short_name: { en: 'FWD', ru: 'НАП' },
         total_amount: 3,
         default_amount: 2,
         min_game_amount: 1,
@@ -64,6 +68,7 @@ export const sportsData: SportsData = {
     basketball: {
       basketball_center: {
         name: { en: 'Center', ru: 'Центровой' },
+        short_name: { en: 'CENT', ru: 'ЦЕНТ' },
         total_amount: 2,
         default_amount: 2,
         min_game_amount: 2,
@@ -71,6 +76,7 @@ export const sportsData: SportsData = {
       },
       basketball_power_forward: {
         name: { en: 'Power Forward', ru: 'Тяжёлый форвард' },
+        short_name: { en: 'PFWD', ru: 'ТФВД' },
         total_amount: 2,
         default_amount: 2,
         min_game_amount: 2,
@@ -78,6 +84,7 @@ export const sportsData: SportsData = {
       },
       basketball_small_forward: {
         name: { en: 'Small Forward', ru: 'Лёгкий форвард' },
+        short_name: { en: 'SFWS', ru: 'ЛФВД' },
         total_amount: 2,
         default_amount: 2,
         min_game_amount: 2,
@@ -85,6 +92,7 @@ export const sportsData: SportsData = {
       },
       basketball_point_guard: {
         name: { en: 'Point Guard', ru: 'Разыгрывающий защитник' },
+        short_name: { en: 'PGRD', ru: 'РЗАЩ' },
         total_amount: 2,
         default_amount: 2,
         min_game_amount: 2,
@@ -92,6 +100,7 @@ export const sportsData: SportsData = {
       },
       basketball_shooting_guard: {
         name: { en: 'Shooting Guard', ru: 'Атакующий защитник' },
+        short_name: { en: 'SGRD', ru: 'АЗАЩ' },
         total_amount: 2,
         default_amount: 2,
         min_game_amount: 2,

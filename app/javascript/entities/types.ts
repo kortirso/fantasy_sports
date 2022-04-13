@@ -18,6 +18,7 @@ export interface Team {
   id: number;
   attributes: {
     name: KeyValue;
+    short_name: string;
   };
 }
 
