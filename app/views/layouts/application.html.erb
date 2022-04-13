@@ -6,12 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_importmap_tags %>
-    <script type='esms-options'>{ "polyfillEnable": ["json-modules"] }</script>
   </head>
   <body>
     <input type='hidden' id='current_locale' value='<%= I18n.locale %>' />
     <%= yield %>
     <%= render Shared::FlashComponent.new %>
+
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

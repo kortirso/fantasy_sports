@@ -4,17 +4,17 @@ nba2022 = nba.seasons.create name: '2021/2022', active: true
 
 overall_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: nba2022, name: 'Overall'
 
-milwaukee = Team.create name: { en: 'Milwaukee Bucks', ru: 'Милуоки Бакс' }
-miami = Team.create name: { en: 'Miami Heat', ru: 'Майами Хит' }
-philadelphia = Team.create name: { en: 'Philadelphia 76ers', ru: 'Филадельфия Сиксерс' }
-chicago = Team.create name: { en: 'Chicago Bulls', ru: 'Чикаго Буллз' }
-boston = Team.create name: { en: 'Boston Celtics', ru: 'Бостон Селтикс' }
+milwaukee = Team.create name: { en: 'Milwaukee Bucks', ru: 'Милуоки Бакс' }, short_name: 'MIL'
+miami = Team.create name: { en: 'Miami Heat', ru: 'Майами Хит' }, short_name: 'MIA'
+philadelphia = Team.create name: { en: 'Philadelphia 76ers', ru: 'Филадельфия Сиксерс' }, short_name: 'PHI'
+chicago = Team.create name: { en: 'Chicago Bulls', ru: 'Чикаго Буллз' }, short_name: 'CHI'
+boston = Team.create name: { en: 'Boston Celtics', ru: 'Бостон Селтикс' }, short_name: 'BOS'
 
-phoenix = Team.create name: { en: 'Phoenix Suns', ru: 'Финикс Санз' }
-golden_state = Team.create name: { en: 'Golden State Warriors', ru: 'Голден Стэйт Уорриорз' }
-dallas = Team.create name: { en: 'Dallas Mavericks ', ru: 'Даллас Маверикс' }
-lal = Team.create name: { en: 'Los Angeles Lakers', ru: 'Лос-Анджелес Лейкерс' }
-denver = Team.create name: { en: 'Denver Nuggets', ru: 'Денвер Наггетс' }
+phoenix = Team.create name: { en: 'Phoenix Suns', ru: 'Финикс Санз' }, short_name: 'PHX'
+golden_state = Team.create name: { en: 'Golden State Warriors', ru: 'Голден Стэйт Уорриорз' }, short_name: 'GSW'
+dallas = Team.create name: { en: 'Dallas Mavericks ', ru: 'Даллас Маверикс' }, short_name: 'DAL'
+lal = Team.create name: { en: 'Los Angeles Lakers', ru: 'Лос-Анджелес Лейкерс' }, short_name: 'LAL'
+denver = Team.create name: { en: 'Denver Nuggets', ru: 'Денвер Наггетс' }, short_name: 'DEN'
 
 milwaukee_nba2022 = Seasons::Team.create team: milwaukee, season: nba2022
 miami_nba2022 = Seasons::Team.create team: miami, season: nba2022

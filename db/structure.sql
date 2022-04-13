@@ -736,7 +736,8 @@ CREATE TABLE public.teams (
     id bigint NOT NULL,
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    short_name character varying
 );
 
 
@@ -1350,6 +1351,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211219120512'),
 ('20211224184836'),
 ('20220110183050'),
-('20220110184922');
+('20220110184922'),
+('20220413193123');
 
 

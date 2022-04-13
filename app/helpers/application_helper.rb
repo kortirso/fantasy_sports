@@ -8,4 +8,15 @@ module ApplicationHelper
   def localized_value(value)
     value[I18n.locale.to_s] || value[I18n.default_locale.to_s]
   end
+
+  def react_component(component_name, **props)
+    content_tag(
+      'div',
+      id:   props[:component_id],
+      data: {
+        react_component: component_name,
+        props:           props.except(:component_id).to_json,
+      }
+    ) { '' }
+  end
 end

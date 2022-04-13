@@ -32,3 +32,8 @@ yarn-debug.log*
 coverage
 
 .DS_Store
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+/dist
