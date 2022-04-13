@@ -47,14 +47,12 @@
       }
     }
 
-    &.is-open {
-      .form-select-dropdown {
-        display: block;
-        position: absolute;
-        z-index: 10;
-        left: 0;
-        top: 42px;
-      }
+    .form-select-dropdown {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      top: 42px;
     }
   }
 }

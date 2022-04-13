@@ -1,7 +1,9 @@
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-import { Welcome } from './components/Welcome';
-const components = { Welcome };
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Welcome, Squad, Transfers } from './components';
+const components = { Welcome, Squad, Transfers };
+const queryClient = new QueryClient();
 document.addEventListener('DOMContentLoaded', () => {
     const mountPoints = document.querySelectorAll('[data-react-component]');
     mountPoints.forEach((mountPoint) => {
@@ -11,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Component) {
             const props = dataset['props'] ? JSON.parse(dataset['props']) : {};
             const root = ReactDOMClient.createRoot(mountPoint);
-            root.render(React.createElement(Component, Object.assign({}, props)));
+            root.render(React.createElement(QueryClientProvider, { client: queryClient },
+                React.createElement(Component, Object.assign({}, props))));
         }
     });
 });
-//# sourceMappingURL=application.js.map

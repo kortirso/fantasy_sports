@@ -1,11 +1,12 @@
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { Welcome } from './components/Welcome';
+import { Welcome, Squad, Transfers } from 'components';
+import type { ComponentType } from 'entities';
 
-import type { ComponentType } from './types';
-
-const components = { Welcome };
+const components = { Welcome, Squad, Transfers };
+const queryClient = new QueryClient();
 
 document.addEventListener('DOMContentLoaded', () => {
   const mountPoints = document.querySelectorAll('[data-react-component]');
@@ -17,7 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Component) {
       const props = dataset['props'] ? JSON.parse(dataset['props']) : {};
       const root = ReactDOMClient.createRoot(mountPoint);
-      root.render(<Component {...props} />);
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <Component {...props} />
+        </QueryClientProvider>,
+      );
     }
   });
 });

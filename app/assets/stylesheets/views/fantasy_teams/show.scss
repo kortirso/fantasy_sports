@@ -47,33 +47,38 @@
 
   &.basketball {
     position: relative;
-    height: 40rem;
+    height: 50rem;
+
+    background-image: image-url('basketball_field.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 
     .sport-position {
       position: absolute;
 
       &.Center {
-        top: 50%;
-        left: 40%;
+        top: 60%;
+        left: 50%;
       }
 
       &.Power-Forward {
-        top: 75%;
+        top: 70%;
         left: 10%;
       }
 
       &.Small-Forward {
-        top: 75%;
+        top: 80%;
         left: 60%;
       }
 
       &.Point-Guard {
-        top: 10%;
-        left: 30%;
+        top: 20%;
+        left: 35%;
       }
 
       &.Shooting-Guard {
-        top: 30%;
+        top: 40%;
         left: 5%;
       }
     }
