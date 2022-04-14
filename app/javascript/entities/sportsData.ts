@@ -110,6 +110,7 @@ export const sportsData: SportsData = {
     hockey: {
       hockey_goalkeeper: {
         name: { en: 'Goalie', ru: 'Вратарь' },
+        short_name: { en: 'GKP', ru: 'ВРТ' },
         total_amount: 3,
         default_amount: 2,
         min_game_amount: 2,
@@ -117,6 +118,7 @@ export const sportsData: SportsData = {
       },
       hockey_defender: {
         name: { en: 'Defenseman', ru: 'Защитник' },
+        short_name: { en: 'DEF', ru: 'ЗАЩ' },
         total_amount: 7,
         default_amount: 6,
         min_game_amount: 6,
@@ -124,6 +126,7 @@ export const sportsData: SportsData = {
       },
       hockey_forward: {
         name: { en: 'Forward', ru: 'Нападающий' },
+        short_name: { en: 'FWD', ru: 'НАП' },
         total_amount: 11,
         default_amount: 9,
         min_game_amount: 9,

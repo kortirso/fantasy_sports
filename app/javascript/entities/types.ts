@@ -7,7 +7,10 @@ export type KeyValue = {
 };
 
 export type TeamNames = {
-  [key in number]: KeyValue;
+  [key in number]: {
+    name: KeyValue;
+    short_name: string;
+  };
 };
 
 export interface Attribute {
@@ -67,6 +70,7 @@ export interface SportValues {
 
 export interface PositionValues {
   name: KeyValue;
+  short_name: KeyValue;
   total_amount: number;
   default_amount: number;
   min_game_amount: number;
