@@ -380,7 +380,8 @@ CREATE TABLE public.games (
     home_season_team_id integer,
     visitor_season_team_id integer,
     source integer,
-    external_id character varying
+    external_id character varying,
+    start_at timestamp(6) without time zone
 );
 
 
@@ -838,7 +839,8 @@ CREATE TABLE public.weeks (
     "position" integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    status integer DEFAULT 0 NOT NULL
+    status integer DEFAULT 0 NOT NULL,
+    deadline_at timestamp(6) without time zone
 );
 
 
@@ -1352,6 +1354,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211224184836'),
 ('20220110183050'),
 ('20220110184922'),
-('20220413193123');
+('20220413193123'),
+('20220415183204');
 
 

@@ -77,6 +77,23 @@ export interface PositionValues {
   max_game_amount: number;
 }
 
+export interface Week {
+  id: number;
+  position: number;
+  next: { id: number };
+  previous: { id: number };
+  date_deadline_at: string;
+  time_deadline_at: string;
+}
+
+export interface Game {
+  id: number;
+  date_start_at: string;
+  time_start_at: string;
+  home_team: { id: number };
+  visitor_team: { id: number };
+}
+
 export interface SportsData {
   sports: {
     [key in string]: SportValues;

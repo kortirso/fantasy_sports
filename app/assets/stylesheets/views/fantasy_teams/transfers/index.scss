@@ -10,6 +10,7 @@
 
     #submit-button {
       margin: 2rem auto;
+      text-align: center;
     }
 
     .deadline {
@@ -53,6 +54,14 @@
     .week {
       .week-header {
         margin: 1rem 0;
+
+        .week-link-container {
+          width: 10rem;
+
+          button {
+            width: 100%;
+          }
+        }
       }
 
       .week-day {
@@ -76,6 +85,11 @@
           .team-name {
             font-size: 1.25rem;
             font-weight: 600;
+            flex: 1;
+
+            &.right-side {
+              text-align: right;
+            }
           }
 
           .game-start {

@@ -18,7 +18,8 @@ interface TransfersProps {
   fantasyTeamUuid: string;
   fantasyTeamCompleted: boolean;
   fantasyTeamBudget: number;
-  gameweekId: string;
+  weekId: number;
+  weekDeadlineAt: string;
 }
 
 const playerSortParams = ['points'];
@@ -31,7 +32,8 @@ export const Transfers = ({
   fantasyTeamUuid,
   fantasyTeamCompleted,
   fantasyTeamBudget,
-  gameweekId,
+  weekId,
+  weekDeadlineAt,
 }: TransfersProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
@@ -216,7 +218,7 @@ export const Transfers = ({
         )}
         <div className="deadline flex items-center justify-center">
           <span>Gameweek 1 deadline:</span>
-          <span>01.01.2022</span>
+          <span>{weekDeadlineAt}</span>
         </div>
         <div className="flex justify-between transfers-stats">
           <div className="transfers-stat flex flex-col items-center">
@@ -253,14 +255,15 @@ export const Transfers = ({
             </div>
           ))}
         </div>
-        <button
-          id="submit-button"
-          className="button"
-          onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}
-        >
-          {fantasyTeamCompleted ? 'Make transfers' : 'Save'}
-        </button>
-        <Week gameweekId={gameweekId} />
+        <div id="submit-button">
+          <button
+            className="button"
+            onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}
+          >
+            {fantasyTeamCompleted ? 'Make transfers' : 'Save'}
+          </button>
+        </div>
+        {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
       </div>
       <div id="fantasy-players">
         <h2>Player selection</h2>

@@ -6,6 +6,7 @@
       fantasyTeamUuid:      @fantasy_team.uuid,
       fantasyTeamCompleted: @fantasy_team.completed?,
       fantasyTeamBudget:    @fantasy_team.budget_cents / 100.0,
-      gameweekId:           @season.coming_week.id
+      weekId:               @season.coming_week.id,
+      weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M')
   %>
 <% end %>
