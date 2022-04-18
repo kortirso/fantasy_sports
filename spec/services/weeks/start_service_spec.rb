@@ -44,7 +44,7 @@ describe Weeks::StartService, type: :service do
       it 'does not update fantasy team' do
         service_call
 
-        expect(fantasy_team.reload.transfers_limited).to eq false
+        expect(fantasy_team.reload.transfers_limited).to be false
       end
 
       it 'and it succeed' do
@@ -66,7 +66,7 @@ describe Weeks::StartService, type: :service do
       it 'does updates fantasy team' do
         service_call
 
-        expect(fantasy_team.reload.transfers_limited).to eq true
+        expect(fantasy_team.reload.transfers_limited).to be true
       end
 
       it 'and it succeed' do
