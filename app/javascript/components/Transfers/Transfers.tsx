@@ -1,10 +1,11 @@
-import React, { forwardRef, useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
-import { sportsData, SportPosition, Player, TeamsPlayer, Attribute, KeyValue } from 'entities';
+import { sportsData, SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
 import { localizeValue, showAlert, csrfToken } from 'helpers';
 
 import { Dropdown } from 'components/atoms';
+import { Week } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
@@ -17,16 +18,23 @@ interface TransfersProps {
   fantasyTeamUuid: string;
   fantasyTeamCompleted: boolean;
   fantasyTeamBudget: number;
+  weekId: number;
+  weekDeadlineAt: string;
 }
 
 const playerSortParams = ['points'];
 
 const PER_PAGE = 20;
 
-const TransfersComponent = (
-  { seasonId, sportKind, fantasyTeamUuid, fantasyTeamCompleted, fantasyTeamBudget }: TransfersProps,
-  ref: React.Ref<HTMLDivElement>,
-) => {
+export const Transfers = ({
+  seasonId,
+  sportKind,
+  fantasyTeamUuid,
+  fantasyTeamCompleted,
+  fantasyTeamBudget,
+  weekId,
+  weekDeadlineAt,
+}: TransfersProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [seasonPlayers, setSeasonPlayers] = useState<TeamsPlayer[]>([]);
@@ -44,17 +52,17 @@ const TransfersComponent = (
     const fetchTeams = async () => {
       const data = await teamsRequest(seasonId);
       setTeamNames(data);
-    }
+    };
 
     const fetchSeasonPlayers = async () => {
       const data = await seasonPlayersRequest(seasonId);
       setSeasonPlayers(data);
-    }
+    };
 
     const fetchFantasyTeamPlayers = async () => {
       const data = await fantasyTeamPlayersRequest(fantasyTeamUuid);
       setTeamMembers(data);
-    }
+    };
 
     fetchTeams();
     fetchSeasonPlayers();
@@ -146,7 +154,10 @@ const TransfersComponent = (
       body: JSON.stringify(payload),
     };
 
-    const submitResult = await apiRequest({ url: `/fantasy_teams/${fantasyTeamUuid}.json`, options: requestOptions });
+    const submitResult = await apiRequest({
+      url: `/fantasy_teams/${fantasyTeamUuid}.json`,
+      options: requestOptions,
+    });
     if (submitResult.redirect_path) {
       window.location = submitResult.redirect_path;
     } else {
@@ -155,13 +166,13 @@ const TransfersComponent = (
   };
 
   const submitCompleted = async () => {
-    const onlyValidate = false
+    const onlyValidate = false;
     const payload = {
       fantasy_team: {
         teams_players_ids: teamMembers.map((element: TeamsPlayer) => element.id),
-        only_validate:     onlyValidate
-      }
-    }
+        only_validate: onlyValidate,
+      },
+    };
 
     const requestOptions = {
       method: 'PATCH',
@@ -172,25 +183,29 @@ const TransfersComponent = (
       body: JSON.stringify(payload),
     };
 
-    const submitResult = await apiRequest({ url: `/fantasy_teams/${fantasyTeamUuid}.json`, options: requestOptions });
+    const submitResult = await apiRequest({
+      url: `/fantasy_teams/${fantasyTeamUuid}.json`,
+      options: requestOptions,
+    });
     if (onlyValidate) {
       if (submitResult.result) {
-        showAlert("notice", `<p>Points penalty - ${submitResult.result.points_penalty}</p>`);
+        showAlert('notice', `<p>Points penalty - ${submitResult.result.points_penalty}</p>`);
       } else {
-        submitResult.errors.forEach((error: string) => showAlert("alert", `<p>${error}</p>`));
-      };
+        submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+      }
     } else {
       if (submitResult.result) {
-        showAlert("notice", `<p>${submitResult.result}</p>`);
+        showAlert('notice', `<p>${submitResult.result}</p>`);
       } else {
-        submitResult.errors.forEach((error: string) => showAlert("alert", `<p>${error}</p>`));
-      };
-    };
+        submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+      }
+    }
   };
 
   return (
     <div id="fantasy-team-transfers">
       <div id="fantasy-team-members">
+        <h1>Transfers</h1>
         {!fantasyTeamCompleted && (
           <div className="form-field">
             <label className="form-label">Fantasy team name</label>
@@ -201,8 +216,24 @@ const TransfersComponent = (
             />
           </div>
         )}
-        <p>Money renaining - {budget}</p>
-        <p>Free transfers for a week - </p>
+        <div className="deadline flex items-center justify-center">
+          <span>Gameweek 1 deadline:</span>
+          <span>{weekDeadlineAt}</span>
+        </div>
+        <div className="flex justify-between transfers-stats">
+          <div className="transfers-stat flex flex-col items-center">
+            <p>Free transfers</p>
+            <p>0</p>
+          </div>
+          <div className="transfers-stat flex flex-col items-center">
+            <p>Cost</p>
+            <p>0 points</p>
+          </div>
+          <div className="transfers-stat flex flex-col items-center">
+            <p>Money remaining</p>
+            <p>{budget}</p>
+          </div>
+        </div>
         <div id="team-players-by-positions" className={sportKind}>
           {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
             <div
@@ -224,9 +255,15 @@ const TransfersComponent = (
             </div>
           ))}
         </div>
-        <button id="submit-button" className="button" onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}>
-          {fantasyTeamCompleted ? 'Make transfers' : 'Save'}
-        </button>
+        <div id="submit-button">
+          <button
+            className="button"
+            onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}
+          >
+            {fantasyTeamCompleted ? 'Make transfers' : 'Save'}
+          </button>
+        </div>
+        {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
       </div>
       <div id="fantasy-players">
         <h2>Player selection</h2>
@@ -237,7 +274,7 @@ const TransfersComponent = (
               result[key] = localizeValue(values.name);
               return result;
             },
-            { all: localizeValue({ 'en': 'All players', 'ru': 'Все игроки' }) } as KeyValue,
+            { all: localizeValue({ en: 'All players', ru: 'Все игроки' }) } as KeyValue,
           )}
           onSelect={(value) => setFilterByPosition(value)}
           selectedValue={filterByPosition}
@@ -249,7 +286,7 @@ const TransfersComponent = (
               result[key] = localizeValue(values.name);
               return result;
             },
-            { all: localizeValue({ 'en': 'All teams', 'ru': 'Все команды' }) } as KeyValue,
+            { all: localizeValue({ en: 'All teams', ru: 'Все команды' }) } as KeyValue,
           )}
           onSelect={(value) => setFilterByTeam(value)}
           selectedValue={filterByTeam}
@@ -302,5 +339,3 @@ const TransfersComponent = (
     </div>
   );
 };
-
-export const Transfers = forwardRef(TransfersComponent);

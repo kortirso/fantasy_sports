@@ -1,4 +1,4 @@
-import type { KeyValue, TeamNames } from 'entities';
+import type { TeamNames } from 'entities';
 import { Team } from 'entities';
 import { apiRequest } from 'requests/helpers/apiRequest';
 
@@ -10,8 +10,10 @@ const encodeParams = (seasonId: string) => {
 
 export const teamsRequest = async (seasonId: string) => {
   const result = await apiRequest({ url: `/teams.json?${encodeParams(seasonId)}` });
-  return result.teams.data.reduce((result: TeamNames, item: Team) => {
-    result[item.id] = item.attributes;
-    return result;
-  }, {}) || {};
+  return (
+    result.teams.data.reduce((result: TeamNames, item: Team) => {
+      result[item.id] = item.attributes;
+      return result;
+    }, {}) || {}
+  );
 };

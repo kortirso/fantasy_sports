@@ -20,6 +20,7 @@ module Lineups
       seasons_team = object.teams_player.seasons_team
       fields = { id: seasons_team.team_id }
 
+      # TODO: https://github.com/kortirso/fantasy_sports/issues/25
       if params_with_field?(params, 'opposite_teams')
         seasons_teams_ids =
           Game

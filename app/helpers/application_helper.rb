@@ -15,7 +15,7 @@ module ApplicationHelper
       id:   props[:component_id],
       data: {
         react_component: component_name,
-        props:           props.except(:component_id).to_json,
+        props:           props.except(:component_id).to_json
       }
     ) { '' }
   end

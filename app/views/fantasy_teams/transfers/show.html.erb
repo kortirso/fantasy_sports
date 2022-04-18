@@ -1,20 +1,12 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div>
-
-    <%= react_component 'Transfers', seasonId: @season.id, sportKind: @season.league.sport_kind, fantasyTeamUuid: @fantasy_team.uuid, fantasyTeamCompleted: @fantasy_team.completed?, fantasyTeamBudget: @fantasy_team.budget_cents / 100.0 %>
-
-    <% if false %>
-      <div id='fantasy-team-members'>
-        <p><%= t('views.fantasy_teams.transfers.show.transfers_remaining') %> - <%= @fantasy_team.transfers_limited? ? @fantasy_team.free_transfers : t('views.fantasy_teams.transfers.show.unlimited') %></p>
-        <button
-          id='reset-button'
-          className='button'
-          v-if='completed'
-          @click='resetTransfers()'
-        >
-          <%= t('views.fantasy_teams.transfers.show.reset') %>
-        </button>
-      </div>
-    <% end %>
-  </div>
+  <%=
+    react_component 'Transfers',
+      seasonId:             @season.id,
+      sportKind:            @season.league.sport_kind,
+      fantasyTeamUuid:      @fantasy_team.uuid,
+      fantasyTeamCompleted: @fantasy_team.completed?,
+      fantasyTeamBudget:    @fantasy_team.budget_cents / 100.0,
+      weekId:               @season.coming_week.id,
+      weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M')
+  %>
 <% end %>

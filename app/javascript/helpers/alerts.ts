@@ -8,4 +8,4 @@ export const showAlert = (status: string, message: string) => {
   alert.innerHTML = message;
   rootElement.append(alert);
   setTimeout(() => alert.remove(), 2500);
-}
+};

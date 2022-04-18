@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :seasons, only: %i[] do
       resources :players, only: %i[index], module: 'seasons'
     end
+    resources :weeks, only: %i[show]
 
     root 'welcome#index'
   end
