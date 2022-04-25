@@ -1,12 +1,12 @@
 <%= render PageWrappers::UsersComponent.new do %>
-  <section class='user-form'>
+  <section class="user-form">
     <%= form_with model: User.new, url: users_login_path, method: :post do |form| %>
       <h2><%= t('views.users.sessions.new.login') %></h2>
-      <div class='form-field'>
+      <div class="form-field">
         <%= form.label :email, 'Email', class: 'form-label' %>
         <%= form.text_field :email, class: 'form-value' %>
       </div>
-      <div class='form-field'>
+      <div class="form-field">
         <%= form.label :password, t('views.users.registrations.new.password'), class: 'form-label' %>
         <%= form.password_field :password, class: 'form-value' %>
       </div>

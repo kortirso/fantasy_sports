@@ -31,6 +31,7 @@ export interface SportPosition {
 
 export interface Team {
   id: number;
+  opposite_team_ids: number[];
 }
 
 export interface Player {

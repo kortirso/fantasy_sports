@@ -2,16 +2,15 @@
 <html>
   <head>
     <title>Fantasy Sports</title>
-    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
   <body>
-    <input type='hidden' id='current_locale' value='<%= I18n.locale %>' />
+    <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
     <%= yield %>
     <%= render Shared::FlashComponent.new %>
-
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

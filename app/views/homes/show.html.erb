@@ -1,10 +1,10 @@
 <%= render PageWrappers::PageComponent.new do %>
   <% Sports.all.each do |sport_kind, values| %>
-    <div class='sport'>
+    <div class="sport">
       <h2><%= localized_value(values['name']) %></h2>
-      <div class='sport-leagues'>
+      <div class="sport-leagues">
         <% @leagues[sport_kind].each do |league| %>
-          <div class='league'>
+          <div class="league">
             <h3><%= localized_value(league.name) %></h3>
             <% if allowed_to?(:show?, league, with: Admin::LeaguePolicy) %>
               <%= link_to t('views.homes.show.admin_league'), admin_league_path(league.id), class: 'button' %>
