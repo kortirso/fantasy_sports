@@ -18,3 +18,17 @@ header.page-navigation {
   max-width: 90rem;
   margin: 2rem auto;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+
+  .left-container {
+    flex: 1;
+    padding-right: 2rem;
+  }
+
+  .right-container {
+    width: 22rem;
+  }
+}

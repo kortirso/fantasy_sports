@@ -67,7 +67,7 @@ export const Transfers = ({
     fetchTeams();
     fetchSeasonPlayers();
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
@@ -203,8 +203,8 @@ export const Transfers = ({
   };
 
   return (
-    <div id="fantasy-team-transfers">
-      <div id="fantasy-team-members">
+    <div id="fantasy-team-transfers" className="main-container">
+      <div id="fantasy-team-members" className="left-container">
         <h1>Transfers</h1>
         {!fantasyTeamCompleted && (
           <div className="form-field">
@@ -265,7 +265,7 @@ export const Transfers = ({
         </div>
         {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
       </div>
-      <div id="fantasy-players">
+      <div id="fantasy-players" className="right-container">
         <h2>Player selection</h2>
         <Dropdown
           title="View by position"

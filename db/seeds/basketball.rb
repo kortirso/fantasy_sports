@@ -122,7 +122,6 @@ Games::CreateService.call(
   source:              Sourceable::BALLDONTLIE,
   external_id:         '473409',
   start_at:            DateTime.new(2021, 10, 19, 10, 0, 0)
-
 )
 
 Games::CreateService.call(

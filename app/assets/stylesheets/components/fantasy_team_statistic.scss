@@ -1,0 +1,40 @@
+@import '../general/colors.scss';
+
+.fantasy-team-statistic {
+  width: 100%;
+  padding: 1rem;
+  background: $blue200;
+
+  .points-statistic {
+    background: $white;
+    margin-bottom: 1rem;
+
+    .points-statistic-block {
+      padding: .5rem;
+      border-bottom: 1px solid $gray200;
+
+      &.flex {
+        p {
+          &:nth-of-type(1) {
+            flex: 6;
+          }
+
+          &:nth-of-type(2) {
+            flex: 4;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    h3 {
+      margin: .5rem 0 0;
+      padding-bottom: .5rem;
+    }
+
+    h4 {
+      margin: 0;
+      padding: .5rem 0;
+    }
+  }
+}
