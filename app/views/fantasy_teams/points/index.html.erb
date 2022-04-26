@@ -1,51 +1,18 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <% if @lineup %>
-    <div
-      id='fantasy-team-points'
-      data-season-id='<%= @season.id %>'
-      data-sport-kind='<%= @season.league.sport_kind %>'
-      data-lineup-id='<%= @lineup.id %>'
-    >
-      <div class='lineup-points'>
-        <div id='total-points'>
-          <p><%= t('views.fantasy_teams.points.index.total_points') %></p>
-          <p><%= @lineup.points %></p>
-        </div>
-      </div>
-      <div id='fantasy-team-members'>
-        <div id='team-players-by-positions' class='<%= @season.league.sport_kind %>'>
-          <div
-            v-for='sportPosition in sportsPositions'
-            :key='sportPosition.position_kind'
-            class='sport-position'
-            :class="[sportPosition.name.en.split(' ').join('-')]"
-          >
-            <div
-              class='player-card-box'
-              v-for='teamMember in activePlayersForPosition(sportPosition.position_kind)'
-              :key='teamMember.id'
-            >
-              <div class='player-card'>
-                <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
-                <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
-                <p class='player-value'>{{ teamMember.points }}</p>
-              </div>
-            </div>
-          </div>
-          <% if Sports.sport(@season.league.sport_kind)['changes'] %>
-            <div
-              class='player-card-box'
-              v-for='teamMember in reservePlayers()'
-              :key='teamMember.id'
-            >
-              <div class='player-card'>
-                <p class='player-team-name'>{{ localizeValue(teamNameById(teamMember.team.id)) }}</p>
-                <p class='player-name'>{{ localizeValue(teamMember.player.name).split(' ')[0] }}</p>
-                <p class='player-value'>{{ teamMember.points }}</p>
-              </div>
-            </div>
-          <% end %>
-        </div>
+    <div class="main-container">
+      <%=
+        react_component 'SquadPoints',
+          component_id:    'fantasy-team-points',
+          component_class: 'left-container',
+          seasonId:        @season.id,
+          sportKind:       @season.league.sport_kind,
+          lineupId:        @lineup.id,
+          weekId:          @season.coming_week.id,
+          points:          @lineup.points
+      %>
+      <div id="fantasy-team-statistic" class="right-container">
+        <%= render 'shared/fantasy_team_statistic' %>
       </div>
     </div>
   <% else %>

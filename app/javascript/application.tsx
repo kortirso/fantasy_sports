@@ -2,10 +2,10 @@ import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { Welcome, Squad, Transfers } from 'components';
+import { Welcome, Squad, SquadPoints, Transfers } from 'components';
 import type { ComponentType } from 'entities';
 
-const components = { Welcome, Squad, Transfers };
+const components = { Welcome, Squad, SquadPoints, Transfers };
 const queryClient = new QueryClient();
 
 document.addEventListener('DOMContentLoaded', () => {
