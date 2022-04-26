@@ -1,25 +1,4 @@
 @import '../../../general/colors.scss';
 
 #fantasy-team-points {
-  .lineup-points {
-    display: flex;
-    flex-direction: row;
-    background: $gray200;
-    padding: .5rem;
-
-    #total-points {
-      background: $white;
-      padding: .5rem;
-
-      p {
-        text-align: center;
-
-        &:nth-of-type(2) {
-          font-size: 2rem;
-          font-weight: 600;
-          color: $red400;
-        }
-      }
-    }
-  }
 }

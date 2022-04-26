@@ -6,26 +6,6 @@
       margin: 2rem auto;
       text-align: center;
     }
-
-    .transfers-stats {
-      .transfers-stat {
-        width: 30%;
-        padding: .75rem 0;
-        border-top: 1px solid $gray200;
-        border-bottom: 1px solid $gray200;
-
-        p {
-          &:nth-of-type(1) {
-            font-size: .9rem;
-          }
-
-          &:nth-of-type(2) {
-            margin-top: .25rem;
-            font-size: 1.5rem;
-          }
-        }
-      }
-    }
   }
 
   #fantasy-players {

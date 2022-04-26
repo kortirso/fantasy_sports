@@ -69,10 +69,18 @@ export const SquadPoints = ({
   return (
     <>
       <h1>Points</h1>
-      <div className="lineup-points">
-        <div id="total-points">
+      <div className="flex justify-between transfers-stats">
+        <div className="transfers-stat flex flex-col items-center">
           <p>Total points</p>
           <p>{points}</p>
+        </div>
+        <div className="transfers-stat flex flex-col items-center">
+          <p>Average points</p>
+          <p></p>
+        </div>
+        <div className="transfers-stat flex flex-col items-center">
+          <p>Hightest points</p>
+          <p></p>
         </div>
       </div>
       <div id="team-players-by-positions" className={sportKind}>
