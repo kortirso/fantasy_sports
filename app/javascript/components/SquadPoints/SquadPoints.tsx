@@ -100,20 +100,20 @@ export const SquadPoints = ({
             ))}
           </div>
         ))}
-        {sport.changes && (
-          <div className="sport-position substitution">
-            {reservePlayers().map((item: LineupPlayer) => (
-              <div className="player-card-box" key={item.id}>
-                <div className="player-card">
-                  <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                  <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                  <p className="player-value">{item.points}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
+      {sport.changes && (
+        <div className="substitutions">
+          {reservePlayers().map((item: LineupPlayer) => (
+            <div className="player-card-box" key={item.id}>
+              <div className="player-card">
+                <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
+                <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
+                <p className="player-value">{item.points}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
     </>
   );

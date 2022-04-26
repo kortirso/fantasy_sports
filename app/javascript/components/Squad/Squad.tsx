@@ -215,23 +215,23 @@ export const Squad = ({
             ))}
           </div>
         ))}
-        {sport.changes && (
-          <div className="sport-position substitution">
-            {reservePlayers().map((item: LineupPlayer) => (
-              <div className="player-card-box" key={item.id}>
-                <div className={classListForPlayerCard(item.id)}>
-                  <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                  <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                  <p className="player-value">{oppositeTeamNames(item)}</p>
-                  <div className="action" onClick={() => changePlayer(item, false)}>
-                    +/-
-                  </div>
+      </div>
+      {sport.changes && (
+        <div className="substitutions">
+          {reservePlayers().map((item: LineupPlayer) => (
+            <div className="player-card-box" key={item.id}>
+              <div className={classListForPlayerCard(item.id)}>
+                <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
+                <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
+                <p className="player-value">{oppositeTeamNames(item)}</p>
+                <div className="action" onClick={() => changePlayer(item, false)}>
+                  +/-
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
       <div id="submit-button">
         <button className="button" onClick={submit}>
           Save team

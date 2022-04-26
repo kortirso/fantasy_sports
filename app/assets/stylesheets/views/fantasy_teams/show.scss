@@ -95,6 +95,13 @@
   }
 }
 
+.substitutions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
 #team-players-by-positions {
   display: flex;
   flex-direction: column;
@@ -103,23 +110,32 @@
   .sport-position {
     display: flex;
     flex-direction: row;
-
-    &.substitution {
-      margin-top: 2rem;
-    }
   }
 
   &.football {
+    position: relative;
+    height: 45rem;
+    background-image: image-url('football_field.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
     .sport-position {
-      margin-bottom: 2rem;
+      height: 25%;
+      padding: 0 5rem;
 
       .player-card-box {
         flex: 1;
         display: flex;
         justify-content: center;
+        align-items: center;
       }
 
-      &.Goalkeeper, &.Forward {
+      &.Goalkeeper {
+        padding: 0 15rem;
+      }
+
+      &.Forward {
         padding: 0 10rem;
       }
     }
@@ -128,7 +144,6 @@
   &.basketball {
     position: relative;
     height: 50rem;
-
     background-image: image-url('basketball_field.jpg');
     background-repeat: no-repeat;
     background-size: contain;
