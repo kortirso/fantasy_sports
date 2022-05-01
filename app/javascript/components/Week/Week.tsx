@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
-import { Attribute, Week as WeekInterface, Game } from 'entities';
+import { Element, Week as WeekInterface, Game } from 'entities';
 import { localizeValue } from 'helpers';
 
 import { weekRequest } from './requests/weekRequest';
@@ -20,7 +20,7 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
     const fetchWeek = async () => {
       const data = await weekRequest(weekId);
       setWeek(data);
-      setGames(data.games.data.map((element: Attribute) => element.attributes));
+      setGames(data.games.data.map((element: Element) => element.attributes));
     };
 
     fetchWeek();

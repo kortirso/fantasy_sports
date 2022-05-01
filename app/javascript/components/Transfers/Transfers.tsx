@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { Trans } from '@lingui/macro';
 
 import type { TeamNames } from 'entities';
 import { sportsData, SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
@@ -205,7 +206,9 @@ export const Transfers = ({
   return (
     <div id="fantasy-team-transfers" className="main-container">
       <div id="fantasy-team-members" className="left-container">
-        <h1>Transfers</h1>
+        <h1>
+          <Trans>Transfers</Trans>
+        </h1>
         {!fantasyTeamCompleted && (
           <div className="form-field">
             <label className="form-label">Fantasy team name</label>

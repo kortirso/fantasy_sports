@@ -13,7 +13,7 @@ export type TeamNames = {
   };
 };
 
-export interface Attribute {
+export interface Element {
   attributes: any;
 }
 

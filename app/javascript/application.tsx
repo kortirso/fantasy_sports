@@ -1,9 +1,12 @@
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { I18nProvider } from '@lingui/react';
 
 import { Welcome, Squad, SquadPoints, Transfers } from 'components';
 import type { ComponentType } from 'entities';
+
+import i18n from 'locales/i18n';
 
 const components = { Welcome, Squad, SquadPoints, Transfers };
 const queryClient = new QueryClient();

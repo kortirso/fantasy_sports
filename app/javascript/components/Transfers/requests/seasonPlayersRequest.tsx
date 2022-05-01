@@ -1,4 +1,4 @@
-import { Attribute } from 'entities';
+import { Element } from 'entities';
 import { apiRequest } from 'requests/helpers/apiRequest';
 
 const encodeParams = () => {
@@ -9,5 +9,5 @@ const encodeParams = () => {
 
 export const seasonPlayersRequest = async (seasonId: string) => {
   const result = await apiRequest({ url: `/seasons/${seasonId}/players.json?${encodeParams()}` });
-  return result.season_players.data.map((element: Attribute) => element.attributes);
+  return result.season_players.data.map((element: Element) => element.attributes);
 };

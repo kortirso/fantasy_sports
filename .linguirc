@@ -1,0 +1,16 @@
+{
+  "locales": [
+    "en",
+    "ru"
+  ],
+  "sourceLocale": "en",
+  "catalogs": [
+    {
+      "path": "app/javascript/locales/{locale}/messages",
+      "include": [
+        "app/javascript"
+      ]
+    }
+  ],
+  "format": "po"
+}
