@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
 import { sportsData, SportPosition, LineupPlayer } from 'entities';
-import { localizeValue } from 'helpers';
+import { currentLocale, localizeValue } from 'helpers';
+import { strings } from 'locales';
 
 import { Week } from 'components';
 
@@ -39,6 +40,7 @@ export const SquadPoints = ({
       setLineupPlayers(data);
     };
 
+    strings.setLanguage(currentLocale);
     fetchTeams();
     fetchLineupPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -68,18 +70,18 @@ export const SquadPoints = ({
 
   return (
     <>
-      <h1>Points</h1>
+      <h1>{strings.squadPoints.title}</h1>
       <div className="flex justify-between transfers-stats">
         <div className="transfers-stat flex flex-col items-center">
-          <p>Total points</p>
+          <p>{strings.squadPoints.totalPoints}</p>
           <p>{points}</p>
         </div>
         <div className="transfers-stat flex flex-col items-center">
-          <p>Average points</p>
+          <p>{strings.squadPoints.averagePoints}</p>
           <p></p>
         </div>
         <div className="transfers-stat flex flex-col items-center">
-          <p>Hightest points</p>
+          <p>{strings.squadPoints.hightestPoints}</p>
           <p></p>
         </div>
       </div>

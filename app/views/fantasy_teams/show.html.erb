@@ -7,8 +7,9 @@
         seasonId:        @season.id,
         sportKind:       @season.league.sport_kind,
         lineupId:        @lineup.id,
-        weekId:          @season.coming_week.id,
-        weekDeadlineAt:  @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M')
+        weekId:          @lineup.week_id,
+        weekPosition:    @lineup.week.position,
+        weekDeadlineAt:  @lineup.week.deadline_at.strftime('%d.%m.%Y %H:%M')
     %>
     <div id="fantasy-team-statistic" class="right-container">
       <%= render 'shared/fantasy_team_statistic' %>

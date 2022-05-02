@@ -4,38 +4,38 @@
       <h3><%= @fantasy_team.name %></h3>
     </div>
     <div class="points-statistic-block">
-      <h4>Points/Rankings</h4>
+      <h4><%= t('views.shared.statistic.title') %></h4>
     </div>
     <div class="points-statistic-block flex">
-      <p>Overall points:</p>
+      <p><%= t('views.shared.statistic.overall') %></p>
       <p><%= @fantasy_team.lineups.sum(:points) %></p>
     </div>
     <div class="points-statistic-block flex">
-      <p>Overall rank:</p>
+      <p><%= t('views.shared.statistic.rank') %></p>
       <p>1</p>
     </div>
     <div class="points-statistic-block flex">
-      <p>Total players:</p>
+      <p><%= t('views.shared.statistic.players') %></p>
       <p>1</p>
     </div>
   </div>
   <div class="points-statistic">
     <div class="points-statistic-block">
-      <h3>General leagues</h3>
+      <h3><%= t('views.shared.statistic.leagues') %></h3>
     </div>
     <div class="points-statistic-block flex">
     </div>
   </div>
   <div class="points-statistic">
     <div class="points-statistic-block">
-      <h3>Finance</h3>
+      <h3><%= t('views.shared.statistic.finance') %></h3>
     </div>
     <div class="points-statistic-block flex">
-      <p>Squad value:</p>
+      <p><%= t('views.shared.statistic.squad_value') %></p>
       <p></p>
     </div>
     <div class="points-statistic-block flex">
-      <p>In the bank:</p>
+      <p><%= t('views.shared.statistic.bank') %></p>
       <p></p>
     </div>
   </div>

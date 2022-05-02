@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
 import { Attribute, Week as WeekInterface, Game } from 'entities';
-import { localizeValue } from 'helpers';
+import { currentLocale, localizeValue } from 'helpers';
+import { strings } from 'locales';
 
 import { weekRequest } from './requests/weekRequest';
 
@@ -23,6 +24,7 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
       setGames(data.games.data.map((element: Attribute) => element.attributes));
     };
 
+    strings.setLanguage(currentLocale);
     fetchWeek();
   }, [weekId]);
 
@@ -34,17 +36,17 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
         <div className="week-link-container">
           {week.previous.id ? (
             <button className="button" onClick={() => setWeekId(week.previous.id)}>
-              Previous week
+              {strings.week.previous}
             </button>
           ) : null}
         </div>
         <p>
-          Gameweek {week.position} - {week.date_deadline_at} {week.time_deadline_at}
+          {strings.week.gameweek} {week.position} - {week.date_deadline_at} {week.time_deadline_at}
         </p>
         <div className="week-link-container">
           {week.next.id ? (
             <button className="button" onClick={() => setWeekId(week.next.id)}>
-              Next week
+              {strings.week.next}
             </button>
           ) : null}
         </div>

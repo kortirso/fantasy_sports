@@ -1,0 +1,72 @@
+{
+  "en": {
+    "transfers": {
+      "title": "Transfers",
+      "name": "Fantasy team name",
+      "free": "Free transfers",
+      "cost": "Cost (points)",
+      "remaining": "Money remaining",
+      "positionView": "View by position",
+      "teamView": "View by team",
+      "sort": "Sort by",
+      "week": "Gameweek {number} deadline:",
+      "selection": "Player selection",
+      "makeTransfers": "Make transfers",
+      "save": "Save",
+      "allTeams": "All Teams",
+      "allPlayers": "All players",
+      "sortByPoints": "Total points",
+      "sortByPrice": "Price"
+    },
+    "week": {
+      "previous": "Previous week",
+      "next": "Next week",
+      "gameweek": "Gameweek"
+    },
+    "squad": {
+      "title": "Pick team",
+      "save": "Save team"
+    },
+    "squadPoints": {
+      "title": "Points",
+      "totalPoints": "Total points",
+      "averagePoints": "Average points",
+      "hightestPoints": "Hightest points"
+    }
+  },
+  "ru": {
+    "transfers": {
+      "title": "Трансферы",
+      "name": "Название команды",
+      "free": "Бесплатные трансферы",
+      "cost": "Стоимость (очков)",
+      "remaining": "Остаток бюджета",
+      "positionView": "Фильтр по позициям",
+      "teamView": "Фильтр по командам",
+      "sort": "Сортировка",
+      "week": "Игровая неделя {number}, дедлайн:",
+      "selection": "Выбор игроков",
+      "makeTransfers": "Выполнить трансферы",
+      "save": "Сохранить",
+      "allTeams": "Все команды",
+      "allPlayers": "Все игроки",
+      "sortByPoints": "Сумма очков",
+      "sortByPrice": "Цена"
+    },
+    "week": {
+      "previous": "Предыдущая неделя",
+      "next": "Следующая неделя",
+      "gameweek": "Игровая неделя"
+    },
+    "squad": {
+      "title": "Выбор команды",
+      "save": "Сохранить изменения"
+    },
+    "squadPoints": {
+      "title": "Очки",
+      "totalPoints": "Всего очков",
+      "averagePoints": "Средний результат",
+      "hightestPoints": "Наилучший результат"
+    }
+  }
+}

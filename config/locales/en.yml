@@ -74,10 +74,17 @@ en:
     fantasy_teams:
       points:
         index:
-          total_points: Total points
           no_lineups: There is no active week
-      show:
-        save_team: Save the team
+    shared:
+      statistic:
+        title: Points/Rankings
+        overall: 'Overall points:'
+        rank: 'Overall rank:'
+        players: 'Total players:'
+        leagues: General leagues
+        finance: Finance
+        squad_value: 'Squad value:'
+        bank: 'In the bank:'
     users:
       registrations:
         new:

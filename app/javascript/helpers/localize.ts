@@ -2,7 +2,7 @@ import type { KeyValue } from 'entities';
 
 const DEFAULT_LOCALE = 'en';
 
-const currentLocale =
+export const currentLocale =
   (document.getElementById('current_locale') as HTMLInputElement).value || DEFAULT_LOCALE;
 
 export const localizeValue = (value?: KeyValue) => {

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
 import { sportsData, SportPosition, LineupPlayer } from 'entities';
-import { localizeValue, showAlert, csrfToken } from 'helpers';
+import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
+import { strings } from 'locales';
 
 import { Week } from 'components';
 
@@ -15,6 +16,7 @@ interface SquadProps {
   sportKind: string;
   lineupId: string;
   weekId: number;
+  weekPosition: number;
   weekDeadlineAt: string;
 }
 
@@ -23,6 +25,7 @@ export const Squad = ({
   sportKind,
   lineupId,
   weekId,
+  weekPosition,
   weekDeadlineAt,
 }: SquadProps): JSX.Element => {
   // static data
@@ -44,6 +47,7 @@ export const Squad = ({
       setLineupPlayers(data);
     };
 
+    strings.setLanguage(currentLocale);
     fetchTeams();
     fetchLineupPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -188,9 +192,9 @@ export const Squad = ({
 
   return (
     <>
-      <h1>Pick team</h1>
+      <h1>{strings.squad.title}</h1>
       <div className="deadline flex items-center justify-center">
-        <span>Gameweek 1 deadline:</span>
+        <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
         <span>{weekDeadlineAt}</span>
       </div>
       <div id="team-players-by-positions" className={sportKind}>
@@ -234,7 +238,7 @@ export const Squad = ({
       )}
       <div id="submit-button">
         <button className="button" onClick={submit}>
-          Save team
+          {strings.squad.save}
         </button>
       </div>
       {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}

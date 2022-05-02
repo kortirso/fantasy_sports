@@ -2,7 +2,8 @@ import React, { useState, useMemo, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
 import { sportsData, SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
-import { localizeValue, showAlert, csrfToken } from 'helpers';
+import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
+import { strings } from 'locales';
 
 import { Dropdown } from 'components/atoms';
 import { Week } from 'components';
@@ -19,6 +20,7 @@ interface TransfersProps {
   fantasyTeamCompleted: boolean;
   fantasyTeamBudget: number;
   weekId: number;
+  weekPosition: number;
   weekDeadlineAt: string;
 }
 
@@ -33,6 +35,7 @@ export const Transfers = ({
   fantasyTeamCompleted,
   fantasyTeamBudget,
   weekId,
+  weekPosition,
   weekDeadlineAt,
 }: TransfersProps): JSX.Element => {
   // static data
@@ -64,6 +67,7 @@ export const Transfers = ({
       setTeamMembers(data);
     };
 
+    strings.setLanguage(currentLocale);
     fetchTeams();
     fetchSeasonPlayers();
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
@@ -205,10 +209,10 @@ export const Transfers = ({
   return (
     <div id="fantasy-team-transfers" className="main-container">
       <div id="fantasy-team-members" className="left-container">
-        <h1>Transfers</h1>
+        <h1>{strings.transfers.title}</h1>
         {!fantasyTeamCompleted && (
           <div className="form-field">
-            <label className="form-label">Fantasy team name</label>
+            <label className="form-label">{strings.transfers.name}</label>
             <input
               className="form-value"
               value={teamName}
@@ -217,20 +221,20 @@ export const Transfers = ({
           </div>
         )}
         <div className="deadline flex items-center justify-center">
-          <span>Gameweek 1 deadline:</span>
+          <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
           <span>{weekDeadlineAt}</span>
         </div>
         <div className="flex justify-between transfers-stats">
           <div className="transfers-stat flex flex-col items-center">
-            <p>Free transfers</p>
+            <p>{strings.transfers.free}</p>
             <p>0</p>
           </div>
           <div className="transfers-stat flex flex-col items-center">
-            <p>Cost</p>
-            <p>0 points</p>
+            <p>{strings.transfers.cost}</p>
+            <p>0</p>
           </div>
           <div className="transfers-stat flex flex-col items-center">
-            <p>Money remaining</p>
+            <p>{strings.transfers.remaining}</p>
             <p>{budget}</p>
           </div>
         </div>
@@ -260,42 +264,42 @@ export const Transfers = ({
             className="button"
             onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}
           >
-            {fantasyTeamCompleted ? 'Make transfers' : 'Save'}
+            {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
           </button>
         </div>
         {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
       </div>
       <div id="fantasy-players" className="right-container">
-        <h2>Player selection</h2>
+        <h2>{strings.transfers.selection}</h2>
         <Dropdown
-          title="View by position"
+          title={strings.transfers.positionView}
           items={Object.entries(sportPositions).reduce(
             (result, [key, values]) => {
               result[key] = localizeValue(values.name);
               return result;
             },
-            { all: localizeValue({ en: 'All players', ru: 'Все игроки' }) } as KeyValue,
+            { all: strings.transfers.allPlayers } as KeyValue,
           )}
           onSelect={(value) => setFilterByPosition(value)}
           selectedValue={filterByPosition}
         />
         <Dropdown
-          title="View by team"
+          title={strings.transfers.teamView}
           items={Object.entries(teamNames).reduce(
             (result, [key, values]) => {
               result[key] = localizeValue(values.name);
               return result;
             },
-            { all: localizeValue({ en: 'All teams', ru: 'Все команды' }) } as KeyValue,
+            { all: strings.transfers.allTeams } as KeyValue,
           )}
           onSelect={(value) => setFilterByTeam(value)}
           selectedValue={filterByTeam}
         />
         <Dropdown
-          title="Sort by"
+          title={strings.transfers.sort}
           items={{
-            points: localizeValue({ en: 'Total points', ru: 'Сумма очков' }),
-            price: localizeValue({ en: 'Price', ru: 'Цена' }),
+            points: strings.transfers.sortByPoints,
+            price: strings.transfers.sortByPrice,
           }}
           onSelect={(value) => setSortBy(value)}
           selectedValue={sortBy}
