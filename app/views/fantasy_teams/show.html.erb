@@ -11,8 +11,6 @@
         weekPosition:    @lineup.week.position,
         weekDeadlineAt:  @lineup.week.deadline_at.strftime('%d.%m.%Y %H:%M')
     %>
-    <div id="fantasy-team-statistic" class="right-container">
-      <%= render 'shared/fantasy_team_statistic' %>
-    </div>
+    <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, season: @season) %>
   </div>
 <% end %>

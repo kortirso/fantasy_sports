@@ -11,9 +11,7 @@
           weekId:          @lineup.week_id,
           points:          @lineup.points
       %>
-      <div id="fantasy-team-statistic" class="right-container">
-        <%= render 'shared/fantasy_team_statistic' %>
-      </div>
+      <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, season: @season) %>
     </div>
   <% else %>
     <h2><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
