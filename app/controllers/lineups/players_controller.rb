@@ -11,10 +11,7 @@ module Lineups
 
     def show
       render json: {
-        lineup_players: Lineups::PlayerSerializer.new(
-          @lineup_players,
-          { params: { fields: request_fields, week_id: @lineup.week_id } }
-        ).serializable_hash
+        lineup_players: Lineups::PlayerSerializer.new(@lineup_players).serializable_hash
       }, status: :ok
     end
 
