@@ -16,24 +16,11 @@ module Lineups
       }
     end
 
-    attribute :team do |object, params|
+    attribute :team do |object|
       seasons_team = object.teams_player.seasons_team
-      fields = { id: seasons_team.team_id }
-
-      # TODO: https://github.com/kortirso/fantasy_sports/issues/25
-      if params_with_field?(params, 'opposite_teams')
-        seasons_teams_ids =
-          Game
-          .joins(:games_players)
-          .where(week_id: params[:week_id], games_players: { teams_player_id: object.teams_player_id })
-          .pluck(:home_season_team_id, :visitor_season_team_id)
-          .flatten
-          .uniq
-        opposite_team_ids = Seasons::Team.where(id: (seasons_teams_ids - [seasons_team.id])).pluck(:team_id)
-        fields[:opposite_team_ids] = opposite_team_ids
-      end
-
-      fields
+      {
+        id: seasons_team.team_id
+      }
     end
   end
 end

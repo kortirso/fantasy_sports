@@ -56,28 +56,6 @@ describe Lineups::PlayersController, type: :controller do
             expect(response.body).not_to have_json_path('lineup_players/data/0/attributes/team/opposite_team_ids')
           end
         end
-
-        context 'with additional fields' do
-          before do
-            create :lineups_player, lineup: lineup
-
-            get :show, params: { lineup_id: lineup.id, locale: 'en', fields: 'opposite_teams' }
-          end
-
-          it 'returns status 200' do
-            expect(response.status).to eq 200
-          end
-
-          %w[id active change_order points player team].each do |attr|
-            it "and contains lineups player #{attr}" do
-              expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
-            end
-          end
-
-          it 'and contains lineups player team opposite_team_ids' do
-            expect(response.body).to have_json_path('lineup_players/data/0/attributes/team/opposite_team_ids')
-          end
-        end
       end
     end
   end

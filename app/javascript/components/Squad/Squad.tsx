@@ -10,6 +10,7 @@ import { Week } from 'components';
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
 import { lineupPlayersRequest } from './requests/lineupPlayersRequest';
+import { weekOpponentsRequest } from './requests/weekOpponentsRequest';
 
 interface SquadProps {
   seasonId: string;
@@ -31,6 +32,7 @@ export const Squad = ({
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
+  const [teamOpponents, setTeamOpponents] = useState<number, number[]>({});
   // dynamic data
   const [playerIdForChange, setPlayerIdForChange] = useState<number | null>(null);
   const [playerIdsToChange, setPlayerIdsToChange] = useState<number[]>([]);
@@ -47,9 +49,15 @@ export const Squad = ({
       setLineupPlayers(data);
     };
 
+    const fetchWeekOpponents = async () => {
+      const data = await weekOpponentsRequest(weekId);
+      setTeamOpponents(data);
+    };
+
     strings.setLanguage(currentLocale);
     fetchTeams();
     fetchLineupPlayers();
+    fetchWeekOpponents();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sportPositions = sportsData.positions[sportKind];
@@ -76,7 +84,7 @@ export const Squad = ({
   };
 
   const oppositeTeamNames = (item: LineupPlayer) => {
-    const values = item.team.opposite_team_ids;
+    const values = teamOpponents[item.team.id];
     if (values.length === 0) return '-';
 
     return values.map((element: number) => teamNames[element].short_name).join(', ');
