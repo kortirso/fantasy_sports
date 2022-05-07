@@ -2,7 +2,7 @@
 
 module Lineups
   class PlayerSerializer < ApplicationSerializer
-    attributes :id, :active, :change_order
+    attributes :id, :active, :change_order, :teams_player_id
 
     attribute :points do |object|
       object.points.presence || '-'

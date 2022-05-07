@@ -10,15 +10,15 @@ describe Users::SessionsController, type: :controller do
   end
 
   describe 'POST#create' do
-    context 'for unexisted user' do
+    context 'for unexisting user' do
       it 'renders new template' do
-        post :create, params: { user: { email: 'unexisted@gmail.com', password: '1' }, locale: 'en' }
+        post :create, params: { user: { email: 'unexisting@gmail.com', password: '1' }, locale: 'en' }
 
         expect(response).to render_template :new
       end
     end
 
-    context 'for existed user' do
+    context 'for existing user' do
       let(:user) { create :user }
 
       context 'for invalid password' do

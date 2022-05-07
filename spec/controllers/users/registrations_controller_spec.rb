@@ -52,7 +52,7 @@ describe Users::RegistrationsController, type: :controller do
       end
     end
 
-    context 'for existed user' do
+    context 'for existing user' do
       let!(:user) { create :user }
       let(:request) {
         post :create, params: {

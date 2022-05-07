@@ -25,7 +25,7 @@ describe Weeks::StartService, type: :service do
     end
   end
 
-  context 'for existed week' do
+  context 'for existing week' do
     let!(:fantasy_team) { create :fantasy_team, transfers_limited: false }
 
     before do

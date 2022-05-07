@@ -5,7 +5,7 @@ import { sportsData, SportPosition, LineupPlayer } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
-import { Week } from 'components';
+import { Week, PlayerModal, PlayerCard } from 'components';
 
 import { teamsRequest } from 'requests/teamsRequest';
 import { lineupPlayersRequest } from './requests/lineupPlayersRequest';
@@ -28,6 +28,8 @@ export const SquadPoints = ({
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
+  // main data
+  const [playerId, setPlayerId] = useState<number | undefined>();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -92,13 +94,13 @@ export const SquadPoints = ({
             key={positionKind}
           >
             {activePlayersByPosition(positionKind).map((item: LineupPlayer) => (
-              <div className="player-card-box" key={item.id}>
-                <div className="player-card">
-                  <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                  <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                  <p className="player-value">{item.points}</p>
-                </div>
-              </div>
+              <PlayerCard
+                key={item.id}
+                teamName={teamNames[item.team.id]?.short_name}
+                name={localizeValue(item.player.name).split(' ')[0]}
+                value={item.points}
+                onInfoClick={() => setPlayerId(item.teams_player_id)}
+              />
             ))}
           </div>
         ))}
@@ -106,17 +108,18 @@ export const SquadPoints = ({
       {sport.changes && (
         <div className="substitutions">
           {reservePlayers().map((item: LineupPlayer) => (
-            <div className="player-card-box" key={item.id}>
-              <div className="player-card">
-                <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                <p className="player-value">{item.points}</p>
-              </div>
-            </div>
+            <PlayerCard
+              key={item.id}
+              teamName={teamNames[item.team.id]?.short_name}
+              name={localizeValue(item.player.name).split(' ')[0]}
+              value={item.points}
+              onInfoClick={() => setPlayerId(item.teams_player_id)}
+            />
           ))}
         </div>
       )}
       {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
+      <PlayerModal seasonId={seasonId} playerId={playerId} onClose={() => setPlayerId(undefined)} />
     </>
   );
 };

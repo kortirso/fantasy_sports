@@ -4,7 +4,7 @@ describe WeeksController, type: :controller do
   describe 'GET#show' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :show, params: { id: 'unexisted', locale: 'en' }
+        get :show, params: { id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -13,15 +13,15 @@ describe WeeksController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed week' do
+      context 'for not existing week' do
         it 'returns json not_found status with errors' do
-          get :show, params: { id: 'unexisted', locale: 'en' }
+          get :show, params: { id: 'unexisting', locale: 'en' }
 
           expect(response.status).to eq 404
         end
       end
 
-      context 'for existed week' do
+      context 'for existing week' do
         let!(:week) { create :week }
 
         context 'without additional fields' do

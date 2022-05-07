@@ -4,7 +4,7 @@ describe FantasyTeams::PointsController, type: :controller do
   describe 'GET#index' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :index, params: { fantasy_team_id: 'unexisted', locale: 'en' }
+        get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -13,15 +13,15 @@ describe FantasyTeams::PointsController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed fantasy team' do
+      context 'for not existing fantasy team' do
         it 'renders 404 page' do
-          get :index, params: { fantasy_team_id: 'unexisted', locale: 'en' }
+          get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
 
           expect(response).to render_template 'shared/404'
         end
       end
 
-      context 'for existed not user fantasy team' do
+      context 'for existing not user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team }
 
         it 'renders 404 page' do
@@ -31,7 +31,7 @@ describe FantasyTeams::PointsController, type: :controller do
         end
       end
 
-      context 'for existed user fantasy team' do
+      context 'for existing user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
         it 'renders index page' do

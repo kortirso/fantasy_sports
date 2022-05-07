@@ -4,7 +4,7 @@ describe FantasyTeams::PlayersController, type: :controller do
   describe 'GET#index' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :index, params: { fantasy_team_id: 'unexisted', locale: 'en' }
+        get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -13,15 +13,15 @@ describe FantasyTeams::PlayersController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed fantasy team' do
+      context 'for not existing fantasy team' do
         it 'returns json not_found status with errors' do
-          get :index, params: { fantasy_team_id: 'unexisted', locale: 'en' }
+          get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
 
           expect(response.status).to eq 404
         end
       end
 
-      context 'for existed fantasy team of another user' do
+      context 'for existing fantasy team of another user' do
         let!(:fantasy_team) { create :fantasy_team }
 
         it 'returns json not_found status with errors' do
@@ -31,7 +31,7 @@ describe FantasyTeams::PlayersController, type: :controller do
         end
       end
 
-      context 'for existed fantasy team of user' do
+      context 'for existing fantasy team of user' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
         before do
