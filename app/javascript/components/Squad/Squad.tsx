@@ -5,7 +5,7 @@ import { sportsData, SportPosition, LineupPlayer } from 'entities';
 import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
-import { Week } from 'components';
+import { Week, PlayerModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
@@ -32,7 +32,9 @@ export const Squad = ({
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
-  const [teamOpponents, setTeamOpponents] = useState<number, number[]>({});
+  const [teamOpponents, setTeamOpponents] = useState({});
+  // main data
+  const [playerId, setPlayerId] = useState<number | undefined>();
   // dynamic data
   const [playerIdForChange, setPlayerIdForChange] = useState<number | null>(null);
   const [playerIdsToChange, setPlayerIdsToChange] = useState<number[]>([]);
@@ -85,7 +87,7 @@ export const Squad = ({
 
   const oppositeTeamNames = (item: LineupPlayer) => {
     const values = teamOpponents[item.team.id];
-    if (values.length === 0) return '-';
+    if (!values || values.length === 0) return '-';
 
     return values.map((element: number) => teamNames[element].short_name).join(', ');
   };
@@ -212,18 +214,15 @@ export const Squad = ({
             key={positionKind}
           >
             {activePlayersByPosition(positionKind).map((item: LineupPlayer) => (
-              <div className="player-card-box" key={item.id}>
-                <div className={classListForPlayerCard(item.id)}>
-                  <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                  <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                  <p className="player-value">{oppositeTeamNames(item)}</p>
-                  {sport.changes ? (
-                    <div className="action" onClick={() => changePlayer(item, true)}>
-                      +/-
-                    </div>
-                  ) : null}
-                </div>
-              </div>
+              <PlayerCard
+                key={item.id}
+                className={classListForPlayerCard(item.id)}
+                teamName={teamNames[item.team.id]?.short_name}
+                name={localizeValue(item.player.name).split(' ')[0]}
+                value={oppositeTeamNames(item)}
+                onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
+                onInfoClick={() => setPlayerId(item.teams_player_id)}
+              />
             ))}
           </div>
         ))}
@@ -231,16 +230,15 @@ export const Squad = ({
       {sport.changes && (
         <div className="substitutions">
           {reservePlayers().map((item: LineupPlayer) => (
-            <div className="player-card-box" key={item.id}>
-              <div className={classListForPlayerCard(item.id)}>
-                <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                <p className="player-value">{oppositeTeamNames(item)}</p>
-                <div className="action" onClick={() => changePlayer(item, false)}>
-                  +/-
-                </div>
-              </div>
-            </div>
+            <PlayerCard
+              key={item.id}
+              className={classListForPlayerCard(item.id)}
+              teamName={teamNames[item.team.id]?.short_name}
+              name={localizeValue(item.player.name).split(' ')[0]}
+              value={oppositeTeamNames(item)}
+              onActionClick={sport.changes ? () => changePlayer(item, false) : undefined}
+              onInfoClick={() => setPlayerId(item.teams_player_id)}
+            />
           ))}
         </div>
       )}
@@ -250,6 +248,7 @@ export const Squad = ({
         </button>
       </div>
       {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
+      <PlayerModal seasonId={seasonId} playerId={playerId} onClose={() => setPlayerId(undefined)} />
     </>
   );
 };

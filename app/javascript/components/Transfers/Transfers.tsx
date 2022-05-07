@@ -6,7 +6,7 @@ import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
 import { Dropdown } from 'components/atoms';
-import { Week } from 'components';
+import { Week, PlayerModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
@@ -45,6 +45,7 @@ export const Transfers = ({
   const [teamMembers, setTeamMembers] = useState<TeamsPlayer[]>([]);
   const [budget, setBudget] = useState<number>(fantasyTeamBudget);
   const [teamName, setTeamName] = useState<string>('');
+  const [playerId, setPlayerId] = useState<number | undefined>();
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
@@ -245,16 +246,14 @@ export const Transfers = ({
               key={positionKind}
             >
               {playersByPosition(positionKind).map((item: TeamsPlayer) => (
-                <div className="player-card-box" key={item.id}>
-                  <div className="player-card">
-                    <p className="player-team-name">{teamNames[item.team.id]?.short_name}</p>
-                    <p className="player-name">{localizeValue(item.player.name).split(' ')[0]}</p>
-                    <p className="player-value">{item.price}</p>
-                    <div className="action" onClick={() => removeTeamMember(item)}>
-                      -
-                    </div>
-                  </div>
-                </div>
+                <PlayerCard
+                  key={item.id}
+                  teamName={teamNames[item.team.id]?.short_name}
+                  name={localizeValue(item.player.name).split(' ')[0]}
+                  value={item.price}
+                  onActionClick={() => removeTeamMember(item)}
+                  onInfoClick={() => setPlayerId(item.id)}
+                />
               ))}
             </div>
           ))}
@@ -340,6 +339,7 @@ export const Transfers = ({
           </div>
         )}
       </div>
+      <PlayerModal seasonId={seasonId} playerId={playerId} onClose={() => setPlayerId(undefined)} />
     </div>
   );
 };

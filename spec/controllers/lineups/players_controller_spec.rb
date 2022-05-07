@@ -4,7 +4,7 @@ describe Lineups::PlayersController, type: :controller do
   describe 'GET#show' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :show, params: { lineup_id: 'unexisted', locale: 'en' }
+        get :show, params: { lineup_id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -13,15 +13,15 @@ describe Lineups::PlayersController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed lineup' do
+      context 'for not existing lineup' do
         it 'returns json not_found status with errors' do
-          get :show, params: { lineup_id: 'unexisted', locale: 'en' }
+          get :show, params: { lineup_id: 'unexisting', locale: 'en' }
 
           expect(response.status).to eq 404
         end
       end
 
-      context 'for existed lineup of another user' do
+      context 'for existing lineup of another user' do
         let!(:lineup) { create :lineup }
 
         it 'returns json not_found status with errors' do
@@ -31,7 +31,7 @@ describe Lineups::PlayersController, type: :controller do
         end
       end
 
-      context 'for existed lineup of user' do
+      context 'for existing lineup of user' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
         let!(:lineup) { create :lineup, fantasy_team: fantasy_team }
 
@@ -46,14 +46,10 @@ describe Lineups::PlayersController, type: :controller do
             expect(response.status).to eq 200
           end
 
-          %w[id active change_order points player team].each do |attr|
+          %w[id active change_order points player team teams_player_id].each do |attr|
             it "and contains lineups player #{attr}" do
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
-          end
-
-          it 'and does not contain lineups player team opposite_team_ids' do
-            expect(response.body).not_to have_json_path('lineup_players/data/0/attributes/team/opposite_team_ids')
           end
         end
       end
@@ -63,7 +59,7 @@ describe Lineups::PlayersController, type: :controller do
   describe 'PATCH#update' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        patch :update, params: { lineup_id: 'unexisted', locale: 'en', lineup_players: { data: [{}] } }
+        patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -72,15 +68,15 @@ describe Lineups::PlayersController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed lineup' do
+      context 'for not existing lineup' do
         it 'returns json not_found status with errors' do
-          patch :update, params: { lineup_id: 'unexisted', locale: 'en', lineup_players: { data: [{}] } }
+          patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
 
           expect(response.status).to eq 404
         end
       end
 
-      context 'for existed lineup of another user' do
+      context 'for existing lineup of another user' do
         let!(:lineup) { create :lineup }
 
         it 'returns json not_found status with errors' do
@@ -90,7 +86,7 @@ describe Lineups::PlayersController, type: :controller do
         end
       end
 
-      context 'for existed lineup of user' do
+      context 'for existing lineup of user' do
         let!(:fantasy_league) { create :fantasy_league }
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
         let!(:week) { create :week, season: fantasy_league.season }

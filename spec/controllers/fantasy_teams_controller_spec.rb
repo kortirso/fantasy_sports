@@ -4,7 +4,7 @@ describe FantasyTeamsController, type: :controller do
   describe 'GET#show' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        get :show, params: { id: 'unexisted', locale: 'en' }
+        get :show, params: { id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -13,9 +13,9 @@ describe FantasyTeamsController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed fantasy team' do
+      context 'for not existing fantasy team' do
         it 'renders 404 page' do
-          get :show, params: { id: 'unexisted', locale: 'en' }
+          get :show, params: { id: 'unexisting', locale: 'en' }
 
           expect(response).to render_template 'shared/404'
         end
@@ -23,13 +23,13 @@ describe FantasyTeamsController, type: :controller do
 
       context 'for invalid request format' do
         it 'renders 404 page' do
-          get :show, params: { id: 'unexisted', locale: 'en', format: :xml }
+          get :show, params: { id: 'unexisting', locale: 'en', format: :xml }
 
           expect(response).to render_template 'shared/404'
         end
       end
 
-      context 'for existed not user fantasy team' do
+      context 'for existing not user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team }
 
         it 'renders 404 page' do
@@ -39,7 +39,7 @@ describe FantasyTeamsController, type: :controller do
         end
       end
 
-      context 'for existed user fantasy team' do
+      context 'for existing user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
         before do
@@ -58,7 +58,7 @@ describe FantasyTeamsController, type: :controller do
   describe 'POST#create' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        post :create, params: { season_id: 'unexisted', locale: 'en' }
+        post :create, params: { season_id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -67,8 +67,8 @@ describe FantasyTeamsController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed season' do
-        let(:request) { post :create, params: { season_id: 'unexisted', locale: 'en' } }
+      context 'for not existing season' do
+        let(:request) { post :create, params: { season_id: 'unexisting', locale: 'en' } }
 
         it 'does not create fantasy team' do
           expect { request }.not_to change(FantasyTeam, :count)
@@ -81,7 +81,7 @@ describe FantasyTeamsController, type: :controller do
         end
       end
 
-      context 'for existed active season' do
+      context 'for existing active season' do
         let!(:season) { create :season, active: true }
         let!(:fantasy_league) { create :fantasy_league, season: season, leagueable: season, name: 'Overall' }
         let(:request) { post :create, params: { season_id: season.id, locale: 'en' } }
@@ -122,7 +122,7 @@ describe FantasyTeamsController, type: :controller do
   describe 'PATCH#update' do
     context 'for unlogged users' do
       it 'redirects to login path' do
-        patch :update, params: { id: 'unexisted', locale: 'en' }
+        patch :update, params: { id: 'unexisting', locale: 'en' }
 
         expect(response).to redirect_to users_login_en_path
       end
@@ -131,8 +131,8 @@ describe FantasyTeamsController, type: :controller do
     context 'for logged users' do
       sign_in_user
 
-      context 'for not existed fantasy team' do
-        let(:request) { patch :update, params: { id: 'unexisted', locale: 'en' } }
+      context 'for not existing fantasy team' do
+        let(:request) { patch :update, params: { id: 'unexisting', locale: 'en' } }
 
         it 'does not update fantasy team' do
           expect { request }.not_to change(FantasyTeam, :count)
@@ -145,7 +145,7 @@ describe FantasyTeamsController, type: :controller do
         end
       end
 
-      context 'for existed fantasy team' do
+      context 'for existing fantasy team' do
         let!(:fantasy_league) { create :fantasy_league }
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 

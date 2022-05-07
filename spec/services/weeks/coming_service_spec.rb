@@ -38,7 +38,7 @@ describe Weeks::ComingService, type: :service do
     end
   end
 
-  context 'for existed week' do
+  context 'for existing week' do
     context 'for not inactive week' do
       let!(:week) { create :week, status: Week::ACTIVE, season: season }
 

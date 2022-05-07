@@ -14,4 +14,8 @@
   &:hover {
     background: $gray300;
   }
+
+  &.small {
+    padding: .25rem .5rem;
+  }
 }

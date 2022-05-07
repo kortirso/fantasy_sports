@@ -11,7 +11,7 @@
   padding: .5rem 1rem;
   border-radius: .125rem;
 
-  .action {
+  .action, .info {
     background: $white;
     position: absolute;
     top: .5rem;
@@ -28,6 +28,10 @@
     &:hover {
       background: $gray300;
     }
+  }
+
+  .info {
+    right: 1rem;
   }
 
   .player-team-name {

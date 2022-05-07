@@ -32,6 +32,14 @@
       "totalPoints": "Total points",
       "averagePoints": "Average points",
       "hightestPoints": "Hightest points"
+    },
+    "player": {
+      "form": "Form",
+      "lastWeek": "Last points",
+      "totalPoints": "Points",
+      "price": "Price",
+      "thisSeason": "This season",
+      "previousSeasons": "Previous seasons"
     }
   },
   "ru": {
@@ -67,6 +75,14 @@
       "totalPoints": "Всего очков",
       "averagePoints": "Средний результат",
       "hightestPoints": "Наилучший результат"
+    },
+    "player": {
+      "form": "Форма",
+      "lastWeek": "Последние очки",
+      "totalPoints": "Очки",
+      "price": "Стоимость",
+      "thisSeason": "Текущий сезон",
+      "previousSeasons": "Предыдущие сезоны"
     }
   }
 }

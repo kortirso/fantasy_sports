@@ -9,7 +9,7 @@ describe FantasyTeams::CreateService, type: :service do
     create :fantasy_league, leagueable: season, season: season, name: 'Overall'
   }
 
-  context 'for existed fantasy team' do
+  context 'for existing fantasy team' do
     let!(:fantasy_team) { create :fantasy_team, user: user }
 
     before do
@@ -27,7 +27,7 @@ describe FantasyTeams::CreateService, type: :service do
     end
   end
 
-  context 'for not existed fantasy team' do
+  context 'for not existing fantasy team' do
     it 'creates new fantasy team' do
       expect { service_call }.to change(user.fantasy_teams, :count).by(1)
     end

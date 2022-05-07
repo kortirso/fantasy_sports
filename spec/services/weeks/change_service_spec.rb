@@ -19,7 +19,7 @@ describe Weeks::ChangeService, type: :service do
     allow(coming_service).to receive(:call)
   end
 
-  context 'for unexisted coming week' do
+  context 'for unexisting coming week' do
     let(:week) { create :week, status: Week::INACTIVE }
 
     it 'does not call services', :aggregate_failures do
@@ -37,7 +37,7 @@ describe Weeks::ChangeService, type: :service do
     end
   end
 
-  context 'for existed coming week' do
+  context 'for existing coming week' do
     let!(:week) { create :week, status: Week::COMING }
 
     it 'calls services', :aggregate_failures do

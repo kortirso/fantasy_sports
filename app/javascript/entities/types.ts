@@ -48,6 +48,7 @@ export interface LineupPlayer {
   active: boolean;
   change_order: number;
   points: string;
+  teams_player_id: number;
 }
 
 export interface TeamsPlayer {

@@ -1,0 +1,29 @@
+@import '../general/colors.scss';
+
+#modal-root {
+  .modal-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    background: $blackSemi;
+
+    .modal-content {
+      position: absolute;
+      padding: 1rem;
+      background: $white;
+      border-radius: .125rem;
+      width: 40rem;
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
