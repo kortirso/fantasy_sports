@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
-import { sportsData, SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
+import { SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
+import { sportsData } from 'data';
 import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
@@ -305,6 +306,12 @@ export const Transfers = ({
         />
         {filteredPlayers.map((item: TeamsPlayer) => (
           <div className="team-player" key={item.id}>
+            <div
+              className="team-player-stats flex items-center justify-center button small"
+              onClick={() => setPlayerId(item.id)}
+            >
+              ?
+            </div>
             <div className="team-player-info">
               <p className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</p>
               <div className="team-player-stats">
@@ -339,7 +346,12 @@ export const Transfers = ({
           </div>
         )}
       </div>
-      <PlayerModal seasonId={seasonId} playerId={playerId} onClose={() => setPlayerId(undefined)} />
+      <PlayerModal
+        sportKind={sportKind}
+        seasonId={seasonId}
+        playerId={playerId}
+        onClose={() => setPlayerId(undefined)}
+      />
     </div>
   );
 };

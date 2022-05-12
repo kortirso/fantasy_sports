@@ -8,16 +8,14 @@ module Teams
       object.price_cents / 100.0
     end
 
-    attribute :player do |object, params|
+    attribute :player do |object|
       player = object.player
-      fields = { name: player.name, position_kind: player.position_kind }
-
-      if params_with_field?(params, 'season_statistic')
-        fields[:points] = player.points
-        fields[:statistic] = player.statistic
-      end
-
-      fields
+      {
+        name:          player.name,
+        position_kind: player.position_kind,
+        points:        player.points,
+        statistic:     player.statistic
+      }
     end
 
     attribute :team do |object|

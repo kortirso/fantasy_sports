@@ -66,7 +66,7 @@ describe FantasyTeams::TransfersController, type: :controller do
           expect { request }.not_to change(FantasyTeam, :count)
         end
 
-        it 'and renders 404 page' do
+        it 'renders 404 page' do
           request
 
           expect(response).to render_template 'shared/404'
@@ -92,7 +92,7 @@ describe FantasyTeams::TransfersController, type: :controller do
             expect(response.status).to eq 422
           end
 
-          it 'and returns error about maintenance' do
+          it 'returns error about maintenance' do
             expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
           end
         end
@@ -124,7 +124,7 @@ describe FantasyTeams::TransfersController, type: :controller do
               expect(FantasyTeams::Transfers::PerformService).to have_received(:call)
             end
 
-            it 'and returns json unprocessable_entity status with errors' do
+            it 'returns json unprocessable_entity status with errors' do
               request
 
               expect(response.status).to eq 422
@@ -153,7 +153,7 @@ describe FantasyTeams::TransfersController, type: :controller do
               expect(FantasyTeams::Transfers::PerformService).to have_received(:call)
             end
 
-            it 'and returns json ok status' do
+            it 'returns json ok status' do
               request
 
               expect(response.status).to eq 200

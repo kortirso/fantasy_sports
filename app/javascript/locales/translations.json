@@ -39,7 +39,8 @@
       "totalPoints": "Points",
       "price": "Price",
       "thisSeason": "This season",
-      "previousSeasons": "Previous seasons"
+      "previousSeasons": "Previous seasons",
+      "noSeasonGames": "There are no games yet"
     }
   },
   "ru": {
@@ -82,7 +83,8 @@
       "totalPoints": "Очки",
       "price": "Стоимость",
       "thisSeason": "Текущий сезон",
-      "previousSeasons": "Предыдущие сезоны"
+      "previousSeasons": "Предыдущие сезоны",
+      "noSeasonGames": "Пока нет данных"
     }
   }
 }

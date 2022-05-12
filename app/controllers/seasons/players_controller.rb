@@ -8,19 +8,13 @@ module Seasons
 
     def index
       render json: {
-        season_players: Teams::PlayerSerializer.new(
-          @season_players,
-          { params: { fields: request_fields } }
-        ).serializable_hash
+        season_players: Teams::PlayerSerializer.new(@season_players).serializable_hash
       }, status: :ok
     end
 
     def show
       render json: {
-        season_player: Teams::PlayerSerializer.new(
-          @season_player,
-          { params: { fields: request_fields } }
-        ).serializable_hash
+        season_player: Controllers::Seasons::Players::ShowSerializer.new(@season_player).serializable_hash
       }, status: :ok
     end
 

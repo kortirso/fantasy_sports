@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
-import { sportsData, SportPosition, LineupPlayer } from 'entities';
+import { SportPosition, LineupPlayer } from 'entities';
+import { sportsData } from 'data';
 import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
@@ -248,7 +249,12 @@ export const Squad = ({
         </button>
       </div>
       {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
-      <PlayerModal seasonId={seasonId} playerId={playerId} onClose={() => setPlayerId(undefined)} />
+      <PlayerModal
+        sportKind={sportKind}
+        seasonId={seasonId}
+        playerId={playerId}
+        onClose={() => setPlayerId(undefined)}
+      />
     </>
   );
 };

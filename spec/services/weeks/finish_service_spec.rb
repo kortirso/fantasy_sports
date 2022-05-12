@@ -31,7 +31,7 @@ describe Weeks::FinishService, type: :service do
     it 'does not update week' do
       service_call
 
-      expect(week.reload.status).not_to eq Week::INACTIVE
+      expect(week.reload.status).not_to eq Week::FINISHED
     end
 
     it 'and it succeed' do
@@ -47,7 +47,7 @@ describe Weeks::FinishService, type: :service do
     it 'updates week' do
       service_call
 
-      expect(week.reload.status).to eq Week::INACTIVE
+      expect(week.reload.status).to eq Week::FINISHED
     end
 
     it 'and it succeed' do

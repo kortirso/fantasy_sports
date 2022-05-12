@@ -8,7 +8,7 @@ module Weeks
       return if week.nil?
       return unless week.active?
 
-      week.update(status: Week::INACTIVE)
+      week.update(status: Week::FINISHED)
     end
   end
 end

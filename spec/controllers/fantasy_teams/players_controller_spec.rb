@@ -45,14 +45,14 @@ describe FantasyTeams::PlayersController, type: :controller do
         end
 
         %w[id price player team].each do |attr|
-          it "and contains teams player #{attr}" do
+          it "response contains teams player #{attr}" do
             expect(response.body).to have_json_path("teams_players/data/0/attributes/#{attr}")
           end
         end
 
         %w[points statistic].each do |attr|
-          it "and does not contain teams player #{attr}" do
-            expect(response.body).not_to have_json_path("teams_players/data/0/attributes/player/#{attr}")
+          it "response contains player #{attr}" do
+            expect(response.body).to have_json_path("teams_players/data/0/attributes/player/#{attr}")
           end
         end
       end

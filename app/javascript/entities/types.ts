@@ -51,6 +51,14 @@ export interface LineupPlayer {
   teams_player_id: number;
 }
 
+export interface GamesPlayer {
+  attributes: {
+    id: number;
+    points: number | null;
+    week: any;
+  };
+}
+
 export interface TeamsPlayer {
   id: number;
   player: Player;
@@ -58,6 +66,9 @@ export interface TeamsPlayer {
   team: Team;
   active: boolean;
   change_order: number;
+  games_players: {
+    data: GamesPlayer[];
+  };
 }
 
 export interface SportValues {

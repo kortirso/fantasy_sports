@@ -4,6 +4,7 @@ class Week < ApplicationRecord
   INACTIVE = 'inactive'
   COMING   = 'coming'
   ACTIVE   = 'active'
+  FINISHED = 'finished'
 
   belongs_to :season
 
@@ -15,7 +16,7 @@ class Week < ApplicationRecord
   has_many :lineups, dependent: :destroy
   has_many :fantasy_teams, through: :lineups
 
-  enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2 }
+  enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
 
   scope :active, -> { where(status: ACTIVE) }
 

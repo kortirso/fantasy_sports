@@ -1,4 +1,4 @@
-import { SportsData } from './types';
+import { SportsData } from 'entities';
 
 export const sportsData: SportsData = {
   sports: {
