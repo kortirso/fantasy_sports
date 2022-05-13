@@ -39,6 +39,7 @@
     text-align: center;
     padding: .125rem 0 .5rem;
     background: $white;
+    min-height: 1.875rem;
 
     &.empty {
       height: 1.875rem;
@@ -51,6 +52,7 @@
     color: $white;
     padding: .125rem 0;
     line-height: 1.25rem;
+    min-height: 1.5rem;
 
     &.empty {
       height: 1.5rem;
@@ -62,6 +64,7 @@
     text-align: center;
     background: $green400;
     line-height: 1.25rem;
+    min-height: 1.5rem;
 
     &.empty {
       height: 1.25rem;

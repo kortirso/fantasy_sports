@@ -47,11 +47,15 @@ export const Transfers = ({
   const [budget, setBudget] = useState<number>(fantasyTeamBudget);
   const [teamName, setTeamName] = useState<string>('');
   const [playerId, setPlayerId] = useState<number | undefined>();
+  const [playersByPosition, setPlayersByPosition] = useState({});
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('points');
   const [page, setPage] = useState<number>(0);
+
+  const sportPositions = sportsData.positions[sportKind];
+  const sport = sportsData.sports[sportKind];
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -75,8 +79,19 @@ export const Transfers = ({
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const sportPositions = sportsData.positions[sportKind];
-  const sport = sportsData.sports[sportKind];
+  useEffect(() => {
+    setPlayersByPosition(
+      Object.keys(sportPositions).reduce(
+        (result, sportPosition) => {
+          result[sportPosition] = teamMembers.filter((item: TeamsPlayer) => {
+            return item.player.position_kind === sportPosition;
+          });
+          return result;
+        },
+        {} as KeyValue,
+      )
+    );
+  }, [sportPositions, teamMembers]);
 
   const filteredPlayers = useMemo(() => {
     return seasonPlayers
@@ -115,7 +130,7 @@ export const Transfers = ({
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
-      sportPositions[positionKind].total_amount - playersByPosition(positionKind).length;
+      sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
     if (positionsLeft === 0) return;
     // if there are already max_team_players
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
@@ -123,7 +138,7 @@ export const Transfers = ({
     });
     if (playersFromTeam.length >= sport.max_team_players) return; //showAlerts("alert", `<p>Your team already contains 3 players from this team</p>`)
 
-    teamMembers.push(item);
+    setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
   };
 
@@ -131,16 +146,25 @@ export const Transfers = ({
     return sportPosition.name.en.split(' ').join('-');
   };
 
-  const playersByPosition = (positionKind: string) => {
-    return teamMembers.filter((item: TeamsPlayer) => {
-      return item.player.position_kind === positionKind;
-    });
-  };
-
   const removeTeamMember = (element: TeamsPlayer) => {
     setTeamMembers(teamMembers.filter((item: TeamsPlayer) => item.id !== element.id));
     setBudget(budget + element.price);
   };
+
+  const renderEmptySlots = (positionKind: string) => {
+    if (!playersByPosition[positionKind]) return null;
+
+    const emptySlots = sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
+    return [...Array(emptySlots).keys()].map((item: number) => {
+      return (
+        <PlayerCard
+          key={item}
+          name=''
+          value=''
+        />
+      )
+    });
+  }
 
   const submit = async () => {
     const payload = {
@@ -246,7 +270,7 @@ export const Transfers = ({
               className={`sport-position ${sportPositionName(sportPosition as SportPosition)}`}
               key={positionKind}
             >
-              {playersByPosition(positionKind).map((item: TeamsPlayer) => (
+              {playersByPosition[positionKind]?.map((item: TeamsPlayer) => (
                 <PlayerCard
                   key={item.id}
                   teamName={teamNames[item.team.id]?.short_name}
@@ -256,6 +280,7 @@ export const Transfers = ({
                   onInfoClick={() => setPlayerId(item.id)}
                 />
               ))}
+              {renderEmptySlots(positionKind)}
             </div>
           ))}
         </div>
