@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Week < ApplicationRecord
+  include Leagueable
+
   INACTIVE = 'inactive'
   COMING   = 'coming'
   ACTIVE   = 'active'
@@ -10,8 +12,6 @@ class Week < ApplicationRecord
 
   has_many :games, dependent: :destroy
   has_many :games_players, through: :games
-
-  has_many :fantasy_leagues, as: :leagueable, dependent: :destroy
 
   has_many :lineups, dependent: :destroy
   has_many :fantasy_teams, through: :lineups

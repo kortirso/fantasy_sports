@@ -2,7 +2,7 @@ rpl = League.create(sport_kind: 'football', name: { en: 'Russian Premier Liga', 
 
 rpl2022 = rpl.seasons.create name: '2021/2022', active: true
 
-overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall'
+overall_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rpl2022, name: 'Overall', global: true
 
 spartak = Team.create name: { en: 'Spartak', ru: 'Спартак' }, short_name: 'СПАР'
 zenit = Team.create name: { en: 'Zenit', ru: 'Зенит' }, short_name: 'ЗЕН'
@@ -20,6 +20,23 @@ ufa = Team.create name: { en: 'Ufa', ru: 'Уфа' }, short_name: 'УФА'
 arsenal = Team.create name: { en: 'Arsenal', ru: 'Арсенал' }, short_name: 'АРС'
 krylia = Team.create name: { en: 'Krylia Sovetov', ru: 'Крылья Советов' }, short_name: 'КРЛ'
 novgorod = Team.create name: { en: 'Nizhny Novgorod', ru: 'Нижний Новгород' }, short_name: 'НОВГ'
+
+team1_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: spartak, name: 'Спартак', global: true
+team2_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: zenit, name: 'Зенит', global: true
+team3_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: lokomotiv, name: 'Локомотив', global: true
+team4_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: cska, name: 'ЦСКА', global: true
+team5_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: dinamo, name: 'Динамо', global: true
+team6_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: sochi, name: 'Сочи', global: true
+team7_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: krasnodar, name: 'Краснодар', global: true
+team8_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rubin, name: 'Рубин', global: true
+team9_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: khimki, name: 'Химки', global: true
+team10_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: rostov, name: 'Ростов', global: true
+team11_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: akhmat, name: 'Ахмат', global: true
+team12_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: ural, name: 'Урал', global: true
+team13_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: ufa, name: 'Уфа', global: true
+team14_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: arsenal, name: 'Арсенал', global: true
+team15_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: krylia, name: 'Крылья Советов', global: true
+team16_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: novgorod, name: 'Нижний Новгород', global: true
 
 spartak_rpl2022 = Seasons::Team.create team: spartak, season: rpl2022
 zenit_rpl2022 = Seasons::Team.create team: zenit, season: rpl2022
@@ -195,8 +212,6 @@ Teams::Player.create seasons_team: cska_rpl2022, player: zabolotnyy, price_cents
 
 week1 = rpl2022.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 07, 23, 16, 0, 0)
 week2 = rpl2022.weeks.create position: 2, deadline_at: DateTime.new(2021, 07, 30, 15, 0, 0)
-
-week1_fantasy_rpl_league = rpl2022.all_fantasy_leagues.create leagueable: week1, name: 'Week 1'
 
 Games::CreateService.call(
   week:                week1,

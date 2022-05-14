@@ -10,5 +10,6 @@ describe Team, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:seasons_teams).class_name('Seasons::Team').dependent(:destroy) }
     it { is_expected.to have_many(:seasons).through(:seasons_teams) }
+    it { is_expected.to have_many(:fantasy_leagues).dependent(:destroy) }
   end
 end

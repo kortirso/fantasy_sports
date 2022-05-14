@@ -9,6 +9,6 @@ describe FantasyLeagues::Team, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:fantasy_league).class_name('::FantasyLeague') }
-    it { is_expected.to belong_to(:fantasy_team).class_name('::FantasyTeam') }
+    it { is_expected.to belong_to(:pointable) }
   end
 end

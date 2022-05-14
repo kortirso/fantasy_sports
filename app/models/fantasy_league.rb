@@ -8,5 +8,7 @@ class FantasyLeague < ApplicationRecord
            class_name:  'FantasyLeagues::Team',
            foreign_key: :fantasy_league_id,
            dependent:   :destroy
-  has_many :fantasy_teams, through: :fantasy_leagues_teams
+
+  has_many :fantasy_teams, through: :fantasy_leagues_teams, source: :pointable, source_type: 'FantasyTeam'
+  has_many :lineups, through: :fantasy_leagues_teams, source: :pointable, source_type: 'Lineup'
 end

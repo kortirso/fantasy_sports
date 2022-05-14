@@ -17,10 +17,24 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
 --
@@ -245,7 +259,8 @@ CREATE TABLE public.fantasy_leagues (
     leagueable_type character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    season_id integer
+    season_id integer,
+    global boolean DEFAULT true NOT NULL
 );
 
 
@@ -275,9 +290,10 @@ ALTER SEQUENCE public.fantasy_leagues_id_seq OWNED BY public.fantasy_leagues.id;
 CREATE TABLE public.fantasy_leagues_teams (
     id bigint NOT NULL,
     fantasy_league_id integer,
-    fantasy_team_id integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    pointable_id integer,
+    pointable_type character varying
 );
 
 
@@ -1167,13 +1183,6 @@ ALTER TABLE ONLY public.weeks
 
 
 --
--- Name: fantasy_team_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX fantasy_team_index ON public.fantasy_leagues_teams USING btree (fantasy_league_id, fantasy_team_id);
-
-
---
 -- Name: fantasy_teams_and_players_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1192,6 +1201,13 @@ CREATE INDEX index_fantasy_leagues_on_leagueable_id_and_leagueable_type ON publi
 --
 
 CREATE INDEX index_fantasy_leagues_on_season_id ON public.fantasy_leagues USING btree (season_id);
+
+
+--
+-- Name: index_fantasy_leagues_teams_on_pointable_id_and_pointable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fantasy_leagues_teams_on_pointable_id_and_pointable_type ON public.fantasy_leagues_teams USING btree (pointable_id, pointable_type);
 
 
 --
@@ -1357,6 +1373,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220110184922'),
 ('20220413193123'),
 ('20220415183204'),
-('20220502115026');
+('20220502115026'),
+('20220514185814'),
+('20220514192459');
 
 
