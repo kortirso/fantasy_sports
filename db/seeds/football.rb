@@ -210,6 +210,14 @@ Teams::Player.create seasons_team: spartak_rpl2022, player: sobolev, price_cents
 Teams::Player.create seasons_team: lokomotiv_rpl2022, player: smolov, price_cents: 850
 Teams::Player.create seasons_team: cska_rpl2022, player: zabolotnyy, price_cents: 500
 
+rpl2022.teams.each.with_index do |team, team_index|
+  team_fantasy_league = team.fantasy_leagues.last
+  10.times do |index|
+    user = Users::CreateService.call(params: { email: "football-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }).result
+    FantasyTeams::GenerateService.call(season: nba2022, user: user, favourite_team_id: team.id)
+  end
+end
+
 week1 = rpl2022.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 07, 23, 16, 0, 0)
 week2 = rpl2022.weeks.create position: 2, deadline_at: DateTime.new(2021, 07, 30, 15, 0, 0)
 

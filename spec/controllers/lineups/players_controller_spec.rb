@@ -95,7 +95,7 @@ describe Lineups::PlayersController, type: :controller do
 
         context 'for league at maintenance' do
           before do
-            create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
+            create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
 
             fantasy_league.season.league.update(maintenance: true)
 

@@ -58,6 +58,6 @@ class FantasyTeamsController < ApplicationController
   end
 
   def fantasy_team_params
-    params.require(:fantasy_team).permit(:name, :budget_cents)
+    params.require(:fantasy_team).permit(:name, :budget_cents, :favourite_team_id)
   end
 end

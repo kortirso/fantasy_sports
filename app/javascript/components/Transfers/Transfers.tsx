@@ -48,6 +48,7 @@ export const Transfers = ({
   const [teamName, setTeamName] = useState<string>('');
   const [playerId, setPlayerId] = useState<number | undefined>();
   const [playersByPosition, setPlayersByPosition] = useState({});
+  const [favouriteTeamId, setFavouriteTeamId] = useState<string | null>(null);
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
@@ -171,6 +172,7 @@ export const Transfers = ({
       fantasy_team: {
         name: teamName,
         budget_cents: budget * 100,
+        favourite_team_id: favouriteTeamId ? parseInt(favouriteTeamId, 10) : null,
         teams_players_ids: teamMembers.map((element: TeamsPlayer) => element.id),
       },
     };
@@ -237,14 +239,28 @@ export const Transfers = ({
       <div id="fantasy-team-members" className="left-container">
         <h1>{strings.transfers.title}</h1>
         {!fantasyTeamCompleted && (
-          <div className="form-field">
-            <label className="form-label">{strings.transfers.name}</label>
-            <input
-              className="form-value"
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
+          <>
+            <div className="form-field">
+              <label className="form-label">{strings.transfers.name}</label>
+              <input
+                className="form-value"
+                value={teamName}
+                onChange={(e) => setTeamName(e.target.value)}
+              />
+            </div>
+            <Dropdown
+              title={strings.transfers.favouriteTeam}
+              items={Object.entries(teamNames).reduce(
+                (result, [key, values]) => {
+                  result[key] = localizeValue(values.name);
+                  return result;
+                },
+                {} as KeyValue,
+              )}
+              onSelect={(value) => setFavouriteTeamId(value)}
+              selectedValue={favouriteTeamId}
             />
-          </div>
+          </>
         )}
         <div className="deadline flex items-center justify-center">
           <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>

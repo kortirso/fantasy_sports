@@ -25,7 +25,7 @@ module FantasyTeams
 
     def connect_fantasy_team_with_main_league
       overall_fantasy_league = @season.fantasy_leagues.find_by(name: 'Overall')
-      overall_fantasy_league.fantasy_leagues_teams.create(fantasy_team: @result)
+      overall_fantasy_league.fantasy_leagues_teams.create(pointable: @result)
     end
   end
 end

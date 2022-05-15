@@ -16,16 +16,16 @@ dallas = Team.create name: { en: 'Dallas Mavericks', ru: 'Даллас Маве�
 lal = Team.create name: { en: 'Los Angeles Lakers', ru: 'Лос-Анджелес Лейкерс' }, short_name: 'LAL'
 denver = Team.create name: { en: 'Denver Nuggets', ru: 'Денвер Наггетс' }, short_name: 'DEN'
 
-team1_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: milwaukee, name: 'Milwaukee Bucks', global: true
-team2_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: miami, name: 'Miami Heat', global: true
-team3_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: philadelphia, name: 'Philadelphia 76ers', global: true
-team4_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: chicago, name: 'Chicago Bulls', global: true
-team5_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: boston, name: 'Boston Celtics', global: true
-team6_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: phoenix, name: 'Phoenix Suns', global: true
-team7_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: golden_state, name: 'Golden State Warriors', global: true
-team8_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: dallas, name: 'Dallas Mavericks', global: true
-team9_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: lal, name: 'Los Angeles Lakers', global: true
-team10_fantasy_nba_league = nba2022.all_fantasy_leagues.create leagueable: denver, name: 'Denver Nuggets', global: true
+nba2022.all_fantasy_leagues.create leagueable: milwaukee, name: 'Milwaukee Bucks', global: true
+nba2022.all_fantasy_leagues.create leagueable: miami, name: 'Miami Heat', global: true
+nba2022.all_fantasy_leagues.create leagueable: philadelphia, name: 'Philadelphia 76ers', global: true
+nba2022.all_fantasy_leagues.create leagueable: chicago, name: 'Chicago Bulls', global: true
+nba2022.all_fantasy_leagues.create leagueable: boston, name: 'Boston Celtics', global: true
+nba2022.all_fantasy_leagues.create leagueable: phoenix, name: 'Phoenix Suns', global: true
+nba2022.all_fantasy_leagues.create leagueable: golden_state, name: 'Golden State Warriors', global: true
+nba2022.all_fantasy_leagues.create leagueable: dallas, name: 'Dallas Mavericks', global: true
+nba2022.all_fantasy_leagues.create leagueable: lal, name: 'Los Angeles Lakers', global: true
+nba2022.all_fantasy_leagues.create leagueable: denver, name: 'Denver Nuggets', global: true
 
 milwaukee_nba2022 = Seasons::Team.create team: milwaukee, season: nba2022
 miami_nba2022 = Seasons::Team.create team: miami, season: nba2022
@@ -119,6 +119,14 @@ Teams::Player.create seasons_team: lal_nba2022, player: lal0, price_cents: 2_000
 Teams::Player.create seasons_team: denver_nba2022, player: denver15, price_cents: 1_250, shirt_number: 15
 Teams::Player.create seasons_team: denver_nba2022, player: denver50, price_cents: 800, shirt_number: 50
 Teams::Player.create seasons_team: denver_nba2022, player: denver11, price_cents: 650, shirt_number: 11
+
+nba2022.teams.each.with_index do |team, team_index|
+  team_fantasy_league = team.fantasy_leagues.last
+  10.times do |index|
+    user = Users::CreateService.call(params: { email: "basketball-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }).result
+    FantasyTeams::GenerateService.call(season: nba2022, user: user, favourite_team_id: team.id)
+  end
+end
 
 week1 = nba2022.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 10, 19, 8, 0, 0)
 week2 = nba2022.weeks.create position: 2, deadline_at: DateTime.new(2021, 10, 29, 12, 0, 0)

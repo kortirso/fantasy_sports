@@ -16,7 +16,8 @@
       "allTeams": "All Teams",
       "allPlayers": "All players",
       "sortByPoints": "Total points",
-      "sortByPrice": "Price"
+      "sortByPrice": "Price",
+      "favouriteTeam": "Favourite team"
     },
     "week": {
       "previous": "Previous week",
@@ -60,7 +61,8 @@
       "allTeams": "Все команды",
       "allPlayers": "Все игроки",
       "sortByPoints": "Сумма очков",
-      "sortByPrice": "Цена"
+      "sortByPrice": "Цена",
+      "favouriteTeam": "Любимая команда"
     },
     "week": {
       "previous": "Предыдущая неделя",

@@ -16,7 +16,7 @@ describe Lineups::CreateService, type: :service do
   let(:lineup_players_creator) { double }
 
   before do
-    create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
+    create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
 
     allow(lineup_players_creator).to receive(:call)
   end

@@ -43,7 +43,7 @@ describe FantasyTeamsController, type: :controller do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
         before do
-          create :fantasy_leagues_team, fantasy_team: fantasy_team
+          create :fantasy_leagues_team, pointable: fantasy_team
         end
 
         it 'renders show page' do
@@ -90,7 +90,7 @@ describe FantasyTeamsController, type: :controller do
           let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
           before do
-            create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
+            create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
           end
 
           it 'does not create fantasy team' do
@@ -150,7 +150,7 @@ describe FantasyTeamsController, type: :controller do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 
         before do
-          create :fantasy_leagues_team, fantasy_league: fantasy_league, fantasy_team: fantasy_team
+          create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
         end
 
         context 'for league at maintenance' do
