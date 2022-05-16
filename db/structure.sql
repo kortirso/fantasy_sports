@@ -260,7 +260,8 @@ CREATE TABLE public.fantasy_leagues (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     season_id integer,
-    global boolean DEFAULT true NOT NULL
+    global boolean DEFAULT true NOT NULL,
+    uuid uuid NOT NULL
 );
 
 
@@ -1375,6 +1376,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220415183204'),
 ('20220502115026'),
 ('20220514185814'),
-('20220514192459');
+('20220514192459'),
+('20220516190525');
 
 

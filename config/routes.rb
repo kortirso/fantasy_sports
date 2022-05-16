@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :weeks, only: %i[show] do
       resources :opponents, only: %i[index], module: 'weeks'
     end
+    resources :fantasy_leagues, only: %i[show]
 
     root 'welcome#index'
   end

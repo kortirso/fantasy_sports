@@ -10,9 +10,10 @@ describe FantasyTeams::CompleteService, type: :service do
 
   let!(:fantasy_team) { create :fantasy_team }
   let!(:teams_player) { create :teams_player }
-  let(:params) { { name: name, budget_cents: 500 } }
+  let(:params) { { name: name, budget_cents: 500, favourite_team_id: favourite_team_id } }
   let(:transfers_validator) { double }
   let(:lineup_creator) { double }
+  let(:favourite_team_id) { nil }
 
   before do
     allow(lineup_creator).to receive(:call)
@@ -27,17 +28,17 @@ describe FantasyTeams::CompleteService, type: :service do
       expect(fantasy_team.reload.name).not_to eq name
     end
 
-    it 'and does not create fantasy team players' do
+    it 'does not create fantasy team players' do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
     end
 
-    it 'and does not call lineup_creator' do
+    it 'does not call lineup_creator' do
       service_call
 
       expect(lineup_creator).not_to have_received(:call)
     end
 
-    it 'and it fails' do
+    it 'fails' do
       service = service_call
 
       expect(service.failure?).to be_truthy
@@ -57,17 +58,17 @@ describe FantasyTeams::CompleteService, type: :service do
       expect(fantasy_team.reload.name).not_to eq name
     end
 
-    it 'and does not create fantasy team players' do
+    it 'does not create fantasy team players' do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
     end
 
-    it 'and does not call lineup_creator' do
+    it 'does not call lineup_creator' do
       service_call
 
       expect(lineup_creator).not_to have_received(:call)
     end
 
-    it 'and it fails' do
+    it 'fails' do
       service = service_call
 
       expect(service.failure?).to be_truthy
@@ -87,17 +88,54 @@ describe FantasyTeams::CompleteService, type: :service do
       expect(fantasy_team.reload.name).to eq name
     end
 
-    it 'and creates fantasy team players' do
+    it 'creates fantasy team players' do
       expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
     end
 
-    it 'and calls lineup_creator' do
+    it 'calls lineup_creator' do
       service_call
 
       expect(lineup_creator).to have_received(:call)
     end
 
-    it 'and it succeed' do
+    it 'succeed' do
+      service = service_call
+
+      expect(service.success?).to be_truthy
+    end
+  end
+
+  context 'for existing favourite_team_id' do
+    let!(:team) { create :team }
+    let!(:fantasy_league) { create :fantasy_league, leagueable: team }
+    let(:name) { 'My new team' }
+    let(:favourite_team_id) { team.id }
+
+    before do
+      allow(transfers_validator).to receive(:call).and_return([])
+    end
+
+    it 'updates fantasy team' do
+      service_call
+
+      expect(fantasy_team.reload.name).to eq name
+    end
+
+    it 'creates fantasy team players' do
+      expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
+    end
+
+    it 'calls lineup_creator' do
+      service_call
+
+      expect(lineup_creator).to have_received(:call)
+    end
+
+    it 'attaches fantasy team to team league' do
+      expect { service_call }.to change(fantasy_league.members, :count).by(1)
+    end
+
+    it 'succeed' do
       service = service_call
 
       expect(service.success?).to be_truthy

@@ -27,7 +27,7 @@
       <% fantasy_leagues.each do |fantasy_league| %>
         <div class="points-statistic-block flex">
           <p><%= fantasy_league[:name] %></p>
-          <p><%= fantasy_league[:place] %></p>
+          <p><%= link_to fantasy_league[:place], fantasy_league_path(fantasy_league[:uuid]) %></p>
         </div>
       <% end %>
     </div>

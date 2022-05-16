@@ -25,6 +25,7 @@ module Views
       def fantasy_leagues
         @fantasy_team.fantasy_leagues.includes(:fantasy_teams).order(global: :asc).map do |fantasy_league|
           {
+            uuid:  fantasy_league.uuid,
             name:  fantasy_league.name,
             place: fantasy_league.fantasy_teams.where('points < ?', @fantasy_team.points).size + 1
           }

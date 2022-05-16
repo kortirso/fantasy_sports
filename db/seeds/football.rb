@@ -214,7 +214,7 @@ rpl2022.teams.each.with_index do |team, team_index|
   team_fantasy_league = team.fantasy_leagues.last
   10.times do |index|
     user = Users::CreateService.call(params: { email: "football-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }).result
-    FantasyTeams::GenerateService.call(season: nba2022, user: user, favourite_team_id: team.id)
+    FantasyTeams::GenerateService.call(season: rpl2022, user: user, favourite_team_id: team.id)
   end
 end
 

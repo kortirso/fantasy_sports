@@ -24,7 +24,7 @@ module FantasyTeams
       return if failure?
 
       ActiveRecord::Base.transaction do
-        @fantasy_team.update(params.except(:favourite_team_id).merge(completed: true))
+        @fantasy_team.update!(params.except(:favourite_team_id).merge(completed: true))
         create_fantasy_teams_players(teams_players_ids)
         @lineup_creator.call(fantasy_team: @fantasy_team)
         attach_fantasy_team_to_team_league(params[:favourite_team_id])
@@ -50,10 +50,12 @@ module FantasyTeams
     end
 
     def attach_fantasy_team_to_team_league(favourite_team_id)
+      return if favourite_team_id.nil?
+
       team = ::Team.find_by(id: favourite_team_id)
       return if team.nil?
 
-      team.fantasy_leagues.last.fantasy_leagues_teams.create!(pointable: @fantasy_team)
+      team.fantasy_leagues.last&.fantasy_leagues_teams&.create!(pointable: @fantasy_team)
     end
   end
 end
