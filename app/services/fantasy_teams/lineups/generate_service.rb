@@ -5,7 +5,7 @@ module FantasyTeams
     class GenerateService
       prepend ApplicationService
 
-      BUDGET_CENTS = 10_000.0
+      BUDGET_CENTS = 10_000
       EXPENSIVE_PRICE_KOEFFICIENT = 1.2
 
       attr_reader :budget_cents
@@ -20,10 +20,9 @@ module FantasyTeams
       private
 
       def initialize_static_data
-        sport = Sports.sport(@season.league.sport_kind)
+        @sport = Sports.sport(@season.league.sport_kind)
 
-        @price_cents_per_player = BUDGET_CENTS / sport['max_players']
-        @same_team_limit = sport['max_team_players']
+        @price_cents_per_player = BUDGET_CENTS / @sport['max_players']
         @sport_positions = Sports.positions_for_sport(@season.league.sport_kind)
       end
 
@@ -42,7 +41,7 @@ module FantasyTeams
           end
         end
 
-        find_teams_players_ids if @budget_cents.negative?
+        find_teams_players_ids if result_invalid?
       end
 
       def initialize_variables
@@ -67,7 +66,7 @@ module FantasyTeams
       end
 
       def maximum_player_from_team?(seasons_team_id)
-        @selected_teams.count { |e| e == seasons_team_id } == @same_team_limit
+        @selected_teams.count { |e| e == seasons_team_id } == @sport['max_team_players']
       end
 
       def update_variables(position_kind, seasons_team_id, teams_player)
@@ -75,6 +74,10 @@ module FantasyTeams
         @selected_teams.push(seasons_team_id)
         @result.push(teams_player.id)
         @budget_cents -= teams_player.price_cents
+      end
+
+      def result_invalid?
+        @budget_cents.negative? || @result.size != @sport['max_players']
       end
     end
   end
