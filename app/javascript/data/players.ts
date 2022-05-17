@@ -12,4 +12,11 @@ export const statisticsOrder = {
     RC: 'Red cards',
     B: 'Bonus',
   },
+  basketball: {
+    REB: 'Rebounds',
+    A: 'Assists',
+    BLK: 'Blocks',
+    STL: 'Steals',
+    TO: 'Turnovers',
+  }
 };
