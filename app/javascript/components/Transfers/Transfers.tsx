@@ -6,7 +6,7 @@ import { sportsData } from 'data';
 import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
-import { Dropdown } from 'components/atoms';
+import { Dropdown, Modal } from 'components/atoms';
 import { Week, PlayerModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
@@ -23,6 +23,14 @@ interface TransfersProps {
   weekId: number;
   weekPosition: number;
   weekDeadlineAt: string;
+  transfersLimited: boolean;
+  freeTransfers: number;
+}
+
+interface TransfersData {
+  in_names: KeyValue[];
+  out_names: KeyValue[];
+  points_penalty: number;
 }
 
 const playerSortParams = ['points'];
@@ -38,6 +46,8 @@ export const Transfers = ({
   weekId,
   weekPosition,
   weekDeadlineAt,
+  transfersLimited,
+  freeTransfers
 }: TransfersProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
@@ -49,6 +59,7 @@ export const Transfers = ({
   const [playerId, setPlayerId] = useState<number | undefined>();
   const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamId, setFavouriteTeamId] = useState<string | null>(null);
+  const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
@@ -126,18 +137,20 @@ export const Transfers = ({
   };
 
   const addTeamMember = (item: TeamsPlayer) => {
+    // if fantasy team is full
+    if (teamMembers.length === sport.max_players) return showAlert('alert', `<p>${strings.transfers.teamFull}</p>`);
     // if player is already in team
-    if (teamMembers.find((element: TeamsPlayer) => element.id === item.id)) return; //showAlerts("alert", `<p>Player already in the team</p>`)
+    if (teamMembers.find((element: TeamsPlayer) => element.id === item.id)) return showAlert('alert', `<p>${strings.transfers.playerInTeam}</p>`);
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
-    if (positionsLeft === 0) return;
+    if (positionsLeft === 0) return showAlert('alert', `<p>${strings.transfers.noPositions}</p>`);
     // if there are already max_team_players
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
       return element.team.id === item.team.id;
     });
-    if (playersFromTeam.length >= sport.max_team_players) return; //showAlerts("alert", `<p>Your team already contains 3 players from this team</p>`)
+    if (playersFromTeam.length >= sport.max_team_players) return showAlerts('alert', `<p>${strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })}</p>`);
 
     setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
@@ -197,8 +210,12 @@ export const Transfers = ({
     }
   };
 
-  const submitCompleted = async () => {
-    const onlyValidate = false;
+  const onSubmitTransfers = () => {
+    submitCompleted(false);
+    setTransfersData(null);
+  };
+
+  const submitCompleted = async (onlyValidate: boolean) => {
     const payload = {
       fantasy_team: {
         teams_players_ids: teamMembers.map((element: TeamsPlayer) => element.id),
@@ -216,12 +233,12 @@ export const Transfers = ({
     };
 
     const submitResult = await apiRequest({
-      url: `/fantasy_teams/${fantasyTeamUuid}.json`,
+      url: `/fantasy_teams/${fantasyTeamUuid}/transfers.json`,
       options: requestOptions,
     });
     if (onlyValidate) {
       if (submitResult.result) {
-        showAlert('notice', `<p>Points penalty - ${submitResult.result.points_penalty}</p>`);
+        setTransfersData(submitResult.result);
       } else {
         submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
       }
@@ -269,7 +286,7 @@ export const Transfers = ({
         <div className="flex justify-between transfers-stats">
           <div className="transfers-stat flex flex-col items-center">
             <p>{strings.transfers.free}</p>
-            <p>0</p>
+            <p>{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
           <div className="transfers-stat flex flex-col items-center">
             <p>{strings.transfers.cost}</p>
@@ -303,7 +320,7 @@ export const Transfers = ({
         <div id="submit-button">
           <button
             className="button"
-            onClick={() => (fantasyTeamCompleted ? submitCompleted() : submit())}
+            onClick={() => (fantasyTeamCompleted ? submitCompleted(true) : submit())}
           >
             {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
           </button>
@@ -393,6 +410,45 @@ export const Transfers = ({
         playerId={playerId}
         onClose={() => setPlayerId(undefined)}
       />
+      <Modal show={transfersData}>
+        <div className="button small modal-close" onClick={() => setTransfersData(null)}>
+          X
+        </div>
+        <div className="transfers-header">
+          <h2>{strings.transfers.confirmationScreen}</h2>
+          <p className="transfers-points">{strings.transfers.pointsPenalty} - {transfersData?.points_penalty}</p>
+          <div className="flex justify-between transfers-list">
+            <div className="transfers-block flex flex-col items-center">
+              <h4>{strings.transfers.income}</h4>
+              {transfersData?.in_names?.map((item, index) => (
+                <p key={index}>{localizeValue(item)}</p>
+              ))}
+            </div>
+            <div className="transfers-block flex flex-col items-center">
+              <h4>{strings.transfers.income}</h4>
+              {transfersData?.out_names?.map((item, index) => (
+                <p key={index}>{localizeValue(item)}</p>
+              ))}
+            </div>
+          </div>
+          {transfersData?.out_names?.length > 0 ? (
+            <div className="flex justify-center items-center">
+              <button
+                className="button"
+                onClick={() => setTransfersData(null)}
+              >
+                {strings.transfers.cancel}
+              </button>
+              <button
+                className="button"
+                onClick={onSubmitTransfers}
+              >
+                {strings.transfers.approve}
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </Modal>
     </div>
   );
 };
