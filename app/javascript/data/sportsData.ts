@@ -17,7 +17,7 @@ export const sportsData: SportsData = {
       max_active_players: 10,
       max_team_players: 2,
       free_transfers_per_week: 1,
-      points_per_transfer: 4,
+      points_per_transfer: 10,
       changes: false,
     },
     hockey: {
@@ -26,7 +26,7 @@ export const sportsData: SportsData = {
       max_active_players: 17,
       max_team_players: 2,
       free_transfers_per_week: 1,
-      points_per_transfer: 4,
+      points_per_transfer: 5,
       changes: true,
     },
   },

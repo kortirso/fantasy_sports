@@ -8,6 +8,8 @@
       fantasyTeamBudget:    @fantasy_team.budget_cents / 100.0,
       weekId:               @season.coming_week.id,
       weekPosition:         @season.coming_week.position,
-      weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M')
+      weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M'),
+      transfersLimited:     @fantasy_team.transfers_limited,
+      freeTransfers:        @fantasy_team.free_transfers
   %>
 <% end %>
