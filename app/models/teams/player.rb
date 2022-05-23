@@ -19,6 +19,8 @@ module Teams
     has_many :lineups_players, class_name: '::Lineups::Player', foreign_key: :teams_player_id, dependent: :destroy
     has_many :lineups, through: :lineups_players
 
+    has_many :transfers, foreign_key: :teams_player_id, dependent: :destroy
+
     delegate :team, to: :seasons_team
     delegate :season, to: :seasons_team
 

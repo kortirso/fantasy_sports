@@ -71,7 +71,9 @@ module FantasyTeams
       def make_transfers
         ActiveRecord::Base.transaction do
           remove_fantasy_team_players
+          create_removing_transfers
           add_fantasy_team_players
+          create_adding_transfers
           update_fantasy_team
           update_lineup
         end
@@ -81,10 +83,36 @@ module FantasyTeams
         @fantasy_team.fantasy_teams_players.where(teams_player_id: removed_teams_players_ids).destroy_all
       end
 
+      def create_removing_transfers
+        Transfer.upsert_all(
+          removed_teams_players_ids.map { |teams_player_id|
+            {
+              teams_player_id: teams_player_id,
+              fantasy_team_id: @fantasy_team.id,
+              week_id:         week_id,
+              direction:       Transfer::OUT
+            }
+          }
+        )
+      end
+
       def add_fantasy_team_players
         ::FantasyTeams::Player.upsert_all(
           added_teams_players_ids.map { |teams_player_id|
             { teams_player_id: teams_player_id, fantasy_team_id: @fantasy_team.id }
+          }
+        )
+      end
+
+      def create_adding_transfers
+        Transfer.upsert_all(
+          added_teams_players_ids.map { |teams_player_id|
+            {
+              teams_player_id: teams_player_id,
+              fantasy_team_id: @fantasy_team.id,
+              week_id:         week_id,
+              direction:       Transfer::IN
+            }
           }
         )
       end
@@ -133,6 +161,10 @@ module FantasyTeams
 
       def selected_teams_player(lineups_player)
         added_players.find { |player| player.position_kind == lineups_player.teams_player.player.position_kind }
+      end
+
+      def week_id
+        @week_id ||= @fantasy_team.fantasy_leagues.first.season.weeks.coming.first.id
       end
     end
   end

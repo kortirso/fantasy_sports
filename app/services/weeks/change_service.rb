@@ -35,7 +35,7 @@ module Weeks
     end
 
     def update_league_maintenance(maintenance)
-      @week.league.update(maintenance: maintenance)
+      @week.league.update!(maintenance: maintenance)
     end
   end
 end
