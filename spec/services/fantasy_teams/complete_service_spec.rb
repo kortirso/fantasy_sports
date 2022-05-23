@@ -17,6 +17,11 @@ describe FantasyTeams::CompleteService, type: :service do
 
   before do
     allow(lineup_creator).to receive(:call)
+
+    season = create :season
+    fantasy_league = create :fantasy_league, season: season
+    create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
+    create :week, season: season, status: Week::COMING
   end
 
   context 'for invalid params' do
@@ -30,6 +35,10 @@ describe FantasyTeams::CompleteService, type: :service do
 
     it 'does not create fantasy team players' do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
+    end
+
+    it 'does not create transfers' do
+      expect { service_call }.not_to change(Transfer, :count)
     end
 
     it 'does not call lineup_creator' do
@@ -62,6 +71,10 @@ describe FantasyTeams::CompleteService, type: :service do
       expect { service_call }.not_to change(FantasyTeams::Player, :count)
     end
 
+    it 'does not create transfers' do
+      expect { service_call }.not_to change(Transfer, :count)
+    end
+
     it 'does not call lineup_creator' do
       service_call
 
@@ -90,6 +103,10 @@ describe FantasyTeams::CompleteService, type: :service do
 
     it 'creates fantasy team players' do
       expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
+    end
+
+    it 'creates transfer' do
+      expect { service_call }.to change(Transfer, :count).by(1)
     end
 
     it 'calls lineup_creator' do

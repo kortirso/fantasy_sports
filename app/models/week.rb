@@ -15,6 +15,9 @@ class Week < ApplicationRecord
 
   has_many :lineups, dependent: :destroy
   has_many :fantasy_teams, through: :lineups
+  has_many :teams_player, through: :lineups
+
+  has_many :transfers, dependent: :destroy
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
 

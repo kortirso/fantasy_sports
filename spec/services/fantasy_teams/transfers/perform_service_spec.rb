@@ -10,13 +10,17 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
   let!(:fantasy_team) { create :fantasy_team, free_transfers: 2, transfers_limited: true, budget_cents: 100 }
   let!(:teams_player1) { create :teams_player, price_cents: 400 }
   let!(:teams_player2) { create :teams_player, price_cents: 500 }
-  let!(:week) { create :week, status: Week::COMING }
+  let!(:season) { create :season }
+  let!(:week) { create :week, season: season, status: Week::COMING }
   let!(:lineup) { create :lineup, fantasy_team: fantasy_team, week: week }
   let!(:lineups_player) { create :lineups_player, lineup: lineup, teams_player: teams_player2 }
   let(:transfers_validator) { double }
 
   before do
     create :fantasy_teams_player, fantasy_team: fantasy_team, teams_player: teams_player2
+
+    fantasy_league = create :fantasy_league, season: season
+    create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
   end
 
   context 'for only validation' do
@@ -31,7 +35,11 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         expect { service_call }.not_to change(fantasy_team.reload, :updated_at)
       end
 
-      it 'and it fails' do
+      it 'does not create transfers' do
+        expect { service_call }.not_to change(Transfer, :count)
+      end
+
+      it 'fails' do
         service = service_call
 
         expect(service.failure?).to be_truthy
@@ -55,7 +63,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(fantasy_team.reload.free_transfers).to eq 0
         end
 
-        it 'and does not update lineup', :aggregate_failures do
+        it 'does not update lineup', :aggregate_failures do
           service_call
 
           expect(lineup.lineups_players.size).to eq 1
@@ -63,7 +71,11 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
         end
 
-        it 'and it returns validation result' do
+        it 'does not create transfers' do
+          expect { service_call }.not_to change(Transfer, :count)
+        end
+
+        it 'returns validation result' do
           service = service_call
 
           expect(service.result).to eq({
@@ -73,7 +85,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           })
         end
 
-        it 'and it succeed' do
+        it 'succeed' do
           service = service_call
 
           expect(service.success?).to be_truthy
@@ -88,7 +100,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(fantasy_team.reload.free_transfers).to eq 2
         end
 
-        it 'and does not update lineup', :aggregate_failures do
+        it 'does not update lineup', :aggregate_failures do
           service_call
 
           expect(lineup.lineups_players.size).to eq 1
@@ -96,7 +108,11 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
         end
 
-        it 'and it returns validation result' do
+        it 'does not create transfers' do
+          expect { service_call }.not_to change(Transfer, :count)
+        end
+
+        it 'returns validation result' do
           service = service_call
 
           expect(service.result).to eq({
@@ -106,7 +122,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           })
         end
 
-        it 'and it succeed' do
+        it 'succeed' do
           service = service_call
 
           expect(service.success?).to be_truthy
@@ -127,7 +143,11 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         expect { service_call }.not_to change(fantasy_team.reload, :updated_at)
       end
 
-      it 'and it fails' do
+      it 'does not create transfers' do
+        expect { service_call }.not_to change(Transfer, :count)
+      end
+
+      it 'fails' do
         service = service_call
 
         expect(service.failure?).to be_truthy
@@ -146,7 +166,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         expect(fantasy_team.reload.free_transfers).to eq 1
       end
 
-      it 'and updates lineup', :aggregate_failures do
+      it 'updates lineup', :aggregate_failures do
         service_call
 
         expect(lineup.lineups_players.size).to eq 1
@@ -154,11 +174,19 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         expect(lineup.lineups_players.first.teams_player_id).to eq teams_player1.id
       end
 
-      it 'and does not remove players' do
+      it 'creates IN transfer' do
+        expect { service_call }.to change(Transfer.in, :count).by(1)
+      end
+
+      it 'creates OUT transfer' do
+        expect { service_call }.to change(Transfer.out, :count).by(1)
+      end
+
+      it 'does not remove players' do
         expect { service_call }.not_to change(Player, :count)
       end
 
-      it 'and it succeed' do
+      it 'succeed' do
         service = service_call
 
         expect(service.success?).to be_truthy

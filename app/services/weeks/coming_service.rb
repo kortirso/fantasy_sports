@@ -14,7 +14,7 @@ module Weeks
       return if week.nil?
       return unless week.inactive?
 
-      week.update(status: Week::COMING)
+      week.update!(status: Week::COMING)
       create_lineups(week)
     end
 

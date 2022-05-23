@@ -23,12 +23,7 @@ module FantasyTeams
       validate_players(teams_players_ids)
       return if failure?
 
-      ActiveRecord::Base.transaction do
-        @fantasy_team.update!(params.except(:favourite_team_id).merge(completed: true))
-        create_fantasy_teams_players(teams_players_ids)
-        @lineup_creator.call(fantasy_team: @fantasy_team)
-        attach_fantasy_team_to_team_league(params[:favourite_team_id])
-      end
+      complete_fantasy_team(params, teams_players_ids)
     end
 
     private
@@ -41,10 +36,33 @@ module FantasyTeams
       fails!(@transfers_validator.call(fantasy_team: @fantasy_team, teams_players_ids: teams_players_ids))
     end
 
+    def complete_fantasy_team(params, teams_players_ids)
+      ActiveRecord::Base.transaction do
+        @fantasy_team.update!(params.except(:favourite_team_id).merge(completed: true))
+        create_fantasy_teams_players(teams_players_ids)
+        create_fantasy_teams_transfers(teams_players_ids)
+        @lineup_creator.call(fantasy_team: @fantasy_team)
+        attach_fantasy_team_to_team_league(params[:favourite_team_id])
+      end
+    end
+
     def create_fantasy_teams_players(teams_players_ids)
       FantasyTeams::Player.upsert_all(
         teams_players_ids.map { |teams_player_id|
           { teams_player_id: teams_player_id, fantasy_team_id: @fantasy_team.id }
+        }
+      )
+    end
+
+    def create_fantasy_teams_transfers(teams_players_ids)
+      Transfer.upsert_all(
+        teams_players_ids.map { |teams_player_id|
+          {
+            teams_player_id: teams_player_id,
+            fantasy_team_id: @fantasy_team.id,
+            week_id:         week_id,
+            direction:       Transfer::IN
+          }
         }
       )
     end
@@ -56,6 +74,10 @@ module FantasyTeams
       return if team.nil?
 
       team.fantasy_leagues.last&.fantasy_leagues_teams&.create!(pointable: @fantasy_team)
+    end
+
+    def week_id
+      @week_id ||= @fantasy_team.fantasy_leagues.first.season.weeks.coming.first.id
     end
   end
 end

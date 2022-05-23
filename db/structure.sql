@@ -815,6 +815,40 @@ ALTER SEQUENCE public.teams_players_id_seq OWNED BY public.teams_players.id;
 
 
 --
+-- Name: transfers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.transfers (
+    id bigint NOT NULL,
+    week_id integer,
+    fantasy_team_id integer,
+    teams_player_id integer,
+    direction integer DEFAULT 1 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transfers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.transfers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transfers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.transfers_id_seq OWNED BY public.transfers.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -994,6 +1028,13 @@ ALTER TABLE ONLY public.teams_players ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: transfers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfers ALTER COLUMN id SET DEFAULT nextval('public.transfers_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1168,6 +1209,14 @@ ALTER TABLE ONLY public.teams_players
 
 
 --
+-- Name: transfers transfers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfers
+    ADD CONSTRAINT transfers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1275,6 +1324,27 @@ CREATE INDEX index_teams_players_on_seasons_team_id_and_player_id ON public.team
 
 
 --
+-- Name: index_transfers_on_fantasy_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfers_on_fantasy_team_id ON public.transfers USING btree (fantasy_team_id);
+
+
+--
+-- Name: index_transfers_on_teams_player_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfers_on_teams_player_id ON public.transfers USING btree (teams_player_id);
+
+
+--
+-- Name: index_transfers_on_week_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfers_on_week_id ON public.transfers USING btree (week_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1377,6 +1447,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220502115026'),
 ('20220514185814'),
 ('20220514192459'),
-('20220516190525');
+('20220516190525'),
+('20220522171114');
 
 

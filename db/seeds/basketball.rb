@@ -120,6 +120,10 @@ Teams::Player.create seasons_team: denver_nba2022, player: denver15, price_cents
 Teams::Player.create seasons_team: denver_nba2022, player: denver50, price_cents: 800, shirt_number: 50
 Teams::Player.create seasons_team: denver_nba2022, player: denver11, price_cents: 650, shirt_number: 11
 
+week1 = nba2022.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 10, 19, 8, 0, 0)
+week2 = nba2022.weeks.create position: 2, deadline_at: DateTime.new(2021, 10, 29, 12, 0, 0)
+week3 = nba2022.weeks.create position: 3, deadline_at: DateTime.new(2021, 11, 1, 13, 0, 0)
+
 nba2022.teams.each.with_index do |team, team_index|
   team_fantasy_league = team.fantasy_leagues.last
   10.times do |index|
@@ -127,10 +131,6 @@ nba2022.teams.each.with_index do |team, team_index|
     FantasyTeams::GenerateService.call(season: nba2022, user: user, favourite_team_id: team.id)
   end
 end
-
-week1 = nba2022.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 10, 19, 8, 0, 0)
-week2 = nba2022.weeks.create position: 2, deadline_at: DateTime.new(2021, 10, 29, 12, 0, 0)
-week3 = nba2022.weeks.create position: 3, deadline_at: DateTime.new(2021, 11, 1, 13, 0, 0)
 
 Games::CreateService.call(
   week:                week1,
