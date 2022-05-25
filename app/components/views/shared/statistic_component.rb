@@ -23,7 +23,7 @@ module Views
       end
 
       def fantasy_leagues
-        @fantasy_team.fantasy_leagues.includes(:fantasy_teams).order(global: :asc).map do |fantasy_league|
+        @fantasy_team.fantasy_leagues.order(global: :asc).map do |fantasy_league|
           {
             uuid:  fantasy_league.uuid,
             name:  fantasy_league.name,

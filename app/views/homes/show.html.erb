@@ -1,3 +1,4 @@
+<%= render Views::Shared::NavigationComponent.new %>
 <%= render PageWrappers::PageComponent.new do %>
   <% Sports.all.each do |sport_kind, values| %>
     <div class="sport">

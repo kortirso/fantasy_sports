@@ -1,4 +1,4 @@
-<header class='page-navigation'>
+<header id="page-navigation">
   <div>
     <% if Current.user %>
       <%= link_to t('components.page_wrappers.page_component.home'), home_path %>
@@ -18,9 +18,8 @@
     <% end %>
   </div>
 </header>
-
-<div class='users-page'>
-  <div class='users-content'>
+<div class="users-page">
+  <div class="users-content">
     <%= content %>
   </div>
 </div>

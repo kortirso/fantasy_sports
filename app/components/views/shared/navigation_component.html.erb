@@ -1,0 +1,10 @@
+<header id='page-navigation'>
+  <div>
+  </div>
+  <div>
+    <% I18n.available_locales.each do |locale| %>
+      <%= link_to locale, change_locale(locale), aria: { label: t('components.views.shared.navigation_component.change_locale') } %>
+    <% end %>
+    <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path %>
+  </div>
+</header>

@@ -4,13 +4,6 @@ en:
       page_not_found_component:
         title: Page is not found
     page_wrappers:
-      page_component:
-        home: Home
-        team: Team
-        transfers: Transfers
-        points: Points
-        logout: Logout
-        change_locale: Change locale
       users_component:
         home: Home
         logout: Logout
@@ -22,6 +15,15 @@ en:
         show:
           fantasy_team_link_component:
             create: Create fantasy team
+      shared:
+        navigation_component:
+          logout: Logout
+          change_locale: Change locale
+        fantasy_team_navigation_component:
+          home: Home
+          team: Team squad
+          transfers: Transfers
+          points: Points
   controllers:
     application:
       page_not_found: Page is not found

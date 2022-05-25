@@ -1,3 +1,5 @@
+<%= render Views::Shared::NavigationComponent.new %>
+<%= render Views::Shared::FantasyTeamNavigationComponent.new(fantasy_team: @fantasy_team) %>
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <% if @lineup %>
     <div class="main-container">

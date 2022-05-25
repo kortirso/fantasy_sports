@@ -87,7 +87,7 @@ export const Squad = ({
   };
 
   const oppositeTeamNames = (item: LineupPlayer) => {
-    if (!teamNames) return '-';
+    if (Object.keys(teamNames).length === 0) return '-';
 
     const values = teamOpponents[item.team.id];
     if (!values || values.length === 0) return '-';
