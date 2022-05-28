@@ -33,7 +33,7 @@ gem 'jwt', '2.2.3'
 gem 'action_policy', '0.6.0'
 
 # validations
-gem 'dry-validation', '~> 1.7'
+gem 'dry-validation', '~> 1.8'
 
 # Catch unsafe migrations in development
 gem 'strong_migrations', '~> 0.7'
