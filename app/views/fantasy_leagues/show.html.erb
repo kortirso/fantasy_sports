@@ -1,3 +1,5 @@
+<%= render Views::Shared::NavigationComponent.new %>
+<%= render Views::Shared::FantasyTeamNavigationComponent.new %>
 <%= render PageWrappers::PageComponent.new do %>
   <h1><%= @fantasy_league.name %></h1>
   <table cellSpacing="0" id="league-ranks">
