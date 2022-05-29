@@ -22,7 +22,7 @@ module Games
             'B'  => 'bonus_points'
           }.freeze
 
-          def call(position_kind:, statistic:)
+          def call(statistic:, position_kind:)
             @position_kind = position_kind
             @result = statistic.inject(0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]

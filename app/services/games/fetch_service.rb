@@ -21,6 +21,9 @@ module Games
       update_players(@game.home_season_team_id, game_data[0])
       update_players(@game.visitor_season_team_id, game_data[1])
       update_players_form
+
+      # TODO
+      # add here other calculation for lineups and teams from StatisticService
     end
 
     private

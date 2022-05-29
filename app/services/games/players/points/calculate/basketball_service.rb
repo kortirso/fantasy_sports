@@ -16,7 +16,7 @@ module Games
             'TO'  => 'turnovers_points'
           }.freeze
 
-          def call(statistic:)
+          def call(statistic:, position_kind: nil)
             @result = statistic.inject(0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]
               next acc unless method_name
