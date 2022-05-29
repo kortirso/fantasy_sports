@@ -6,10 +6,12 @@ module Games
 
     def initialize(
       player_statistic_update_service: ::Games::Players::Statistic::UpdateService,
-      fetch_service:                   ::Import::FetchService
+      fetch_service:                   ::Import::FetchService,
+      form_change_service:             Teams::Players::Form::ChangeService
     )
       @player_statistic_update_service = player_statistic_update_service
       @fetch_service                   = fetch_service
+      @form_change_service             = form_change_service
     end
 
     def call(game:)
@@ -18,6 +20,7 @@ module Games
       game_data = fetch_game_data
       update_players(@game.home_season_team_id, game_data[0])
       update_players(@game.visitor_season_team_id, game_data[1])
+      update_players_form
     end
 
     private
@@ -40,6 +43,13 @@ module Games
         statistic = game_data[games_player.teams_player.shirt_number]
         @player_statistic_update_service.call(games_player: games_player, statistic: statistic)
       end
+    end
+
+    def update_players_form
+      @form_change_service.call(
+        games_ids:         Game.where(week_id: @game.week.weeks_ids_for_form_calculation).order(id: :asc).ids,
+        seasons_teams_ids: [@game.home_season_team_id, @game.visitor_season_team_id]
+      )
     end
   end
 end

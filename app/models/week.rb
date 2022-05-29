@@ -32,4 +32,14 @@ class Week < ApplicationRecord
   def next
     Week.find_by(season_id: season_id, position: position + 1)
   end
+
+  def weeks_ids_for_form_calculation
+    Week
+      .where(season_id: season_id)
+      .where('position <= ?', position)
+      .where('position > 0')
+      .order(position: :desc)
+      .ids
+      .first(Teams::Player::WEEKS_COUNT_FOR_FORM_CALCULATION)
+  end
 end
