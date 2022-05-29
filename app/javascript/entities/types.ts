@@ -63,6 +63,7 @@ export interface TeamsPlayer {
   id: number;
   player: Player;
   price: number;
+  form: number;
   team: Team;
   active: boolean;
   change_order: number;

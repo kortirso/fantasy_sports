@@ -66,7 +66,7 @@ export const PlayerModal = ({
       <div className="flex justify-between player-stats">
         <div className="player-stat flex flex-col items-center">
           <p>{strings.player.form}</p>
-          <p>-</p>
+          <p>{seasonPlayer.form}</p>
         </div>
         <div className="player-stat flex flex-col items-center">
           <p>{strings.player.lastWeek}</p>

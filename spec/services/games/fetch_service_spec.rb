@@ -5,13 +5,15 @@ describe Games::FetchService, type: :service do
     described_class
     .new(
       player_statistic_update_service: player_statistic_update_service,
-      fetch_service:                   fetch_service
+      fetch_service:                   fetch_service,
+      form_change_service:             form_change_service
     )
     .call(game: game)
   }
 
   let(:player_statistic_update_service) { double }
   let(:fetch_service) { double }
+  let(:form_change_service) { double }
   let(:fetch_service_result) { double }
 
   let!(:game) { create :game }
@@ -30,6 +32,7 @@ describe Games::FetchService, type: :service do
     )
 
     allow(player_statistic_update_service).to receive(:call)
+    allow(form_change_service).to receive(:call)
   end
 
   context 'for valid params' do
@@ -46,7 +49,16 @@ describe Games::FetchService, type: :service do
       )
     end
 
-    it 'and it succeed' do
+    it 'calls form_change_service' do
+      service_call
+
+      expect(form_change_service).to have_received(:call).with(
+        games_ids:         [game.id],
+        seasons_teams_ids: [game.home_season_team_id, game.visitor_season_team_id]
+      )
+    end
+
+    it 'succeed' do
       service = service_call
 
       expect(service.success?).to be_truthy

@@ -791,7 +791,8 @@ CREATE TABLE public.teams_players (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     price_cents integer DEFAULT 0 NOT NULL,
-    shirt_number integer
+    shirt_number integer,
+    form double precision DEFAULT 0.0 NOT NULL
 );
 
 
@@ -1448,6 +1449,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514185814'),
 ('20220514192459'),
 ('20220516190525'),
-('20220522171114');
+('20220522171114'),
+('20220528200221');
 
 

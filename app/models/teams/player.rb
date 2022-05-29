@@ -4,6 +4,8 @@ module Teams
   class Player < ApplicationRecord
     self.table_name = :teams_players
 
+    WEEKS_COUNT_FOR_FORM_CALCULATION = 4
+
     belongs_to :seasons_team, class_name: '::Seasons::Team'
     belongs_to :player, class_name: '::Player'
 
