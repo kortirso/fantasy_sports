@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Lineups::Players::UpdatePointsService, type: :service do
+describe Lineups::Players::Points::UpdateService, type: :service do
   subject(:service_call) {
     described_class.new(
       lineups_update_points_service: lineups_update_points_service
@@ -27,7 +27,7 @@ describe Lineups::Players::UpdatePointsService, type: :service do
     expect(lineups_player2.reload.points).to eq 10
   end
 
-  it 'and calls lineups_update_points_service' do
+  it 'calls lineups_update_points_service' do
     service_call
 
     expect(lineups_update_points_service).to have_received(:call).with(
@@ -35,7 +35,7 @@ describe Lineups::Players::UpdatePointsService, type: :service do
     )
   end
 
-  it 'and it succeed' do
+  it 'succeed' do
     service = service_call
 
     expect(service.success?).to be_truthy

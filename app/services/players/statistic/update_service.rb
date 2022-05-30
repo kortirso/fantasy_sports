@@ -3,6 +3,7 @@
 module Players
   module Statistic
     class UpdateService
+      # Updates games statistic for players in some season
       prepend ApplicationService
 
       def call(season_id:, player_ids:)
@@ -44,10 +45,9 @@ module Players
 
       def games_players
         Games::Player
-          .joins(game: :week)
-          .includes(teams_player: :player)
+          .joins(:teams_player, game: :week)
           .where(weeks: { season_id: @season_id })
-          .where(players: { id: @player_ids })
+          .where(teams_player: { player_id: @player_ids })
       end
 
       def games_player_hash(games_player)

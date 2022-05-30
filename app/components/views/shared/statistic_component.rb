@@ -15,7 +15,7 @@ module Views
       end
 
       def overall_rank
-        @season.fantasy_teams.where('points < ?', overall_points).size + 1
+        @season.fantasy_teams.where('points > ?', overall_points).size + 1
       end
 
       def fantasy_teams_amount
@@ -27,7 +27,7 @@ module Views
           {
             uuid:  fantasy_league.uuid,
             name:  fantasy_league.name,
-            place: fantasy_league.fantasy_teams.where('points < ?', @fantasy_team.points).size + 1
+            place: fantasy_league.fantasy_teams.where('points > ?', @fantasy_team.points).size + 1
           }
         end
       end

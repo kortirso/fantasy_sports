@@ -15,6 +15,8 @@ describe Games::FetchService, type: :service do
   let(:fetch_service) { double }
   let(:form_change_service) { double }
   let(:fetch_service_result) { double }
+  let(:player_statistic_update_service_call) { double }
+  let(:points_result) { 10 }
 
   let!(:game) { create :game }
   let!(:teams_player1) { create :teams_player, seasons_team: game.home_season_team, active: true, shirt_number: 1 }
@@ -31,7 +33,8 @@ describe Games::FetchService, type: :service do
       ]
     )
 
-    allow(player_statistic_update_service).to receive(:call)
+    allow(player_statistic_update_service).to receive(:call).and_return(player_statistic_update_service_call)
+    allow(player_statistic_update_service_call).to receive(:result).and_return(points_result)
     allow(form_change_service).to receive(:call)
   end
 

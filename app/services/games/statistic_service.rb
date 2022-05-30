@@ -6,11 +6,11 @@ module Games
 
     def initialize(
       player_statistic_update_service:   Games::Players::Statistic::UpdateService,
-      lineups_players_update_points_job: Lineups::Players::UpdatePointsJob,
+      lineups_players_points_update_job: Lineups::Players::Points::UpdateJob,
       players_statistic_update_job:      Players::Statistic::UpdateJob
     )
       @player_statistic_update_service   = player_statistic_update_service
-      @lineups_players_update_points_job = lineups_players_update_points_job
+      @lineups_players_points_update_job = lineups_players_points_update_job
       @players_seasons_update_job        = players_statistic_update_job
     end
 
@@ -41,7 +41,7 @@ module Games
     end
 
     def update_lineups_players_points
-      @lineups_players_update_points_job.perform_now(
+      @lineups_players_points_update_job.perform_now(
         teams_players_points: @teams_players_points.to_json,
         week_id:              @game.week_id
       )
