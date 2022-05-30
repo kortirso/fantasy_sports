@@ -17,6 +17,8 @@ interface SquadPointsProps {
   lineupId: string;
   weekId: number;
   points: number;
+  averagePoints: number;
+  maxPoints: number;
 }
 
 export const SquadPoints = ({
@@ -25,6 +27,8 @@ export const SquadPoints = ({
   lineupId,
   weekId,
   points,
+  averagePoints,
+  maxPoints,
 }: SquadPointsProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
@@ -81,11 +85,11 @@ export const SquadPoints = ({
         </div>
         <div className="transfers-stat flex flex-col items-center">
           <p>{strings.squadPoints.averagePoints}</p>
-          <p></p>
+          <p>{averagePoints}</p>
         </div>
         <div className="transfers-stat flex flex-col items-center">
           <p>{strings.squadPoints.hightestPoints}</p>
-          <p></p>
+          <p>{maxPoints}</p>
         </div>
       </div>
       <div id="team-players-by-positions" className={sportKind}>
