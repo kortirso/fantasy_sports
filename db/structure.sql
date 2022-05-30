@@ -333,7 +333,7 @@ CREATE TABLE public.fantasy_teams (
     budget_cents integer DEFAULT 10000 NOT NULL,
     free_transfers integer DEFAULT 0 NOT NULL,
     transfers_limited boolean DEFAULT false NOT NULL,
-    points integer DEFAULT 0 NOT NULL
+    points double precision DEFAULT 0 NOT NULL
 );
 
 
@@ -434,7 +434,7 @@ CREATE TABLE public.games_players (
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points integer
+    points double precision
 );
 
 
@@ -500,7 +500,7 @@ CREATE TABLE public.lineups (
     week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points integer DEFAULT 0 NOT NULL
+    points double precision DEFAULT 0 NOT NULL
 );
 
 
@@ -533,7 +533,7 @@ CREATE TABLE public.lineups_players (
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
-    points integer
+    points double precision
 );
 
 
@@ -566,7 +566,7 @@ CREATE TABLE public.players (
     position_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points integer DEFAULT 0 NOT NULL,
+    points double precision DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
@@ -598,7 +598,7 @@ CREATE TABLE public.players_seasons (
     id bigint NOT NULL,
     player_id integer,
     season_id integer,
-    points integer DEFAULT 0 NOT NULL,
+    points double precision DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1450,6 +1450,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514192459'),
 ('20220516190525'),
 ('20220522171114'),
-('20220528200221');
+('20220528200221'),
+('20220530191703');
 
 

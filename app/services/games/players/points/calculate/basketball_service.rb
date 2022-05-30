@@ -18,7 +18,7 @@ module Games
 
           # rubocop: disable Lint/UnusedMethodArgument
           def call(statistic:, position_kind: nil)
-            @result = statistic.inject(0) do |acc, (param, value)|
+            @result = statistic.inject(0.0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]
               next acc unless method_name
 

@@ -13,6 +13,7 @@ export const statisticsOrder = {
     B: 'Bonus',
   },
   basketball: {
+    P: 'Field points',
     REB: 'Rebounds',
     A: 'Assists',
     BLK: 'Blocks',

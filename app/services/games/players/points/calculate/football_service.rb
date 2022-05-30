@@ -24,7 +24,7 @@ module Games
 
           def call(statistic:, position_kind:)
             @position_kind = position_kind
-            @result = statistic.inject(0) do |acc, (param, value)|
+            @result = statistic.inject(0.0) do |acc, (param, value)|
               method_name = METHODS_FOR_STATS[param]
               next acc unless method_name
 
