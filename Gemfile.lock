@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/enriclluelles/route_translator
-  revision: 6c5e5486b64b0cc0278b30c86931758021a02720
+  revision: 12e5526989e51c4aa8fdf300bbdb08d5efe6f796
   branch: master
   specs:
     route_translator (12.1.0)
@@ -10,10 +10,10 @@ GIT
 
 GIT
   remote: https://github.com/flyerhzm/bullet
-  revision: 96e66d1b5e923fb29b5ae20f04396354290000a7
+  revision: 7d383e0d3968ee3cf3a5a9c35718c3a684c9b797
   branch: master
   specs:
-    bullet (7.0.1)
+    bullet (7.0.2)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
 
@@ -98,7 +98,7 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     bcrypt (3.1.16)
-    bootsnap (1.11.1)
+    bootsnap (1.12.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.1.10)
@@ -161,8 +161,8 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.3)
-      multipart-post (>= 1.2, < 3)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
@@ -192,10 +192,10 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.15.0)
+    minitest (5.16.0)
     msgpack (1.5.2)
     multi_json (1.15.0)
-    multipart-post (2.1.1)
+    multipart-post (2.2.3)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -245,7 +245,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     railties (7.0.3)
       actionpack (= 7.0.3)
@@ -279,7 +279,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.30.0)
+    rubocop (1.30.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -290,10 +290,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.14.0)
+    rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.14.2)
+    rubocop-rails (2.15.0)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -341,7 +341,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   x86_64-darwin-20
