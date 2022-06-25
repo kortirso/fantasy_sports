@@ -21,7 +21,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'sassc-rails'
 
 # A framework for building view components
-gem 'view_component', '2.40.0', require: 'view_component/engine'
+gem 'view_component', '~> 2.0', require: 'view_component/engine'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '3.1.16'
