@@ -21,6 +21,7 @@ module Lineups
               .where(teams_player_id: Teams::Player.where(id: id))
               .where(lineups: { week_id: week_id })
 
+            # TODO: issue 34
             lineups_players.update_all(points: points)
             lineup_ids.push(lineups_players.pluck(:lineup_id))
           end

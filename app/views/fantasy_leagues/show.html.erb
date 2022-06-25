@@ -1,5 +1,4 @@
 <%= render Views::Shared::NavigationComponent.new %>
-<%= render Views::Shared::FantasyTeamNavigationComponent.new %>
 <%= render PageWrappers::PageComponent.new do %>
   <h1><%= @fantasy_league.name %></h1>
   <table cellSpacing="0" id="league-ranks">
@@ -11,9 +10,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @fantasy_league_members.each.with_index do |member, index| %>
+      <% @fantasy_league_members.each.with_index(1) do |member, index| %>
         <tr>
-          <td><%= index + 1 %></td>
+          <td><%= index %></td>
           <td><%= member.name %></td>
           <td><%= member.points %></td>
         </tr>
