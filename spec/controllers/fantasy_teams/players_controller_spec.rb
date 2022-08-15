@@ -17,7 +17,7 @@ describe FantasyTeams::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -27,7 +27,7 @@ describe FantasyTeams::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           get :index, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -41,7 +41,7 @@ describe FantasyTeams::PlayersController, type: :controller do
         end
 
         it 'returns status 200' do
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
 
         %w[id price player team].each do |attr|

@@ -17,7 +17,7 @@ describe WeeksController, type: :controller do
         it 'returns json not_found status with errors' do
           get :show, params: { id: 'unexisting', locale: 'en' }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -30,7 +30,7 @@ describe WeeksController, type: :controller do
           end
 
           it 'returns status 200' do
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
 
           %w[id position date_deadline_at time_deadline_at].each do |attr|
@@ -52,7 +52,7 @@ describe WeeksController, type: :controller do
           end
 
           it 'returns status 200' do
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
 
           %w[id position date_deadline_at time_deadline_at games previous next].each do |attr|

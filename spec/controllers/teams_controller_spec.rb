@@ -11,7 +11,7 @@ describe TeamsController, type: :controller do
     end
 
     it 'returns status 200' do
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
 
     %w[id name].each do |attr|

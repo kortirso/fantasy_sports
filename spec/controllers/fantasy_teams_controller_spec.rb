@@ -163,7 +163,7 @@ describe FantasyTeamsController, type: :controller do
           end
 
           it 'returns status 422' do
-            expect(response.status).to eq 422
+            expect(response).to have_http_status :unprocessable_entity
           end
 
           it 'and returns error about maintenance' do
@@ -199,7 +199,7 @@ describe FantasyTeamsController, type: :controller do
             it 'and returns json unprocessable_entity status with errors' do
               request
 
-              expect(response.status).to eq 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
 
@@ -223,7 +223,7 @@ describe FantasyTeamsController, type: :controller do
             it 'and returns json ok status' do
               request
 
-              expect(response.status).to eq 200
+              expect(response).to have_http_status :ok
             end
           end
         end

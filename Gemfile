@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.3'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0'
@@ -21,7 +21,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'sassc-rails'
 
 # A framework for building view components
-gem 'view_component', '~> 2.0', require: 'view_component/engine'
+gem 'view_component', '2.64', require: 'view_component/engine'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '3.1.16'
@@ -61,10 +61,10 @@ gem 'foreman'
 
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
-  gem 'rubocop', '~> 1.23', require: false
-  gem 'rubocop-performance', '~> 1.12', require: false
-  gem 'rubocop-rails', '~> 2.12', require: false
-  gem 'rubocop-rspec', '~> 2.6', require: false
+  gem 'rubocop', '~> 1.35', require: false
+  gem 'rubocop-performance', '~> 1.14', require: false
+  gem 'rubocop-rails', '~> 2.15', require: false
+  gem 'rubocop-rspec', '~> 2.12', require: false
 end
 
 group :development do

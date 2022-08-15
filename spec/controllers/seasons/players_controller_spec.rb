@@ -8,7 +8,7 @@ describe Seasons::PlayersController, type: :controller do
       end
 
       it 'returns status 404' do
-        expect(response.status).to eq 404
+        expect(response).to have_http_status :not_found
       end
     end
 
@@ -23,7 +23,7 @@ describe Seasons::PlayersController, type: :controller do
       end
 
       it 'returns status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
 
       %w[id price player team].each do |attr|
@@ -47,7 +47,7 @@ describe Seasons::PlayersController, type: :controller do
       end
 
       it 'returns status 404' do
-        expect(response.status).to eq 404
+        expect(response).to have_http_status :not_found
       end
     end
 
@@ -61,7 +61,7 @@ describe Seasons::PlayersController, type: :controller do
       end
 
       it 'returns status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
 
       %w[id price player team].each do |attr|

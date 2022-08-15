@@ -17,7 +17,7 @@ describe Lineups::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           get :show, params: { lineup_id: 'unexisting', locale: 'en' }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -27,7 +27,7 @@ describe Lineups::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           get :show, params: { lineup_id: lineup.id, locale: 'en' }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -43,7 +43,7 @@ describe Lineups::PlayersController, type: :controller do
           end
 
           it 'returns status 200' do
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
 
           %w[id active change_order points player team teams_player_id].each do |attr|
@@ -72,7 +72,7 @@ describe Lineups::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -82,7 +82,7 @@ describe Lineups::PlayersController, type: :controller do
         it 'returns json not_found status with errors' do
           patch :update, params: { lineup_id: lineup.id, locale: 'en', lineup_players: { data: [{}] } }
 
-          expect(response.status).to eq 404
+          expect(response).to have_http_status :not_found
         end
       end
 
@@ -107,7 +107,7 @@ describe Lineups::PlayersController, type: :controller do
           end
 
           it 'returns status 422' do
-            expect(response.status).to eq 422
+            expect(response).to have_http_status :unprocessable_entity
           end
 
           it 'and returns error about maintenance' do
@@ -134,7 +134,7 @@ describe Lineups::PlayersController, type: :controller do
             let(:update_result) { false }
 
             it 'returns status 422' do
-              expect(response.status).to eq 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
 
@@ -142,7 +142,7 @@ describe Lineups::PlayersController, type: :controller do
             let(:update_result) { true }
 
             it 'returns status 200' do
-              expect(response.status).to eq 200
+              expect(response).to have_http_status :ok
             end
           end
         end
