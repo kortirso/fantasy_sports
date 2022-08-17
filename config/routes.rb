@@ -11,15 +11,6 @@ Rails.application.routes.draw do
       get 'logout', to: 'sessions#destroy'
     end
 
-    namespace :admin do
-      resources :leagues, only: %i[show] do
-        resources :games, only: %i[show], module: 'leagues'
-      end
-      resources :games, only: %i[] do
-        post 'players', to: 'games/players#update'
-      end
-    end
-
     resource :home, only: %i[show]
     resources :fantasy_teams, only: %i[show create update] do
       scope module: :fantasy_teams do
