@@ -11,11 +11,8 @@ module Users
     end
 
     def call(params:)
-      validate_with(@user_validator, params)
-      return if failure?
-
-      validate_user(params)
-      return if failure?
+      return if validate_with(@user_validator, params) && failure?
+      return if validate_user(params) && failure?
 
       @result.save
     rescue ActiveRecord::RecordNotUnique

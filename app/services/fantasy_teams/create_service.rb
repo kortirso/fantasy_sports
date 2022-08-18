@@ -8,8 +8,7 @@ module FantasyTeams
       @season = season
       @user   = user
 
-      validate_fantasy_team_uniqueness
-      return if failure?
+      return if validate_fantasy_team_uniqueness && failure?
 
       @result = user.fantasy_teams.create(name: 'My team', sport_kind: season.league.sport_kind)
       connect_fantasy_team_with_main_league

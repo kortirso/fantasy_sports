@@ -13,8 +13,7 @@ module Lineups
         end
 
         def call(lineup:, lineups_players_params:)
-          validate_params(lineup, lineups_players_params)
-          return if failure?
+          return if validate_params(lineup, lineups_players_params) && failure?
 
           update_lineups_players(lineup, lineups_players_params)
         end

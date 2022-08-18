@@ -17,11 +17,8 @@ module FantasyTeams
     def call(fantasy_team:, params:, teams_players_ids: nil)
       @fantasy_team = fantasy_team
 
-      validate_params(params.except(:favourite_team_id))
-      return if failure?
-
-      validate_players(teams_players_ids)
-      return if failure?
+      return if validate_params(params.except(:favourite_team_id)) && failure?
+      return if validate_players(teams_players_ids) && failure?
 
       complete_fantasy_team(params, teams_players_ids)
     end

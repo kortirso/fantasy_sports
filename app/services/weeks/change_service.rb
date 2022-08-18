@@ -15,14 +15,17 @@ module Weeks
     end
 
     def call(week_id:)
-      @week = Week.coming.find_by(id: week_id)
-      fail!(I18n.t('services.weeks.change.record_is_not_exists')) if @week.nil?
-      return if failure?
+      return if find_week(week_id) && failure?
 
       update_weeks
     end
 
     private
+
+    def find_week(week_id)
+      @week = Week.coming.find_by(id: week_id)
+      fail!(I18n.t('services.weeks.change.record_is_not_exists')) if @week.nil?
+    end
 
     def update_weeks
       update_league_maintenance(true)

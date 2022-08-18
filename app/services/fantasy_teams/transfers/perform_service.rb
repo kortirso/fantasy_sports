@@ -16,8 +16,7 @@ module FantasyTeams
         @existed_teams_players_ids = @fantasy_team.teams_players.ids
         @teams_players_ids = teams_players_ids
 
-        validate_players
-        return if failure?
+        return if validate_players && failure?
         return validation_response if only_validate
 
         make_transfers

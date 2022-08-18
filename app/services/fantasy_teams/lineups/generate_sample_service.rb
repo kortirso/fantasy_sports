@@ -2,7 +2,7 @@
 
 module FantasyTeams
   module Lineups
-    class GenerateService
+    class GenerateSampleService
       prepend ApplicationService
 
       BUDGET_CENTS = 10_000
@@ -22,7 +22,7 @@ module FantasyTeams
       def initialize_static_data
         @sport = Sports.sport(@season.league.sport_kind)
 
-        @price_cents_per_player = BUDGET_CENTS / @sport['max_players']
+        @price_cents_per_player = EXPENSIVE_PRICE_KOEFFICIENT * BUDGET_CENTS / @sport['max_players']
         @sport_positions = Sports.positions_for_sport(@season.league.sport_kind)
       end
 
@@ -54,7 +54,7 @@ module FantasyTeams
       def grouped_teams_players
         @season
           .active_teams_players
-          .where('price_cents <= ?', @price_cents_per_player * EXPENSIVE_PRICE_KOEFFICIENT)
+          .where('price_cents <= ?', @price_cents_per_player)
           .includes(:player)
           .group_by(&:seasons_team_id)
           .sort_by { rand }
