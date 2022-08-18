@@ -8,5 +8,7 @@ class User < ApplicationRecord
   has_many :fantasy_teams, dependent: :destroy
   has_many :lineups, through: :fantasy_teams
 
+  has_one :users_session, class_name: 'Users::Session', dependent: :destroy
+
   enum role: { regular: 0, admin: 1 }
 end

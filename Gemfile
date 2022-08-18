@@ -27,7 +27,7 @@ gem 'view_component', '2.64', require: 'view_component/engine'
 gem 'bcrypt', '3.1.16'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
-gem 'jwt', '2.2.3'
+gem 'jwt', '2.4.1'
 
 # authorization
 gem 'action_policy', '0.6.0'

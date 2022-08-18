@@ -9,12 +9,13 @@ module Users
     def new; end
 
     def create
-      session[:fantasy_sports_user_id] = @user.id
+      session[:fantasy_sports_token] = Auth::GenerateTokenService.call(user: @user).result
       redirect_to after_login_path, notice: t('controllers.users.sessions.success_create')
     end
 
     def destroy
-      session[:fantasy_sports_user_id] = nil
+      # TODO: Here can be destroying token from database
+      session[:fantasy_sports_token] = nil
       redirect_to after_logout_path, notice: t('controllers.users.sessions.success_destroy')
     end
 

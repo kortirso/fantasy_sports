@@ -11,7 +11,7 @@ module Users
     end
 
     def call(params:)
-      validate_params(params)
+      validate_with(@user_validator, params)
       return if failure?
 
       validate_user(params)
@@ -23,10 +23,6 @@ module Users
     end
 
     private
-
-    def validate_params(params)
-      fails!(@user_validator.call(params: params))
-    end
 
     def validate_user(params)
       @result = User.new(params)

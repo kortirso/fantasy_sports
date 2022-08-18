@@ -9,14 +9,14 @@ module Users
     end
 
     def create
-      service_call = Users::CreateService.call(params: user_params)
+      service_call = Users::CreateService.call(params: user_params.to_h.symbolize_keys)
       service_call.success? ? success_create_response(service_call) : failed_create_response(service_call)
     end
 
     private
 
     def success_create_response(service_call)
-      session[:fantasy_sports_user_id] = service_call.result.id
+      session[:fantasy_sports_token] = Auth::GenerateTokenService.call(user: service_call.result).result
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 

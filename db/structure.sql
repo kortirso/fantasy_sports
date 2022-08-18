@@ -883,6 +883,38 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: users_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_sessions (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: users_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_sessions_id_seq OWNED BY public.users_sessions.id;
+
+
+--
 -- Name: weeks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1040,6 +1072,13 @@ ALTER TABLE ONLY public.transfers ALTER COLUMN id SET DEFAULT nextval('public.tr
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: users_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_sessions ALTER COLUMN id SET DEFAULT nextval('public.users_sessions_id_seq'::regclass);
 
 
 --
@@ -1226,6 +1265,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: users_sessions users_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_sessions
+    ADD CONSTRAINT users_sessions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: weeks weeks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1353,6 +1400,20 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
+-- Name: index_users_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_sessions_on_user_id ON public.users_sessions USING btree (user_id);
+
+
+--
+-- Name: index_users_sessions_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_sessions_on_uuid ON public.users_sessions USING btree (uuid);
+
+
+--
 -- Name: index_weeks_on_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1451,6 +1512,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220516190525'),
 ('20220522171114'),
 ('20220528200221'),
-('20220530191703');
+('20220530191703'),
+('20220817183402');
 
 

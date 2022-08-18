@@ -10,10 +10,8 @@ describe Users::CreateService, type: :service do
       expect { service_call }.not_to change(User, :count)
     end
 
-    it 'and it fails' do
-      service = service_call
-
-      expect(service.failure?).to be_truthy
+    it 'fails' do
+      expect(service_call.failure?).to be_truthy
     end
   end
 
@@ -24,10 +22,8 @@ describe Users::CreateService, type: :service do
       expect { service_call }.to change(User, :count).by(1)
     end
 
-    it 'and it succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
+    it 'succeed' do
+      expect(service_call.success?).to be_truthy
     end
   end
 end

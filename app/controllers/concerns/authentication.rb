@@ -10,7 +10,12 @@ module Authentication
   private
 
   def current_user
-    Current.user ||= User.find_by(id: session[:fantasy_sports_user_id]) if session[:fantasy_sports_user_id]
+    return unless session[:fantasy_sports_token]
+
+    auth_call = Auth::FetchUserService.call(token: session[:fantasy_sports_token])
+    return if auth_call.failure?
+
+    Current.user ||= auth_call.result
   end
 
   def authenticate

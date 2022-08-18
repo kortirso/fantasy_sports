@@ -11,6 +11,8 @@ describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:fantasy_teams).dependent(:destroy) }
+    it { is_expected.to have_many(:lineups).through(:fantasy_teams) }
+    it { is_expected.to have_one(:users_session).class_name('::Users::Session').dependent(:destroy) }
   end
 
   describe 'roles?' do

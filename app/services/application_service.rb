@@ -33,6 +33,11 @@ module ApplicationService
 
   private
 
+  def validate_with(validator, params={})
+    errors = validator.call(params: params)
+    fails!(errors) if errors.any?
+  end
+
   def fails!(messages)
     @errors = messages
   end

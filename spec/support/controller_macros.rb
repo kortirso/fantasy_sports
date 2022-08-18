@@ -4,7 +4,7 @@ module ControllerMacros
   def sign_in_user
     before do
       @current_user = create :user
-      @request.session['fantasy_sports_user_id'] = @current_user.id
+      @request.session['fantasy_sports_token'] = Auth::GenerateTokenService.call(user: @current_user).result
     end
   end
 end

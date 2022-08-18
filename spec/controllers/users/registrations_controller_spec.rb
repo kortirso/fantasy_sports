@@ -64,7 +64,7 @@ describe Users::RegistrationsController, type: :controller do
         expect { request }.not_to change(User, :count)
       end
 
-      it 'and renders new template' do
+      it 'renders new template' do
         request
 
         expect(response).to render_template :new
@@ -79,13 +79,13 @@ describe Users::RegistrationsController, type: :controller do
         expect { request }.to change(User, :count).by(1)
       end
 
-      it 'and user has downcased email' do
+      it 'user has downcased email' do
         request
 
         expect(User.last.email).to eq 'user@gmail.com'
       end
 
-      it 'and redirects to dashboard path' do
+      it 'redirects to dashboard path' do
         request
 
         expect(response).to redirect_to home_en_path
