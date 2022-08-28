@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module ApplicationService
+  def self.prepended(base)
+    base.extend ClassMethods
+  end
+
   module ClassMethods
     def call(args={})
       new.call(args)
     end
-  end
-
-  def self.prepended(base)
-    base.extend ClassMethods
   end
 
   attr_reader :errors, :result
@@ -29,6 +29,10 @@ module ApplicationService
 
   def failure?
     @errors.any?
+  end
+
+  def call_parameters
+    method(:call).super_method.parameters
   end
 
   private
