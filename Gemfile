@@ -60,7 +60,7 @@ gem 'jsbundling-rails', '~> 1.0'
 gem 'foreman'
 
 # organizing services
-gem 'service_operator', path: '/web/myprojects/packages/service_operator'
+gem 'service_operator'
 
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'

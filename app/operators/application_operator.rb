@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationOperator
-  include ServiceOperator
+  include ServiceOperator::Helpers
 
   private
 

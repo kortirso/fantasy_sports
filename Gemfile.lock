@@ -23,11 +23,6 @@ GIT
   specs:
     que (1.0.0.beta4)
 
-PATH
-  remote: /web/myprojects/packages/service_operator
-  specs:
-    service_operator (0.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -316,6 +311,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    service_operator (0.2.3)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     simplecov (0.21.2)
@@ -381,7 +377,7 @@ DEPENDENCIES
   rubocop-rails (~> 2.15)
   rubocop-rspec (~> 2.12)
   sassc-rails
-  service_operator!
+  service_operator
   shoulda-matchers (~> 5.0)
   simplecov
   strong_migrations (~> 0.7)

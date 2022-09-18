@@ -8,9 +8,9 @@ module Weeks
 
     before :turn_off
 
-    step :finish_week, with: Weeks::FinishService, week: :previous_week
-    step :start_week, with: Weeks::StartService
-    step :prepare_week, with: Weeks::ComingService, week: :next_week
+    step :finish_week, service: Weeks::FinishService, week: :previous_week
+    step :start_week, service: Weeks::StartService
+    step :prepare_week, service: Weeks::ComingService, week: :next_week
 
     after :turn_on
 
