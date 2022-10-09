@@ -383,7 +383,7 @@ CREATE TABLE public.fantasy_teams (
     budget_cents integer DEFAULT 10000 NOT NULL,
     free_transfers integer DEFAULT 0 NOT NULL,
     transfers_limited boolean DEFAULT false NOT NULL,
-    points double precision DEFAULT 0 NOT NULL
+    points numeric(8,2) DEFAULT 0 NOT NULL
 );
 
 
@@ -484,7 +484,7 @@ CREATE TABLE public.games_players (
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points double precision
+    points numeric(8,2)
 );
 
 
@@ -550,7 +550,7 @@ CREATE TABLE public.lineups (
     week_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points double precision DEFAULT 0 NOT NULL
+    points numeric(8,2) DEFAULT 0 NOT NULL
 );
 
 
@@ -583,7 +583,7 @@ CREATE TABLE public.lineups_players (
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
-    points double precision
+    points numeric(8,2)
 );
 
 
@@ -616,7 +616,7 @@ CREATE TABLE public.players (
     position_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points double precision DEFAULT 0 NOT NULL,
+    points numeric(8,2) DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
@@ -648,7 +648,7 @@ CREATE TABLE public.players_seasons (
     id bigint NOT NULL,
     player_id integer,
     season_id integer,
-    points double precision DEFAULT 0 NOT NULL,
+    points numeric(8,2) DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1596,6 +1596,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220817183402'),
 ('20221009180348'),
 ('20221009181657'),
-('20221009183354');
+('20221009183354'),
+('20221009184632');
 
 
