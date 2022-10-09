@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount Emailbutler::Engine => '/emailbutler'
+
   localized do
     namespace :users do
       get 'sign_up', to: 'registrations#new'

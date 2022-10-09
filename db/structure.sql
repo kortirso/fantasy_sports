@@ -249,6 +249,44 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: emailbutler_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.emailbutler_messages (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    mailer character varying NOT NULL,
+    action character varying NOT NULL,
+    params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    send_to character varying[],
+    status integer DEFAULT 0 NOT NULL,
+    "timestamp" timestamp(6) without time zone,
+    lock_version integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: emailbutler_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.emailbutler_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: emailbutler_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.emailbutler_messages_id_seq OWNED BY public.emailbutler_messages.id;
+
+
+--
 -- Name: fantasy_leagues; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -949,6 +987,13 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
+-- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.emailbutler_messages ALTER COLUMN id SET DEFAULT nextval('public.emailbutler_messages_id_seq'::regclass);
+
+
+--
 -- Name: fantasy_leagues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1094,6 +1139,14 @@ ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: emailbutler_messages emailbutler_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.emailbutler_messages
+    ADD CONSTRAINT emailbutler_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -1285,6 +1338,13 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
+
+
+--
+-- Name: index_emailbutler_messages_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_emailbutler_messages_on_uuid ON public.emailbutler_messages USING btree (uuid);
 
 
 --
@@ -1513,6 +1573,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220522171114'),
 ('20220528200221'),
 ('20220530191703'),
-('20220817183402');
+('20220817183402'),
+('20221009180348');
 
 
