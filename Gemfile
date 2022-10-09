@@ -45,7 +45,7 @@ gem 'jsonapi-serializer', '2.2.0'
 gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator', branch: 'master'
 
 # active jobs adapter
-gem 'que', git: 'https://github.com/kortirso/que'
+gem 'que', '~> 2.2.0'
 
 # http client
 gem 'faraday', '~> 1.9'
