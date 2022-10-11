@@ -20,7 +20,7 @@ module Games
 
     def call(game:)
       @game = game
-      @teams_players_points = {}
+      @team_player_ids = []
       @player_ids = []
 
       update_games_players_statistic
@@ -54,9 +54,9 @@ module Games
 
       games_players.each do |games_player|
         statistic = game_data[games_player.teams_player.shirt_number]
-        points = @player_statistic_update_service.call(games_player: games_player, statistic: statistic).result
+        @player_statistic_update_service.call(games_player: games_player, statistic: statistic)
 
-        @teams_players_points[games_player.teams_player_id] = points
+        @team_player_ids.push(games_player.teams_player_id)
         @player_ids.push(games_player.teams_player.player_id)
       end
     end
@@ -74,8 +74,8 @@ module Games
 
     def update_lineups_players_points
       @lineups_players_points_update_job.perform_now(
-        teams_players_points: @teams_players_points.to_json,
-        week_id:              @game.week_id
+        team_player_ids: @team_player_ids,
+        week_id:         @game.week_id
       )
     end
   end
