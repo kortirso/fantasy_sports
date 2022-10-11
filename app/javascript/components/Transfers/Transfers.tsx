@@ -150,7 +150,7 @@ export const Transfers = ({
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
       return element.team.id === item.team.id;
     });
-    if (playersFromTeam.length >= sport.max_team_players) return showAlerts('alert', `<p>${strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })}</p>`);
+    if (playersFromTeam.length >= sport.max_team_players) return showAlert('alert', `<p>${strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })}</p>`);
 
     setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
@@ -338,7 +338,7 @@ export const Transfers = ({
             },
             { all: strings.transfers.allPlayers } as KeyValue,
           )}
-          onSelect={(value) => setFilterByPosition(value)}
+          onSelect={(value) => { setFilterByPosition(value); setPage(0); }}
           selectedValue={filterByPosition}
         />
         <Dropdown
@@ -350,7 +350,7 @@ export const Transfers = ({
             },
             { all: strings.transfers.allTeams } as KeyValue,
           )}
-          onSelect={(value) => setFilterByTeam(value)}
+          onSelect={(value) => { setFilterByTeam(value); setPage(0); }}
           selectedValue={filterByTeam}
         />
         <Dropdown

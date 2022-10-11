@@ -7,9 +7,6 @@
         <% @leagues[sport_kind].each do |league| %>
           <div class="league">
             <h3><%= localized_value(league.name) %></h3>
-            <% if allowed_to?(:show?, league, with: Admin::LeaguePolicy) %>
-              <%= link_to t('views.homes.show.admin_league'), admin_league_path(league.id), class: 'button' %>
-            <% end %>
             <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(season: league.active_season, user: Current.user) %>
           </div>
         <% end %>
