@@ -6,10 +6,10 @@ module Lineups
       class UpdateJob < ApplicationJob
         queue_as :default
 
-        def perform(teams_players_points:, week_id:)
+        def perform(team_player_ids:, week_id:)
           Lineups::Players::Points::UpdateService.call(
-            teams_players_points: JSON.parse(teams_players_points),
-            week_id:              week_id
+            team_player_ids: team_player_ids,
+            week_id:         week_id
           )
         end
       end

@@ -13,15 +13,22 @@ module Lineups
           @lineups_update_points_service = lineups_update_points_service
         end
 
-        def call(teams_players_points:, week_id:)
+        def call(team_player_ids:, week_id:)
           lineup_ids = []
-          teams_players_points.each do |id, points|
+          team_player_ids.each do |teams_player_id|
             lineups_players =
-              Lineups::Player.joins(:lineup)
-              .where(teams_player_id: Teams::Player.where(id: id))
+              Lineups::Player
+              .joins(:lineup)
+              .where(teams_player_id: teams_player_id)
               .where(lineups: { week_id: week_id })
 
-            # TODO: issue 34
+            points =
+              Games::Player
+              .joins(:game)
+              .where(teams_player_id: teams_player_id)
+              .where(game: { week_id: week_id })
+              .sum(:points)
+
             lineups_players.update_all(points: points)
             lineup_ids.push(lineups_players.pluck(:lineup_id))
           end
