@@ -10,6 +10,7 @@ export const sportsData: SportsData = {
       free_transfers_per_week: 1,
       points_per_transfer: 4,
       changes: true,
+      captain: true,
     },
     basketball: {
       name: { en: 'Basketball', ru: 'Баскетбол' },
@@ -19,6 +20,7 @@ export const sportsData: SportsData = {
       free_transfers_per_week: 1,
       points_per_transfer: 10,
       changes: false,
+      captain: false,
     },
     hockey: {
       name: { en: 'Hockey', ru: 'Хоккей' },
@@ -28,6 +30,7 @@ export const sportsData: SportsData = {
       free_transfers_per_week: 1,
       points_per_transfer: 5,
       changes: true,
+      captain: true,
     },
   },
   positions: {

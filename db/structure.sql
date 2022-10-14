@@ -583,7 +583,8 @@ CREATE TABLE public.lineups_players (
     teams_player_id integer,
     active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
-    points numeric(8,2)
+    points numeric(8,2),
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1597,6 +1598,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221009180348'),
 ('20221009181657'),
 ('20221009183354'),
-('20221009184632');
+('20221009184632'),
+('20221013182131');
 
 
