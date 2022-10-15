@@ -4,7 +4,7 @@ describe Lineups::CreateService, type: :service do
   subject(:service_call) {
     described_class.new(
       lineup_players_creator: lineup_players_creator,
-      lineup_players_copier:  lineup_players_copier
+      lineup_players_copier: lineup_players_copier
     ).call(fantasy_team: fantasy_team)
   }
 

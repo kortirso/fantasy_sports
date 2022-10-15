@@ -11,10 +11,10 @@ module Teams
     attribute :player do |object|
       player = object.player
       {
-        name:          player.name,
+        name: player.name,
         position_kind: player.position_kind,
-        points:        player.points,
-        statistic:     player.statistic
+        points: player.points,
+        statistic: player.statistic
       }
     end
 

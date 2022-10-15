@@ -14,9 +14,9 @@ module FantasyTeams
 
     def update
       service_call = FantasyTeams::Transfers::PerformService.call(
-        fantasy_team:      @fantasy_team,
+        fantasy_team: @fantasy_team,
         teams_players_ids: params[:fantasy_team][:teams_players_ids],
-        only_validate:     params[:fantasy_team][:only_validate]
+        only_validate: params[:fantasy_team][:only_validate]
       )
       if service_call.success?
         render json: { result: service_call.result }, status: :ok

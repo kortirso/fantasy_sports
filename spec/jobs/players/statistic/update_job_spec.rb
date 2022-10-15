@@ -13,7 +13,7 @@ describe Players::Statistic::UpdateJob, type: :service do
     job_call
 
     expect(Players::Statistic::UpdateService).to have_received(:call).with(
-      season_id:  season.id,
+      season_id: season.id,
       player_ids: []
     )
   end

@@ -13,15 +13,15 @@ module Import
         }.freeze
 
         PARAMS_TO_STATS = {
-          -1   => 'MP',
-          25   => 'GS',
-          64   => 'A',
-          59   => 'GC',
+          -1 => 'MP',
+          25 => 'GS',
+          64 => 'A',
+          59 => 'GC',
           1030 => 'PS',
-          32   => 'YC',
-          33   => 'RC',
-          58   => 'S',
-          26   => 'S'
+          32 => 'YC',
+          33 => 'RC',
+          58 => 'S',
+          26 => 'S'
         }.freeze
 
         def initialize(
@@ -97,9 +97,9 @@ module Import
           @http_service.post(
             path: '/widgets',
             body: {
-              'sport'     => 'football',
+              'sport' => 'football',
               'widget_id' => 'scout_match_players_stat',
-              'params'    => { '_p_is_gk' => goalkeepers_data, '_p_lang' => 'ru', '_p_match_id' => @external_id }
+              'params' => { '_p_is_gk' => goalkeepers_data, '_p_lang' => 'ru', '_p_match_id' => @external_id }
             }
           )['data'][0]['scout_match_players_stat']
         end

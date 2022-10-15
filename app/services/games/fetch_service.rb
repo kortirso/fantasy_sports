@@ -39,9 +39,9 @@ module Games
 
     def fetch_game_data
       @fetch_service.call(
-        source:      @game.source,
+        source: @game.source,
         external_id: @game.external_id,
-        sport_kind:  @game.week.league.sport_kind
+        sport_kind: @game.week.league.sport_kind
       ).result
     end
 
@@ -63,7 +63,7 @@ module Games
 
     def update_games_players_form
       @form_change_service.call(
-        games_ids:         Game.where(week_id: @game.week.weeks_ids_for_form_calculation).order(id: :asc).ids,
+        games_ids: Game.where(week_id: @game.week.weeks_ids_for_form_calculation).order(id: :asc).ids,
         seasons_teams_ids: [@game.home_season_team_id, @game.visitor_season_team_id]
       )
     end
@@ -75,7 +75,7 @@ module Games
     def update_lineups_players_points
       @lineups_players_points_update_job.perform_now(
         team_player_ids: @team_player_ids,
-        week_id:         @game.week_id
+        week_id: @game.week_id
       )
     end
   end

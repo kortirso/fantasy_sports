@@ -57,8 +57,8 @@ module FantasyTeams
           {
             teams_player_id: teams_player_id,
             fantasy_team_id: @fantasy_team.id,
-            week_id:         week_id,
-            direction:       Transfer::IN
+            week_id: week_id,
+            direction: Transfer::IN
           }
         }
       )

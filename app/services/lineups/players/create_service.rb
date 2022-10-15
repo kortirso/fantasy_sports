@@ -62,20 +62,20 @@ module Lineups
       def active_teams_player_data(teams_player)
         {
           teams_player_id: teams_player.id,
-          lineup_id:       @lineup.id,
-          active:          true,
-          change_order:    0,
-          status:          @captains[teams_player.id] || Lineups::Player::REGULAR
+          lineup_id: @lineup.id,
+          active: true,
+          change_order: 0,
+          status: @captains[teams_player.id] || Lineups::Player::REGULAR
         }
       end
 
       def inactive_teams_player_data(teams_player)
         {
           teams_player_id: teams_player.id,
-          lineup_id:       @lineup.id,
-          active:          false,
-          change_order:    @change_order,
-          status:          @captains[teams_player.id] || Lineups::Player::REGULAR
+          lineup_id: @lineup.id,
+          active: false,
+          change_order: @change_order,
+          status: @captains[teams_player.id] || Lineups::Player::REGULAR
         }
       end
     end

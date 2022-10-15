@@ -13,10 +13,10 @@ module Lineups
           previous_lineup.lineups_players.map { |lineups_player|
             {
               teams_player_id: lineups_player.teams_player_id,
-              lineup_id:       lineup.id,
-              active:          lineups_player.active,
-              change_order:    lineups_player.change_order,
-              status:          lineups_player.status
+              lineup_id: lineup.id,
+              active: lineups_player.active,
+              change_order: lineups_player.change_order,
+              status: lineups_player.status
             }
           }
         )

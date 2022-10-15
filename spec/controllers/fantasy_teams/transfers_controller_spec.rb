@@ -108,8 +108,8 @@ describe FantasyTeams::TransfersController, type: :controller do
             let(:request) {
               patch :update, params: {
                 fantasy_team_id: fantasy_team.uuid,
-                locale:          'en',
-                fantasy_team:    { teams_players_ids: [], only_validate: true }
+                locale: 'en',
+                fantasy_team: { teams_players_ids: [], only_validate: true }
               }
             }
 
@@ -135,8 +135,8 @@ describe FantasyTeams::TransfersController, type: :controller do
             let(:request) {
               patch :update, params: {
                 fantasy_team_id: fantasy_team.uuid,
-                locale:          'en',
-                fantasy_team:    { teams_players_ids: [], only_validate: true }
+                locale: 'en',
+                fantasy_team: { teams_players_ids: [], only_validate: true }
               }
             }
 

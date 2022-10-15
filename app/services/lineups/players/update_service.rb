@@ -30,8 +30,8 @@ module Lineups
       end
 
       def update_lineups_players(lineups_players_params)
-        grouped_params = lineups_players_params.index_by { |players_param| players_param.symbolize_keys[:id] }
-        @lineup.lineups_players.includes(:lineup, :teams_player).each do |lineups_player|
+        grouped_params = lineups_players_params.index_by { |players_param| players_param[:id] }
+        @lineup.lineups_players.each do |lineups_player|
           lineups_player.update(grouped_params[lineups_player.id].except(:id))
         end
       end

@@ -8,12 +8,12 @@ module Games
           prepend ApplicationService
 
           METHODS_FOR_STATS = {
-            'P'   => 'field_goals_points',
+            'P' => 'field_goals_points',
             'REB' => 'rebounds_points',
-            'A'   => 'assists_points',
+            'A' => 'assists_points',
             'BLK' => 'blocks_points',
             'STL' => 'steals_points',
-            'TO'  => 'turnovers_points'
+            'TO' => 'turnovers_points'
           }.freeze
 
           # rubocop: disable Lint/UnusedMethodArgument

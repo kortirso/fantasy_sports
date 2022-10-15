@@ -17,7 +17,7 @@ module Lineups
 
     def update
       service_call = Lineups::Players::UpdateService.call(
-        lineup:                 @lineup,
+        lineup: @lineup,
         lineups_players_params: lineups_players_params
       )
       if service_call.success?
@@ -44,13 +44,13 @@ module Lineups
     def lineups_players_params
       params
         .require(:lineup_players)
-        .permit(data: [%i[id active change_order]])
+        .permit(data: [%i[id active change_order status]])
         .to_h[:data]
         .map { |hash|
           hash['id'] = hash['id'].to_i
           hash['active'] = hash['active'] == 'true' || hash['active'] == true
           hash['change_order'] = hash['change_order'].to_i
-          hash
+          hash.symbolize_keys
         }
     end
   end

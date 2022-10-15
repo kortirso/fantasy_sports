@@ -4,7 +4,7 @@ describe FantasyTeams::CompleteService, type: :service do
   subject(:service_call) {
     described_class.new(
       transfers_validator: transfers_validator,
-      lineup_creator:      lineup_creator
+      lineup_creator: lineup_creator
     ).call(fantasy_team: fantasy_team, params: params, teams_players_ids: [teams_player.id])
   }
 

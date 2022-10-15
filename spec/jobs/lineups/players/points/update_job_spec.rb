@@ -16,7 +16,7 @@ describe Lineups::Players::Points::UpdateJob, type: :service do
 
     expect(Lineups::Players::Points::UpdateService).to have_received(:call).with(
       team_player_ids: [teams_player.id],
-      week_id:         week.id
+      week_id: week.id
     )
   end
 end

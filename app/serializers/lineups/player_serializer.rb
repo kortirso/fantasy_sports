@@ -11,7 +11,7 @@ module Lineups
     attribute :player do |object|
       player = object.teams_player.player
       {
-        name:          player.name,
+        name: player.name,
         position_kind: player.position_kind
       }
     end

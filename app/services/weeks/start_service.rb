@@ -28,7 +28,7 @@ module Weeks
       free_transfers_per_week = Sports.sport(week.season.league.sport_kind)['free_transfers_per_week']
       week.fantasy_teams.with_unlimited_transfers.update_all(
         transfers_limited: true,
-        free_transfers:    free_transfers_per_week
+        free_transfers: free_transfers_per_week
       )
     end
 

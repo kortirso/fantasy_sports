@@ -44,17 +44,17 @@ module FantasyTeams
       def validate_players
         fails!(
           @transfers_validator.call(
-            fantasy_team:      @fantasy_team,
+            fantasy_team: @fantasy_team,
             teams_players_ids: @teams_players_ids,
-            budget_limit:      @fantasy_team.teams_players.sum(:price_cents) + @fantasy_team.budget_cents
+            budget_limit: @fantasy_team.teams_players.sum(:price_cents) + @fantasy_team.budget_cents
           )
         )
       end
 
       def validation_response
         @result = {
-          out_names:      removed_players.pluck(:name),
-          in_names:       added_players.pluck(:name),
+          out_names: removed_players.pluck(:name),
+          in_names: added_players.pluck(:name),
           points_penalty: points_penalty
         }
       end
@@ -88,8 +88,8 @@ module FantasyTeams
             {
               teams_player_id: teams_player_id,
               fantasy_team_id: @fantasy_team.id,
-              week_id:         week_id,
-              direction:       Transfer::OUT
+              week_id: week_id,
+              direction: Transfer::OUT
             }
           }
         )
@@ -109,8 +109,8 @@ module FantasyTeams
             {
               teams_player_id: teams_player_id,
               fantasy_team_id: @fantasy_team.id,
-              week_id:         week_id,
-              direction:       Transfer::IN
+              week_id: week_id,
+              direction: Transfer::IN
             }
           }
         )
@@ -119,7 +119,7 @@ module FantasyTeams
       def update_fantasy_team
         left_transfers = @fantasy_team.free_transfers - removed_teams_players_ids.size
         @fantasy_team.update!(
-          budget_cents:   @fantasy_team.budget_cents + budget_change,
+          budget_cents: @fantasy_team.budget_cents + budget_change,
           free_transfers: left_transfers.negative? ? 0 : left_transfers
         )
       end
@@ -152,9 +152,9 @@ module FantasyTeams
         @added_players.delete(selected_teams_player)
         {
           teams_player_id: selected_teams_player.id,
-          lineup_id:       coming_lineup.id,
-          active:          lineups_player.active,
-          change_order:    lineups_player.change_order
+          lineup_id: coming_lineup.id,
+          active: lineups_player.active,
+          change_order: lineups_player.change_order
         }
       end
 

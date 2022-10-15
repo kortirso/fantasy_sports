@@ -18,17 +18,17 @@ module Positionable
 
   included do
     enum position_kind: {
-      GOALKEEPER     => 0,
-      DEFENDER       => 1,
-      MIDFIELDER     => 2,
-      FORWARD        => 3,
-      CENTER         => 4,
-      POWER_FORWARD  => 5,
-      SMALL_FORWARD  => 6,
-      POINT_GUARD    => 7,
+      GOALKEEPER => 0,
+      DEFENDER => 1,
+      MIDFIELDER => 2,
+      FORWARD => 3,
+      CENTER => 4,
+      POWER_FORWARD => 5,
+      SMALL_FORWARD => 6,
+      POINT_GUARD => 7,
       SHOOTING_GUARD => 8,
-      GOALIE         => 9,
-      DEFENSEMAN     => 10,
+      GOALIE => 9,
+      DEFENSEMAN => 10,
       HOCKEY_FORWARD => 11
     }
   end

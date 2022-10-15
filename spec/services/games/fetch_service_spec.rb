@@ -5,8 +5,8 @@ describe Games::FetchService, type: :service do
     described_class
     .new(
       player_statistic_update_service: player_statistic_update_service,
-      fetch_service:                   fetch_service,
-      form_change_service:             form_change_service
+      fetch_service: fetch_service,
+      form_change_service: form_change_service
     )
     .call(game: game)
   }
@@ -44,11 +44,11 @@ describe Games::FetchService, type: :service do
 
       expect(player_statistic_update_service).to have_received(:call).with(
         games_player: games_player1,
-        statistic:    { 'MP' => 90 }
+        statistic: { 'MP' => 90 }
       )
       expect(player_statistic_update_service).to have_received(:call).with(
         games_player: games_player2,
-        statistic:    { 'MP' => 45 }
+        statistic: { 'MP' => 45 }
       )
     end
 
@@ -56,7 +56,7 @@ describe Games::FetchService, type: :service do
       service_call
 
       expect(form_change_service).to have_received(:call).with(
-        games_ids:         [game.id],
+        games_ids: [game.id],
         seasons_teams_ids: [game.home_season_team_id, game.visitor_season_team_id]
       )
     end

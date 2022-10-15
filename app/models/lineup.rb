@@ -9,7 +9,7 @@ class Lineup < ApplicationRecord
 
   has_many :fantasy_leagues_teams,
            class_name: 'FantasyLeagues::Team',
-           as:         :pointable,
-           dependent:  :destroy
+           as: :pointable,
+           dependent: :destroy
   has_many :fantasy_leagues, through: :fantasy_leagues_teams
 end

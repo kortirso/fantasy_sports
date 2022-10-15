@@ -35,10 +35,10 @@ module FantasyTeams
 
     def complete_fantasy_team
       @complete_fantasy_team_service.call(
-        fantasy_team:      @result,
-        params:            {
-          name:              generate_name,
-          budget_cents:      generate_lineup_service_object.budget_cents,
+        fantasy_team: @result,
+        params: {
+          name: generate_name,
+          budget_cents: generate_lineup_service_object.budget_cents,
           favourite_team_id: @favourite_team_id
         },
         teams_players_ids: generate_lineup_service_object.result

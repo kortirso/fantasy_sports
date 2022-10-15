@@ -8,11 +8,11 @@ describe Lineups::Players::UpdateService, type: :service do
   }
 
   let!(:lineup) { create :lineup }
+  let!(:lineups_player) { create :lineups_player, lineup: lineup, active: false, change_order: 1 }
   let(:players_validator_service) { double }
   let(:players_validator) { double }
   let(:call_result) { double }
-  let(:validator_result) { ['Error'] }
-  let(:lineups_players_params) { [{ id: 1, active: true, change_order: 0 }] }
+  let(:lineups_players_params) { [{ id: lineups_player.id, active: true, change_order: '0', status: 'captain' }] }
 
   before do
     allow(players_validator_service).to receive(:new).and_return(players_validator)
@@ -21,13 +21,15 @@ describe Lineups::Players::UpdateService, type: :service do
 
   context 'for football' do
     context 'for invalid data' do
-      it 'calls football_service' do
+      let(:validator_result) { ['Error'] }
+
+      it 'calls players_validator_service' do
         service_call
 
         expect(players_validator).to have_received(:call)
       end
 
-      it 'and it fails' do
+      it 'fails' do
         service = service_call
 
         expect(service.failure?).to be_truthy
@@ -37,13 +39,21 @@ describe Lineups::Players::UpdateService, type: :service do
     context 'for valid data' do
       let(:validator_result) { [] }
 
-      it 'calls football_service' do
+      it 'calls players_validator_service' do
         service_call
 
         expect(players_validator).to have_received(:call)
       end
 
-      it 'and it succeed' do
+      it 'updates lineups player', :aggregate_failures do
+        service_call
+
+        expect(lineups_player.reload.status).to eq Lineups::Player::CAPTAIN
+        expect(lineups_player.active).to be true
+        expect(lineups_player.change_order).to eq 0
+      end
+
+      it 'succeed' do
         service = service_call
 
         expect(service.success?).to be_truthy

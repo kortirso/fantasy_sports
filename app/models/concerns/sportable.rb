@@ -9,9 +9,9 @@ module Sportable
 
   included do
     enum sport_kind: {
-      FOOTBALL   => 0,
+      FOOTBALL => 0,
       BASKETBALL => 1,
-      HOCKEY     => 2
+      HOCKEY => 2
     }
   end
 end

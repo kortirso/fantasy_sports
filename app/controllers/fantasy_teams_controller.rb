@@ -26,8 +26,8 @@ class FantasyTeamsController < ApplicationController
 
   def update
     service_call = FantasyTeams::CompleteService.call(
-      fantasy_team:      @fantasy_team,
-      params:            fantasy_team_params,
+      fantasy_team: @fantasy_team,
+      params: fantasy_team_params,
       teams_players_ids: params[:fantasy_team][:teams_players_ids]
     )
     if service_call.success?

@@ -7,7 +7,7 @@ module Players
 
       def perform(season_id:, player_ids:)
         Players::Statistic::UpdateService.call(
-          season_id:  season_id,
+          season_id: season_id,
           player_ids: player_ids
         )
       end

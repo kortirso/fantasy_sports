@@ -8,14 +8,14 @@ class FantasyTeam < ApplicationRecord
 
   has_many :fantasy_leagues_teams,
            class_name: 'FantasyLeagues::Team',
-           as:         :pointable,
-           dependent:  :destroy
+           as: :pointable,
+           dependent: :destroy
   has_many :fantasy_leagues, through: :fantasy_leagues_teams
 
   has_many :fantasy_teams_players,
-           class_name:  'FantasyTeams::Player',
+           class_name: 'FantasyTeams::Player',
            foreign_key: :fantasy_team_id,
-           dependent:   :destroy
+           dependent: :destroy
   has_many :teams_players, through: :fantasy_teams_players
 
   has_many :lineups, dependent: :destroy

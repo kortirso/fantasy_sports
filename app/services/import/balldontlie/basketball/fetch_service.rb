@@ -42,12 +42,12 @@ module Import
           return unless shirt_number
 
           @result[team_index][shirt_number] = {
-            'P'   => player_data['pts'],
+            'P' => player_data['pts'],
             'REB' => player_data['reb'],
-            'A'   => player_data['ast'],
+            'A' => player_data['ast'],
             'BLK' => player_data['blk'],
             'STL' => player_data['stl'],
-            'TO'  => player_data['turnover']
+            'TO' => player_data['turnover']
           }
         end
 

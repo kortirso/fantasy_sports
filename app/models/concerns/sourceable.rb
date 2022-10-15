@@ -8,7 +8,7 @@ module Sourceable
 
   included do
     enum source: {
-      INSTAT      => 0,
+      INSTAT => 0,
       BALLDONTLIE => 1
     }
   end

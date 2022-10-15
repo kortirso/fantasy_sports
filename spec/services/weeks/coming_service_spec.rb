@@ -75,7 +75,7 @@ describe Weeks::ComingService, type: :service do
 
         expect(lineup_create_service).to have_received(:call).with(
           fantasy_team: fantasy_team,
-          week:         week
+          week: week
         )
       end
 

@@ -10,7 +10,7 @@ module Games
           METHODS_FOR_STATS = {
             'MP' => 'minutes_played_points',
             'GS' => 'goals_scored_points',
-            'A'  => 'assists_points',
+            'A' => 'assists_points',
             'CS' => 'clean_sheets_points',
             'GC' => 'goals_conceded_points',
             'OG' => 'own_goals_points',
@@ -18,8 +18,8 @@ module Games
             'PM' => 'penalties_missed_points',
             'YC' => 'yellow_cards_points',
             'RC' => 'red_cards_points',
-            'S'  => 'saves_points',
-            'B'  => 'bonus_points'
+            'S' => 'saves_points',
+            'B' => 'bonus_points'
           }.freeze
 
           def call(statistic:, position_kind:)

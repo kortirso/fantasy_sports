@@ -13,9 +13,9 @@ module Teams
     has_many :games, through: :games_players
 
     has_many :fantasy_teams_players,
-             class_name:  'FantasyTeams::Player',
+             class_name: 'FantasyTeams::Player',
              foreign_key: :teams_player_id,
-             dependent:   :destroy
+             dependent: :destroy
     has_many :fantasy_teams, through: :fantasy_teams_players
 
     has_many :lineups_players, class_name: '::Lineups::Player', foreign_key: :teams_player_id, dependent: :destroy

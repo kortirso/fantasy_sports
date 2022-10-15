@@ -24,7 +24,7 @@ module Players
       def update_players_seasons
         @games_players_statistic.each do |player_id, values|
           Player.find(player_id).update(
-            points:    values[:points],
+            points: values[:points],
             statistic: values[:statistic]
           )
         end
@@ -52,7 +52,7 @@ module Players
 
       def games_player_hash(games_player)
         {
-          points:    games_player.points.to_i,
+          points: games_player.points.to_i,
           statistic: games_player.statistic || {}
         }
       end

@@ -14,7 +14,7 @@ module Seasons
     has_many :active_teams_players,
              -> { Teams::Player.active },
              foreign_key: :seasons_team_id,
-             class_name:  'Teams::Player'
+             class_name: 'Teams::Player'
     has_many :active_players, through: :active_teams_players, source: :player
 
     has_many :games, lambda { |season_team|

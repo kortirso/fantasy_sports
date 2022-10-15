@@ -79,8 +79,8 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           service = service_call
 
           expect(service.result).to eq({
-            out_names:      [teams_player2.player.name],
-            in_names:       [teams_player1.player.name],
+            out_names: [teams_player2.player.name],
+            in_names: [teams_player1.player.name],
             points_penalty: 4
           })
         end
@@ -116,8 +116,8 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           service = service_call
 
           expect(service.result).to eq({
-            out_names:      [teams_player2.player.name],
-            in_names:       [teams_player1.player.name],
+            out_names: [teams_player2.player.name],
+            in_names: [teams_player1.player.name],
             points_penalty: 0
           })
         end
