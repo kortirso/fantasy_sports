@@ -47,6 +47,7 @@ export interface LineupPlayer {
   team: Team;
   active: boolean;
   change_order: number;
+  status: string;
   points: string;
   teams_player_id: number;
 }
@@ -80,6 +81,7 @@ export interface SportValues {
   free_transfers_per_week: number;
   points_per_transfer: number;
   changes: boolean;
+  captain: boolean;
 }
 
 export interface PositionValues {

@@ -11,7 +11,7 @@
   padding: .5rem 1rem;
   border-radius: .125rem;
 
-  .action, .info {
+  .action, .info, .captain {
     background: $white;
     position: absolute;
     top: .5rem;
@@ -34,12 +34,16 @@
     right: 1rem;
   }
 
+  .captain {
+    right: 1rem;
+    top: 2.25rem;
+  }
+
   .player-team-name {
     line-height: 1.25rem;
     text-align: center;
-    padding: .125rem 0 .5rem;
+    padding: 1.25rem 0;
     background: $white;
-    min-height: 1.875rem;
 
     &.empty {
       height: 1.875rem;

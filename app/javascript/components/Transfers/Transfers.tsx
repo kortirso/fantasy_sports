@@ -410,7 +410,7 @@ export const Transfers = ({
         playerId={playerId}
         onClose={() => setPlayerId(undefined)}
       />
-      <Modal show={transfersData}>
+      <Modal show={!!transfersData}>
         <div className="button small modal-close" onClick={() => setTransfersData(null)}>
           X
         </div>

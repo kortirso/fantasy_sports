@@ -6,7 +6,7 @@ import { sportsData } from 'data';
 import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
-import { Week, PlayerModal, PlayerCard } from 'components';
+import { Week, PlayerModal, PlayerActionsModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
@@ -36,6 +36,7 @@ export const Squad = ({
   const [teamOpponents, setTeamOpponents] = useState({});
   // main data
   const [playerId, setPlayerId] = useState<number | undefined>();
+  const [playerActionsId, setPlayerActionsId] = useState<number | undefined>();
   // dynamic data
   const [playerIdForChange, setPlayerIdForChange] = useState<number | null>(null);
   const [playerIdsToChange, setPlayerIdsToChange] = useState<number[]>([]);
@@ -164,6 +165,26 @@ export const Squad = ({
     );
   };
 
+  const changeCaptain = (
+    playerIdToChange: number,
+    status: string,
+  ) => {
+    // playerIdToChange - id of changeable player
+    // status - captain or assistant
+    setLineupPlayers(
+      lineupPlayers.map((element: LineupPlayer) => {
+        if (element.id === playerIdToChange) {
+          element.status = status;
+        }
+        if (element.id !== playerIdToChange && element.status === status) {
+          element.status = 'regular';
+        }
+        return element;
+      }),
+    );
+    setPlayerActionsId(undefined);
+  };
+
   const classListForPlayerCard = (id: number) => {
     return [
       'player-card',
@@ -179,6 +200,7 @@ export const Squad = ({
           id: element.id,
           active: element.active,
           change_order: element.change_order,
+          status: element.status,
         };
       }),
     };
@@ -223,6 +245,8 @@ export const Squad = ({
                 teamName={teamNames[item.team.id]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={oppositeTeamNames(item)}
+                status={item.status}
+                onCardClick={sport.captain ? () => setPlayerActionsId(item.id) : undefined}
                 onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
                 onInfoClick={() => setPlayerId(item.teams_player_id)}
               />
@@ -239,7 +263,9 @@ export const Squad = ({
               teamName={teamNames[item.team.id]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={oppositeTeamNames(item)}
-              onActionClick={sport.changes ? () => changePlayer(item, false) : undefined}
+              status={item.status}
+              onCardClick={sport.captain ? () => setPlayerActionsId(item.id) : undefined}
+              onActionClick={() => changePlayer(item, false)}
               onInfoClick={() => setPlayerId(item.teams_player_id)}
             />
           ))}
@@ -257,6 +283,13 @@ export const Squad = ({
         playerId={playerId}
         onClose={() => setPlayerId(undefined)}
       />
+      {sport.captain ? (
+        <PlayerActionsModal
+          lineupPlayer={lineupPlayers.find((item) => item.id === playerActionsId)}
+          onMakeCaptain={changeCaptain}
+          onClose={() => setPlayerActionsId(undefined)}
+        />
+      ) : null}
     </>
   );
 };
