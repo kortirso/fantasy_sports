@@ -3,6 +3,8 @@
 class AdminController < ApplicationController
   before_action :authorize_admin
 
+  layout 'admin'
+
   private
 
   def authorize_admin

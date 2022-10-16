@@ -1,0 +1,14 @@
+<header id="admin-navigation" class="flex flex-col">
+  <%= link_to t('components.page_wrappers.admin.welcome'), admin_path, class: 'admin-nav-link' %>
+  <%= link_to t('components.page_wrappers.admin.leagues'), admin_leagues_path, class: 'admin-nav-link' %>
+  <%= link_to t('components.page_wrappers.users_component.logout'), users_logout_path, class: 'admin-nav-link' %>
+  <div>
+    <%= link_to t('components.page_wrappers.admin.home'), home_path %>
+    <% I18n.available_locales.each do |locale| %>
+      <%= link_to locale, change_locale(locale), aria: { label: t('components.page_wrappers.users_component.change_locale') } %>
+    <% end %>
+  </div>
+</header>
+<div class="admin-content">
+  <%= content %>
+</div>

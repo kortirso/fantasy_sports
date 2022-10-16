@@ -1,0 +1,20 @@
+@import '../general/colors.scss';
+
+#admin-navigation {
+  width: 12rem;
+  border-right: 1px solid $gray300;
+
+  .admin-nav-link {
+    padding: .75rem .5rem;
+    border-bottom: 1px solid $gray300;
+
+    &:hover {
+      background: $gray100;
+    }
+  }
+}
+
+.admin-content {
+  flex: 1;
+  padding: 1rem;
+}

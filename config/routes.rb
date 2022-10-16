@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   mount Emailbutler::Engine => '/emailbutler'
 
   localized do
+    namespace :admin do
+      get '', to: 'welcome#index'
+
+      resources :leagues, only: %i[index]
+    end
+
     namespace :users do
       get 'sign_up', to: 'registrations#new'
       post 'sign_up', to: 'registrations#create'
