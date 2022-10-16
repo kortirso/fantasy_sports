@@ -13,6 +13,7 @@ module Lineups
 
     scope :active, -> { where(active: true) }
     scope :inactive, -> { where(active: false) }
+    scope :not_captain, -> { where.not(status: CAPTAIN) }
 
     enum status: { REGULAR => 0, ASSISTANT => 1, CAPTAIN => 2 }
   end
