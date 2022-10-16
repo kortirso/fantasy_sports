@@ -30,6 +30,7 @@ module Import
           @http_service = http_service
 
           @bonus_points_list = []
+          @goals_conceded_by_team = []
         end
 
         def call(external_id:)
@@ -37,10 +38,13 @@ module Import
 
           field_players_data = fetch_field_players_data
           goalie_players_data = fetch_goalie_players_data
+          check_clean_sheet_from_goalies(goalie_players_data)
 
           @result = [
-            field_players_data[0].merge(goalie_players_data[0]),
-            field_players_data[1].merge(goalie_players_data[1])
+            update_field_players_goals_stats(field_players_data[0], 0)
+              .merge(goalie_players_data[0]),
+            update_field_players_goals_stats(field_players_data[1], 1)
+              .merge(goalie_players_data[1])
           ]
 
           calculate_bonus_points_for_players
@@ -57,6 +61,22 @@ module Import
         def fetch_goalie_players_data
           fetch_data(1)
             .then { |game_data| parse_data(game_data) }
+        end
+
+        def check_clean_sheet_from_goalies(goalie_players_data)
+          goalie_players_data.each do |team_data|
+            @goals_conceded_by_team.push(
+              team_data.values.sum { |player_data| player_data['GC'] }
+            )
+          end
+        end
+
+        def update_field_players_goals_stats(players_stats, team_index)
+          players_stats.transform_values do |value|
+            value['GC'] = @goals_conceded_by_team[team_index]
+            value['CS'] = @goals_conceded_by_team[team_index].zero? ? 1 : 0
+            value
+          end
         end
 
         # rubocop: disable Metrics/AbcSize
@@ -93,6 +113,33 @@ module Import
         end
 
         # goalkeepers_data, 0 - field player, 1 - goalkeeper
+        # response example
+        # {
+        #   "team1_id" => 72,
+        #   "team2_id" => 6,
+        #   "team1_stat" => [
+        #     {
+        #       "f_player" => 159170,
+        #       "shirt_num" => 13,
+        #       "name_eng" => "Ігор Калінін",
+        #       "name_rus" => "Игорь Калинин",
+        #       "short_name_eng" => "I. Kalinin",
+        #       "short_name_rus" => "Игорь Калинин",
+        #       "params" => [
+        #         {
+        #           "param" => -1,
+        #           "option" => 0,
+        #           "value" => 98,
+        #         },
+        #         {
+        #           "param" => 0,
+        #           "option" => 0,
+        #           "value" => 192,
+        #         },
+        #       ]
+        #     }
+        #   ]
+        # }
         def fetch_data(goalkeepers_data)
           @http_service.post(
             path: '/widgets',
@@ -119,16 +166,22 @@ module Import
           result
         end
 
+        # rubocop: disable Metrics/AbcSize
         def parse_player_data(player_data, team_index)
           player_data['params'].each_with_object(default_stats) do |values, acc|
+            # update array for checking bonus points for all players of the game
             next update_bonus_points(team_index, player_data['shirt_num'], values['value']) if values['param'].zero?
 
             stat_param = PARAMS_TO_STATS[values['param']]
             next if stat_param.nil?
 
+            # update clean sheet for goalies
+            acc['CS'] = (values['value'].zero? ? 1 : 0) if stat_param == 'GC'
+
             acc[stat_param] += values['value']
           end
         end
+        # rubocop: enable Metrics/AbcSize
 
         def update_bonus_points(team_index, shirt_num, bonus_points)
           @bonus_points_list.push([team_index, shirt_num, bonus_points])
