@@ -3,7 +3,7 @@
 class UserContract < ApplicationContract
   config.messages.namespace = :user
 
-  schema do
+  params do
     optional(:id)
     required(:email).filled(:string)
     required(:password).filled(:string)

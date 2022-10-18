@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     namespace :admin do
       get '', to: 'welcome#index'
 
-      resources :leagues, only: %i[index]
+      resources :leagues, only: %i[index new create]
     end
 
     namespace :users do

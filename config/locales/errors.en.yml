@@ -3,6 +3,7 @@ en:
     rules:
       password_confirmation: Password confirmation
       budget_cents: Budget
+      sport_kind: Sport kind
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -22,3 +23,11 @@ en:
             filled?: can't be blank
           budget_cents:
             filled?: can't be blank
+      league:
+        rules:
+          name:
+            filled?: can't be blank
+            invalid: is invalid
+          sport_kind:
+            filled?: can't be blank
+            invalid: is invalid

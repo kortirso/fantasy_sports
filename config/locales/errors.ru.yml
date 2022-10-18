@@ -6,6 +6,7 @@ ru:
       passwords: Пароли
       name: Название
       budget_cents: Бюджет
+      sport_kind: Вид спорта
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
@@ -25,3 +26,11 @@ ru:
             filled?: не может быть пустым
           budget_cents:
             filled?: должен быть указан
+      league:
+        rules:
+          name:
+            filled?: не может быть пустым
+            invalid: не может быть пустым
+          sport_kind:
+            filled?: должен быть указан
+            invalid: неверное значение

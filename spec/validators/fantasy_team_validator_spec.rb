@@ -15,7 +15,7 @@ describe FantasyTeamValidator, type: :service do
     let(:params) { { name: 'Ny Team', budget_cents: nil } }
 
     it 'result contains error' do
-      expect(validator_call.first).to eq('Budget must be an integer')
+      expect(validator_call.first).to eq("Budget can't be blank")
     end
   end
 

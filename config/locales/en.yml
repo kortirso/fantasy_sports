@@ -25,6 +25,10 @@ en:
           transfers: Transfers
           points: Points
   controllers:
+    admin:
+      leagues:
+        create:
+          success: League is created
     application:
       page_not_found: Page is not found
     maintenable:
@@ -62,17 +66,16 @@ en:
   views:
     admin:
       leagues:
-        show:
-          header: Games list of active week
-          header_no_week: There is no active week
-        games:
-          show:
-            back: Back to league
-            name: Player name
-            submit: Update statistic
-    homes:
-      show:
-        admin_league: Admin league
+        index:
+          header: Leagues
+          new_league: Add new league
+          name: Name
+          maintenance: Maintenance mode
+        new:
+          name_en: Name (en)
+          name_ru: Name (ru)
+          sport_kind: Sport kind
+          create: Create new league
     fantasy_teams:
       points:
         index:

@@ -25,6 +25,10 @@ ru:
           transfers: Трансферы
           points: Очки
   controllers:
+    admin:
+      leagues:
+        create:
+          success: Лига создана
     application:
       page_not_found: Страница не найдена
     maintenable:
@@ -62,17 +66,16 @@ ru:
   views:
     admin:
       leagues:
-        show:
-          header: Список игр активной недели
-          header_no_week: Нет активной недели
-        games:
-          show:
-            back: Назад к лиге
-            name: Имя игрока
-            submit: Обновить статистику
-    homes:
-      show:
-        admin_league: Администрирование
+        index:
+          header: Лиги
+          new_league: Добавить новую лигу
+          name: Название
+          maintenance: Режим обслуживания
+        new:
+          name_en: Название (en)
+          name_ru: Название (ru)
+          sport_kind: Вид спорта
+          create: Создать новую лигу
     fantasy_teams:
       points:
         index:

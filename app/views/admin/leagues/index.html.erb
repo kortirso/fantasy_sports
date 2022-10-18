@@ -1,19 +1,26 @@
-<h1>Leagues</h1>
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.leagues.index.header') %></h1>
+  <%= link_to t('views.admin.leagues.index.new_league'), new_admin_league_path, class: 'button' %>
+</div>
 <% Sports.all.keys.each do |sport_kind| %>
   <h3><%= sport_kind.capitalize %></h3>
-  <table class="leagues">
+  <table class="admin-table" cellSpacing="0">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Maintenance mode</th>
+        <th><%= t('views.admin.leagues.index.name') %></th>
+        <th><%= t('views.admin.leagues.index.maintenance') %></th>
       </tr>
     </thead>
     <tbody>
       <% @leagues.where(sport_kind: sport_kind).each do |league| %>
         <tr>
           <td><%= league.id %></td>
-          <td><%= localized_value(league.name) %></td>
+          <td>
+            <% league.name.each do |key, value| %>
+              <p><%= key %> - <%= value %><p>
+            <% end %>
+          </td>
           <td><%= league.maintenance %></td>
         </tr>
       <% end %>
