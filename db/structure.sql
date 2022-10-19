@@ -305,11 +305,11 @@ ALTER SEQUENCE public.emailbutler_messages_id_seq OWNED BY public.emailbutler_me
 CREATE TABLE public.fantasy_leagues (
     id bigint NOT NULL,
     name character varying DEFAULT ''::character varying NOT NULL,
-    leagueable_id integer,
+    leagueable_id bigint,
     leagueable_type character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    season_id integer,
+    season_id bigint,
     global boolean DEFAULT true NOT NULL,
     uuid uuid NOT NULL
 );
@@ -340,10 +340,10 @@ ALTER SEQUENCE public.fantasy_leagues_id_seq OWNED BY public.fantasy_leagues.id;
 
 CREATE TABLE public.fantasy_leagues_teams (
     id bigint NOT NULL,
-    fantasy_league_id integer,
+    fantasy_league_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    pointable_id integer,
+    pointable_id bigint,
     pointable_type character varying
 );
 
@@ -374,7 +374,7 @@ ALTER SEQUENCE public.fantasy_leagues_teams_id_seq OWNED BY public.fantasy_leagu
 CREATE TABLE public.fantasy_teams (
     id bigint NOT NULL,
     uuid uuid NOT NULL,
-    user_id integer,
+    user_id bigint,
     name character varying DEFAULT ''::character varying NOT NULL,
     sport_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -412,8 +412,8 @@ ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
 
 CREATE TABLE public.fantasy_teams_players (
     id bigint NOT NULL,
-    fantasy_team_id integer,
-    teams_player_id integer
+    fantasy_team_id bigint,
+    teams_player_id bigint
 );
 
 
@@ -442,11 +442,11 @@ ALTER SEQUENCE public.fantasy_teams_players_id_seq OWNED BY public.fantasy_teams
 
 CREATE TABLE public.games (
     id bigint NOT NULL,
-    week_id integer,
+    week_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    home_season_team_id integer,
-    visitor_season_team_id integer,
+    home_season_team_id bigint,
+    visitor_season_team_id bigint,
     source integer,
     external_id character varying,
     start_at timestamp(6) without time zone
@@ -478,8 +478,8 @@ ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 CREATE TABLE public.games_players (
     id bigint NOT NULL,
-    game_id integer,
-    teams_player_id integer,
+    game_id bigint,
+    teams_player_id bigint,
     position_kind integer DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -546,8 +546,8 @@ ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
 
 CREATE TABLE public.lineups (
     id bigint NOT NULL,
-    fantasy_team_id integer,
-    week_id integer,
+    fantasy_team_id bigint,
+    week_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL
@@ -579,8 +579,8 @@ ALTER SEQUENCE public.lineups_id_seq OWNED BY public.lineups.id;
 
 CREATE TABLE public.lineups_players (
     id bigint NOT NULL,
-    lineup_id integer,
-    teams_player_id integer,
+    lineup_id bigint,
+    teams_player_id bigint,
     active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
     points numeric(8,2),
@@ -647,8 +647,8 @@ ALTER SEQUENCE public.players_id_seq OWNED BY public.players.id;
 
 CREATE TABLE public.players_seasons (
     id bigint NOT NULL,
-    player_id integer,
-    season_id integer,
+    player_id bigint,
+    season_id bigint,
     points numeric(8,2) DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -739,7 +739,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.seasons (
     id bigint NOT NULL,
-    league_id integer,
+    league_id bigint,
     name character varying DEFAULT ''::character varying NOT NULL,
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -773,8 +773,8 @@ ALTER SEQUENCE public.seasons_id_seq OWNED BY public.seasons.id;
 
 CREATE TABLE public.seasons_teams (
     id bigint NOT NULL,
-    season_id integer,
-    team_id integer,
+    season_id bigint,
+    team_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -837,8 +837,8 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 CREATE TABLE public.teams_players (
     id bigint NOT NULL,
-    seasons_team_id integer,
-    player_id integer,
+    seasons_team_id bigint,
+    player_id bigint,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -874,8 +874,8 @@ ALTER SEQUENCE public.teams_players_id_seq OWNED BY public.teams_players.id;
 CREATE TABLE public.transfers (
     id bigint NOT NULL,
     week_id integer,
-    fantasy_team_id integer,
-    teams_player_id integer,
+    fantasy_team_id bigint,
+    teams_player_id bigint,
     direction integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -941,7 +941,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.users_sessions (
     id bigint NOT NULL,
     uuid uuid NOT NULL,
-    user_id integer NOT NULL,
+    user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -972,7 +972,7 @@ ALTER SEQUENCE public.users_sessions_id_seq OWNED BY public.users_sessions.id;
 
 CREATE TABLE public.weeks (
     id bigint NOT NULL,
-    season_id integer,
+    season_id bigint,
     "position" integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1599,6 +1599,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221009181657'),
 ('20221009183354'),
 ('20221009184632'),
-('20221013182131');
+('20221013182131'),
+('20221019155516');
 
 
