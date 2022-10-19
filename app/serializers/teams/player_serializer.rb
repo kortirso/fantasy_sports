@@ -2,7 +2,7 @@
 
 module Teams
   class PlayerSerializer < ApplicationSerializer
-    attributes :id, :form
+    attributes :uuid, :form
 
     attribute :price do |object|
       object.price_cents / 100.0
@@ -21,7 +21,7 @@ module Teams
     attribute :team do |object|
       seasons_team = object.seasons_team
       {
-        id: seasons_team.team_id
+        uuid: seasons_team.team.uuid
       }
     end
   end

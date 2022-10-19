@@ -12,7 +12,7 @@ describe Lineups::Players::UpdateService, type: :service do
   let(:players_validator_service) { double }
   let(:players_validator) { double }
   let(:call_result) { double }
-  let(:lineups_players_params) { [{ id: lineups_player.id, active: true, change_order: '0', status: 'captain' }] }
+  let(:lineups_players_params) { [{ uuid: lineups_player.uuid, active: true, change_order: '0', status: 'captain' }] }
 
   before do
     allow(players_validator_service).to receive(:new).and_return(players_validator)

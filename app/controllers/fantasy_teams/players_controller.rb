@@ -14,12 +14,11 @@ module FantasyTeams
     private
 
     def find_fantasy_team
-      @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:fantasy_team_id])
-      page_not_found if @fantasy_team.nil?
+      @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:fantasy_team_id])
     end
 
     def find_fantasy_team_players
-      @teams_players = @fantasy_team.teams_players.active.includes(:seasons_team, :player)
+      @teams_players = @fantasy_team.teams_players.active.includes(:player, seasons_team: :team)
     end
   end
 end

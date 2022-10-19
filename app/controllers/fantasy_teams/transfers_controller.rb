@@ -15,7 +15,7 @@ module FantasyTeams
     def update
       service_call = FantasyTeams::Transfers::PerformService.call(
         fantasy_team: @fantasy_team,
-        teams_players_ids: params[:fantasy_team][:teams_players_ids],
+        teams_players_ids: Teams::Player.where(uuid: params[:fantasy_team][:teams_players_uuids]).ids,
         only_validate: params[:fantasy_team][:only_validate]
       )
       if service_call.success?
@@ -28,8 +28,7 @@ module FantasyTeams
     private
 
     def find_fantasy_team
-      @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:fantasy_team_id])
-      page_not_found if @fantasy_team.nil?
+      @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:fantasy_team_id])
     end
 
     def find_season

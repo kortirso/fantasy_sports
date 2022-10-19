@@ -8,7 +8,7 @@ import { Modal } from 'components/atoms';
 
 interface PlayerActionsModalProps {
   lineupPlayer?: LineupPlayer;
-  onMakeCaptain?: (lineupPlayerId: number, status: string) => void;
+  onMakeCaptain?: (lineupPlayerUuid: string, status: string) => void;
   onClose: () => void;
 }
 
@@ -33,10 +33,10 @@ export const PlayerActionsModal = ({
       </div>
       {onMakeCaptain ? (
         <div className="flex flex-col items-start">
-          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.id, 'captain')}>
+          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'captain')}>
             Make captain
           </button>
-          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.id, 'assistant')}>
+          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'assistant')}>
             Make captain assistant
           </button>
         </div>

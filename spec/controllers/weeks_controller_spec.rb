@@ -26,21 +26,21 @@ describe WeeksController, type: :controller do
 
         context 'without additional fields' do
           before do
-            get :show, params: { id: week.id, locale: 'en' }
+            get :show, params: { id: week.uuid, locale: 'en' }
           end
 
           it 'returns status 200' do
             expect(response).to have_http_status :ok
           end
 
-          %w[id position date_deadline_at time_deadline_at].each do |attr|
-            it "and contains week #{attr}" do
+          %w[uuid position date_deadline_at time_deadline_at].each do |attr|
+            it "contains week #{attr}" do
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end
           end
 
           %w[games previous next].each do |attr|
-            it "and does not contain week #{attr}" do
+            it "does not contain week #{attr}" do
               expect(response.body).not_to have_json_path("week/data/attributes/#{attr}")
             end
           end
@@ -48,14 +48,14 @@ describe WeeksController, type: :controller do
 
         context 'with additional fields' do
           before do
-            get :show, params: { id: week.id, locale: 'en', fields: 'games,previous,next' }
+            get :show, params: { id: week.uuid, locale: 'en', fields: 'games,previous,next' }
           end
 
           it 'returns status 200' do
             expect(response).to have_http_status :ok
           end
 
-          %w[id position date_deadline_at time_deadline_at games previous next].each do |attr|
+          %w[uuid position date_deadline_at time_deadline_at games previous next].each do |attr|
             it "and contains week #{attr}" do
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end

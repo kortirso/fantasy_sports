@@ -2,10 +2,16 @@
 
 module Lineups
   class PlayerSerializer < ApplicationSerializer
-    attributes :id, :active, :change_order, :status, :teams_player_id
+    attributes :uuid, :active, :change_order, :status
 
     attribute :points do |object|
       object.points.presence || '-'
+    end
+
+    attribute :teams_player do |object|
+      {
+        uuid: object.teams_player.uuid
+      }
     end
 
     attribute :player do |object|
@@ -19,7 +25,7 @@ module Lineups
     attribute :team do |object|
       seasons_team = object.teams_player.seasons_team
       {
-        id: seasons_team.team_id
+        uuid: seasons_team.team.uuid
       }
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GameSerializer < ApplicationSerializer
-  attributes :id
+  attributes :uuid
 
   attribute :date_start_at do |object|
     object.start_at.strftime('%d.%m.%Y')
@@ -14,14 +14,14 @@ class GameSerializer < ApplicationSerializer
   attribute :home_team do |object|
     seasons_team = object.home_season_team
     {
-      id: seasons_team.team_id
+      uuid: seasons_team.team.uuid
     }
   end
 
   attribute :visitor_team do |object|
     seasons_team = object.visitor_season_team
     {
-      id: seasons_team.team_id
+      uuid: seasons_team.team.uuid
     }
   end
 end

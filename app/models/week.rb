@@ -2,6 +2,7 @@
 
 class Week < ApplicationRecord
   include Leagueable
+  include Uuidable
 
   INACTIVE = 'inactive'
   COMING   = 'coming'

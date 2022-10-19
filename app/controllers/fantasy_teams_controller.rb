@@ -28,7 +28,7 @@ class FantasyTeamsController < ApplicationController
     service_call = FantasyTeams::CompleteService.call(
       fantasy_team: @fantasy_team,
       params: fantasy_team_params,
-      teams_players_ids: params[:fantasy_team][:teams_players_ids]
+      teams_players_uuids: params[:fantasy_team][:teams_players_uuids]
     )
     if service_call.success?
       render json: { redirect_path: fantasy_team_path(@fantasy_team.uuid) }, status: :ok
@@ -40,8 +40,7 @@ class FantasyTeamsController < ApplicationController
   private
 
   def find_fantasy_team
-    @fantasy_team = Current.user.fantasy_teams.find_by(uuid: params[:id])
-    page_not_found if @fantasy_team.nil?
+    @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:id])
   end
 
   def find_fantasy_team_relationships
@@ -58,6 +57,6 @@ class FantasyTeamsController < ApplicationController
   end
 
   def fantasy_team_params
-    params.require(:fantasy_team).permit(:name, :budget_cents, :favourite_team_id)
+    params.require(:fantasy_team).permit(:name, :budget_cents, :favourite_team_uuid)
   end
 end

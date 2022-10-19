@@ -22,11 +22,11 @@ module Seasons
 
     def find_season_players
       @season_players =
-        Season.active.find(params[:season_id]).active_teams_players.includes(:seasons_team, :player)
+        Season.active.find_by!(uuid: params[:season_id]).active_teams_players.includes(:player, seasons_team: :team)
     end
 
     def find_season_player
-      @season_player = @season_players.find(params[:id])
+      @season_player = @season_players.find_by(uuid: params[:id])
     end
   end
 end

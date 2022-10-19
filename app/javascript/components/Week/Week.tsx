@@ -8,25 +8,25 @@ import { strings } from 'locales';
 import { weekRequest } from './requests/weekRequest';
 
 interface WeekProps {
-  id: number;
+  uuid: string;
   teamNames: TeamNames;
 }
 
-export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
-  const [weekId, setWeekId] = useState<number>(id);
+export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
+  const [weekUuid, setWeekUuid] = useState<number>(uuid);
   const [week, setWeek] = useState<WeekInterface | null>(null);
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
     const fetchWeek = async () => {
-      const data = await weekRequest(weekId);
+      const data = await weekRequest(weekUuid);
       setWeek(data);
       setGames(data.games.data.map((element: Attribute) => element.attributes));
     };
 
     strings.setLanguage(currentLocale);
     fetchWeek();
-  }, [weekId]);
+  }, [weekUuid]);
 
   if (!week) return <></>;
 
@@ -35,7 +35,7 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
       <div className="week-header flex justify-between items-center">
         <div className="week-link-container">
           {week.previous.id ? (
-            <button className="button" onClick={() => setWeekId(week.previous.id)}>
+            <button className="button" onClick={() => setWeekUuid(week.previous.uuid)}>
               {strings.week.previous}
             </button>
           ) : null}
@@ -45,7 +45,7 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
         </p>
         <div className="week-link-container">
           {week.next.id ? (
-            <button className="button" onClick={() => setWeekId(week.next.id)}>
+            <button className="button" onClick={() => setWeekUuid(week.next.uuid)}>
               {strings.week.next}
             </button>
           ) : null}
@@ -61,10 +61,10 @@ export const Week = ({ id, teamNames }: WeekProps): JSX.Element => {
             ) : null}
             <div className="game flex justify-center items-center">
               <p className="team-name right-side">
-                {localizeValue(teamNames[item.home_team.id].name)}
+                {localizeValue(teamNames[item.home_team.uuid].name)}
               </p>
               <p className="game-start">{item.time_start_at}</p>
-              <p className="team-name">{localizeValue(teamNames[item.visitor_team.id].name)}</p>
+              <p className="team-name">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
             </div>
           </div>
         ))}

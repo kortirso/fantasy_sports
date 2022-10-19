@@ -18,7 +18,8 @@ export interface Attribute {
 }
 
 export interface Team {
-  id: number;
+  uuid: string;
+  opposite_team_ids: number[];
   attributes: {
     name: KeyValue;
     short_name: string;
@@ -29,11 +30,6 @@ export interface SportPosition {
   name: KeyValue;
 }
 
-export interface Team {
-  id: number;
-  opposite_team_ids: number[];
-}
-
 export interface Player {
   name: KeyValue;
   points: number;
@@ -42,26 +38,26 @@ export interface Player {
 }
 
 export interface LineupPlayer {
-  id: number;
+  uuid: string;
   player: Player;
   team: Team;
   active: boolean;
   change_order: number;
   status: string;
   points: string;
-  teams_player_id: number;
+  teams_player: { uuid: string };
 }
 
 export interface GamesPlayer {
   attributes: {
-    id: number;
+    uuid: string;
     points: number | null;
     week: any;
   };
 }
 
 export interface TeamsPlayer {
-  id: number;
+  uuid: string;
   player: Player;
   price: number;
   form: number;
@@ -94,20 +90,20 @@ export interface PositionValues {
 }
 
 export interface Week {
-  id: number;
+  uuid: string;
   position: number;
-  next: { id: number };
-  previous: { id: number };
+  next: { uuid: string; };
+  previous: { uuid: string; };
   date_deadline_at: string;
   time_deadline_at: string;
 }
 
 export interface Game {
-  id: number;
+  uuid: string;
   date_start_at: string;
   time_start_at: string;
-  home_team: { id: number };
-  visitor_team: { id: number };
+  home_team: { uuid: string; };
+  visitor_team: { uuid: string; };
 }
 
 export interface SportsData {

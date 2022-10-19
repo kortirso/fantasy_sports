@@ -10,6 +10,20 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -449,7 +463,8 @@ CREATE TABLE public.games (
     visitor_season_team_id bigint,
     source integer,
     external_id character varying,
-    start_at timestamp(6) without time zone
+    start_at timestamp(6) without time zone,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -484,7 +499,8 @@ CREATE TABLE public.games_players (
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points numeric(8,2)
+    points numeric(8,2),
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -550,7 +566,8 @@ CREATE TABLE public.lineups (
     week_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points numeric(8,2) DEFAULT 0 NOT NULL
+    points numeric(8,2) DEFAULT 0 NOT NULL,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -584,7 +601,8 @@ CREATE TABLE public.lineups_players (
     active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
     points numeric(8,2),
-    status integer DEFAULT 0 NOT NULL
+    status integer DEFAULT 0 NOT NULL,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -808,7 +826,8 @@ CREATE TABLE public.teams (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    short_name character varying
+    short_name character varying,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -844,7 +863,8 @@ CREATE TABLE public.teams_players (
     updated_at timestamp(6) without time zone NOT NULL,
     price_cents integer DEFAULT 0 NOT NULL,
     shirt_number integer,
-    form double precision DEFAULT 0.0 NOT NULL
+    form double precision DEFAULT 0.0 NOT NULL,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -977,7 +997,8 @@ CREATE TABLE public.weeks (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     status integer DEFAULT 0 NOT NULL,
-    deadline_at timestamp(6) without time zone
+    deadline_at timestamp(6) without time zone,
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL
 );
 
 
@@ -1600,6 +1621,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221009183354'),
 ('20221009184632'),
 ('20221013182131'),
-('20221019155516');
+('20221019155516'),
+('20221019180812');
 
 

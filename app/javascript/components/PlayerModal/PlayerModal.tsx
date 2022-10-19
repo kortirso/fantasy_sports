@@ -11,15 +11,15 @@ import { seasonPlayerRequest } from './requests/seasonPlayerRequest';
 
 interface PlayerModalProps {
   sportKind: string;
-  seasonId: string;
-  playerId?: number;
+  seasonUuid: string;
+  playerUuid?: string;
   onClose: () => void;
 }
 
 export const PlayerModal = ({
   sportKind,
-  seasonId,
-  playerId,
+  seasonUuid,
+  playerUuid,
   onClose,
 }: PlayerModalProps): JSX.Element => {
   const [seasonPlayer, setSeasonPlayer] = useState<TeamsPlayer | undefined>();
@@ -30,17 +30,17 @@ export const PlayerModal = ({
 
   useEffect(() => {
     const fetchSeasonPlayer = async () => {
-      const data = await seasonPlayerRequest(seasonId, playerId);
+      const data = await seasonPlayerRequest(seasonUuid, playerUuid);
       setSeasonPlayer(data);
     };
 
-    if (playerId) fetchSeasonPlayer();
-  }, [seasonId, playerId]);
+    if (playerUuid) fetchSeasonPlayer();
+  }, [seasonUuid, playerUuid]);
 
   const renderSeasonGames = () => {
     return seasonPlayer?.games_players?.data?.map((item) => {
       return (
-        <tr key={item.attributes.id}>
+        <tr key={item.attributes.uuid}>
           <td>{item.attributes.week.position}</td>
           <td></td>
           <td>{item.attributes.points}</td>
@@ -56,7 +56,7 @@ export const PlayerModal = ({
   if (!seasonPlayer) return <></>;
 
   return (
-    <Modal show={!!playerId}>
+    <Modal show={!!playerUuid}>
       <div className="button small modal-close" onClick={onClose}>
         X
       </div>

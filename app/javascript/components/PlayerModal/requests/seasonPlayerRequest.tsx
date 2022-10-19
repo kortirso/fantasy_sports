@@ -1,8 +1,8 @@
 import { apiRequest } from 'requests/helpers/apiRequest';
 
-export const seasonPlayerRequest = async (seasonId: string, playerId?: number) => {
+export const seasonPlayerRequest = async (seasonUuid: string, playerUuid?: string) => {
   const result = await apiRequest({
-    url: `/seasons/${seasonId}/players/${playerId}.json?`,
+    url: `/seasons/${seasonUuid}/players/${playerUuid}.json?`,
   });
   return result.season_player.data.attributes;
 };

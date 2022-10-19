@@ -4,6 +4,8 @@ module Lineups
   class Player < ApplicationRecord
     self.table_name = :lineups_players
 
+    include Uuidable
+
     REGULAR = 'regular'
     ASSISTANT = 'assistant'
     CAPTAIN = 'captain'

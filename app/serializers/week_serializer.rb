@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WeekSerializer < ApplicationSerializer
-  attributes :id, :position
+  attributes :uuid, :position
 
   attribute :date_deadline_at do |object|
     object.deadline_at&.strftime('%d.%m.%Y')
@@ -17,13 +17,13 @@ class WeekSerializer < ApplicationSerializer
 
   attribute :previous, if: proc { |_, params| params_with_field?(params, 'previous') } do |object|
     {
-      id: object.previous&.id
+      uuid: object.previous&.uuid
     }
   end
 
   attribute :next, if: proc { |_, params| params_with_field?(params, 'next') } do |object|
     {
-      id: object.next&.id
+      uuid: object.next&.uuid
     }
   end
 end

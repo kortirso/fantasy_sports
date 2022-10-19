@@ -6,6 +6,7 @@ module Games
 
     include Positionable
     include Statable
+    include Uuidable
 
     belongs_to :game
     belongs_to :teams_player, class_name: '::Teams::Player'

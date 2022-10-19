@@ -2,12 +2,12 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <%=
     react_component 'Transfers',
-      seasonId:             @season.id,
+      seasonUuid:           @season.uuid,
       sportKind:            @season.league.sport_kind,
       fantasyTeamUuid:      @fantasy_team.uuid,
       fantasyTeamCompleted: @fantasy_team.completed?,
       fantasyTeamBudget:    @fantasy_team.budget_cents / 100.0,
-      weekId:               @season.coming_week.id,
+      weekUuid:             @season.coming_week.uuid,
       weekPosition:         @season.coming_week.position,
       weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M'),
       transfersLimited:     @fantasy_team.transfers_limited,

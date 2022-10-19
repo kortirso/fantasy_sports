@@ -6,7 +6,7 @@ const encodeParams = () => {
   return searchParams;
 };
 
-export const weekRequest = async (id: number) => {
-  const result = await apiRequest({ url: `/weeks/${id}.json?${encodeParams()}` });
+export const weekRequest = async (uuid: number) => {
+  const result = await apiRequest({ url: `/weeks/${uuid}.json?${encodeParams()}` });
   return result.week.data.attributes;
 };

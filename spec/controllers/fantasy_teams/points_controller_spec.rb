@@ -21,16 +21,6 @@ describe FantasyTeams::PointsController, type: :controller do
         end
       end
 
-      context 'for existing not user fantasy team' do
-        let!(:fantasy_team) { create :fantasy_team }
-
-        it 'renders 404 page' do
-          get :index, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
-
-          expect(response).to render_template 'shared/404'
-        end
-      end
-
       context 'for existing user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
 

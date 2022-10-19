@@ -5,10 +5,10 @@
       react_component 'Squad',
         component_id:    'fantasy-team-members',
         component_class: 'left-container',
-        seasonId:        @season.id,
+        seasonUuid:      @season.uuid,
         sportKind:       @season.league.sport_kind,
-        lineupId:        @lineup.id,
-        weekId:          @lineup.week_id,
+        lineupUuid:      @lineup.uuid,
+        weekUuid:        @lineup.week.uuid,
         weekPosition:    @lineup.week.position,
         weekDeadlineAt:  @lineup.week.deadline_at.strftime('%d.%m.%Y %H:%M')
     %>

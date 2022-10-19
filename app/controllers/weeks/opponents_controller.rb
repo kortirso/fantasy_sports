@@ -13,7 +13,7 @@ module Weeks
     private
 
     def find_week
-      @week = Week.find(params[:week_id])
+      @week = Week.find_by(uuid: params[:week_id])
     end
 
     def find_opponents

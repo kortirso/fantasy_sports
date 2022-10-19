@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Lineup < ApplicationRecord
+  include Uuidable
+
   belongs_to :week
   belongs_to :fantasy_team
 

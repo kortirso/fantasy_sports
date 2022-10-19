@@ -13,7 +13,7 @@ module Lineups
     end
 
     def call(lineup:, lineups_players_params:)
-      @lineups_players_ids = lineup.lineups_players.order(id: :asc).ids
+      @lineups_players_uuids = lineup.lineups_players.order(uuid: :asc).pluck(:uuid)
 
       initialize_counters
       collect_players_data(lineups_players_params)
@@ -30,7 +30,7 @@ module Lineups
 
     def initialize_counters
       @errors                 = []
-      @players_ids            = []
+      @players_uuids          = []
       @active_players         = 0
       @positive_change_orders = []
       @captains               = []
@@ -38,7 +38,7 @@ module Lineups
 
     def collect_players_data(lineups_players_params)
       lineups_players_params.each do |params_hash|
-        @players_ids.push(params_hash[:id])
+        @players_uuids.push(params_hash[:uuid])
         @active_players += 1 if params_hash[:active]
         @captains.push(params_hash[:status]) if params_hash[:status] && params_hash[:status] != Lineups::Player::REGULAR
         if @validate_changes && !params_hash[:active]
@@ -48,7 +48,7 @@ module Lineups
     end
 
     def validate_lineup_player_ids
-      return if @players_ids.sort == @lineups_players_ids
+      return if @players_uuids.sort == @lineups_players_uuids
 
       @errors.push('Invalid players list')
     end

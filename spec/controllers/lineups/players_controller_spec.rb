@@ -24,10 +24,32 @@ describe Lineups::PlayersController, type: :controller do
       context 'for existing lineup of another user' do
         let!(:lineup) { create :lineup }
 
-        it 'returns json not_found status with errors' do
-          get :show, params: { lineup_id: lineup.id, locale: 'en' }
+        context 'for not active week' do
+          it 'returns json not_found status with errors' do
+            get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
 
-          expect(response).to have_http_status :not_found
+            expect(response).to have_http_status :not_found
+          end
+        end
+
+        context 'for active week' do
+          before do
+            lineup.week.update(status: Week::ACTIVE)
+
+            create :lineups_player, lineup: lineup
+
+            get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
+          end
+
+          it 'returns status 200' do
+            expect(response).to have_http_status :ok
+          end
+
+          %w[uuid active change_order points player team teams_player].each do |attr|
+            it "contains lineups player #{attr}" do
+              expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
+            end
+          end
         end
       end
 
@@ -39,15 +61,15 @@ describe Lineups::PlayersController, type: :controller do
           before do
             create :lineups_player, lineup: lineup
 
-            get :show, params: { lineup_id: lineup.id, locale: 'en' }
+            get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
           end
 
           it 'returns status 200' do
             expect(response).to have_http_status :ok
           end
 
-          %w[id active change_order points player team teams_player_id].each do |attr|
-            it "and contains lineups player #{attr}" do
+          %w[uuid active change_order points player team teams_player].each do |attr|
+            it "contains lineups player #{attr}" do
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
           end
@@ -80,7 +102,7 @@ describe Lineups::PlayersController, type: :controller do
         let!(:lineup) { create :lineup }
 
         it 'returns json not_found status with errors' do
-          patch :update, params: { lineup_id: lineup.id, locale: 'en', lineup_players: { data: [{}] } }
+          patch :update, params: { lineup_id: lineup.uuid, locale: 'en', lineup_players: { data: [{}] } }
 
           expect(response).to have_http_status :not_found
         end
@@ -100,9 +122,9 @@ describe Lineups::PlayersController, type: :controller do
             fantasy_league.season.league.update(maintenance: true)
 
             patch :update, params: {
-              lineup_id: lineup.id,
+              lineup_id: lineup.uuid,
               locale: 'en',
-              lineup_players: { data: [{ 'id' => lineups_player.id.to_s, 'active' => true, 'change_order' => '0' }] }
+              lineup_players: { data: [{ 'uuid' => lineups_player.uuid, 'active' => true, 'change_order' => '0' }] }
             }
           end
 
@@ -122,97 +144,52 @@ describe Lineups::PlayersController, type: :controller do
             allow(::Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
             allow(service_object).to receive(:success?).and_return(update_result)
             allow(service_object).to receive(:errors).and_return(['Error'])
+
+            patch :update, params: {
+              lineup_id: lineup.uuid,
+              locale: 'en',
+              lineup_players: {
+                data: [
+                  {
+                    'uuid' => lineups_player.uuid,
+                    'active' => true,
+                    'change_order' => '0',
+                    'status' => 'captain'
+                  }
+                ]
+              }
+            }
           end
 
-          context 'for request with string params' do
-            before do
-              patch :update, params: {
-                lineup_id: lineup.id,
-                locale: 'en',
-                lineup_players: {
-                  data: [
+          context 'for invalid data' do
+            let(:update_result) { false }
+
+            it 'returns status 422' do
+              expect(response).to have_http_status :unprocessable_entity
+            end
+          end
+
+          context 'for valid data' do
+            let(:update_result) { true }
+
+            it 'calls update service' do
+              expect(::Lineups::Players::UpdateService).to(
+                have_received(:call).with(
+                  lineup: lineup,
+                  lineups_players_params: [
                     {
-                      'id' => lineups_player.id.to_s,
-                      'active' => true,
-                      'change_order' => '0',
-                      'status' => 'captain'
+                      uuid: lineups_player.uuid,
+                      active: true,
+                      change_order: 0,
+                      status: 'captain'
                     }
                   ]
-                }
-              }
-            end
-
-            context 'for invalid data' do
-              let(:update_result) { false }
-
-              it 'returns status 422' do
-                expect(response).to have_http_status :unprocessable_entity
-              end
-            end
-
-            context 'for valid data' do
-              let(:update_result) { true }
-
-              it 'calls update service' do
-                expect(::Lineups::Players::UpdateService).to(
-                  have_received(:call).with(
-                    lineup: lineup,
-                    lineups_players_params: [
-                      {
-                        id: lineups_player.id,
-                        active: true,
-                        change_order: 0,
-                        status: 'captain'
-                      }
-                    ]
-                  )
                 )
-              end
-
-              it 'returns status 200' do
-                expect(response).to have_http_status :ok
-              end
-            end
-          end
-
-          context 'for request with number params' do
-            before do
-              patch :update, params: {
-                lineup_id: lineup.id,
-                locale: 'en',
-                lineup_players: { data: [{ 'id' => lineups_player.id, 'active' => true, 'change_order' => 0 }] }
-              }
+              )
             end
 
-            context 'for invalid data' do
-              let(:update_result) { false }
-
-              it 'returns status 422' do
-                expect(response).to have_http_status :unprocessable_entity
-              end
-            end
-
-            context 'for valid data' do
-              let(:update_result) { true }
-
-              it 'calls update service' do
-                expect(::Lineups::Players::UpdateService).to(
-                  have_received(:call).with(
-                    lineup: lineup,
-                    lineups_players_params: [
-                      {
-                        id: lineups_player.id,
-                        active: true,
-                        change_order: 0
-                      }
-                    ]
-                  )
-                )
-              end
-
-              it 'returns status 200' do
-                expect(response).to have_http_status :ok
-              end
+            it 'returns status 200' do
+              expect(response).to have_http_status :ok
             end
           end
         end

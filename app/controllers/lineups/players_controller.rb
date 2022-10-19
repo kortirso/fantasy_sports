@@ -4,7 +4,8 @@ module Lineups
   class PlayersController < ApplicationController
     include Maintenable
 
-    before_action :find_lineup
+    before_action :find_lineup, only: %i[show]
+    before_action :find_user_lineup, only: %i[update]
     before_action :find_lineup_players, only: %i[show]
     before_action :find_league, only: %i[update]
     before_action :validate_league_maintenance, only: %i[update]
@@ -30,7 +31,17 @@ module Lineups
     private
 
     def find_lineup
-      @lineup = Current.user.lineups.find(params[:lineup_id])
+      @lineup =
+        Lineup
+          .joins(:week, fantasy_team: :user)
+          .where('weeks.status IN (2, 3) OR users.id = ?', Current.user.id)
+          .find_by(uuid: params[:lineup_id])
+
+      page_not_found if @lineup.nil?
+    end
+
+    def find_user_lineup
+      @lineup = Current.user.lineups.find_by!(uuid: params[:lineup_id])
     end
 
     def find_lineup_players
@@ -44,10 +55,9 @@ module Lineups
     def lineups_players_params
       params
         .require(:lineup_players)
-        .permit(data: [%i[id active change_order status]])
+        .permit(data: [%i[uuid active change_order status]])
         .to_h[:data]
         .map { |hash|
-          hash['id'] = hash['id'].to_i
           hash['active'] = hash['active'] == 'true' || hash['active'] == true
           hash['change_order'] = hash['change_order'].to_i
           hash.symbolize_keys

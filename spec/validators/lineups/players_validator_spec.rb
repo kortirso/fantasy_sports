@@ -30,12 +30,12 @@ describe Lineups::PlayersValidator, type: :service do
       lineups_player_params6
     ]
   }
-  let(:lineups_player_params1) { { id: lineups_player1.id, active: true, status: 'captain', change_order: 0 } }
-  let(:lineups_player_params2) { { id: lineups_player2.id, active: true, status: 'assistant', change_order: 0 } }
-  let(:lineups_player_params3) { { id: lineups_player3.id, active: false, status: 'regular', change_order: 1 } }
-  let(:lineups_player_params4) { { id: lineups_player4.id, active: false, status: 'regular', change_order: 2 } }
-  let(:lineups_player_params5) { { id: lineups_player5.id, active: false, status: 'regular', change_order: 3 } }
-  let(:lineups_player_params6) { { id: lineups_player6.id, active: false, status: 'regular', change_order: 4 } }
+  let(:lineups_player_params1) { { uuid: lineups_player1.uuid, active: true, status: 'captain', change_order: 0 } }
+  let(:lineups_player_params2) { { uuid: lineups_player2.uuid, active: true, status: 'assistant', change_order: 0 } }
+  let(:lineups_player_params3) { { uuid: lineups_player3.uuid, active: false, status: 'regular', change_order: 1 } }
+  let(:lineups_player_params4) { { uuid: lineups_player4.uuid, active: false, status: 'regular', change_order: 2 } }
+  let(:lineups_player_params5) { { uuid: lineups_player5.uuid, active: false, status: 'regular', change_order: 3 } }
+  let(:lineups_player_params6) { { uuid: lineups_player6.uuid, active: false, status: 'regular', change_order: 4 } }
 
   before do
     allow(Sports).to receive(:sport).and_return(sport_settings)
@@ -45,7 +45,9 @@ describe Lineups::PlayersValidator, type: :service do
     let(:sport_kind) { 'football' }
 
     context 'when lineup_player_ids are not valid' do
-      let(:lineups_player_params6) { { id: lineups_player7.id, active: false, status: 'regular', change_order: 4 } }
+      let(:lineups_player_params6) {
+        { uuid: lineups_player7.uuid, active: false, status: 'regular', change_order: 4 }
+      }
 
       it 'result contains error' do
         expect(validator_call.first).to eq('Invalid players list')
@@ -53,7 +55,7 @@ describe Lineups::PlayersValidator, type: :service do
     end
 
     context 'when amount of active players are not valid' do
-      let(:lineups_player_params6) { { id: lineups_player6.id, active: true, status: 'regular', change_order: 4 } }
+      let(:lineups_player_params6) { { uuid: lineups_player6.uuid, active: true, status: 'regular', change_order: 4 } }
 
       it 'result contains error' do
         expect(validator_call.first).to eq('Invalid amount of active players')
@@ -61,7 +63,9 @@ describe Lineups::PlayersValidator, type: :service do
     end
 
     context 'when change order is not valid' do
-      let(:lineups_player_params6) { { id: lineups_player6.id, active: false, status: 'regular', change_order: 5 } }
+      let(:lineups_player_params6) {
+        { uuid: lineups_player6.uuid, active: false, status: 'regular', change_order: 5 }
+      }
 
       it 'result contains error' do
         expect(validator_call.first).to eq('Invalid changing order')
@@ -69,7 +73,7 @@ describe Lineups::PlayersValidator, type: :service do
     end
 
     context 'when captains count is not valid' do
-      let(:lineups_player_params6) { { id: lineups_player6.id, active: false, status: 'captain', change_order: 4 } }
+      let(:lineups_player_params6) { { uuid: lineups_player6.uuid, active: false, status: 'captain', change_order: 4 } }
 
       it 'result contains error' do
         expect(validator_call.first).to eq('Invalid captains count')

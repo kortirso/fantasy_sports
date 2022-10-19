@@ -12,20 +12,20 @@ import { teamsRequest } from 'requests/teamsRequest';
 import { lineupPlayersRequest } from './requests/lineupPlayersRequest';
 
 interface SquadPointsProps {
-  seasonId: string;
+  seasonUuid: string;
   sportKind: string;
-  lineupId: string;
-  weekId: number;
+  lineupUuid: string;
+  weekUuid: number;
   points: number;
   averagePoints: number;
   maxPoints: number;
 }
 
 export const SquadPoints = ({
-  seasonId,
+  seasonUuid,
   sportKind,
-  lineupId,
-  weekId,
+  lineupUuid,
+  weekUuid,
   points,
   averagePoints,
   maxPoints,
@@ -34,16 +34,16 @@ export const SquadPoints = ({
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
   // main data
-  const [playerId, setPlayerId] = useState<number | undefined>();
+  const [playerUuid, setPlayerUuid] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const data = await teamsRequest(seasonId);
+      const data = await teamsRequest(seasonUuid);
       setTeamNames(data);
     };
 
     const fetchLineupPlayers = async () => {
-      const data = await lineupPlayersRequest(lineupId);
+      const data = await lineupPlayersRequest(lineupUuid);
       setLineupPlayers(data);
     };
 
@@ -100,11 +100,11 @@ export const SquadPoints = ({
           >
             {activePlayersByPosition(positionKind).map((item: LineupPlayer) => (
               <PlayerCard
-                key={item.id}
-                teamName={teamNames[item.team.id]?.short_name}
+                key={item.uuid}
+                teamName={teamNames[item.team.uuid]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={item.points}
-                onInfoClick={() => setPlayerId(item.teams_player_id)}
+                onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
               />
             ))}
           </div>
@@ -114,21 +114,21 @@ export const SquadPoints = ({
         <div className="substitutions">
           {reservePlayers().map((item: LineupPlayer) => (
             <PlayerCard
-              key={item.id}
-              teamName={teamNames[item.team.id]?.short_name}
+              key={item.uuid}
+              teamName={teamNames[item.team.uuid]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={item.points}
-              onInfoClick={() => setPlayerId(item.teams_player_id)}
+              onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
             />
           ))}
         </div>
       )}
-      {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
+      {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
       <PlayerModal
         sportKind={sportKind}
-        seasonId={seasonId}
-        playerId={playerId}
-        onClose={() => setPlayerId(undefined)}
+        seasonUuid={seasonUuid}
+        playerUuid={playerUuid}
+        onClose={() => setPlayerUuid(undefined)}
       />
     </>
   );

@@ -13,6 +13,6 @@ class TeamsController < ApplicationController
   private
 
   def find_teams
-    @teams = Season.active.find(params[:season_id]).teams
+    @teams = Season.active.find_by!(uuid: params[:season_uuid]).teams
   end
 end

@@ -15,12 +15,12 @@ import { fantasyTeamPlayersRequest } from './requests/fantasyTeamPlayersRequest'
 import { seasonPlayersRequest } from './requests/seasonPlayersRequest';
 
 interface TransfersProps {
-  seasonId: string;
+  seasonUuid: string;
   sportKind: string;
   fantasyTeamUuid: string;
   fantasyTeamCompleted: boolean;
   fantasyTeamBudget: number;
-  weekId: number;
+  weekUuid: number;
   weekPosition: number;
   weekDeadlineAt: string;
   transfersLimited: boolean;
@@ -38,12 +38,12 @@ const playerSortParams = ['points'];
 const PER_PAGE = 20;
 
 export const Transfers = ({
-  seasonId,
+  seasonUuid,
   sportKind,
   fantasyTeamUuid,
   fantasyTeamCompleted,
   fantasyTeamBudget,
-  weekId,
+  weekUuid,
   weekPosition,
   weekDeadlineAt,
   transfersLimited,
@@ -56,7 +56,7 @@ export const Transfers = ({
   const [teamMembers, setTeamMembers] = useState<TeamsPlayer[]>([]);
   const [budget, setBudget] = useState<number>(fantasyTeamBudget);
   const [teamName, setTeamName] = useState<string>('');
-  const [playerId, setPlayerId] = useState<number | undefined>();
+  const [playerUuid, setPlayerUuid] = useState<string | undefined>();
   const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamId, setFavouriteTeamId] = useState<string | null>(null);
   const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
@@ -71,12 +71,12 @@ export const Transfers = ({
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const data = await teamsRequest(seasonId);
+      const data = await teamsRequest(seasonUuid);
       setTeamNames(data);
     };
 
     const fetchSeasonPlayers = async () => {
-      const data = await seasonPlayersRequest(seasonId);
+      const data = await seasonPlayersRequest(seasonUuid);
       setSeasonPlayers(data);
     };
 
@@ -110,7 +110,7 @@ export const Transfers = ({
       .filter((element: TeamsPlayer) => {
         if (filterByPosition !== 'all' && filterByPosition !== element.player.position_kind)
           return false;
-        if (filterByTeam !== 'all' && filterByTeam !== element.team.id.toString()) return false;
+        if (filterByTeam !== 'all' && filterByTeam !== element.team.uuid.toString()) return false;
 
         return true;
       })
@@ -140,7 +140,7 @@ export const Transfers = ({
     // if fantasy team is full
     if (teamMembers.length === sport.max_players) return showAlert('alert', `<p>${strings.transfers.teamFull}</p>`);
     // if player is already in team
-    if (teamMembers.find((element: TeamsPlayer) => element.id === item.id)) return showAlert('alert', `<p>${strings.transfers.playerInTeam}</p>`);
+    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return showAlert('alert', `<p>${strings.transfers.playerInTeam}</p>`);
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
@@ -148,7 +148,7 @@ export const Transfers = ({
     if (positionsLeft === 0) return showAlert('alert', `<p>${strings.transfers.noPositions}</p>`);
     // if there are already max_team_players
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
-      return element.team.id === item.team.id;
+      return element.team.uuid === item.team.uuid;
     });
     if (playersFromTeam.length >= sport.max_team_players) return showAlert('alert', `<p>${strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })}</p>`);
 
@@ -161,7 +161,7 @@ export const Transfers = ({
   };
 
   const removeTeamMember = (element: TeamsPlayer) => {
-    setTeamMembers(teamMembers.filter((item: TeamsPlayer) => item.id !== element.id));
+    setTeamMembers(teamMembers.filter((item: TeamsPlayer) => item.uuid !== element.uuid));
     setBudget(budget + element.price);
   };
 
@@ -185,8 +185,8 @@ export const Transfers = ({
       fantasy_team: {
         name: teamName,
         budget_cents: budget * 100,
-        favourite_team_id: favouriteTeamId ? parseInt(favouriteTeamId, 10) : null,
-        teams_players_ids: teamMembers.map((element: TeamsPlayer) => element.id),
+        favourite_team_uuid: favouriteTeamId ? parseInt(favouriteTeamId, 10) : null,
+        teams_players_uuids: teamMembers.map((element: TeamsPlayer) => element.uuid),
       },
     };
 
@@ -218,7 +218,7 @@ export const Transfers = ({
   const submitCompleted = async (onlyValidate: boolean) => {
     const payload = {
       fantasy_team: {
-        teams_players_ids: teamMembers.map((element: TeamsPlayer) => element.id),
+        teams_players_uuids: teamMembers.map((element: TeamsPlayer) => element.uuid),
         only_validate: onlyValidate,
       },
     };
@@ -305,12 +305,12 @@ export const Transfers = ({
             >
               {playersByPosition[positionKind]?.map((item: TeamsPlayer) => (
                 <PlayerCard
-                  key={item.id}
-                  teamName={teamNames[item.team.id]?.short_name}
+                  key={item.uuid}
+                  teamName={teamNames[item.team.uuid]?.short_name}
                   name={localizeValue(item.player.name).split(' ')[0]}
                   value={item.price}
                   onActionClick={() => removeTeamMember(item)}
-                  onInfoClick={() => setPlayerId(item.id)}
+                  onInfoClick={() => setPlayerUuid(item.uuid)}
                 />
               ))}
               {renderEmptySlots(positionKind)}
@@ -325,7 +325,7 @@ export const Transfers = ({
             {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
           </button>
         </div>
-        {Object.keys(teamNames).length > 0 ? <Week id={weekId} teamNames={teamNames} /> : null}
+        {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
       </div>
       <div id="fantasy-players" className="right-container">
         <h2>{strings.transfers.selection}</h2>
@@ -363,17 +363,17 @@ export const Transfers = ({
           selectedValue={sortBy}
         />
         {filteredPlayers.map((item: TeamsPlayer) => (
-          <div className="team-player" key={item.id}>
+          <div className="team-player" key={item.uuid}>
             <div
               className="team-player-stats flex items-center justify-center button small"
-              onClick={() => setPlayerId(item.id)}
+              onClick={() => setPlayerUuid(item.uuid)}
             >
               ?
             </div>
             <div className="team-player-info">
               <p className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</p>
               <div className="team-player-stats">
-                <span className="team-name">{teamNames[item.team.id]?.short_name}</span>
+                <span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>
                 <span className="position-name">
                   {localizeValue(sportPositions[item.player.position_kind].short_name)}
                 </span>
@@ -406,9 +406,9 @@ export const Transfers = ({
       </div>
       <PlayerModal
         sportKind={sportKind}
-        seasonId={seasonId}
-        playerId={playerId}
-        onClose={() => setPlayerId(undefined)}
+        seasonUuid={seasonUuid}
+        playerUuid={playerUuid}
+        onClose={() => setPlayerUuid(undefined)}
       />
       <Modal show={!!transfersData}>
         <div className="button small modal-close" onClick={() => setTransfersData(null)}>

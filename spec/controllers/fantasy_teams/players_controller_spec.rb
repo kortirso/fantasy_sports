@@ -44,7 +44,7 @@ describe FantasyTeams::PlayersController, type: :controller do
           expect(response).to have_http_status :ok
         end
 
-        %w[id price player team].each do |attr|
+        %w[uuid price player team].each do |attr|
           it "response contains teams player #{attr}" do
             expect(response.body).to have_json_path("teams_players/data/0/attributes/#{attr}")
           end

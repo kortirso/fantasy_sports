@@ -11,7 +11,6 @@ class FantasyLeaguesController < ApplicationController
   private
 
   def find_fantasy_league
-    @fantasy_league = FantasyLeague.find_by(uuid: params[:id])
-    page_not_found if @fantasy_league.nil?
+    @fantasy_league = FantasyLeague.find_by!(uuid: params[:id])
   end
 end

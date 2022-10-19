@@ -19,14 +19,14 @@ describe Seasons::PlayersController, type: :controller do
       before do
         create_list :teams_player, 2, seasons_team: seasons_team
 
-        get :index, params: { season_id: season.id, locale: 'en' }
+        get :index, params: { season_id: season.uuid, locale: 'en' }
       end
 
       it 'returns status 200' do
         expect(response).to have_http_status :ok
       end
 
-      %w[id price player team].each do |attr|
+      %w[uuid price player team].each do |attr|
         it "response contains team #{attr}" do
           expect(response.body).to have_json_path("season_players/data/0/attributes/#{attr}")
         end
@@ -57,14 +57,14 @@ describe Seasons::PlayersController, type: :controller do
       let!(:teams_player) { create :teams_player, seasons_team: seasons_team }
 
       before do
-        get :show, params: { season_id: season.id, id: teams_player.id, locale: 'en' }
+        get :show, params: { season_id: season.uuid, id: teams_player.uuid, locale: 'en' }
       end
 
       it 'returns status 200' do
         expect(response).to have_http_status :ok
       end
 
-      %w[id price player team].each do |attr|
+      %w[uuid price player team].each do |attr|
         it "response contains team #{attr}" do
           expect(response.body).to have_json_path("season_player/data/attributes/#{attr}")
         end
