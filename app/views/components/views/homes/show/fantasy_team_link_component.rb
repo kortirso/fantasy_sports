@@ -3,7 +3,7 @@
 module Views
   module Homes
     module Show
-      class FantasyTeamLinkComponent < ViewComponent::Base
+      class FantasyTeamLinkComponent < ApplicationViewComponent
         def initialize(season:, user:)
           @season       = season
           @fantasy_team = @season.fantasy_teams.find_by(user: user)

@@ -2,7 +2,7 @@
 
 module Views
   module Shared
-    class StatisticComponent < ViewComponent::Base
+    class StatisticComponent < ApplicationViewComponent
       def initialize(fantasy_team:, season:)
         @fantasy_team = fantasy_team
         @season = season

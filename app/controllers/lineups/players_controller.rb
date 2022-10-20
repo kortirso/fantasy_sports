@@ -45,7 +45,7 @@ module Lineups
     end
 
     def find_lineup_players
-      @lineup_players = @lineup.lineups_players.includes(teams_player: %i[player seasons_team])
+      @lineup_players = @lineup.lineups_players.includes(teams_player: [:player, { seasons_team: :team }])
     end
 
     def find_league

@@ -15,6 +15,7 @@ require 'action_mailer/railtie'
 require 'action_view/railtie'
 # require 'action_cable/engine'
 require 'sprockets/railtie'
+require 'view_component'
 # require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
@@ -40,6 +41,9 @@ module FantasySports
     config.active_record.schema_format = :sql
 
     config.active_job.queue_adapter = :que
+
+    config.autoload_paths << Rails.root.join('app/views/components')
+    config.view_component.view_component_path = 'app/views/components'
 
     # Don't generate system test files.
     config.generators.system_tests = nil

@@ -17,7 +17,7 @@ class WeeksController < ApplicationController
   def find_week
     @week = Week
     if params[:fields]&.split(',')&.include?('games')
-      @week = @week.includes(games: %i[home_season_team visitor_season_team])
+      @week = @week.includes(games: [home_season_team: :team, visitor_season_team: :team])
     end
     @week = @week.find_by!(uuid: params[:id])
   end

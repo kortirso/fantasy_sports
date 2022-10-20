@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  append_view_path Rails.root.join('app/views/controllers')
+
   include Authentication
   include Localization
 

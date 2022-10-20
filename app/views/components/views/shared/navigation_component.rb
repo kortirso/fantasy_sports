@@ -2,9 +2,7 @@
 
 module Views
   module Shared
-    class NavigationComponent < ViewComponent::Base
-      include ApplicationHelper
-
+    class NavigationComponent < ApplicationViewComponent
       def initialize(fantasy_team: nil)
         @fantasy_team = fantasy_team
 
