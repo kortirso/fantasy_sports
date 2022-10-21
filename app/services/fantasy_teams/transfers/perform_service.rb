@@ -6,9 +6,11 @@ module FantasyTeams
       prepend ApplicationService
 
       def initialize(
-        transfers_validator: FantasyTeams::Players::TransfersValidator
+        transfers_validator: FantasyTeams::Players::TransfersValidator,
+        fantasy_teams_update_points_service: FantasyTeams::UpdatePointsService
       )
         @transfers_validator = transfers_validator
+        @fantasy_teams_update_points_service = fantasy_teams_update_points_service
       end
 
       def call(fantasy_team:, teams_players_ids:, only_validate: true)
@@ -55,16 +57,23 @@ module FantasyTeams
         @result = {
           out_names: removed_players.pluck(:name),
           in_names: added_players.pluck(:name),
-          points_penalty: points_penalty
+          penalty_points: penalty_points
         }
       end
 
-      def points_penalty
-        return 0 unless @fantasy_team.transfers_limited?
-        return 0 if removed_teams_players_ids.size <= @fantasy_team.free_transfers
+      def penalty_points
+        @penalty_points ||= -1 * penalty_transfers_amount * points_per_transfer
+      end
 
-        extra_transfers = removed_teams_players_ids.size - @fantasy_team.free_transfers
-        extra_transfers * Sports.sport(@fantasy_team.sport_kind)['points_per_transfer']
+      def points_per_transfer
+        Sports.sport(@fantasy_team.sport_kind)['points_per_transfer']
+      end
+
+      def penalty_transfers_amount
+        return 0 unless coming_lineup.transfers_limited?
+        return 0 if removed_teams_players_ids.size <= free_transfers_amount_limit
+
+        removed_teams_players_ids.size - free_transfers_amount_limit
       end
 
       def make_transfers
@@ -74,8 +83,14 @@ module FantasyTeams
           add_fantasy_team_players
           create_adding_transfers
           update_fantasy_team
+          update_fantasy_team_points
           update_lineup
+          update_lineup_players
         end
+      end
+
+      def update_fantasy_team_points
+        @fantasy_teams_update_points_service.call(fantasy_team_ids: [@fantasy_team.id])
       end
 
       def remove_fantasy_team_players
@@ -87,8 +102,7 @@ module FantasyTeams
           removed_teams_players_ids.map { |teams_player_id|
             {
               teams_player_id: teams_player_id,
-              fantasy_team_id: @fantasy_team.id,
-              week_id: week_id,
+              lineup_id: coming_lineup.id,
               direction: Transfer::OUT
             }
           }
@@ -108,8 +122,7 @@ module FantasyTeams
           added_teams_players_ids.map { |teams_player_id|
             {
               teams_player_id: teams_player_id,
-              fantasy_team_id: @fantasy_team.id,
-              week_id: week_id,
+              lineup_id: coming_lineup.id,
               direction: Transfer::IN
             }
           }
@@ -117,11 +130,7 @@ module FantasyTeams
       end
 
       def update_fantasy_team
-        left_transfers = @fantasy_team.free_transfers - removed_teams_players_ids.size
-        @fantasy_team.update!(
-          budget_cents: @fantasy_team.budget_cents + budget_change,
-          free_transfers: left_transfers.negative? ? 0 : left_transfers
-        )
+        @fantasy_team.update!(budget_cents: @fantasy_team.budget_cents + budget_change)
       end
 
       def budget_change
@@ -131,23 +140,30 @@ module FantasyTeams
       end
 
       def update_lineup
-        coming_lineup = @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
+        left_transfers = free_transfers_amount_limit - removed_teams_players_ids.size
+        coming_lineup.update!(
+          free_transfers_amount: left_transfers.negative? ? 0 : left_transfers,
+          penalty_points: coming_lineup.penalty_points + penalty_points
+        )
+      end
+
+      def update_lineup_players
         lineups_players = coming_lineup.lineups_players.where(teams_player_id: removed_teams_players_ids)
         return if lineups_players.empty?
 
-        create_lineups_players(coming_lineup, lineups_players)
+        create_lineups_players(lineups_players)
         lineups_players.destroy_all
       end
 
-      def create_lineups_players(coming_lineup, lineups_players)
+      def create_lineups_players(lineups_players)
         ::Lineups::Player.upsert_all(
           lineups_players.map { |lineups_player|
-            generate_lineups_player(coming_lineup, lineups_player)
+            generate_lineups_player(lineups_player)
           }
         )
       end
 
-      def generate_lineups_player(coming_lineup, lineups_player)
+      def generate_lineups_player(lineups_player)
         selected_teams_player = selected_teams_player(lineups_player)
         @added_players.delete(selected_teams_player)
         {
@@ -164,6 +180,14 @@ module FantasyTeams
 
       def week_id
         @week_id ||= @fantasy_team.fantasy_leagues.first.season.weeks.coming.first.id
+      end
+
+      def coming_lineup
+        @coming_lineup ||= @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
+      end
+
+      def free_transfers_amount_limit
+        @free_transfers_amount_limit ||= coming_lineup.free_transfers_amount
       end
     end
   end

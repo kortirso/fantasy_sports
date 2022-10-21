@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :transfer do
-    association :week
-    association :fantasy_team
+    association :lineup
     association :teams_player
 
     trait :in do

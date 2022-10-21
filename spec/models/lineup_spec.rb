@@ -14,5 +14,6 @@ describe Lineup, type: :model do
     it { is_expected.to have_many(:teams_player).through(:lineups_players) }
     it { is_expected.to have_many(:fantasy_leagues_teams).class_name('FantasyLeagues::Team').dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_leagues).through(:fantasy_leagues_teams) }
+    it { is_expected.to have_many(:transfers).dependent(:destroy) }
   end
 end

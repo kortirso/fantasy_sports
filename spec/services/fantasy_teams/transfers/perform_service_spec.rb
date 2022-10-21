@@ -7,12 +7,14 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
     ).call(fantasy_team: fantasy_team, teams_players_ids: [teams_player1.id], only_validate: only_validate)
   }
 
-  let!(:fantasy_team) { create :fantasy_team, free_transfers: 2, transfers_limited: true, budget_cents: 100 }
+  let!(:fantasy_team) { create :fantasy_team, budget_cents: 100 }
   let!(:teams_player1) { create :teams_player, price_cents: 400 }
   let!(:teams_player2) { create :teams_player, price_cents: 500 }
   let!(:season) { create :season }
   let!(:week) { create :week, season: season, status: Week::COMING }
-  let!(:lineup) { create :lineup, fantasy_team: fantasy_team, week: week }
+  let!(:lineup) {
+    create :lineup, fantasy_team: fantasy_team, week: week, transfers_limited: true, free_transfers_amount: 2
+  }
   let!(:lineups_player) { create :lineups_player, lineup: lineup, teams_player: teams_player2 }
   let(:transfers_validator) { double }
 
@@ -53,19 +55,19 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
 
       context 'for over-limited amount of transfers' do
         before do
-          fantasy_team.update(free_transfers: 0)
+          lineup.update(free_transfers_amount: 0)
         end
 
-        it 'does not update fantasy team', :aggregate_failures do
+        it 'does not update fantasy team' do
           service_call
 
           expect(fantasy_team.reload.budget_cents).to eq 100
-          expect(fantasy_team.reload.free_transfers).to eq 0
         end
 
         it 'does not update lineup', :aggregate_failures do
           service_call
 
+          expect(lineup.reload.free_transfers_amount).to eq 0
           expect(lineup.lineups_players.size).to eq 1
           expect(lineup.lineups_players.first.id).to eq lineups_player.id
           expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
@@ -81,7 +83,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(service.result).to eq({
             out_names: [teams_player2.player.name],
             in_names: [teams_player1.player.name],
-            points_penalty: 4
+            penalty_points: -4
           })
         end
 
@@ -93,16 +95,16 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
       end
 
       context 'for not over-limited amount of transfers' do
-        it 'does not update fantasy team', :aggregate_failures do
+        it 'does not update fantasy team' do
           service_call
 
           expect(fantasy_team.reload.budget_cents).to eq 100
-          expect(fantasy_team.reload.free_transfers).to eq 2
         end
 
         it 'does not update lineup', :aggregate_failures do
           service_call
 
+          expect(lineup.reload.free_transfers_amount).to eq 2
           expect(lineup.lineups_players.size).to eq 1
           expect(lineup.lineups_players.first.id).to eq lineups_player.id
           expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
@@ -118,7 +120,7 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           expect(service.result).to eq({
             out_names: [teams_player2.player.name],
             in_names: [teams_player1.player.name],
-            points_penalty: 0
+            penalty_points: 0
           })
         end
 
@@ -159,16 +161,16 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         allow(transfers_validator).to receive(:call).and_return([])
       end
 
-      it 'updates fantasy team', :aggregate_failures do
+      it 'updates fantasy team' do
         service_call
 
         expect(fantasy_team.reload.budget_cents).to eq 200
-        expect(fantasy_team.reload.free_transfers).to eq 1
       end
 
       it 'updates lineup', :aggregate_failures do
         service_call
 
+        expect(lineup.reload.free_transfers_amount).to eq 1
         expect(lineup.lineups_players.size).to eq 1
         expect(lineup.lineups_players.first.id).not_to eq lineups_player.id
         expect(lineup.lineups_players.first.teams_player_id).to eq teams_player1.id

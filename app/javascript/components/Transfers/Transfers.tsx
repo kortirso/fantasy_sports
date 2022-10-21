@@ -30,7 +30,7 @@ interface TransfersProps {
 interface TransfersData {
   in_names: KeyValue[];
   out_names: KeyValue[];
-  points_penalty: number;
+  penalty_points: number;
 }
 
 const playerSortParams = ['points'];
@@ -416,7 +416,7 @@ export const Transfers = ({
         </div>
         <div className="transfers-header">
           <h2>{strings.transfers.confirmationScreen}</h2>
-          <p className="transfers-points">{strings.transfers.pointsPenalty} - {transfersData?.points_penalty}</p>
+          <p className="transfers-points">{strings.transfers.penaltyPoints} - {transfersData?.penalty_points}</p>
           <div className="flex justify-between transfers-list">
             <div className="transfers-block flex flex-col items-center">
               <h4>{strings.transfers.income}</h4>

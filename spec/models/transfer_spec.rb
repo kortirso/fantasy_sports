@@ -8,8 +8,7 @@ describe Transfer, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:week) }
-    it { is_expected.to belong_to(:fantasy_team) }
+    it { is_expected.to belong_to(:lineup) }
     it { is_expected.to belong_to(:teams_player) }
   end
 end

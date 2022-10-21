@@ -13,14 +13,14 @@ describe Teams::Players::Price::ChangeService, type: :service do
   let!(:teams_player7) { create :teams_player, price_cents: 500 }
 
   before do
-    create_list :lineup, 20, week: week
-    create_list :transfer, 2, week: week, teams_player: teams_player1
-    create_list :transfer, 6, week: week, teams_player: teams_player2
-    create_list :transfer, 12, week: week, teams_player: teams_player3
-    create_list :transfer, 2, week: week, teams_player: teams_player4, direction: Transfer::OUT
-    create_list :transfer, 6, week: week, teams_player: teams_player5, direction: Transfer::OUT
-    create_list :transfer, 12, week: week, teams_player: teams_player6, direction: Transfer::OUT
-    create :transfer, week: week, teams_player: teams_player7
+    lineups = create_list :lineup, 20, week: week
+    create_list :transfer, 2, lineup: lineups[0], teams_player: teams_player1
+    create_list :transfer, 6, lineup: lineups[1], teams_player: teams_player2
+    create_list :transfer, 12, lineup: lineups[2], teams_player: teams_player3
+    create_list :transfer, 2, lineup: lineups[3], teams_player: teams_player4, direction: Transfer::OUT
+    create_list :transfer, 6, lineup: lineups[4], teams_player: teams_player5, direction: Transfer::OUT
+    create_list :transfer, 12, lineup: lineups[5], teams_player: teams_player6, direction: Transfer::OUT
+    create :transfer, lineup: lineups[6], teams_player: teams_player7
   end
 
   it 'updates teams players prices', :aggregate_failures do

@@ -14,4 +14,6 @@ class Lineup < ApplicationRecord
            as: :pointable,
            dependent: :destroy
   has_many :fantasy_leagues, through: :fantasy_leagues_teams
+
+  has_many :transfers, dependent: :destroy
 end
