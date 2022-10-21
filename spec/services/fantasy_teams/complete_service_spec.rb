@@ -13,10 +13,13 @@ describe FantasyTeams::CompleteService, type: :service do
   let(:params) { { name: name, budget_cents: 500, favourite_team_id: favourite_team_id } }
   let(:transfers_validator) { double }
   let(:lineup_creator) { double }
+  let(:lineup_creator_result) { double }
+  let(:lineup) { create :lineup }
   let(:favourite_team_id) { nil }
 
   before do
-    allow(lineup_creator).to receive(:call)
+    allow(lineup_creator).to receive(:call).and_return(lineup_creator_result)
+    allow(lineup_creator_result).to receive(:result).and_return(lineup)
 
     season = create :season
     fantasy_league = create :fantasy_league, season: season

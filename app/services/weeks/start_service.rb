@@ -17,20 +17,11 @@ module Weeks
       return unless week.coming?
 
       week.update!(status: Week::ACTIVE)
-      update_transfers_limit_for_fantasy_teams(week)
       change_price_for_teams_players(week)
       change_form_for_teams_players(week)
     end
 
     private
-
-    def update_transfers_limit_for_fantasy_teams(week)
-      free_transfers_per_week = Sports.sport(week.season.league.sport_kind)['free_transfers_per_week']
-      week.fantasy_teams.with_unlimited_transfers.update_all(
-        transfers_limited: true,
-        free_transfers: free_transfers_per_week
-      )
-    end
 
     def change_price_for_teams_players(week)
       @price_change_service.call(week: week)

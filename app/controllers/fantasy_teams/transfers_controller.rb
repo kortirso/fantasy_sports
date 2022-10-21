@@ -6,6 +6,7 @@ module FantasyTeams
 
     before_action :find_fantasy_team
     before_action :find_season, only: %i[show]
+    before_action :find_lineup, only: %i[show]
     before_action :check_league_maintenance, only: %i[show]
     before_action :find_league, only: %i[update]
     before_action :validate_league_maintenance, only: %i[update]
@@ -33,6 +34,10 @@ module FantasyTeams
 
     def find_season
       @season = @fantasy_team.fantasy_leagues.first.season
+    end
+
+    def find_lineup
+      @lineup = @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
     end
 
     def find_league

@@ -8,7 +8,7 @@ module FantasyTeams
       FantasyTeam
         .where(id: fantasy_team_ids)
         .each { |fantasy_team|
-          fantasy_team.update(points: fantasy_team.lineups.pluck(:points).sum(&:to_i))
+          fantasy_team.update(points: fantasy_team.lineups.pluck(:points, :penalty_points).flatten.sum)
         }
     end
   end

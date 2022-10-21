@@ -37,8 +37,8 @@ module FantasyTeams
       ActiveRecord::Base.transaction do
         @fantasy_team.update!(params.except(:favourite_team_id).merge(completed: true))
         create_fantasy_teams_players(teams_players_ids)
-        create_fantasy_teams_transfers(teams_players_ids)
-        @lineup_creator.call(fantasy_team: @fantasy_team)
+        lineup = @lineup_creator.call(fantasy_team: @fantasy_team).result
+        create_transfers(lineup, teams_players_ids)
         attach_fantasy_team_to_team_league(params[:favourite_team_id])
       end
     end
@@ -51,13 +51,12 @@ module FantasyTeams
       )
     end
 
-    def create_fantasy_teams_transfers(teams_players_ids)
+    def create_transfers(lineup, teams_players_ids)
       Transfer.upsert_all(
         teams_players_ids.map { |teams_player_id|
           {
             teams_player_id: teams_player_id,
-            fantasy_team_id: @fantasy_team.id,
-            week_id: week_id,
+            lineup_id: lineup.id,
             direction: Transfer::IN
           }
         }

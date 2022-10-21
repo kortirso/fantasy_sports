@@ -21,8 +21,5 @@ class FantasyTeam < ApplicationRecord
   has_many :lineups, dependent: :destroy
   has_many :weeks, through: :fantasy_teams_lineups
 
-  has_many :transfers, dependent: :destroy
-
   scope :completed, -> { where(completed: true) }
-  scope :with_unlimited_transfers, -> { where(transfers_limited: false) }
 end

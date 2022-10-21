@@ -395,8 +395,6 @@ CREATE TABLE public.fantasy_teams (
     updated_at timestamp(6) without time zone NOT NULL,
     completed boolean DEFAULT false NOT NULL,
     budget_cents integer DEFAULT 10000 NOT NULL,
-    free_transfers integer DEFAULT 0 NOT NULL,
-    transfers_limited boolean DEFAULT false NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL
 );
 
@@ -567,7 +565,10 @@ CREATE TABLE public.lineups (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    free_transfers_amount integer DEFAULT 0 NOT NULL,
+    transfers_limited boolean DEFAULT true,
+    penalty_points integer DEFAULT 0 NOT NULL
 );
 
 
@@ -893,12 +894,11 @@ ALTER SEQUENCE public.teams_players_id_seq OWNED BY public.teams_players.id;
 
 CREATE TABLE public.transfers (
     id bigint NOT NULL,
-    week_id integer,
-    fantasy_team_id bigint,
     teams_player_id bigint,
     direction integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    lineup_id bigint
 );
 
 
@@ -1467,24 +1467,10 @@ CREATE INDEX index_teams_players_on_seasons_team_id_and_player_id ON public.team
 
 
 --
--- Name: index_transfers_on_fantasy_team_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_transfers_on_fantasy_team_id ON public.transfers USING btree (fantasy_team_id);
-
-
---
 -- Name: index_transfers_on_teams_player_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_transfers_on_teams_player_id ON public.transfers USING btree (teams_player_id);
-
-
---
--- Name: index_transfers_on_week_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_transfers_on_week_id ON public.transfers USING btree (week_id);
 
 
 --
@@ -1622,6 +1608,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221009184632'),
 ('20221013182131'),
 ('20221019155516'),
-('20221019180812');
+('20221019180812'),
+('20221020193541');
 
 

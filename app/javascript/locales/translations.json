@@ -26,7 +26,7 @@
       "confirmationScreen": "Transfers confirmation",
       "income": "Income players",
       "outcome": "Outcome players",
-      "pointsPenalty": "Penalty points for transfers",
+      "penaltyPoints": "Penalty points for transfers",
       "cancel": "Cancel",
       "approve": "Approve"
     },
@@ -82,7 +82,7 @@
       "confirmationScreen": "Подтверждение трансферов",
       "income": "Приходящие игроки",
       "outcome": "Уходящие игроки",
-      "pointsPenalty": "Стоимость трансферов",
+      "penaltyPoints": "Стоимость трансферов",
       "cancel": "Отмена",
       "approve": "Подтвердить"
     },

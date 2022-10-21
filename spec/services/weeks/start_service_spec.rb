@@ -48,12 +48,6 @@ describe Weeks::StartService, type: :service do
   end
 
   context 'for existing week' do
-    let!(:fantasy_team) { create :fantasy_team, transfers_limited: false }
-
-    before do
-      create :lineup, fantasy_team: fantasy_team, week: week
-    end
-
     context 'for not coming week' do
       let!(:week) { create :week, status: Week::INACTIVE }
 
@@ -61,12 +55,6 @@ describe Weeks::StartService, type: :service do
         service_call
 
         expect(week.reload.status).not_to eq Week::ACTIVE
-      end
-
-      it 'does not update fantasy team' do
-        service_call
-
-        expect(fantasy_team.reload.transfers_limited).to be false
       end
 
       it 'does not call price_change_service' do
@@ -98,12 +86,6 @@ describe Weeks::StartService, type: :service do
         service_call
 
         expect(week.reload.status).to eq Week::ACTIVE
-      end
-
-      it 'does updates fantasy team' do
-        service_call
-
-        expect(fantasy_team.reload.transfers_limited).to be true
       end
 
       it 'calls price_change_service' do

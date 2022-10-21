@@ -13,21 +13,40 @@ module Lineups
     end
 
     def call(fantasy_team:, week: nil)
-      week ||= fantasy_team.fantasy_leagues.first.season.weeks.coming.first
-      @result = Lineup.create!(fantasy_team: fantasy_team, week: week)
+      @fantasy_team = fantasy_team
+      @week = week || @fantasy_team.fantasy_leagues.first.season.weeks.coming.first
+      return if @week.nil?
 
-      add_lineup_players(fantasy_team, week)
+      ActiveRecord::Base.transaction do
+        create_lineup
+        add_lineup_players
+      end
     rescue ActiveRecord::RecordNotUnique
       fail!(I18n.t('services.fantasy_teams.lineups.create.record_exists'))
     end
 
     private
 
-    def add_lineup_players(fantasy_team, week)
-      previous_lineup = fantasy_team.lineups.find_by(week: week.previous)
+    def create_lineup
+      params = { fantasy_team: @fantasy_team, week: @week, free_transfers_amount: free_transfers_per_week }
+      params[:transfers_limited] = false if previous_lineup.nil?
+      params[:free_transfers_amount] *= 2 if previous_lineup&.transfers&.size&.zero?
+
+      @result = Lineup.create!(params)
+    end
+
+    def add_lineup_players
       return @lineup_players_creator.call(lineup: @result) if previous_lineup.nil?
 
       @lineup_players_copier.call(lineup: @result, previous_lineup: previous_lineup)
+    end
+
+    def previous_lineup
+      @previous_lineup ||= @fantasy_team.lineups.find_by(week: @week.previous)
+    end
+
+    def free_transfers_per_week
+      Sports.sport(@week.season.league.sport_kind)['free_transfers_per_week']
     end
   end
 end
