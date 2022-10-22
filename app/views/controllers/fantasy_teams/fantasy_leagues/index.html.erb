@@ -1,0 +1,28 @@
+<%= render Views::Shared::NavigationComponent.new(fantasy_team: @fantasy_team) %>
+<%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
+  <div id="fantasy-team-leagues" class="main-container">
+    <div class="half-container">
+      <h2><%= t('views.fantasy_teams.fantasy_teams.index.leagues') %></h2>
+      <h3><%= t('views.fantasy_teams.fantasy_teams.index.general_leagues') %></h3>
+      <%=
+        render Views::FantasyTeams::FantasyLeagues::TableComponent.new(
+          fantasy_team: @fantasy_team,
+          fantasy_leagues: @fantasy_leagues.where.not(leagueable_type: 'User')
+        )
+      %>
+      <h3><%= t('views.fantasy_teams.fantasy_teams.index.user_leagues') %></h3>
+      <% if @fantasy_leagues.where(leagueable_type: 'User').load.exists? %>
+        <%=
+          render Views::FantasyTeams::FantasyLeagues::TableComponent.new(
+            fantasy_team: @fantasy_team,
+            fantasy_leagues: @fantasy_leagues.where(leagueable_type: 'User')
+          )
+        %>
+      <% else %>
+      <% end %>
+    </div>
+    <div class="half-container">
+      <h2><%= t('views.fantasy_teams.fantasy_teams.index.cups') %></h2>
+    </div>
+  </div>
+<% end %>

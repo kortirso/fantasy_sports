@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class FantasyLeaguesController < ApplicationController
-  skip_before_action :authenticate
-  before_action :find_fantasy_league, only: %i[show]
+  before_action :find_fantasy_league
 
   def show
     @fantasy_league_members = @fantasy_league.members.order(points: :desc).first(50)

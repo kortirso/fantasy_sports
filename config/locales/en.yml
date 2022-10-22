@@ -24,6 +24,7 @@ en:
           team: Team squad
           transfers: Transfers
           points: Points
+          leagues: Fantasy Leagues and Cups
   controllers:
     admin:
       leagues:

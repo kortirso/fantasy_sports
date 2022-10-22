@@ -2,21 +2,33 @@
 
 describe FantasyLeaguesController, type: :controller do
   describe 'GET#show' do
-    context 'for not existing fantasy league' do
-      it 'renders 404 page' do
+    context 'for unlogged users' do
+      it 'redirects to login path' do
         get :show, params: { id: 'unexisting', locale: 'en' }
 
-        expect(response).to render_template 'shared/404'
+        expect(response).to redirect_to users_login_en_path
       end
     end
 
-    context 'for existing fantasy league' do
-      let!(:fantasy_league) { create :fantasy_league }
+    context 'for logged users' do
+      sign_in_user
 
-      it 'renders show template' do
-        get :show, params: { id: fantasy_league.uuid, locale: 'en' }
+      context 'for not existing fantasy league' do
+        it 'renders 404 page' do
+          get :show, params: { id: 'unexisting', locale: 'en' }
 
-        expect(response).to render_template :show
+          expect(response).to render_template 'shared/404'
+        end
+      end
+
+      context 'for existing fantasy league' do
+        let!(:fantasy_league) { create :fantasy_league }
+
+        it 'renders show template' do
+          get :show, params: { id: fantasy_league.uuid, locale: 'en' }
+
+          expect(response).to render_template :show
+        end
       end
     end
   end

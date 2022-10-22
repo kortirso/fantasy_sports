@@ -24,6 +24,7 @@ ru:
           team: Состав команды
           transfers: Трансферы
           points: Очки
+          leagues: Фэнтези лиги и кубки
   controllers:
     admin:
       leagues:
