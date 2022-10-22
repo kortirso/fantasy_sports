@@ -35,11 +35,11 @@ module FantasyTeams
 
     def complete_fantasy_team(params, teams_players_ids)
       ActiveRecord::Base.transaction do
-        @fantasy_team.update!(params.except(:favourite_team_id).merge(completed: true))
+        @fantasy_team.update!(params.except(:favourite_team_uuid).merge(completed: true))
         create_fantasy_teams_players(teams_players_ids)
         lineup = @lineup_creator.call(fantasy_team: @fantasy_team).result
         create_transfers(lineup, teams_players_ids)
-        attach_fantasy_team_to_team_league(params[:favourite_team_id])
+        attach_fantasy_team_to_team_league(params[:favourite_team_uuid])
       end
     end
 
@@ -63,10 +63,10 @@ module FantasyTeams
       )
     end
 
-    def attach_fantasy_team_to_team_league(favourite_team_id)
-      return if favourite_team_id.nil?
+    def attach_fantasy_team_to_team_league(favourite_team_uuid)
+      return if favourite_team_uuid.nil?
 
-      team = ::Team.find_by(id: favourite_team_id)
+      team = ::Team.find_by(uuid: favourite_team_uuid)
       return if team.nil?
 
       team.fantasy_leagues.last&.fantasy_leagues_teams&.create!(pointable: @fantasy_team)
