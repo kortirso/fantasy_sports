@@ -178,10 +178,6 @@ module FantasyTeams
         added_players.find { |player| player.position_kind == lineups_player.teams_player.player.position_kind }
       end
 
-      def week_id
-        @week_id ||= @fantasy_team.fantasy_leagues.first.season.weeks.coming.first.id
-      end
-
       def coming_lineup
         @coming_lineup ||= @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
       end

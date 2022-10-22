@@ -71,9 +71,5 @@ module FantasyTeams
 
       team.fantasy_leagues.last&.fantasy_leagues_teams&.create!(pointable: @fantasy_team)
     end
-
-    def week_id
-      @week_id ||= @fantasy_team.fantasy_leagues.first.season.weeks.coming.first.id
-    end
   end
 end
