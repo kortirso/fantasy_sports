@@ -5,6 +5,7 @@ class FantasyLeaguesController < ApplicationController
 
   def show
     @fantasy_league_members = @fantasy_league.members.order(points: :desc).first(50)
+    @fantasy_team = @fantasy_league.fantasy_teams.find_by(user: Current.user)
   end
 
   private

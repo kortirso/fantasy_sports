@@ -47,6 +47,9 @@ en:
         invalid: Invalid credentials
     fantasy_teams:
       success_create: Fantasy team is created
+      fantasy_leagues:
+        success_create: Fantasy league is created
+        fail_create: Fantasy league is not created
     lineups:
       players:
         lineup_update: Lineup is updated
@@ -81,6 +84,21 @@ en:
       points:
         index:
           no_lineups: There is no active week
+      fantasy_leagues:
+        index:
+          leagues: Fantasy leagues
+          general_leagues: General fantasy leagues
+          user_leagues: User fantasy leagues
+          new_user_league: Add fantasy league
+          cups: Cups
+          table:
+            league: League
+            teams: Teams amount
+            rank: Rank
+        new:
+          title: Add fantasy league
+          name: Name
+          create: Create fantsy league
     shared:
       statistic:
         title: Points/Rankings

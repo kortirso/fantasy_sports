@@ -26,7 +26,7 @@ Rails.application.routes.draw do
         resource :transfers, only: %i[show update]
         resources :points, only: %i[index]
         resources :players, only: %i[index]
-        resources :fantasy_leagues, only: %i[index]
+        resources :fantasy_leagues, only: %i[index new create]
       end
     end
     resources :lineups, only: %i[] do

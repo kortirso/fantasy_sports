@@ -47,6 +47,9 @@ ru:
         invalid: Неверные данные
     fantasy_teams:
       success_create: Команда создана
+      fantasy_leagues:
+        success_create: Фэнтези лига создана
+        fail_create: Фэнтези лига не создана
     lineups:
       players:
         lineup_update: Состав обновлён
@@ -81,6 +84,21 @@ ru:
       points:
         index:
           no_lineups: На данный момент нет активной игровой недели
+      fantasy_leagues:
+        index:
+          leagues: Фэнтези лиги
+          general_leagues: Основные фэнтези лиги
+          user_leagues: Персональные фэнтези лиги
+          new_user_league: Создать фэнтези лигу
+          cups: Фэнтези кубки
+          table:
+            league: Фэнтези лига
+            teams: Кол-во команд
+            rank: Ранг
+        new:
+          title: Создание фэнтези лиги
+          name: Название
+          create: Создать
     shared:
       statistic:
         title: Очки\Места
