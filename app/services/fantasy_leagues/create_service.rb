@@ -4,8 +4,12 @@ module FantasyLeagues
   class CreateService
     prepend ApplicationService
 
-    def initialize(fantasy_league_validator: FantasyLeagueValidator)
+    def initialize(
+      fantasy_league_validator: FantasyLeagueValidator,
+      league_join_service:      JoinService
+    )
       @fantasy_league_validator = fantasy_league_validator
+      @league_join_service      = league_join_service
     end
 
     def call(fantasy_team:, leagueable:, params:)
@@ -33,7 +37,7 @@ module FantasyLeagues
     end
 
     def attach_fantasy_team_to_league
-      @result.fantasy_leagues_teams.create!(pointable: @fantasy_team)
+      @league_join_service.call(fantasy_team: @fantasy_team, fantasy_league: @result)
     end
 
     def global_league?

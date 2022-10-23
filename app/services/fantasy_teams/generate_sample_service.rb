@@ -14,10 +14,10 @@ module FantasyTeams
       @complete_fantasy_team_service = complete_fantasy_team_service
     end
 
-    def call(season:, user:, favourite_team_id:)
+    def call(season:, user:, favourite_team_uuid:)
       @season            = season
       @user              = user
-      @favourite_team_id = favourite_team_id
+      @favourite_team_uuid = favourite_team_uuid
 
       return if create_fantasy_team && failure?
 
@@ -39,7 +39,7 @@ module FantasyTeams
         params: {
           name: generate_name,
           budget_cents: generate_lineup_service_object.budget_cents,
-          favourite_team_id: @favourite_team_id
+          favourite_team_uuid: @favourite_team_uuid
         },
         teams_players_ids: generate_lineup_service_object.result
       )

@@ -50,6 +50,12 @@ en:
       fantasy_leagues:
         success_create: Fantasy league is created
         fail_create: Fantasy league is not created
+    fantasy_leagues:
+      joins:
+        success: Your team joined to fantasy league
+        invalid_code: Invalid invite code
+        no_team: You don't have a fantasy team for joining
+        joined: Your team is already joined to fantasy league
     lineups:
       players:
         lineup_update: Lineup is updated

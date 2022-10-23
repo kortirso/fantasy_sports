@@ -7,11 +7,13 @@ module FantasyTeams
     def initialize(
       fantasy_team_validator: FantasyTeamValidator,
       transfers_validator:    FantasyTeams::Players::TransfersValidator,
-      lineup_creator:         ::Lineups::CreateService
+      lineup_creator:         ::Lineups::CreateService,
+      league_join_service:    ::FantasyLeagues::JoinService
     )
       @fantasy_team_validator = fantasy_team_validator
       @transfers_validator    = transfers_validator
       @lineup_creator         = lineup_creator
+      @league_join_service    = league_join_service
     end
 
     def call(fantasy_team:, params:, teams_players_ids: nil)
@@ -69,7 +71,10 @@ module FantasyTeams
       team = ::Team.find_by(uuid: favourite_team_uuid)
       return if team.nil?
 
-      team.fantasy_leagues.last&.fantasy_leagues_teams&.create!(pointable: @fantasy_team)
+      @league_join_service.call(
+        fantasy_team: @fantasy_team,
+        fantasy_league: team.fantasy_leagues.last
+      )
     end
   end
 end
