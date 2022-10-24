@@ -86,6 +86,11 @@ ru:
           name_ru: Название (ru)
           sport_kind: Вид спорта
           create: Создать новую лигу
+    fantasy_leagues:
+      show:
+        title: Пригласить друзей присоединиться к
+        link: Вы можете отправить эту ссылку друзьям
+        email: Или отправить письмо с нижеуказанным текстом
     fantasy_teams:
       points:
         index:

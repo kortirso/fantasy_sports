@@ -19,4 +19,8 @@ class FantasyLeague < ApplicationRecord
   def members
     leagueable_type == 'Week' ? lineups : fantasy_teams
   end
+
+  def invitational?
+    leagueable_type == 'User'
+  end
 end

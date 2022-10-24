@@ -1,22 +1,52 @@
 <%= render Views::Shared::NavigationComponent.new(fantasy_team: @fantasy_team) %>
 <%= render PageWrappers::PageComponent.new do %>
-  <h1><%= @fantasy_league.name %></h1>
-  <table cellSpacing="0" id="league-ranks">
-    <thead>
-      <tr>
-        <td>Rank</td>
-        <td>Team</td>
-        <td>Total points</td>
-      </tr>
-    </thead>
-    <tbody>
-      <% @fantasy_league_members.each.with_index(1) do |member, index| %>
-        <tr>
-          <td><%= index %></td>
-          <td><%= member.name %></td>
-          <td><%= member.points %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="main-container">
+    <div class="half-container">
+      <h2><%= @fantasy_league.name %></h2>
+      <table cellSpacing="0" id="league-ranks">
+        <thead>
+          <tr>
+            <td>Rank</td>
+            <td>Team</td>
+            <td>Total points</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @fantasy_league_members.each.with_index(1) do |member, index| %>
+            <tr>
+              <td><%= index %></td>
+              <td><%= member.name %></td>
+              <td><%= member.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% if @fantasy_league.invitational? %>
+      <div id="inviting-friends" class="half-container">
+        <h2><%= t('views.fantasy_leagues.show.title') %> <%= localized_value(@fantasy_league.season.league.name) %></h2>
+        <h3><%= t('views.fantasy_leagues.show.link') %></h3>
+        <div class="code-block">
+          <code>
+            <%= fantasy_league_joins_url(fantasy_league_id: @fantasy_league.uuid, invite_code: @fantasy_league.invite_code) %>
+          </code>
+        </div>
+        <br />
+        <h3><%= t('views.fantasy_leagues.show.email') %></h3>
+        <div class="code-block">
+          <code>
+            Hi, bro
+            <br /><br />
+            For the <%= @fantasy_league.season.name %> <%= localized_value(@fantasy_league.season.league.name) %> Fantasy League why don't you join my mini-league "<%= @fantasy_league.name %>"?
+            <br /><br />
+            Joining the league couldn't be easier. Simply use the link below and you'll be added automatically after you've entered the game.
+            <br /><br />
+            <%= fantasy_league_joins_url(fantasy_league_id: @fantasy_league.uuid, invite_code: @fantasy_league.invite_code) %>
+            <br /><br />
+            Looking forward to playing against you this season!
+          </code>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
