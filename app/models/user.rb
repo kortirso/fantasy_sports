@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include ActiveModel::SecurePassword
+  include Leagueable
 
   has_secure_password
 

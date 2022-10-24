@@ -10,7 +10,7 @@
       weekUuid:             @season.coming_week.uuid,
       weekPosition:         @season.coming_week.position,
       weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M'),
-      transfersLimited:     @lineup.transfers_limited,
-      freeTransfers:        @lineup.free_transfers_amount
+      transfersLimited:     @lineup&.transfers_limited || false,
+      freeTransfers:        @lineup&.free_transfers_amount || 0
   %>
 <% end %>

@@ -24,6 +24,7 @@ ru:
           team: Состав команды
           transfers: Трансферы
           points: Очки
+          leagues: Фэнтези лиги и кубки
   controllers:
     admin:
       leagues:
@@ -46,6 +47,15 @@ ru:
         invalid: Неверные данные
     fantasy_teams:
       success_create: Команда создана
+      fantasy_leagues:
+        success_create: Фэнтези лига создана
+        fail_create: Фэнтези лига не создана
+    fantasy_leagues:
+      joins:
+        success: Ваша команда присоединилась в фэнтези лиге
+        invalid_code: Неверный инвайт код
+        no_team: У вас нет команды для присоединения к фэнтези лиге
+        joined: Ваша команда уже состоит в фэнтези лиге
     lineups:
       players:
         lineup_update: Состав обновлён
@@ -76,10 +86,30 @@ ru:
           name_ru: Название (ru)
           sport_kind: Вид спорта
           create: Создать новую лигу
+    fantasy_leagues:
+      show:
+        title: Пригласить друзей присоединиться к
+        link: Вы можете отправить эту ссылку друзьям
+        email: Или отправить письмо с нижеуказанным текстом
     fantasy_teams:
       points:
         index:
           no_lineups: На данный момент нет активной игровой недели
+      fantasy_leagues:
+        index:
+          leagues: Фэнтези лиги
+          general_leagues: Основные фэнтези лиги
+          user_leagues: Персональные фэнтези лиги
+          new_user_league: Создать фэнтези лигу
+          cups: Фэнтези кубки
+          table:
+            league: Фэнтези лига
+            teams: Кол-во команд
+            rank: Ранг
+        new:
+          title: Создание фэнтези лиги
+          name: Название
+          create: Создать
     shared:
       statistic:
         title: Очки\Места

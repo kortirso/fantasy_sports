@@ -24,6 +24,7 @@ en:
           team: Team squad
           transfers: Transfers
           points: Points
+          leagues: Fantasy Leagues and Cups
   controllers:
     admin:
       leagues:
@@ -46,6 +47,15 @@ en:
         invalid: Invalid credentials
     fantasy_teams:
       success_create: Fantasy team is created
+      fantasy_leagues:
+        success_create: Fantasy league is created
+        fail_create: Fantasy league is not created
+    fantasy_leagues:
+      joins:
+        success: Your team joined to fantasy league
+        invalid_code: Invalid invite code
+        no_team: You don't have a fantasy team for joining
+        joined: Your team is already joined to fantasy league
     lineups:
       players:
         lineup_update: Lineup is updated
@@ -76,10 +86,30 @@ en:
           name_ru: Name (ru)
           sport_kind: Sport kind
           create: Create new league
+    fantasy_leagues:
+      show:
+        title: Inviting friends to join
+        link: You can send this link to your friends
+        email: Or send email with provided text
     fantasy_teams:
       points:
         index:
           no_lineups: There is no active week
+      fantasy_leagues:
+        index:
+          leagues: Fantasy leagues
+          general_leagues: General fantasy leagues
+          user_leagues: User fantasy leagues
+          new_user_league: Add fantasy league
+          cups: Cups
+          table:
+            league: League
+            teams: Teams amount
+            rank: Rank
+        new:
+          title: Add fantasy league
+          name: Name
+          create: Create fantsy league
     shared:
       statistic:
         title: Points/Rankings

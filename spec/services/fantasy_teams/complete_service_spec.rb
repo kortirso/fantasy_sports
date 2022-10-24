@@ -10,12 +10,12 @@ describe FantasyTeams::CompleteService, type: :service do
 
   let!(:fantasy_team) { create :fantasy_team }
   let!(:teams_player) { create :teams_player }
-  let(:params) { { name: name, budget_cents: 500, favourite_team_id: favourite_team_id } }
+  let(:params) { { name: name, budget_cents: 500, favourite_team_uuid: favourite_team_uuid } }
   let(:transfers_validator) { double }
   let(:lineup_creator) { double }
   let(:lineup_creator_result) { double }
   let(:lineup) { create :lineup }
-  let(:favourite_team_id) { nil }
+  let(:favourite_team_uuid) { nil }
 
   before do
     allow(lineup_creator).to receive(:call).and_return(lineup_creator_result)
@@ -125,11 +125,11 @@ describe FantasyTeams::CompleteService, type: :service do
     end
   end
 
-  context 'for existing favourite_team_id' do
+  context 'for existing favourite_team_uuid' do
     let!(:team) { create :team }
     let!(:fantasy_league) { create :fantasy_league, leagueable: team }
     let(:name) { 'My new team' }
-    let(:favourite_team_id) { team.id }
+    let(:favourite_team_uuid) { team.uuid }
 
     before do
       allow(transfers_validator).to receive(:call).and_return([])

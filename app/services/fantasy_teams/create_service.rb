@@ -4,6 +4,12 @@ module FantasyTeams
   class CreateService
     prepend ApplicationService
 
+    def initialize(
+      league_join_service: ::FantasyLeagues::JoinService
+    )
+      @league_join_service = league_join_service
+    end
+
     def call(season:, user:)
       @season = season
       @user   = user
@@ -23,8 +29,10 @@ module FantasyTeams
     end
 
     def connect_fantasy_team_with_main_league
-      overall_fantasy_league = @season.fantasy_leagues.find_by(name: 'Overall')
-      overall_fantasy_league.fantasy_leagues_teams.create(pointable: @result)
+      @league_join_service.call(
+        fantasy_team: @result,
+        fantasy_league: @season.fantasy_leagues.find_by(name: 'Overall')
+      )
     end
   end
 end

@@ -1,0 +1,31 @@
+@import '../general/colors.scss';
+
+table.table {
+  &.full-width {
+    width: 100%;
+  }
+
+  thead {
+    tr {
+      background: $gray200;
+
+      th {
+        padding: .25rem .5rem;
+        text-align: left;
+        font-size: .9rem;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-of-type(even) {
+        background: $gray200;
+      }
+
+      td {
+        padding: .5rem;
+      }
+    }
+  }
+}

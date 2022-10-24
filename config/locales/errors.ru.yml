@@ -26,6 +26,10 @@ ru:
             filled?: не может быть пустым
           budget_cents:
             filled?: должен быть указан
+      fantasy_league:
+        rules:
+          name:
+            filled?: не может быть пустым
       league:
         rules:
           name:

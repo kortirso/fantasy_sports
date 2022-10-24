@@ -1,0 +1,18 @@
+<table cellSpacing="0" class="table full-width">
+  <thead>
+    <tr>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.league') %></th>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.teams') %></th>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.rank') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @fantasy_leagues.each do |league| %>
+      <tr>
+        <td><%= link_to league.name, fantasy_league_path(league.uuid) %></td>
+        <td><%= league.fantasy_teams.size %></td>
+        <td><%= league.fantasy_teams.where('points > ?', @fantasy_team.points).size + 1 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
