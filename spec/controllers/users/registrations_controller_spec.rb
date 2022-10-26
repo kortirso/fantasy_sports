@@ -85,11 +85,19 @@ describe Users::RegistrationsController, type: :controller do
         expect(User.last.email).to eq 'user@gmail.com'
       end
 
-      it 'redirects to dashboard path' do
+      it 'redirects to confirm path' do
         request
 
-        expect(response).to redirect_to home_en_path
+        expect(response).to redirect_to users_confirm_en_path
       end
+    end
+  end
+
+  describe 'GET#confirm' do
+    it 'renders confirm template' do
+      get :confirm, params: { locale: 'en' }
+
+      expect(response).to render_template :confirm
     end
   end
 end

@@ -3,6 +3,7 @@
 module Weeks
   class OpponentsController < ApplicationController
     skip_before_action :authenticate, only: %i[index]
+    skip_before_action :check_email_confirmation, only: %i[index]
     before_action :find_week, only: %i[index]
     before_action :find_opponents, only: %i[index]
 

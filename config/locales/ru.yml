@@ -45,6 +45,9 @@ ru:
         success_create: Вы вошли
         success_destroy: Вы вышли
         invalid: Неверные данные
+      confirmations:
+        success: Ваш аккаунт верифицирован
+        failure: Ваш аккаунт не может быть верифицирован
     fantasy_teams:
       success_create: Команда создана
       fantasy_leagues:
@@ -127,7 +130,21 @@ ru:
           password: Пароль
           password_confirmation: Подтверждение пароля
           create: Создать пользователя
+        confirm:
+          title: Спасибо за регистрацию
+          description: Вам необходимо проверить почтовый ящик и подтвердить его для получения доступа к Fantasy Sports
       sessions:
         new:
           login: Вход
           sign_in: Войти
+      confirmations:
+        failed_complete:
+          title: Email не может быть подтвержден
+          description: Неверные данные при подтверждении email
+  mailers:
+    users:
+      auth:
+        confirmation_email:
+          subject: Подтверждение email от Fantasy Sports
+          h1: Добро пожаловать на Fantasy Sports
+          click: Нажмите на ссылку ниже, чтобы подтвердить ваш аккаунт

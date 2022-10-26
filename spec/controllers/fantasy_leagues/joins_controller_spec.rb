@@ -2,13 +2,8 @@
 
 describe FantasyLeagues::JoinsController, type: :controller do
   describe 'GET#index' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :index, params: { fantasy_league_id: 'unexisting', invite_code: '', locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
@@ -18,7 +13,7 @@ describe FantasyLeagues::JoinsController, type: :controller do
       end
 
       context 'for not existing fantasy league' do
-        before { get :index, params: { fantasy_league_id: 'unexisting', invite_code: '', locale: 'en' } }
+        before { do_request }
 
         it 'does not call join service' do
           expect(FantasyLeagues::JoinService).not_to have_received(:call)
@@ -122,6 +117,10 @@ describe FantasyLeagues::JoinsController, type: :controller do
           end
         end
       end
+    end
+
+    def do_request
+      get :index, params: { fantasy_league_id: 'unexisting', invite_code: '', locale: 'en' }
     end
   end
 end

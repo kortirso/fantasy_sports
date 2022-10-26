@@ -45,6 +45,9 @@ en:
         success_create: You are logged in
         success_destroy: You are logged out
         invalid: Invalid credentials
+      confirmations:
+        success: Your account is confirmed
+        failure: Your account can't be confirmed
     fantasy_teams:
       success_create: Fantasy team is created
       fantasy_leagues:
@@ -127,7 +130,21 @@ en:
           password: Password
           password_confirmation: Password confirmation
           create: Create user
+        confirm:
+          title: Thank you for registration
+          description: You need to check your mailbox to verify your email and gaining access to Fantasy Sports
       sessions:
         new:
           login: Login
           sign_in: Sign in
+      confirmations:
+        failed_complete:
+          title: Email can't be verified
+          description: Invalid credentials for email confirmation
+  mailers:
+    users:
+      auth:
+        confirmation_email:
+          subject: Confirmation email from Fantasy Sports
+          h1: Welcome to Fantasy Sports
+          click: Click link below to verify your account
