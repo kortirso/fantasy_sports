@@ -25,9 +25,9 @@ module Teams
 
     has_many :transfers, foreign_key: :teams_player_id, dependent: :destroy
 
+    scope :active, -> { where(active: true) }
+
     delegate :team, to: :seasons_team
     delegate :season, to: :seasons_team
-
-    scope :active, -> { where(active: true) }
   end
 end

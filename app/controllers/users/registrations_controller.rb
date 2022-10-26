@@ -3,6 +3,7 @@
 module Users
   class RegistrationsController < ApplicationController
     skip_before_action :authenticate
+    skip_before_action :check_email_confirmation
 
     def new
       @user = User.new
@@ -13,10 +14,12 @@ module Users
       service_call.success? ? success_create_response(service_call) : failed_create_response(service_call)
     end
 
+    def confirm; end
+
     private
 
     def success_create_response(service_call)
-      session[:fantasy_sports_token] = Auth::GenerateTokenService.call(user: service_call.result).result
+      session[:fantasy_sports_token] = ::Auth::GenerateTokenService.call(user: service_call.result).result
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 
@@ -26,7 +29,7 @@ module Users
     end
 
     def after_registration_path
-      home_path
+      users_confirm_path
     end
 
     def user_params

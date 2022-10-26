@@ -19,9 +19,9 @@ class Week < ApplicationRecord
   has_many :teams_player, through: :lineups
   has_many :transfers, through: :lineups
 
-  enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
-
   scope :active, -> { where(status: ACTIVE) }
+
+  enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
 
   delegate :league, to: :season
 

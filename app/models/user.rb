@@ -11,5 +11,11 @@ class User < ApplicationRecord
 
   has_one :users_session, class_name: 'Users::Session', dependent: :destroy
 
+  scope :not_confirmed, -> { where(confirmed_at: nil) }
+
   enum role: { regular: 0, admin: 1 }
+
+  def confirmed?
+    confirmed_at.present?
+  end
 end

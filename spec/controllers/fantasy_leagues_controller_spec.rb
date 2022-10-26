@@ -2,20 +2,15 @@
 
 describe FantasyLeaguesController, type: :controller do
   describe 'GET#show' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :show, params: { id: 'unexisting', locale: 'en' }
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
-
-    context 'for logged users' do
+    context 'for logged confirmed users' do
       sign_in_user
 
       context 'for not existing fantasy league' do
         it 'renders 404 page' do
-          get :show, params: { id: 'unexisting', locale: 'en' }
+          do_request
 
           expect(response).to render_template 'shared/404'
         end
@@ -30,6 +25,10 @@ describe FantasyLeaguesController, type: :controller do
           expect(response).to render_template :show
         end
       end
+    end
+
+    def do_request
+      get :show, params: { id: 'unexisting', locale: 'en' }
     end
   end
 end

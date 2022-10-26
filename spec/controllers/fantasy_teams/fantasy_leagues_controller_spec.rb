@@ -2,20 +2,15 @@
 
 describe FantasyTeams::FantasyLeaguesController, type: :controller do
   describe 'GET#index' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       context 'for not existing fantasy team' do
         it 'returns json not_found status with errors' do
-          get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
+          do_request
 
           expect(response).to have_http_status :not_found
         end
@@ -43,18 +38,17 @@ describe FantasyTeams::FantasyLeaguesController, type: :controller do
         end
       end
     end
+
+    def do_request
+      get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
+    end
   end
 
   describe 'GET#new' do
     let!(:fantasy_team) { create :fantasy_team }
 
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :new, params: { fantasy_team_id: 'unexisting', locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
@@ -67,6 +61,10 @@ describe FantasyTeams::FantasyLeaguesController, type: :controller do
         expect(response).to render_template :new
       end
     end
+
+    def do_request
+      get :new, params: { fantasy_team_id: 'unexisting', locale: 'en' }
+    end
   end
 
   describe 'POST#create' do
@@ -78,20 +76,15 @@ describe FantasyTeams::FantasyLeaguesController, type: :controller do
       create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
     end
 
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        post :create, params: { fantasy_team_id: 'unexisting', fantasy_league: { name: 'Name' }, locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       context 'for not existing fantasy team' do
         it 'returns json not_found status with errors' do
-          post :create, params: { fantasy_team_id: 'unexisting', fantasy_league: { name: '' }, locale: 'en' }
+          do_request
 
           expect(response).to have_http_status :not_found
         end
@@ -142,6 +135,10 @@ describe FantasyTeams::FantasyLeaguesController, type: :controller do
           end
         end
       end
+    end
+
+    def do_request
+      post :create, params: { fantasy_team_id: 'unexisting', fantasy_league: { name: 'Name' }, locale: 'en' }
     end
   end
 end

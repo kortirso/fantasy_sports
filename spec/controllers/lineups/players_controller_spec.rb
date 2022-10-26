@@ -2,20 +2,15 @@
 
 describe Lineups::PlayersController, type: :controller do
   describe 'GET#show' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :show, params: { lineup_id: 'unexisting', locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       context 'for not existing lineup' do
         it 'returns json not_found status with errors' do
-          get :show, params: { lineup_id: 'unexisting', locale: 'en' }
+          do_request
 
           expect(response).to have_http_status :not_found
         end
@@ -76,23 +71,22 @@ describe Lineups::PlayersController, type: :controller do
         end
       end
     end
+
+    def do_request
+      get :show, params: { lineup_id: 'unexisting', locale: 'en' }
+    end
   end
 
   describe 'PATCH#update' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       context 'for not existing lineup' do
         it 'returns json not_found status with errors' do
-          patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
+          do_request
 
           expect(response).to have_http_status :not_found
         end
@@ -194,6 +188,10 @@ describe Lineups::PlayersController, type: :controller do
           end
         end
       end
+    end
+
+    def do_request
+      patch :update, params: { lineup_id: 'unexisting', locale: 'en', lineup_players: { data: [{}] } }
     end
   end
 end

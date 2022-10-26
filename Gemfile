@@ -81,6 +81,9 @@ end
 group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem 'rack-mini-profiler', '>= 2.3.3'
+
+  # email previews
+  gem 'letter_opener'
 end
 
 group :test do

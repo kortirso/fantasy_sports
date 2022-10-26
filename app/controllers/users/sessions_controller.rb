@@ -5,11 +5,12 @@ module Users
     skip_before_action :authenticate
     before_action :find_user, only: %i[create]
     before_action :authenticate_user, only: %i[create]
+    before_action :check_email_confirmation, only: %i[create]
 
     def new; end
 
     def create
-      session[:fantasy_sports_token] = Auth::GenerateTokenService.call(user: @user).result
+      session[:fantasy_sports_token] = ::Auth::GenerateTokenService.call(user: @user).result
       redirect_to after_login_path, notice: t('controllers.users.sessions.success_create')
     end
 
@@ -32,6 +33,12 @@ module Users
       return if @user.authenticate(user_params[:password])
 
       failed_sign_in
+    end
+
+    def check_email_confirmation
+      return if @user.confirmed?
+
+      redirect_to users_confirm_path
     end
 
     def failed_sign_in

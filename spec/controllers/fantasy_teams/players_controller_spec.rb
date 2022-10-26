@@ -2,20 +2,15 @@
 
 describe FantasyTeams::PlayersController, type: :controller do
   describe 'GET#index' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       context 'for not existing fantasy team' do
         it 'returns json not_found status with errors' do
-          get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
+          do_request
 
           expect(response).to have_http_status :not_found
         end
@@ -56,6 +51,10 @@ describe FantasyTeams::PlayersController, type: :controller do
           end
         end
       end
+    end
+
+    def do_request
+      get :index, params: { fantasy_team_id: 'unexisting', locale: 'en' }
     end
   end
 end

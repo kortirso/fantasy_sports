@@ -2,22 +2,21 @@
 
 describe HomesController, type: :controller do
   describe 'GET#show' do
-    context 'for unlogged users' do
-      it 'redirects to login path' do
-        get :show, params: { locale: 'en' }
-
-        expect(response).to redirect_to users_login_en_path
-      end
-    end
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user
 
       it 'renders show template' do
-        get :show, params: { locale: 'en' }
+        do_request
 
         expect(response).to render_template :show
       end
+    end
+
+    def do_request
+      get :show, params: { locale: 'en' }
     end
   end
 end
