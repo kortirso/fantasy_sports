@@ -21,7 +21,7 @@ module Users
     private
 
     def validate_user(params)
-      @result = User.new(params.merge(confirmation_token: SecureRandom.hex))
+      @result = User.new(params)
       return if @result.valid?
 
       fail!(I18n.t('services.users.create.invalid'))

@@ -30,8 +30,7 @@ module FantasyLeagues
       params.merge!(
         leagueable: @leagueable,
         season: @fantasy_team.fantasy_leagues.first.season,
-        global: global_league?,
-        invite_code: global_league? ? nil : SecureRandom.hex
+        global: global_league?
       )
       @result = FantasyLeague.create!(params)
     end

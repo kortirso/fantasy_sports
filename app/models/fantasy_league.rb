@@ -3,6 +3,8 @@
 class FantasyLeague < ApplicationRecord
   include Uuidable
 
+  has_secure_token :invite_code, length: 24
+
   belongs_to :leagueable, polymorphic: true
   belongs_to :season
 
