@@ -6,13 +6,13 @@ module Games
 
     def initialize(
       player_statistic_update_service:   ::Games::Players::Statistic::UpdateService,
-      fetch_service:                     ::Import::FetchService,
+      fetch_game_data_service:           ::Import::FetchGameDataService,
       form_change_service:               ::Teams::Players::Form::ChangeService,
       lineups_players_points_update_job: ::Lineups::Players::Points::UpdateJob,
       players_statistic_update_job:      ::Players::Statistic::UpdateJob
     )
       @player_statistic_update_service   = player_statistic_update_service
-      @fetch_service                     = fetch_service
+      @fetch_game_data_service           = fetch_game_data_service
       @form_change_service               = form_change_service
       @lineups_players_points_update_job = lineups_players_points_update_job
       @players_statistic_update_job      = players_statistic_update_job
@@ -38,10 +38,9 @@ module Games
     end
 
     def fetch_game_data
-      @fetch_service.call(
-        source: @game.source,
+      @fetch_game_data_service.call(
         external_id: @game.external_id,
-        sport_kind: @game.week.league.sport_kind
+        fetcher_service: @game.fetcher_service
       ).result
     end
 
