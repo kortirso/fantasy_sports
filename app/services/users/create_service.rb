@@ -8,15 +8,16 @@ module Users
       @user_validator = user_validator
     end
 
-    def call(params:)
+    # rubocop: disable Metrics/CyclomaticComplexity
+    def call(params:, with_send_confirmation: true)
       return if validate_with(@user_validator, params) && failure?
       return if validate_user(params) && failure?
 
-      @result.save
-      send_email_confirmation
+      send_email_confirmation if @result.save && with_send_confirmation
     rescue ActiveRecord::RecordNotUnique
       fail!(I18n.t('services.users.create.email_exists'))
     end
+    # rubocop: enable Metrics/CyclomaticComplexity
 
     private
 

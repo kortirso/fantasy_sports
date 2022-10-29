@@ -58,7 +58,7 @@ export const Transfers = ({
   const [teamName, setTeamName] = useState<string>('');
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
   const [playersByPosition, setPlayersByPosition] = useState({});
-  const [favouriteTeamId, setFavouriteTeamId] = useState<string | null>(null);
+  const [favouriteTeamUuid, setFavouriteTeamUuid] = useState<string | null>(null);
   const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
@@ -185,7 +185,7 @@ export const Transfers = ({
       fantasy_team: {
         name: teamName,
         budget_cents: budget * 100,
-        favourite_team_uuid: favouriteTeamId ? parseInt(favouriteTeamId, 10) : null,
+        favourite_team_uuid: favouriteTeamUuid,
         teams_players_uuids: teamMembers.map((element: TeamsPlayer) => element.uuid),
       },
     };
@@ -274,8 +274,8 @@ export const Transfers = ({
                 },
                 {} as KeyValue,
               )}
-              onSelect={(value) => setFavouriteTeamId(value)}
-              selectedValue={favouriteTeamId}
+              onSelect={(value) => setFavouriteTeamUuid(value)}
+              selectedValue={favouriteTeamUuid}
             />
           </>
         )}

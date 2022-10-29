@@ -20,12 +20,16 @@ module Weeks
     def find_opponents
       @opponents = {}
       @week.games.includes(:home_season_team, :visitor_season_team).each do |game|
-        team1_id = game.home_season_team.team_id
-        team2_id = game.visitor_season_team.team_id
-
-        @opponents[team1_id] ? @opponents[team1_id].push(team2_id) : (@opponents[team1_id] = [team2_id])
-        @opponents[team2_id] ? @opponents[team2_id].push(team1_id) : (@opponents[team2_id] = [team1_id])
+        update_opponents_from_game(game)
       end
+    end
+
+    def update_opponents_from_game(game)
+      team1_uuid = game.home_season_team.team.uuid
+      team2_uuid = game.visitor_season_team.team.uuid
+
+      @opponents[team1_uuid] ? @opponents[team1_uuid].push(team2_uuid) : (@opponents[team1_uuid] = [team2_uuid])
+      @opponents[team2_uuid] ? @opponents[team2_uuid].push(team1_uuid) : (@opponents[team2_uuid] = [team1_uuid])
     end
   end
 end
