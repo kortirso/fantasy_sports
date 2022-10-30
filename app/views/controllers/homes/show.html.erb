@@ -3,6 +3,9 @@
   <% Sports.all.each do |sport_kind, values| %>
     <div class="sport">
       <h2><%= localized_value(values['name']) %></h2>
+      <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), sport_rules_path(sport_kind), class: 'button' %>
+      <br />
+      <br />
       <div class="sport-leagues">
         <% @leagues[sport_kind].each do |league| %>
           <div class="league">
