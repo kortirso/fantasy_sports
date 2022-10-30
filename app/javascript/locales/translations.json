@@ -53,6 +53,19 @@
       "thisSeason": "This season",
       "previousSeasons": "Previous seasons",
       "noSeasonGames": "There are no games yet"
+    },
+    "sportRules": {
+      "title": "Rules",
+      "squadSizeHeader": "Squad size",
+      "selectSquad": "Selecting your initial squad",
+      "maxPlayers": "To join the game select a squad of {number} players, consisting of:",
+      "budgetHeader": "Budget",
+      "budgetDescription": "The total value of your initial squad must not exceed 100 points.",
+      "perTeamHeader": "Players per team",
+      "maxTeamPlayers": "You can select up to {number} players from a single team.",
+      "transfers": "Transfers",
+      "deadlines": "Deadlines",
+      "scoring": "Scoring"
     }
   },
   "ru": {
@@ -109,6 +122,19 @@
       "thisSeason": "Текущий сезон",
       "previousSeasons": "Предыдущие сезоны",
       "noSeasonGames": "Пока нет данных"
+    },
+    "sportRules": {
+      "title": "Правила",
+      "squadSizeHeader": "Состав",
+      "selectSquad": "Выбор начального состава",
+      "maxPlayers": "Для присоединения к игре выберите состав из {number} игроков, состоящий из:",
+      "budgetHeader": "Бюджет",
+      "budgetDescription": "Суммарная стоимость состава не должна превышать 100 очков.",
+      "perTeamHeader": "Игроки из одной команды",
+      "maxTeamPlayers": "Вы можете выбрать до {number} игроков из одной команды.",
+      "transfers": "Трансферы",
+      "deadlines": "Дедлайны",
+      "scoring": "Начисление очков"
     }
   }
 }

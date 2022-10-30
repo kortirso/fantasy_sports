@@ -1,0 +1,6 @@
+<%= render Views::Shared::NavigationComponent.new %>
+<%= render PageWrappers::PageComponent.new do %>
+  <div id="rules-page" class="main-container">
+    <%= react_component 'SportRules', component_class: 'half-container', sportKind: params[:sport_id] %>
+  </div>
+<% end %>
