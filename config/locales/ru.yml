@@ -25,6 +25,10 @@ ru:
           transfers: Трансферы
           points: Очки
           leagues: Фэнтези лиги и кубки
+          rules: Правила
+        sport_navigation_component:
+          football: Футбол
+          basketball: Баскетбол
   controllers:
     admin:
       leagues:
@@ -130,6 +134,7 @@ ru:
           password: Пароль
           password_confirmation: Подтверждение пароля
           create: Создать пользователя
+          have_account: Уже есть аккаунт?
         confirm:
           title: Спасибо за регистрацию
           description: Вам необходимо проверить почтовый ящик и подтвердить его для получения доступа к Fantasy Sports
@@ -137,6 +142,7 @@ ru:
         new:
           login: Вход
           sign_in: Войти
+          no_account: Нет аккаунта?
       confirmations:
         failed_complete:
           title: Email не может быть подтвержден

@@ -2,9 +2,9 @@
 
 .button {
   display: inline-block;
-  background: $gray200;
+  background: $green400;
   color: $gray800;
-  border: 1px solid $gray300;
+  border: 1px solid $green500;
   border-radius: .125rem;
   padding: .5rem 1rem;
   font-size: 1rem;
@@ -12,7 +12,7 @@
   text-decoration: none;
 
   &:hover {
-    background: $gray300;
+    background: $green500;
   }
 
   &.small {

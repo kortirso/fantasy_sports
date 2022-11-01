@@ -1,6 +1,11 @@
-<%= render Views::Shared::NavigationComponent.new %>
 <%= render PageWrappers::PageComponent.new do %>
-  <div id="rules-page" class="main-container">
-    <%= react_component 'SportRules', component_class: 'half-container', sportKind: params[:sport_id] %>
+  <%= render Views::Shared::SportNavigationComponent.new %>
+  <div class="page-wrapper">
+    <%= render Views::Shared::FantasyTeamNavigationComponent.new %>
+    <div class="page-content">
+      <div id="rules-page" class="main-container">
+        <%= react_component 'SportRules', component_class: 'half-container', sportKind: params[:sport_id] %>
+      </div>
+    </div>
   </div>
 <% end %>

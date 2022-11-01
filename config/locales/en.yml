@@ -25,6 +25,10 @@ en:
           transfers: Transfers
           points: Points
           leagues: Fantasy Leagues and Cups
+          rules: Rules
+        sport_navigation_component:
+          football: Football
+          basketball: Basketball
   controllers:
     admin:
       leagues:
@@ -129,7 +133,8 @@ en:
           sing_up: Sign up
           password: Password
           password_confirmation: Password confirmation
-          create: Create user
+          create: Sign up
+          have_account: Already have account?
         confirm:
           title: Thank you for registration
           description: You need to check your mailbox to verify your email and gaining access to Fantasy Sports
@@ -137,6 +142,7 @@ en:
         new:
           login: Login
           sign_in: Sign in
+          no_account: Don't have account?
       confirmations:
         failed_complete:
           title: Email can't be verified

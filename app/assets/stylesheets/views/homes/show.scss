@@ -1,8 +1,14 @@
 @import '../../general/colors.scss';
 
 .sport {
+  margin-bottom: 2rem;
+
   h2 {
     margin: 0 0 1rem;
+
+    a {
+      margin-left: 1rem;
+    }
   }
 
   .sport-leagues {

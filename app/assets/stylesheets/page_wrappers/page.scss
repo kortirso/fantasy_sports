@@ -1,9 +1,45 @@
-.page-content {
+@import '../general/colors.scss';
+
+.page-container {
+  display: flex;
   flex: 1;
-  width: 100%;
-  max-width: 90rem;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  height: 100vh;
+  overflow: hidden;
+
+  .sport-navigation {
+    display: fixed;
+    width: 4rem;
+    background: $black;
+    padding-top: 1.5rem;
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: $white;
+    }
+
+    .sport-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: .75rem;
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: scroll;
+
+    .page-content {
+      padding: 2rem;
+    }
+  }
 }
 
 .main-container {

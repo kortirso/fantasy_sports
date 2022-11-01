@@ -1,19 +1,27 @@
-<%= render Views::Shared::NavigationComponent.new %>
 <%= render PageWrappers::PageComponent.new do %>
-  <% Sports.all.each do |sport_kind, values| %>
-    <div class="sport">
-      <h2><%= localized_value(values['name']) %></h2>
-      <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), sport_rules_path(sport_kind), class: 'button' %>
-      <br />
-      <br />
-      <div class="sport-leagues">
-        <% @leagues[sport_kind].each do |league| %>
-          <div class="league">
-            <h3><%= localized_value(league.name) %></h3>
-            <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(season: league.active_season, user: Current.user) %>
-          </div>
+  <%= render Views::Shared::SportNavigationComponent.new %>
+  <div class="page-wrapper">
+    <%= render Views::Shared::FantasyTeamNavigationComponent.new %>
+    <div class="page-content">
+      <% if params[:sport_kind] %>
+        <%=
+          render Views::Homes::Show::SportComponent.new(
+            sport_kind: params[:sport_kind],
+            leagues: @leagues[params[:sport_kind]],
+            user: Current.user
+          )
+        %>
+      <% else %>
+        <% Sports.all.each_key do |sport_kind| %>
+          <%=
+            render Views::Homes::Show::SportComponent.new(
+              sport_kind: sport_kind,
+              leagues: @leagues[sport_kind],
+              user: Current.user
+            )
+          %>
         <% end %>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>

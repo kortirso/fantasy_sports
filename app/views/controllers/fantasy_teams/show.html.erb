@@ -1,17 +1,22 @@
-<%= render Views::Shared::NavigationComponent.new(fantasy_team: @fantasy_team) %>
-<%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div id="fantasy-team-squad" class="main-container">
-    <%=
-      react_component 'Squad',
-        component_id:    'fantasy-team-members',
-        component_class: 'left-container',
-        seasonUuid:      @season.uuid,
-        sportKind:       @season.league.sport_kind,
-        lineupUuid:      @lineup.uuid,
-        weekUuid:        @lineup.week.uuid,
-        weekPosition:    @lineup.week.position,
-        weekDeadlineAt:  @lineup.week.deadline_at.strftime('%d.%m.%Y %H:%M')
-    %>
-    <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, season: @season) %>
+<%= render PageWrappers::PageComponent.new do %>
+  <%= render Views::Shared::SportNavigationComponent.new %>
+  <div class="page-wrapper">
+    <%= render Views::Shared::FantasyTeamNavigationComponent.new(fantasy_team: @fantasy_team) %>
+    <div class="page-content">
+      <div id="fantasy-team-squad" class="main-container">
+        <%=
+          react_component 'Squad',
+            component_id:    'fantasy-team-members',
+            component_class: 'left-container',
+            seasonUuid:      @season.uuid,
+            sportKind:       @season.league.sport_kind,
+            lineupUuid:      @lineup.uuid,
+            weekUuid:        @lineup.week.uuid,
+            weekPosition:    @lineup.week.position,
+            weekDeadlineAt:  @lineup.week.deadline_at.strftime('%d.%m.%Y %H:%M')
+        %>
+        <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, season: @season) %>
+      </div>
+    <div>
   </div>
 <% end %>

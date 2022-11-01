@@ -2,7 +2,7 @@
 
 module Views
   module Shared
-    class NavigationComponent < ApplicationViewComponent
+    class FantasyTeamNavigationComponent < ApplicationViewComponent
       def initialize(fantasy_team: nil)
         @fantasy_team = fantasy_team
 

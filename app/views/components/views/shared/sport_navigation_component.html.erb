@@ -1,0 +1,11 @@
+<div class="sport-navigation">
+  <%= link_to t('components.views.shared.fantasy_team_navigation_component.home'), home_path, class: 'home-link' %>
+  <%= link_to home_path(sport_kind: Sportable::FOOTBALL), class: 'sport-link' do %>
+    <%= image_tag 'icons/football.svg' %>
+    <span><%= t('components.views.shared.sport_navigation_component.football') %></span>
+  <% end %>
+  <%= link_to home_path(sport_kind: Sportable::BASKETBALL), class: 'sport-link' do %>
+    <%= image_tag 'icons/basketball.svg' %>
+    <span><%= t('components.views.shared.sport_navigation_component.basketball') %></span>
+  <% end %>
+</div>
