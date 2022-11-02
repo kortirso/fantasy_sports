@@ -26,6 +26,7 @@ ru:
           points: Очки
           leagues: Фэнтези лиги и кубки
           rules: Правила
+          status: Статус
         sport_navigation_component:
           football: Футбол
           basketball: Баскетбол
@@ -99,6 +100,9 @@ ru:
         link: Вы можете отправить эту ссылку друзьям
         email: Или отправить письмо с нижеуказанным текстом
     fantasy_teams:
+      statuses:
+        show:
+          title: Статус %{week} игровой недели
       points:
         index:
           no_lineups: На данный момент нет активной игровой недели

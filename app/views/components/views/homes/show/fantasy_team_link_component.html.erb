@@ -1,6 +1,6 @@
 <% if @fantasy_team %>
   <% if @fantasy_team.completed? %>
-  <%= link_to @fantasy_team.name, fantasy_team_points_path(@fantasy_team.uuid), class: 'button' %>
+    <%= link_to @fantasy_team.name, fantasy_team_status_path(@fantasy_team.uuid), class: 'button' %>
   <% else %>
     <%= link_to @fantasy_team.name, fantasy_team_transfers_path(@fantasy_team.uuid), class: 'button' %>
   <% end %>

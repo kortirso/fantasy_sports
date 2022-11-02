@@ -4,6 +4,7 @@
       <h2><%= @fantasy_team.name %></h2>
     <% end %>
     <% if @fantasy_team&.completed? && @fantasy_team&.user == Current.user %>
+      <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_path(@fantasy_team.uuid), class: "#{'active' if current_page?(fantasy_team_status_path(@fantasy_team.uuid))}" %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "#{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "#{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "#{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>

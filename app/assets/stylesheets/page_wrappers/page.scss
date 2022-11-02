@@ -37,7 +37,10 @@
     overflow-y: scroll;
 
     .page-content {
-      padding: 2rem;
+      width: 100%;
+      max-width: 90rem;
+      margin: 2rem auto;
+      padding: 0 2rem;
     }
   }
 }
