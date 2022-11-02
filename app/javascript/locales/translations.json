@@ -66,6 +66,13 @@
       "transfers": "Transfers",
       "deadlines": "Deadlines",
       "scoring": "Scoring"
+    },
+    "transfersStatus": {
+      "transfersIn": "Top Transfers in this Gameweek",
+      "transfersOut": "Top Transfers out this Gameweek",
+      "position": "Position",
+      "player": "Player",
+      "team": "Team"
     }
   },
   "ru": {
@@ -135,6 +142,13 @@
       "transfers": "Трансферы",
       "deadlines": "Дедлайны",
       "scoring": "Начисление очков"
+    },
+    "transfersStatus": {
+      "transfersIn": "Top Transfers in this Gameweek",
+      "transfersOut": "Top Transfers out this Gameweek",
+      "position": "Позиция",
+      "player": "Игрок",
+      "team": "Команда"
     }
   }
 }

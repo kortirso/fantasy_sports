@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :fantasy_teams, only: %i[show create update] do
       scope module: :fantasy_teams do
         resource :transfers, only: %i[show update]
+        resource :status, only: %i[show]
         resources :points, only: %i[index]
         resources :players, only: %i[index]
         resources :fantasy_leagues, only: %i[index new create]
@@ -43,7 +44,10 @@ Rails.application.routes.draw do
       resources :players, only: %i[index show], module: 'seasons'
     end
     resources :weeks, only: %i[show] do
-      resources :opponents, only: %i[index], module: 'weeks'
+      scope module: :weeks do
+        resources :opponents, only: %i[index]
+        resources :transfers, only: %i[index]
+      end
     end
     resources :fantasy_leagues, only: %i[show] do
       resources :joins, only: %i[index], module: 'fantasy_leagues'

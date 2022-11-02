@@ -5,4 +5,5 @@ export * from './SportRules';
 export * from './Squad';
 export * from './SquadPoints';
 export * from './Transfers';
+export * from './TransfersStatus';
 export * from './Week';

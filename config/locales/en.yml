@@ -26,6 +26,7 @@ en:
           points: Points
           leagues: Fantasy Leagues and Cups
           rules: Rules
+          status: Status
         sport_navigation_component:
           football: Football
           basketball: Basketball
@@ -99,6 +100,9 @@ en:
         link: You can send this link to your friends
         email: Or send email with provided text
     fantasy_teams:
+      statuses:
+        show:
+          title: Gameweek %{week} status
       points:
         index:
           no_lineups: There is no active week
