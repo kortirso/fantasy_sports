@@ -604,7 +604,8 @@ CREATE TABLE public.lineups_players (
     change_order integer DEFAULT 0 NOT NULL,
     points numeric(8,2),
     status integer DEFAULT 0 NOT NULL,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    statistic jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -1614,6 +1615,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221019180812'),
 ('20221020193541'),
 ('20221023112647'),
-('20221026162239');
+('20221026162239'),
+('20221104162149');
 
 
