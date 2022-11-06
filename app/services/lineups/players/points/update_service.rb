@@ -15,7 +15,7 @@ module Lineups
           @lineups_update_points_service = lineups_update_points_service
         end
 
-        # rubocop: disable Metrics/AbcSize
+        # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
         def call(team_player_ids:, week_id:)
           lineup_ids = []
           team_player_ids.each do |teams_player_id|
@@ -25,20 +25,24 @@ module Lineups
               .where(teams_player_id: teams_player_id)
               .where(lineups: { week_id: week_id })
 
-            points =
+            games_players =
               Games::Player
               .joins(:game)
               .where(teams_player_id: teams_player_id)
               .where(game: { week_id: week_id })
-              .sum(:points)
 
-            lineups_players.captain.update_all(points: points * CAPTAIN_POINTS_COEFFICIENT)
-            lineups_players.not_captain.update_all(points: points)
+            points = games_players.sum(:points)
+            statistic = games_players.pluck(:statistic).inject({}) { |acc, element|
+              acc.merge(element) { |_, oldval, newval| oldval + newval }
+            }
+
+            lineups_players.captain.update_all(points: points * CAPTAIN_POINTS_COEFFICIENT, statistic: statistic)
+            lineups_players.not_captain.update_all(points: points, statistic: statistic)
             lineup_ids.push(lineups_players.pluck(:lineup_id))
           end
           @lineups_update_points_service.call(lineup_ids: lineup_ids.flatten.uniq.sort)
         end
-        # rubocop: enable Metrics/AbcSize
+        # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
       end
     end
   end

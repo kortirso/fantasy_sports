@@ -15,7 +15,7 @@ module Lineups
       fantasy_team_ids = []
 
       lineups.each { |lineup|
-        lineup.update(points: lineup.lineups_players.active.pluck(:points).sum(&:to_i))
+        lineup.update(points: lineup.lineups_players.active.pluck(:points).sum(&:to_d))
         fantasy_team_ids.push(lineup.fantasy_team_id)
       }
 

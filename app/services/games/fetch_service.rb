@@ -25,7 +25,7 @@ module Games
 
       update_games_players_statistic
       update_players_statistic
-      update_lineups_players_points
+      update_lineups_players
     end
 
     private
@@ -71,7 +71,7 @@ module Games
       @players_statistic_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids)
     end
 
-    def update_lineups_players_points
+    def update_lineups_players
       @lineups_players_points_update_job.perform_now(
         team_player_ids: @team_player_ids,
         week_id: @game.week_id
