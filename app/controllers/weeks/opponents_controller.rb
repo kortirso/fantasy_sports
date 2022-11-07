@@ -19,7 +19,7 @@ module Weeks
 
     def find_opponents
       @opponents = {}
-      @week.games.includes(:home_season_team, :visitor_season_team).each do |game|
+      @week.games.includes([home_season_team: :team], [visitor_season_team: :team]).each do |game|
         update_opponents_from_game(game)
       end
     end

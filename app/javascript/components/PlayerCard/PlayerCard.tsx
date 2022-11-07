@@ -29,7 +29,7 @@ export const PlayerCard = ({
   return (
     <div className="player-card-box">
       <div className={className} onClick={onCardClick ? onCardClick : undefined}>
-        <p className="player-team-name">{teamName}</p>
+        <p className={`player-team-name ${teamName}`}></p>
         <p className="player-name">{name}</p>
         <p className="player-value">{value}</p>
         {onActionClick ? (
