@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe FantasyLeaguesController, type: :controller do
+describe FantasyLeaguesController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Admin::LeaguesController, type: :controller do
+describe Admin::LeaguesController do
   describe 'GET#index' do
     context 'for unlogged users' do
       it 'redirects to login path' do

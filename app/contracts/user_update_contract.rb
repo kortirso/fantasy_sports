@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-class UserContract < ApplicationContract
+class UserUpdateContract < ApplicationContract
   config.messages.namespace = :user
 
   params do
-    required(:email).filled(:string)
     required(:password).filled(:string)
     required(:password_confirmation).filled(:string)
-  end
-
-  rule(:email) do
-    unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
-      key.failure(:invalid)
-    end
   end
 
   rule(:password, :password_confirmation) do

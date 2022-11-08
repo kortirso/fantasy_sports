@@ -935,7 +935,8 @@ CREATE TABLE public.users (
     updated_at timestamp(6) without time zone NOT NULL,
     role integer DEFAULT 0 NOT NULL,
     confirmation_token character varying,
-    confirmed_at timestamp(6) without time zone
+    confirmed_at timestamp(6) without time zone,
+    restore_token character varying
 );
 
 
@@ -1616,6 +1617,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221020193541'),
 ('20221023112647'),
 ('20221026162239'),
-('20221104162149');
+('20221104162149'),
+('20221108144820');
 
 

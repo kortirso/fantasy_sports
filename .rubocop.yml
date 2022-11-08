@@ -225,6 +225,9 @@ RSpec/InstanceVariable:
 RSpec/PredicateMatcher:
   Enabled: false
 
+RSpec/FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
+
 Rails/InverseOf:
   Enabled: false
 

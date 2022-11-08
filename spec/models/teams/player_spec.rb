@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Teams::Player, type: :model do
+describe Teams::Player do
   it 'factory should be valid' do
     teams_player = build :teams_player
 

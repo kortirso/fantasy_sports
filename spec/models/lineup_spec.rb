@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Lineup, type: :model do
+describe Lineup do
   it 'factory should be valid' do
     lineup = build :lineup
 

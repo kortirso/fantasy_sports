@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Lineups::PlayersController, type: :controller do
+describe Lineups::PlayersController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

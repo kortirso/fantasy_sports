@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Sports::RulesController, type: :controller do
+describe Sports::RulesController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

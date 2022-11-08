@@ -10,6 +10,7 @@ ru:
         change_locale: Изменить локаль
         login: Вход
         sign_up: Регистрация
+        restore: Восстановить пароль
     views:
       homes:
         show:
@@ -53,6 +54,12 @@ ru:
       confirmations:
         success: Ваш аккаунт верифицирован
         failure: Ваш аккаунт не может быть верифицирован
+      restore:
+        success: Письмо с ссылкой для восстановления отправлено
+        invalid: Пароль не может быть восстановлен
+      recovery:
+        success: Пароль изменён
+        invalid: Пароль не может быть изменён
     fantasy_teams:
       success_create: Команда создана
       fantasy_leagues:
@@ -147,6 +154,16 @@ ru:
           login: Вход
           sign_in: Войти
           no_account: Нет аккаунта?
+          forgot: Забыли пароль?
+      restore:
+        new:
+          title: Восстановление пароля
+          description: Мы отправим письмо на ваш email с ссылкой для восстановления
+          action: Восстановить
+      recovery:
+        new:
+          title: Установка нового пароля
+          action: Подтвердить
       confirmations:
         failed_complete:
           title: Email не может быть подтвержден
@@ -158,3 +175,6 @@ ru:
           subject: Подтверждение email от Fantasy Sports
           h1: Добро пожаловать на Fantasy Sports
           click: Нажмите на ссылку ниже, чтобы подтвердить ваш аккаунт
+        password_restore_email:
+          subject: Восстановление пароля от Fantasy Sports
+          click: Нажмите на ссылку ниже, чтобы восстановить пароль

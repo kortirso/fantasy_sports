@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_secure_password
   has_secure_token :confirmation_token, length: 24
+  has_secure_token :restore_token, length: 24
 
   has_many :fantasy_teams, dependent: :destroy
   has_many :lineups, through: :fantasy_teams
