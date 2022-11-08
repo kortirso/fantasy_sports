@@ -22,7 +22,7 @@ gem 'sassc-rails'
 gem 'sprockets', '~> 4.1'
 
 # A framework for building view components
-gem 'view_component', '~> 2.74', require: 'view_component/engine'
+gem 'view_component', '~> 2.75', require: 'view_component/engine'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '~> 3.1'
@@ -34,10 +34,10 @@ gem 'jwt', '~> 2.5'
 gem 'action_policy', '~> 0.6'
 
 # validations
-gem 'dry-validation', '~> 1.9'
+gem 'dry-validation', '~> 1.10'
 
 # Catch unsafe migrations in development
-gem 'strong_migrations', '~> 1.3'
+gem 'strong_migrations', '~> 1.4'
 
 # api serializer
 gem 'jsonapi-serializer', '2.2.0'
