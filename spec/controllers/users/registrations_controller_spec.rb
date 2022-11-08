@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Users::RegistrationsController, type: :controller do
+describe Users::RegistrationsController do
   describe 'GET#new' do
     it 'renders new template' do
       get :new, params: { locale: 'en' }

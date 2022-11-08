@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe TeamsController, type: :controller do
+describe TeamsController do
   describe 'GET#index' do
     let!(:season) { create :season, active: true }
 

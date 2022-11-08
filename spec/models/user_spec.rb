@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe User, type: :model do
+describe User do
   it 'factory should be valid' do
     user = build :user
 

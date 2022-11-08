@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Week, type: :model do
+describe Week do
   it 'factory should be valid' do
     week = build :week
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Seasons::PlayersController, type: :controller do
+describe Seasons::PlayersController do
   describe 'GET#index' do
     context 'for not existing season' do
       before do

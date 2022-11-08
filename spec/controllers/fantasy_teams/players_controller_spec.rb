@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe FantasyTeams::PlayersController, type: :controller do
+describe FantasyTeams::PlayersController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

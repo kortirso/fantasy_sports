@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Transfer, type: :model do
+describe Transfer do
   it 'factory should be valid' do
     transfer = build :transfer
 

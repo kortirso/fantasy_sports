@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Games::Player, type: :model do
+describe Games::Player do
   it 'factory should be valid' do
     games_player = build :games_player
 

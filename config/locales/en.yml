@@ -10,6 +10,7 @@ en:
         change_locale: Change locale
         login: Login
         sign_up: Sign Up
+        restore: Restore password
     views:
       homes:
         show:
@@ -53,6 +54,12 @@ en:
       confirmations:
         success: Your account is confirmed
         failure: Your account can't be confirmed
+      restore:
+        success: Email with restore link was send
+        invalid: Password can't be restore
+      recovery:
+        success: Password is changed
+        invalid: Password can't be changed
     fantasy_teams:
       success_create: Fantasy team is created
       fantasy_leagues:
@@ -147,6 +154,16 @@ en:
           login: Login
           sign_in: Sign in
           no_account: Don't have account?
+          forgot: Forgot password?
+      restore:
+        new:
+          title: Password recovery
+          description: We will send email message with recovery link to your address
+          action: Restore
+      recovery:
+        new:
+          title: Set new password
+          action: Confirm
       confirmations:
         failed_complete:
           title: Email can't be verified
@@ -158,3 +175,6 @@ en:
           subject: Confirmation email from Fantasy Sports
           h1: Welcome to Fantasy Sports
           click: Click link below to verify your account
+        password_restore_email:
+          subject: Password recovery link from Fantasy Sports
+          click: Click link below to restore your password

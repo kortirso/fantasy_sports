@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Users::Session, type: :model do
+describe Users::Session do
   it 'factory should be valid' do
     users_session = build :users_session
 

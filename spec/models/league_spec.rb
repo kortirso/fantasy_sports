@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe League, type: :model do
+describe League do
   it 'factory should be valid' do
     league = build :league
 

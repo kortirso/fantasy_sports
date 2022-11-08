@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Users::ConfirmationsController, type: :controller do
+describe Users::ConfirmationsController do
   describe 'GET#complete' do
     before do
       allow(Users::CompleteService).to receive(:call)

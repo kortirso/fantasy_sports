@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe FantasyLeagues::JoinsController, type: :controller do
+describe FantasyLeagues::JoinsController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

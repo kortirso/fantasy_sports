@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe FantasyTeams::TransfersController, type: :controller do
+describe FantasyTeams::TransfersController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

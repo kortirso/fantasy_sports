@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Weeks::TransfersController, type: :controller do
+describe Weeks::TransfersController do
   describe 'GET#index' do
     context 'for not existing week' do
       before do

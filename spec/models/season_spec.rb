@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Season, type: :model do
+describe Season do
   it 'factory should be valid' do
     season = build :season
 
