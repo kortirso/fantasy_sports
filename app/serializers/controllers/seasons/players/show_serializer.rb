@@ -10,7 +10,7 @@ module Controllers
             .games_players
             .includes(game: :week)
             .where(weeks: { status: [Week::COMING, Week::ACTIVE, Week::FINISHED] })
-            .order('weeks.position')
+            .order(game_id: :asc)
           Games::PlayerSerializer.new(games_players).serializable_hash
         end
       end
