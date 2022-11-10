@@ -20,7 +20,7 @@ module Teams
           unless seasons_teams_ids.empty?
             data = data.joins(:teams_player).where(teams_players: { seasons_team_id: seasons_teams_ids })
           end
-          data.group(:teams_player_id).average(:points).transform_values(&:to_f)
+          data.group(:teams_player_id).average(:points).transform_values { |points| points&.to_d&.round(1) }
         end
       end
     end

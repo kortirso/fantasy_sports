@@ -52,7 +52,7 @@ module Players
 
       def games_player_hash(games_player)
         {
-          points: games_player.points.to_i,
+          points: games_player.points.to_d,
           statistic: games_player.statistic || {}
         }
       end
