@@ -38,3 +38,7 @@ ru:
           sport_kind:
             filled?: должен быть указан
             invalid: неверное значение
+      season:
+        rules:
+          name:
+            filled?: не может быть пустым

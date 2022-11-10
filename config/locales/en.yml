@@ -11,6 +11,10 @@ en:
         login: Login
         sign_up: Sign Up
         restore: Restore password
+      admin:
+        welcome: Welcome
+        leagues: Leagues
+        seasons: Seasons
     views:
       homes:
         show:
@@ -36,6 +40,9 @@ en:
       leagues:
         create:
           success: League is created
+      seasons:
+        create:
+          success: Season is created
     application:
       page_not_found: Page is not found
     maintenable:
@@ -88,6 +95,9 @@ en:
       create:
         email_exists: Email is already used
         invalid: Credentials are invalid
+    seasons:
+      create:
+        league_does_not_exist: League does not exist
   views:
     admin:
       leagues:
@@ -101,6 +111,17 @@ en:
           name_ru: Name (ru)
           sport_kind: Sport kind
           create: Create new league
+      seasons:
+        index:
+          header: Seasons
+          new_season: Add new season
+          name: Name
+          active: Active
+        new:
+          name: Name
+          active: Active
+          league_id: League
+          create: Create new season
     fantasy_leagues:
       show:
         title: Inviting friends to join

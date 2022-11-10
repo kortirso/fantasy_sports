@@ -1,6 +1,7 @@
 <header id="admin-navigation" class="flex flex-col">
   <%= link_to t('components.page_wrappers.admin.welcome'), admin_path, class: 'admin-nav-link' %>
   <%= link_to t('components.page_wrappers.admin.leagues'), admin_leagues_path, class: 'admin-nav-link' %>
+  <%= link_to t('components.page_wrappers.admin.seasons'), admin_seasons_path, class: 'admin-nav-link' %>
   <%= link_to t('components.page_wrappers.users_component.logout'), users_logout_path, class: 'admin-nav-link' %>
   <div>
     <%= link_to t('components.page_wrappers.admin.home'), home_path %>

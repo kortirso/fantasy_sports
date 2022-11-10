@@ -4,7 +4,6 @@ class LeagueContract < ApplicationContract
   config.messages.namespace = :league
 
   params do
-    optional(:id)
     required(:name).value(:hash)
     required(:sport_kind).filled(:string)
   end

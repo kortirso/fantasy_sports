@@ -11,6 +11,10 @@ ru:
         login: Вход
         sign_up: Регистрация
         restore: Восстановить пароль
+      admin:
+        welcome: Главная
+        leagues: Лиги
+        seasons: Сезоны
     views:
       homes:
         show:
@@ -36,6 +40,9 @@ ru:
       leagues:
         create:
           success: Лига создана
+      seasons:
+        create:
+          success: Сезон создан
     application:
       page_not_found: Страница не найдена
     maintenable:
@@ -88,6 +95,9 @@ ru:
       create:
         email_exists: Email уже используется
         invalid: Данные не верны
+    seasons:
+      create:
+        league_does_not_exist: Лига не существует
   views:
     admin:
       leagues:
@@ -101,6 +111,17 @@ ru:
           name_ru: Название (ru)
           sport_kind: Вид спорта
           create: Создать новую лигу
+      seasons:
+        index:
+          header: Сезоны
+          new_season: Добавить новый сезон
+          name: Название
+          active: Активность
+        new:
+          name: Название
+          active: Активность
+          league_id: Лига
+          create: Создать новый сезон
     fantasy_leagues:
       show:
         title: Пригласить друзей присоединиться к

@@ -35,3 +35,7 @@ en:
           sport_kind:
             filled?: can't be blank
             invalid: is invalid
+      season:
+        rules:
+          name:
+            filled?: can't be blank
