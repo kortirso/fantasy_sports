@@ -19,7 +19,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sassc-rails'
-gem 'sprockets', '~> 4.1'
+gem 'sprockets', git: 'https://github.com/rails/sprockets', branch: 'main'
 
 # A framework for building view components
 gem 'view_component', '~> 2.75', require: 'view_component/engine'
@@ -49,8 +49,7 @@ gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator'
 gem 'que', '~> 2.2.0'
 
 # http client
-gem 'faraday', '~> 1.9'
-gem 'faraday_middleware', '~> 1.2'
+gem 'faraday', '~> 2.0'
 
 # Pretty print
 gem 'awesome_print'
