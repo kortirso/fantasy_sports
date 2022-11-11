@@ -11,7 +11,7 @@ module Admin
     end
 
     def create
-      service_call = Seasons::CreateService.call(params: season_params)
+      service_call = ::Seasons::CreateService.call(params: season_params)
       if service_call.success?
         redirect_to admin_seasons_path, notice: t('controllers.admin.seasons.create.success')
       else

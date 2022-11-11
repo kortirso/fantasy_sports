@@ -117,11 +117,27 @@ en:
           new_season: Add new season
           name: Name
           active: Active
+          games: Games
         new:
           name: Name
           active: Active
           league_id: League
           create: Create new season
+        games:
+          index:
+            header: Games
+            new_game: Add new game
+            week: Week position
+            home_season_team: Home team name
+            visitor_season_team: Visitor team name
+            source: Source
+            external_id: External ID
+            start_time: Start time
+            edit: Edit game
+          new:
+            save: Save
+          edit:
+            title: Edit game
     fantasy_leagues:
       show:
         title: Inviting friends to join

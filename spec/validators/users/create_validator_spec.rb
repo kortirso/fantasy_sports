@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe UserValidator, type: :service do
+describe Users::CreateValidator, type: :service do
   subject(:validator_call) { described_class.call(params: params) }
 
   context 'for invalid email format' do

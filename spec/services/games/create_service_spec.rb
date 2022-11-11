@@ -2,7 +2,11 @@
 
 describe Games::CreateService, type: :service do
   subject(:service_call) {
-    described_class.call(week: week, home_season_team: season_team1, visitor_season_team: season_team2)
+    described_class.call(
+      week_id: week.id,
+      home_season_team_id: season_team1.id,
+      visitor_season_team_id: season_team2.id
+    )
   }
 
   context 'for valid params' do
@@ -16,14 +20,14 @@ describe Games::CreateService, type: :service do
     end
 
     it 'creates Game' do
-      expect { service_call }.to change(Game, :count).by(1)
+      expect { service_call }.to change(week.games, :count).by(1)
     end
 
-    it 'and creates game players' do
+    it 'creates game players' do
       expect { service_call }.to change(Games::Player, :count).by(9)
     end
 
-    it 'and it succeed' do
+    it 'succeed' do
       service = service_call
 
       expect(service.success?).to be_truthy

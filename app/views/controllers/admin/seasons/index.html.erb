@@ -10,6 +10,7 @@
         <th>ID</th>
         <th><%= t('views.admin.seasons.index.name') %></th>
         <th><%= t('views.admin.seasons.index.active') %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
           <td><%= season.id %></td>
           <td><%= season.name %></td>
           <td><%= season.active %></td>
+          <td><%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'button' %></td>
         </tr>
       <% end %>
     </tbody>

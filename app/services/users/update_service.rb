@@ -4,7 +4,7 @@ module Users
   class UpdateService
     prepend ApplicationService
 
-    def initialize(user_validator: UserUpdateValidator)
+    def initialize(user_validator: Users::UpdateValidator)
       @user_validator = user_validator
     end
 

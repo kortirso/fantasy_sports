@@ -133,55 +133,55 @@ nba2022.teams.each.with_index do |team, team_index|
 end
 
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    lal_nba2022,
-  visitor_season_team: golden_state_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473409',
-  start_at:            DateTime.new(2021, 10, 19, 10, 0, 0)
+  week_id:                week1,
+  home_season_team_id:    lal_nba2022,
+  visitor_season_team_id: golden_state_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473409',
+  start_at:               DateTime.new(2021, 10, 19, 10, 0, 0)
 )
 
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    phoenix_nba2022,
-  visitor_season_team: denver_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473421',
-  start_at:            DateTime.new(2021, 10, 20, 11, 0, 0)
+  week_id:                week1,
+  home_season_team_id:    phoenix_nba2022,
+  visitor_season_team_id: denver_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473421',
+  start_at:               DateTime.new(2021, 10, 20, 11, 0, 0)
 )
 
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    miami_nba2022,
-  visitor_season_team: milwaukee_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473423',
-  start_at:            DateTime.new(2021, 10, 21, 12, 0, 0)
+  week_id:                week1,
+  home_season_team_id:    miami_nba2022,
+  visitor_season_team_id: milwaukee_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473423',
+  start_at:               DateTime.new(2021, 10, 21, 12, 0, 0)
 )
 
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    lal_nba2022,
-  visitor_season_team: phoenix_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473432',
-  start_at:            DateTime.new(2021, 10, 22, 13, 0, 0)
+  week_id:                week1,
+  home_season_team_id:    lal_nba2022,
+  visitor_season_team_id: phoenix_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473432',
+  start_at:               DateTime.new(2021, 10, 22, 13, 0, 0)
 )
 
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    denver_nba2022,
-  visitor_season_team: dallas_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473482',
-  start_at:            DateTime.new(2021, 10, 29, 14, 0, 0)
+  week_id:                week2,
+  home_season_team_id:    denver_nba2022,
+  visitor_season_team_id: dallas_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473482',
+  start_at:               DateTime.new(2021, 10, 29, 14, 0, 0)
 )
 
 Games::CreateService.call(
-  week:                week3,
-  home_season_team:    boston_nba2022,
-  visitor_season_team: chicago_nba2022,
-  source:              Sourceable::BALLDONTLIE,
-  external_id:         '473507',
-  start_at:            DateTime.new(2021, 11, 1, 15, 0, 0)
+  week_id:                week3,
+  home_season_team_id:    boston_nba2022,
+  visitor_season_team_id: chicago_nba2022,
+  source:                 Sourceable::BALLDONTLIE,
+  external_id:            '473507',
+  start_at:               DateTime.new(2021, 11, 1, 15, 0, 0)
 )

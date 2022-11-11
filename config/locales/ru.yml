@@ -117,11 +117,27 @@ ru:
           new_season: Добавить новый сезон
           name: Название
           active: Активность
+          games: Игры
         new:
           name: Название
           active: Активность
           league_id: Лига
           create: Создать новый сезон
+        games:
+          index:
+            header: Игры
+            new_game: Добавить новую игру
+            week: Игровая неделя
+            home_season_team: Домашная команда
+            visitor_season_team: Гостевая команда
+            source: Источник
+            external_id: Внешний ID
+            start_time: Начало игры
+            edit: Изменить
+          new:
+            save: Сохранить
+          edit:
+            title: Изменить данные игры
     fantasy_leagues:
       show:
         title: Пригласить друзей присоединиться к

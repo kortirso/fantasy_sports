@@ -1,0 +1,32 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.seasons.games.index.header') %></h1>
+  <%= link_to t('views.admin.seasons.games.index.new_game'), new_admin_season_game_path, class: 'button' %>
+</div>
+<table class="admin-table" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.seasons.games.index.week') %></th>
+      <th><%= t('views.admin.seasons.games.index.home_season_team') %></th>
+      <th><%= t('views.admin.seasons.games.index.visitor_season_team') %></th>
+      <th><%= t('views.admin.seasons.games.index.source') %></th>
+      <th><%= t('views.admin.seasons.games.index.external_id') %></th>
+      <th><%= t('views.admin.seasons.games.index.start_time') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @games.each do |game| %>
+      <tr>
+        <td><%= game.id %></td>
+        <td><%= game.week.position %></td>
+        <td><%= localized_value(game.home_season_team.team.name) %></td>
+        <td><%= localized_value(game.visitor_season_team.team.name) %></td>
+        <td><%= game.source %></td>
+        <td><%= game.external_id %></td>
+        <td><%= game.start_at %></td>
+        <td><%= link_to t('views.admin.seasons.games.index.edit'), edit_admin_season_game_path(@season.uuid, game.uuid), class: 'button' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -4,7 +4,7 @@ module Users
   class CreateService
     prepend ApplicationService
 
-    def initialize(user_validator: UserValidator)
+    def initialize(user_validator: Users::CreateValidator)
       @user_validator = user_validator
     end
 

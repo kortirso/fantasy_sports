@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       get '', to: 'welcome#index'
 
       resources :leagues, only: %i[index new create]
-      resources :seasons, only: %i[index new create]
+      resources :seasons, only: %i[index new create] do
+        resources :games, except: %i[show], module: 'seasons'
+      end
     end
 
     namespace :users do
