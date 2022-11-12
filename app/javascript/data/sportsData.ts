@@ -11,6 +11,13 @@ export const sportsData: SportsData = {
       points_per_transfer: 4,
       changes: true,
       captain: true,
+      chips: {
+        bench_boost: 1,
+        triple_captain: 1,
+        free_hit: 1,
+        wildcard: 2,
+      },
+      max_chips_per_week: 1
     },
     basketball: {
       name: { en: 'Basketball', ru: 'Баскетбол' },
@@ -21,6 +28,8 @@ export const sportsData: SportsData = {
       points_per_transfer: 10,
       changes: false,
       captain: false,
+      chips: {},
+      max_chips_per_week: 0
     },
     hockey: {
       name: { en: 'Hockey', ru: 'Хоккей' },
@@ -31,6 +40,8 @@ export const sportsData: SportsData = {
       points_per_transfer: 5,
       changes: true,
       captain: true,
+      chips: {},
+      max_chips_per_week: 0
     },
   },
   positions: {

@@ -396,7 +396,8 @@ CREATE TABLE public.fantasy_teams (
     updated_at timestamp(6) without time zone NOT NULL,
     completed boolean DEFAULT false NOT NULL,
     budget_cents integer DEFAULT 10000 NOT NULL,
-    points numeric(8,2) DEFAULT 0 NOT NULL
+    points numeric(8,2) DEFAULT 0 NOT NULL,
+    available_chips jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -569,7 +570,8 @@ CREATE TABLE public.lineups (
     uuid uuid DEFAULT gen_random_uuid() NOT NULL,
     free_transfers_amount integer DEFAULT 0 NOT NULL,
     transfers_limited boolean DEFAULT true,
-    penalty_points integer DEFAULT 0 NOT NULL
+    penalty_points integer DEFAULT 0 NOT NULL,
+    active_chips character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
 
@@ -1618,6 +1620,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221026162239'),
 ('20221104162149'),
 ('20221108144820'),
-('20221112152958');
+('20221112152958'),
+('20221112161902');
 
 
