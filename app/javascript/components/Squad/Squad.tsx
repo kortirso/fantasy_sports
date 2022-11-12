@@ -10,6 +10,7 @@ import { Week, PlayerModal, PlayerActionsModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
 import { teamsRequest } from 'requests/teamsRequest';
+import { lineupRequest } from './requests/lineupRequest';
 import { lineupPlayersRequest } from './requests/lineupPlayersRequest';
 import { weekOpponentsRequest } from './requests/weekOpponentsRequest';
 
@@ -31,6 +32,7 @@ export const Squad = ({
   weekDeadlineAt,
 }: SquadProps): JSX.Element => {
   // static data
+  const [lineup, setLineup] = useState<TeamNames>({});
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
   const [teamOpponents, setTeamOpponents] = useState({});
@@ -43,6 +45,11 @@ export const Squad = ({
   const [changeOrder, setChangeOrder] = useState<number>(0);
 
   useEffect(() => {
+    const fetchLineup = async () => {
+      const data = await lineupRequest(lineupUuid);
+      setLineup(data);
+    };
+
     const fetchTeams = async () => {
       const data = await teamsRequest(seasonUuid);
       setTeamNames(data);
@@ -59,6 +66,7 @@ export const Squad = ({
     };
 
     strings.setLanguage(currentLocale);
+    fetchLineup();
     fetchTeams();
     fetchLineupPlayers();
     fetchWeekOpponents();
@@ -225,6 +233,44 @@ export const Squad = ({
     }
   };
 
+  const toggleChip = async (value: string) => {
+    let activeChips = lineup.active_chips;
+    if (activeChips.length === sport.max_chips_per_week && !activeChips.includes(value)) {
+      return showAlert('alert', `<p>${strings.squad.chipsLimit}</p>`);
+    }
+
+    if (activeChips.includes(value)) {
+      activeChips = activeChips.filter((element: string) => element !== value);
+    } else {
+      activeChips.push(value);
+    };
+
+    const payload = { active_chips: activeChips };
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken(),
+      },
+      body: JSON.stringify({ lineup: payload }),
+    };
+
+    const toggleResultResult = await apiRequest({
+      url: `/lineups/${lineupUuid}.json`,
+      options: requestOptions,
+    });
+    if (toggleResultResult.message) {
+      setLineup({
+        ...lineup,
+        active_chips: activeChips,
+      });
+      showAlert('notice', `<p>${toggleResultResult.message}</p>`);
+    } else {
+      toggleResultResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+    }
+  };
+
   return (
     <>
       <h1>{strings.squad.title}</h1>
@@ -254,7 +300,7 @@ export const Squad = ({
           </div>
         ))}
       </div>
-      {sport.changes && (
+      {sport.changes ? (
         <div className="substitutions">
           {reservePlayers().map((item: LineupPlayer) => (
             <PlayerCard
@@ -270,7 +316,26 @@ export const Squad = ({
             />
           ))}
         </div>
-      )}
+      ) : null}
+      {lineup?.fantasy_team && Object.entries(lineup.fantasy_team.available_chips).length > 0 ? (
+        <div className="chips">
+          <h3>{strings.squad.chips}</h3>
+          <div className="flex justify-center">
+            <button
+              className={lineup.active_chips.includes('bench_boost') ? 'button active' : 'button inactive'}
+              onClick={() => toggleChip('bench_boost')}
+            >
+              {strings.squad.benchBoost}
+            </button>
+            <button
+              className={lineup.active_chips.includes('triple_captain') ? 'button active' : 'button inactive'}
+              onClick={() => toggleChip('triple_captain')}
+            >
+              {strings.squad.tripleCaptain}
+            </button>
+          </div>
+        </div>
+      ) : null}
       <div id="submit-button">
         <button className="button" onClick={submit}>
           {strings.squad.save}

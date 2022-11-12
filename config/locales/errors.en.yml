@@ -4,6 +4,7 @@ en:
       password_confirmation: Password confirmation
       budget_cents: Budget
       sport_kind: Sport kind
+      active_chips: Active chips
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -39,3 +40,5 @@ en:
         rules:
           name:
             filled?: can't be blank
+      lineup:
+        active_chips_duplicates: should not have duplicates

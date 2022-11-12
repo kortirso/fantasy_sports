@@ -7,6 +7,7 @@ ru:
       name: Название
       budget_cents: Бюджет
       sport_kind: Вид спорта
+      active_chips: Активные бонусы
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
@@ -42,3 +43,5 @@ ru:
         rules:
           name:
             filled?: не может быть пустым
+      lineup:
+        active_chips_duplicates: не должны содержать дубликаты
