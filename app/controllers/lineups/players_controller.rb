@@ -55,10 +55,9 @@ module Lineups
     def lineups_players_params
       params
         .require(:lineup_players)
-        .permit(data: [%i[uuid active change_order status]])
+        .permit(data: [%i[uuid change_order status]])
         .to_h[:data]
         .map { |hash|
-          hash['active'] = hash['active'] == 'true' || hash['active'] == true
           hash['change_order'] = hash['change_order'].to_i
           hash.symbolize_keys
         }

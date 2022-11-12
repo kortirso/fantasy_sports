@@ -39,9 +39,9 @@ module Lineups
     def collect_players_data(lineups_players_params)
       lineups_players_params.each do |params_hash|
         @players_uuids.push(params_hash[:uuid])
-        @active_players += 1 if params_hash[:active]
+        @active_players += 1 if params_hash[:change_order].zero?
         @captains.push(params_hash[:status]) if params_hash[:status] && params_hash[:status] != Lineups::Player::REGULAR
-        if @validate_changes && !params_hash[:active]
+        if @validate_changes && params_hash[:change_order].positive?
           @positive_change_orders.push(params_hash[:change_order])
         end
       end

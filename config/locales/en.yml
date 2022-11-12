@@ -81,6 +81,8 @@ en:
     lineups:
       players:
         lineup_update: Lineup is updated
+      update:
+        success: Lineup is updated
   services:
     fantasy_teams:
       create:

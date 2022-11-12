@@ -81,6 +81,8 @@ ru:
     lineups:
       players:
         lineup_update: Состав обновлён
+      update:
+        success: Состав обновлён
   services:
     fantasy_teams:
       create:

@@ -37,7 +37,11 @@
     },
     "squad": {
       "title": "Pick team",
-      "save": "Save team"
+      "save": "Save team",
+      "chips": "Chips",
+      "benchBoost": "Bench boost",
+      "tripleCaptain": "Triple captain",
+      "chipsLimit": "Maximum amount of chips for week"
     },
     "squadPoints": {
       "title": "Points",
@@ -113,7 +117,11 @@
     },
     "squad": {
       "title": "Состав команды",
-      "save": "Сохранить изменения"
+      "save": "Сохранить изменения",
+      "chips": "Бонусы",
+      "benchBoost": "Очки запасных",
+      "tripleCaptain": "Тройной бонус капитана",
+      "chipsLimit": "Достигнут лимит на бонусы"
     },
     "squadPoints": {
       "title": "Очки",

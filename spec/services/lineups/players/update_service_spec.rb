@@ -8,11 +8,11 @@ describe Lineups::Players::UpdateService, type: :service do
   }
 
   let!(:lineup) { create :lineup }
-  let!(:lineups_player) { create :lineups_player, lineup: lineup, active: false, change_order: 1 }
+  let!(:lineups_player) { create :lineups_player, lineup: lineup, change_order: 1 }
   let(:players_validator_service) { double }
   let(:players_validator) { double }
   let(:call_result) { double }
-  let(:lineups_players_params) { [{ uuid: lineups_player.uuid, active: true, change_order: '0', status: 'captain' }] }
+  let(:lineups_players_params) { [{ uuid: lineups_player.uuid, change_order: '0', status: 'captain' }] }
 
   before do
     allow(players_validator_service).to receive(:new).and_return(players_validator)
@@ -49,7 +49,6 @@ describe Lineups::Players::UpdateService, type: :service do
         service_call
 
         expect(lineups_player.reload.status).to eq Lineups::Player::CAPTAIN
-        expect(lineups_player.active).to be true
         expect(lineups_player.change_order).to eq 0
       end
 

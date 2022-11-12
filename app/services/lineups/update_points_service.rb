@@ -12,14 +12,14 @@ module Lineups
 
     def call(lineup_ids:)
       lineups = Lineup.where(id: lineup_ids)
-      fantasy_team_ids = []
 
       lineups.each { |lineup|
-        lineup.update(points: lineup.lineups_players.active.pluck(:points).sum(&:to_d))
-        fantasy_team_ids.push(lineup.fantasy_team_id)
+        players =
+          lineup.active_chips&.include?(Chipable::BENCH_BOOST) ? lineup.lineups_players : lineup.lineups_players.active
+        lineup.update(points: players.pluck(:points).sum(&:to_d))
       }
 
-      @fantasy_teams_update_points_service.call(fantasy_team_ids: fantasy_team_ids.uniq)
+      @fantasy_teams_update_points_service.call(fantasy_team_ids: lineups.pluck(:fantasy_team_id))
     end
   end
 end

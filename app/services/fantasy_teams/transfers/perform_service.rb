@@ -169,7 +169,6 @@ module FantasyTeams
         {
           teams_player_id: selected_teams_player.id,
           lineup_id: coming_lineup.id,
-          active: lineups_player.active,
           change_order: lineups_player.change_order
         }
       end
