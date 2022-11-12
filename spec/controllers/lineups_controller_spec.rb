@@ -62,6 +62,7 @@ describe LineupsController do
 
         before do
           lineup.fantasy_team.update(user: @current_user)
+          lineup.week.update(status: Week::COMING)
         end
 
         context 'for invalid data' do

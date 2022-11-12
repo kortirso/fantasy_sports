@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class LineupsController < ApplicationController
-  before_action :find_lineup
+  before_action :find_lineup, only: %i[show]
+  before_action :find_lineup_for_update, only: %i[update]
 
   def show
     render json: { lineup: LineupSerializer.new(@lineup).serializable_hash }, status: :ok
@@ -20,6 +21,10 @@ class LineupsController < ApplicationController
 
   def find_lineup
     @lineup = Current.user.lineups.find_by!(uuid: params[:id])
+  end
+
+  def find_lineup_for_update
+    @lineup = Current.user.lineups.joins(:week).where(weeks: { status: Week::COMING }).find_by!(uuid: params[:id])
   end
 
   def lineup_params
