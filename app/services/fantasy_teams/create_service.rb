@@ -16,7 +16,11 @@ module FantasyTeams
 
       return if validate_fantasy_team_uniqueness && failure?
 
-      @result = user.fantasy_teams.create(name: 'My team', sport_kind: season.league.sport_kind)
+      @result = user.fantasy_teams.create(
+        name: 'My team',
+        sport_kind: season.league.sport_kind,
+        available_chips: Sports.sport(season.league.sport_kind)['chips']
+      )
       connect_fantasy_team_with_main_league
     end
 
