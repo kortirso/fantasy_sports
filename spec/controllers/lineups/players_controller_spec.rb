@@ -40,7 +40,7 @@ describe Lineups::PlayersController do
             expect(response).to have_http_status :ok
           end
 
-          %w[uuid active change_order points player team teams_player].each do |attr|
+          %w[uuid change_order points player team teams_player].each do |attr|
             it "contains lineups player #{attr}" do
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
@@ -63,7 +63,7 @@ describe Lineups::PlayersController do
             expect(response).to have_http_status :ok
           end
 
-          %w[uuid active change_order points player team teams_player].each do |attr|
+          %w[uuid change_order points player team teams_player].each do |attr|
             it "contains lineups player #{attr}" do
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
@@ -118,7 +118,7 @@ describe Lineups::PlayersController do
             patch :update, params: {
               lineup_id: lineup.uuid,
               locale: 'en',
-              lineup_players: { data: [{ 'uuid' => lineups_player.uuid, 'active' => true, 'change_order' => '0' }] }
+              lineup_players: { data: [{ 'uuid' => lineups_player.uuid, 'change_order' => '0' }] }
             }
           end
 
@@ -146,7 +146,6 @@ describe Lineups::PlayersController do
                 data: [
                   {
                     'uuid' => lineups_player.uuid,
-                    'active' => true,
                     'change_order' => '0',
                     'status' => 'captain'
                   }
@@ -173,7 +172,6 @@ describe Lineups::PlayersController do
                   lineups_players_params: [
                     {
                       uuid: lineups_player.uuid,
-                      active: true,
                       change_order: 0,
                       status: 'captain'
                     }

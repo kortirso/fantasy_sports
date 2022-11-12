@@ -63,7 +63,6 @@ module Lineups
         {
           teams_player_id: teams_player.id,
           lineup_id: @lineup.id,
-          active: true,
           change_order: 0,
           status: @captains[teams_player.id] || Lineups::Player::REGULAR
         }
@@ -73,7 +72,6 @@ module Lineups
         {
           teams_player_id: teams_player.id,
           lineup_id: @lineup.id,
-          active: false,
           change_order: @change_order,
           status: @captains[teams_player.id] || Lineups::Player::REGULAR
         }

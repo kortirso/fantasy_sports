@@ -600,7 +600,6 @@ CREATE TABLE public.lineups_players (
     id bigint NOT NULL,
     lineup_id bigint,
     teams_player_id bigint,
-    active boolean DEFAULT false NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
     points numeric(8,2),
     status integer DEFAULT 0 NOT NULL,
@@ -1618,6 +1617,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221023112647'),
 ('20221026162239'),
 ('20221104162149'),
-('20221108144820');
+('20221108144820'),
+('20221112152958');
 
 
