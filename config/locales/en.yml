@@ -100,6 +100,10 @@ en:
     seasons:
       create:
         league_does_not_exist: League does not exist
+    lineups:
+      update:
+        too_many_chips: Too many chips are activated
+        not_enough_chips: You can not active these chips
   views:
     admin:
       leagues:

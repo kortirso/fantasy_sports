@@ -61,7 +61,7 @@ describe LineupsController do
         let!(:lineup) { create :lineup }
 
         before do
-          lineup.fantasy_team.update(user: @current_user)
+          lineup.fantasy_team.update(user: @current_user, available_chips: { Chipable::BENCH_BOOST => 1 })
           lineup.week.update(status: Week::COMING)
         end
 

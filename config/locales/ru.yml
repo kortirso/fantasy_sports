@@ -100,6 +100,10 @@ ru:
     seasons:
       create:
         league_does_not_exist: Лига не существует
+    lineups:
+      update:
+        too_many_chips: Слишком много бонусов активируется
+        not_enough_chips: Вы не можете активировать эти бонусы
   views:
     admin:
       leagues:
