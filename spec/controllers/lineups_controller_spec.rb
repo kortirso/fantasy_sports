@@ -65,6 +65,24 @@ describe LineupsController do
           lineup.week.update(status: Week::COMING)
         end
 
+        context 'for invalid params' do
+          before do
+            patch :update, params: {
+              id: lineup.uuid,
+              lineup: { active_chips: ['invalid'] },
+              locale: 'en'
+            }
+          end
+
+          it 'does not update lineup' do
+            expect(lineup.reload.active_chips).to eq []
+          end
+
+          it 'returns status 422' do
+            expect(response).to have_http_status :unprocessable_entity
+          end
+        end
+
         context 'for invalid data' do
           before do
             patch :update, params: {

@@ -9,7 +9,10 @@ class LineupsController < ApplicationController
   end
 
   def update
-    service_call = Lineups::UpdateService.call(lineup: @lineup, params: lineup_params)
+    service_call = Lineups::UpdateService.call(
+      lineup: @lineup,
+      params: schema_params(params: params, schema: LineupSchema, required: :lineup)
+    )
     if service_call.success?
       render json: { message: t('controllers.lineups.update.success') }, status: :ok
     else
@@ -25,9 +28,5 @@ class LineupsController < ApplicationController
 
   def find_lineup_for_update
     @lineup = Current.user.lineups.joins(:week).where(weeks: { status: Week::COMING }).find_by!(uuid: params[:id])
-  end
-
-  def lineup_params
-    params.require(:lineup).permit(active_chips: [])
   end
 end

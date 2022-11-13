@@ -4,9 +4,7 @@ module Lineups
   class UpdateContract < ApplicationContract
     config.messages.namespace = :lineup
 
-    params do
-      optional(:active_chips).array(:string)
-    end
+    params(LineupSchema)
 
     rule(:active_chips) do
       if values[:active_chips].size != values[:active_chips].uniq.size

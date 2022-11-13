@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   include Confirmation
   include Localization
+  include Parameterable
 
   authorize :user, through: :current_user
 
@@ -15,6 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :check_email_confirmation, except: %i[page_not_found]
 
   rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+  rescue_from InvalidInputParamsError, with: :invalid_params
 
   def page_not_found
     message = t('controllers.application.page_not_found')
