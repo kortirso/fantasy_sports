@@ -1,7 +1,6 @@
 {
   "en": {
     "transfers": {
-      "title": "Transfers",
       "name": "Fantasy team name",
       "free": "Free transfers",
       "cost": "Transfers cost (points)",
@@ -36,7 +35,6 @@
       "gameweek": "Gameweek"
     },
     "squad": {
-      "title": "Pick team",
       "save": "Save team",
       "chips": "Chips",
       "benchBoost": "Bench boost",
@@ -44,7 +42,6 @@
       "chipsLimit": "Maximum amount of chips for week"
     },
     "squadPoints": {
-      "title": "Points",
       "totalPoints": "Total points",
       "averagePoints": "Average points",
       "hightestPoints": "Hightest points"
@@ -81,7 +78,6 @@
   },
   "ru": {
     "transfers": {
-      "title": "Трансферы",
       "name": "Название команды",
       "free": "Бесплатные трансферы",
       "cost": "Стоимость трансферов (очков)",
@@ -116,7 +112,6 @@
       "gameweek": "Игровая неделя"
     },
     "squad": {
-      "title": "Состав команды",
       "save": "Сохранить изменения",
       "chips": "Бонусы",
       "benchBoost": "Очки запасных",
@@ -124,7 +119,6 @@
       "chipsLimit": "Достигнут лимит на бонусы"
     },
     "squadPoints": {
-      "title": "Очки",
       "totalPoints": "Всего очков",
       "averagePoints": "Средний результат",
       "hightestPoints": "Наилучший результат"

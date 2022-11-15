@@ -77,7 +77,6 @@ export const SquadPoints = ({
 
   return (
     <>
-      <h1>{strings.squadPoints.title}</h1>
       <div className="flex justify-between transfers-stats">
         <div className="transfers-stat flex flex-col items-center">
           <p>{strings.squadPoints.totalPoints}</p>

@@ -273,7 +273,6 @@ export const Squad = ({
 
   return (
     <>
-      <h1>{strings.squad.title}</h1>
       <div className="deadline flex items-center justify-center">
         <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
         <span>{weekDeadlineAt}</span>

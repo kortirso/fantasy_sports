@@ -27,4 +27,13 @@
       background: $gray100;
     }
   }
+
+  &.info {
+    background: $white;
+    border: 1px solid $gray300;
+
+    &:hover {
+      background: $gray100;
+    }
+  }
 }

@@ -254,7 +254,6 @@ export const Transfers = ({
   return (
     <div id="fantasy-team-transfers" className="main-container">
       <div id="fantasy-team-members" className="left-container">
-        <h1>{strings.transfers.title}</h1>
         {!fantasyTeamCompleted && (
           <>
             <div className="form-field">
@@ -365,23 +364,21 @@ export const Transfers = ({
         {filteredPlayers.map((item: TeamsPlayer) => (
           <div className="team-player" key={item.uuid}>
             <div
-              className="team-player-stats flex items-center justify-center button small"
+              className="team-player-stats flex items-center justify-center button info small"
               onClick={() => setPlayerUuid(item.uuid)}
             >
               ?
             </div>
             <div className="team-player-info">
-              <p className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</p>
-              <div className="team-player-stats">
-                <span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>
-                <span className="position-name">
-                  {localizeValue(sportPositions[item.player.position_kind].short_name)}
-                </span>
-              </div>
+              <span className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</span>
+              {false ? (<span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>) : null}
+              <span className="position-name">
+                {localizeValue(sportPositions[item.player.position_kind].short_name)}
+              </span>
             </div>
             <div className="team-player-price">{item.price}</div>
             <div className="team-player-price">{item.player.points}</div>
-            <div className="action" onClick={() => addTeamMember(item)}>
+            <div className="button small" onClick={() => addTeamMember(item)}>
               +
             </div>
           </div>

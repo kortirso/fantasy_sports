@@ -22,25 +22,22 @@
 
       .team-player-info {
         flex: 1;
+        display: flex;
+        align-items: center;
 
         .team-player-name {
           font-size: 1.125rem;
-          margin-bottom: .25rem;
+          margin-right: 1rem;
         }
 
-        .team-player-stats {
-          display: flex;
-          flex-direction: row;
+        .team-name {
+          text-transform: uppercase;
+          font-size: .9rem;
+          margin-right: 1rem;
+        }
 
-          .team-name {
-            text-transform: uppercase;
-            font-size: .9rem;
-            margin-right: 1rem;
-          }
-
-          .position-name {
-            font-size: .9rem;
-          }
+        .position-name {
+          font-size: .9rem;
         }
       }
 
@@ -50,21 +47,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-      }
-
-      .action {
-        width: 2rem;
-        cursor: pointer;
-        border: 1px solid $gray300;
-        border-radius: .125rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
-        &:hover {
-          background: $gray300;
-        }
       }
     }
 
