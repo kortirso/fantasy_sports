@@ -104,6 +104,7 @@ export interface Game {
   time_start_at: string;
   home_team: { uuid: string; };
   visitor_team: { uuid: string; };
+  points: number[];
 }
 
 export interface SportsData {

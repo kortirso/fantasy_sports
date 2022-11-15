@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GameSerializer < ApplicationSerializer
-  attributes :uuid
+  attributes :uuid, :points
 
   attribute :date_start_at do |object|
     object.start_at.strftime('%d.%m.%Y')
