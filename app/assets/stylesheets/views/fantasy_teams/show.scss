@@ -56,7 +56,6 @@
 
     .week-day-header {
       padding: .25rem 0;
-      margin-bottom: .25rem;
       background: $gray200;
       text-align: center;
     }
@@ -83,6 +82,13 @@
         padding: .5rem 1rem;
         border: 1px solid $gray200;
         font-weight: 300;
+      }
+
+      .game-points {
+        padding: .4rem .75rem;
+        background: $black;
+        color: $white;
+        font-size: 1.25rem;
       }
     }
   }

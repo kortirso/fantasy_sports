@@ -30,6 +30,8 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
 
   if (!week) return <></>;
 
+  console.log(games);
+
   return (
     <div className="week">
       <div className="week-header flex justify-between items-center">
@@ -63,7 +65,11 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
               <p className="team-name right-side">
                 {localizeValue(teamNames[item.home_team.uuid].name)}
               </p>
-              <p className="game-start">{item.time_start_at}</p>
+              {item.points.length > 0 ? (
+                <p className="game-points">{item.points[0]} - {item.points[1]}</p>
+              ) : (
+                <p className="game-start">{item.time_start_at}</p>
+              )}
               <p className="team-name">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
             </div>
           </div>

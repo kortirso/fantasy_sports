@@ -464,7 +464,8 @@ CREATE TABLE public.games (
     source integer,
     external_id character varying,
     start_at timestamp(6) without time zone,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    points integer[] DEFAULT '{}'::integer[] NOT NULL
 );
 
 
@@ -1621,6 +1622,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221104162149'),
 ('20221108144820'),
 ('20221112152958'),
-('20221112161902');
+('20221112161902'),
+('20221115163454');
 
 
