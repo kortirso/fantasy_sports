@@ -206,6 +206,9 @@ Layout/SpaceAroundMethodCallOperator:
 Style/ExponentialNotation:
   Enabled: false
 
+Style/RedundantRegexpEscape:
+  Enabled: false
+
 # avoiding rubocop bug
 Rails/UniqueValidationWithoutIndex:
   Enabled: false

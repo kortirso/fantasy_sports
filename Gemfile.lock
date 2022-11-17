@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/enriclluelles/route_translator
-  revision: 99a1c9a681fe46fe3cd54f6905d56cf70c47739b
+  revision: d550262f6e7ce674b88a2e1491eeb1dca5c746cb
   branch: master
   specs:
     route_translator (13.0.0)
@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/flyerhzm/bullet
-  revision: ea7a84d1dbbd09751f2952e3ea4867661ae07232
+  revision: cad26c6c8a5e6164aec774f590d917159adc33d8
   branch: master
   specs:
     bullet (7.0.3)
@@ -113,7 +113,7 @@ GEM
     database_cleaner-core (2.0.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
-    dry-configurable (1.0.0)
+    dry-configurable (1.0.1)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
     dry-core (1.0.0)
@@ -145,7 +145,7 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
-    emailbutler (0.3.0)
+    emailbutler (0.4.0)
       rails (> 6.0.0)
       sass-rails
     erubi (1.11.0)
@@ -154,10 +154,10 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (2.6.0)
+    faraday (2.7.0)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.1)
+    faraday-net_http (3.0.2)
     ffi (1.15.5)
     foreman (0.87.2)
     globalid (1.0.0)
@@ -204,7 +204,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    pg (1.4.4)
+    pg (1.4.5)
     pghero (3.0.1)
       activerecord (>= 6)
     public_suffix (5.0.0)
@@ -247,20 +247,20 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.6.0)
+    regexp_parser (2.6.1)
     rexml (3.2.5)
-    rspec (3.11.0)
-      rspec-core (~> 3.11.0)
-      rspec-expectations (~> 3.11.0)
-      rspec-mocks (~> 3.11.0)
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.0)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.2)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
+      rspec-support (~> 3.12.0)
     rspec-rails (6.0.1)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
@@ -269,8 +269,8 @@ GEM
       rspec-expectations (~> 3.11)
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
-    rspec-support (3.11.1)
-    rubocop (1.38.0)
+    rspec-support (3.12.0)
+    rubocop (1.39.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -282,7 +282,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.23.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.15.0)
+    rubocop-performance (1.15.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rails (2.17.2)
@@ -326,7 +326,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
-    view_component (2.75.0)
+    view_component (2.76.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
