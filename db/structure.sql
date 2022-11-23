@@ -263,6 +263,42 @@ $$;
 
 
 --
+-- Name: achievements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.achievements (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    type character varying NOT NULL,
+    rank integer,
+    points integer,
+    user_id bigint NOT NULL,
+    notified boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.achievements_id_seq OWNED BY public.achievements.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1029,6 +1065,13 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
+-- Name: achievements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.achievements ALTER COLUMN id SET DEFAULT nextval('public.achievements_id_seq'::regclass);
+
+
+--
 -- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1173,6 +1216,14 @@ ALTER TABLE ONLY public.users_sessions ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_id_seq'::regclass);
+
+
+--
+-- Name: achievements achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.achievements
+    ADD CONSTRAINT achievements_pkey PRIMARY KEY (id);
 
 
 --
@@ -1380,6 +1431,20 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
+
+
+--
+-- Name: index_achievements_on_type_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_achievements_on_type_and_user_id ON public.achievements USING btree (type, user_id);
+
+
+--
+-- Name: index_achievements_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_achievements_on_uuid ON public.achievements USING btree (uuid);
 
 
 --
@@ -1623,6 +1688,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221108144820'),
 ('20221112152958'),
 ('20221112161902'),
-('20221115163454');
+('20221115163454'),
+('20221123171450');
 
 
