@@ -74,6 +74,11 @@
       "position": "Position",
       "player": "Player",
       "team": "Team"
+    },
+    "profileDropdown": {
+      "profile": "Profile",
+      "achievements": "Achievements",
+      "logout": "Logout"
     }
   },
   "ru": {
@@ -151,6 +156,11 @@
       "position": "Позиция",
       "player": "Игрок",
       "team": "Команда"
+    },
+    "profileDropdown": {
+      "profile": "Профиль",
+      "achievements": "Достижения",
+      "logout": "Выход"
     }
   }
 }

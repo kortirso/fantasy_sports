@@ -12,6 +12,9 @@
     <% end %>
   </section>
   <div>
-    <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path %>
+    <%=
+      react_component 'ProfileDropdown',
+        logoutLink: users_logout_path
+    %>
   </div>
 </header>
