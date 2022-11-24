@@ -7,10 +7,26 @@
   overflow: hidden;
 
   .sport-navigation {
-    display: fixed;
+    display: flex;
+    flex-direction: column;
     width: 4rem;
+    height: 100vh;
     background: $black;
     padding-top: 1.5rem;
+
+    .sports {
+      flex: 1;
+    }
+
+    .locales {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 .75rem 1rem;
+
+      a {
+        color: $white;
+      }
+    }
 
     .home-link {
       display: block;
