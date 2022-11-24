@@ -97,6 +97,10 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    aggregate_root (2.5.1)
+      ruby_event_store (= 2.5.1)
+    arkency-command_bus (0.4.1)
+      concurrent-ruby
     ast (2.4.2)
     awesome_print (1.9.2)
     bcrypt (3.1.18)
@@ -238,6 +242,18 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails_event_store (2.5.1)
+      activejob (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      aggregate_root (= 2.5.1)
+      arkency-command_bus (>= 0.4)
+      rails_event_store_active_record (= 2.5.1)
+      ruby_event_store (= 2.5.1)
+      ruby_event_store-browser (= 2.5.1)
+    rails_event_store_active_record (2.5.1)
+      activerecord (>= 6.0)
+      ruby_event_store (= 2.5.1)
     railties (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -294,6 +310,13 @@ GEM
     ruby-next-core (0.15.3)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    ruby_event_store (2.5.1)
+      concurrent-ruby (~> 1.0, >= 1.1.6)
+    ruby_event_store-browser (2.5.1)
+      rack
+      ruby_event_store (= 2.5.1)
+    ruby_event_store-rspec (2.5.1)
+      rspec (~> 3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -362,12 +385,14 @@ DEPENDENCIES
   que (~> 2.2.0)
   rails (~> 7.0)
   rails-controller-testing (= 1.0.5)
+  rails_event_store
   route_translator!
   rspec-rails (~> 6.0)
   rubocop (~> 1.35)
   rubocop-performance (~> 1.14)
   rubocop-rails (~> 2.15)
   rubocop-rspec (~> 2.12)
+  ruby_event_store-rspec
   sassc-rails
   service_operator
   shoulda-matchers (~> 5.0)

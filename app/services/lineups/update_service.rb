@@ -3,6 +3,7 @@
 module Lineups
   class UpdateService
     prepend ApplicationService
+    include Validateable
 
     def initialize(lineup_validator: Lineups::UpdateValidator)
       @lineup_validator = lineup_validator
