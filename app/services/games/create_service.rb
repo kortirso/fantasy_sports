@@ -3,6 +3,7 @@
 module Games
   class CreateService
     prepend ApplicationService
+    include Validateable
 
     def initialize(game_validator: Games::CreateValidator)
       @game_validator = game_validator

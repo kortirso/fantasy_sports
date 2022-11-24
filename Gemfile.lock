@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/enriclluelles/route_translator
-  revision: d550262f6e7ce674b88a2e1491eeb1dca5c746cb
+  revision: b60e8367fdbf7807bea0af9093dd4a335d36ab74
   branch: master
   specs:
     route_translator (13.0.0)
@@ -97,10 +97,14 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    aggregate_root (2.5.1)
+      ruby_event_store (= 2.5.1)
+    arkency-command_bus (0.4.1)
+      concurrent-ruby
     ast (2.4.2)
     awesome_print (1.9.2)
     bcrypt (3.1.18)
-    bootsnap (1.13.0)
+    bootsnap (1.14.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.1.10)
@@ -154,7 +158,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (2.7.0)
+    faraday (2.7.1)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
@@ -238,6 +242,18 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails_event_store (2.5.1)
+      activejob (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      aggregate_root (= 2.5.1)
+      arkency-command_bus (>= 0.4)
+      rails_event_store_active_record (= 2.5.1)
+      ruby_event_store (= 2.5.1)
+      ruby_event_store-browser (= 2.5.1)
+    rails_event_store_active_record (2.5.1)
+      activerecord (>= 6.0)
+      ruby_event_store (= 2.5.1)
     railties (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -285,7 +301,7 @@ GEM
     rubocop-performance (1.15.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.17.2)
+    rubocop-rails (2.17.3)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -294,6 +310,13 @@ GEM
     ruby-next-core (0.15.3)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    ruby_event_store (2.5.1)
+      concurrent-ruby (~> 1.0, >= 1.1.6)
+    ruby_event_store-browser (2.5.1)
+      rack
+      ruby_event_store (= 2.5.1)
+    ruby_event_store-rspec (2.5.1)
+      rspec (~> 3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -326,7 +349,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
-    view_component (2.76.0)
+    view_component (2.77.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -362,12 +385,14 @@ DEPENDENCIES
   que (~> 2.2.0)
   rails (~> 7.0)
   rails-controller-testing (= 1.0.5)
+  rails_event_store
   route_translator!
   rspec-rails (~> 6.0)
   rubocop (~> 1.35)
   rubocop-performance (~> 1.14)
   rubocop-rails (~> 2.15)
   rubocop-rspec (~> 2.12)
+  ruby_event_store-rspec
   sassc-rails
   service_operator
   shoulda-matchers (~> 5.0)

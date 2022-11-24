@@ -3,6 +3,7 @@
 module Seasons
   class CreateService
     prepend ApplicationService
+    include Validateable
 
     def initialize(season_validator: SeasonValidator)
       @season_validator = season_validator

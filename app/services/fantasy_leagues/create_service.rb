@@ -3,6 +3,7 @@
 module FantasyLeagues
   class CreateService
     prepend ApplicationService
+    include Validateable
 
     def initialize(
       fantasy_league_validator: FantasyLeagueValidator,

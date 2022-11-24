@@ -3,6 +3,7 @@
 module Users
   class CreateService
     prepend ApplicationService
+    include Validateable
 
     def initialize(user_validator: Users::CreateValidator)
       @user_validator = user_validator
