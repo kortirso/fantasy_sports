@@ -37,3 +37,4 @@ coverage
 !/app/assets/builds/.keep
 
 /dist/*
+dump.rdb
