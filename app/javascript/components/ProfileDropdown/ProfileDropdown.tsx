@@ -6,9 +6,14 @@ import { strings } from 'locales';
 interface ProfileDropdownProps {
   logoutLink: React.ReactNode;
   unreadAchievementsCount: number;
+  achievementsLink: React.ReactNode;
 }
 
-export const ProfileDropdown = ({ logoutLink, unreadAchievementsCount }: ProfileDropdownProps): JSX.Element => {
+export const ProfileDropdown = ({
+  logoutLink,
+  unreadAchievementsCount,
+  achievementsLink
+}: ProfileDropdownProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -23,12 +28,18 @@ export const ProfileDropdown = ({ logoutLink, unreadAchievementsCount }: Profile
 
   return (
     <div id="profile-dropdown">
-      <div className="action" onClick={() => setIsOpen(!isOpen)}>{strings.profileDropdown.profile}</div>
+      <div className="action" onClick={() => setIsOpen(!isOpen)}>
+        {strings.profileDropdown.profile}
+      </div>
       {isOpen && (
         <ul className="profile-dropdown-list">
-          <li><a href='#'>{strings.profileDropdown.achievements}{renderUnreadAchievementsBadge()}</a></li>
+          <li>
+            <a href={achievementsLink}>{strings.profileDropdown.achievements}{renderUnreadAchievementsBadge()}</a>
+          </li>
           <div className="separator"></div>
-          <li><a href={logoutLink}>{strings.profileDropdown.logout}</a></li>
+          <li>
+            <a href={logoutLink}>{strings.profileDropdown.logout}</a>
+          </li>
         </ul>
       )}
     </div>

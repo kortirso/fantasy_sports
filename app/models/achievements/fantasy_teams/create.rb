@@ -8,6 +8,17 @@ module Achievements
         user = fantasy_team.user
         user.award(achievement: self, points: 5) unless user.awarded?(achievement: self)
       end
+
+      def self.title
+        { 'en' => 'Beginning', 'ru' => 'Начало' }
+      end
+
+      def self.description
+        {
+          'en' => 'Create fantasy team for any sport',
+          'ru' => 'Создайте фэнтези команду для любого вида спорта'
+        }
+      end
     end
   end
 end

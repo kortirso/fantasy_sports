@@ -35,6 +35,9 @@ ru:
         sport_navigation_component:
           football: Футбол
           basketball: Баскетбол
+        profile_navigation_component:
+          title: Профиль
+          achievements: Достижения
   controllers:
     admin:
       leagues:

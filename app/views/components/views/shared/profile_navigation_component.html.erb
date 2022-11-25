@@ -1,0 +1,14 @@
+<header id="page-navigation">
+  <section id="fantasy-team-navigation">
+    <h2><%= t('components.views.shared.profile_navigation_component.title') %></h2>
+    <%= link_to t('components.views.shared.profile_navigation_component.achievements'), profile_achievements_path, class: "#{'active' if current_page?(profile_achievements_path)}" %>
+  </section>
+  <div>
+    <%=
+      react_component 'ProfileDropdown',
+        logoutLink: users_logout_path,
+        unreadAchievementsCount: Current.user.achievements.unread.count,
+        achievementsLink: profile_achievements_path
+    %>
+  </div>
+</header>

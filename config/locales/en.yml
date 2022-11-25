@@ -35,6 +35,9 @@ en:
         sport_navigation_component:
           football: Football
           basketball: Basketball
+        profile_navigation_component:
+          title: Profile
+          achievements: Achievements
   controllers:
     admin:
       leagues:

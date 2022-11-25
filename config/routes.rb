@@ -32,6 +32,10 @@ Rails.application.routes.draw do
       post 'recovery', to: 'recovery#create'
     end
 
+    namespace :profile do
+      resources :achievements, only: %i[index]
+    end
+
     resource :home, only: %i[show]
     resources :fantasy_teams, only: %i[show create update] do
       scope module: :fantasy_teams do
