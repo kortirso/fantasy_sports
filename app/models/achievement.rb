@@ -5,6 +5,8 @@ class Achievement < ApplicationRecord
 
   belongs_to :user
 
+  scope :unread, -> { where(notified: false) }
+
   class << self
     def ranks
       @ranks ||= []
