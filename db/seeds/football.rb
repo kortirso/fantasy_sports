@@ -222,130 +222,130 @@ rpl2022.teams.each.with_index do |team, team_index|
 end
 
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    rostov_rpl2022,
-  visitor_season_team: dinamo_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966291',
-  start_at:            DateTime.new(2021, 7, 23, 20, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    rostov_rpl2022.id,
+  visitor_season_team_id: dinamo_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966291',
+  start_at:               DateTime.new(2021, 7, 23, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    khimki_rpl2022,
-  visitor_season_team: zenit_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966298',
-  start_at:            DateTime.new(2021, 7, 24, 17, 30, 0)
+  week:                   week1.id,
+  home_season_team_id:    khimki_rpl2022.id,
+  visitor_season_team_id: zenit_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966298',
+  start_at:               DateTime.new(2021, 7, 24, 17, 30, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    lokomotiv_rpl2022,
-  visitor_season_team: arsenal_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966294',
-  start_at:            DateTime.new(2021, 7, 24, 20, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    lokomotiv_rpl2022.id,
+  visitor_season_team_id: arsenal_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966294',
+  start_at:               DateTime.new(2021, 7, 24, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    rubin_rpl2022,
-  visitor_season_team: spartak_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966295',
-  start_at:            DateTime.new(2021, 7, 24, 20, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    rubin_rpl2022.id,
+  visitor_season_team_id: spartak_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966295',
+  start_at:               DateTime.new(2021, 7, 24, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    ural_rpl2022,
-  visitor_season_team: krasnodar_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966297',
-  start_at:            DateTime.new(2021, 7, 25, 17, 30, 0)
+  week:                   week1.id,
+  home_season_team_id:    ural_rpl2022.id,
+  visitor_season_team_id: krasnodar_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966297',
+  start_at:               DateTime.new(2021, 7, 25, 17, 30, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    krylia_rpl2022,
-  visitor_season_team: akhmat_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966292',
-  start_at:            DateTime.new(2021, 7, 25, 19, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    krylia_rpl2022.id,
+  visitor_season_team_id: akhmat_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966292',
+  start_at:               DateTime.new(2021, 7, 25, 19, 0, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    cska_rpl2022,
-  visitor_season_team: ufa_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966293',
-  start_at:            DateTime.new(2021, 7, 25, 20, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    cska_rpl2022.id,
+  visitor_season_team_id: ufa_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966293',
+  start_at:               DateTime.new(2021, 7, 25, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week1,
-  home_season_team:    novgorod_rpl2022,
-  visitor_season_team: sochi_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966296',
-  start_at:            DateTime.new(2021, 7, 26, 19, 0, 0)
+  week:                   week1.id,
+  home_season_team_id:    novgorod_rpl2022.id,
+  visitor_season_team_id: sochi_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966296',
+  start_at:               DateTime.new(2021, 7, 26, 19, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    krylia_rpl2022,
-  visitor_season_team: spartak_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966301',
-  start_at:            DateTime.new(2021, 7, 30, 19, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    krylia_rpl2022.id,
+  visitor_season_team_id: spartak_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966301',
+  start_at:               DateTime.new(2021, 7, 30, 19, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    arsenal_rpl2022,
-  visitor_season_team: rubin_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966304',
-  start_at:            DateTime.new(2021, 7, 30, 19, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    arsenal_rpl2022.id,
+  visitor_season_team_id: rubin_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966304',
+  start_at:               DateTime.new(2021, 7, 30, 19, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    ufa_rpl2022,
-  visitor_season_team: dinamo_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966305',
-  start_at:            DateTime.new(2021, 7, 31, 17, 30, 0)
+  week:                   week2.id,
+  home_season_team_id:    ufa_rpl2022.id,
+  visitor_season_team_id: dinamo_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966305',
+  start_at:               DateTime.new(2021, 7, 31, 17, 30, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    cska_rpl2022,
-  visitor_season_team: lokomotiv_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966302',
-  start_at:            DateTime.new(2021, 7, 31, 20, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    cska_rpl2022.id,
+  visitor_season_team_id: lokomotiv_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966302',
+  start_at:               DateTime.new(2021, 7, 31, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    ural_rpl2022,
-  visitor_season_team: novgorod_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966306',
-  start_at:            DateTime.new(2021, 8, 01, 17, 30, 0)
+  week:                   week2.id,
+  home_season_team_id:    ural_rpl2022.id,
+  visitor_season_team_id: novgorod_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966306',
+  start_at:               DateTime.new(2021, 8, 01, 17, 30, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    rostov_rpl2022,
-  visitor_season_team: zenit_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966299',
-  start_at:            DateTime.new(2021, 8, 01, 20, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    rostov_rpl2022.id,
+  visitor_season_team_id: zenit_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966299',
+  start_at:               DateTime.new(2021, 8, 01, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    krasnodar_rpl2022,
-  visitor_season_team: khimki_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966300',
-  start_at:            DateTime.new(2021, 8, 01, 20, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    krasnodar_rpl2022.id,
+  visitor_season_team_id: khimki_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966300',
+  start_at:               DateTime.new(2021, 8, 01, 20, 0, 0)
 )
 Games::CreateService.call(
-  week:                week2,
-  home_season_team:    akhmat_rpl2022,
-  visitor_season_team: sochi_rpl2022,
-  source:              Sourceable::INSTAT,
-  external_id:         '1966303',
-  start_at:            DateTime.new(2021, 8, 02, 20, 0, 0)
+  week:                   week2.id,
+  home_season_team_id:    akhmat_rpl2022.id,
+  visitor_season_team_id: sochi_rpl2022.id,
+  source:                 Sourceable::INSTAT,
+  external_id:            '1966303',
+  start_at:               DateTime.new(2021, 8, 02, 20, 0, 0)
 )

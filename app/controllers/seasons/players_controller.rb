@@ -2,15 +2,15 @@
 
 module Seasons
   class PlayersController < ApplicationController
+    include Cacheable
+
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
     before_action :find_season_players
     before_action :find_season_player, only: %i[show]
 
     def index
-      render json: {
-        season_players: Teams::PlayerSerializer.new(@season_players).serializable_hash
-      }, status: :ok
+      render json: { season_players: season_players_json_response }, status: :ok
     end
 
     def show
@@ -28,6 +28,12 @@ module Seasons
 
     def find_season_player
       @season_player = @season_players.find_by(uuid: params[:id])
+    end
+
+    def season_players_json_response
+      cached_response(payload: @season_players, name: :season_players, version: :v1) do
+        Teams::PlayerSerializer.new(@season_players).serializable_hash
+      end
     end
   end
 end
