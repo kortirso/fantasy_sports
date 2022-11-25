@@ -3,6 +3,7 @@
 module Lineups
   class PlayersController < ApplicationController
     include Maintenable
+    include Cacheable
 
     before_action :find_lineup, only: %i[show]
     before_action :find_user_lineup, only: %i[update]
@@ -11,9 +12,7 @@ module Lineups
     before_action :validate_league_maintenance, only: %i[update]
 
     def show
-      render json: {
-        lineup_players: Lineups::PlayerSerializer.new(@lineup_players).serializable_hash
-      }, status: :ok
+      render json: { lineup_players: lineup_players_json_response }, status: :ok
     end
 
     def update
@@ -61,6 +60,12 @@ module Lineups
           hash['change_order'] = hash['change_order'].to_i
           hash.symbolize_keys
         }
+    end
+
+    def lineup_players_json_response
+      cached_response(payload: @lineup, name: :lineup_players, version: :v1) do
+        Lineups::PlayerSerializer.new(@lineup_players).serializable_hash
+      end
     end
   end
 end

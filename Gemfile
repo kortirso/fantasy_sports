@@ -72,6 +72,9 @@ gem 'pghero'
 # event store
 gem 'rails_event_store'
 
+# cache store
+gem 'redis-rails'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
   gem 'rubocop', '~> 1.35', require: false

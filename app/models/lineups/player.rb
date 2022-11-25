@@ -10,7 +10,7 @@ module Lineups
     ASSISTANT = 'assistant'
     CAPTAIN = 'captain'
 
-    belongs_to :lineup, class_name: '::Lineup', foreign_key: :lineup_id
+    belongs_to :lineup, class_name: '::Lineup', foreign_key: :lineup_id, touch: true
     belongs_to :teams_player, class_name: '::Teams::Player', foreign_key: :teams_player_id
 
     scope :active, -> { where(change_order: 0) }
