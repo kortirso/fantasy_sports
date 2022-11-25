@@ -4,7 +4,7 @@ class Game < ApplicationRecord
   include Sourceable
   include Uuidable
 
-  belongs_to :week
+  belongs_to :week, touch: true
   belongs_to :home_season_team, class_name: '::Seasons::Team', foreign_key: :home_season_team_id
   belongs_to :visitor_season_team, class_name: '::Seasons::Team', foreign_key: :visitor_season_team_id
 
