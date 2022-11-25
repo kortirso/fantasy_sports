@@ -16,7 +16,6 @@ $ yarn install
 
 ```bash
 $ foreman s
-$ que
 ```
 
 ## Process
