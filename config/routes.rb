@@ -71,6 +71,9 @@ Rails.application.routes.draw do
       resources :rules, only: %i[index], module: 'sports'
     end
     resources :lineups, only: %i[show update]
+    resources :games, only: %i[] do
+      resources :statistics, only: %i[index], module: 'games'
+    end
 
     root 'welcome#index'
   end

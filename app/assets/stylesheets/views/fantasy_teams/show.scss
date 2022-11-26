@@ -64,6 +64,10 @@
       padding: .5rem;
       border-bottom: 1px solid $gray200;
 
+      &.expandable {
+        cursor: pointer;
+      }
+
       & > p {
         margin: 0 .5rem;
       }
@@ -89,6 +93,45 @@
         background: $black;
         color: $white;
         font-size: 1.25rem;
+      }
+    }
+
+    .fixtures {
+      list-style: none;
+      padding: 0;
+
+      .fixture {
+        margin: 0 auto 1rem;
+        width: 75%;
+
+        h5 {
+          text-align: center;
+          background: $green400;
+          color: $white;
+          margin-bottom: .25rem;
+        }
+
+        .fixture-values {
+          display: flex;
+
+          .fixture-value {
+            flex: 1;
+            padding: 0 .5rem;
+
+            &:nth-of-type(1) {
+              text-align: right;
+              border-right: 1px solid $gray200;
+            }
+
+            p {
+              padding: 0 0 .25rem;
+
+              &:nth-of-type(n+2) {
+                border-top: 1px solid $gray200;
+              }
+            }
+          }
+        }
       }
     }
   }
