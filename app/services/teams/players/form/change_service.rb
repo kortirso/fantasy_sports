@@ -9,7 +9,7 @@ module Teams
         def call(games_ids:, seasons_teams_ids: [])
           points_data = points_data(games_ids, seasons_teams_ids)
           Teams::Player.where(id: points_data.keys).each do |teams_player|
-            teams_player.update!(form: points_data[teams_player.id])
+            teams_player.update!(form: points_data[teams_player.id] || 0)
           end
         end
 

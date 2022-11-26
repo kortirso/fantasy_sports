@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
-describe Games::FetchService, type: :service do
+describe Games::UpdateDataService, type: :service do
   subject(:service_call) {
     described_class
     .new(
       player_statistic_update_service: player_statistic_update_service,
-      fetch_game_data_service: fetch_game_data_service,
       form_change_service: form_change_service
     )
-    .call(game: game)
+    .call(game: game, game_data: game_data)
   }
 
   let(:player_statistic_update_service) { double }
-  let(:fetch_game_data_service) { double }
   let(:form_change_service) { double }
-  let(:fetch_game_data_service_result) { double }
   let(:player_statistic_update_service_call) { double }
   let(:points_result) { 10 }
 
@@ -23,17 +20,15 @@ describe Games::FetchService, type: :service do
   let!(:teams_player2) { create :teams_player, seasons_team: game.visitor_season_team, active: true, shirt_number: 2 }
   let!(:games_player1) { create :games_player, game: game, teams_player: teams_player1 }
   let!(:games_player2) { create :games_player, game: game, teams_player: teams_player2 }
+  let(:game_data) {
+    [
+      { 1 => { 'MP' => 90 } },
+      { 2 => { 'MP' => 45 } }
+    ]
+  }
 
   before do
     game.week.league.update(sport_kind: Sportable::FOOTBALL)
-
-    allow(fetch_game_data_service).to receive(:call).and_return(fetch_game_data_service_result)
-    allow(fetch_game_data_service_result).to receive(:result).and_return(
-      [
-        { 1 => { 'MP' => 90 } },
-        { 2 => { 'MP' => 45 } }
-      ]
-    )
 
     allow(player_statistic_update_service).to receive(:call).and_return(player_statistic_update_service_call)
     allow(player_statistic_update_service_call).to receive(:result).and_return(points_result)

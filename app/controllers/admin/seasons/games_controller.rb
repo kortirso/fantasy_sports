@@ -10,7 +10,9 @@ module Admin
 
       def index; end
 
-      def new; end
+      def new
+        @game = Game.new
+      end
 
       def edit; end
 
@@ -52,7 +54,6 @@ module Admin
       end
 
       def find_form_data
-        @game = Game.new
         @weeks = @season.weeks.order(position: :asc).pluck(:position, :id)
         @season_teams = @season.seasons_teams.includes(:team)
       end

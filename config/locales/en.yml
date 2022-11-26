@@ -136,17 +136,23 @@ en:
           index:
             header: Games
             new_game: Add new game
-            week: Week position
+            week: Week
             home_season_team: Home team name
             visitor_season_team: Visitor team name
+            points: Points
             source: Source
             external_id: External ID
             start_time: Start time
             edit: Edit game
+            statistics: Statistics
           new:
             save: Save
           edit:
             title: Edit game
+          statistics:
+            index:
+              name: Name
+              submit: Save
     fantasy_leagues:
       show:
         title: Inviting friends to join

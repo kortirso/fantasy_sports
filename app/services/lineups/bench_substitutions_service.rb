@@ -109,6 +109,8 @@ module Lineups
       @lineups_players_for_update.push(
         {
           id: lineups_player[0].id,
+          lineup_id: lineups_player[0].lineup_id,
+          teams_player_id: lineups_player[0].teams_player_id,
           change_order: change_order || lineups_player[0].change_order,
           status: status || lineups_player[0].status
         }

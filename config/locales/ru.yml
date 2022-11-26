@@ -136,17 +136,23 @@ ru:
           index:
             header: Игры
             new_game: Добавить новую игру
-            week: Игровая неделя
+            week: Неделя
             home_season_team: Домашная команда
             visitor_season_team: Гостевая команда
+            points: Счёт
             source: Источник
             external_id: Внешний ID
             start_time: Начало игры
             edit: Изменить
+            statistics: Статистика
           new:
             save: Сохранить
           edit:
             title: Изменить данные игры
+          statistics:
+            index:
+              name: Имя
+              submit: Сохранить
     fantasy_leagues:
       show:
         title: Пригласить друзей присоединиться к

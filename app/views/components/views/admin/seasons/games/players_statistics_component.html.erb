@@ -1,0 +1,25 @@
+<div class="team-players-stats">
+  <h2><%= localized_value(@season_team.team.name) %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="player-name"><%= t('views.admin.seasons.games.statistics.index.name') %></th>
+        <% @statistic.each do |stat| %>
+          <th><%= stat %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @games_players.each do |games_player| %>
+        <tr>
+          <td class="player-name"><%= localized_value(games_player.teams_player.player.name) %></td>
+          <% @statistic.each do |stat| %>
+            <td class="form-field">
+              <%= @form.text_field "game_data[#{@index}][#{games_player.teams_player.shirt_number}][#{stat}]", value: games_player.statistic[stat], class: 'form-value games-player-input' %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -28,6 +28,7 @@ module Games
       games_players = [@result.home_season_team, @result.visitor_season_team].flat_map do |season_team|
         season_team.active_teams_players.includes(:player).map do |teams_player|
           {
+            game_id: @result.id,
             teams_player_id: teams_player.id,
             position_kind: teams_player.player.position_kind
           }

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
       resources :leagues, only: %i[index new create]
       resources :seasons, only: %i[index new create] do
-        resources :games, except: %i[show], module: 'seasons'
+        resources :games, except: %i[show], module: 'seasons' do
+          resources :statistics, only: %i[index create], module: 'games'
+        end
       end
     end
 

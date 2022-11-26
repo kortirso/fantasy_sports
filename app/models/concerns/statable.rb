@@ -24,6 +24,11 @@ module Statable
   FOOTBALL_STATS = [MP, GS, A, CS, GC, OG, PS, PM, YC, RC, S, B].freeze
   BASKETBALL_STATS = [P, REB, A, BLK, STL, TO].freeze
 
+  SPORT_STATS = {
+    Sportable::FOOTBALL => FOOTBALL_STATS,
+    Sportable::BASKETBALL => BASKETBALL_STATS
+  }.freeze
+
   included do
     after_initialize :generate_default_statistic
   end
@@ -37,10 +42,8 @@ module Statable
   end
 
   def select_default_statistic
-    case Sports.position(position_kind)['sport_kind']
-    when Sportable::FOOTBALL then FOOTBALL_STATS
-    when Sportable::BASKETBALL then BASKETBALL_STATS
-    else []
-    end
+    SPORT_STATS[
+      Sports.position(position_kind)['sport_kind']
+    ] || []
   end
 end

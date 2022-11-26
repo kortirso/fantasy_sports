@@ -421,11 +421,11 @@ ALTER SEQUENCE public.event_store_events_in_streams_id_seq OWNED BY public.event
 CREATE TABLE public.fantasy_leagues (
     id bigint NOT NULL,
     name character varying DEFAULT ''::character varying NOT NULL,
-    leagueable_id bigint,
-    leagueable_type character varying,
+    leagueable_id bigint NOT NULL,
+    leagueable_type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    season_id bigint,
+    season_id bigint NOT NULL,
     global boolean DEFAULT true NOT NULL,
     uuid uuid NOT NULL,
     invite_code character varying
@@ -457,11 +457,11 @@ ALTER SEQUENCE public.fantasy_leagues_id_seq OWNED BY public.fantasy_leagues.id;
 
 CREATE TABLE public.fantasy_leagues_teams (
     id bigint NOT NULL,
-    fantasy_league_id bigint,
+    fantasy_league_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    pointable_id bigint,
-    pointable_type character varying
+    pointable_id bigint NOT NULL,
+    pointable_type character varying NOT NULL
 );
 
 
@@ -491,7 +491,7 @@ ALTER SEQUENCE public.fantasy_leagues_teams_id_seq OWNED BY public.fantasy_leagu
 CREATE TABLE public.fantasy_teams (
     id bigint NOT NULL,
     uuid uuid NOT NULL,
-    user_id bigint,
+    user_id bigint NOT NULL,
     name character varying DEFAULT ''::character varying NOT NULL,
     sport_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -528,8 +528,8 @@ ALTER SEQUENCE public.fantasy_teams_id_seq OWNED BY public.fantasy_teams.id;
 
 CREATE TABLE public.fantasy_teams_players (
     id bigint NOT NULL,
-    fantasy_team_id bigint,
-    teams_player_id bigint
+    fantasy_team_id bigint NOT NULL,
+    teams_player_id bigint NOT NULL
 );
 
 
@@ -558,11 +558,11 @@ ALTER SEQUENCE public.fantasy_teams_players_id_seq OWNED BY public.fantasy_teams
 
 CREATE TABLE public.games (
     id bigint NOT NULL,
-    week_id bigint,
+    week_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    home_season_team_id bigint,
-    visitor_season_team_id bigint,
+    home_season_team_id bigint NOT NULL,
+    visitor_season_team_id bigint NOT NULL,
     source integer,
     external_id character varying,
     start_at timestamp(6) without time zone,
@@ -596,8 +596,8 @@ ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 CREATE TABLE public.games_players (
     id bigint NOT NULL,
-    game_id bigint,
-    teams_player_id bigint,
+    game_id bigint NOT NULL,
+    teams_player_id bigint NOT NULL,
     position_kind integer DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -665,8 +665,8 @@ ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
 
 CREATE TABLE public.lineups (
     id bigint NOT NULL,
-    fantasy_team_id bigint,
-    week_id bigint,
+    fantasy_team_id bigint NOT NULL,
+    week_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL,
@@ -703,8 +703,8 @@ ALTER SEQUENCE public.lineups_id_seq OWNED BY public.lineups.id;
 
 CREATE TABLE public.lineups_players (
     id bigint NOT NULL,
-    lineup_id bigint,
-    teams_player_id bigint,
+    lineup_id bigint NOT NULL,
+    teams_player_id bigint NOT NULL,
     change_order integer DEFAULT 0 NOT NULL,
     points numeric(8,2),
     status integer DEFAULT 0 NOT NULL,
@@ -774,8 +774,8 @@ ALTER SEQUENCE public.players_id_seq OWNED BY public.players.id;
 
 CREATE TABLE public.players_seasons (
     id bigint NOT NULL,
-    player_id bigint,
-    season_id bigint,
+    player_id bigint NOT NULL,
+    season_id bigint NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -866,7 +866,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.seasons (
     id bigint NOT NULL,
-    league_id bigint,
+    league_id bigint NOT NULL,
     name character varying DEFAULT ''::character varying NOT NULL,
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -900,8 +900,8 @@ ALTER SEQUENCE public.seasons_id_seq OWNED BY public.seasons.id;
 
 CREATE TABLE public.seasons_teams (
     id bigint NOT NULL,
-    season_id bigint,
-    team_id bigint,
+    season_id bigint NOT NULL,
+    team_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -965,8 +965,8 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 CREATE TABLE public.teams_players (
     id bigint NOT NULL,
-    seasons_team_id bigint,
-    player_id bigint,
+    seasons_team_id bigint NOT NULL,
+    player_id bigint NOT NULL,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1002,11 +1002,11 @@ ALTER SEQUENCE public.teams_players_id_seq OWNED BY public.teams_players.id;
 
 CREATE TABLE public.transfers (
     id bigint NOT NULL,
-    teams_player_id bigint,
+    teams_player_id bigint NOT NULL,
     direction integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    lineup_id bigint
+    lineup_id bigint NOT NULL
 );
 
 
@@ -1103,7 +1103,7 @@ ALTER SEQUENCE public.users_sessions_id_seq OWNED BY public.users_sessions.id;
 
 CREATE TABLE public.weeks (
     id bigint NOT NULL,
-    season_id bigint,
+    season_id bigint NOT NULL,
     "position" integer DEFAULT 1 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1838,6 +1838,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221115163454'),
 ('20221123171450'),
 ('20221124191706'),
-('20221125141937');
+('20221125141937'),
+('20221125182904');
 
 

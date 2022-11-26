@@ -1,0 +1,27 @@
+<div id="games-players-stats">
+  <%= form_with url: admin_season_game_statistics_path(@season.uuid, @game.uuid), method: :post do |form| %>
+    <%=
+      render(
+        Views::Admin::Seasons::Games::PlayersStatisticsComponent.new(
+          index: 0,
+          form: form,
+          season_team: @game.home_season_team,
+          games_players: @games_players.where(teams_players: { seasons_team_id: @game.home_season_team_id }),
+          statistic: @statistic
+        )
+      )
+    %>
+    <%=
+      render(
+        Views::Admin::Seasons::Games::PlayersStatisticsComponent.new(
+          index: 1,
+          form: form,
+          season_team: @game.visitor_season_team,
+          games_players: @games_players.where(teams_players: { seasons_team_id: @game.visitor_season_team_id }),
+          statistic: @statistic
+        )
+      )
+    %>
+    <%= form.submit t('views.admin.seasons.games.statistics.index.submit'), class: 'button', id: 'update-statistic' %>
+  <% end %>
+</div>
