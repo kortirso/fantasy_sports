@@ -5,6 +5,7 @@ import { Attribute, Week as WeekInterface, Game } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
+import { Game } from './Game';
 import { weekRequest } from './requests/weekRequest';
 
 interface WeekProps {
@@ -59,17 +60,7 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
                 <p>{item.date_start_at}</p>
               </div>
             ) : null}
-            <div className="game flex justify-center items-center">
-              <p className="team-name right-side">
-                {localizeValue(teamNames[item.home_team.uuid].name)}
-              </p>
-              {item.points.length > 0 ? (
-                <p className="game-points">{item.points[0]} - {item.points[1]}</p>
-              ) : (
-                <p className="game-start">{item.time_start_at}</p>
-              )}
-              <p className="team-name">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
-            </div>
+            <Game item={item} teamNames={teamNames} />
           </div>
         ))}
       </div>
