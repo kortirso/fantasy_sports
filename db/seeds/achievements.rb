@@ -9,7 +9,8 @@ Achievement.create(
   description: {
     'en' => 'Create fantasy team for any sport',
     'ru' => 'Создайте фэнтези команду для любого вида спорта'
-  }
+  },
+  achievement_group: general_group
 )
 Achievement.create(
   award_name: 'lineup_points',

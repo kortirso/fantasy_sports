@@ -17,7 +17,7 @@ module Glory
     end
 
     def award(award_name, *attributes)
-      achievements = Achievement.where(award_name: award_name).order(rank: :asc)
+      achievements = Achievement.where(award_name: award_name.to_s).order(rank: :asc)
       awards[award_name].call(achievements, *attributes)
     end
   end

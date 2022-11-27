@@ -7,7 +7,7 @@
     <%=
       react_component 'ProfileDropdown',
         logoutLink: users_logout_path,
-        unreadAchievementsCount: Current.user.achievements.unread.count,
+        unreadAchievementsCount: Current.user.users_achievements.unread.count,
         achievementsLink: profile_achievements_path
     %>
   </div>
