@@ -4,5 +4,6 @@ FactoryBot.define do
   factory :achievement do
     award_name { 'fantasy_team_create' }
     points { 5 }
+    association :achievement_group
   end
 end

@@ -1,3 +1,7 @@
+general_group = AchievementGroup.create(
+  name: { en: 'General', ru: 'Общая' }
+)
+
 Achievement.create(
   award_name: 'fantasy_team_create',
   points: 5,
@@ -12,19 +16,22 @@ Achievement.create(
   rank: 1,
   points: 10,
   title: {},
-  description: {}
+  description: {},
+  achievement_group: general_group
 )
 Achievement.create(
   award_name: 'lineup_points',
   rank: 2,
   points: 25,
-  ttitle: {},
-  description: {}
+  title: {},
+  description: {},
+  achievement_group: general_group
 )
 Achievement.create(
   award_name: 'lineup_points',
   rank: 3,
   points: 50,
-  itle: {},
-  description: {}
+  title: {},
+  description: {},
+  achievement_group: general_group
 )

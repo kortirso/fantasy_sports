@@ -249,6 +249,40 @@ $$;
 
 
 --
+-- Name: achievement_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.achievement_groups (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    parent_id bigint,
+    "position" integer DEFAULT 0 NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: achievement_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.achievement_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: achievement_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.achievement_groups_id_seq OWNED BY public.achievement_groups.id;
+
+
+--
 -- Name: achievements; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -261,7 +295,8 @@ CREATE TABLE public.achievements (
     title jsonb DEFAULT '{}'::jsonb NOT NULL,
     description jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    achievement_group_id bigint NOT NULL
 );
 
 
@@ -1156,6 +1191,13 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
+-- Name: achievement_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.achievement_groups ALTER COLUMN id SET DEFAULT nextval('public.achievement_groups_id_seq'::regclass);
+
+
+--
 -- Name: achievements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1328,6 +1370,14 @@ ALTER TABLE ONLY public.users_sessions ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_id_seq'::regclass);
+
+
+--
+-- Name: achievement_groups achievement_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.achievement_groups
+    ADD CONSTRAINT achievement_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -1567,6 +1617,20 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
+
+
+--
+-- Name: index_achievement_groups_on_parent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_achievement_groups_on_parent_id ON public.achievement_groups USING btree (parent_id);
+
+
+--
+-- Name: index_achievement_groups_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_achievement_groups_on_uuid ON public.achievement_groups USING btree (uuid);
 
 
 --
@@ -1885,6 +1949,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221124191706'),
 ('20221125141937'),
 ('20221125182904'),
-('20221127160704');
+('20221127160704'),
+('20221127172427');
 
 
