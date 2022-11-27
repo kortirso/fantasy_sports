@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :achievement do
-    type { 'Achievements::FantasyTeams::Create' }
-    association :user
+    award_name { 'fantasy_team_create' }
+    points { 5 }
   end
 end

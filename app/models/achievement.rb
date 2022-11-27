@@ -1,19 +1,24 @@
 # frozen_string_literal: true
 
 class Achievement < ApplicationRecord
+  include Glory
   include Uuidable
 
-  belongs_to :user
+  has_many :users_achievements, class_name: 'Users::Achievement', dependent: :destroy
+  has_many :users, through: :users_achievements
 
-  scope :unread, -> { where(notified: false) }
-
-  class << self
-    def ranks
-      @ranks ||= []
+  award_for :lineup_points do |achievements, lineup|
+    user = lineup.fantasy_team.user
+    achievements.each do |achievement|
+      if !user.awarded?(achievement: achievement) && lineup.points >= (achievement.rank * 10)
+        user.award(achievement: achievement)
+      end
     end
+  end
 
-    def rank(rank, options={})
-      ranks << { rank: rank, requirement: options[:requirement], points: options[:points] }
-    end
+  award_for :fantasy_team_create do |achievements, fantasy_team|
+    user = fantasy_team.user
+    achievement = achievements.first
+    user.award(achievement: achievement) unless user.awarded?(achievement: achievement)
   end
 end

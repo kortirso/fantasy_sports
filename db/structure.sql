@@ -10,20 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
-
-
---
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -269,11 +255,11 @@ $$;
 CREATE TABLE public.achievements (
     id bigint NOT NULL,
     uuid uuid NOT NULL,
-    type character varying NOT NULL,
+    award_name character varying NOT NULL,
     rank integer,
     points integer,
-    user_id bigint NOT NULL,
-    notified boolean DEFAULT false NOT NULL,
+    title jsonb DEFAULT '{}'::jsonb NOT NULL,
+    description jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1047,6 +1033,43 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: users_achievements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_achievements (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    achievement_id bigint NOT NULL,
+    notified boolean DEFAULT false NOT NULL,
+    rank integer,
+    points integer,
+    title jsonb DEFAULT '{}'::jsonb NOT NULL,
+    description jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: users_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_achievements_id_seq OWNED BY public.users_achievements.id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1287,6 +1310,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: users_achievements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_achievements ALTER COLUMN id SET DEFAULT nextval('public.users_achievements_id_seq'::regclass);
+
+
+--
 -- Name: users_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1501,6 +1531,14 @@ ALTER TABLE ONLY public.transfers
 
 
 --
+-- Name: users_achievements users_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_achievements
+    ADD CONSTRAINT users_achievements_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1532,10 +1570,10 @@ CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_play
 
 
 --
--- Name: index_achievements_on_type_and_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_achievements_on_award_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_achievements_on_type_and_user_id ON public.achievements USING btree (type, user_id);
+CREATE INDEX index_achievements_on_award_name ON public.achievements USING btree (award_name);
 
 
 --
@@ -1693,6 +1731,13 @@ CREATE INDEX index_transfers_on_teams_player_id ON public.transfers USING btree 
 
 
 --
+-- Name: index_users_achievements_on_user_id_and_achievement_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_achievements_on_user_id_and_achievement_id ON public.users_achievements USING btree (user_id, achievement_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1839,6 +1884,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221123171450'),
 ('20221124191706'),
 ('20221125141937'),
-('20221125182904');
+('20221125182904'),
+('20221127160704');
 
 

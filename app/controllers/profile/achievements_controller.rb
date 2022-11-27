@@ -10,11 +10,11 @@ module Profile
     private
 
     def find_achievements
-      @achievements = Current.user.achievements.order(updated_at: :desc)
+      @achievements = Current.user.users_achievements.order(updated_at: :desc)
     end
 
     def mark_unread_achievements_as_read
-      Current.user.achievements.unread.update_all(notified: true)
+      Current.user.users_achievements.unread.update_all(notified: true)
     end
   end
 end

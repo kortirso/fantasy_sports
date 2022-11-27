@@ -6,13 +6,13 @@
       <% @achievements.each do |achievement| %>
         <div class="achievement">
           <div class="achievement-name">
-            <p><%= localized_value(achievement.type.constantize.title) %></p>
+            <p><%= localized_value(achievement.title) %></p>
             <span class="achievement-earned">
               <%= achievement.updated_at.strftime('%d/%m/%Y') %>
             </span>
           </div>
           <div class="achievement-description">
-            <%= localized_value(achievement.type.constantize.description) %>
+            <%= localized_value(achievement.description) %>
           </div>
           <div class="achievement-icon"></div>
           <div class="achievement-points">

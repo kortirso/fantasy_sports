@@ -4,15 +4,25 @@ module Achievementable
   extend ActiveSupport::Concern
 
   included do
-    has_many :achievements, dependent: :destroy
+    has_many :users_achievements, class_name: 'Users::Achievement', dependent: :destroy
+    has_many :achievements, through: :users_achievements
   end
 
-  def award(achievement:, rank: nil, points: nil)
-    object = achievement.find_or_initialize_by(user_id: id)
-    object.update!({ rank: rank, points: points }.compact) if object.rank.to_i <= rank.to_i
+  def award(achievement:)
+    object = users_achievements.find_or_initialize_by(achievement_id: achievement.id)
+    return if object.rank.to_i > achievement.rank.to_i
+
+    object.update!(
+      {
+        rank: achievement.rank,
+        points: object.points.to_i + achievement.points,
+        title: achievement.title,
+        description: achievement.description
+      }.compact
+    )
   end
 
-  def awarded?(achievement:, rank: nil)
-    achievements.find_by({ type: achievement.to_s, user_id: id, rank: rank }.compact)
+  def awarded?(achievement:)
+    users_achievements.find_by({ achievement_id: achievement.id, rank: achievement.rank }.compact)
   end
 end
