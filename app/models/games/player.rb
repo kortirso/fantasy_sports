@@ -10,5 +10,6 @@ module Games
 
     belongs_to :game, touch: true
     belongs_to :teams_player, class_name: '::Teams::Player'
+    belongs_to :seasons_team, class_name: '::Seasons::Team'
   end
 end

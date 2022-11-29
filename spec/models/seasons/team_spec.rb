@@ -12,6 +12,7 @@ describe Seasons::Team do
     it { is_expected.to belong_to(:team).class_name('::Team') }
     it { is_expected.to have_many(:teams_players).class_name('Teams::Player').dependent(:destroy) }
     it { is_expected.to have_many(:players).through(:teams_players) }
+    it { is_expected.to have_many(:games_players).class_name('Games::Player').dependent(:destroy) }
     it { is_expected.to have_many(:active_teams_players).class_name('Teams::Player') }
     it { is_expected.to have_many(:active_players).through(:active_teams_players) }
     it { is_expected.to have_many(:home_season_games).class_name('Game').dependent(:destroy) }

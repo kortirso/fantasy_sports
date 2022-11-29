@@ -30,7 +30,8 @@ module Games
           {
             game_id: @result.id,
             teams_player_id: teams_player.id,
-            position_kind: teams_player.player.position_kind
+            position_kind: teams_player.player.position_kind,
+            seasons_team_id: season_team.id
           }
         end
       end

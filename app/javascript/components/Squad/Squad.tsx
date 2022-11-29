@@ -345,6 +345,7 @@ export const Squad = ({
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
+        teamNames={teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
       {sport.captain ? (

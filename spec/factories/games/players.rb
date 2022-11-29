@@ -6,5 +6,6 @@ FactoryBot.define do
     position_kind { Positionable::GOALKEEPER }
     association :game
     association :teams_player
+    association :seasons_team
   end
 end

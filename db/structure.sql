@@ -624,7 +624,8 @@ CREATE TABLE public.games_players (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     points numeric(8,2),
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    seasons_team_id bigint NOT NULL
 );
 
 
@@ -1950,6 +1951,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221125141937'),
 ('20221125182904'),
 ('20221127160704'),
-('20221127172427');
+('20221127172427'),
+('20221129163136');
 
 

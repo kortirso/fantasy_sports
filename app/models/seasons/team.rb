@@ -10,6 +10,8 @@ module Seasons
     has_many :teams_players, class_name: '::Teams::Player', foreign_key: :seasons_team_id, dependent: :destroy
     has_many :players, through: :teams_players
 
+    has_many :games_players, class_name: '::Games::Player', foreign_key: :seasons_team_id, dependent: :destroy
+
     # rubocop: disable Rails/HasManyOrHasOneDependent
     has_many :active_teams_players,
              -> { Teams::Player.active },

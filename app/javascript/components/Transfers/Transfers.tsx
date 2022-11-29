@@ -405,6 +405,7 @@ export const Transfers = ({
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
+        teamNames={teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
       <Modal show={!!transfersData}>

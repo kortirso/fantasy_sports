@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import type { TeamNames } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
@@ -13,6 +14,7 @@ interface PlayerModalProps {
   sportKind: string;
   seasonUuid: string;
   playerUuid?: string;
+  teamNames: TeamNames;
   onClose: () => void;
 }
 
@@ -20,6 +22,7 @@ export const PlayerModal = ({
   sportKind,
   seasonUuid,
   playerUuid,
+  teamNames,
   onClose,
 }: PlayerModalProps): JSX.Element => {
   const [seasonPlayer, setSeasonPlayer] = useState<TeamsPlayer | undefined>();
@@ -42,7 +45,7 @@ export const PlayerModal = ({
       return (
         <tr key={item.attributes.uuid}>
           <td>{item.attributes.week.position}</td>
-          <td></td>
+          <td>{localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}</td>
           <td>{item.attributes.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat: string) => (
             <td key={stat}>{item.attributes.statistic[stat]}</td>

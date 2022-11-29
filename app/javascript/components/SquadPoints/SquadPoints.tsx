@@ -127,6 +127,7 @@ export const SquadPoints = ({
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
+        teamNames={teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
     </>
