@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/enriclluelles/route_translator
-  revision: b60e8367fdbf7807bea0af9093dd4a335d36ab74
+  revision: bb3e5fd9b0a9c0b517670ae95e7786969fa85bd6
   branch: master
   specs:
     route_translator (13.0.0)
@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/flyerhzm/bullet
-  revision: cad26c6c8a5e6164aec774f590d917159adc33d8
+  revision: 86a49220b4bc7330ccf717f8b7c519ae92b28c55
   branch: master
   specs:
-    bullet (7.0.3)
+    bullet (7.0.4)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
 
@@ -97,8 +97,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    aggregate_root (2.5.1)
-      ruby_event_store (= 2.5.1)
+    aggregate_root (2.6.0)
+      ruby_event_store (= 2.6.0)
     arkency-command_bus (0.4.1)
       concurrent-ruby
     ast (2.4.2)
@@ -149,7 +149,8 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
-    emailbutler (0.4.0)
+    emailbutler (0.5.0)
+      pagy (~> 5.10)
       rails (> 6.0.0)
       sass-rails
     erubi (1.11.0)
@@ -207,6 +208,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
+    pagy (5.10.1)
+      activesupport
     parallel (1.22.1)
     parser (3.1.3.0)
       ast (~> 2.4.1)
@@ -244,18 +247,18 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
-    rails_event_store (2.5.1)
-      activejob (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      aggregate_root (= 2.5.1)
+    rails_event_store (2.6.0)
+      activejob (>= 6.0)
+      activemodel (>= 6.0)
+      activesupport (>= 6.0)
+      aggregate_root (= 2.6.0)
       arkency-command_bus (>= 0.4)
-      rails_event_store_active_record (= 2.5.1)
-      ruby_event_store (= 2.5.1)
-      ruby_event_store-browser (= 2.5.1)
-    rails_event_store_active_record (2.5.1)
+      rails_event_store_active_record (= 2.6.0)
+      ruby_event_store (= 2.6.0)
+      ruby_event_store-browser (= 2.6.0)
+    rails_event_store_active_record (2.6.0)
       activerecord (>= 6.0)
-      ruby_event_store (= 2.5.1)
+      ruby_event_store (= 2.6.0)
     railties (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -315,7 +318,7 @@ GEM
       rubocop-ast (>= 1.23.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.23.0)
+    rubocop-ast (1.24.0)
       parser (>= 3.1.1.0)
     rubocop-performance (1.15.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -329,12 +332,12 @@ GEM
     ruby-next-core (0.15.3)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    ruby_event_store (2.5.1)
+    ruby_event_store (2.6.0)
       concurrent-ruby (~> 1.0, >= 1.1.6)
-    ruby_event_store-browser (2.5.1)
+    ruby_event_store-browser (2.6.0)
       rack
-      ruby_event_store (= 2.5.1)
-    ruby_event_store-rspec (2.5.1)
+      ruby_event_store (= 2.6.0)
+    ruby_event_store-rspec (2.6.0)
       rspec (~> 3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -368,7 +371,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
-    view_component (2.77.0)
+    view_component (2.78.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
