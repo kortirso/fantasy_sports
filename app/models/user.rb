@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   include ActiveModel::SecurePassword
   include Leagueable
-  include Achievementable
+  include Kudos::Achievementable
 
   has_secure_password
   has_secure_token :confirmation_token, length: 24

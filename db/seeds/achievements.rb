@@ -1,8 +1,8 @@
-general_group = AchievementGroup.create(
+general_group = Kudos::AchievementGroup.create(
   name: { en: 'General', ru: 'Общая' }
 )
 
-Achievement.create(
+Kudos::Achievement.create(
   award_name: 'fantasy_team_create',
   points: 5,
   title: { 'en' => 'Beginning', 'ru' => 'Начало' },
@@ -10,29 +10,29 @@ Achievement.create(
     'en' => 'Create fantasy team for any sport',
     'ru' => 'Создайте фэнтези команду для любого вида спорта'
   },
-  achievement_group: general_group
+  kudos_achievement_group: general_group
 )
-Achievement.create(
+Kudos::Achievement.create(
   award_name: 'lineup_points',
   rank: 1,
   points: 10,
   title: {},
   description: {},
-  achievement_group: general_group
+  kudos_achievement_group: general_group
 )
-Achievement.create(
+Kudos::Achievement.create(
   award_name: 'lineup_points',
   rank: 2,
   points: 25,
   title: {},
   description: {},
-  achievement_group: general_group
+  kudos_achievement_group: general_group
 )
-Achievement.create(
+Kudos::Achievement.create(
   award_name: 'lineup_points',
   rank: 3,
   points: 50,
   title: {},
   description: {},
-  achievement_group: general_group
+  kudos_achievement_group: general_group
 )

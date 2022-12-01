@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
-class Achievement < ApplicationRecord
-  include Glory
-  include Uuidable
-
-  belongs_to :achievement_group
-
-  has_many :users_achievements, class_name: 'Users::Achievement', dependent: :destroy
-  has_many :users, through: :users_achievements
-
+class Achievement < Kudos::Achievement
   award_for :lineup_points do |achievements, lineup|
     user = lineup.fantasy_team.user
     achievements.each do |achievement|

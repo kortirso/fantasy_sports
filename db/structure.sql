@@ -249,77 +249,6 @@ $$;
 
 
 --
--- Name: achievement_groups; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.achievement_groups (
-    id bigint NOT NULL,
-    uuid uuid NOT NULL,
-    parent_id bigint,
-    "position" integer DEFAULT 0 NOT NULL,
-    name jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: achievement_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.achievement_groups_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: achievement_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.achievement_groups_id_seq OWNED BY public.achievement_groups.id;
-
-
---
--- Name: achievements; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.achievements (
-    id bigint NOT NULL,
-    uuid uuid NOT NULL,
-    award_name character varying NOT NULL,
-    rank integer,
-    points integer,
-    title jsonb DEFAULT '{}'::jsonb NOT NULL,
-    description jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    achievement_group_id bigint NOT NULL
-);
-
-
---
--- Name: achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.achievements_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.achievements_id_seq OWNED BY public.achievements.id;
-
-
---
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -646,6 +575,114 @@ CREATE SEQUENCE public.games_players_id_seq
 --
 
 ALTER SEQUENCE public.games_players_id_seq OWNED BY public.games_players.id;
+
+
+--
+-- Name: kudos_achievement_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kudos_achievement_groups (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    parent_id bigint,
+    "position" integer DEFAULT 0 NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: kudos_achievement_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.kudos_achievement_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: kudos_achievement_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.kudos_achievement_groups_id_seq OWNED BY public.kudos_achievement_groups.id;
+
+
+--
+-- Name: kudos_achievements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kudos_achievements (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    award_name character varying NOT NULL,
+    rank integer,
+    points integer,
+    title jsonb DEFAULT '{}'::jsonb NOT NULL,
+    description jsonb DEFAULT '{}'::jsonb NOT NULL,
+    kudos_achievement_group_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: kudos_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.kudos_achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: kudos_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.kudos_achievements_id_seq OWNED BY public.kudos_achievements.id;
+
+
+--
+-- Name: kudos_users_achievements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kudos_users_achievements (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    kudos_achievement_id bigint NOT NULL,
+    notified boolean DEFAULT false NOT NULL,
+    rank integer,
+    points integer,
+    title jsonb DEFAULT '{}'::jsonb NOT NULL,
+    description jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: kudos_users_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.kudos_users_achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: kudos_users_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.kudos_users_achievements_id_seq OWNED BY public.kudos_users_achievements.id;
 
 
 --
@@ -1069,43 +1106,6 @@ CREATE TABLE public.users (
 
 
 --
--- Name: users_achievements; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.users_achievements (
-    id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    achievement_id bigint NOT NULL,
-    notified boolean DEFAULT false NOT NULL,
-    rank integer,
-    points integer,
-    title jsonb DEFAULT '{}'::jsonb NOT NULL,
-    description jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: users_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.users_achievements_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_achievements_id_seq OWNED BY public.users_achievements.id;
-
-
---
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1192,20 +1192,6 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
--- Name: achievement_groups id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.achievement_groups ALTER COLUMN id SET DEFAULT nextval('public.achievement_groups_id_seq'::regclass);
-
-
---
--- Name: achievements id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.achievements ALTER COLUMN id SET DEFAULT nextval('public.achievements_id_seq'::regclass);
-
-
---
 -- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1266,6 +1252,27 @@ ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_
 --
 
 ALTER TABLE ONLY public.games_players ALTER COLUMN id SET DEFAULT nextval('public.games_players_id_seq'::regclass);
+
+
+--
+-- Name: kudos_achievement_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_achievement_groups ALTER COLUMN id SET DEFAULT nextval('public.kudos_achievement_groups_id_seq'::regclass);
+
+
+--
+-- Name: kudos_achievements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_achievements ALTER COLUMN id SET DEFAULT nextval('public.kudos_achievements_id_seq'::regclass);
+
+
+--
+-- Name: kudos_users_achievements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_users_achievements ALTER COLUMN id SET DEFAULT nextval('public.kudos_users_achievements_id_seq'::regclass);
 
 
 --
@@ -1353,13 +1360,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: users_achievements id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users_achievements ALTER COLUMN id SET DEFAULT nextval('public.users_achievements_id_seq'::regclass);
-
-
---
 -- Name: users_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1371,22 +1371,6 @@ ALTER TABLE ONLY public.users_sessions ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_id_seq'::regclass);
-
-
---
--- Name: achievement_groups achievement_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.achievement_groups
-    ADD CONSTRAINT achievement_groups_pkey PRIMARY KEY (id);
-
-
---
--- Name: achievements achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.achievements
-    ADD CONSTRAINT achievements_pkey PRIMARY KEY (id);
 
 
 --
@@ -1467,6 +1451,30 @@ ALTER TABLE ONLY public.games
 
 ALTER TABLE ONLY public.games_players
     ADD CONSTRAINT games_players_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kudos_achievement_groups kudos_achievement_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_achievement_groups
+    ADD CONSTRAINT kudos_achievement_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kudos_achievements kudos_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_achievements
+    ADD CONSTRAINT kudos_achievements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kudos_users_achievements kudos_users_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_users_achievements
+    ADD CONSTRAINT kudos_users_achievements_pkey PRIMARY KEY (id);
 
 
 --
@@ -1582,14 +1590,6 @@ ALTER TABLE ONLY public.transfers
 
 
 --
--- Name: users_achievements users_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users_achievements
-    ADD CONSTRAINT users_achievements_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1618,34 +1618,6 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
-
-
---
--- Name: index_achievement_groups_on_parent_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_achievement_groups_on_parent_id ON public.achievement_groups USING btree (parent_id);
-
-
---
--- Name: index_achievement_groups_on_uuid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_achievement_groups_on_uuid ON public.achievement_groups USING btree (uuid);
-
-
---
--- Name: index_achievements_on_award_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_achievements_on_award_name ON public.achievements USING btree (award_name);
-
-
---
--- Name: index_achievements_on_uuid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_achievements_on_uuid ON public.achievements USING btree (uuid);
 
 
 --
@@ -1754,6 +1726,55 @@ CREATE UNIQUE INDEX index_games_players_on_game_id_and_teams_player_id ON public
 
 
 --
+-- Name: index_kudos_achievement_groups_on_parent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kudos_achievement_groups_on_parent_id ON public.kudos_achievement_groups USING btree (parent_id);
+
+
+--
+-- Name: index_kudos_achievement_groups_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_kudos_achievement_groups_on_uuid ON public.kudos_achievement_groups USING btree (uuid);
+
+
+--
+-- Name: index_kudos_achievements_on_award_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kudos_achievements_on_award_name ON public.kudos_achievements USING btree (award_name);
+
+
+--
+-- Name: index_kudos_achievements_on_kudos_achievement_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kudos_achievements_on_kudos_achievement_group_id ON public.kudos_achievements USING btree (kudos_achievement_group_id);
+
+
+--
+-- Name: index_kudos_achievements_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_kudos_achievements_on_uuid ON public.kudos_achievements USING btree (uuid);
+
+
+--
+-- Name: index_kudos_users_achievements_on_kudos_achievement_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kudos_users_achievements_on_kudos_achievement_id ON public.kudos_users_achievements USING btree (kudos_achievement_id);
+
+
+--
+-- Name: index_kudos_users_achievements_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kudos_users_achievements_on_user_id ON public.kudos_users_achievements USING btree (user_id);
+
+
+--
 -- Name: index_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1796,13 +1817,6 @@ CREATE INDEX index_transfers_on_teams_player_id ON public.transfers USING btree 
 
 
 --
--- Name: index_users_achievements_on_user_id_and_achievement_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_achievements_on_user_id_and_achievement_id ON public.users_achievements USING btree (user_id, achievement_id);
-
-
---
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1828,6 +1842,13 @@ CREATE UNIQUE INDEX index_users_sessions_on_uuid ON public.users_sessions USING 
 --
 
 CREATE INDEX index_weeks_on_season_id ON public.weeks USING btree (season_id);
+
+
+--
+-- Name: kudos_users_achievements_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX kudos_users_achievements_unique_index ON public.kudos_users_achievements USING btree (user_id, kudos_achievement_id);
 
 
 --
@@ -1877,6 +1898,30 @@ CREATE TRIGGER que_job_notify AFTER INSERT ON public.que_jobs FOR EACH ROW WHEN 
 --
 
 CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_jobs FOR EACH ROW WHEN ((NOT (COALESCE(current_setting('que.skip_notify'::text, true), ''::text) = 'true'::text))) EXECUTE FUNCTION public.que_state_notify();
+
+
+--
+-- Name: kudos_users_achievements fk_rails_4621adbc67; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_users_achievements
+    ADD CONSTRAINT fk_rails_4621adbc67 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: kudos_users_achievements fk_rails_db98df5998; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_users_achievements
+    ADD CONSTRAINT fk_rails_db98df5998 FOREIGN KEY (kudos_achievement_id) REFERENCES public.kudos_achievements(id);
+
+
+--
+-- Name: kudos_achievements fk_rails_e8b9da81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kudos_achievements
+    ADD CONSTRAINT fk_rails_e8b9da81fe FOREIGN KEY (kudos_achievement_group_id) REFERENCES public.kudos_achievement_groups(id);
 
 
 --
@@ -1946,12 +1991,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221112152958'),
 ('20221112161902'),
 ('20221115163454'),
-('20221123171450'),
 ('20221124191706'),
 ('20221125141937'),
 ('20221125182904'),
-('20221127160704'),
-('20221127172427'),
-('20221129163136');
+('20221129163136'),
+('20221201161232');
 
 
