@@ -3,23 +3,7 @@
   <div class="page-wrapper">
     <%= render Views::Shared::ProfileNavigationComponent.new %>
     <div class="page-content">
-      <% @achievements.each do |achievement| %>
-        <div class="achievement">
-          <div class="achievement-name">
-            <p><%= localized_value(achievement.title) %></p>
-            <span class="achievement-earned">
-              <%= achievement.updated_at.strftime('%d/%m/%Y') %>
-            </span>
-          </div>
-          <div class="achievement-description">
-            <%= localized_value(achievement.description) %>
-          </div>
-          <div class="achievement-icon"></div>
-          <div class="achievement-points">
-            <%= achievement.points %>
-          </div>
-        </div>
-      <% end %>
+      <%= react_component 'Achievements' %>
     <div>
   </div>
 <% end %>

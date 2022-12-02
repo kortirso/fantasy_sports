@@ -74,6 +74,8 @@ Rails.application.routes.draw do
     resources :games, only: %i[] do
       resources :statistics, only: %i[index], module: 'games'
     end
+    resources :achievement_groups, only: %i[index]
+    resources :achievements, only: %i[index]
 
     root 'welcome#index'
   end

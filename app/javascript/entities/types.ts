@@ -1,4 +1,4 @@
-export const componentTypes = ['SportRules', 'Squad', 'SquadPoints', 'Transfers', 'TransfersStatus', 'ProfileDropdown'] as const;
+export const componentTypes = ['Achievements', 'SportRules', 'Squad', 'SquadPoints', 'Transfers', 'TransfersStatus', 'ProfileDropdown'] as const;
 
 export type ComponentType = typeof componentTypes[number];
 

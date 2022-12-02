@@ -79,6 +79,9 @@
       "profile": "Profile",
       "achievements": "Achievements",
       "logout": "Logout"
+    },
+    "achievements": {
+      "summary": "Summary"
     }
   },
   "ru": {
@@ -161,6 +164,9 @@
       "profile": "Профиль",
       "achievements": "Достижения",
       "logout": "Выход"
+    },
+    "achievements": {
+      "summary": "Сводка"
     }
   }
 }

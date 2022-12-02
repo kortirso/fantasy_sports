@@ -10,7 +10,8 @@ module Kudos
                class_name: 'Kudos::AchievementGroup',
                foreign_key: :parent_id,
                inverse_of: :children,
-               optional: true
+               optional: true,
+               touch: true
 
     has_many :children,
              class_name: 'Kudos::AchievementGroup',
@@ -22,5 +23,9 @@ module Kudos
              class_name: 'Kudos::Achievement',
              foreign_key: :kudos_achievement_group_id,
              dependent: :destroy
+
+    def with_children_groups
+      children.flat_map(&:with_children_groups).push(id)
+    end
   end
 end

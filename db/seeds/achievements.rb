@@ -1,6 +1,10 @@
 general_group = Kudos::AchievementGroup.create(
   name: { en: 'General', ru: 'Общая' }
 )
+basketball_group = Kudos::AchievementGroup.create(
+  name: { en: 'Basketball', ru: 'Баскетбол' },
+  parent: general_group
+)
 
 Kudos::Achievement.create(
   award_name: 'fantasy_team_create',
