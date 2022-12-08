@@ -17,6 +17,7 @@ class FantasyLeague < ApplicationRecord
   has_many :lineups, through: :fantasy_leagues_teams, source: :pointable, source_type: 'Lineup'
 
   scope :invitational, -> { where(leagueable_type: 'User') }
+  scope :general, -> { where.not(leagueable_type: 'User') }
 
   def members
     leagueable_type == 'Week' ? lineups : fantasy_teams
