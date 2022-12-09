@@ -19,8 +19,8 @@ class Week < ApplicationRecord
   has_many :teams_player, through: :lineups
   has_many :transfers, through: :lineups
 
-  has_many :cups_rounds, dependent: :destroy
-  has_many :cups_pairs, through: :cups_rounds
+  has_many :cups_rounds, class_name: '::Cups::Round', dependent: :destroy
+  has_many :cups_pairs, class_name: '::Cups::Pair', through: :cups_rounds
 
   scope :active, -> { where(status: ACTIVE) }
 

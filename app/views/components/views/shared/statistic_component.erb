@@ -30,6 +30,15 @@
           <p><%= link_to fantasy_league[:place], fantasy_league_path(fantasy_league[:uuid]) %></p>
         </div>
       <% end %>
+      <div class="points-statistic-block">
+        <h3><%= t('views.shared.statistic.cups') %></h3>
+      </div>
+      <% fantasy_cups.each do |cup| %>
+        <div class="points-statistic-block flex">
+          <p><%= cup[:name] %></p>
+          <p><%= cup[:pair]&.cups_round&.name %> - <%= cup[:pair_result] %></p>
+        </div>
+      <% end %>
     </div>
     <div class="points-statistic">
       <div class="points-statistic-block">
