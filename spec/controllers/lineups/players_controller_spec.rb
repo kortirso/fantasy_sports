@@ -135,7 +135,7 @@ describe Lineups::PlayersController do
           let(:service_object) { double }
 
           before do
-            allow(::Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
+            allow(Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
             allow(service_object).to receive(:success?).and_return(update_result)
             allow(service_object).to receive(:errors).and_return(['Error'])
 
@@ -166,7 +166,7 @@ describe Lineups::PlayersController do
             let(:update_result) { true }
 
             it 'calls update service' do
-              expect(::Lineups::Players::UpdateService).to(
+              expect(Lineups::Players::UpdateService).to(
                 have_received(:call).with(
                   lineup: lineup,
                   lineups_players_params: [
