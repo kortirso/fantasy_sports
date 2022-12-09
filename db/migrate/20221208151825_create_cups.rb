@@ -16,8 +16,8 @@ class CreateCups < ActiveRecord::Migration[7.0]
 
     create_table :cups_pairs do |t|
       t.bigint :cups_round_id, null: false, index: true
-      t.bigint :home_lineup_id, null: false, index: true
-      t.bigint :visitor_lineup_id, null: false, index: true
+      t.bigint :home_lineup_id, index: true
+      t.bigint :visitor_lineup_id, index: true
       t.timestamps
     end
   end

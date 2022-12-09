@@ -9,7 +9,7 @@ describe Cups::Pair do
 
   describe 'associations' do
     it { is_expected.to belong_to(:cups_round).class_name('::Cups::Round') }
-    it { is_expected.to belong_to(:home_lineup).class_name('::Lineup') }
-    it { is_expected.to belong_to(:visitor_lineup).class_name('::Lineup') }
+    it { is_expected.to belong_to(:home_lineup).class_name('::Lineup').optional }
+    it { is_expected.to belong_to(:visitor_lineup).class_name('::Lineup').optional }
   end
 end

@@ -299,8 +299,8 @@ ALTER SEQUENCE public.cups_id_seq OWNED BY public.cups.id;
 CREATE TABLE public.cups_pairs (
     id bigint NOT NULL,
     cups_round_id bigint NOT NULL,
-    home_lineup_id bigint NOT NULL,
-    visitor_lineup_id bigint NOT NULL,
+    home_lineup_id bigint,
+    visitor_lineup_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
