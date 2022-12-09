@@ -261,6 +261,105 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: cups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups (
+    id bigint NOT NULL,
+    fantasy_league_id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_id_seq OWNED BY public.cups.id;
+
+
+--
+-- Name: cups_pairs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups_pairs (
+    id bigint NOT NULL,
+    cups_round_id bigint NOT NULL,
+    home_lineup_id bigint,
+    visitor_lineup_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_pairs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_pairs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_pairs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_pairs_id_seq OWNED BY public.cups_pairs.id;
+
+
+--
+-- Name: cups_rounds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups_rounds (
+    id bigint NOT NULL,
+    cup_id bigint NOT NULL,
+    week_id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_rounds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_rounds_id_seq OWNED BY public.cups_rounds.id;
+
+
+--
 -- Name: emailbutler_messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1192,6 +1291,27 @@ ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
 
 
 --
+-- Name: cups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups ALTER COLUMN id SET DEFAULT nextval('public.cups_id_seq'::regclass);
+
+
+--
+-- Name: cups_pairs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_pairs ALTER COLUMN id SET DEFAULT nextval('public.cups_pairs_id_seq'::regclass);
+
+
+--
+-- Name: cups_rounds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds ALTER COLUMN id SET DEFAULT nextval('public.cups_rounds_id_seq'::regclass);
+
+
+--
 -- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1379,6 +1499,30 @@ ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: cups_pairs cups_pairs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_pairs
+    ADD CONSTRAINT cups_pairs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups cups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups
+    ADD CONSTRAINT cups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups_rounds cups_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds
+    ADD CONSTRAINT cups_rounds_pkey PRIMARY KEY (id);
 
 
 --
@@ -1618,6 +1762,48 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
+
+
+--
+-- Name: index_cups_on_fantasy_league_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_on_fantasy_league_id ON public.cups USING btree (fantasy_league_id);
+
+
+--
+-- Name: index_cups_pairs_on_cups_round_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_cups_round_id ON public.cups_pairs USING btree (cups_round_id);
+
+
+--
+-- Name: index_cups_pairs_on_home_lineup_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_home_lineup_id ON public.cups_pairs USING btree (home_lineup_id);
+
+
+--
+-- Name: index_cups_pairs_on_visitor_lineup_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_visitor_lineup_id ON public.cups_pairs USING btree (visitor_lineup_id);
+
+
+--
+-- Name: index_cups_rounds_on_cup_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_cup_id ON public.cups_rounds USING btree (cup_id);
+
+
+--
+-- Name: index_cups_rounds_on_week_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_week_id ON public.cups_rounds USING btree (week_id);
 
 
 --
@@ -1995,6 +2181,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221125141937'),
 ('20221125182904'),
 ('20221129163136'),
-('20221201161232');
+('20221201161232'),
+('20221208151825');
 
 

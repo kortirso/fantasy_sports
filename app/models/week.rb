@@ -19,6 +19,9 @@ class Week < ApplicationRecord
   has_many :teams_player, through: :lineups
   has_many :transfers, through: :lineups
 
+  has_many :cups_rounds, class_name: '::Cups::Round', dependent: :destroy
+  has_many :cups_pairs, class_name: '::Cups::Pair', through: :cups_rounds
+
   scope :active, -> { where(status: ACTIVE) }
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
