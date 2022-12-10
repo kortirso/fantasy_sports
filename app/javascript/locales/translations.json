@@ -49,8 +49,9 @@
     "player": {
       "form": "Form",
       "lastWeek": "Last points",
-      "totalPoints": "Points",
+      "totalPoints": "Total points",
       "price": "Price",
+      "teamsSelectedBy": "Selection",
       "thisSeason": "This season",
       "previousSeasons": "Previous seasons",
       "noSeasonGames": "There are no games yet"
@@ -133,9 +134,10 @@
     },
     "player": {
       "form": "Форма",
-      "lastWeek": "Последние очки",
-      "totalPoints": "Очки",
+      "lastWeek": "Последняя игра",
+      "totalPoints": "Всего очков",
       "price": "Стоимость",
+      "teamsSelectedBy": "Выбранность",
       "thisSeason": "Текущий сезон",
       "previousSeasons": "Предыдущие сезоны",
       "noSeasonGames": "Пока нет данных"

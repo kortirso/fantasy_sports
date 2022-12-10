@@ -40,8 +40,17 @@ export const PlayerModal = ({
     if (playerUuid) fetchSeasonPlayer();
   }, [seasonUuid, playerUuid]);
 
+  if (!seasonPlayer) return <></>;
+
+  const lastPoints = () => {
+    const data = seasonPlayer.games_players.data;
+    const lastGameData = data[data.length - 1];
+
+    return lastGameData.attributes.points;
+  };
+
   const renderSeasonGames = () => {
-    return seasonPlayer?.games_players?.data?.map((item) => {
+    return seasonPlayer.games_players.data.map((item) => {
       return (
         <tr key={item.attributes.uuid}>
           <td>{item.attributes.week.position}</td>
@@ -55,8 +64,6 @@ export const PlayerModal = ({
       );
     });
   };
-
-  if (!seasonPlayer) return <></>;
 
   return (
     <Modal show={!!playerUuid}>
@@ -73,7 +80,7 @@ export const PlayerModal = ({
         </div>
         <div className="player-stat flex flex-col items-center">
           <p>{strings.player.lastWeek}</p>
-          <p>-</p>
+          <p>{lastPoints()}</p>
         </div>
         <div className="player-stat flex flex-col items-center">
           <p>{strings.player.totalPoints}</p>
@@ -82,6 +89,10 @@ export const PlayerModal = ({
         <div className="player-stat flex flex-col items-center">
           <p>{strings.player.price}</p>
           <p>{seasonPlayer.price}</p>
+        </div>
+        <div className="player-stat flex flex-col items-center">
+          <p>{strings.player.teamsSelectedBy}</p>
+          <p>{seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
       <div className="player-modal-table">
@@ -108,7 +119,7 @@ export const PlayerModal = ({
           </table>
         )}
       </div>
-      <h3>{strings.player.previousSeasons}</h3>
+      {false ? <h3>{strings.player.previousSeasons}</h3> : null}
     </Modal>
   );
 };
