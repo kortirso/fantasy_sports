@@ -54,7 +54,7 @@ module Views
       def pair_result(pair)
         return '' unless pair
 
-        @winner_detect_service.call(cups_pair: pair, format: :winner_team).result == @fantasy_team ? 'W' : 'L'
+        @winner_detect_service.call(cups_pair: pair).result == @fantasy_team ? 'W' : 'L'
       end
 
       def squad_value

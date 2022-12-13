@@ -5,14 +5,9 @@ module Cups
     class WinnerDetectService
       prepend ApplicationService
 
-      def call(cups_pair:, format:)
+      def call(cups_pair:)
         @cups_pair = cups_pair
-
-        @result =
-          case format
-          when :winner_team then select_winner_fantasy_team
-          when :game_score then game_score
-          end
+        @result = select_winner_fantasy_team
       end
 
       private
@@ -24,26 +19,26 @@ module Cups
         return home_fantasy_team if points_difference.positive?
         return visitor_fantasy_team if points_difference.negative?
 
-        # TODO: need better algorithm for selecting pair winner
-        # Current approach - team with better points go further
-        team_points_difference = home_fantasy_team.points - visitor_fantasy_team.points
-        team_points_difference.negative? ? visitor_fantasy_team : home_fantasy_team
+        detect_winner_by_players
       end
 
-      def game_score
-        [home_team_score, visitor_team_score]
-      end
-
-      def home_team_score
-        @cups_pair.home_lineup.points + @cups_pair.home_lineup.penalty_points
-      end
-
-      def visitor_team_score
-        @cups_pair.visitor_lineup.points + @cups_pair.visitor_lineup.penalty_points
+      def detect_winner_by_players
+        "Cups::Pairs::WinnerDetect::For#{@cups_pair.home_lineup.fantasy_team.sport_kind.capitalize}Service"
+          .constantize
+          .call(home_lineup: @cups_pair.home_lineup, visitor_lineup: @cups_pair.visitor_lineup)
+          .result
       end
 
       def fetch_points_difference
         home_team_score - visitor_team_score
+      end
+
+      def home_team_score
+        @cups_pair.home_lineup.points.to_d + @cups_pair.home_lineup.penalty_points.to_d
+      end
+
+      def visitor_team_score
+        @cups_pair.visitor_lineup.points.to_d + @cups_pair.visitor_lineup.penalty_points.to_d
       end
     end
   end
