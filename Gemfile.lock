@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/enriclluelles/route_translator
-  revision: bb3e5fd9b0a9c0b517670ae95e7786969fa85bd6
+  revision: 487624d4d8a6c153f7d06bfb46b9ee4cff683182
   branch: master
   specs:
     route_translator (13.0.0)
@@ -185,7 +185,7 @@ GEM
       addressable (~> 2.7)
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
-    loofah (2.19.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.0)
@@ -250,8 +250,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.3)
-      loofah (~> 2.3)
+    rails-html-sanitizer (1.4.4)
+      loofah (~> 2.19, >= 2.19.1)
     rails_event_store (2.6.0)
       activejob (>= 6.0)
       activemodel (>= 6.0)
@@ -301,7 +301,7 @@ GEM
     rspec-expectations (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.0)
+    rspec-mocks (3.12.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-rails (6.0.1)
@@ -332,7 +332,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    rubocop-rspec (2.15.0)
+    rubocop-rspec (2.16.0)
       rubocop (~> 1.33)
     ruby-next-core (0.15.3)
     ruby-progressbar (1.11.0)
@@ -376,7 +376,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
-    view_component (2.78.0)
+    view_component (2.79.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
