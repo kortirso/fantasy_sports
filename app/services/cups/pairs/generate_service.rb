@@ -44,7 +44,7 @@ module Cups
         previous_cups_round
           .cups_pairs
           .includes(home_lineup: :fantasy_team, visitor_lineup: :fantasy_team)
-          .map { |pair| @winner_detect_service.call(cups_pair: pair, format: :winner_team).result }
+          .map { |pair| @winner_detect_service.call(cups_pair: pair).result }
       end
 
       def best_fantasy_teams
