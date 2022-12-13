@@ -11,7 +11,7 @@
     <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
     <%= yield %>
     <div id="modal-root"></div>
-    <%= render Shared::FlashComponent.new %>
+    <%= react_component 'Flash', values: flash %>
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

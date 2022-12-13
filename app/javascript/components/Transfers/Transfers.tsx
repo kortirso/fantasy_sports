@@ -3,10 +3,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import type { TeamNames } from 'entities';
 import { SportPosition, Player, TeamsPlayer, KeyValue } from 'entities';
 import { sportsData } from 'data';
-import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
+import { currentLocale, localizeValue, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
-import { Dropdown, Modal } from 'components/atoms';
+import { Dropdown, Modal, Flash } from 'components/atoms';
 import { Week, PlayerModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
@@ -60,6 +60,7 @@ export const Transfers = ({
   const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamUuid, setFavouriteTeamUuid] = useState<string | null>(null);
   const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
+  const [alerts, setAlerts] = useState([]);
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
@@ -138,19 +139,19 @@ export const Transfers = ({
 
   const addTeamMember = (item: TeamsPlayer) => {
     // if fantasy team is full
-    if (teamMembers.length === sport.max_players) return showAlert('alert', `<p>${strings.transfers.teamFull}</p>`);
+    if (teamMembers.length === sport.max_players) return setAlerts([['alert', strings.transfers.teamFull]]);
     // if player is already in team
-    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return showAlert('alert', `<p>${strings.transfers.playerInTeam}</p>`);
+    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return setAlerts([['alert', strings.transfers.playerInTeam]]);
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
-    if (positionsLeft === 0) return showAlert('alert', `<p>${strings.transfers.noPositions}</p>`);
+    if (positionsLeft === 0) return setAlerts([['alert', strings.transfers.noPositions]]);
     // if there are already max_team_players
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
       return element.team.uuid === item.team.uuid;
     });
-    if (playersFromTeam.length >= sport.max_team_players) return showAlert('alert', `<p>${strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })}</p>`);
+    if (playersFromTeam.length >= sport.max_team_players) return setAlerts([['alert', strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })]]);
 
     setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
@@ -206,7 +207,7 @@ export const Transfers = ({
     if (submitResult.redirect_path) {
       window.location = submitResult.redirect_path;
     } else {
-      submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+      setAlerts([['alert', submitResult.errors]]);
     }
   };
 
@@ -240,13 +241,13 @@ export const Transfers = ({
       if (submitResult.result) {
         setTransfersData(submitResult.result);
       } else {
-        submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+        setAlerts([['alert', submitResult.errors]]);
       }
     } else {
       if (submitResult.result) {
-        showAlert('notice', `<p>${submitResult.result}</p>`);
+        setAlerts([['notice', submitResult.result]]);
       } else {
-        submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+        setAlerts([['alert', submitResult.errors]]);
       }
     }
   };
@@ -408,6 +409,7 @@ export const Transfers = ({
         teamNames={teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
+      <Flash values={alerts} />
       <Modal show={!!transfersData}>
         <div className="button small modal-close" onClick={() => setTransfersData(null)}>
           X

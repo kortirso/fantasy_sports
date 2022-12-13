@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import type { TeamNames } from 'entities';
 import { SportPosition, LineupPlayer } from 'entities';
 import { sportsData } from 'data';
-import { currentLocale, localizeValue, showAlert, csrfToken } from 'helpers';
+import { currentLocale, localizeValue, csrfToken } from 'helpers';
 import { strings } from 'locales';
 
+import { Flash } from 'components/atoms';
 import { Week, PlayerModal, PlayerActionsModal, PlayerCard } from 'components';
 
 import { apiRequest } from 'requests/helpers/apiRequest';
@@ -39,6 +40,7 @@ export const Squad = ({
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
   const [playerActionsUuid, setPlayerActionsUuid] = useState<string | undefined>();
+  const [alerts, setAlerts] = useState([]);
   // dynamic data
   const [playerUuidForChange, setPlayerUuidForChange] = useState<string | null>(null);
   const [playerUuidsToChange, setPlayerUuidsToChange] = useState<string[]>([]);
@@ -227,16 +229,16 @@ export const Squad = ({
       options: requestOptions,
     });
     if (submitResult.message) {
-      showAlert('notice', `<p>${submitResult.message}</p>`);
+      setAlerts([['notice', submitResult.message]]);
     } else {
-      submitResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+      setAlerts([['alert', submitResult.errors]]);
     }
   };
 
   const toggleChip = async (value: string) => {
     let activeChips = lineup.active_chips;
     if (activeChips.length === sport.max_chips_per_week && !activeChips.includes(value)) {
-      return showAlert('alert', `<p>${strings.squad.chipsLimit}</p>`);
+      return setAlerts([['alert', strings.squad.chipsLimit]]);
     }
 
     if (activeChips.includes(value)) {
@@ -265,9 +267,9 @@ export const Squad = ({
         ...lineup,
         active_chips: activeChips,
       });
-      showAlert('notice', `<p>${toggleResultResult.message}</p>`);
+      setAlerts([['notice', toggleResultResult.message]]);
     } else {
-      toggleResultResult.errors.forEach((error: string) => showAlert('alert', `<p>${error}</p>`));
+      setAlerts([['alert', toggleResultResult.errors]]);
     }
   };
 
@@ -341,6 +343,7 @@ export const Squad = ({
         </button>
       </div>
       {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
+      <Flash values={alerts} />
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}
