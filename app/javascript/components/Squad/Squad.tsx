@@ -337,11 +337,13 @@ export const Squad = ({
           </div>
         </div>
       ) : null}
-      <div id="submit-button">
-        <button className="button" onClick={submit}>
-          {strings.squad.save}
-        </button>
-      </div>
+      {sport?.changes ? (
+        <div id="submit-button">
+          <button className="button" onClick={submit}>
+            {strings.squad.save}
+          </button>
+        </div>
+      ) : null}
       {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
       <Flash values={alerts} />
       <PlayerModal
