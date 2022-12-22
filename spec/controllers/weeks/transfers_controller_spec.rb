@@ -14,9 +14,10 @@ describe Weeks::TransfersController do
 
     context 'for existing week' do
       let!(:week) { create :week }
+      let!(:lineup) { create :lineup, week: week }
 
       before do
-        create_list :transfer, 5
+        create_list :transfer, 5, lineup: lineup
 
         get :index, params: { week_id: week.uuid, locale: 'en' }
       end

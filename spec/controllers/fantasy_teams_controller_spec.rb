@@ -36,15 +36,22 @@ describe FantasyTeamsController do
 
       context 'for existing user fantasy team' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
-
-        before do
-          create :fantasy_leagues_team, pointable: fantasy_team
-        end
+        let!(:fantasy_leagues_team) { create :fantasy_leagues_team, pointable: fantasy_team }
 
         it 'renders show page' do
           get :show, params: { id: fantasy_team.uuid, locale: 'en' }
 
           expect(response).to render_template :show
+        end
+
+        context 'for maintenable league' do
+          before { fantasy_leagues_team.fantasy_league.season.league.update!(maintenance: true) }
+
+          it 'renders show page' do
+            get :show, params: { id: fantasy_team.uuid, locale: 'en' }
+
+            expect(response).to render_template :show
+          end
         end
       end
     end

@@ -21,6 +21,9 @@ module ApplicationService
   def call(args={})
     super(**args)
     self
+  rescue ActiveRecord::RecordInvalid => e
+    fail!(e.message)
+    self
   end
 
   def success?

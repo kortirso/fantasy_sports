@@ -21,6 +21,16 @@ describe Users::SessionsController do
     context 'for existing user' do
       let(:user) { create :user }
 
+      context 'for unconfirmed email' do
+        before { user.update!(confirmed_at: nil) }
+
+        it 'redirects to users_confirm_path' do
+          post :create, params: { user: { email: user.email.upcase, password: user.password }, locale: 'en' }
+
+          expect(response).to redirect_to users_confirm_en_path
+        end
+      end
+
       context 'for invalid password' do
         it 'renders new template' do
           post :create, params: { user: { email: user.email, password: 'invalid_password' }, locale: 'en' }
