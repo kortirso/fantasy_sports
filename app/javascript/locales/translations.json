@@ -44,7 +44,8 @@
     "squadPoints": {
       "totalPoints": "Total points",
       "averagePoints": "Average points",
-      "hightestPoints": "Hightest points"
+      "hightestPoints": "Hightest points",
+      "week": "Gameweek {number}"
     },
     "player": {
       "form": "Form",
@@ -130,7 +131,8 @@
     "squadPoints": {
       "totalPoints": "Всего очков",
       "averagePoints": "Средний результат",
-      "hightestPoints": "Наилучший результат"
+      "hightestPoints": "Наилучший результат",
+      "week": "Игровая неделя {number}"
     },
     "player": {
       "form": "Форма",

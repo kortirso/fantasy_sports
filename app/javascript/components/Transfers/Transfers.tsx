@@ -283,16 +283,16 @@ export const Transfers = ({
           <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
           <span>{weekDeadlineAt}</span>
         </div>
-        <div className="flex justify-between transfers-stats">
-          <div className="transfers-stat flex flex-col items-center">
+        <div className="flex flex-row justify-between transfers-stats">
+          <div className="transfers-stat flex items-center justify-between">
             <p>{strings.transfers.free}</p>
             <p>{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
-          <div className="transfers-stat flex flex-col items-center">
+          <div className="transfers-stat flex items-center justify-between">
             <p>{strings.transfers.cost}</p>
             <p>0</p>
           </div>
-          <div className="transfers-stat flex flex-col items-center">
+          <div className="transfers-stat flex items-center justify-between">
             <p>{strings.transfers.remaining}</p>
             <p>{budget}</p>
           </div>

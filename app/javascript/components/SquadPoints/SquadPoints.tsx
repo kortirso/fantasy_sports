@@ -16,6 +16,7 @@ interface SquadPointsProps {
   sportKind: string;
   lineupUuid: string;
   weekUuid: number;
+  weekPosition: number;
   points: number;
   averagePoints: number;
   maxPoints: number;
@@ -26,6 +27,7 @@ export const SquadPoints = ({
   sportKind,
   lineupUuid,
   weekUuid,
+  weekPosition,
   points,
   averagePoints,
   maxPoints,
@@ -77,16 +79,19 @@ export const SquadPoints = ({
 
   return (
     <>
-      <div className="flex justify-between transfers-stats">
-        <div className="transfers-stat flex flex-col items-center">
+      <div className="deadline flex items-center justify-center">
+        <span>{strings.formatString(strings.squadPoints.week, { number: weekPosition })}</span>
+      </div>
+      <div className="flex flex-row justify-between transfers-stats">
+        <div className="transfers-stat flex items-center justify-between">
           <p>{strings.squadPoints.totalPoints}</p>
           <p>{points}</p>
         </div>
-        <div className="transfers-stat flex flex-col items-center">
+        <div className="transfers-stat flex items-center justify-between">
           <p>{strings.squadPoints.averagePoints}</p>
           <p>{averagePoints}</p>
         </div>
-        <div className="transfers-stat flex flex-col items-center">
+        <div className="transfers-stat flex items-center justify-between">
           <p>{strings.squadPoints.hightestPoints}</p>
           <p>{maxPoints}</p>
         </div>

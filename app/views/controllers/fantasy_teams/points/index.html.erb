@@ -13,6 +13,7 @@
               sportKind:       @season.league.sport_kind,
               lineupUuid:      @lineup.uuid,
               weekUuid:        @lineup.week.uuid,
+              weekPosition:    @lineup.week.position,
               points:          @lineup.points,
               averagePoints:   @lineup.week.lineups.average(:points).round,
               maxPoints:       @lineup.week.lineups.maximum(:points)
