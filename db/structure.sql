@@ -269,7 +269,8 @@ CREATE TABLE public.cups (
     fantasy_league_id bigint NOT NULL,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    uuid uuid NOT NULL
 );
 
 
@@ -2182,6 +2183,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221125182904'),
 ('20221129163136'),
 ('20221201161232'),
-('20221208151825');
+('20221208151825'),
+('20221226171032');
 
 

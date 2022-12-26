@@ -44,6 +44,7 @@ module Views
             ).order(id: :asc).last
 
           {
+            uuid: cup.uuid,
             name: cup.name,
             game_week: pair ? "GW #{pair.cups_round.week.position}" : '',
             pair_result: pair_result(pair)
@@ -54,7 +55,7 @@ module Views
       def pair_result(pair)
         return '' unless pair
 
-        @score_detect_service.call(cups_pair: pair, fantasy_team: @fantasy_team).result
+        @score_detect_service.call(cups_pair: pair, fantasy_team: @fantasy_team).result.join(' - ')
       end
 
       def squad_value

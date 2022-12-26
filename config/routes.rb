@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     end
     resources :achievement_groups, only: %i[index]
     resources :achievements, only: %i[index]
+    resources :cups, only: %i[show]
 
     root 'welcome#index'
   end

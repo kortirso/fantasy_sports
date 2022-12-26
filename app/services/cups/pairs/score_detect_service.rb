@@ -15,8 +15,7 @@ module Cups
 
       def score_for_team
         result = [home_team_score, visitor_team_score]
-        result = result.reverse if @fantasy_team == @cups_pair.visitor_lineup.fantasy_team
-        result.join(' - ')
+        @fantasy_team == @cups_pair.visitor_lineup.fantasy_team ? result.reverse : result
       end
 
       def home_team_score

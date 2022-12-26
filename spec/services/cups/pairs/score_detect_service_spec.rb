@@ -13,7 +13,7 @@ describe Cups::Pairs::ScoreDetectService, type: :service do
     it 'returns score and succeed', :aggregate_failures do
       service = service_call
 
-      expect(service.result).to eq '2.0 - 1.0'
+      expect(service.result).to eq [2, 1]
       expect(service.success?).to be_truthy
     end
   end
@@ -24,7 +24,7 @@ describe Cups::Pairs::ScoreDetectService, type: :service do
     it 'returns reverse score and succeed', :aggregate_failures do
       service = service_call
 
-      expect(service.result).to eq '1.0 - 2.0'
+      expect(service.result).to eq [1, 2]
       expect(service.success?).to be_truthy
     end
   end
