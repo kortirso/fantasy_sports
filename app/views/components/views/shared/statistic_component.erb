@@ -36,7 +36,10 @@
       <% fantasy_cups.each do |cup| %>
         <div class="points-statistic-block flex">
           <p><%= cup[:name] %></p>
-          <p><%= cup[:pair]&.cups_round&.name %> - <%= cup[:pair_result] %></p>
+          <p class="flex flex-row justify-between">
+            <span class="cup-stat"><%= cup[:game_week] %></span>
+            <span class="cup-stat"><%= cup[:pair_result] %></span>
+          </p>
         </div>
       <% end %>
     </div>

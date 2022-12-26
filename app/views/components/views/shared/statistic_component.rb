@@ -3,10 +3,10 @@
 module Views
   module Shared
     class StatisticComponent < ApplicationViewComponent
-      def initialize(fantasy_team:, season:, winner_detect_service: ::Cups::Pairs::WinnerDetectService)
+      def initialize(fantasy_team:, season:, score_detect_service: ::Cups::Pairs::ScoreDetectService)
         @fantasy_team = fantasy_team
         @season = season
-        @winner_detect_service = winner_detect_service
+        @score_detect_service = score_detect_service
 
         super()
       end
@@ -45,7 +45,7 @@ module Views
 
           {
             name: cup.name,
-            pair: pair,
+            game_week: pair ? "GW #{pair.cups_round.week.position}" : '',
             pair_result: pair_result(pair)
           }
         end
@@ -54,7 +54,7 @@ module Views
       def pair_result(pair)
         return '' unless pair
 
-        @winner_detect_service.call(cups_pair: pair).result == @fantasy_team ? 'W' : 'L'
+        @score_detect_service.call(cups_pair: pair, fantasy_team: @fantasy_team).result
       end
 
       def squad_value
