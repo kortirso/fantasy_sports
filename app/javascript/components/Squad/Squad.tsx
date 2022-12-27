@@ -19,10 +19,12 @@ interface SquadProps {
   seasonUuid: string;
   sportKind: string;
   lineupUuid: string;
-  weekUuid: number;
+  weekUuid: string;
   weekPosition: number;
   weekDeadlineAt: string;
 }
+
+strings.setLanguage(currentLocale);
 
 export const Squad = ({
   seasonUuid,
@@ -40,7 +42,7 @@ export const Squad = ({
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
   const [playerActionsUuid, setPlayerActionsUuid] = useState<string | undefined>();
-  const [alerts, setAlerts] = useState([]);
+  const [alerts, setAlerts] = useState({});
   // dynamic data
   const [playerUuidForChange, setPlayerUuidForChange] = useState<string | null>(null);
   const [playerUuidsToChange, setPlayerUuidsToChange] = useState<string[]>([]);
@@ -67,7 +69,6 @@ export const Squad = ({
       setTeamOpponents(data);
     };
 
-    strings.setLanguage(currentLocale);
     fetchLineup();
     fetchTeams();
     fetchLineupPlayers();
@@ -229,16 +230,16 @@ export const Squad = ({
       options: requestOptions,
     });
     if (submitResult.message) {
-      setAlerts([['notice', submitResult.message]]);
+      setAlerts({ notice: submitResult.message });
     } else {
-      setAlerts([['alert', submitResult.errors]]);
+      setAlerts({ alert: submitResult.errors });
     }
   };
 
   const toggleChip = async (value: string) => {
     let activeChips = lineup.active_chips;
     if (activeChips.length === sport.max_chips_per_week && !activeChips.includes(value)) {
-      return setAlerts([['alert', strings.squad.chipsLimit]]);
+      return setAlerts({ alert: strings.squad.chipsLimit });
     }
 
     if (activeChips.includes(value)) {
@@ -267,9 +268,9 @@ export const Squad = ({
         ...lineup,
         active_chips: activeChips,
       });
-      setAlerts([['notice', toggleResultResult.message]]);
+      setAlerts({ notice: toggleResultResult.message });
     } else {
-      setAlerts([['alert', toggleResultResult.errors]]);
+      setAlerts({ alert: toggleResultResult.errors });
     }
   };
 

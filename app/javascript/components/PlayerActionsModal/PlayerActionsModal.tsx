@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { LineupPlayer } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
@@ -12,15 +12,13 @@ interface PlayerActionsModalProps {
   onClose: () => void;
 }
 
+strings.setLanguage(currentLocale);
+
 export const PlayerActionsModal = ({
   lineupPlayer,
   onMakeCaptain,
   onClose,
 }: PlayerActionsModalProps): JSX.Element => {
-  useEffect(() => {
-    strings.setLanguage(currentLocale);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   if (!lineupPlayer) return <></>;
 
   return (

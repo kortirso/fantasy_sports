@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
-import { Attribute, Week as WeekInterface, Game } from 'entities';
+import { Attribute, Week as WeekInterface, Game as GameInterface } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
@@ -13,10 +13,12 @@ interface WeekProps {
   teamNames: TeamNames;
 }
 
+strings.setLanguage(currentLocale);
+
 export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
-  const [weekUuid, setWeekUuid] = useState<number>(uuid);
+  const [weekUuid, setWeekUuid] = useState<string>(uuid);
   const [week, setWeek] = useState<WeekInterface | null>(null);
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<GameInterface[]>([]);
 
   useEffect(() => {
     const fetchWeek = async () => {
@@ -25,7 +27,6 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
       setGames(data.games.data.map((element: Attribute) => element.attributes));
     };
 
-    strings.setLanguage(currentLocale);
     fetchWeek();
   }, [weekUuid]);
 
@@ -53,7 +54,7 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
         </div>
       </div>
       <div className="week-day">
-        {games.map((item: Game, index: number) => (
+        {games.map((item: GameInterface, index: number) => (
           <div key={index}>
             {index === 0 || item.date_start_at !== games[index - 1].date_start_at ? (
               <div className="week-day-header">

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
+import { AchievementGroup, Achievement } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
 import { achievementGroupsRequest } from './requests/achievementGroupsRequest';
 import { achievementsRequest } from './requests/achievementsRequest';
 
+strings.setLanguage(currentLocale);
+
 export const Achievements = (): JSX.Element => {
-  const [achievementGroups, setAchievementGroups] = useState([]);
-  const [achievements, setAchievements] = useState([]);
-  const [activeGroupUuid, setActiveGroupUuid] = useState();
+  const [achievementGroups, setAchievementGroups] = useState<AchievementGroup[]>([]);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [activeGroupUuid, setActiveGroupUuid] = useState<string | undefined>();
 
   const fetchAchievements = async (groupUuid?: string) => {
     const data = await achievementsRequest(groupUuid);
@@ -22,7 +25,6 @@ export const Achievements = (): JSX.Element => {
       setAchievementGroups(data);
     };
 
-    strings.setLanguage(currentLocale);
     fetchAchievementGroups();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -40,7 +42,7 @@ export const Achievements = (): JSX.Element => {
         >
           {strings.achievements.summary}
         </div>
-        {achievementGroups.map((group) => (
+        {achievementGroups.map((group: AchievementGroup) => (
           <div
             className={`${activeGroupUuid === group.uuid ? 'achievement-group active' : 'achievement-group'}`}
             onClick={() => setActiveGroupUuid(group.uuid)}
@@ -51,7 +53,7 @@ export const Achievements = (): JSX.Element => {
         ))}
       </div>
       <div className="achievements">
-        {achievements.map((achievement, index) => (
+        {achievements.map((achievement: Achievement, index: number) => (
           <div className="achievement" key={index}>
             <div className="achievement-name">
               <p>{localizeValue(achievement.title)}</p>

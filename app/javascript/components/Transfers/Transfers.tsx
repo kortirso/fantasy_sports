@@ -20,7 +20,7 @@ interface TransfersProps {
   fantasyTeamUuid: string;
   fantasyTeamCompleted: boolean;
   fantasyTeamBudget: number;
-  weekUuid: number;
+  weekUuid: string;
   weekPosition: number;
   weekDeadlineAt: string;
   transfersLimited: boolean;
@@ -35,9 +35,10 @@ interface TransfersData {
 
 // these sorting params belong to teams_player.player
 // other sorting params belong to teams_player
-const playerSortParams = ['points'];
-
+const PLAYER_SORT_PARAMS = ['points'];
 const PER_PAGE = 20;
+
+strings.setLanguage(currentLocale);
 
 export const Transfers = ({
   seasonUuid,
@@ -62,7 +63,7 @@ export const Transfers = ({
   const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamUuid, setFavouriteTeamUuid] = useState<string | null>(null);
   const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
-  const [alerts, setAlerts] = useState([]);
+  const [alerts, setAlerts] = useState({});
   // filters state
   const [filterByPosition, setFilterByPosition] = useState<string>('all');
   const [filterByTeam, setFilterByTeam] = useState<string>('all');
@@ -88,7 +89,6 @@ export const Transfers = ({
       setTeamMembers(data);
     };
 
-    strings.setLanguage(currentLocale);
     fetchTeams();
     fetchSeasonPlayers();
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
@@ -118,7 +118,7 @@ export const Transfers = ({
         return true;
       })
       .sort((a: TeamsPlayer, b: TeamsPlayer) => {
-        if (playerSortParams.includes(sortBy)) {
+        if (PLAYER_SORT_PARAMS.includes(sortBy)) {
           return a.player[sortBy as keyof Player] < b.player[sortBy as keyof Player] ? 1 : -1;
         } else {
           return a[sortBy as keyof TeamsPlayer] < b[sortBy as keyof TeamsPlayer] ? 1 : -1;
@@ -141,19 +141,19 @@ export const Transfers = ({
 
   const addTeamMember = (item: TeamsPlayer) => {
     // if fantasy team is full
-    if (teamMembers.length === sport.max_players) return setAlerts([['alert', strings.transfers.teamFull]]);
+    if (teamMembers.length === sport.max_players) return setAlerts({ alert: strings.transfers.teamFull });
     // if player is already in team
-    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return setAlerts([['alert', strings.transfers.playerInTeam]]);
+    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return setAlerts({ alert: strings.transfers.playerInTeam });
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
-    if (positionsLeft === 0) return setAlerts([['alert', strings.transfers.noPositions]]);
+    if (positionsLeft === 0) return setAlerts({ alert: strings.transfers.noPositions });
     // if there are already max_team_players
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
       return element.team.uuid === item.team.uuid;
     });
-    if (playersFromTeam.length >= sport.max_team_players) return setAlerts([['alert', strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players })]]);
+    if (playersFromTeam.length >= sport.max_team_players) return setAlerts({ alert: strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players }) });
 
     setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
@@ -209,7 +209,7 @@ export const Transfers = ({
     if (submitResult.redirect_path) {
       window.location = submitResult.redirect_path;
     } else {
-      setAlerts([['alert', submitResult.errors]]);
+      setAlerts({ alert: submitResult.errors });
     }
   };
 
@@ -243,13 +243,13 @@ export const Transfers = ({
       if (submitResult.result) {
         setTransfersData(submitResult.result);
       } else {
-        setAlerts([['alert', submitResult.errors]]);
+        setAlerts({ alert: submitResult.errors });
       }
     } else {
       if (submitResult.result) {
-        setAlerts([['notice', submitResult.result]]);
+        setAlerts({ notice: submitResult.result });
       } else {
-        setAlerts([['alert', submitResult.errors]]);
+        setAlerts({ alert: submitResult.errors });
       }
     }
   };
@@ -382,7 +382,7 @@ export const Transfers = ({
             </div>
             <div className="team-player-price">{item.price}</div>
             <div className="team-player-price">
-              {playerSortParams.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
+              {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
             </div>
             <div className="button small" onClick={() => addTeamMember(item)}>
               +

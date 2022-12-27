@@ -9,16 +9,14 @@ interface ProfileDropdownProps {
   achievementsLink: React.ReactNode;
 }
 
+strings.setLanguage(currentLocale);
+
 export const ProfileDropdown = ({
   logoutLink,
   unreadAchievementsCount,
   achievementsLink
 }: ProfileDropdownProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    strings.setLanguage(currentLocale);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderUnreadAchievementsBadge = () => {
     if (unreadAchievementsCount === 0) return null;
@@ -29,7 +27,7 @@ export const ProfileDropdown = ({
   return (
     <div id="profile-dropdown">
       <div className="action" onClick={() => setIsOpen(!isOpen)}>
-        {strings.profileDropdown.profile}
+        {strings.profileDropdown.title}
       </div>
       {isOpen && (
         <ul className="profile-dropdown-list">

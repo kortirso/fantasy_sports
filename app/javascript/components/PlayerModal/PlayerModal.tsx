@@ -18,6 +18,8 @@ interface PlayerModalProps {
   onClose: () => void;
 }
 
+strings.setLanguage(currentLocale);
+
 export const PlayerModal = ({
   sportKind,
   seasonUuid,
@@ -26,10 +28,6 @@ export const PlayerModal = ({
   onClose,
 }: PlayerModalProps): JSX.Element => {
   const [seasonPlayer, setSeasonPlayer] = useState<TeamsPlayer | undefined>();
-
-  useEffect(() => {
-    strings.setLanguage(currentLocale);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const fetchSeasonPlayer = async () => {

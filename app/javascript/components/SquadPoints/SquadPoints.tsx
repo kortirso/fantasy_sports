@@ -15,12 +15,14 @@ interface SquadPointsProps {
   seasonUuid: string;
   sportKind: string;
   lineupUuid: string;
-  weekUuid: number;
+  weekUuid: string;
   weekPosition: number;
   points: number;
   averagePoints: number;
   maxPoints: number;
 }
+
+strings.setLanguage(currentLocale);
 
 export const SquadPoints = ({
   seasonUuid,
@@ -49,7 +51,6 @@ export const SquadPoints = ({
       setLineupPlayers(data);
     };
 
-    strings.setLanguage(currentLocale);
     fetchTeams();
     fetchLineupPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

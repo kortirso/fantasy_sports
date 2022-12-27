@@ -9,6 +9,8 @@ interface TransfersStatusProps {
   weekUuid: string;
 }
 
+strings.setLanguage(currentLocale);
+
 export const TransfersStatus = ({ weekUuid }: TransfersStatusProps): JSX.Element => {
   const [weekTransfers, setWeekTransfers] = useState();
 
@@ -18,7 +20,6 @@ export const TransfersStatus = ({ weekUuid }: TransfersStatusProps): JSX.Element
       setWeekTransfers(data);
     };
 
-    strings.setLanguage(currentLocale);
     fetchWeekTransfers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

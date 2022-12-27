@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
@@ -9,13 +9,11 @@ interface SportRulesProps {
   sportKind: string;
 }
 
+strings.setLanguage(currentLocale);
+
 export const SportRules = ({ sportKind }: SportRulesProps): JSX.Element => {
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
-
-  useEffect(() => {
-    strings.setLanguage(currentLocale);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

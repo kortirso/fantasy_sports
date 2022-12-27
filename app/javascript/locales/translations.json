@@ -79,7 +79,7 @@
       "team": "Team"
     },
     "profileDropdown": {
-      "profile": "Profile",
+      "title": "Profile",
       "achievements": "Achievements",
       "logout": "Logout"
     },
@@ -167,7 +167,7 @@
       "team": "Команда"
     },
     "profileDropdown": {
-      "profile": "Профиль",
+      "title": "Профиль",
       "achievements": "Достижения",
       "logout": "Выход"
     },

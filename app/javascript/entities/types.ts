@@ -7,7 +7,7 @@ export type KeyValue = {
 };
 
 export type TeamNames = {
-  [key in number]: {
+  [key in string]: {
     name: KeyValue;
     short_name: string;
   };
@@ -18,6 +18,7 @@ export interface Attribute {
 }
 
 export interface Team {
+  id: string;
   uuid: string;
   opposite_team_ids: number[];
   attributes: {
@@ -116,4 +117,26 @@ export interface SportsData {
       [key in string]: PositionValues;
     };
   };
+}
+
+export interface AchievementGroup {
+  uuid: string;
+  name: KeyValue;
+}
+
+export interface Achievement {
+  description: KeyValue;
+  title: KeyValue;
+  points: number;
+  updated_at: string;
+}
+
+export interface GameStatistic {
+  key: string;
+  home_team: TeamStatistic[];
+  visitor_team: TeamStatistic[];
+}
+
+export interface TeamStatistic {
+  [key in string]: number;
 }

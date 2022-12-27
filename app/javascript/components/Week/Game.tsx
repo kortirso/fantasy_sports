@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { Game } from 'entities';
+import { Game as GameInterface, GameStatistic, TeamNames, TeamStatistic } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
 import { gameStatisticsRequest } from './requests/gameStatisticsRequest';
 
 interface GameProps {
-  item: Game;
+  item: GameInterface;
   teamNames: TeamNames;
 }
 
@@ -25,13 +25,11 @@ const STATS_VALUES = {
   'TO': { 'en': 'Turnovers', 'ru': 'Потери' }
 }
 
+strings.setLanguage(currentLocale);
+
 export const Game = ({ item, teamNames }: GameProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
-  const [gameStatistics, setGameStatistics] = useState();
-
-  useEffect(() => {
-    strings.setLanguage(currentLocale);
-  }, []);
+  const [gameStatistics, setGameStatistics] = useState<GameStatistic[] | undefined>();
 
   useEffect(() => {
     const fetchGameStatistics = async () => {
@@ -42,7 +40,7 @@ export const Game = ({ item, teamNames }: GameProps): JSX.Element => {
     if (isOpen && !gameStatistics) fetchGameStatistics();
   }, [isOpen]);
 
-  const renderStatistics = (element, index: number) => {
+  const renderStatistics = (element: GameStatistic, index: number) => {
     if (element.home_team.length === 0 && element.visitor_team.length === 0) return null;
 
     return (
@@ -50,14 +48,14 @@ export const Game = ({ item, teamNames }: GameProps): JSX.Element => {
         <h5>{localizeValue(STATS_VALUES[element.key])}</h5>
         <div className="fixture-values">
           <div className="fixture-value">
-            {element.home_team.map((player, i) => (
+            {element.home_team.map((player: TeamStatistic, i: number) => (
               <p key={`home-team-player-${i}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
             ))}
           </div>
           <div className="fixture-value">
-            {element.visitor_team.map((player, i) => (
+            {element.visitor_team.map((player: TeamStatistic, i: number) => (
               <p key={`visitor-team-player-${i}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
@@ -83,7 +81,7 @@ export const Game = ({ item, teamNames }: GameProps): JSX.Element => {
       </div>
       {isOpen && item.points.length > 0 && gameStatistics ? (
         <ul className="fixtures">
-          {gameStatistics.map((element, index) => renderStatistics(element, index))}
+          {gameStatistics.map((element: GameStatistic, index: number) => renderStatistics(element, index))}
         </ul>
       ) : null}
     </>

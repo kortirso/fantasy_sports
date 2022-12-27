@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import {
   Achievements,
-  Flash,
   SportRules,
   Squad,
   SquadPoints,
@@ -12,6 +11,7 @@ import {
   TransfersStatus,
   ProfileDropdown
 } from 'components';
+import { Flash } from 'components/atoms';
 import type { ComponentType } from 'entities';
 
 const components = { Achievements, Flash, SportRules, Squad, SquadPoints, Transfers, TransfersStatus, ProfileDropdown };
