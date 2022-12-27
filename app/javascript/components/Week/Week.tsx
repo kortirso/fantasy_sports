@@ -30,12 +30,12 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
   }, [weekUuid]);
 
   if (!week) return <></>;
-
+  console.log(week);
   return (
     <div className="week">
       <div className="week-header flex justify-between items-center">
         <div className="week-link-container">
-          {week.previous.id ? (
+          {week.previous.uuid ? (
             <button className="button" onClick={() => setWeekUuid(week.previous.uuid)}>
               {strings.week.previous}
             </button>
@@ -45,7 +45,7 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
           {strings.week.gameweek} {week.position} - {week.date_deadline_at} {week.time_deadline_at}
         </p>
         <div className="week-link-container">
-          {week.next.id ? (
+          {week.next.uuid ? (
             <button className="button" onClick={() => setWeekUuid(week.next.uuid)}>
               {strings.week.next}
             </button>
