@@ -33,6 +33,8 @@ interface TransfersData {
   penalty_points: number;
 }
 
+// these sorting params belong to teams_player.player
+// other sorting params belong to teams_player
 const playerSortParams = ['points'];
 
 const PER_PAGE = 20;
@@ -358,6 +360,7 @@ export const Transfers = ({
           items={{
             points: strings.transfers.sortByPoints,
             price: strings.transfers.sortByPrice,
+            form: strings.transfers.sortByForm
           }}
           onSelect={(value) => setSortBy(value)}
           selectedValue={sortBy}
