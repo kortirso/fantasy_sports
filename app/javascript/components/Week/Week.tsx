@@ -30,7 +30,7 @@ export const Week = ({ uuid, teamNames }: WeekProps): JSX.Element => {
   }, [weekUuid]);
 
   if (!week) return <></>;
-  console.log(week);
+
   return (
     <div className="week">
       <div className="week-header flex justify-between items-center">
