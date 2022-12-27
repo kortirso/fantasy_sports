@@ -378,7 +378,9 @@ export const Transfers = ({
               </span>
             </div>
             <div className="team-player-price">{item.price}</div>
-            <div className="team-player-price">{item.player.points}</div>
+            <div className="team-player-price">
+              {playerSortParams.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
+            </div>
             <div className="button small" onClick={() => addTeamMember(item)}>
               +
             </div>
