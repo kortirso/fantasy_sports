@@ -44,7 +44,7 @@ export const PlayerModal = ({
     const data = seasonPlayer.games_players.data;
     const lastGameData = data[data.length - 1];
 
-    return lastGameData.attributes.points;
+    return lastGameData ? lastGameData.attributes.points : '-';
   };
 
   const renderSeasonGames = () => {

@@ -104,26 +104,58 @@ rows.each do |row|
   Teams::Player.create seasons_team: eval("#{row[0]}_nba2023"), player: player, price_cents: (row[7] == 'TW' ? 400 : price(row[7].to_d)), shirt_number: row[5].to_i
 end
 
-week1 = nba2023.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2021, 10, 19, 22, 0, 0)
-week2 = nba2023.weeks.create position: 2, deadline_at: DateTime.new(2021, 10, 25, 22, 0, 0)
-week3 = nba2023.weeks.create position: 3, deadline_at: DateTime.new(2021, 11, 1, 22, 0, 0)
-week4 = nba2023.weeks.create position: 4, deadline_at: DateTime.new(2021, 11, 8, 22, 0, 0)
-week5 = nba2023.weeks.create position: 5, deadline_at: DateTime.new(2021, 11, 15, 22, 0, 0)
-week6 = nba2023.weeks.create position: 6, deadline_at: DateTime.new(2021, 11, 22, 22, 0, 0)
+week1 = nba2023.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2022, 10, 18, 12, 0, 0)
+week2 = nba2023.weeks.create position: 2, deadline_at: DateTime.new(2022, 10, 24, 12, 0, 0)
+week3 = nba2023.weeks.create position: 3, deadline_at: DateTime.new(2022, 10, 31, 12, 0, 0)
+week4 = nba2023.weeks.create position: 4, deadline_at: DateTime.new(2022, 11, 7, 12, 0, 0)
+week5 = nba2023.weeks.create position: 5, deadline_at: DateTime.new(2022, 11, 14, 12, 0, 0)
+week6 = nba2023.weeks.create position: 6, deadline_at: DateTime.new(2022, 11, 21, 12, 0, 0)
+week7 = nba2023.weeks.create position: 7, deadline_at: DateTime.new(2022, 11, 28, 12, 0, 0)
+week8 = nba2023.weeks.create position: 8, deadline_at: DateTime.new(2022, 12, 5, 12, 0, 0)
+week9 = nba2023.weeks.create position: 9, deadline_at: DateTime.new(2022, 12, 12, 12, 0, 0)
+week10 = nba2023.weeks.create position: 10, deadline_at: DateTime.new(2022, 12, 19, 12, 0, 0)
+week11 = nba2023.weeks.create position: 11, deadline_at: DateTime.new(2022, 12, 26, 12, 0, 0)
+week12 = nba2023.weeks.create position: 12, deadline_at: DateTime.new(2023, 1, 2, 12, 0, 0)
+week13 = nba2023.weeks.create position: 13, deadline_at: DateTime.new(2023, 1, 9, 12, 0, 0)
+week14 = nba2023.weeks.create position: 14, deadline_at: DateTime.new(2023, 1, 16, 12, 0, 0)
+week15 = nba2023.weeks.create position: 15, deadline_at: DateTime.new(2023, 1, 23, 12, 0, 0)
+week16 = nba2023.weeks.create position: 16, deadline_at: DateTime.new(2023, 1, 30, 12, 0, 0)
+week17 = nba2023.weeks.create position: 17, deadline_at: DateTime.new(2023, 2, 6, 12, 0, 0)
+week18 = nba2023.weeks.create position: 18, deadline_at: DateTime.new(2023, 2, 13, 12, 0, 0)
+week19 = nba2023.weeks.create position: 19, deadline_at: DateTime.new(2023, 2, 20, 12, 0, 0)
+week20 = nba2023.weeks.create position: 20, deadline_at: DateTime.new(2023, 2, 27, 12, 0, 0)
+week21 = nba2023.weeks.create position: 21, deadline_at: DateTime.new(2023, 3, 6, 12, 0, 0)
+week22 = nba2023.weeks.create position: 22, deadline_at: DateTime.new(2023, 3, 13, 12, 0, 0)
+week23 = nba2023.weeks.create position: 23, deadline_at: DateTime.new(2023, 3, 20, 12, 0, 0)
+week24 = nba2023.weeks.create position: 24, deadline_at: DateTime.new(2023, 3, 27, 12, 0, 0)
+week25 = nba2023.weeks.create position: 25, deadline_at: DateTime.new(2023, 4, 3, 12, 0, 0)
 
 nba2023.teams.each.with_index do |team, team_index|
   team_fantasy_league = team.fantasy_leagues.last
-  50.times do |index|
+  20.times do |index|
     user = Users::CreateService.call(params: { email: "basketball-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }, with_send_confirmation: false).result
     FantasyTeams::GenerateSampleService.call(season: nba2023, user: user, favourite_team_uuid: team.uuid)
   end
 end
 
-# Games::CreateService.call(
-#   week_id:                week1.id,
-#   home_season_team_id:    milwaukee_nba2023.id,
-#   visitor_season_team_id: brooklyn_nba2023.id,
-#   source:                 Sourceable::BALLDONTLIE,
-#   external_id:            '473410',
-#   start_at:               DateTime.new(2021, 10, 19, 23, 30, 0)
-# )
+games_rows = CSV.read(Rails.root.join('db/data/nba_games_2023.csv'), col_sep: ',')
+active_week = week1
+next_week = week2
+seasons_teams = nba2023.seasons_teams.map { |e| [e.team.short_name, e.id] }.to_h
+
+games_rows.each do |row|
+  game_time = DateTime.parse(row[1])
+  if next_week && game_time > next_week.deadline_at
+    active_week = next_week
+    next_week = next_week.season.weeks.find_by(position: next_week.position + 1)
+  end
+
+  Games::CreateService.call(
+    week_id:                active_week.id,
+    home_season_team_id:    seasons_teams[row[2]],
+    visitor_season_team_id: seasons_teams[row[3]],
+    source:                 Sourceable::SPORTRADAR,
+    external_id:            row[0],
+    start_at:               game_time
+  )
+end

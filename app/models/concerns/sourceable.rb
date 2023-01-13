@@ -5,11 +5,13 @@ module Sourceable
 
   INSTAT = 'instat'
   BALLDONTLIE = 'balldontlie'
+  SPORTRADAR = 'sportradar'
 
   included do
     enum source: {
       INSTAT => 0,
-      BALLDONTLIE => 1
+      BALLDONTLIE => 1,
+      SPORTRADAR => 2
     }
   end
 end
