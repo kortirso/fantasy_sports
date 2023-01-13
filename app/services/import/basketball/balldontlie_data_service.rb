@@ -9,15 +9,15 @@ module Import
         http_service: HttpService::Client.new(url: 'https://www.balldontlie.io')
       )
         @http_service = http_service
-        @result = [{}, {}]
+        @result = [{ points: nil, players: {} }, { points: nil, players: {} }]
       end
 
+      # TODO: need to add fetching game points
       def call(external_id:)
         @external_id = external_id
         @game = Game.find_by(external_id: external_id)
 
-        fetch_data
-          .then { |game_data| parse_data(game_data) }
+        parse_data(fetch_data)
       end
 
       private
@@ -40,7 +40,7 @@ module Import
         shirt_number = shirt_number(player_data, team_index)
         return unless shirt_number
 
-        @result[team_index][shirt_number] = {
+        @result[team_index][:players][shirt_number] = {
           'P' => player_data['pts'],
           'REB' => player_data['reb'],
           'A' => player_data['ast'],

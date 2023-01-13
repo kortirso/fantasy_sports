@@ -22,8 +22,8 @@ describe Games::UpdateDataService, type: :service do
   let!(:games_player2) { create :games_player, game: game, teams_player: teams_player2 }
   let(:game_data) {
     [
-      { 1 => { 'MP' => 90 } },
-      { 2 => { 'MP' => 45 } }
+      { points: 0, players: { 1 => { 'MP' => 90 } } },
+      { points: 0, players: { 2 => { 'MP' => 45 } } }
     ]
   }
 

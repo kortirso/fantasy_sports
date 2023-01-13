@@ -32,6 +32,7 @@ module Import
         @goals_conceded_by_team = []
       end
 
+      # TODO: need to add fetching game points and change result format
       def call(external_id:)
         @external_id = external_id.to_i
 

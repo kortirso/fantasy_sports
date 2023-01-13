@@ -18,14 +18,21 @@ module Games
 
     # game_data must have specific format
     # [
-    #   { 1 => { 'MP' => 90 } }, ... list of home team players, key is shirt_number, value - stats
-    #   { 2 => { 'MP' => 45 } }  ... list of visitor team players, key is shirt_number, value - stats
+    #   {
+    #     points: 123,
+    #     players: { 1 => { 'MP' => 90 } }, ... list of home team players, key is shirt_number, value - stats
+    #   },
+    #   {
+    #     points: 124,
+    #     players: { 2 => { 'MP' => 45 } }  ... list of visitor team players, key is shirt_number, value - stats
+    #   }
     # ]
     def call(game:, game_data:)
       @game = game
       @team_player_ids = []
       @player_ids = []
 
+      update_game_points(game_data)
       update_games_players_statistic(game_data)
       update_players_statistic
       update_lineups_players
@@ -33,9 +40,13 @@ module Games
 
     private
 
+    def update_game_points(game_data)
+      @game.update(points: [game_data[0][:points], game_data[1][:points]])
+    end
+
     def update_games_players_statistic(game_data)
-      update_games_players_points(@game.home_season_team_id, game_data[0])
-      update_games_players_points(@game.visitor_season_team_id, game_data[1])
+      update_games_players_points(@game.home_season_team_id, game_data[0][:players])
+      update_games_players_points(@game.visitor_season_team_id, game_data[1][:players])
       update_games_players_form
     end
 
