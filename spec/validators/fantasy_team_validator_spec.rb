@@ -23,7 +23,7 @@ describe FantasyTeamValidator, type: :service do
     let(:params) { { name: 'My team', budget_cents: 500 } }
 
     it 'result does not contain errors' do
-      expect(validator_call.size.zero?).to be_truthy
+      expect(validator_call.empty?).to be_truthy
     end
   end
 end

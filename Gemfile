@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.2'
+ruby '3.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0'
@@ -79,7 +79,7 @@ gem 'redis-rails'
 gem 'kudos'
 
 group :development, :test do
-  gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'master'
+  gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'main'
   gem 'rubocop', '~> 1.35', require: false
   gem 'rubocop-performance', '~> 1.14', require: false
   gem 'rubocop-rails', '~> 2.15', require: false

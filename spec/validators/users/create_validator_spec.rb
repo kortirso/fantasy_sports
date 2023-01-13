@@ -31,7 +31,7 @@ describe Users::CreateValidator, type: :service do
     let(:params) { { email: '1@gmail.com', password: '1234qwer', password_confirmation: '1234qwer' } }
 
     it 'result does not contain errors' do
-      expect(validator_call.size.zero?).to be_truthy
+      expect(validator_call.empty?).to be_truthy
     end
   end
 end

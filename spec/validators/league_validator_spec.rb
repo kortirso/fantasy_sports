@@ -23,7 +23,7 @@ describe LeagueValidator, type: :service do
     let(:params) { { name: { en: 'En', ru: 'Ru' }, sport_kind: 'football' } }
 
     it 'result does not contain errors' do
-      expect(validator_call.size.zero?).to be_truthy
+      expect(validator_call.empty?).to be_truthy
     end
   end
 end
