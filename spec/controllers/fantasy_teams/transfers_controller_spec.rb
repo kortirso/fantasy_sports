@@ -85,7 +85,7 @@ describe FantasyTeams::TransfersController do
           end
 
           it 'returns error about maintenance' do
-            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
+            expect(response.parsed_body).to eq({ 'errors' => ['League is on maintenance'] })
           end
         end
 
