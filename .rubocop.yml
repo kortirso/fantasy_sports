@@ -239,6 +239,3 @@ Rails/RedundantForeignKey:
 
 Naming/BlockForwarding:
   EnforcedStyle: explicit
-
-RSpec/IndexedLet:
-  Enabled: false

@@ -127,7 +127,7 @@ describe Lineups::PlayersController do
           end
 
           it 'returns error about maintenance' do
-            expect(response.parsed_body).to eq({ 'errors' => ['League is on maintenance'] })
+            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
           end
         end
 
