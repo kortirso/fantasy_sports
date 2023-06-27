@@ -30,15 +30,12 @@ describe AchievementsController do
         before { do_request }
 
         it 'returns all user achievements', :aggregate_failures do
-          data = JSON.parse(response.body)['achievements']['data']
+          data = response.parsed_body['achievements']['data']
 
           expect(data.size).to eq 3
           expect(data.pluck('id').map(&:to_i)).to(
-            match_array([users_achievement1.id, users_achievement2.id, users_achievement3.id])
+            contain_exactly(users_achievement1.id, users_achievement2.id, users_achievement3.id)
           )
-        end
-
-        it 'returns status 200' do
           expect(response).to have_http_status :ok
         end
       end
@@ -47,13 +44,10 @@ describe AchievementsController do
         before { get :index, params: { group_uuid: groups.first.uuid, locale: 'en' } }
 
         it 'returns user achievements from specific group and sub-groups', :aggregate_failures do
-          data = JSON.parse(response.body)['achievements']['data']
+          data = response.parsed_body['achievements']['data']
 
           expect(data.size).to eq 2
-          expect(data.pluck('id').map(&:to_i)).to match_array([users_achievement1.id, users_achievement3.id])
-        end
-
-        it 'returns status 200' do
+          expect(data.pluck('id').map(&:to_i)).to contain_exactly(users_achievement1.id, users_achievement3.id)
           expect(response).to have_http_status :ok
         end
       end

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :fantasy_team do
     name { 'Bears United' }
     sport_kind { Sportable::FOOTBALL }
-    association :user
+    user
 
     trait :completed do
       completed { true }

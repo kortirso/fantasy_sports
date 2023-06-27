@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :lineup do
-    association :fantasy_team
-    association :week
+    fantasy_team
+    week
   end
 end

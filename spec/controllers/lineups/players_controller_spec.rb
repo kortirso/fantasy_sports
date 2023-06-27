@@ -122,12 +122,9 @@ describe Lineups::PlayersController do
             }
           end
 
-          it 'returns status 422' do
+          it 'returns status 422', :aggregate_failures do
             expect(response).to have_http_status :unprocessable_entity
-          end
-
-          it 'returns error about maintenance' do
-            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
+            expect(response.parsed_body).to eq({ 'errors' => ['League is on maintenance'] })
           end
         end
 

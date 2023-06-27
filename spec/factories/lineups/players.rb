@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :lineups_player, class: 'Lineups::Player' do
-    association :lineup
-    association :teams_player
+    lineup
+    teams_player
   end
 end

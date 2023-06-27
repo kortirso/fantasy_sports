@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :game do
-    association :week
-    association :home_season_team, factory: :seasons_team
-    association :visitor_season_team, factory: :seasons_team
+    week
+    home_season_team factory: %i[seasons_team]
+    visitor_season_team factory: %i[seasons_team]
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :seasons_team, class: 'Seasons::Team' do
-    association :season
-    association :team
+    season
+    team
   end
 end

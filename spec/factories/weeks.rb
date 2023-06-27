@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :week do
     position { 1 }
-    association :season
+    season
   end
 end

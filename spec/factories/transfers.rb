@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :transfer do
-    association :lineup
-    association :teams_player
+    lineup
+    teams_player
 
     trait :in do
       direction { 'in' }

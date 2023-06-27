@@ -4,8 +4,8 @@ FactoryBot.define do
   factory :games_player, class: 'Games::Player' do
     statistic { {} }
     position_kind { Positionable::GOALKEEPER }
-    association :game
-    association :teams_player
-    association :seasons_team
+    game
+    teams_player
+    seasons_team
   end
 end

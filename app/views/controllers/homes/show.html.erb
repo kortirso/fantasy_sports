@@ -7,7 +7,7 @@
         <%=
           render Views::Homes::Show::SportComponent.new(
             sport_kind: params[:sport_kind],
-            leagues: @leagues[params[:sport_kind]],
+            seasons: @seasons[params[:sport_kind]],
             user: Current.user
           )
         %>
@@ -16,7 +16,7 @@
           <%=
             render Views::Homes::Show::SportComponent.new(
               sport_kind: sport_kind,
-              leagues: @leagues[sport_kind],
+              seasons: @seasons[sport_kind],
               user: Current.user
             )
           %>

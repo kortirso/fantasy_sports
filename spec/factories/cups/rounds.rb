@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :cups_round, class: 'Cups::Round' do
     name { '1/2' }
     position { 2 }
-    association :cup
-    association :week
+    cup
+    week
   end
 end

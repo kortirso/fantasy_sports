@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :teams_player, class: 'Teams::Player' do
     active { true }
-    association :seasons_team
-    association :player
+    seasons_team
+    player
   end
 end

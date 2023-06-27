@@ -158,12 +158,9 @@ describe FantasyTeamsController do
             }
           end
 
-          it 'returns status 422' do
+          it 'returns status 422', :aggregate_failures do
             expect(response).to have_http_status :unprocessable_entity
-          end
-
-          it 'and returns error about maintenance' do
-            expect(JSON.parse(response.body)).to eq({ 'errors' => ['League is on maintenance'] })
+            expect(response.parsed_body).to eq({ 'errors' => ['League is on maintenance'] })
           end
         end
 
@@ -186,15 +183,10 @@ describe FantasyTeamsController do
               allow(complete_service).to receive(:errors).and_return([])
             end
 
-            it 'calls complete service' do
+            it 'calls complete service', :aggregate_failures do
               request
 
               expect(FantasyTeams::CompleteService).to have_received(:call)
-            end
-
-            it 'and returns json unprocessable_entity status with errors' do
-              request
-
               expect(response).to have_http_status :unprocessable_entity
             end
           end
@@ -210,15 +202,10 @@ describe FantasyTeamsController do
               allow(complete_service).to receive(:success?).and_return(true)
             end
 
-            it 'calls complete service' do
+            it 'calls complete service', :aggregate_failures do
               request
 
               expect(FantasyTeams::CompleteService).to have_received(:call)
-            end
-
-            it 'and returns json ok status' do
-              request
-
               expect(response).to have_http_status :ok
             end
           end

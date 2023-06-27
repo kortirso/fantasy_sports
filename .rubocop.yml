@@ -228,7 +228,7 @@ RSpec/InstanceVariable:
 RSpec/PredicateMatcher:
   Enabled: false
 
-RSpec/FactoryBot/ConsistentParenthesesStyle:
+FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 
 Rails/InverseOf:
@@ -239,3 +239,6 @@ Rails/RedundantForeignKey:
 
 Naming/BlockForwarding:
   EnforcedStyle: explicit
+
+RSpec/IndexedLet:
+  Enabled: false

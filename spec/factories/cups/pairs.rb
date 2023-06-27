@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :cups_pair, class: 'Cups::Pair' do
-    association :cups_round
-    association :home_lineup, factory: :lineup
-    association :visitor_lineup, factory: :lineup
+    cups_round
+    home_lineup factory: %i[lineup]
+    visitor_lineup factory: %i[lineup]
   end
 end

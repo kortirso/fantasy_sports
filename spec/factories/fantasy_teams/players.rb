@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :fantasy_teams_player, class: 'FantasyTeams::Player' do
-    association :fantasy_team
-    association :teams_player
+    fantasy_team
+    teams_player
   end
 end

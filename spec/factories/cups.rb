@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :cup do
     name { 'Cup' }
-    association :fantasy_league
+    fantasy_league
   end
 end
