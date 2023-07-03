@@ -6,7 +6,7 @@ module FantasyTeams
       prepend ApplicationService
 
       def initialize(
-        transfers_validator: FantasyTeams::Players::TransfersValidator,
+        transfers_validator: FantasyTeams::Players::TransfersValidator.new,
         fantasy_teams_update_points_service: FantasyTeams::UpdatePointsService
       )
         @transfers_validator = transfers_validator

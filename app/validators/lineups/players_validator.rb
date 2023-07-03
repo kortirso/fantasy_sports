@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lineups
-  class PlayersValidator < ApplicationValidator
+  class PlayersValidator
     CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4].freeze
 
     def initialize(sport_kind:)

@@ -6,7 +6,7 @@ module FantasyTeams
 
     def initialize(
       fantasy_team_validator: FantasyTeamValidator,
-      transfers_validator:    FantasyTeams::Players::TransfersValidator,
+      transfers_validator:    FantasyTeams::Players::TransfersValidator.new,
       lineup_creator:         ::Lineups::CreateService,
       league_join_service:    ::FantasyLeagues::JoinService
     )

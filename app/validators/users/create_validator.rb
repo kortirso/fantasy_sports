@@ -3,7 +3,7 @@
 module Users
   class CreateValidator < ApplicationValidator
     def initialize(contract: Users::CreateContract)
-      @contract = contract
+      super
     end
   end
 end

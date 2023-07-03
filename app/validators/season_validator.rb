@@ -2,6 +2,6 @@
 
 class SeasonValidator < ApplicationValidator
   def initialize(contract: SeasonContract)
-    @contract = contract
+    super
   end
 end

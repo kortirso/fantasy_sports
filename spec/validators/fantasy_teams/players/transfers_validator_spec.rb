@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 describe FantasyTeams::Players::TransfersValidator, type: :service do
-  subject(:validator_call) { described_class.call(fantasy_team: fantasy_team, teams_players_ids: teams_players_ids) }
+  subject(:validator_call) {
+    described_class.new.call(fantasy_team: fantasy_team, teams_players_ids: teams_players_ids)
+  }
 
   let!(:season) { create :season, active: true }
   let!(:team) { create :team }

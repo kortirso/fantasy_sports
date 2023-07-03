@@ -3,7 +3,7 @@
 module Users
   class UpdateValidator < ApplicationValidator
     def initialize(contract: Users::UpdateContract)
-      @contract = contract
+      super
     end
   end
 end

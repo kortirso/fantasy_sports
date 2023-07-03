@@ -3,7 +3,7 @@
 module Games
   class UpdateValidator < ApplicationValidator
     def initialize(contract: Games::UpdateContract)
-      @contract = contract
+      super
     end
   end
 end

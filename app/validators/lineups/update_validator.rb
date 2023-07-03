@@ -3,7 +3,7 @@
 module Lineups
   class UpdateValidator < ApplicationValidator
     def initialize(contract: Lineups::UpdateContract)
-      @contract = contract
+      super
     end
   end
 end

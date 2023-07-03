@@ -29,7 +29,7 @@ module FantasyTeams
       def find_teams_players_ids
         initialize_variables
 
-        grouped_teams_players.values.each do |teams_players|
+        grouped_teams_players.each_value do |teams_players|
           teams_players.shuffle.each do |teams_player|
             position_kind = teams_player.player.position_kind
             seasons_team_id = teams_player.seasons_team_id

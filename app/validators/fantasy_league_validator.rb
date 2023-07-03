@@ -2,6 +2,6 @@
 
 class FantasyLeagueValidator < ApplicationValidator
   def initialize(contract: FantasyLeagueContract)
-    @contract = contract
+    super
   end
 end

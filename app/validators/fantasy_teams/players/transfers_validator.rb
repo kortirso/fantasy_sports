@@ -2,7 +2,7 @@
 
 module FantasyTeams
   module Players
-    class TransfersValidator < ApplicationValidator
+    class TransfersValidator
       BUDGET_LIMIT_CENTS = 10_000
 
       def call(fantasy_team:, teams_players_ids:, budget_limit: BUDGET_LIMIT_CENTS)
