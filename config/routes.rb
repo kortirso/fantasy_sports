@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     resources :fantasy_teams, only: %i[show create update] do
       scope module: :fantasy_teams do
         resource :transfers, only: %i[show update]
-        resource :status, only: %i[show]
+        resources :status, only: %i[index]
         resources :points, only: %i[index]
         resources :players, only: %i[index]
         resources :fantasy_leagues, only: %i[index new create]

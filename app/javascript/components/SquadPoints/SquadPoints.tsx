@@ -20,6 +20,8 @@ interface SquadPointsProps {
   points: number;
   averagePoints: number;
   maxPoints: number;
+  previousPointsUrl: string | null;
+  nextPointsUrl: string | null;
 }
 
 strings.setLanguage(currentLocale);
@@ -33,12 +35,17 @@ export const SquadPoints = ({
   points,
   averagePoints,
   maxPoints,
+  previousPointsUrl,
+  nextPointsUrl,
 }: SquadPointsProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
   const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
+
+  console.log(previousPointsUrl);
+  console.log(nextPointsUrl);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -95,6 +102,23 @@ export const SquadPoints = ({
         <div className="transfers-stat flex items-center justify-between">
           <p>{strings.squadPoints.hightestPoints}</p>
           <p>{maxPoints}</p>
+        </div>
+      </div>
+      <div className="points-header flex justify-between items-center">
+        <div>
+          {previousPointsUrl ? (
+            <a className="button small" href={ previousPointsUrl }>
+              {strings.week.previous}
+            </a>
+          ) : null}
+        </div>
+        <div></div>
+        <div>
+          {nextPointsUrl ? (
+            <a className="button small" href={ nextPointsUrl }>
+              {strings.week.next}
+            </a>
+          ) : null}
         </div>
       </div>
       <div id="team-players-by-positions" className={sportKind}>

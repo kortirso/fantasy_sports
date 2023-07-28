@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FantasyTeams
-  class PointsController < ApplicationController
+  class StatusController < ApplicationController
     include Maintenable
 
     before_action :find_fantasy_team
