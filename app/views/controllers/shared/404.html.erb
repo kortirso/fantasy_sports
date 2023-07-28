@@ -1,8 +1,6 @@
 <% if Current.user %>
   <%= render PageWrappers::PageComponent.new do %>
-    <%= render Views::Shared::SportNavigationComponent.new %>
     <div class="page-wrapper">
-      <%= render Views::Shared::FantasyTeamNavigationComponent.new %>
       <div class="page-content">
         <%= render Shared::PageNotFoundComponent.new %>
       </div>

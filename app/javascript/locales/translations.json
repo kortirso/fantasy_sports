@@ -78,11 +78,6 @@
       "player": "Player",
       "team": "Team"
     },
-    "profileDropdown": {
-      "title": "Profile",
-      "achievements": "Achievements",
-      "logout": "Logout"
-    },
     "achievements": {
       "summary": "Summary"
     }
@@ -165,11 +160,6 @@
       "position": "Позиция",
       "player": "Игрок",
       "team": "Команда"
-    },
-    "profileDropdown": {
-      "title": "Профиль",
-      "achievements": "Достижения",
-      "logout": "Выход"
     },
     "achievements": {
       "summary": "Сводка"

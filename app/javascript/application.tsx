@@ -8,13 +8,12 @@ import {
   Squad,
   SquadPoints,
   Transfers,
-  TransfersStatus,
-  ProfileDropdown
+  TransfersStatus
 } from 'components';
 import { Flash } from 'components/atoms';
 import type { ComponentType } from 'entities';
 
-const components = { Achievements, Flash, SportRules, Squad, SquadPoints, Transfers, TransfersStatus, ProfileDropdown };
+const components = { Achievements, Flash, SportRules, Squad, SquadPoints, Transfers, TransfersStatus };
 const queryClient = new QueryClient();
 
 document.addEventListener('DOMContentLoaded', () => {

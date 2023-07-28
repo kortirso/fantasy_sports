@@ -19,7 +19,7 @@ ru:
       homes:
         show:
           fantasy_team_link_component:
-            create: Создать команду
+            create: Присоединиться к лиге
       shared:
         navigation_component:
           logout: Выход

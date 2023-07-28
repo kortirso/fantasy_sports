@@ -8,6 +8,7 @@ class HomesController < ApplicationController
   private
 
   def find_leagues
-    @seasons = Season.active.includes(:league).group_by { |season| season.league.sport_kind }
+    @seasons = Season.active.includes(:league).order('leagues.id ASC')
+    @seasons = @seasons.where('leagues.sport_kind = ?', League.sport_kinds[params['sport_kind']]) if params['sport_kind']
   end
 end

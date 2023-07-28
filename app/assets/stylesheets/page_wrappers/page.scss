@@ -6,46 +6,6 @@
   height: 100vh;
   overflow: hidden;
 
-  .sport-navigation {
-    display: flex;
-    flex-direction: column;
-    width: 4rem;
-    height: 100vh;
-    background: $black;
-    padding-top: 1.5rem;
-
-    .sports {
-      flex: 1;
-    }
-
-    .locales {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 .75rem 1rem;
-
-      a {
-        color: $white;
-      }
-    }
-
-    .home-link {
-      display: block;
-      text-align: center;
-      margin-bottom: 2rem;
-      color: $white;
-    }
-
-    .sport-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1rem;
-      font-size: .75rem;
-      color: $white;
-      text-decoration: none;
-    }
-  }
-
   .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -54,9 +14,63 @@
 
     .page-content {
       width: 100%;
-      max-width: 90rem;
-      margin: 2rem auto;
-      padding: 0 2rem;
+      padding: 2rem;
+    }
+  }
+
+  .sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    width: 14rem;
+    height: 100vh;
+    background: $black;
+    padding-top: 1.5rem;
+
+    h2 {
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: $white;
+    }
+
+    .sidebar-link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: .9rem;
+      color: $white;
+      text-decoration: none;
+      padding: .5rem;
+      border-radius: .25rem;
+
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: .5rem;
+      }
+
+      &:hover {
+        background: $whiteLight;
+      }
+
+      &.active {
+        background: $whiteSemi;
+      }
+    }
+
+    .sports, .fantasy-team, .profile {
+      padding: 1rem;      
+    }
+
+    .locales {
+      display: flex;
+      align-items: end;
+      flex: 1;
+      padding: 0 .75rem 1rem;
+
+      a {
+        color: $white;
+        margin-right: .5rem;
+      }
     }
   }
 }
@@ -71,7 +85,7 @@
   }
 
   .right-container {
-    width: 25rem;
+    width: 27.5rem;
   }
 
   .half-container {
