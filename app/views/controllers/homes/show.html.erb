@@ -4,7 +4,9 @@
       <section class="home-sports">
         <% @seasons.each do |season| %>
           <div class="league">
-            <%= image_tag "icons/#{season.league.sport_kind}.svg" %>
+            <%= link_to sport_rules_path(season.league.sport_kind) do %>
+              <%= image_tag "icons/#{season.league.sport_kind}.svg" %>
+            <% end %>
             <h3><%= localized_value(season.league.name) %></h3>
             <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(season: season) %>
           </div>
