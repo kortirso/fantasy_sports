@@ -1,7 +1,5 @@
-<%= render PageWrappers::PageComponent.new do %>
-  <%= render Views::Shared::SportNavigationComponent.new %>
+<%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <div class="page-wrapper">
-    <%= render Views::Shared::FantasyTeamNavigationComponent.new(fantasy_team: @fantasy_team) %>
     <div class="page-content">
       <div class="main-container">
         <div class="half-container">

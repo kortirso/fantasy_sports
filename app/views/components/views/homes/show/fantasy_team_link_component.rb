@@ -4,9 +4,9 @@ module Views
   module Homes
     module Show
       class FantasyTeamLinkComponent < ApplicationViewComponent
-        def initialize(season:, user:)
+        def initialize(season:)
           @season       = season
-          @fantasy_team = @season.fantasy_teams.find_by(user: user)
+          @fantasy_team = @season.fantasy_teams.find_by(user: Current.user)
 
           super()
         end

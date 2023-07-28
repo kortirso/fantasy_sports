@@ -19,7 +19,7 @@ en:
       homes:
         show:
           fantasy_team_link_component:
-            create: Create fantasy team
+            create: Join fantasy league
       shared:
         navigation_component:
           logout: Logout
@@ -179,7 +179,7 @@ en:
         new:
           title: Add fantasy league
           name: Name
-          create: Create fantsy league
+          create: Create fantasy league
     shared:
       statistic:
         title: Points/Rankings
