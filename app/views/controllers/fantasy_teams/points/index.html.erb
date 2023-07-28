@@ -5,16 +5,18 @@
         <div class="main-container">
           <%=
             react_component 'SquadPoints',
-              component_id:    'fantasy-team-points',
+              component_id: 'fantasy-team-points',
               component_class: 'left-container',
-              seasonUuid:      @season.uuid,
-              sportKind:       @season.league.sport_kind,
-              lineupUuid:      @lineup.uuid,
-              weekUuid:        @lineup.week.uuid,
-              weekPosition:    @lineup.week.position,
-              points:          @lineup.points,
-              averagePoints:   @lineup.week.lineups.average(:points).round,
-              maxPoints:       @lineup.week.lineups.maximum(:points)
+              seasonUuid: @season.uuid,
+              sportKind: @season.league.sport_kind,
+              lineupUuid: @lineup.uuid,
+              weekUuid: @lineup.week.uuid,
+              weekPosition: @lineup.week.position,
+              points: @lineup.points,
+              averagePoints: @lineup.week.lineups.average(:points).round,
+              maxPoints: @lineup.week.lineups.maximum(:points),
+              previousPointsUrl: @lineup.week.position > 1 && @lineup.week.opponent_visible? ? fantasy_team_points_url(@fantasy_team.uuid, week: @lineup.week.position - 1) : nil,
+              nextPointsUrl: @lineup.week.finished? ? fantasy_team_points_url(@fantasy_team.uuid, week: @lineup.week.position + 1) : nil
           %>
           <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, season: @season) %>
         </div>

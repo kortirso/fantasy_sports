@@ -19,7 +19,7 @@ class FantasyTeam < ApplicationRecord
   has_many :teams_players, through: :fantasy_teams_players
 
   has_many :lineups, dependent: :destroy
-  has_many :weeks, through: :fantasy_teams_lineups
+  has_many :weeks, through: :lineups
 
   scope :completed, -> { where(completed: true) }
 end

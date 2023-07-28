@@ -159,8 +159,8 @@ ru:
         link: Вы можете отправить эту ссылку друзьям
         email: Или отправить письмо с нижеуказанным текстом
     fantasy_teams:
-      statuses:
-        show:
+      status:
+        index:
           title: Статус %{week} игровой недели
       points:
         index:

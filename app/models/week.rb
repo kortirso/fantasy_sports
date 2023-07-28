@@ -23,6 +23,7 @@ class Week < ApplicationRecord
   has_many :cups_pairs, class_name: '::Cups::Pair', through: :cups_rounds
 
   scope :active, -> { where(status: ACTIVE) }
+  scope :opponent_visible, -> { where(status: [ACTIVE, FINISHED]) }
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
 
@@ -44,5 +45,9 @@ class Week < ApplicationRecord
       .order(position: :desc)
       .ids
       .first(Teams::Player::WEEKS_COUNT_FOR_FORM_CALCULATION)
+  end
+
+  def opponent_visible?
+    status == ACTIVE || status == FINISHED
   end
 end

@@ -159,8 +159,8 @@ en:
         link: You can send this link to your friends
         email: Or send email with provided text
     fantasy_teams:
-      statuses:
-        show:
+      status:
+        index:
           title: Gameweek %{week} status
       points:
         index:
