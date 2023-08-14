@@ -103,8 +103,7 @@ describe FantasyTeams::TransfersController do
             }
 
             before do
-              allow(perform_service).to receive(:success?).and_return(false)
-              allow(perform_service).to receive(:errors).and_return([])
+              allow(perform_service).to receive_messages(success?: false, errors: [])
             end
 
             it 'calls complete service', :aggregate_failures do
@@ -125,9 +124,9 @@ describe FantasyTeams::TransfersController do
             }
 
             before do
-              allow(perform_service).to receive(:success?).and_return(true)
-              allow(perform_service).to receive(:result).and_return(
-                I18n.t('services.fantasy_teams.transfers.perform.success')
+              allow(perform_service).to receive_messages(
+                success?: true,
+                result: I18n.t('services.fantasy_teams.transfers.perform.success')
               )
             end
 

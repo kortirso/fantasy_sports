@@ -133,8 +133,7 @@ describe Lineups::PlayersController do
 
           before do
             allow(Lineups::Players::UpdateService).to receive(:call).and_return(service_object)
-            allow(service_object).to receive(:success?).and_return(update_result)
-            allow(service_object).to receive(:errors).and_return(['Error'])
+            allow(service_object).to receive_messages(success?: update_result, errors: ['Error'])
 
             patch :update, params: {
               lineup_id: lineup.uuid,

@@ -15,12 +15,11 @@ describe Lineups::Players::CreateService, type: :service do
       create :fantasy_teams_player, teams_player: teams_player2, fantasy_team: lineup.fantasy_team
       create :fantasy_teams_player, teams_player: teams_player3, fantasy_team: lineup.fantasy_team
 
-      allow(Sports).to receive(:positions_for_sport).and_return({
+      allow(Sports).to receive_messages(positions_for_sport: {
         'football_goalkeeper' => {
           'default_amount' => 1
         }
-      })
-      allow(Sports).to receive(:sport).and_return({
+      }, sport: {
         'captain' => true
       })
     end

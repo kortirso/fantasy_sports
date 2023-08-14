@@ -79,6 +79,9 @@ gem 'redis-rails'
 # reputation system
 gem 'kudos'
 
+# database comments
+gem 'commento'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'main'
   gem 'rubocop', '~> 1.35', require: false

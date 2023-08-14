@@ -27,8 +27,7 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
   before do
     create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
 
-    allow(Sports).to receive(:sport).and_return({ 'max_team_players' => 3 })
-    allow(Sports).to receive(:positions_for_sport).and_return({
+    allow(Sports).to receive_messages(sport: { 'max_team_players' => 3 }, positions_for_sport: {
       'football_goalkeeper' => {
         'name' => { 'en' => 'Goalkeeper', 'ru' => 'Вратарь' },
         'total_amount' => 2

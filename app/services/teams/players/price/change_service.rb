@@ -42,7 +42,8 @@ module Teams
         def price_change(transfers_amount)
           return PRICE_BIG_CHANGE if transfers_amount >= transfers_amount_for_big_price_change
           return PRICE_MEDIUM_CHANGE if transfers_amount >= transfers_amount_for_medium_price_change
-          return PRICE_SMALL_CHANGE if transfers_amount >= transfers_amount_for_small_price_change
+
+          PRICE_SMALL_CHANGE if transfers_amount >= transfers_amount_for_small_price_change
         end
 
         def transfers_limit

@@ -5,8 +5,8 @@ module Cacheable
 
   private
 
-  def cached_response(**args, &block)
-    Rails.cache.fetch(cache_key(**args), &block)
+  def cached_response(**, &block)
+    Rails.cache.fetch(cache_key(**), &block)
   end
 
   def cache_key(payload:, name:, version:)

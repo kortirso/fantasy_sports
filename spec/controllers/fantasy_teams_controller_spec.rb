@@ -179,8 +179,7 @@ describe FantasyTeamsController do
             }
 
             before do
-              allow(complete_service).to receive(:success?).and_return(false)
-              allow(complete_service).to receive(:errors).and_return([])
+              allow(complete_service).to receive_messages(success?: false, errors: [])
             end
 
             it 'calls complete service', :aggregate_failures do
