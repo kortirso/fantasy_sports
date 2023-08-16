@@ -109,7 +109,7 @@ GEM
       msgpack (~> 1.2)
     brakeman (6.0.1)
     builder (3.2.4)
-    commento (0.1.1)
+    commento (0.1.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     database_cleaner (2.0.2)
