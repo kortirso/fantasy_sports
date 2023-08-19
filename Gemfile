@@ -73,7 +73,7 @@ gem 'pghero'
 gem 'rails_event_store'
 
 # cache store
-gem 'redis', '4.8.1'
+gem 'redis', '~> 5.0'
 gem 'redis-rails'
 
 # reputation system

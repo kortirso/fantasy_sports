@@ -44,9 +44,6 @@ export const SquadPoints = ({
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
 
-  console.log(previousPointsUrl);
-  console.log(nextPointsUrl);
-
   useEffect(() => {
     const fetchTeams = async () => {
       const data = await teamsRequest(seasonUuid);
