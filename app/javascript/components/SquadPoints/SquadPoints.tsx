@@ -38,26 +38,36 @@ export const SquadPoints = ({
   previousPointsUrl,
   nextPointsUrl,
 }: SquadPointsProps): JSX.Element => {
-  // static data
-  const [teamNames, setTeamNames] = useState<TeamNames>({});
-  const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
+  const [pageState, setPageState] = useState({
+    loading: true,
+    teamNames: {},
+    lineupPlayers: []
+  });
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchTeams = async () => {
       const data = await teamsRequest(seasonUuid);
-      setTeamNames(data);
+      return data;
     };
 
     const fetchLineupPlayers = async () => {
-      const data = await lineupPlayersRequest(lineupUuid);
-      setLineupPlayers(data);
+      return await lineupPlayersRequest(lineupUuid);
     };
 
-    fetchTeams();
-    fetchLineupPlayers();
+    Promise
+      .all([fetchTeams(), fetchLineupPlayers()])
+      .then(([fetchTeamsData, fetchLineupPlayersData]) => (
+        setPageState({
+          loading: false,
+          teamNames: fetchTeamsData,
+          lineupPlayers: fetchLineupPlayersData
+        })
+      ))
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (pageState.loading) return <></>;
 
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
@@ -67,13 +77,13 @@ export const SquadPoints = ({
   };
 
   const activePlayersByPosition = (positionKind: string) => {
-    return lineupPlayers.filter(
+    return pageState.lineupPlayers.filter(
       (element: LineupPlayer) => element.active && element.player.position_kind === positionKind,
     );
   };
 
   const reservePlayers = () => {
-    return lineupPlayers
+    return pageState.lineupPlayers
       .filter((element: LineupPlayer) => {
         return !element.active;
       })
@@ -127,7 +137,7 @@ export const SquadPoints = ({
             {activePlayersByPosition(positionKind).map((item: LineupPlayer) => (
               <PlayerCard
                 key={item.uuid}
-                teamName={teamNames[item.team.uuid]?.short_name}
+                teamName={pageState.teamNames[item.team.uuid]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={item.points}
                 onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
@@ -141,7 +151,7 @@ export const SquadPoints = ({
           {reservePlayers().map((item: LineupPlayer) => (
             <PlayerCard
               key={item.uuid}
-              teamName={teamNames[item.team.uuid]?.short_name}
+              teamName={pageState.teamNames[item.team.uuid]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={item.points}
               onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
@@ -149,12 +159,12 @@ export const SquadPoints = ({
           ))}
         </div>
       )}
-      {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
+      {Object.keys(pageState.teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={pageState.teamNames} /> : null}
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
-        teamNames={teamNames}
+        teamNames={pageState.teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
     </>
