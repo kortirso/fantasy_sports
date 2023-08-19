@@ -124,8 +124,11 @@ export const Transfers = ({
           return a[sortBy as keyof TeamsPlayer] < b[sortBy as keyof TeamsPlayer] ? 1 : -1;
         }
       })
-      .slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
   }, [seasonPlayers, filterByPosition, filterByTeam, page, sortBy]);
+
+  const filteredSlicedPlayers = useMemo(() => {
+    return filteredPlayers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
+  }, [filteredPlayers, page]);
 
   const lastPageIndex = useMemo(() => {
     return Math.trunc(filteredPlayers.length / PER_PAGE) + 1;
@@ -365,7 +368,7 @@ export const Transfers = ({
           onSelect={(value) => setSortBy(value)}
           selectedValue={sortBy}
         />
-        {filteredPlayers.map((item: TeamsPlayer) => (
+        {filteredSlicedPlayers.map((item: TeamsPlayer) => (
           <div className="team-player" key={item.uuid}>
             <div
               className="team-player-stats flex items-center justify-center button info small"
