@@ -41,7 +41,7 @@ export const SquadPoints = ({
   const [pageState, setPageState] = useState({
     loading: true,
     teamNames: {},
-    lineupPlayers: []
+    lineupPlayers: [],
   });
   // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
@@ -56,15 +56,14 @@ export const SquadPoints = ({
       return await lineupPlayersRequest(lineupUuid);
     };
 
-    Promise
-      .all([fetchTeams(), fetchLineupPlayers()])
-      .then(([fetchTeamsData, fetchLineupPlayersData]) => (
+    Promise.all([fetchTeams(), fetchLineupPlayers()]).then(
+      ([fetchTeamsData, fetchLineupPlayersData]) =>
         setPageState({
           loading: false,
           teamNames: fetchTeamsData,
-          lineupPlayers: fetchLineupPlayersData
-        })
-      ))
+          lineupPlayers: fetchLineupPlayersData,
+        }),
+    );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (pageState.loading) return <></>;
@@ -114,7 +113,7 @@ export const SquadPoints = ({
       <div className="points-header flex justify-between items-center">
         <div>
           {previousPointsUrl ? (
-            <a className="button small" href={ previousPointsUrl }>
+            <a className="button small" href={previousPointsUrl}>
               {strings.week.previous}
             </a>
           ) : null}
@@ -122,7 +121,7 @@ export const SquadPoints = ({
         <div></div>
         <div>
           {nextPointsUrl ? (
-            <a className="button small" href={ nextPointsUrl }>
+            <a className="button small" href={nextPointsUrl}>
               {strings.week.next}
             </a>
           ) : null}
@@ -159,7 +158,9 @@ export const SquadPoints = ({
           ))}
         </div>
       )}
-      {Object.keys(pageState.teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={pageState.teamNames} /> : null}
+      {Object.keys(pageState.teamNames).length > 0 ? (
+        <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+      ) : null}
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}

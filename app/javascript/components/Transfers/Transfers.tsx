@@ -50,7 +50,7 @@ export const Transfers = ({
   weekPosition,
   weekDeadlineAt,
   transfersLimited,
-  freeTransfers
+  freeTransfers,
 }: TransfersProps): JSX.Element => {
   // static data
   const [teamNames, setTeamNames] = useState<TeamNames>({});
@@ -96,15 +96,12 @@ export const Transfers = ({
 
   useEffect(() => {
     setPlayersByPosition(
-      Object.keys(sportPositions).reduce(
-        (result, sportPosition) => {
-          result[sportPosition] = teamMembers.filter((item: TeamsPlayer) => {
-            return item.player.position_kind === sportPosition;
-          });
-          return result;
-        },
-        {} as KeyValue,
-      )
+      Object.keys(sportPositions).reduce((result, sportPosition) => {
+        result[sportPosition] = teamMembers.filter((item: TeamsPlayer) => {
+          return item.player.position_kind === sportPosition;
+        });
+        return result;
+      }, {} as KeyValue),
     );
   }, [sportPositions, teamMembers]);
 
@@ -123,8 +120,8 @@ export const Transfers = ({
         } else {
           return a[sortBy as keyof TeamsPlayer] < b[sortBy as keyof TeamsPlayer] ? 1 : -1;
         }
-      })
-  }, [seasonPlayers, filterByPosition, filterByTeam, page, sortBy]);
+      });
+  }, [seasonPlayers, filterByPosition, filterByTeam, sortBy]);
 
   const filteredSlicedPlayers = useMemo(() => {
     return filteredPlayers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
@@ -144,9 +141,11 @@ export const Transfers = ({
 
   const addTeamMember = (item: TeamsPlayer) => {
     // if fantasy team is full
-    if (teamMembers.length === sport.max_players) return setAlerts({ alert: strings.transfers.teamFull });
+    if (teamMembers.length === sport.max_players)
+      return setAlerts({ alert: strings.transfers.teamFull });
     // if player is already in team
-    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid)) return setAlerts({ alert: strings.transfers.playerInTeam });
+    if (teamMembers.find((element: TeamsPlayer) => element.uuid === item.uuid))
+      return setAlerts({ alert: strings.transfers.playerInTeam });
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
@@ -156,7 +155,12 @@ export const Transfers = ({
     const playersFromTeam = teamMembers.filter((element: TeamsPlayer) => {
       return element.team.uuid === item.team.uuid;
     });
-    if (playersFromTeam.length >= sport.max_team_players) return setAlerts({ alert: strings.formatString(strings.transfers.maxTeamPlayers, { number: sport.max_team_players }) });
+    if (playersFromTeam.length >= sport.max_team_players)
+      return setAlerts({
+        alert: strings.formatString(strings.transfers.maxTeamPlayers, {
+          number: sport.max_team_players,
+        }),
+      });
 
     setTeamMembers(teamMembers.concat(item));
     setBudget(budget - item.price);
@@ -174,17 +178,12 @@ export const Transfers = ({
   const renderEmptySlots = (positionKind: string) => {
     if (!playersByPosition[positionKind]) return null;
 
-    const emptySlots = sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
+    const emptySlots =
+      sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
     return [...Array(emptySlots).keys()].map((item: number) => {
-      return (
-        <PlayerCard
-          key={item}
-          name=''
-          value=''
-        />
-      )
+      return <PlayerCard key={item} name="" value="" />;
     });
-  }
+  };
 
   const submit = async () => {
     const payload = {
@@ -272,13 +271,10 @@ export const Transfers = ({
             </div>
             <Dropdown
               title={strings.transfers.favouriteTeam}
-              items={Object.entries(teamNames).reduce(
-                (result, [key, values]) => {
-                  result[key] = localizeValue(values.name);
-                  return result;
-                },
-                {} as KeyValue,
-              )}
+              items={Object.entries(teamNames).reduce((result, [key, values]) => {
+                result[key] = localizeValue(values.name);
+                return result;
+              }, {} as KeyValue)}
               onSelect={(value) => setFavouriteTeamUuid(value)}
               selectedValue={favouriteTeamUuid}
             />
@@ -343,7 +339,10 @@ export const Transfers = ({
             },
             { all: strings.transfers.allPlayers } as KeyValue,
           )}
-          onSelect={(value) => { setFilterByPosition(value); setPage(0); }}
+          onSelect={(value) => {
+            setFilterByPosition(value);
+            setPage(0);
+          }}
           selectedValue={filterByPosition}
         />
         <Dropdown
@@ -355,7 +354,10 @@ export const Transfers = ({
             },
             { all: strings.transfers.allTeams } as KeyValue,
           )}
-          onSelect={(value) => { setFilterByTeam(value); setPage(0); }}
+          onSelect={(value) => {
+            setFilterByTeam(value);
+            setPage(0);
+          }}
           selectedValue={filterByTeam}
         />
         <Dropdown
@@ -363,7 +365,7 @@ export const Transfers = ({
           items={{
             points: strings.transfers.sortByPoints,
             price: strings.transfers.sortByPrice,
-            form: strings.transfers.sortByForm
+            form: strings.transfers.sortByForm,
           }}
           onSelect={(value) => setSortBy(value)}
           selectedValue={sortBy}
@@ -377,8 +379,12 @@ export const Transfers = ({
               ?
             </div>
             <div className="team-player-info">
-              <span className="team-player-name">{localizeValue(item.player.name)?.split(' ')[0]}</span>
-              {false ? (<span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>) : null}
+              <span className="team-player-name">
+                {localizeValue(item.player.name)?.split(' ')[0]}
+              </span>
+              {false ? (
+                <span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>
+              ) : null}
               <span className="position-name">
                 {localizeValue(sportPositions[item.player.position_kind].short_name)}
               </span>
@@ -424,7 +430,9 @@ export const Transfers = ({
         </div>
         <div className="transfers-header">
           <h2>{strings.transfers.confirmationScreen}</h2>
-          <p className="transfers-points">{strings.transfers.penaltyPoints} - {transfersData?.penalty_points}</p>
+          <p className="transfers-points">
+            {strings.transfers.penaltyPoints} - {transfersData?.penalty_points}
+          </p>
           <div className="flex justify-between transfers-list">
             <div className="transfers-block flex flex-col items-center">
               <h4>{strings.transfers.income}</h4>
@@ -441,16 +449,10 @@ export const Transfers = ({
           </div>
           {transfersData?.out_names?.length > 0 ? (
             <div className="flex justify-center items-center">
-              <button
-                className="button"
-                onClick={() => setTransfersData(null)}
-              >
+              <button className="button" onClick={() => setTransfersData(null)}>
                 {strings.transfers.cancel}
               </button>
-              <button
-                className="button"
-                onClick={onSubmitTransfers}
-              >
+              <button className="button" onClick={onSubmitTransfers}>
                 {strings.transfers.approve}
               </button>
             </div>

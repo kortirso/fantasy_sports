@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import type { TeamNames } from 'entities';
 import { Attribute, Week as WeekInterface, Game as GameInterface } from 'entities';
-import { currentLocale, localizeValue } from 'helpers';
+import { currentLocale } from 'helpers';
 import { strings } from 'locales';
 
 import { Game } from './Game';

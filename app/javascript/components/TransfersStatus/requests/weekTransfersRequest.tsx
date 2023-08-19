@@ -1,4 +1,3 @@
-import { Attribute } from 'entities';
 import { apiRequest } from 'requests/helpers/apiRequest';
 
 export const weekTransfersRequest = async (weekUuid: string) => {

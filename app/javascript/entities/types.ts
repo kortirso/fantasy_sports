@@ -1,6 +1,14 @@
-export const componentTypes = ['Achievements', 'SportRules', 'Squad', 'SquadPoints', 'Transfers', 'TransfersStatus', 'ProfileDropdown'] as const;
+export const componentTypes = [
+  'Achievements',
+  'SportRules',
+  'Squad',
+  'SquadPoints',
+  'Transfers',
+  'TransfersStatus',
+  'ProfileDropdown',
+] as const;
 
-export type ComponentType = typeof componentTypes[number];
+export type ComponentType = (typeof componentTypes)[number];
 
 export type KeyValue = {
   [key in string]: string;
@@ -93,8 +101,8 @@ export interface PositionValues {
 export interface Week {
   uuid: string;
   position: number;
-  next: { uuid: string; };
-  previous: { uuid: string; };
+  next: { uuid: string };
+  previous: { uuid: string };
   date_deadline_at: string;
   time_deadline_at: string;
 }
@@ -103,8 +111,8 @@ export interface Game {
   uuid: string;
   date_start_at: string;
   time_start_at: string;
-  home_team: { uuid: string; };
-  visitor_team: { uuid: string; };
+  home_team: { uuid: string };
+  visitor_team: { uuid: string };
   points: number[];
 }
 

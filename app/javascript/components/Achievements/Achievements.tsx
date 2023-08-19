@@ -36,15 +36,19 @@ export const Achievements = (): JSX.Element => {
     <section id="achievements-box">
       <div className="achievement-groups">
         <div
-          className={`${activeGroupUuid === undefined ? 'achievement-group active' : 'achievement-group'}`}
+          className={`${
+            activeGroupUuid === undefined ? 'achievement-group active' : 'achievement-group'
+          }`}
           onClick={() => setActiveGroupUuid(undefined)}
-          key='group-summary'
+          key="group-summary"
         >
           {strings.achievements.summary}
         </div>
         {achievementGroups.map((group: AchievementGroup) => (
           <div
-            className={`${activeGroupUuid === group.uuid ? 'achievement-group active' : 'achievement-group'}`}
+            className={`${
+              activeGroupUuid === group.uuid ? 'achievement-group active' : 'achievement-group'
+            }`}
             onClick={() => setActiveGroupUuid(group.uuid)}
             key={`group-${group.uuid}`}
           >
@@ -57,17 +61,11 @@ export const Achievements = (): JSX.Element => {
           <div className="achievement" key={index}>
             <div className="achievement-name">
               <p>{localizeValue(achievement.title)}</p>
-              <span className="achievement-earned">
-                {achievement.updated_at}
-              </span>
+              <span className="achievement-earned">{achievement.updated_at}</span>
             </div>
-            <div className="achievement-description">
-              {localizeValue(achievement.description)}
-            </div>
+            <div className="achievement-description">{localizeValue(achievement.description)}</div>
             <div className="achievement-icon"></div>
-            <div className="achievement-points">
-              {achievement.points}
-            </div>
+            <div className="achievement-points">{achievement.points}</div>
           </div>
         ))}
       </div>

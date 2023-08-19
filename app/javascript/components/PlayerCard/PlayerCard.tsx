@@ -33,19 +33,29 @@ export const PlayerCard = ({
         <p className="player-name">{name}</p>
         <p className="player-value">{value}</p>
         {onActionClick ? (
-          <div className="action" onClick={(e) => { e.stopPropagation(); onActionClick() }}>
+          <div
+            className="action"
+            onClick={(e) => {
+              e.stopPropagation();
+              onActionClick();
+            }}
+          >
             +/-
           </div>
         ) : null}
         {onInfoClick ? (
-          <div className="info" onClick={(e) => { e.stopPropagation(); onInfoClick() }}>
+          <div
+            className="info"
+            onClick={(e) => {
+              e.stopPropagation();
+              onInfoClick();
+            }}
+          >
             ?
           </div>
         ) : null}
         {status && status !== 'regular' ? (
-          <div className="captain">
-            {renderStatusIcon()}
-          </div>
+          <div className="captain">{renderStatusIcon()}</div>
         ) : null}
       </div>
     </div>

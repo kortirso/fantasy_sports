@@ -21,7 +21,9 @@ export const SportRules = ({ sportKind }: SportRulesProps): JSX.Element => {
       <Toggle header={strings.sportRules.selectSquad}>
         <>
           <h4>{strings.sportRules.squadSizeHeader}</h4>
-          <p>{strings.formatString(strings.sportRules.maxPlayers, { number: sport.max_players })}</p>
+          <p>
+            {strings.formatString(strings.sportRules.maxPlayers, { number: sport.max_players })}
+          </p>
           <ul>
             {Object.entries(sportPositions).map(([key, value]) => (
               <li key={key}>
@@ -32,15 +34,16 @@ export const SportRules = ({ sportKind }: SportRulesProps): JSX.Element => {
           <h4>{strings.sportRules.budgetHeader}</h4>
           <p>{strings.sportRules.budgetDescription}</p>
           <h4>{strings.sportRules.perTeamHeader}</h4>
-          <p>{strings.formatString(strings.sportRules.maxTeamPlayers, { number: sport.max_team_players })}</p>
+          <p>
+            {strings.formatString(strings.sportRules.maxTeamPlayers, {
+              number: sport.max_team_players,
+            })}
+          </p>
         </>
       </Toggle>
-      <Toggle header={strings.sportRules.transfers}>
-      </Toggle>
-      <Toggle header={strings.sportRules.deadlines}>
-      </Toggle>
-      <Toggle header={strings.sportRules.scoring}>
-      </Toggle>
+      <Toggle header={strings.sportRules.transfers}></Toggle>
+      <Toggle header={strings.sportRules.deadlines}></Toggle>
+      <Toggle header={strings.sportRules.scoring}></Toggle>
     </>
   );
 };

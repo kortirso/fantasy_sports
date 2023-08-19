@@ -49,7 +49,7 @@ export const TransfersStatus = ({ weekUuid }: TransfersStatusProps): JSX.Element
           ))}
         </tbody>
       </table>
-    )
+    );
   };
 
   return (

@@ -5,10 +5,7 @@ interface ToggleProps {
   children: React.ReactNode;
 }
 
-export const Toggle = ({
-  header,
-  children,
-}: ToggleProps): JSX.Element => {
+export const Toggle = ({ header, children }: ToggleProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,11 +13,7 @@ export const Toggle = ({
       <div className="toggle-header" onClick={() => setIsOpen(!isOpen)}>
         {header}
       </div>
-      {isOpen ? (
-        <div className="toggle-content">
-          {children}
-        </div>
-      ) : null}
+      {isOpen ? <div className="toggle-content">{children}</div> : null}
     </div>
   );
 };

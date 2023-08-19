@@ -19,5 +19,5 @@ export const statisticsOrder = {
     BLK: 'Blocks',
     STL: 'Steals',
     TO: 'Turnovers',
-  }
+  },
 };

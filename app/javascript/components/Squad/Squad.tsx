@@ -176,10 +176,7 @@ export const Squad = ({
     );
   };
 
-  const changeCaptain = (
-    playerUuidToChange: number,
-    status: string,
-  ) => {
+  const changeCaptain = (playerUuidToChange: number, status: string) => {
     // playerUuidToChange - id of changeable player
     // status - captain or assistant
     setLineupPlayers(
@@ -246,7 +243,7 @@ export const Squad = ({
       activeChips = activeChips.filter((element: string) => element !== value);
     } else {
       activeChips.push(value);
-    };
+    }
 
     const payload = { active_chips: activeChips };
 
@@ -324,13 +321,17 @@ export const Squad = ({
           <h3>{strings.squad.chips}</h3>
           <div className="flex justify-center">
             <button
-              className={lineup.active_chips.includes('bench_boost') ? 'button active' : 'button inactive'}
+              className={
+                lineup.active_chips.includes('bench_boost') ? 'button active' : 'button inactive'
+              }
               onClick={() => toggleChip('bench_boost')}
             >
               {strings.squad.benchBoost}
             </button>
             <button
-              className={lineup.active_chips.includes('triple_captain') ? 'button active' : 'button inactive'}
+              className={
+                lineup.active_chips.includes('triple_captain') ? 'button active' : 'button inactive'
+              }
               onClick={() => toggleChip('triple_captain')}
             >
               {strings.squad.tripleCaptain}
