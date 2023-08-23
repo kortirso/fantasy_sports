@@ -33,6 +33,16 @@ interface TransfersData {
   penalty_points: number;
 }
 
+type PlayersByPosition = {
+  [key in string]: TeamsPlayer[];
+};
+
+interface PageState {
+  loading: boolean;
+  teamNames: TeamNames;
+  seasonPlayers: TeamsPlayer[];
+}
+
 // these sorting params belong to teams_player.player
 // other sorting params belong to teams_player
 const PLAYER_SORT_PARAMS = ['points'];
@@ -52,15 +62,17 @@ export const Transfers = ({
   transfersLimited,
   freeTransfers,
 }: TransfersProps): JSX.Element => {
-  // static data
-  const [teamNames, setTeamNames] = useState<TeamNames>({});
-  const [seasonPlayers, setSeasonPlayers] = useState<TeamsPlayer[]>([]);
-  // main data
+  const [pageState, setPageState] = useState<PageState>({
+    loading: true,
+    teamNames: {},
+    seasonPlayers: [],
+  });
+
   const [teamMembers, setTeamMembers] = useState<TeamsPlayer[]>([]);
   const [budget, setBudget] = useState<number>(fantasyTeamBudget);
   const [teamName, setTeamName] = useState<string>('');
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
-  const [playersByPosition, setPlayersByPosition] = useState({});
+  const [playersByPosition, setPlayersByPosition] = useState<PlayersByPosition>({});
   const [favouriteTeamUuid, setFavouriteTeamUuid] = useState<string | null>(null);
   const [transfersData, setTransfersData] = useState<TransfersData | null>(null);
   const [alerts, setAlerts] = useState({});
@@ -74,23 +86,23 @@ export const Transfers = ({
   const sport = sportsData.sports[sportKind];
 
   useEffect(() => {
-    const fetchTeams = async () => {
-      const data = await teamsRequest(seasonUuid);
-      setTeamNames(data);
-    };
-
-    const fetchSeasonPlayers = async () => {
-      const data = await seasonPlayersRequest(seasonUuid);
-      setSeasonPlayers(data);
-    };
+    const fetchTeams = async () => await teamsRequest(seasonUuid);
+    const fetchSeasonPlayers = async () => await seasonPlayersRequest(seasonUuid);
 
     const fetchFantasyTeamPlayers = async () => {
       const data = await fantasyTeamPlayersRequest(fantasyTeamUuid);
       setTeamMembers(data);
     };
 
-    fetchTeams();
-    fetchSeasonPlayers();
+    Promise.all([fetchTeams(), fetchSeasonPlayers()]).then(
+      ([fetchTeamsData, fetchSeasonPlayersData]) =>
+        setPageState({
+          loading: false,
+          teamNames: fetchTeamsData,
+          seasonPlayers: fetchSeasonPlayersData,
+        }),
+    );
+
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -101,12 +113,12 @@ export const Transfers = ({
           return item.player.position_kind === sportPosition;
         });
         return result;
-      }, {} as KeyValue),
+      }, {} as PlayersByPosition),
     );
   }, [sportPositions, teamMembers]);
 
   const filteredPlayers = useMemo(() => {
-    return seasonPlayers
+    return pageState.seasonPlayers
       .filter((element: TeamsPlayer) => {
         if (filterByPosition !== 'all' && filterByPosition !== element.player.position_kind)
           return false;
@@ -121,7 +133,7 @@ export const Transfers = ({
           return a[sortBy as keyof TeamsPlayer] < b[sortBy as keyof TeamsPlayer] ? 1 : -1;
         }
       });
-  }, [seasonPlayers, filterByPosition, filterByTeam, sortBy]);
+  }, [pageState.seasonPlayers, filterByPosition, filterByTeam, sortBy]);
 
   const filteredSlicedPlayers = useMemo(() => {
     return filteredPlayers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
@@ -181,7 +193,7 @@ export const Transfers = ({
     const emptySlots =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
     return [...Array(emptySlots).keys()].map((item: number) => {
-      return <PlayerCard key={item} name="" value="" />;
+      return <PlayerCard key={item} teamName="" name="" value="" />;
     });
   };
 
@@ -271,7 +283,7 @@ export const Transfers = ({
             </div>
             <Dropdown
               title={strings.transfers.favouriteTeam}
-              items={Object.entries(teamNames).reduce((result, [key, values]) => {
+              items={Object.entries(pageState.teamNames).reduce((result, [key, values]) => {
                 result[key] = localizeValue(values.name);
                 return result;
               }, {} as KeyValue)}
@@ -307,7 +319,7 @@ export const Transfers = ({
               {playersByPosition[positionKind]?.map((item: TeamsPlayer) => (
                 <PlayerCard
                   key={item.uuid}
-                  teamName={teamNames[item.team.uuid]?.short_name}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
                   name={localizeValue(item.player.name).split(' ')[0]}
                   value={item.price}
                   onActionClick={() => removeTeamMember(item)}
@@ -326,7 +338,9 @@ export const Transfers = ({
             {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
           </button>
         </div>
-        {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
+        {Object.keys(pageState.teamNames).length > 0 ? (
+          <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+        ) : null}
       </div>
       <div id="fantasy-players" className="right-container">
         <h2>{strings.transfers.selection}</h2>
@@ -347,7 +361,7 @@ export const Transfers = ({
         />
         <Dropdown
           title={strings.transfers.teamView}
-          items={Object.entries(teamNames).reduce(
+          items={Object.entries(pageState.teamNames).reduce(
             (result, [key, values]) => {
               result[key] = localizeValue(values.name);
               return result;
@@ -383,7 +397,7 @@ export const Transfers = ({
                 {localizeValue(item.player.name)?.split(' ')[0]}
               </span>
               {false ? (
-                <span className="team-name">{teamNames[item.team.uuid]?.short_name}</span>
+                <span className="team-name">{pageState.teamNames[item.team.uuid]?.short_name}</span>
               ) : null}
               <span className="position-name">
                 {localizeValue(sportPositions[item.player.position_kind].short_name)}
@@ -391,14 +405,16 @@ export const Transfers = ({
             </div>
             <div className="team-player-price">{item.price}</div>
             <div className="team-player-price">
-              {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
+              {PLAYER_SORT_PARAMS.includes(sortBy)
+                ? item.player[sortBy as keyof Player]
+                : item[sortBy]}
             </div>
             <div className="button small" onClick={() => addTeamMember(item)}>
               +
             </div>
           </div>
         ))}
-        {seasonPlayers.length > PER_PAGE && (
+        {pageState.seasonPlayers.length > PER_PAGE && (
           <div className="pagination flex flex-row justify-center items-center">
             <span
               className="pagination-nav flex flex-row justify-center items-center"
@@ -420,7 +436,7 @@ export const Transfers = ({
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
-        teamNames={teamNames}
+        teamNames={pageState.teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
       <Flash values={alerts} />
@@ -447,7 +463,7 @@ export const Transfers = ({
               ))}
             </div>
           </div>
-          {transfersData?.out_names?.length > 0 ? (
+          {transfersData?.out_names && transfersData?.out_names.length > 0 ? (
             <div className="flex justify-center items-center">
               <button className="button" onClick={() => setTransfersData(null)}>
                 {strings.transfers.cancel}

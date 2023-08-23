@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import type { TeamNames } from 'entities';
+import { GamesPlayer } from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
-import { TeamsPlayer } from 'entities';
+import { TeamsPlayer, StatisticsOrder } from 'entities';
 import { statisticsOrder } from 'data/players';
 import { Modal } from 'components/atoms';
 
@@ -48,13 +49,13 @@ export const PlayerModal = ({
   };
 
   const renderSeasonGames = () => {
-    return seasonPlayer.games_players.data.map((item) => {
+    return seasonPlayer.games_players.data.map((item: GamesPlayer) => {
       return (
         <tr key={item.attributes.uuid}>
           <td>{item.attributes.week.position}</td>
           <td>{localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}</td>
           <td>{item.attributes.points}</td>
-          {Object.keys(statisticsOrder[sportKind]).map((stat: string) => (
+          {Object.keys(statisticsOrder[sportKind as keyof StatisticsOrder]).map((stat: string) => (
             <td key={stat}>{item.attributes.statistic[stat]}</td>
           ))}
           <td></td>
@@ -104,12 +105,14 @@ export const PlayerModal = ({
                 <th>GW</th>
                 <th>Opponent</th>
                 <th>Pts</th>
-                {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
-                  <th className="tooltip" key={stat}>
-                    {stat}
-                    <span className="tooltiptext">{value}</span>
-                  </th>
-                ))}
+                {Object.entries(statisticsOrder[sportKind as keyof StatisticsOrder]).map(
+                  ([stat, value]) => (
+                    <th className="tooltip" key={stat}>
+                      {stat}
+                      <span className="tooltiptext">{value as string}</span>
+                    </th>
+                  ),
+                )}
                 <th>Price</th>
               </tr>
             </thead>

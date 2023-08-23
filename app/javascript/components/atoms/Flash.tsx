@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+import type { KeyValue } from 'entities';
+
 interface FlashProps {
   values: KeyValue;
 }
 
 export const Flash = ({ values }: FlashProps): JSX.Element => {
-  const [messages, setMessages] = useState({});
+  const [messages, setMessages] = useState<KeyValue>({});
 
   useEffect(() => {
     setMessages(values);

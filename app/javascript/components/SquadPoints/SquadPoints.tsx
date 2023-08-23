@@ -24,6 +24,12 @@ interface SquadPointsProps {
   nextPointsUrl: string | null;
 }
 
+interface PageState {
+  loading: boolean;
+  teamNames: TeamNames;
+  lineupPlayers: LineupPlayer[];
+}
+
 strings.setLanguage(currentLocale);
 
 export const SquadPoints = ({
@@ -38,18 +44,16 @@ export const SquadPoints = ({
   previousPointsUrl,
   nextPointsUrl,
 }: SquadPointsProps): JSX.Element => {
-  const [pageState, setPageState] = useState({
+  const [pageState, setPageState] = useState<PageState>({
     loading: true,
     teamNames: {},
     lineupPlayers: [],
   });
-  // main data
   const [playerUuid, setPlayerUuid] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const data = await teamsRequest(seasonUuid);
-      return data;
+      return await teamsRequest(seasonUuid);
     };
 
     const fetchLineupPlayers = async () => {

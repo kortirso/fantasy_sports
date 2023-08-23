@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import type { TeamNames } from 'entities';
-import { SportPosition, LineupPlayer } from 'entities';
+import type { TeamNames, TeamOpponents } from 'entities';
+import { SportPosition, LineupPlayer, Lineup } from 'entities';
 import { sportsData } from 'data';
 import { currentLocale, localizeValue, csrfToken } from 'helpers';
 import { strings } from 'locales';
@@ -24,6 +24,14 @@ interface SquadProps {
   weekDeadlineAt: string;
 }
 
+interface PageState {
+  loading: boolean;
+  lineup: Lineup;
+  teamNames: TeamNames;
+  lineupPlayers: LineupPlayer[];
+  teamOpponents: TeamOpponents;
+}
+
 strings.setLanguage(currentLocale);
 
 export const Squad = ({
@@ -34,14 +42,16 @@ export const Squad = ({
   weekPosition,
   weekDeadlineAt,
 }: SquadProps): JSX.Element => {
-  // static data
-  const [lineup, setLineup] = useState<TeamNames>({});
-  const [teamNames, setTeamNames] = useState<TeamNames>({});
-  const [lineupPlayers, setLineupPlayers] = useState<LineupPlayer[]>([]);
-  const [teamOpponents, setTeamOpponents] = useState({});
+  const [pageState, setPageState] = useState<PageState>({
+    loading: true,
+    lineup: { uuid: '', active_chips: [], fantasy_team: { available_chips: {} } },
+    teamNames: {},
+    lineupPlayers: [],
+    teamOpponents: {},
+  });
   // main data
-  const [playerUuid, setPlayerUuid] = useState<string | undefined>();
-  const [playerActionsUuid, setPlayerActionsUuid] = useState<string | undefined>();
+  const [playerUuid, setPlayerUuid] = useState<string>();
+  const [playerActionsUuid, setPlayerActionsUuid] = useState<string>();
   const [alerts, setAlerts] = useState({});
   // dynamic data
   const [playerUuidForChange, setPlayerUuidForChange] = useState<string | null>(null);
@@ -49,31 +59,24 @@ export const Squad = ({
   const [changeOrder, setChangeOrder] = useState<number>(0);
 
   useEffect(() => {
-    const fetchLineup = async () => {
-      const data = await lineupRequest(lineupUuid);
-      setLineup(data);
-    };
+    const fetchLineup = async () => await lineupRequest(lineupUuid);
+    const fetchTeams = async () => await teamsRequest(seasonUuid);
+    const fetchLineupPlayers = async () => await lineupPlayersRequest(lineupUuid);
+    const fetchWeekOpponents = async () => await weekOpponentsRequest(weekUuid);
 
-    const fetchTeams = async () => {
-      const data = await teamsRequest(seasonUuid);
-      setTeamNames(data);
-    };
-
-    const fetchLineupPlayers = async () => {
-      const data = await lineupPlayersRequest(lineupUuid);
-      setLineupPlayers(data);
-    };
-
-    const fetchWeekOpponents = async () => {
-      const data = await weekOpponentsRequest(weekUuid);
-      setTeamOpponents(data);
-    };
-
-    fetchLineup();
-    fetchTeams();
-    fetchLineupPlayers();
-    fetchWeekOpponents();
+    Promise.all([fetchLineup(), fetchTeams(), fetchLineupPlayers(), fetchWeekOpponents()]).then(
+      ([fetchLineupData, fetchTeamsData, fetchLineupPlayersData, fetchWeekOpponentsData]) =>
+        setPageState({
+          loading: false,
+          lineup: fetchLineupData,
+          teamNames: fetchTeamsData,
+          lineupPlayers: fetchLineupPlayersData,
+          teamOpponents: fetchWeekOpponentsData,
+        }),
+    );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (pageState.loading) return <></>;
 
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
@@ -83,13 +86,13 @@ export const Squad = ({
   };
 
   const activePlayersByPosition = (positionKind: string) => {
-    return lineupPlayers.filter(
+    return pageState.lineupPlayers.filter(
       (element: LineupPlayer) => element.active && element.player.position_kind === positionKind,
     );
   };
 
   const reservePlayers = () => {
-    return lineupPlayers
+    return pageState.lineupPlayers
       .filter((element: LineupPlayer) => {
         return !element.active;
       })
@@ -99,19 +102,22 @@ export const Squad = ({
   };
 
   const oppositeTeamNames = (item: LineupPlayer) => {
-    if (Object.keys(teamNames).length === 0) return '-';
+    if (Object.keys(pageState.teamNames).length === 0) return '-';
 
-    const values = teamOpponents[item.team.uuid];
-    if (!values || values.length === 0) return '-';
+    const values = pageState.teamOpponents[item.team.uuid as keyof TeamOpponents] as
+      | string[]
+      | undefined;
+    if (values === undefined) return '-';
+    if (values.length === 0) return '-';
 
-    return values.map((element: number) => teamNames[element].short_name).join(', ');
+    return values.map((element: string) => pageState.teamNames[element].short_name).join(', ');
   };
 
   const changePlayer = (item: LineupPlayer, isActive: boolean) => {
     if (playerUuidForChange === null) {
       // beginning of change selection
       const positionKind = item.player.position_kind;
-      const playersToChange = isActive ? reservePlayers() : lineupPlayers;
+      const playersToChange = isActive ? reservePlayers() : pageState.lineupPlayers;
 
       let activePlayersOnPosition = isActive ? activePlayersByPosition(positionKind).length : 0;
       let activePlayersOnNextPosition = isActive ? 0 : activePlayersByPosition(positionKind).length;
@@ -136,9 +142,9 @@ export const Squad = ({
           // allow change for player
           return element.uuid;
         })
-        .filter((element: number | null) => element);
+        .filter((element: string | null) => element);
 
-      setPlayerUuidsToChange(result as number[]);
+      setPlayerUuidsToChange(result as string[]);
       if (result.length > 0) {
         setChangeOrder(item.change_order);
         setPlayerUuidForChange(item.uuid);
@@ -154,42 +160,47 @@ export const Squad = ({
   };
 
   const changePlayers = (
-    playerUuidToChange: number,
+    playerUuidToChange: string,
     stateForInitialPlayer: boolean,
     changeOrderValue: number,
   ) => {
     // playerUuidToChange - id of changeable player
     // playerUuidForChange - id of initial player
     // stateForInitialPlayer - new state for initial player
-    setLineupPlayers(
-      lineupPlayers.map((element: LineupPlayer) => {
-        if (element.uuid === playerUuidToChange) {
-          element.active = stateForInitialPlayer;
-          element.change_order = stateForInitialPlayer ? 0 : changeOrderValue;
-        }
-        if (element.uuid === playerUuidForChange) {
-          element.active = !stateForInitialPlayer;
-          element.change_order = stateForInitialPlayer ? changeOrderValue : 0;
-        }
-        return element;
-      }),
-    );
+    const changedLineupPlayers = pageState.lineupPlayers.map((element: LineupPlayer) => {
+      if (element.uuid === playerUuidToChange) {
+        element.active = stateForInitialPlayer;
+        element.change_order = stateForInitialPlayer ? 0 : changeOrderValue;
+      }
+      if (element.uuid === playerUuidForChange) {
+        element.active = !stateForInitialPlayer;
+        element.change_order = stateForInitialPlayer ? changeOrderValue : 0;
+      }
+      return element;
+    });
+
+    setPageState({
+      ...pageState,
+      lineupPlayers: changedLineupPlayers,
+    });
   };
 
-  const changeCaptain = (playerUuidToChange: number, status: string) => {
-    // playerUuidToChange - id of changeable player
+  const changeCaptain = (lineupPlayerUuid: string, status: string) => {
+    // lineupPlayerUuid - id of changeable player
     // status - captain or assistant
-    setLineupPlayers(
-      lineupPlayers.map((element: LineupPlayer) => {
-        if (element.uuid === playerUuidToChange) {
-          element.status = status;
-        }
-        if (element.uuid !== playerUuidToChange && element.status === status) {
-          element.status = 'regular';
-        }
-        return element;
-      }),
-    );
+    const changedLineupPlayers = pageState.lineupPlayers.map((element: LineupPlayer) => {
+      if (element.uuid === lineupPlayerUuid) {
+        element.status = status;
+      }
+      if (element.uuid !== lineupPlayerUuid && element.status === status) {
+        element.status = 'regular';
+      }
+      return element;
+    });
+    setPageState({
+      ...pageState,
+      lineupPlayers: changedLineupPlayers,
+    });
     setPlayerActionsUuid(undefined);
   };
 
@@ -203,7 +214,7 @@ export const Squad = ({
 
   const submit = async () => {
     const payload = {
-      data: lineupPlayers.map((element: LineupPlayer) => {
+      data: pageState.lineupPlayers.map((element: LineupPlayer) => {
         return {
           uuid: element.uuid,
           active: element.active,
@@ -234,7 +245,7 @@ export const Squad = ({
   };
 
   const toggleChip = async (value: string) => {
-    let activeChips = lineup.active_chips;
+    let activeChips = pageState.lineup.active_chips;
     if (activeChips.length === sport.max_chips_per_week && !activeChips.includes(value)) {
       return setAlerts({ alert: strings.squad.chipsLimit });
     }
@@ -261,9 +272,10 @@ export const Squad = ({
       options: requestOptions,
     });
     if (toggleResultResult.message) {
-      setLineup({
-        ...lineup,
-        active_chips: activeChips,
+      const updatedLineup = { ...pageState.lineup, active_chips: activeChips };
+      setPageState({
+        ...pageState,
+        lineup: updatedLineup,
       });
       setAlerts({ notice: toggleResultResult.message });
     } else {
@@ -286,8 +298,8 @@ export const Squad = ({
             {activePlayersByPosition(positionKind).map((item: LineupPlayer) => (
               <PlayerCard
                 key={item.uuid}
-                className={classListForPlayerCard(item.id)}
-                teamName={teamNames[item.team.uuid]?.short_name}
+                className={classListForPlayerCard(item.uuid)}
+                teamName={pageState.teamNames[item.team.uuid]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={oppositeTeamNames(item)}
                 status={item.status}
@@ -304,8 +316,8 @@ export const Squad = ({
           {reservePlayers().map((item: LineupPlayer) => (
             <PlayerCard
               key={item.uuid}
-              className={classListForPlayerCard(item.id)}
-              teamName={teamNames[item.team.uuid]?.short_name}
+              className={classListForPlayerCard(item.uuid)}
+              teamName={pageState.teamNames[item.team.uuid]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={oppositeTeamNames(item)}
               status={item.status}
@@ -316,13 +328,16 @@ export const Squad = ({
           ))}
         </div>
       ) : null}
-      {lineup?.fantasy_team && Object.entries(lineup.fantasy_team.available_chips).length > 0 ? (
+      {pageState.lineup?.fantasy_team &&
+      Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
         <div className="chips">
           <h3>{strings.squad.chips}</h3>
           <div className="flex justify-center">
             <button
               className={
-                lineup.active_chips.includes('bench_boost') ? 'button active' : 'button inactive'
+                pageState.lineup.active_chips.includes('bench_boost')
+                  ? 'button active'
+                  : 'button inactive'
               }
               onClick={() => toggleChip('bench_boost')}
             >
@@ -330,7 +345,9 @@ export const Squad = ({
             </button>
             <button
               className={
-                lineup.active_chips.includes('triple_captain') ? 'button active' : 'button inactive'
+                pageState.lineup.active_chips.includes('triple_captain')
+                  ? 'button active'
+                  : 'button inactive'
               }
               onClick={() => toggleChip('triple_captain')}
             >
@@ -346,18 +363,20 @@ export const Squad = ({
           </button>
         </div>
       ) : null}
-      {Object.keys(teamNames).length > 0 ? <Week uuid={weekUuid} teamNames={teamNames} /> : null}
+      {Object.keys(pageState.teamNames).length > 0 ? (
+        <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+      ) : null}
       <Flash values={alerts} />
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}
         playerUuid={playerUuid}
-        teamNames={teamNames}
+        teamNames={pageState.teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
       {sport.captain ? (
         <PlayerActionsModal
-          lineupPlayer={lineupPlayers.find((item) => item.uuid === playerActionsUuid)}
+          lineupPlayer={pageState.lineupPlayers.find((item) => item.uuid === playerActionsUuid)}
           onMakeCaptain={changeCaptain}
           onClose={() => setPlayerActionsUuid(undefined)}
         />

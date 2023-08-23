@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Game as GameInterface, GameStatistic, TeamNames, TeamStatistic } from 'entities';
+import {
+  Game as GameInterface,
+  GameStatistic,
+  TeamNames,
+  TeamPlayerStatistic,
+  KeyValue,
+} from 'entities';
 import { currentLocale, localizeValue } from 'helpers';
 import { strings } from 'locales';
 
@@ -11,7 +17,11 @@ interface GameProps {
   teamNames: TeamNames;
 }
 
-const STATS_VALUES = {
+type StatValues = {
+  [key in string]: KeyValue;
+};
+
+const STATS_VALUES: StatValues = {
   GS: { en: 'Goals scored', ru: 'Забитые голы' },
   A: { en: 'Assists', ru: 'Передачи' },
   YC: { en: 'Yellow cards', ru: 'Жёлтые карточки' },
@@ -48,14 +58,14 @@ export const Game = ({ item, teamNames }: GameProps): JSX.Element => {
         <h5>{localizeValue(STATS_VALUES[element.key])}</h5>
         <div className="fixture-values">
           <div className="fixture-value">
-            {element.home_team.map((player: TeamStatistic, i: number) => (
+            {element.home_team.map((player: TeamPlayerStatistic, i: number) => (
               <p key={`home-team-player-${i}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
             ))}
           </div>
           <div className="fixture-value">
-            {element.visitor_team.map((player: TeamStatistic, i: number) => (
+            {element.visitor_team.map((player: TeamPlayerStatistic, i: number) => (
               <p key={`visitor-team-player-${i}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>

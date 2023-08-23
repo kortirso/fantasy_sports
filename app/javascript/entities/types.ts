@@ -1,11 +1,11 @@
 export const componentTypes = [
   'Achievements',
+  'Flash',
   'SportRules',
   'Squad',
   'SquadPoints',
   'Transfers',
   'TransfersStatus',
-  'ProfileDropdown',
 ] as const;
 
 export type ComponentType = (typeof componentTypes)[number];
@@ -14,11 +14,39 @@ export type KeyValue = {
   [key in string]: string;
 };
 
+export type KeyValueNumberable = {
+  [key in string]: number;
+};
+
+export type TeamPlayerStatistic = [KeyValue, number];
+export type TransferData = {
+  data: {
+    attributes: {
+      player: {
+        name: KeyValue;
+        position_kind: string;
+      };
+      team: {
+        name: string;
+      };
+    };
+  };
+};
+export type WeekTransfer = [TransferData, number];
+
 export type TeamNames = {
   [key in string]: {
     name: KeyValue;
     short_name: string;
   };
+};
+
+export type TeamOpponents = {
+  [key in string]: string[];
+};
+
+export type StatisticsOrder = {
+  [key in string]: KeyValue;
 };
 
 export interface Attribute {
@@ -46,6 +74,12 @@ export interface Player {
   statistic: KeyValue;
 }
 
+export interface Lineup {
+  uuid: string;
+  active_chips: string[];
+  fantasy_team: { available_chips: KeyValueNumberable };
+}
+
 export interface LineupPlayer {
   uuid: string;
   player: Player;
@@ -62,6 +96,8 @@ export interface GamesPlayer {
     uuid: string;
     points: number | null;
     week: any;
+    opponent_team: { uuid: string };
+    statistic: KeyValue;
   };
 }
 
@@ -69,6 +105,7 @@ export interface TeamsPlayer {
   uuid: string;
   player: Player;
   price: number;
+  teams_selected_by: number;
   form: number;
   team: Team;
   active: boolean;
@@ -76,6 +113,13 @@ export interface TeamsPlayer {
   games_players: {
     data: GamesPlayer[];
   };
+}
+
+export interface ChipValues {
+  bench_boost?: number;
+  triple_captain?: number;
+  free_hit?: number;
+  wildcard?: number;
 }
 
 export interface SportValues {
@@ -87,6 +131,8 @@ export interface SportValues {
   points_per_transfer: number;
   changes: boolean;
   captain: boolean;
+  chips: ChipValues;
+  max_chips_per_week: number;
 }
 
 export interface PositionValues {
@@ -101,8 +147,8 @@ export interface PositionValues {
 export interface Week {
   uuid: string;
   position: number;
-  next: { uuid: string };
-  previous: { uuid: string };
+  next: { uuid: string } | null;
+  previous: { uuid: string } | null;
   date_deadline_at: string;
   time_deadline_at: string;
 }
@@ -141,10 +187,6 @@ export interface Achievement {
 
 export interface GameStatistic {
   key: string;
-  home_team: TeamStatistic[];
-  visitor_team: TeamStatistic[];
-}
-
-export interface TeamStatistic {
-  [key in string]: number;
+  home_team: TeamPlayerStatistic[];
+  visitor_team: TeamPlayerStatistic[];
 }

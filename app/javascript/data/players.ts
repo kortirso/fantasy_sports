@@ -1,4 +1,6 @@
-export const statisticsOrder = {
+import { StatisticsOrder } from 'entities';
+
+export const statisticsOrder: StatisticsOrder = {
   football: {
     MP: 'Minutes played',
     GS: 'Goals scored',

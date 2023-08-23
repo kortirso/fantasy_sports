@@ -6,7 +6,7 @@ interface DropdownProps {
   title: string;
   items: KeyValue;
   onSelect: (value: string) => void;
-  selectedValue: string;
+  selectedValue: string | null;
 }
 
 export const Dropdown = ({ title, items, onSelect, selectedValue }: DropdownProps): JSX.Element => {
@@ -22,7 +22,7 @@ export const Dropdown = ({ title, items, onSelect, selectedValue }: DropdownProp
       <label className="form-label">{title}</label>
       <div className="form-select">
         <div className="form-value" onClick={() => setIsOpen(!isOpen)}>
-          {items[selectedValue]}
+          {selectedValue ? items[selectedValue] : ''}
         </div>
         {isOpen && (
           <ul className="form-select-dropdown">

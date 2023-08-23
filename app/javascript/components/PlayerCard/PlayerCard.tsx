@@ -2,9 +2,9 @@ import React from 'react';
 
 interface PlayerCardProps {
   className?: string;
-  teamName?: string;
-  name?: string;
-  value?: string | number;
+  teamName: string;
+  name: string;
+  value: string | number;
   status?: string;
   onCardClick?: () => void;
   onActionClick?: () => void;
