@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FantasyLeagueValidator < ApplicationValidator
-  def initialize(contract: FantasyLeagueContract)
-    super
+  def contract
+    FantasyLeagueContract
   end
 end

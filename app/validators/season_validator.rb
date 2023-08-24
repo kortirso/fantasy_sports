@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeasonValidator < ApplicationValidator
-  def initialize(contract: SeasonContract)
-    super
+  def contract
+    SeasonContract
   end
 end

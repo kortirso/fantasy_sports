@@ -2,8 +2,8 @@
 
 module Users
   class UpdateValidator < ApplicationValidator
-    def initialize(contract: Users::UpdateContract)
-      super
+    def contract
+      Users::UpdateContract
     end
   end
 end
