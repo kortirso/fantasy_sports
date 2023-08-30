@@ -7,7 +7,7 @@ module Users
     before_action :check_email_confirmation
 
     def complete
-      Users::CompleteService.call(user: @user)
+      Users::UpdateService.call(user: @user, params: { confirmation_token: nil, confirmed_at: DateTime.now })
       redirect_to home_path, notice: t('controllers.users.confirmations.success')
     end
 

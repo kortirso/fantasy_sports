@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 module Games
-  class UpdateDataService
+  # after receiving game statistics it's required to update all related information
+  class UpdateOperation
     prepend ApplicationService
 
     def initialize(
-      player_statistic_update_service:   ::Games::Players::Statistic::UpdateService,
+      game_update_service:               ::Games::UpdateService,
+      points_calculate_service:          ::Games::Players::Points::CalculateService.new,
       form_change_service:               ::Teams::Players::Form::ChangeService,
       lineups_players_points_update_job: ::Lineups::Players::Points::UpdateJob,
       players_statistic_update_job:      ::Players::Statistic::UpdateJob
     )
-      @player_statistic_update_service   = player_statistic_update_service
+      @game_update_service               = game_update_service
+      @points_calculate_service          = points_calculate_service
       @form_change_service               = form_change_service
       @lineups_players_points_update_job = lineups_players_points_update_job
       @players_statistic_update_job      = players_statistic_update_job
@@ -29,28 +32,37 @@ module Games
     # ]
     def call(game:, game_data:)
       @game = game
+      @games_players_update_data = []
       @team_player_ids = []
       @player_ids = []
 
-      update_game_points(game_data)
-      update_games_players_statistic(game_data)
-      update_players_statistic
+      # this data is updated immediately
+      ActiveRecord::Base.transaction do
+        update_game(game_data)
+        update_games_players(game_data)
+        update_teams_players
+      end
+      # this data can be updated in background
+      update_players
       update_lineups_players
     end
 
     private
 
-    def update_game_points(game_data)
-      @game.update(points: [game_data[0][:points], game_data[1][:points]])
+    def update_game(game_data)
+      # commento: games.points
+      @game_update_service.call(game: @game, params: { points: [game_data[0][:points], game_data[1][:points]] })
     end
 
-    def update_games_players_statistic(game_data)
-      update_games_players_points(@game.home_season_team_id, game_data[0][:players])
-      update_games_players_points(@game.visitor_season_team_id, game_data[1][:players])
-      update_games_players_form
+    def update_games_players(game_data)
+      calculate_games_players_points(@game.home_season_team_id, game_data[0][:players])
+      calculate_games_players_points(@game.visitor_season_team_id, game_data[1][:players])
+      # commento: games_players.points, games_players.statistic
+      Games::Player.upsert_all(@games_players_update_data) if @games_players_update_data.any?
     end
 
-    def update_games_players_points(season_team_id, game_data)
+    # rubocop: disable Metrics/AbcSize
+    def calculate_games_players_points(season_team_id, game_data)
       games_players =
         @game
         .games_players
@@ -59,21 +71,31 @@ module Games
 
       games_players.each do |games_player|
         statistic = game_data[games_player.teams_player.shirt_number].transform_values(&:to_i)
-        @player_statistic_update_service.call(games_player: games_player, statistic: statistic)
+
+        points = @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
+        @games_players_update_data.push({
+          id: games_player.id,
+          game_id: games_player.game_id,
+          teams_player_id: games_player.teams_player_id,
+          seasons_team_id: games_player.seasons_team_id,
+          points: points,
+          statistic: statistic
+        })
 
         @team_player_ids.push(games_player.teams_player_id)
         @player_ids.push(games_player.teams_player.player_id)
       end
     end
+    # rubocop: enable Metrics/AbcSize
 
-    def update_games_players_form
+    def update_teams_players
       @form_change_service.call(
         games_ids: Game.where(week_id: @game.week.weeks_ids_for_form_calculation).order(id: :asc).ids,
         seasons_teams_ids: [@game.home_season_team_id, @game.visitor_season_team_id]
       )
     end
 
-    def update_players_statistic
+    def update_players
       @players_statistic_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids)
     end
 

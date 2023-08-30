@@ -3,7 +3,7 @@
 describe Users::ConfirmationsController do
   describe 'GET#complete' do
     before do
-      allow(Users::CompleteService).to receive(:call)
+      allow(Users::UpdateService).to receive(:call)
     end
 
     context 'for unexisting user' do
@@ -40,11 +40,8 @@ describe Users::ConfirmationsController do
           get :complete, params: { email: user.email, confirmation_token: user.confirmation_token, locale: 'en' }
         end
 
-        it 'calls Users::CompleteService' do
-          expect(Users::CompleteService).to have_received(:call).with(user: user)
-        end
-
-        it 'redirects to dashboard path' do
+        it 'calls Users::UpdateService', :aggregate_failures do
+          expect(Users::UpdateService).to have_received(:call)
           expect(response).to redirect_to home_en_path
         end
       end

@@ -26,14 +26,16 @@ module Games
 
     def create_games_players
       games_players = [@result.home_season_team, @result.visitor_season_team].flat_map do |season_team|
-        season_team.active_teams_players.includes(:player).map do |teams_player|
-          {
-            game_id: @result.id,
-            teams_player_id: teams_player.id,
-            position_kind: teams_player.player.position_kind,
-            seasons_team_id: season_team.id
-          }
-        end
+        season_team.active_teams_players
+          .includes(:player)
+          .hashable_pluck(:id, 'players.position_kind').map do |teams_player|
+            {
+              game_id: @result.id,
+              teams_player_id: teams_player[:id],
+              position_kind: teams_player[:players_position_kind],
+              seasons_team_id: season_team.id
+            }
+          end
       end
       Games::Player.upsert_all(games_players) if games_players.any?
     end

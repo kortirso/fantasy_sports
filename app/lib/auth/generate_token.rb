@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Auth
-  class GenerateTokenService
+  class GenerateToken
     prepend ApplicationService
 
     def call(user:)

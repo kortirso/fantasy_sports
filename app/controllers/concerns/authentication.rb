@@ -12,7 +12,7 @@ module Authentication
   def current_user
     return unless session[:fantasy_sports_token]
 
-    auth_call = Auth::FetchUserService.call(token: session[:fantasy_sports_token])
+    auth_call = Auth::FetchUser.call(token: session[:fantasy_sports_token])
     return if auth_call.failure?
 
     Current.user ||= auth_call.result

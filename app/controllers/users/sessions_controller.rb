@@ -10,7 +10,7 @@ module Users
     def new; end
 
     def create
-      session[:fantasy_sports_token] = ::Auth::GenerateTokenService.call(user: @user).result
+      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: @user).result
       redirect_to after_login_path, notice: t('controllers.users.sessions.success_create')
     end
 

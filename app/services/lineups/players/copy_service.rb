@@ -10,14 +10,17 @@ module Lineups
 
       def call(lineup:, previous_lineup:)
         Lineups::Player.upsert_all(
-          previous_lineup.lineups_players.map { |lineups_player|
-            {
-              teams_player_id: lineups_player.teams_player_id,
-              lineup_id: lineup.id,
-              change_order: lineups_player.change_order,
-              status: lineups_player.status
-            }
-          }
+          previous_lineup
+            .lineups_players
+            .hashable_pluck(:teams_player_id, :change_order, :status)
+            .map do |lineups_player|
+              {
+                teams_player_id: lineups_player[:teams_player_id],
+                lineup_id: lineup.id,
+                change_order: lineups_player[:change_order],
+                status: lineups_player[:status]
+              }
+            end
         )
       end
     end

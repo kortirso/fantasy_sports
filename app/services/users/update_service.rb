@@ -13,7 +13,7 @@ module Users
       return if validate_with(@user_validator, params) && failure?
       return if validate_user(user, params) && failure?
 
-      @result.save
+      @result.save!
     end
 
     private

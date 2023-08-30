@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Auth
-  class FetchUserService
+  class FetchUser
     prepend ApplicationService
 
     def call(token:)

@@ -10,8 +10,4 @@ class Game < ApplicationRecord
 
   has_many :games_players, class_name: '::Games::Player', dependent: :destroy
   has_many :teams_players, through: :games_players
-
-  def fetcher_service
-    "Import::#{week.league.sport_kind.camelize}::#{source.camelize}DataService".constantize
-  end
 end

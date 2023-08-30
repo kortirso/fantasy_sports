@@ -11,7 +11,7 @@ module Lineups
         TRIPLE_CAPTAIN_POINTS_COEFFICIENT = 3
 
         def initialize(
-          lineups_update_points_service: Lineups::UpdatePointsService
+          lineups_update_points_service: Lineups::Points::UpdateService
         )
           @lineups_update_points_service = lineups_update_points_service
         end
@@ -38,6 +38,7 @@ module Lineups
             }
 
             update_captains_points(lineups_players, points, statistic)
+            # commento: lineups_players.points, lineups_players.statistic
             lineups_players.not_captain.update_all(points: points, statistic: statistic)
             lineup_ids.push(lineups_players.pluck(:lineup_id))
           end
@@ -47,6 +48,7 @@ module Lineups
 
         def update_captains_points(lineups_players, points, statistic)
           captains = lineups_players.captain.joins(:lineup)
+          # commento: lineups_players.points, lineups_players.statistic
           captains
             .where('lineups.active_chips @> ?', "{#{Chipable::TRIPLE_CAPTAIN}}")
             .update_all(points: points * TRIPLE_CAPTAIN_POINTS_COEFFICIENT, statistic: statistic)

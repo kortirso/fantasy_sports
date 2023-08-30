@@ -19,7 +19,7 @@ module Users
     private
 
     def success_create_response(service_call)
-      session[:fantasy_sports_token] = ::Auth::GenerateTokenService.call(user: service_call.result).result
+      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: service_call.result).result
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 

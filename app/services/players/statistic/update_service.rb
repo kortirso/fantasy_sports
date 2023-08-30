@@ -9,25 +9,28 @@ module Players
       def call(season_id:, player_ids:)
         @season_id = season_id
         @player_ids = player_ids
+        @games_players_statistic = {}
 
         collect_statistic_of_players
-        update_players_seasons
+        update_players
       end
 
       private
 
       def collect_statistic_of_players
-        @games_players_statistic = {}
         games_players.each { |games_player| collect_statistic_of_player(games_player) }
       end
 
-      def update_players_seasons
-        @games_players_statistic.each do |player_id, values|
-          Player.find(player_id).update(
+      def update_players
+        players = @games_players_statistic.map do |player_id, values|
+          {
+            id: player_id,
             points: values[:points],
             statistic: values[:statistic]
-          )
+          }
         end
+        # commento: players.points, players.statistic
+        Player.upsert_all(players) if players.any?
       end
 
       def collect_statistic_of_player(games_player)
@@ -45,7 +48,7 @@ module Players
 
       def games_players
         Games::Player
-          .joins(:teams_player, game: :week)
+          .includes(:teams_player, game: :week)
           .where(weeks: { season_id: @season_id })
           .where(teams_player: { player_id: @player_ids })
       end

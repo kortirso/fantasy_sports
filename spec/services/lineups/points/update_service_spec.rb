@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Lineups::UpdatePointsService, type: :service do
+describe Lineups::Points::UpdateService, type: :service do
   subject(:service_call) {
     described_class
       .new(fantasy_teams_update_points_service: fantasy_teams_update_points_service)

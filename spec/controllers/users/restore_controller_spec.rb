@@ -26,11 +26,8 @@ describe Users::RestoreController do
       context 'for invalid email' do
         before { post :create, params: { email: 'invalid@gmail.com', locale: 'en' } }
 
-        it 'does not call restore service' do
+        it 'does not call restore service', :aggregate_failures do
           expect(Users::RestoreService).not_to have_received(:call)
-        end
-
-        it 'redirects to users_restore path' do
           expect(response).to redirect_to users_restore_en_path
         end
       end
@@ -38,11 +35,8 @@ describe Users::RestoreController do
       context 'for valid email' do
         before { post :create, params: { email: user.email.upcase, locale: 'en' } }
 
-        it 'calls restore service' do
+        it 'calls restore service', :aggregate_failures do
           expect(Users::RestoreService).to have_received(:call)
-        end
-
-        it 'redirects to users_restore path' do
           expect(response).to redirect_to users_restore_en_path
         end
       end

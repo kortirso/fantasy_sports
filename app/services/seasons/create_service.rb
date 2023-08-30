@@ -9,7 +9,7 @@ module Seasons
       @season_validator = season_validator
     end
 
-    def call(params:)
+    def call(params: {})
       return if find_league(params[:league_id]) && failure?
       return if validate_with(@season_validator, params) && failure?
 

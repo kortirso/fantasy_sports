@@ -7,12 +7,15 @@ module Admin
         before_action :find_game
 
         def index
-          @games_players = @game.games_players.includes(teams_player: :player)
+          games_players = @game.games_players.includes(teams_player: :player)
+
+          @home_games_players = games_players.where(teams_players: { seasons_team_id: @game.home_season_team_id })
+          @visitor_games_players = games_players.where(teams_players: { seasons_team_id: @game.visitor_season_team_id })
           @statistic = ::Statable::SPORT_STATS[@season.league.sport_kind]
         end
 
         def create
-          ::Games::UpdateDataService.call(game: @game, game_data: game_data)
+          ::Games::UpdateOperation.call(game: @game, game_data: game_data)
           redirect_to admin_season_games_path(@season.uuid)
         end
 

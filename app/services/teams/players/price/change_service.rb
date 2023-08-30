@@ -15,9 +15,21 @@ module Teams
 
         def call(week:)
           @week = week
-          Teams::Player.where(id: transfers_data.keys).each do |teams_player|
-            teams_player.update!(price_cents: teams_player.price_cents + price_modified(teams_player.id))
-          end
+
+          teams_players =
+            Teams::Player
+              .where(id: transfers_data.keys)
+              .hashable_pluck(:id, :price_cents, :seasons_team_id, :player_id)
+              .map do |teams_player|
+                {
+                  id: teams_player[:id],
+                  price_cents: teams_player[:price_cents] + price_modified(teams_player[:id]),
+                  seasons_team_id: teams_player[:seasons_team_id],
+                  player_id: teams_player[:player_id]
+                }
+              end
+          # commento: teams_players.price_cents
+          Teams::Player.upsert_all(teams_players) if teams_players.any?
         end
 
         private
