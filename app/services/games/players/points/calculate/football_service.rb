@@ -4,35 +4,25 @@ module Games
   module Players
     module Points
       module Calculate
-        class FootballService
-          prepend ApplicationService
-
-          METHODS_FOR_STATS = {
-            'MP' => 'minutes_played_points',
-            'GS' => 'goals_scored_points',
-            'A' => 'assists_points',
-            'CS' => 'clean_sheets_points',
-            'GC' => 'goals_conceded_points',
-            'OG' => 'own_goals_points',
-            'PS' => 'penalties_saved_points',
-            'PM' => 'penalties_missed_points',
-            'YC' => 'yellow_cards_points',
-            'RC' => 'red_cards_points',
-            'S' => 'saves_points',
-            'B' => 'bonus_points'
-          }.freeze
-
-          def call(statistic:, position_kind:)
-            @position_kind = position_kind
-            @result = statistic.inject(0.0) do |acc, (param, value)|
-              method_name = METHODS_FOR_STATS[param]
-              next acc unless method_name
-
-              acc + send(method_name, value.to_i)
-            end
-          end
-
+        class FootballService < Games::Players::Points::CalculateService
           private
+
+          def methods_for_stats
+            {
+              'MP' => :minutes_played_points,
+              'GS' => :goals_scored_points,
+              'A' => :assists_points,
+              'CS' => :clean_sheets_points,
+              'GC' => :goals_conceded_points,
+              'OG' => :own_goals_points,
+              'PS' => :penalties_saved_points,
+              'PM' => :penalties_missed_points,
+              'YC' => :yellow_cards_points,
+              'RC' => :red_cards_points,
+              'S' => :saves_points,
+              'B' => :bonus_points
+            }
+          end
 
           def minutes_played_points(value)
             return 2 if value >= 60

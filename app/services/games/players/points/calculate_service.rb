@@ -6,28 +6,20 @@ module Games
       class CalculateService
         prepend ApplicationService
 
-        def initialize(
-          football_service:   Games::Players::Points::Calculate::FootballService,
-          basketball_service: Games::Players::Points::Calculate::BasketballService
-        )
-          @football_service = football_service
-          @basketball_service = basketball_service
-        end
+        def call(statistic:, position_kind: nil)
+          @position_kind = position_kind
+          @result = statistic.inject(0.0) do |acc, (param, value)|
+            method_name = methods_for_stats[param]
+            next acc unless method_name
 
-        def call(position_kind:, statistic:)
-          @result =
-            service_for_call(Sports.position(position_kind)['sport_kind'])
-            .call(position_kind: position_kind, statistic: statistic)
-            .result
+            acc + send(method_name, value.to_i)
+          end
         end
 
         private
 
-        def service_for_call(sport_kind)
-          case sport_kind
-          when Sportable::FOOTBALL then @football_service
-          when Sportable::BASKETBALL then @basketball_service
-          end
+        def methods_for_stats
+          raise NotImplementedError
         end
       end
     end

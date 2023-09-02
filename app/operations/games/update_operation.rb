@@ -5,15 +5,18 @@ module Games
   class UpdateOperation
     prepend ApplicationService
 
+    POINTS_CALCULATE_SERVICES = {
+      'basketball' => ::Games::Players::Points::Calculate::BasketballService,
+      'football' => ::Games::Players::Points::Calculate::FootballService
+    }.freeze
+
     def initialize(
       game_update_service:               ::Games::UpdateService,
-      points_calculate_service:          ::Games::Players::Points::CalculateService.new,
       form_change_service:               ::Teams::Players::Form::ChangeService,
       lineups_players_points_update_job: ::Lineups::Players::Points::UpdateJob,
       players_statistic_update_job:      ::Players::Statistic::UpdateJob
     )
       @game_update_service               = game_update_service
-      @points_calculate_service          = points_calculate_service
       @form_change_service               = form_change_service
       @lineups_players_points_update_job = lineups_players_points_update_job
       @players_statistic_update_job      = players_statistic_update_job
@@ -35,6 +38,7 @@ module Games
       @games_players_update_data = []
       @team_player_ids = []
       @player_ids = []
+      @points_calculate_service = POINTS_CALCULATE_SERVICES[@game.week.season.league.sport_kind].new
 
       # this data is updated immediately
       ActiveRecord::Base.transaction do

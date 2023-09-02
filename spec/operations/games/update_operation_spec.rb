@@ -4,7 +4,6 @@ describe Games::UpdateOperation, type: :service do
   subject(:service_call) {
     described_class
     .new(
-      points_calculate_service: points_calculate_service,
       form_change_service: form_change_service
     )
     .call(game: game, game_data: game_data)
@@ -12,7 +11,6 @@ describe Games::UpdateOperation, type: :service do
 
   let(:points_calculate_service) { double }
   let(:form_change_service) { double }
-  let(:points_calculate_service_call) { double }
   let(:points_result) { 10 }
 
   let!(:game) { create :game, source: Sourceable::INSTAT }
@@ -31,8 +29,8 @@ describe Games::UpdateOperation, type: :service do
     create :games_player, game: game, teams_player: teams_player1
     create :games_player, game: game, teams_player: teams_player2
 
-    allow(points_calculate_service).to receive(:call).and_return(points_calculate_service_call)
-    allow(points_calculate_service_call).to receive(:result).and_return(points_result)
+    allow(Games::Players::Points::Calculate::FootballService).to receive(:new).and_return(points_calculate_service)
+    allow(points_calculate_service).to receive_messages(call: points_calculate_service, result: points_result)
     allow(form_change_service).to receive(:call)
   end
 
