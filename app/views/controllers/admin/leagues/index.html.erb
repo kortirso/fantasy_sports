@@ -2,7 +2,7 @@
   <h1><%= t('views.admin.leagues.index.header') %></h1>
   <%= link_to t('views.admin.leagues.index.new_league'), new_admin_league_path, class: 'button' %>
 </div>
-<% Sports.all.keys.each do |sport_kind| %>
+<% Sport.all.pluck(:title).each do |sport_kind| %>
   <h3><%= sport_kind.capitalize %></h3>
   <table class="admin-table" cellSpacing="0">
     <thead>

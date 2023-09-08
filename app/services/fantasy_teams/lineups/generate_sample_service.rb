@@ -20,10 +20,10 @@ module FantasyTeams
       private
 
       def initialize_static_data
-        @sport = Sports.sport(@season.league.sport_kind)
+        @sport = Sport.find_by(title: @season.league.sport_kind)
 
-        @price_cents_per_player = EXPENSIVE_PRICE_KOEFFICIENT * BUDGET_CENTS / @sport['max_players']
-        @sport_positions = Sports.positions_for_sport(@season.league.sport_kind)
+        @price_cents_per_player = EXPENSIVE_PRICE_KOEFFICIENT * BUDGET_CENTS / @sport.max_players
+        @sport_positions = Sports::Position.where(sport: @season.league.sport_kind).to_a
       end
 
       def find_teams_players_ids
@@ -62,11 +62,12 @@ module FantasyTeams
       end
 
       def position_is_full?(position_kind)
-        @selected_positions.count { |e| e == position_kind } == @sport_positions[position_kind]['total_amount']
+        position_total_amount = @sport_positions.find { |e| e.title == position_kind }.total_amount
+        @selected_positions.count { |e| e == position_kind } == position_total_amount
       end
 
       def maximum_player_from_team?(seasons_team_id)
-        @selected_teams.count { |e| e == seasons_team_id } == @sport['max_team_players']
+        @selected_teams.count { |e| e == seasons_team_id } == @sport.max_team_players
       end
 
       def update_variables(position_kind, seasons_team_id, teams_player)
@@ -77,7 +78,7 @@ module FantasyTeams
       end
 
       def result_invalid?
-        @budget_cents.negative? || @result.size != @sport['max_players']
+        @budget_cents.negative? || @result.size != @sport.max_players
       end
     end
   end

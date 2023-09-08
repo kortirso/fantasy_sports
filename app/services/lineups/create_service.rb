@@ -46,7 +46,7 @@ module Lineups
     end
 
     def free_transfers_per_week
-      Sports.sport(@week.season.league.sport_kind)['free_transfers_per_week']
+      Sport.find_by(title: @week.season.league.sport_kind).free_transfers_per_week
     end
   end
 end

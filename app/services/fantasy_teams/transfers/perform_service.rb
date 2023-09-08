@@ -66,7 +66,7 @@ module FantasyTeams
       end
 
       def points_per_transfer
-        Sports.sport(@fantasy_team.sport_kind)['points_per_transfer']
+        Sport.find_by(title: @fantasy_team.sport_kind).points_per_transfer
       end
 
       def penalty_transfers_amount

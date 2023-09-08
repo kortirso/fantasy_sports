@@ -24,7 +24,7 @@ module Lineups
 
     def validate_chips(chips)
       return if @lineup.active_chips.sort == chips.sort
-      return if chips.size <= Sports.sport(fantasy_team.sport_kind)['max_chips_per_week']
+      return if chips.size <= Sport.find_by(title: fantasy_team.sport_kind).max_chips_per_week
 
       fail!(I18n.t('services.lineups.update.too_many_chips'))
     end

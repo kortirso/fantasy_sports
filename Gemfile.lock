@@ -170,6 +170,8 @@ GEM
     faraday-net_http (3.0.2)
     ffi (1.15.5)
     foreman (0.87.2)
+    frozen_record (0.27.0)
+      activemodel
     globalid (1.2.0)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -421,6 +423,7 @@ DEPENDENCIES
   factory_bot_rails (= 6.2.0)
   faraday (~> 2.0)
   foreman
+  frozen_record
   jsbundling-rails (~> 1.0)
   json_spec (= 1.1.5)
   jsonapi-serializer (= 2.2.0)

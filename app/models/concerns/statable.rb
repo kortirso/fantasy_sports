@@ -49,7 +49,7 @@ module Statable
 
   def select_default_statistic
     SPORT_STATS[
-      Sports.position(position_kind)['sport_kind']
+      Sports::Position.find_by(title: position_kind).sport
     ] || []
   end
 end

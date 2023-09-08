@@ -1,0 +1,14 @@
+[
+  {
+    "title": "football_goalkeeper",
+    "sport": "football",
+    "name": { "en": "Goalkeeper", "ru": "Вратарь" },
+    "total_amount": 2
+  },
+  {
+    "title": "football_defender",
+    "sport": "football",
+    "name": { "en": "Defender", "ru": "Защитник" },
+    "total_amount": 1
+  }
+]

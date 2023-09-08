@@ -11,9 +11,9 @@ module Lineups
         prepare_data
         @lineup = lineup
 
-        select_captains if Sports.sport(sport_kind)['captain']
-        Sports.positions_for_sport(sport_kind).each { |position_kind, values|
-          collect_teams_players(teams_players_by_position[position_kind], values['default_amount'])
+        select_captains if Sport.find_by(title: sport_kind).captain
+        Sports::Position.where(sport: sport_kind).each { |position|
+          collect_teams_players(teams_players_by_position[position.title], position.default_amount)
         }
 
         Lineups::Player.upsert_all(@teams_players)

@@ -11,7 +11,7 @@
     </div>
     <div class="form-field">
       <%= form.label :sport_kind, t('views.admin.leagues.new.sport_kind'), class: 'form-label' %>
-      <%= form.select :sport_kind, Sports.all.keys.map { |sport_kind| [sport_kind.capitalize, sport_kind] }, class: 'form-value' %>
+      <%= form.select :sport_kind, Sport.all.pluck(:title).map { |sport_kind| [sport_kind.capitalize, sport_kind] }, class: 'form-value' %>
     </div>
     <%= form.submit t('views.admin.leagues.new.create'), class: 'button' %>
   <% end %>
