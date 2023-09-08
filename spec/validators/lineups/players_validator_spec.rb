@@ -5,13 +5,6 @@ describe Lineups::PlayersValidator, type: :service do
     described_class.new(sport_kind: sport_kind).call(lineup: lineup, lineups_players_params: lineups_players_params)
   }
 
-  let(:sport_settings) {
-    {
-      'max_active_players' => 2,
-      'changes' => true,
-      'captain' => true
-    }
-  }
   let!(:lineup) { create :lineup }
   let!(:lineups_player1) { create :lineups_player, lineup: lineup }
   let!(:lineups_player2) { create :lineups_player, lineup: lineup }
@@ -38,7 +31,12 @@ describe Lineups::PlayersValidator, type: :service do
   let(:lineups_player_params6) { { uuid: lineups_player6.uuid, status: 'regular', change_order: 4 } }
 
   before do
-    allow(Sports).to receive(:sport).and_return(sport_settings)
+    test_fixtures_base_path = Rails.root.join('spec/support/fixtures/lineups_players_validator')
+    FrozenRecord::TestHelper.load_fixture(Sport, test_fixtures_base_path)
+  end
+
+  after do
+    FrozenRecord::TestHelper.unload_fixtures
   end
 
   context 'for football' do

@@ -15,7 +15,7 @@ class LeagueContract < ApplicationContract
   end
 
   rule(:sport_kind) do
-    if Sports.all.keys.exclude?(values[:sport_kind])
+    if Sport.all.pluck(:title).exclude?(values[:sport_kind])
       key.failure(:invalid)
     end
   end

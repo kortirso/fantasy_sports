@@ -5,11 +5,11 @@ module Lineups
     CHANGE_ORDERS_TEMPLATE = [1, 2, 3, 4].freeze
 
     def initialize(sport_kind:)
-      settings = Sports.sport(sport_kind)
+      sport = Sport.find_by(title: sport_kind)
 
-      @active_players_limit = settings['max_active_players']
-      @validate_changes = settings['changes']
-      @validate_captain = settings['captain']
+      @active_players_limit = sport.max_active_players
+      @validate_changes = sport.changes
+      @validate_captain = sport.captain
     end
 
     def call(lineup:, lineups_players_params:)

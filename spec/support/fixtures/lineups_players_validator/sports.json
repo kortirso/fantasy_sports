@@ -1,0 +1,8 @@
+[
+  {
+    "title": "football",
+    "max_active_players": 2,
+    "changes": true,
+    "captain": true
+  }
+]

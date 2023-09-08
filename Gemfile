@@ -82,6 +82,9 @@ gem 'kudos'
 # database comments
 gem 'commento'
 
+# active record interface for json files
+gem 'frozen_record'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'main'
   gem 'rubocop', '~> 1.35', require: false

@@ -9,7 +9,7 @@ module Sports
     private
 
     def find_sport
-      sport = Sports.sport(params[:sport_id])
+      sport = Sport.find_by(title: params[:sport_id])
       page_not_found unless sport
     end
   end

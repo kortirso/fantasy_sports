@@ -13,7 +13,7 @@ module Lineups
     end
 
     def call(week:)
-      return unless Sports.sport(week.league.sport_kind)['changes']
+      return unless Sport.find_by(title: week.league.sport_kind).changes
 
       @week = week
       @week.lineups.each do |lineup|
@@ -168,7 +168,7 @@ module Lineups
     end
 
     def sport_positions
-      @sport_positions ||= Sports.positions_for_sport(@week.league.sport_kind)
+      @sport_positions ||= Sports::Position.where(sport: @week.league.sport_kind).to_a
     end
 
     def substitution_for_position(position_kind)
@@ -184,11 +184,11 @@ module Lineups
     end
 
     def max_game_amount(position_kind)
-      sport_positions[position_kind]['max_game_amount']
+      sport_positions.find { |e| e.title == position_kind }.max_game_amount
     end
 
     def min_game_amount(position_kind)
-      sport_positions[position_kind]['min_game_amount']
+      sport_positions.find { |e| e.title == position_kind }.min_game_amount
     end
   end
 end

@@ -8,7 +8,7 @@ module FantasyTeams
       def call(fantasy_team:, teams_players_ids:, budget_limit: BUDGET_LIMIT_CENTS)
         @fantasy_team     = fantasy_team
         @season           = @fantasy_team.fantasy_leagues.first.season
-        @max_team_players = Sports.sport(@fantasy_team.sport_kind)['max_team_players']
+        @max_team_players = Sport.find_by(title: @fantasy_team.sport_kind).max_team_players
         @teams_players    = @season.active_teams_players.where(id: teams_players_ids).includes(:player, :seasons_team)
 
         initialize_counters
@@ -38,10 +38,10 @@ module FantasyTeams
       end
 
       def validate_players_positions
-        Sports.positions_for_sport(@fantasy_team.sport_kind).each do |position_kind, values|
-          next if @position_kinds.count(position_kind) == values['total_amount']
+        Sports::Position.where(sport: @fantasy_team.sport_kind).each do |position|
+          next if @position_kinds.count(position.title) == position.total_amount
 
-          @errors.push("Invalid players amount at position #{values['name']['en']}")
+          @errors.push("Invalid players amount at position #{position.name['en']}")
         end
       end
 
