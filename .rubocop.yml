@@ -111,6 +111,9 @@ Rails/UniqueValidationWithoutIndex:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/FindEach:
+  Enabled: false
+
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Teams::Players::Form::ChangeService, type: :service do
-  subject(:service_call) { described_class.call(games_ids: Game.all.ids, seasons_teams_ids: seasons_teams_ids) }
+  subject(:service_call) { described_class.call(games_ids: Game.ids, seasons_teams_ids: seasons_teams_ids) }
 
   let!(:game1) { create :game }
   let!(:game2) { create :game }
