@@ -17,9 +17,10 @@ gem 'puma', '~> 6.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'sassc-rails'
-gem 'sprockets', git: 'https://github.com/rails/sprockets', branch: 'main'
+# Js and css
+gem 'jsbundling-rails', '~> 1.0'
+gem 'sprockets-rails'
+gem 'tailwindcss-rails'
 
 # A framework for building view components
 gem 'view_component', '~> 3.0', require: 'view_component/engine'
@@ -33,7 +34,9 @@ gem 'jwt', '~> 2.5'
 # authorization
 gem 'action_policy', '~> 0.6'
 
-# validations
+# dry-rb system
+gem 'dry-auto_inject', '~> 1.0'
+gem 'dry-container', '~> 0.11.0'
 gem 'dry-validation', '~> 1.10'
 
 # Catch unsafe migrations in development
@@ -53,9 +56,6 @@ gem 'faraday', '~> 2.0'
 
 # Pretty print
 gem 'awesome_print'
-
-# jsbundling
-gem 'jsbundling-rails', '~> 1.0'
 
 # running application
 gem 'foreman'
