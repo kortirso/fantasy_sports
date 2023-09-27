@@ -1,13 +1,13 @@
-<%= render PageWrappers::AuthComponent.new do %>
-  <div class="user-form">
+<%= render PageWrappers::GuestComponent.new do %>
+  <div class="flex-1 flex justify-center items-center">
     <%= form_with url: users_restore_path, method: :post do |form| %>
       <h2><%= t('views.users.restore.new.title') %></h2>
-      <p class="description"><%= t('views.users.restore.new.description') %></p>
+      <p class="mb-2"><%= t('views.users.restore.new.description') %></p>
       <div class="form-field">
         <%= form.label :email, 'Email', class: 'form-label' %>
         <%= form.text_field :email, class: 'form-value' %>
       </div>
-      <%= form.submit t('views.users.restore.new.action'), class: 'button' %>
+      <%= form.submit t('views.users.restore.new.action'), class: 'btn-primary' %>
     <% end %>
   </div>
 <% end %>

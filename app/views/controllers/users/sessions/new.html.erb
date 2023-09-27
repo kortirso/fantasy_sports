@@ -1,5 +1,5 @@
-<%= render PageWrappers::AuthComponent.new do %>
-  <div class="user-form">
+<%= render PageWrappers::GuestComponent.new do %>
+  <div class="flex-1 flex justify-center items-center">
     <%= form_with model: User.new, url: users_login_path, method: :post do |form| %>
       <h2><%= t('views.users.sessions.new.login') %></h2>
       <div class="form-field">
@@ -10,17 +10,17 @@
         <%= form.label :password, t('views.users.registrations.new.password'), class: 'form-label' %>
         <%= form.password_field :password, class: 'form-value' %>
       </div>
-      <div class="sub-actions">
+      <div class="mb-2">
         <div class="flex items-center">
           <span><%= t('views.users.sessions.new.no_account') %><span>
-          <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path %>
+          <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'underline text-blue-600' %>
         </div>
         <div class="flex items-center">
           <span><%= t('views.users.sessions.new.forgot') %><span>
-          <%= link_to t('components.page_wrappers.users_component.restore'), users_restore_path %>
+          <%= link_to t('components.page_wrappers.users_component.restore'), users_restore_path, class: 'underline text-blue-600' %>
         </div>
       </div>
-      <%= form.submit t('views.users.sessions.new.sign_in'), class: 'button' %>
+      <%= form.submit t('views.users.sessions.new.sign_in'), class: 'btn-primary' %>
     <% end %>
   </div>
 <% end %>

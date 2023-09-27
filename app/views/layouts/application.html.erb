@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="m-0 p-0 min-h-screen">
   <head>
     <title>Fantasy Sports</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'tailwind', 'inter-font' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body>
+  <body class="relative flex flex-col m-0 p-0 min-h-screen">
     <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
     <%= yield %>
     <div id="modal-root"></div>

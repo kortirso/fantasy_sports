@@ -2,12 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
+  h1 {
+    @apply text-4xl leading-10 mb-4;
+  }
+
+  h2 {
+    @apply text-3xl leading-8 mb-4;
+  }
+
+  h3 {
+    @apply text-2xl leading-6 mb-4;
+  }
+
+  h4 {
+    @apply text-xl leading-4 mb-4;
+  }
+
+  p {
+    @apply leading-6;
+  }
+
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    @apply inline-block bg-green-400 hover:bg-green-500 text-black py-1 px-6 rounded leading-8 cursor-pointer;
+  }
+
+  .btn-danger {
+    @apply bg-red-400 hover:bg-red-500;
+  }
+
+  .btn-small {
+    @apply py-1 px-2 text-sm leading-8;
+  }
+
+  .user-navigation-link {
+    @apply flex flex-row items-center p-2 pl-8 text-white;
+  }
+
+  .user-navigation-link img {
+    @apply w-8 h-8 mr-2;
+  }
+
+  .user-navigation-link.active {
+    @apply bg-zinc-600;
+  }
+
+  .form-field {
+    @apply mb-4;
+  }
+
+  .form-field .form-label {
+    @apply block mb-1 leading-6;
+  }
+
+  .form-field .form-value {
+    @apply bg-sky-200 border border-sky-300 rounded-sm py-1 px-4 leading-8;
+  }
+
+  .form-field .form-value:focus {
+    @apply border-sky-400;
+  }
+
+  .form-field .form-value.full {
+    @apply w-full;
+  }
+
+  .form-field select {
+    @apply bg-sky-200 border border-sky-300 rounded-sm py-1 px-4 text-sm;
+
+    min-width: 60px;
   }
 }
-
-*/

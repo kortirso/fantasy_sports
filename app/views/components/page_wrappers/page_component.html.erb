@@ -1,4 +1,47 @@
-<div class="page-container">
-  <%= render Views::Shared::SportNavigationComponent.new(fantasy_team: @fantasy_team) %>
-  <%= content %>
+<div class="flex flex-1 max-h-screen">
+  <div class="w-64 bg-zinc-800 flex flex-col">
+    <section class="flex flex-col">
+      <%= link_to t('components.views.shared.fantasy_team_navigation_component.home'), home_path, class: 'p-4 pl-8 my-2 text-xl text-white' %>
+      <%= link_to home_path(sport_kind: Sportable::FOOTBALL), class: 'user-navigation-link' do %>
+        <%= image_tag 'icons/football.svg' %>
+        <span><%= t('components.views.shared.sport_navigation_component.football') %></span>
+      <% end %>
+      <%= link_to home_path(sport_kind: Sportable::BASKETBALL), class: 'user-navigation-link' do %>
+        <%= image_tag 'icons/basketball.svg' %>
+        <span><%= t('components.views.shared.sport_navigation_component.basketball') %></span>
+      <% end %>
+    </section>
+    <% if @fantasy_team %>
+      <section>
+        <h2 class="p-4 pl-8 my-2 text-xl text-white"><%= @fantasy_team.name %></h2>
+        <% if @fantasy_team.completed? %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
+          <% if @fantasy_team.user_id == Current.user.id %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.leagues'), fantasy_team_fantasy_leagues_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_fantasy_leagues_path(@fantasy_team.uuid))}" %>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+    <section>
+      <h2 class="p-4 pl-8 my-2 text-xl text-white"><%= t('components.views.shared.profile_navigation_component.title') %></h2>
+      <%= link_to profile_achievements_path, class: "user-navigation-link #{'active' if current_page?(profile_achievements_path)}" do %>
+        <%= t('components.views.shared.profile_navigation_component.achievements') %>
+        <% if @unread_achievements_count.positive? %>
+          (<%= @unread_achievements_count %>)
+        <% end %>
+      <% end %>
+      <%= link_to t('components.views.shared.fantasy_team_navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
+    </section>
+    <section class="flex-1 flex items-end pl-8">
+      <% I18n.available_locales.each do |locale| %>
+        <%= link_to locale, change_locale(locale), aria: { label: t('components.views.shared.navigation_component.change_locale') }, class: 'text-white px-2 py-4' %>
+      <% end %>
+    </section>
+  </div>
+  <div class="flex-1 w-full p-12 overflow-y-scroll bg-zinc-100">
+    <%= content %>
+  </div>
 </div>
