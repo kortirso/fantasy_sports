@@ -6,7 +6,7 @@ module Confirmation
   private
 
   def check_email_confirmation
-    return if Current.user&.confirmed?
+    return if Current.user.nil? || Current.user.confirmed?
 
     redirect_to users_confirm_path, alert: t('controllers.confirmation.permission')
   end

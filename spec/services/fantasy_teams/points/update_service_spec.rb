@@ -14,15 +14,10 @@ describe FantasyTeams::Points::UpdateService, type: :service do
     create :lineup, fantasy_team: fantasy_team, points: 1
   end
 
-  it 'updates fantasy_team points' do
+  it 'updates fantasy_team points', :aggregate_failures do
     service_call
 
     expect(fantasy_team.reload.points).to eq 7
-  end
-
-  it 'and it succeed' do
-    service = service_call
-
-    expect(service.success?).to be_truthy
+    expect(service_call.success?).to be_truthy
   end
 end

@@ -1,9 +1,9 @@
 <% if @fantasy_team %>
-  <% if @fantasy_team.completed? %>
-    <%= link_to @fantasy_team.name, fantasy_team_status_index_path(@fantasy_team.uuid), class: 'button' %>
+  <% if @fantasy_team[:completed] %>
+    <%= link_to @fantasy_team[:name], fantasy_team_status_index_path(@fantasy_team[:uuid]), class: 'btn-primary' %>
   <% else %>
-    <%= link_to @fantasy_team.name, fantasy_team_transfers_path(@fantasy_team.uuid), class: 'button' %>
+    <%= link_to @fantasy_team[:name], fantasy_team_transfers_path(@fantasy_team[:uuid]), class: 'btn-primary' %>
   <% end %>
 <% else %>
-  <%= button_to t('components.views.homes.show.fantasy_team_link_component.create'), fantasy_teams_path(season_id: @season.id), class: 'button' %>
+  <%= button_to t('components.views.homes.show.fantasy_team_link_component.create'), fantasy_teams_path(season_id: @season_uuid), class: 'btn-primary' %>
 <% end %>

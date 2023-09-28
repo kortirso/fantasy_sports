@@ -15,7 +15,8 @@ module FantasyTeams
                 id: fantasy_team.id,
                 points: fantasy_team.lineups.pluck(:points, :penalty_points).flatten.sum,
                 uuid: fantasy_team.uuid,
-                user_id: fantasy_team.user_id
+                user_id: fantasy_team.user_id,
+                season_id: fantasy_team.season_id
               }
             end
         # commento: fantasy_teams.points

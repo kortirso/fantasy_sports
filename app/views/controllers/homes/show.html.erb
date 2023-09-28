@@ -1,17 +1,22 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class="page-wrapper">
-    <div class="page-content">
-      <section class="home-sports">
-        <% @seasons.each do |season| %>
-          <div class="league">
-            <%= link_to sport_rules_path(season.league.sport_kind) do %>
-              <%= image_tag "icons/#{season.league.sport_kind}.svg" %>
-            <% end %>
-            <h3><%= localized_value(season.league.name) %></h3>
-            <%= render Views::Homes::Show::FantasyTeamLinkComponent.new(season: season) %>
-          </div>
+  <section class="grid grid-cols-5 gap-4">
+    <% @seasons.each do |season| %>
+      <div class="relative p-4 shadow rounded">
+        <%= link_to sport_rules_path(season[:leagues_sport_kind]) do %>
+          <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", alt: 'sport icon', class: 'absolute top-4 right-4 w-6 h-6' %>
         <% end %>
-      </section>
-    </div>
-  </div>
+        <div class="h-full flex flex-col justify-between">
+          <h3><%= localized_value(season[:leagues_name]) %></h3>
+          <p>
+            <%=
+              render Views::Homes::Show::FantasyTeamLinkComponent.new(
+                season_uuid: season[:uuid],
+                fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
+              )
+            %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </section>
 <% end %>

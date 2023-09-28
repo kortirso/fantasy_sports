@@ -5,6 +5,7 @@ FactoryBot.define do
     name { 'Bears United' }
     sport_kind { Sportable::FOOTBALL }
     user
+    season
 
     trait :completed do
       completed { true }

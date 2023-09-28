@@ -49,7 +49,7 @@ class FantasyTeamsController < ApplicationController
   end
 
   def find_season
-    @season = Season.active.find(params[:season_id])
+    @season = Season.active.find_by!(uuid: params[:season_id])
   end
 
   def find_league

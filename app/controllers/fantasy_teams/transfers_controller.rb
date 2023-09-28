@@ -33,7 +33,7 @@ module FantasyTeams
     end
 
     def find_season
-      @season = @fantasy_team.fantasy_leagues.first.season
+      @season = @fantasy_team.season
     end
 
     def find_lineup
@@ -41,7 +41,7 @@ module FantasyTeams
     end
 
     def find_league
-      @league = @fantasy_team.fantasy_leagues.first.season.league
+      @league = @fantasy_team.season.league
     end
   end
 end

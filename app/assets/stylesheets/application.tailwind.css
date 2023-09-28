@@ -23,12 +23,20 @@
     @apply leading-6;
   }
 
+  .btn {
+    @apply inline-block py-1 px-6 rounded leading-8 cursor-pointer;
+  }
+
   .btn-primary {
-    @apply inline-block bg-green-400 hover:bg-green-500 text-black py-1 px-6 rounded leading-8 cursor-pointer;
+    @apply btn bg-blue-500 hover:bg-blue-600 text-white;
   }
 
   .btn-danger {
-    @apply bg-red-400 hover:bg-red-500;
+    @apply btn bg-red-500 hover:bg-red-600;
+  }
+
+  .btn-info {
+    @apply btn bg-white hover:bg-gray-100 border border-gray-200 text-black;
   }
 
   .btn-small {
@@ -71,5 +79,11 @@
     @apply bg-sky-200 border border-sky-300 rounded-sm py-1 px-4 text-sm;
 
     min-width: 60px;
+  }
+
+  .form-dropdown {
+    @apply block absolute z-10 left-0 w-full border border-gray-200 rounded-sm;
+
+    top: 42px;
   }
 }

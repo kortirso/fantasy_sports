@@ -10,7 +10,7 @@ module Users
     end
 
     def call(user:, params:)
-      return if validate_with(@user_validator, params) && failure?
+      return if params[:password] && validate_with(@user_validator, params) && failure?
       return if validate_user(user, params) && failure?
 
       @result.save!

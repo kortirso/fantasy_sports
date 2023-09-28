@@ -36,7 +36,8 @@ module FantasyTeams
       @result = @user.fantasy_teams.create(
         name: 'My team',
         sport_kind: @season.league.sport_kind,
-        available_chips: Sport.find_by(title: @season.league.sport_kind).chips
+        available_chips: Sport.find_by(title: @season.league.sport_kind).chips,
+        season: @season
       )
     end
 

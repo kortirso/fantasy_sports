@@ -238,8 +238,8 @@ export const Transfers = ({
   };
 
   return (
-    <div id="fantasy-team-transfers" className="main-container">
-      <div id="fantasy-team-members" className="left-container">
+    <div id="fantasy-team-transfers" className="grid grid-cols-4 gap-8">
+      <div id="fantasy-team-members" className="col-span-3">
         {!fantasyTeamCompleted && (
           <>
             <div className="form-field">
@@ -311,7 +311,7 @@ export const Transfers = ({
           <Week uuid={weekUuid} teamNames={pageState.teamNames} />
         ) : null}
       </div>
-      <div id="fantasy-players" className="right-container">
+      <div>
         <h2>{strings.transfers.selection}</h2>
         <Dropdown
           title={strings.transfers.positionView}
@@ -354,44 +354,44 @@ export const Transfers = ({
           selectedValue={sortBy}
         />
         {filteredSlicedPlayers.map((item) => (
-          <div className="team-player" key={item.uuid}>
+          <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-gray-200" key={item.uuid}>
             <div
-              className="team-player-stats flex items-center justify-center button info small"
+              className="flex items-center justify-center mr-2 btn-info btn-small text-black py-0 leading-6"
               onClick={() => setPlayerUuid(item.uuid)}
             >
               ?
             </div>
-            <div className="team-player-info">
-              <span className="team-player-name">
+            <div className="flex-1">
+              <span className="text-lg mr-4">
                 {localizeValue(item.player.name)?.split(' ')[0]}
               </span>
               {false ? (
-                <span className="team-name">{pageState.teamNames[item.team.uuid]?.short_name}</span>
+                <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>
               ) : null}
-              <span className="position-name">
+              <span className="text-sm">
                 {localizeValue(sportPositions[item.player.position_kind].short_name)}
               </span>
             </div>
-            <div className="team-player-price">{item.price}</div>
-            <div className="team-player-price">
+            <div className="w-12 flex flex-row items-center justify-center">{item.price}</div>
+            <div className="w-12 flex flex-row items-center justify-center">
               {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
             </div>
-            <div className="button small" onClick={() => addTeamMember(item)}>
+            <div className="btn-primary btn-small py-0 leading-6" onClick={() => addTeamMember(item)}>
               +
             </div>
           </div>
         ))}
         {pageState.seasonPlayers.length > PER_PAGE && (
-          <div className="pagination flex flex-row justify-center items-center">
+          <div className="py-2 px-0 flex flex-row justify-center items-center">
             <span
-              className="pagination-nav flex flex-row justify-center items-center"
+              className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
               onClick={pageDown}
             >
               -
             </span>
-            <span className="pagination-counter">{`${page + 1} of ${lastPageIndex}`}</span>
+            <span className="mx-4">{`${page + 1} of ${lastPageIndex}`}</span>
             <span
-              className="pagination-nav flex flex-row justify-center items-center"
+              className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
               onClick={pageUp}
             >
               +

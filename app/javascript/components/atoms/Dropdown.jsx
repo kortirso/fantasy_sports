@@ -11,14 +11,18 @@ export const Dropdown = ({ title, items, onSelect, selectedValue }) => {
   return (
     <div className="form-field">
       <label className="form-label">{title}</label>
-      <div className="form-select">
+      <div className="relative cursor-pointer">
         <div className="form-value" onClick={() => setIsOpen(!isOpen)}>
           {selectedValue ? items[selectedValue] : ''}
         </div>
         {isOpen && (
-          <ul className="form-select-dropdown">
+          <ul className="form-dropdown">
             {Object.entries(items).map(([key, value]) => (
-              <li onClick={() => selectValue(key)} key={key}>
+              <li
+                className="bg-white hover:bg-gray-200 py-2 px-3"
+                onClick={() => selectValue(key)}
+                key={key}
+              >
                 {value}
               </li>
             ))}

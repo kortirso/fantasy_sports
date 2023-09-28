@@ -17,7 +17,7 @@ class Season < ApplicationRecord
   has_many :games, through: :weeks
 
   has_many :all_fantasy_leagues, class_name: 'FantasyLeague', foreign_key: :season_id, dependent: :destroy
-  has_many :fantasy_teams, -> { distinct }, through: :all_fantasy_leagues
+  has_many :fantasy_teams, dependent: :destroy
 
   has_many :players_seasons, class_name: 'Players::Season', dependent: :destroy
   has_many :players, through: :players_seasons

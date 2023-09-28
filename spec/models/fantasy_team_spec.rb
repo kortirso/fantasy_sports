@@ -9,6 +9,7 @@ describe FantasyTeam do
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:season) }
     it { is_expected.to have_many(:fantasy_leagues_teams).class_name('FantasyLeagues::Team').dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_leagues).through(:fantasy_leagues_teams) }
     it { is_expected.to have_many(:fantasy_teams_players).class_name('FantasyTeams::Player').dependent(:destroy) }

@@ -13,7 +13,7 @@ describe Season do
     it { is_expected.to have_many(:teams).through(:seasons_teams) }
     it { is_expected.to have_many(:weeks).dependent(:destroy) }
     it { is_expected.to have_many(:all_fantasy_leagues).class_name('::FantasyLeague').dependent(:destroy) }
-    it { is_expected.to have_many(:fantasy_teams).through(:all_fantasy_leagues) }
+    it { is_expected.to have_many(:fantasy_teams).dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_leagues).dependent(:destroy) }
     it { is_expected.to have_many(:players_seasons).class_name('Players::Season').dependent(:destroy) }
     it { is_expected.to have_many(:players).through(:players_seasons) }

@@ -549,7 +549,8 @@ CREATE TABLE public.fantasy_teams (
     completed boolean DEFAULT false NOT NULL,
     budget_cents integer DEFAULT 10000 NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL,
-    available_chips jsonb DEFAULT '{}'::jsonb NOT NULL
+    available_chips jsonb DEFAULT '{}'::jsonb NOT NULL,
+    season_id bigint NOT NULL
 );
 
 
@@ -2184,6 +2185,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221129163136'),
 ('20221201161232'),
 ('20221208151825'),
-('20221226171032');
+('20221226171032'),
+('20230928164428');
 
 

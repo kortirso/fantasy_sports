@@ -8,9 +8,9 @@ export const Flash = ({ values }) => {
   }, [values]);
 
   return (
-    <div id="alerts" className="flash-block">
+    <div className="fixed top-12 right-8">
       {Object.entries(messages).map(([key, value], index) => (
-        <div className={`flash ${key}`} key={index}>
+        <div className='mb-2 py-2 px-4 rounded-sm' key={index}>
           <p>{value}</p>
         </div>
       ))}

@@ -5,6 +5,7 @@ class FantasyTeam < ApplicationRecord
   include Sportable
 
   belongs_to :user
+  belongs_to :season
 
   has_many :fantasy_leagues_teams,
            class_name: 'FantasyLeagues::Team',

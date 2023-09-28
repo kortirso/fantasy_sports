@@ -58,76 +58,40 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
           lineup.update(free_transfers_amount: 0)
         end
 
-        it 'does not update fantasy team' do
-          service_call
+        it 'does not update lineup', :aggregate_failures do
+          expect { service_call }.not_to change(Transfer, :count)
+
+          expect(service_call.success?).to be_truthy
+          expect(service_call.result).to eq({
+            out_names: [teams_player2.player.name],
+            in_names: [teams_player1.player.name],
+            penalty_points: -4
+          })
 
           expect(fantasy_team.reload.budget_cents).to eq 100
-        end
-
-        it 'does not update lineup', :aggregate_failures do
-          service_call
-
           expect(lineup.reload.free_transfers_amount).to eq 0
           expect(lineup.lineups_players.size).to eq 1
           expect(lineup.lineups_players.first.id).to eq lineups_player.id
           expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
         end
-
-        it 'does not create transfers' do
-          expect { service_call }.not_to change(Transfer, :count)
-        end
-
-        it 'returns validation result' do
-          service = service_call
-
-          expect(service.result).to eq({
-            out_names: [teams_player2.player.name],
-            in_names: [teams_player1.player.name],
-            penalty_points: -4
-          })
-        end
-
-        it 'succeed' do
-          service = service_call
-
-          expect(service.success?).to be_truthy
-        end
       end
 
       context 'for not over-limited amount of transfers' do
-        it 'does not update fantasy team' do
-          service_call
-
-          expect(fantasy_team.reload.budget_cents).to eq 100
-        end
-
         it 'does not update lineup', :aggregate_failures do
-          service_call
-
-          expect(lineup.reload.free_transfers_amount).to eq 2
-          expect(lineup.lineups_players.size).to eq 1
-          expect(lineup.lineups_players.first.id).to eq lineups_player.id
-          expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
-        end
-
-        it 'does not create transfers' do
           expect { service_call }.not_to change(Transfer, :count)
-        end
 
-        it 'returns validation result' do
-          service = service_call
-
-          expect(service.result).to eq({
+          expect(service_call.result).to eq({
             out_names: [teams_player2.player.name],
             in_names: [teams_player1.player.name],
             penalty_points: 0
           })
-        end
+          expect(service_call.success?).to be_truthy
 
-        it 'succeed' do
-          service = service_call
-
-          expect(service.success?).to be_truthy
+          expect(fantasy_team.reload.budget_cents).to eq 100
+          expect(lineup.reload.free_transfers_amount).to eq 2
+          expect(lineup.lineups_players.size).to eq 1
+          expect(lineup.lineups_players.first.id).to eq lineups_player.id
+          expect(lineup.lineups_players.first.teams_player_id).to eq teams_player2.id
         end
       end
     end
@@ -161,37 +125,24 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
         allow(transfers_validator).to receive(:call).and_return([])
       end
 
-      it 'updates fantasy team' do
-        service_call
+      it 'updates fantasy team, lineup', :aggregate_failures do
+        expect { service_call }.to(
+          change(Transfer.in, :count).by(1)
+            .and(change(Transfer.out, :count).by(1))
+            .and(change(Transfer.out, :count).by(1))
+        )
+
+        expect(service_call.success?).to be_truthy
 
         expect(fantasy_team.reload.budget_cents).to eq 200
-      end
-
-      it 'updates lineup', :aggregate_failures do
-        service_call
-
         expect(lineup.reload.free_transfers_amount).to eq 1
         expect(lineup.lineups_players.size).to eq 1
         expect(lineup.lineups_players.first.id).not_to eq lineups_player.id
         expect(lineup.lineups_players.first.teams_player_id).to eq teams_player1.id
       end
 
-      it 'creates IN transfer' do
-        expect { service_call }.to change(Transfer.in, :count).by(1)
-      end
-
-      it 'creates OUT transfer' do
-        expect { service_call }.to change(Transfer.out, :count).by(1)
-      end
-
       it 'does not remove players' do
         expect { service_call }.not_to change(Player, :count)
-      end
-
-      it 'succeed' do
-        service = service_call
-
-        expect(service.success?).to be_truthy
       end
     end
   end

@@ -69,13 +69,8 @@ describe FantasyTeamsController do
       sign_in_user
 
       context 'for not existing season' do
-        it 'does not create fantasy team' do
+        it 'does not create fantasy team', :aggregate_failures do
           expect { do_request }.not_to change(FantasyTeam, :count)
-        end
-
-        it 'and renders 404 page' do
-          do_request
-
           expect(response).to render_template 'shared/404'
         end
       end
@@ -83,34 +78,24 @@ describe FantasyTeamsController do
       context 'for existing active season' do
         let!(:season) { create :season, active: true }
         let!(:fantasy_league) { create :fantasy_league, season: season, leagueable: season, name: 'Overall' }
-        let(:request) { post :create, params: { season_id: season.id, locale: 'en' } }
+        let(:request) { post :create, params: { season_id: season.uuid, locale: 'en' } }
 
         context 'if fantasy team is already exist' do
-          let!(:fantasy_team) { create :fantasy_team, user: @current_user }
+          let!(:fantasy_team) { create :fantasy_team, user: @current_user, season: season }
 
           before do
             create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
           end
 
-          it 'does not create fantasy team' do
+          it 'does not create fantasy team', :aggregate_failures do
             expect { request }.not_to change(FantasyTeam, :count)
-          end
-
-          it 'and redirects to home page' do
-            request
-
             expect(response).to redirect_to home_en_path
           end
         end
 
         context 'if fantasy team is not exist' do
-          it 'creates fantasy team' do
+          it 'creates fantasy team', :aggregate_failures do
             expect { request }.to change(@current_user.fantasy_teams, :count).by(1)
-          end
-
-          it 'and redirects to home page' do
-            request
-
             expect(response).to redirect_to fantasy_team_transfers_en_path(FantasyTeam.last.uuid)
           end
         end
@@ -130,13 +115,8 @@ describe FantasyTeamsController do
       sign_in_user
 
       context 'for not existing fantasy team' do
-        it 'does not update fantasy team' do
+        it 'does not update fantasy team', :aggregate_failures do
           expect { do_request }.not_to change(FantasyTeam, :count)
-        end
-
-        it 'and renders 404 page' do
-          do_request
-
           expect(response).to render_template 'shared/404'
         end
       end

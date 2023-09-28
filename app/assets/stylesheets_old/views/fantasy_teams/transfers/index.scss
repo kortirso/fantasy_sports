@@ -7,69 +7,6 @@
       text-align: center;
     }
   }
-
-  #fantasy-players {
-    .team-player {
-      display: flex;
-      flex-direction: row;
-      padding: 0 .25rem .25rem;
-      margin-bottom: .25rem;
-      border-bottom: 1px solid $gray200;
-
-      .team-player-stats {
-        margin-right: .5rem;
-      }
-
-      .team-player-info {
-        flex: 1;
-        display: flex;
-        align-items: center;
-
-        .team-player-name {
-          font-size: 1.125rem;
-          margin-right: 1rem;
-        }
-
-        .team-name {
-          text-transform: uppercase;
-          font-size: .9rem;
-          margin-right: 1rem;
-        }
-
-        .position-name {
-          font-size: .9rem;
-        }
-      }
-
-      .team-player-price {
-        width: 3rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-
-    .players-shown {
-      margin-bottom: 1rem;
-    }
-
-    .pagination {
-      padding: .5rem 0;
-
-      .pagination-nav {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 1px solid $gray300;
-      }
-
-      .pagination-counter {
-        margin: 0 1rem;
-      }
-    }
-  }
 }
 
 .transfers-header {

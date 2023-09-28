@@ -49,32 +49,32 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
 
   return (
     <Modal show={!!playerUuid}>
-      <div className="button small modal-close" onClick={onClose}>
+      <div className="btn-info btn-small absolute top-0 right-0 px-4 rounded-full" onClick={onClose}>
         X
       </div>
-      <div className="player-header">
+      <div>
         <h2>{localizeValue(seasonPlayer.player.name)}</h2>
       </div>
-      <div className="flex justify-between player-stats">
-        <div className="player-stat flex flex-col items-center">
-          <p>{strings.player.form}</p>
-          <p>{seasonPlayer.form}</p>
+      <div className="flex justify-between mb-8">
+        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+          <p className="text-sm">{strings.player.form}</p>
+          <p className="mt-1">{seasonPlayer.form}</p>
         </div>
-        <div className="player-stat flex flex-col items-center">
-          <p>{strings.player.lastWeek}</p>
-          <p>{lastPoints()}</p>
+        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+          <p className="text-sm">{strings.player.lastWeek}</p>
+          <p className="mt-1">{lastPoints()}</p>
         </div>
-        <div className="player-stat flex flex-col items-center">
-          <p>{strings.player.totalPoints}</p>
-          <p>{seasonPlayer.player.points}</p>
+        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+          <p className="text-sm">{strings.player.totalPoints}</p>
+          <p className="mt-1">{seasonPlayer.player.points}</p>
         </div>
-        <div className="player-stat flex flex-col items-center">
-          <p>{strings.player.price}</p>
-          <p>{seasonPlayer.price}</p>
+        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+          <p className="text-sm">{strings.player.price}</p>
+          <p className="mt-1">{seasonPlayer.price}</p>
         </div>
-        <div className="player-stat flex flex-col items-center">
-          <p>{strings.player.teamsSelectedBy}</p>
-          <p>{seasonPlayer.teams_selected_by}%</p>
+        <div className="flex-1 py-3 px-0 flex flex-col items-center">
+          <p className="text-sm">{strings.player.teamsSelectedBy}</p>
+          <p className="mt-1">{seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
       <div className="player-modal-table">

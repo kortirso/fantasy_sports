@@ -1,19 +1,15 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div class="page-wrapper">
-    <div class="page-content">
-      <%=
-        react_component 'Transfers',
-          seasonUuid:           @season.uuid,
-          sportKind:            @season.league.sport_kind,
-          fantasyTeamUuid:      @fantasy_team.uuid,
-          fantasyTeamCompleted: @fantasy_team.completed?,
-          fantasyTeamBudget:    @fantasy_team.budget_cents / 100.0,
-          weekUuid:             @season.coming_week.uuid,
-          weekPosition:         @season.coming_week.position,
-          weekDeadlineAt:       @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M'),
-          transfersLimited:     @lineup&.transfers_limited || false,
-          freeTransfers:        @lineup&.free_transfers_amount || 0
-      %>
-    </div>
-  </div>
+  <%=
+    react_component 'Transfers',
+      seasonUuid: @season.uuid,
+      sportKind: @season.league.sport_kind,
+      fantasyTeamUuid: @fantasy_team.uuid,
+      fantasyTeamCompleted: @fantasy_team.completed?,
+      fantasyTeamBudget: @fantasy_team.budget_cents / 100.0,
+      weekUuid: @season.coming_week.uuid,
+      weekPosition: @season.coming_week.position,
+      weekDeadlineAt: @season.coming_week.deadline_at.strftime('%d.%m.%Y %H:%M'),
+      transfersLimited: @lineup&.transfers_limited || false,
+      freeTransfers: @lineup&.free_transfers_amount || 0
+  %>
 <% end %>
