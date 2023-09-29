@@ -13,7 +13,7 @@ describe Lineups::CreateService, type: :service do
     create :fantasy_league, leagueable: season, season: season, name: 'Overall'
   }
   let!(:week) { create :week, season: season, status: 'coming', position: 1 }
-  let!(:fantasy_team) { create :fantasy_team }
+  let!(:fantasy_team) { create :fantasy_team, season: season }
   let(:lineup_players_creator) { double }
   let(:lineup_players_copier) { double }
 
@@ -29,77 +29,32 @@ describe Lineups::CreateService, type: :service do
       create :lineup, fantasy_team: fantasy_team, week: week
     end
 
-    it 'does not create lineup' do
+    it 'does not create lineup', :aggregate_failures do
       expect { service_call }.not_to change(Lineup, :count)
-    end
-
-    it 'does not call lineup_players_creator' do
-      service_call
-
+      expect(service_call.failure?).to be_truthy
       expect(lineup_players_creator).not_to have_received(:call)
-    end
-
-    it 'does not call lineup_players_copier' do
-      service_call
-
       expect(lineup_players_copier).not_to have_received(:call)
-    end
-
-    it 'fails' do
-      service = service_call
-
-      expect(service.failure?).to be_truthy
     end
   end
 
   context 'for valid params' do
     context 'for first week' do
-      it 'creates lineup' do
+      it 'creates lineup', :aggregate_failures do
         expect { service_call }.to change(fantasy_team.lineups, :count).by(1)
-      end
-
-      it 'calls lineup_players_creator' do
-        service_call
-
+        expect(service_call.success?).to be_truthy
         expect(lineup_players_creator).to have_received(:call).with(lineup: Lineup.last)
-      end
-
-      it 'does not call lineup_players_copier' do
-        service_call
-
         expect(lineup_players_copier).not_to have_received(:call)
-      end
-
-      it 'succeed' do
-        service = service_call
-
-        expect(service.success?).to be_truthy
       end
     end
 
     context 'for first lineup' do
       before { create :week, season: season, status: 'active', position: 0 }
 
-      it 'creates lineup' do
+      it 'creates lineup', :aggregate_failures do
         expect { service_call }.to change(fantasy_team.lineups, :count).by(1)
-      end
-
-      it 'calls lineup_players_creator' do
-        service_call
-
+        expect(service_call.success?).to be_truthy
         expect(lineup_players_creator).to have_received(:call).with(lineup: Lineup.last)
-      end
-
-      it 'does not call lineup_players_copier' do
-        service_call
-
         expect(lineup_players_copier).not_to have_received(:call)
-      end
-
-      it 'succeed' do
-        service = service_call
-
-        expect(service.success?).to be_truthy
       end
     end
 
@@ -107,28 +62,13 @@ describe Lineups::CreateService, type: :service do
       let!(:previous_week) { create :week, season: season, status: 'active', position: 0 }
       let!(:previous_lineup) { create :lineup, week: previous_week, fantasy_team: fantasy_team }
 
-      it 'creates lineup' do
+      it 'creates lineup', :aggregate_failures do
         expect { service_call }.to change(fantasy_team.lineups, :count).by(1)
-      end
-
-      it 'does not call lineup_players_creator' do
-        service_call
-
+        expect(service_call.success?).to be_truthy
         expect(lineup_players_creator).not_to have_received(:call)
-      end
-
-      it 'calls lineup_players_copier' do
-        service_call
-
         expect(lineup_players_copier).to(
           have_received(:call).with(lineup: Lineup.last, previous_lineup: previous_lineup)
         )
-      end
-
-      it 'succeed' do
-        service = service_call
-
-        expect(service.success?).to be_truthy
       end
     end
   end

@@ -17,9 +17,7 @@ export const Week = ({ uuid, teamNames }) => {
   const [weekUuid, setWeekUuid] = useState(uuid);
 
   useEffect(() => {
-    const fetchWeek = async () => {
-      return await weekRequest(weekUuid);
-    };
+    const fetchWeek = async () => await weekRequest(weekUuid);
 
     Promise.all([fetchWeek()]).then(([fetchWeekData]) =>
       setPageState({
@@ -33,15 +31,13 @@ export const Week = ({ uuid, teamNames }) => {
   if (pageState.loading || pageState.week === null) return <></>;
 
   return (
-    <div className="week">
-      <div className="week-header flex justify-between items-center">
-        <div className="week-link-container">
-          {pageState.week.previous ? (
+    <div>
+      <div className="flex justify-between items-center my-4 mx-0">
+        <div className="w-48">
+          {pageState.week.previous.uuid ? (
             <button
-              className="button"
-              onClick={() =>
-                setWeekUuid(pageState.week?.previous ? pageState.week.previous.uuid : '')
-              }
+              className="btn-primary btn-small w-full"
+              onClick={() => setWeekUuid(pageState.week.previous.uuid)}
             >
               {strings.week.previous}
             </button>
@@ -51,22 +47,22 @@ export const Week = ({ uuid, teamNames }) => {
           {strings.week.gameweek} {pageState.week.position} - {pageState.week.date_deadline_at}{' '}
           {pageState.week.time_deadline_at}
         </p>
-        <div className="week-link-container">
-          {pageState.week.next ? (
+        <div className="w-48">
+          {pageState.week.next.uuid ? (
             <button
-              className="button"
-              onClick={() => setWeekUuid(pageState.week?.next ? pageState.week.next.uuid : '')}
+              className="btn-primary btn-small w-full"
+              onClick={() => setWeekUuid(pageState.week.next.uuid)}
             >
               {strings.week.next}
             </button>
           ) : null}
         </div>
       </div>
-      <div className="week-day">
+      <div className="mb-4">
         {pageState.games.map((item, index) => (
           <div key={index}>
             {index === 0 || item.date_start_at !== pageState.games[index - 1].date_start_at ? (
-              <div className="week-day-header">
+              <div className="py-1 px-0 bg-gray-200 text-center">
                 <p>{item.date_start_at}</p>
               </div>
             ) : null}

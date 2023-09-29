@@ -1,9 +1,3 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class="page-wrapper">
-    <div class="page-content">
-      <div id="rules-page" class="main-container">
-        <%= react_component 'SportRules', component_class: 'half-container', sportKind: params[:sport_id] %>
-      </div>
-    </div>
-  </div>
+  <%= react_component 'SportRules', component_class: 'half-container', sportKind: params[:sport_id] %>
 <% end %>

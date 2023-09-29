@@ -131,7 +131,7 @@ describe FantasyTeamsController do
 
         context 'for league at maintenance' do
           before do
-            fantasy_league.season.league.update(maintenance: true)
+            fantasy_team.season.league.update(maintenance: true)
 
             patch :update, params: {
               id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: 'New name', budget_cents: 50_000 }

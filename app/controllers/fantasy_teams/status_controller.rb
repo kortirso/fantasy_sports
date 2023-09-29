@@ -23,8 +23,10 @@ module FantasyTeams
     end
 
     def find_fantasy_team_relationships
+      return if @week.nil?
+
       @lineup = Lineup.find_by!(fantasy_team: @fantasy_team, week: @week)
-      @season = @fantasy_team.fantasy_leagues.first.season if @lineup
+      @season = @fantasy_team.season if @lineup
     end
   end
 end

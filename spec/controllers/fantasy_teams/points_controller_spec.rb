@@ -30,10 +30,10 @@ describe FantasyTeams::PointsController do
         end
 
         context 'for not existing active week' do
-          it 'renders 404 page' do
+          it 'renders index page' do
             get :index, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
 
-            expect(response).to render_template 'shared/404'
+            expect(response).to render_template :index
           end
         end
 

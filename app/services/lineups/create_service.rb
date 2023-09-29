@@ -14,7 +14,7 @@ module Lineups
 
     def call(fantasy_team:, week: nil)
       @fantasy_team = fantasy_team
-      @week = week || @fantasy_team.fantasy_leagues.first.season.weeks.coming.first
+      @week = week || @fantasy_team.season.weeks.coming.first
       return if @week.nil?
 
       ActiveRecord::Base.transaction do

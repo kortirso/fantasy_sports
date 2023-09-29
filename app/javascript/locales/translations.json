@@ -1,7 +1,7 @@
 {
   "en": {
     "transfers": {
-      "name": "Fantasy team name",
+      "name": "Your fantasy team name",
       "free": "Free transfers",
       "cost": "Transfers cost (points)",
       "remaining": "Money remaining",
@@ -9,7 +9,7 @@
       "teamView": "View by team",
       "sort": "Sort by",
       "week": "Gameweek {number} deadline:",
-      "selection": "Player selection",
+      "selection": "Transfers",
       "makeTransfers": "Make transfers",
       "save": "Save",
       "allTeams": "All Teams",
@@ -36,6 +36,7 @@
       "gameweek": "Gameweek"
     },
     "squad": {
+      "title": "Team squad",
       "save": "Save team",
       "chips": "Chips",
       "benchBoost": "Bench boost",
@@ -84,7 +85,7 @@
   },
   "ru": {
     "transfers": {
-      "name": "Название команды",
+      "name": "Название вашей команды",
       "free": "Бесплатные трансферы",
       "cost": "Стоимость трансферов (очков)",
       "remaining": "Остаток бюджета",
@@ -92,7 +93,7 @@
       "teamView": "Фильтр по командам",
       "sort": "Сортировка",
       "week": "Игровая неделя {number}, дедлайн:",
-      "selection": "Выбор игроков",
+      "selection": "Трансферы",
       "makeTransfers": "Выполнить трансферы",
       "save": "Сохранить",
       "allTeams": "Все команды",
@@ -119,6 +120,7 @@
       "gameweek": "Игровая неделя"
     },
     "squad": {
+      "title": "Состав команды",
       "save": "Сохранить изменения",
       "chips": "Бонусы",
       "benchBoost": "Очки запасных",

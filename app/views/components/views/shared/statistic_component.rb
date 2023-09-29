@@ -3,9 +3,9 @@
 module Views
   module Shared
     class StatisticComponent < ApplicationViewComponent
-      def initialize(fantasy_team:, season:, score_detect_service: ::Cups::Pairs::ScoreDetectService)
+      def initialize(fantasy_team:, score_detect_service: ::Cups::Pairs::ScoreDetectService)
         @fantasy_team = fantasy_team
-        @season = season
+        @season = fantasy_team.season
         @score_detect_service = score_detect_service
 
         super()
@@ -34,22 +34,23 @@ module Views
       end
 
       def fantasy_cups
-        Cup.where(fantasy_league: @fantasy_team.fantasy_leagues).map do |cup|
-          pairs = cup.cups_pairs.joins(:home_lineup, :visitor_lineup)
-          pair =
-            pairs
-            .where(home_lineup: { fantasy_team_id: @fantasy_team })
-            .or(
-              pairs.where(visitor_lineup: { fantasy_team_id: @fantasy_team })
-            ).order(id: :asc).last
+        @fantasy_cups ||=
+          Cup.where(fantasy_league: @fantasy_team.fantasy_leagues).map do |cup|
+            pairs = cup.cups_pairs.joins(:home_lineup, :visitor_lineup)
+            pair =
+              pairs
+              .where(home_lineup: { fantasy_team_id: @fantasy_team })
+              .or(
+                pairs.where(visitor_lineup: { fantasy_team_id: @fantasy_team })
+              ).order(id: :asc).last
 
-          {
-            uuid: cup.uuid,
-            name: cup.name,
-            game_week: pair ? "GW #{pair.cups_round.week.position}" : '',
-            pair_result: pair_result(pair)
-          }
-        end
+            {
+              uuid: cup.uuid,
+              name: cup.name,
+              game_week: pair ? "GW #{pair.cups_round.week.position}" : '',
+              pair_result: pair_result(pair)
+            }
+          end
       end
 
       def pair_result(pair)

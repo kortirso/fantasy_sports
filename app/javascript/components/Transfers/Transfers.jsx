@@ -238,11 +238,12 @@ export const Transfers = ({
   };
 
   return (
-    <div id="fantasy-team-transfers" className="grid grid-cols-4 gap-8">
-      <div id="fantasy-team-members" className="col-span-3">
+    <div className="grid grid-cols-4 gap-8">
+      <div className="col-span-3">
+        <h1>{strings.transfers.selection}</h1>
         {!fantasyTeamCompleted && (
-          <>
-            <div className="form-field">
+          <div class="flex">
+            <div className="form-field mr-4">
               <label className="form-label">{strings.transfers.name}</label>
               <input
                 className="form-value"
@@ -250,39 +251,41 @@ export const Transfers = ({
                 onChange={(e) => setTeamName(e.target.value)}
               />
             </div>
-            <Dropdown
-              title={strings.transfers.favouriteTeam}
-              items={Object.entries(pageState.teamNames).reduce((result, [key, values]) => {
-                result[key] = localizeValue(values.name);
-                return result;
-              }, {})}
-              onSelect={(value) => setFavouriteTeamUuid(value)}
-              selectedValue={favouriteTeamUuid}
-            />
-          </>
+            <div class="flex-1">
+              <Dropdown
+                title={strings.transfers.favouriteTeam}
+                items={Object.entries(pageState.teamNames).reduce((result, [key, values]) => {
+                  result[key] = localizeValue(values.name);
+                  return result;
+                }, {})}
+                onSelect={(value) => setFavouriteTeamUuid(value)}
+                selectedValue={favouriteTeamUuid}
+              />
+            </div>
+          </div>
         )}
-        <div className="deadline flex items-center justify-center">
+        <div className="p-2 flex items-center justify-center bg-sky-200">
           <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
-          <span>{weekDeadlineAt}</span>
+          <span className="pl-2">{weekDeadlineAt}</span>
         </div>
-        <div className="flex flex-row justify-between transfers-stats">
-          <div className="transfers-stat flex items-center justify-between">
+        <div className="flex flex-row justify-between mt-2">
+          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-200">
             <p>{strings.transfers.free}</p>
-            <p>{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
+            <p className="text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
-          <div className="transfers-stat flex items-center justify-between">
+          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-200">
             <p>{strings.transfers.cost}</p>
-            <p>0</p>
+            <p className="text-xl">0</p>
           </div>
-          <div className="transfers-stat flex items-center justify-between">
+          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10">
             <p>{strings.transfers.remaining}</p>
-            <p>{budget}</p>
+            <p className="text-xl">{budget}</p>
           </div>
         </div>
-        <div id="team-players-by-positions" className={sportKind}>
+        <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
           {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
             <div
-              className={`sport-position ${sportPositionName(sportPosition)}`}
+              className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
               key={positionKind}
             >
               {playersByPosition[positionKind]?.map((item) => (
@@ -299,9 +302,9 @@ export const Transfers = ({
             </div>
           ))}
         </div>
-        <div id="submit-button">
+        <div className="my-8 mx-auto text-center">
           <button
-            className="button"
+            className="btn-primary"
             onClick={() => (fantasyTeamCompleted ? submitCompleted(true) : submit())}
           >
             {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
@@ -312,7 +315,6 @@ export const Transfers = ({
         ) : null}
       </div>
       <div>
-        <h2>{strings.transfers.selection}</h2>
         <Dropdown
           title={strings.transfers.positionView}
           items={Object.entries(sportPositions).reduce(

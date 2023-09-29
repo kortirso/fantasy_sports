@@ -261,13 +261,17 @@ export const Squad = ({
 
   return (
     <>
-      <div className="deadline flex items-center justify-center">
+      <h1>{strings.squad.title}</h1>
+      <div className="p-2 flex items-center justify-center bg-sky-200 mb-4">
         <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
-        <span>{weekDeadlineAt}</span>
+        <span className="pl-2">{weekDeadlineAt}</span>
       </div>
-      <div id="team-players-by-positions" className={sportKind}>
+      <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
         {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-          <div className={`sport-position ${sportPositionName(sportPosition)}`} key={positionKind}>
+          <div
+            className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
+            key={positionKind}
+          >
             {activePlayersByPosition(positionKind).map((item) => (
               <PlayerCard
                 key={item.uuid}
@@ -285,7 +289,7 @@ export const Squad = ({
         ))}
       </div>
       {sport.changes ? (
-        <div className="substitutions">
+        <div className="flex flex-row justify-center mt-4 mb-8">
           {reservePlayers().map((item) => (
             <PlayerCard
               key={item.uuid}
@@ -303,8 +307,8 @@ export const Squad = ({
       ) : null}
       {pageState.lineup?.fantasy_team &&
       Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
-        <div className="chips">
-          <h3>{strings.squad.chips}</h3>
+        <div>
+          <h3 className="text-center">{strings.squad.chips}</h3>
           <div className="flex justify-center">
             <button
               className={
@@ -330,7 +334,7 @@ export const Squad = ({
         </div>
       ) : null}
       {sport?.changes ? (
-        <div id="submit-button">
+        <div>
           <button className="button" onClick={submit}>
             {strings.squad.save}
           </button>

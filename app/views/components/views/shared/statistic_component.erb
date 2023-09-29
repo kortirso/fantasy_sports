@@ -1,60 +1,62 @@
-<div id="fantasy-team-statistic" class="right-container">
-  <div class="fantasy-team-statistic">
-    <div class="points-statistic">
-      <div class="points-statistic-block">
-        <h3><%= @fantasy_team.name %></h3>
+<section>
+  <div class="w-full p-4 bg-sky-200">
+    <div class="bg-white mb-1">
+      <div class="p-2 border-b border-gray-200">
+        <h3 class="my-2"><%= @fantasy_team.name %></h3>
       </div>
-      <div class="points-statistic-block">
-        <h4><%= t('views.shared.statistic.title') %></h4>
+      <div class="p-2 border-b border-gray-200">
+        <h4 class="m-0 py-2"><%= t('views.shared.statistic.title') %></h4>
       </div>
-      <div class="points-statistic-block flex">
-        <p><%= t('views.shared.statistic.overall') %></p>
-        <p><%= overall_points %></p>
+      <div class="p-2 border-b border-gray-200 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.overall') %></p>
+        <p class="basis-2/5"><%= overall_points %></p>
       </div>
-      <div class="points-statistic-block flex">
-        <p><%= t('views.shared.statistic.rank') %></p>
-        <p><%= overall_rank %></p>
+      <div class="p-2 border-b border-gray-200 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.rank') %></p>
+        <p class="basis-2/5"><%= overall_rank %></p>
       </div>
-      <div class="points-statistic-block flex">
-        <p><%= t('views.shared.statistic.players') %></p>
-        <p><%= fantasy_teams_amount %></p>
+      <div class="p-2 border-b border-gray-200 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.players') %></p>
+        <p class="basis-2/5"><%= fantasy_teams_amount %></p>
       </div>
     </div>
-    <div class="points-statistic">
-      <div class="points-statistic-block">
-        <h3><%= t('views.shared.statistic.leagues') %></h3>
+    <div class="bg-white mb-1">
+      <div class="p-2 border-b border-gray-200">
+        <h3 class="my-2"><%= t('views.shared.statistic.leagues') %></h3>
       </div>
       <% fantasy_leagues.each do |fantasy_league| %>
-        <div class="points-statistic-block flex">
-          <p><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]) %></p>
-          <p><%= fantasy_league[:place] %></p>
+        <div class="p-2 border-b border-gray-200 flex">
+          <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]) %></p>
+          <p class="basis-2/5"><%= fantasy_league[:place] %></p>
         </div>
       <% end %>
-      <div class="points-statistic-block">
-        <h3><%= t('views.shared.statistic.cups') %></h3>
-      </div>
-      <% fantasy_cups.each do |cup| %>
-        <div class="points-statistic-block flex">
-          <p><%= link_to cup[:name], cup_path(cup[:uuid]) %></p>
-          <p class="flex flex-row justify-between">
-            <span class="cup-stat"><%= cup[:game_week] %></span>
-            <span class="cup-stat"><%= cup[:pair_result] %></span>
-          </p>
+      <% if fantasy_cups.present? %>
+        <div class="p-2 border-b border-gray-200">
+          <h3 class="mt-2 mx-0 mb-0"><%= t('views.shared.statistic.cups') %></h3>
         </div>
+        <% fantasy_cups.each do |cup| %>
+          <div class="p-2 border-b border-gray-200 flex">
+            <p class="basis-3/5"><%= link_to cup[:name], cup_path(cup[:uuid]) %></p>
+            <p class="basis-2/5 flex flex-row justify-between">
+              <span class="flex-1 text-center"><%= cup[:game_week] %></span>
+              <span class="flex-1 text-center"><%= cup[:pair_result] %></span>
+            </p>
+          </div>
+        <% end %>
       <% end %>
     </div>
-    <div class="points-statistic">
-      <div class="points-statistic-block">
-        <h3><%= t('views.shared.statistic.finance') %></h3>
+    <div class="bg-white mb-1">
+      <div class="p-2 border-b border-gray-200">
+        <h3 class="my-2"><%= t('views.shared.statistic.finance') %></h3>
       </div>
-      <div class="points-statistic-block flex">
-        <p><%= t('views.shared.statistic.squad_value') %></p>
-        <p><%= squad_value %></p>
+      <div class="p-2 border-b border-gray-200 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.squad_value') %></p>
+        <p class="basis-2/5"><%= squad_value %></p>
       </div>
-      <div class="points-statistic-block flex">
-        <p><%= t('views.shared.statistic.bank') %></p>
-        <p><%= squad_budget %></p>
+      <div class="p-2 border-b border-gray-200 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.bank') %></p>
+        <p class="basis-2/5"><%= squad_budget %></p>
       </div>
     </div>
   </div>
-</div>
+</section>

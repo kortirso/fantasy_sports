@@ -7,7 +7,7 @@ module FantasyTeams
 
       def call(fantasy_team:, teams_players_ids:, budget_limit: BUDGET_LIMIT_CENTS)
         @fantasy_team     = fantasy_team
-        @season           = @fantasy_team.fantasy_leagues.first.season
+        @season           = @fantasy_team.season
         @max_team_players = Sport.find_by(title: @fantasy_team.sport_kind).max_team_players
         @teams_players    = @season.active_teams_players.where(id: teams_players_ids).includes(:player, :seasons_team)
 

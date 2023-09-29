@@ -38,19 +38,19 @@ export const Game = ({ item, teamNames }) => {
     if (element.home_team.length === 0 && element.visitor_team.length === 0) return null;
 
     return (
-      <li className="fixture" key={`fixture-${index}`}>
-        <h5>{localizeValue(STATS_VALUES[element.key])}</h5>
-        <div className="fixture-values">
-          <div className="fixture-value">
-            {element.home_team.map((player, i) => (
-              <p key={`home-team-player-${i}`}>
+      <li className="mt-0 mx-auto mb-4 w-3/4" key={`fixture-${index}`}>
+        <h5 className="text-center bg-blue-400 mb-1">{localizeValue(STATS_VALUES[element.key])}</h5>
+        <div className="flex">
+          <div className="flex-1 py-0 px-2 text-right border-r border-gray-200">
+            {element.home_team.map((player, index) => (
+              <p key={`home-team-player-${index}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
             ))}
           </div>
-          <div className="fixture-value">
-            {element.visitor_team.map((player, i) => (
-              <p key={`visitor-team-player-${i}`}>
+          <div className="flex-1 py-0 px-2 border-t border-gray-200">
+            {element.visitor_team.map((player, index) => (
+              <p className="pt-0 px-0 pb-1" key={`visitor-team-player-${index}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
             ))}
@@ -63,21 +63,21 @@ export const Game = ({ item, teamNames }) => {
   return (
     <>
       <div
-        className="game expandable flex justify-center items-center"
+        className="flex justify-center items-center p-2 border-b border-gray-200 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="team-name right-side">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
+        <p className="text-lg flex-1 text-right">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
         {item.points.length > 0 ? (
-          <p className="game-points">
+          <p className="py-2 px-3 bg-black text-white text-lg mx-4">
             {item.points[0]} - {item.points[1]}
           </p>
         ) : (
-          <p className="game-start">{item.time_start_at}</p>
+          <p className="py-2 px-4 border border-gray-200 mx-4">{item.time_start_at}</p>
         )}
-        <p className="team-name">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
+        <p className="text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
       </div>
       {isOpen && item.points.length > 0 && gameStatistics ? (
-        <ul className="fixtures">
+        <ul className="list-none p-0">
           {gameStatistics.map((element, index) => renderStatistics(element, index))}
         </ul>
       ) : null}

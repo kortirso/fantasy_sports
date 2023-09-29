@@ -10,8 +10,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
       },
+      minHeight: {
+        '6': '1.5rem',
+      }
     },
   },
   plugins: [

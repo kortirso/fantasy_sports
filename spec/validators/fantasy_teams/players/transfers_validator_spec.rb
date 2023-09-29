@@ -16,7 +16,7 @@ describe FantasyTeams::Players::TransfersValidator, type: :service do
   let!(:teams_player1) { create :teams_player, player: player1, seasons_team: seasons_team, active: true }
   let!(:teams_player2) { create :teams_player, player: player2, seasons_team: seasons_team, active: true }
   let!(:teams_player3) { create :teams_player, player: player3, seasons_team: seasons_team, active: true }
-  let!(:fantasy_team) { create :fantasy_team }
+  let!(:fantasy_team) { create :fantasy_team, season: season }
   let!(:fantasy_league) { create :fantasy_league, season: season }
   let(:teams_players_ids) {
     [
