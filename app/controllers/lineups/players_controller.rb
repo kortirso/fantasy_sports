@@ -7,7 +7,6 @@ module Lineups
 
     before_action :find_lineup, only: %i[show]
     before_action :find_user_lineup, only: %i[update]
-    before_action :find_lineup_players, only: %i[show]
     before_action :find_league, only: %i[update]
     before_action :validate_league_maintenance, only: %i[update]
 
@@ -43,10 +42,6 @@ module Lineups
       @lineup = Current.user.lineups.find_by!(uuid: params[:lineup_id])
     end
 
-    def find_lineup_players
-      @lineup_players = @lineup.lineups_players.includes(teams_player: [:player, { seasons_team: :team }])
-    end
-
     def find_league
       @league = @lineup.week.league
     end
@@ -64,7 +59,9 @@ module Lineups
 
     def lineup_players_json_response
       cached_response(payload: @lineup, name: :lineup_players, version: :v1) do
-        Lineups::PlayerSerializer.new(@lineup_players).serializable_hash
+        Lineups::PlayerSerializer.new(
+          @lineup.lineups_players.includes(teams_player: [:player, { seasons_team: :team }])
+        ).serializable_hash
       end
     end
   end
