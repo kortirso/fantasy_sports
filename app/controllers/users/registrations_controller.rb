@@ -10,22 +10,22 @@ module Users
     end
 
     def create
-      service_call = Users::CreateService.call(params: user_params.to_h.symbolize_keys)
-      service_call.success? ? success_create_response(service_call) : failed_create_response(service_call)
+      form = Users::CreateForm.call(params: user_params.to_h.symbolize_keys)
+      form.success? ? success_create_response(form.result) : failed_create_response(form.errors)
     end
 
     def confirm; end
 
     private
 
-    def success_create_response(service_call)
-      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: service_call.result).result
+    def success_create_response(user)
+      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: user).result
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 
-    def failed_create_response(service_call)
+    def failed_create_response(errors)
       @user = User.new(user_params)
-      render :new, alert: service_call.errors
+      render :new, alert: errors
     end
 
     def after_registration_path

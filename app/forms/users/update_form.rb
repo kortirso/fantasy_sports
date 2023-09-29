@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 module Users
-  class UpdateService
+  class UpdateForm
     prepend ApplicationService
     include Validateable
 
     def call(user:, params:)
+      return if validate_with(validator, params) && failure?
       return if validate_user(user, params) && failure?
 
       @result.save!
@@ -20,5 +21,7 @@ module Users
 
       fail!(I18n.t('services.users.create.invalid'))
     end
+
+    def validator = FantasySports::Container['validators.users.update']
   end
 end

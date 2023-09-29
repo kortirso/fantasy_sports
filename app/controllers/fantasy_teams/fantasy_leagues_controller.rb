@@ -12,12 +12,12 @@ module FantasyTeams
     end
 
     def create
-      service_call = FantasyLeagues::CreateService.call(
+      form = FantasyLeagues::CreateForm.call(
         fantasy_team: @fantasy_team,
         leagueable: Current.user,
         params: fantasy_league_params
       )
-      if service_call.success?
+      if form.success?
         redirect_to(
           fantasy_team_fantasy_leagues_path(@fantasy_team.uuid),
           notice: t('controllers.fantasy_teams.fantasy_leagues.success_create')

@@ -101,13 +101,8 @@ describe Admin::SeasonsController do
         context 'for invalid params' do
           let(:request) { post :create, params: { season: { name: '' }, locale: 'en' } }
 
-          it 'does not create season' do
+          it 'does not create season', :aggregate_failures do
             expect { request }.not_to change(Season, :count)
-          end
-
-          it 'redirects to new_admin_season_path' do
-            request
-
             expect(response).to redirect_to new_admin_season_en_path
           end
         end
@@ -115,13 +110,8 @@ describe Admin::SeasonsController do
         context 'for invalid league' do
           let(:request) { post :create, params: { season: { name: 'En', league_id: 'unexisting' }, locale: 'en' } }
 
-          it 'does not create season' do
+          it 'does not create season', :aggregate_failures do
             expect { request }.not_to change(Season, :count)
-          end
-
-          it 'redirects to new_admin_season_path' do
-            request
-
             expect(response).to redirect_to new_admin_season_en_path
           end
         end
@@ -131,13 +121,8 @@ describe Admin::SeasonsController do
             post :create, params: { season: { name: 'En', league_id: league.id }, locale: 'en' }
           }
 
-          it 'creates season' do
+          it 'creates season', :aggregate_failures do
             expect { request }.to change(league.seasons, :count).by(1)
-          end
-
-          it 'redirects to admin_seasons_path' do
-            request
-
             expect(response).to redirect_to admin_seasons_en_path
           end
         end

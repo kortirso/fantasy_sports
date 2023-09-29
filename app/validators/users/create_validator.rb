@@ -2,8 +2,6 @@
 
 module Users
   class CreateValidator < ApplicationValidator
-    def contract
-      Users::CreateContract
-    end
+    include Deps[contract: 'contracts.users.create']
   end
 end

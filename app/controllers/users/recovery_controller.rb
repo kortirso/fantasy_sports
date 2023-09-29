@@ -10,8 +10,8 @@ module Users
     def new; end
 
     def create
-      service_call = Users::UpdateService.call(user: @user, params: user_params)
-      service_call.success? ? success_recovery_response : failed_recovery(service_call.errors)
+      form = Users::UpdateForm.call(user: @user, params: user_params)
+      form.success? ? success_recovery_response : failed_recovery(form.errors)
     end
 
     private
@@ -22,7 +22,7 @@ module Users
     end
 
     def find_user
-      @user = User.find_by(email: params[:email])
+      @user = User.find_by(email: params[:email]&.downcase)
       return if @user.present?
 
       failed_recovery

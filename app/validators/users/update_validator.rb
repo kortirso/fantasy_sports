@@ -2,8 +2,6 @@
 
 module Users
   class UpdateValidator < ApplicationValidator
-    def contract
-      Users::UpdateContract
-    end
+    include Deps[contract: 'contracts.users.update']
   end
 end

@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 module Seasons
-  class CreateService
+  class CreateForm
     prepend ApplicationService
     include Validateable
 
-    def initialize(season_validator: SeasonValidator)
-      @season_validator = season_validator
-    end
-
-    def call(params: {})
+    def call(params:)
       return if find_league(params[:league_id]) && failure?
-      return if validate_with(@season_validator, params) && failure?
+      return if validate_with(validator, params) && failure?
 
       ActiveRecord::Base.transaction do
         @league.seasons.active.update!(active: false) if params[:active]
@@ -27,5 +23,7 @@ module Seasons
 
       fail!(I18n.t('services.seasons.create.league_does_not_exist'))
     end
+
+    def validator = FantasySports::Container['validators.season']
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe FantasyTeamValidator, type: :service do
-  subject(:validator_call) { described_class.call(params: params) }
+  subject(:validator_call) { described_class.new.call(params: params) }
 
   context 'for invalid name' do
     let(:params) { { name: '', budget_cents: 500 } }

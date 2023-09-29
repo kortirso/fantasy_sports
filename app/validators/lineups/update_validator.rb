@@ -2,8 +2,6 @@
 
 module Lineups
   class UpdateValidator < ApplicationValidator
-    def contract
-      Lineups::UpdateContract
-    end
+    include Deps[contract: 'contracts.lineups.update']
   end
 end

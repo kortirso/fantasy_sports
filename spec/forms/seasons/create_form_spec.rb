@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Seasons::CreateService, type: :service do
+describe Seasons::CreateForm, type: :service do
   subject(:service_call) { described_class.call(params: params) }
 
   let!(:league) { create :league }
@@ -9,11 +9,8 @@ describe Seasons::CreateService, type: :service do
   context 'for invalid params' do
     let(:params) { { name: '', active: true, league_id: league.id } }
 
-    it 'does not create Season' do
+    it 'does not create Season', :aggregate_failures do
       expect { service_call }.not_to change(Season, :count)
-    end
-
-    it 'fails' do
       expect(service_call.failure?).to be_truthy
     end
   end
@@ -21,18 +18,10 @@ describe Seasons::CreateService, type: :service do
   context 'for valid params' do
     let(:params) { { name: 'New', active: true, league_id: league.id } }
 
-    it 'creates Season' do
+    it 'creates Season', :aggregate_failures do
       expect { service_call }.to change(league.seasons, :count).by(1)
-    end
-
-    it 'updates active seasons' do
-      service_call
-
-      expect(season.reload.active).to be_falsy
-    end
-
-    it 'succeed' do
       expect(service_call.success?).to be_truthy
+      expect(season.reload.active).to be_falsy
     end
   end
 end

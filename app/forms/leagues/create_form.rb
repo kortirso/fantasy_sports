@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-module Games
-  class UpdateService
+module Leagues
+  class CreateForm
     prepend ApplicationService
     include Validateable
 
-    def call(game:, params:)
+    def call(params:)
       return if validate_with(validator, params) && failure?
 
-      game.update!(params)
+      League.create!(params)
     end
 
     private
 
-    def validator = FantasySports::Container['validators.games.update']
+    def validator = FantasySports::Container['validators.league']
   end
 end

@@ -67,7 +67,7 @@ describe FantasyTeams::TransfersController do
 
       context 'for existing fantasy team' do
         let!(:fantasy_league) { create :fantasy_league }
-        let!(:fantasy_team) { create :fantasy_team, user: @current_user }
+        let!(:fantasy_team) { create :fantasy_team, user: @current_user, season: fantasy_league.season }
 
         before do
           create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team

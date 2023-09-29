@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe LeagueValidator, type: :service do
-  subject(:validator_call) { described_class.call(params: params) }
+  subject(:validator_call) { described_class.new.call(params: params) }
 
   context 'for invalid name format' do
     let(:params) { { name: { en: '', ru: '' }, sport_kind: 'football' } }

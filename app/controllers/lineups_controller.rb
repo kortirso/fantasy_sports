@@ -11,14 +11,14 @@ class LineupsController < ApplicationController
   end
 
   def update
-    service_call = Lineups::UpdateService.call(
+    form = Lineups::UpdateForm.call(
       lineup: @lineup,
       params: schema_params(params: params, schema: LineupSchema, required: :lineup)
     )
-    if service_call.success?
+    if form.success?
       render json: { message: t('controllers.lineups.update.success') }, status: :ok
     else
-      json_response_with_errors(service_call.errors, 422)
+      json_response_with_errors(form.errors, 422)
     end
   end
 

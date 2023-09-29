@@ -2,8 +2,6 @@
 
 module Games
   class CreateValidator < ApplicationValidator
-    def contract
-      Games::CreateContract
-    end
+    include Deps[contract: 'contracts.games.create']
   end
 end

@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
 module FantasyLeagues
-  class CreateService
+  class CreateForm
     prepend ApplicationService
     include Validateable
 
     def initialize(
-      fantasy_league_validator: FantasyLeagueValidator,
-      league_join_service:      JoinService
+      league_join_service: JoinService
     )
-      @fantasy_league_validator = fantasy_league_validator
-      @league_join_service      = league_join_service
+      @league_join_service = league_join_service
     end
 
     def call(fantasy_team:, leagueable:, params:)
-      return if validate_with(@fantasy_league_validator, params) && failure?
+      return if validate_with(validator, params) && failure?
 
       @fantasy_team = fantasy_team
       @leagueable = leagueable
@@ -30,7 +28,7 @@ module FantasyLeagues
     def create_fantasy_league(params)
       params.merge!(
         leagueable: @leagueable,
-        season: @fantasy_team.fantasy_leagues.first.season,
+        season_id: @fantasy_team.season_id,
         global: global_league?
       )
       @result = FantasyLeague.create!(params)
@@ -43,5 +41,7 @@ module FantasyLeagues
     def global_league?
       !@leagueable.is_a?(User)
     end
+
+    def validator = FantasySports::Container['validators.fantasy_league']
   end
 end

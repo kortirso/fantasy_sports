@@ -11,12 +11,11 @@ module Admin
     end
 
     def create
-      validator_errors = LeagueValidator.call(params: league_params)
-      if validator_errors.empty?
-        League.create(league_params)
+      form = ::Leagues::CreateForm.call(params: league_params)
+      if form.success?
         redirect_to admin_leagues_path, notice: t('controllers.admin.leagues.create.success')
       else
-        redirect_to new_admin_league_path, alert: validator_errors
+        redirect_to new_admin_league_path, alert: form.errors
       end
     end
 

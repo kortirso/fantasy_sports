@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 module Lineups
-  class UpdateService
+  class UpdateForm
     prepend ApplicationService
     include Validateable
 
-    def initialize(lineup_validator: Lineups::UpdateValidator)
-      @lineup_validator = lineup_validator
-    end
-
     def call(lineup:, params:)
       @lineup = lineup
-      return if validate_with(@lineup_validator, params) && failure?
+      return if validate_with(validator, params) && failure?
       return if params[:active_chips] && validate_chips(params[:active_chips]) && failure?
 
       ActiveRecord::Base.transaction do
@@ -53,5 +49,7 @@ module Lineups
     def fantasy_team
       @fantasy_team ||= @lineup.fantasy_team
     end
+
+    def validator = FantasySports::Container['validators.lineups.update']
   end
 end

@@ -5,12 +5,8 @@ module Games
     prepend ApplicationService
     include Validateable
 
-    def initialize(game_validator: Games::CreateValidator)
-      @game_validator = game_validator
-    end
-
     def call(params)
-      return if validate_with(@game_validator, params) && failure?
+      return if validate_with(validator, params) && failure?
 
       ActiveRecord::Base.transaction do
         create_game(params)
@@ -39,5 +35,7 @@ module Games
       end
       Games::Player.upsert_all(games_players) if games_players.any?
     end
+
+    def validator = FantasySports::Container['validators.games.create']
   end
 end

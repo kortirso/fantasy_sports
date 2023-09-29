@@ -2,6 +2,8 @@
 
 module Admin
   class SeasonsController < AdminController
+    include Boolable
+
     before_action :find_leagues, only: %i[index new]
 
     def index; end
@@ -11,11 +13,11 @@ module Admin
     end
 
     def create
-      service_call = ::Seasons::CreateService.call(params: season_params)
-      if service_call.success?
+      form = ::Seasons::CreateForm.call(params: season_params)
+      if form.success?
         redirect_to admin_seasons_path, notice: t('controllers.admin.seasons.create.success')
       else
-        redirect_to new_admin_season_path, alert: service_call.errors
+        redirect_to new_admin_season_path, alert: form.errors
       end
     end
 
@@ -31,7 +33,7 @@ module Admin
         .permit(:name, :league_id)
         .to_h
         .symbolize_keys
-        .merge(active: params[:season][:active] == '1')
+        .merge(active: to_bool(params[:season][:active]))
     end
   end
 end

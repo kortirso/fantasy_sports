@@ -2,8 +2,6 @@
 
 module Games
   class UpdateValidator < ApplicationValidator
-    def contract
-      Games::UpdateContract
-    end
+    include Deps[contract: 'contracts.games.update']
   end
 end

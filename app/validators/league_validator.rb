@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
 class LeagueValidator < ApplicationValidator
-  def contract
-    LeagueContract
-  end
+  include Deps[contract: 'contracts.league']
 end

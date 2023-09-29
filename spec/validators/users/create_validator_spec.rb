@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Users::CreateValidator, type: :service do
-  subject(:validator_call) { described_class.call(params: params) }
+  subject(:validator_call) { described_class.new.call(params: params) }
 
   context 'for invalid email format' do
     let(:params) { { email: '1gmail.com', password: '1234qwer', password_confirmation: '1234qwer' } }

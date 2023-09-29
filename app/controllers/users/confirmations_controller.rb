@@ -14,7 +14,7 @@ module Users
     private
 
     def find_user
-      @user = User.not_confirmed.find_by(email: params[:email])
+      @user = User.not_confirmed.find_by(email: params[:email]&.downcase)
       return if @user.present?
 
       failed_complete_confirmation

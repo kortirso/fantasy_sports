@@ -5,7 +5,7 @@ module FantasyTeams
     prepend ApplicationService
 
     def initialize(
-      fantasy_team_validator: FantasyTeamValidator,
+      fantasy_team_validator: FantasySports::Container['validators.fantasy_team'],
       transfers_validator:    FantasyTeams::Players::TransfersValidator.new,
       lineup_creator:         ::Lineups::CreateService,
       league_join_service:    ::FantasyLeagues::JoinService
