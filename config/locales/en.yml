@@ -32,9 +32,6 @@ en:
           leagues: Fantasy Leagues and Cups
           rules: Rules
           status: Status
-        sport_navigation_component:
-          football: Football
-          basketball: Basketball
         profile_navigation_component:
           title: Profile
           achievements: Achievements
@@ -220,6 +217,19 @@ en:
         failed_complete:
           title: Email can't be verified
           description: Invalid credentials for email confirmation
+    rules:
+      index:
+        title: Rules
+        football: Football
+        basketball: Basketball
+        squad: Select squad
+        select_squad:
+          title: Squad size
+          max_players: "To join the game select a squad of %{value} players, consisting of:"
+          budget_title: Budget
+          budget_description: The total value of your initial squad must not exceed 100 points.
+          per_team_title: Players per team
+          per_team_description: You can select up to %{value} players from a single team.
   mailers:
     users:
       auth:

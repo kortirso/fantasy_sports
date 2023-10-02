@@ -1,13 +1,11 @@
-<h4 class="mt-4">Squad size</h4>
-<p>
-  To join the game select a squad of <%= sport.max_players %> players, consisting of:
-</p>
+<h4 class="mt-4"><%= t('views.rules.index.select_squad.title') %></h4>
+<p><%= t('views.rules.index.select_squad.max_players', value: sport.max_players) %></p>
 <ul>
   <% positions.each do |position| %>
     <li><%= localized_value(position.name) %> - <%= position.total_amount %></li>
   <% end %>
 </ul>
-<h4 class="mt-4">Budget</h4>
-<p>The total value of your initial squad must not exceed 100 points.</p>
-<h4 class="mt-4">Players per team</h4>
-<p>You can select up to <%= sport.max_team_players %> players from a single team.</p>
+<h4 class="mt-4"><%= t('views.rules.index.select_squad.budget_title') %></h4>
+<p><%= t('views.rules.index.select_squad.budget_description') %></p>
+<h4 class="mt-4"><%= t('views.rules.index.select_squad.per_team_title') %></h4>
+<p><%= t('views.rules.index.select_squad.per_team_description', value: sport.max_team_players) %></p>

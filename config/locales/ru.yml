@@ -32,9 +32,6 @@ ru:
           leagues: Фэнтези лиги и кубки
           rules: Правила
           status: Статус
-        sport_navigation_component:
-          football: Футбол
-          basketball: Баскетбол
         profile_navigation_component:
           title: Профиль
           achievements: Достижения
@@ -220,6 +217,19 @@ ru:
         failed_complete:
           title: Email не может быть подтвержден
           description: Неверные данные при подтверждении email
+    rules:
+      index:
+        title: Правила
+        football: Футбол
+        basketball: Баскетбол
+        squad: Выбор начального состава
+        select_squad:
+          title: Состав
+          max_players: "Для присоединения к игре выберите состав из %{value} игроков, состоящий из:"
+          budget_title: Бюджет
+          budget_description: Суммарная стоимость состава не должна превышать 100 очков.
+          per_team_title: Игроки из одной команды
+          per_team_description: Вы можете выбрать до %{value} игроков из одной команды.
   mailers:
     users:
       auth:

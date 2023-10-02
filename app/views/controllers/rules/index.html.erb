@@ -1,11 +1,11 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <h1>Rules</h1>
+  <h1><%= t('views.rules.index.title') %></h1>
   <div class="grid grid-cols-3 gap-8">
     <div>
-      <h2>Basketball</h2>
+      <h2><%= t('views.rules.index.basketball') %></h2>
       <%=
         react_component 'Toggle',
-          header: 'Select squad',
+          header: t('views.rules.index.squad'),
           children: render(
             partial: 'select_squad',
             locals: {
@@ -16,10 +16,10 @@
       %>
     </div>
     <div>
-      <h2>Football</h2>
+      <h2><%= t('views.rules.index.football') %></h2>
       <%=
         react_component 'Toggle',
-          header: 'Select squad',
+          header: t('views.rules.index.squad'),
           children: render(
             partial: 'select_squad',
             locals: {
