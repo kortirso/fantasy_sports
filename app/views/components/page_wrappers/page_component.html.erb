@@ -4,11 +4,11 @@
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.home'), home_path, class: 'p-4 pl-8 my-2 text-xl text-white' %>
       <%= link_to home_path(sport_kind: Sportable::FOOTBALL), class: 'user-navigation-link' do %>
         <%= image_tag 'icons/football.svg' %>
-        <span><%= t('components.views.shared.sport_navigation_component.football') %></span>
+        <span><%= t('views.rules.index.football') %></span>
       <% end %>
       <%= link_to home_path(sport_kind: Sportable::BASKETBALL), class: 'user-navigation-link' do %>
         <%= image_tag 'icons/basketball.svg' %>
-        <span><%= t('components.views.shared.sport_navigation_component.basketball') %></span>
+        <span><%= t('views.rules.index.basketball') %></span>
       <% end %>
     </section>
     <% if @fantasy_team %>
@@ -34,7 +34,7 @@
         <% end %>
       <% end %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), rules_path, class: 'user-navigation-link' %>
-      <%= link_to t('components.views.shared.fantasy_team_navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
+      <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
     </section>
     <section class="flex-1 flex items-end pl-8">
       <% I18n.available_locales.each do |locale| %>
