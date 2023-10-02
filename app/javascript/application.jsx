@@ -4,20 +4,19 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import {
   Achievements,
-  SportRules,
   Squad,
   SquadPoints,
   Transfers,
   TransfersStatus,
 } from './components';
-import { Flash } from './components/atoms';
+import { Flash, Toggle } from './components/atoms';
 
 const components = {
   Achievements,
   Flash,
-  SportRules,
   Squad,
   SquadPoints,
+  Toggle,
   Transfers,
   TransfersStatus,
 };

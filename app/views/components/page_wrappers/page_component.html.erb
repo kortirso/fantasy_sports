@@ -33,6 +33,7 @@
           (<%= @unread_achievements_count %>)
         <% end %>
       <% end %>
+      <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), rules_path, class: 'user-navigation-link' %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
     </section>
     <section class="flex-1 flex items-end pl-8">

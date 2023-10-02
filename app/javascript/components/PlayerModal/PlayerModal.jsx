@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { currentLocale, localizeValue } from '../../helpers';
 import { strings } from '../../locales';
-import { statisticsOrder } from '../../data/players';
+import { sportsData, statisticsOrder } from '../../data';
 
 import { Modal } from '../../components/atoms';
 
@@ -12,6 +12,7 @@ strings.setLanguage(currentLocale);
 
 export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onClose }) => {
   const [seasonPlayer, setSeasonPlayer] = useState();
+  const sportPositions = sportsData.positions[sportKind];
 
   useEffect(() => {
     const fetchSeasonPlayer = async () => {
@@ -23,6 +24,15 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   }, [seasonUuid, playerUuid]);
 
   if (!seasonPlayer) return <></>;
+
+  const perGamePoints = () => {
+    const gamesAmount = seasonPlayer.games_players.data.length;
+    if (gamesAmount === 0) return 0;
+
+    const pointsAmount = seasonPlayer.games_players.data.map((game) => game.attributes.points).reduce((result, item) => result + item, 0)
+
+    return Math.round(pointsAmount / gamesAmount);
+  };
 
   const lastPoints = () => {
     const data = seasonPlayer.games_players.data;
@@ -48,17 +58,20 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   };
 
   return (
-    <Modal show={!!playerUuid}>
-      <div className="btn-info btn-small absolute top-0 right-0 px-4 rounded-full" onClick={onClose}>
-        X
-      </div>
-      <div>
-        <h2>{localizeValue(seasonPlayer.player.name)}</h2>
+    <Modal show={!!playerUuid} onClose={onClose}>
+      <div className="mb-2">
+        <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mb-2">{localizeValue(sportPositions[seasonPlayer.player.position_kind].name)}</span>
+        <h2 className="mb-2">{localizeValue(seasonPlayer.player.name)}</h2>
+        <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
       </div>
       <div className="flex justify-between mb-8">
         <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
           <p className="text-sm">{strings.player.form}</p>
           <p className="mt-1">{seasonPlayer.form}</p>
+        </div>
+        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+          <p className="text-sm">{strings.player.poinstPerGame}</p>
+          <p className="mt-1">{perGamePoints()}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
           <p className="text-sm">{strings.player.lastWeek}</p>

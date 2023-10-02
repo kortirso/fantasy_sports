@@ -19,9 +19,10 @@ module Teams
     end
 
     attribute :team do |object|
-      seasons_team = object.seasons_team
+      team = object.seasons_team.team
       {
-        uuid: seasons_team.team.uuid
+        uuid: team.uuid,
+        name: team.name
       }
     end
   end

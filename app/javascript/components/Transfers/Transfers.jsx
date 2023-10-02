@@ -409,24 +409,21 @@ export const Transfers = ({
         onClose={() => setPlayerUuid(undefined)}
       />
       <Flash values={alerts} />
-      <Modal show={!!transfersData}>
-        <div className="button small modal-close" onClick={() => setTransfersData(null)}>
-          X
-        </div>
+      <Modal show={!!transfersData} onClose={() => setTransfersData(null)}>
         <div className="transfers-header">
           <h2>{strings.transfers.confirmationScreen}</h2>
-          <p className="transfers-points">
+          <p className="text-center mb-8">
             {strings.transfers.penaltyPoints} - {transfersData?.penalty_points}
           </p>
-          <div className="flex justify-between transfers-list">
-            <div className="transfers-block flex flex-col items-center">
+          <div className="flex justify-between mb-8">
+            <div className="flex-1 py-3 px-0 flex flex-col items-center border-r border-gray-200">
               <h4>{strings.transfers.income}</h4>
               {transfersData?.in_names?.map((item, index) => (
                 <p key={index}>{localizeValue(item)}</p>
               ))}
             </div>
-            <div className="transfers-block flex flex-col items-center">
-              <h4>{strings.transfers.income}</h4>
+            <div className="flex-1 py-3 px-0 flex flex-col items-center">
+              <h4>{strings.transfers.outcome}</h4>
               {transfersData?.out_names?.map((item, index) => (
                 <p key={index}>{localizeValue(item)}</p>
               ))}
@@ -434,10 +431,10 @@ export const Transfers = ({
           </div>
           {transfersData?.out_names && transfersData?.out_names.length > 0 ? (
             <div className="flex justify-center items-center">
-              <button className="button" onClick={() => setTransfersData(null)}>
+              <button className="btn-primary mx-4 w-40" onClick={() => setTransfersData(null)}>
                 {strings.transfers.cancel}
               </button>
-              <button className="button" onClick={onSubmitTransfers}>
+              <button className="btn-primary mx-4 w-40" onClick={onSubmitTransfers}>
                 {strings.transfers.approve}
               </button>
             </div>

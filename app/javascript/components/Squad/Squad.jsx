@@ -182,9 +182,8 @@ export const Squad = ({
 
   const classListForPlayerCard = (uuid) => {
     return [
-      'player-card',
-      playerUuidForChange === uuid ? 'for-change' : '',
-      playerUuidsToChange.includes(uuid) ? 'to-change' : '',
+      playerUuidForChange === uuid ? 'bg-red-400/75' : '',
+      playerUuidsToChange.includes(uuid) ? 'bg-green-400/75' : '',
     ].join(' ');
   };
 
@@ -313,8 +312,8 @@ export const Squad = ({
             <button
               className={
                 pageState.lineup.active_chips.includes('bench_boost')
-                  ? 'button active'
-                  : 'button inactive'
+                  ? 'btn-primary btn-small mr-2 bg-blue-800'
+                  : 'btn-primary btn-small'
               }
               onClick={() => toggleChip('bench_boost')}
             >
@@ -323,8 +322,8 @@ export const Squad = ({
             <button
               className={
                 pageState.lineup.active_chips.includes('triple_captain')
-                  ? 'button active'
-                  : 'button inactive'
+                  ? 'btn-primary btn-small mr-2 bg-blue-800'
+                  : 'btn-primary btn-small'
               }
               onClick={() => toggleChip('triple_captain')}
             >
@@ -335,7 +334,7 @@ export const Squad = ({
       ) : null}
       {sport?.changes ? (
         <div>
-          <button className="button" onClick={submit}>
+          <button className="btn-primary" onClick={submit}>
             {strings.squad.save}
           </button>
         </div>

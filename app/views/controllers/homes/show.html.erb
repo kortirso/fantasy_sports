@@ -1,10 +1,7 @@
 <%= render PageWrappers::PageComponent.new do %>
   <section class="grid grid-cols-5 gap-4">
     <% @seasons.each do |season| %>
-      <div class="relative p-4 shadow rounded">
-        <%= link_to sport_rules_path(season[:leagues_sport_kind]) do %>
-          <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", alt: 'sport icon', class: 'absolute top-4 right-4 w-6 h-6' %>
-        <% end %>
+      <div class="p-4 shadow rounded">
         <div class="h-full flex flex-col justify-between">
           <h3><%= localized_value(season[:leagues_name]) %></h3>
           <p>

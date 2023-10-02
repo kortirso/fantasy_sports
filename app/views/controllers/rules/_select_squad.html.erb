@@ -1,0 +1,13 @@
+<h4 class="mt-4">Squad size</h4>
+<p>
+  To join the game select a squad of <%= sport.max_players %> players, consisting of:
+</p>
+<ul>
+  <% positions.each do |position| %>
+    <li><%= localized_value(position.name) %> - <%= position.total_amount %></li>
+  <% end %>
+</ul>
+<h4 class="mt-4">Budget</h4>
+<p>The total value of your initial squad must not exceed 100 points.</p>
+<h4 class="mt-4">Players per team</h4>
+<p>You can select up to <%= sport.max_team_players %> players from a single team.</p>

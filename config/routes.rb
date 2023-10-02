@@ -67,9 +67,7 @@ Rails.application.routes.draw do
     resources :fantasy_leagues, only: %i[show] do
       resources :joins, only: %i[index], module: 'fantasy_leagues'
     end
-    resources :sports, only: %i[] do
-      resources :rules, only: %i[index], module: 'sports'
-    end
+    resources :rules, only: %i[index]
     resources :lineups, only: %i[show update]
     resources :games, only: %i[] do
       resources :statistics, only: %i[index], module: 'games'

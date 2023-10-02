@@ -1,0 +1,33 @@
+<%= render PageWrappers::PageComponent.new do %>
+  <h1>Rules</h1>
+  <div class="grid grid-cols-3 gap-8">
+    <div>
+      <h2>Basketball</h2>
+      <%=
+        react_component 'Toggle',
+          header: 'Select squad',
+          children: render(
+            partial: 'select_squad',
+            locals: {
+              sport: Sport.find_by(title: 'basketball'),
+              positions: Sports::Position.where(sport: 'basketball').to_a
+            }
+          ).html_safe
+      %>
+    </div>
+    <div>
+      <h2>Football</h2>
+      <%=
+        react_component 'Toggle',
+          header: 'Select squad',
+          children: render(
+            partial: 'select_squad',
+            locals: {
+              sport: Sport.find_by(title: 'football'),
+              positions: Sports::Position.where(sport: 'football').to_a
+            }
+          ).html_safe
+      %>
+    </div>
+  </div>
+<% end %>

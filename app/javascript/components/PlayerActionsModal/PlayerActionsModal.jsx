@@ -11,19 +11,14 @@ export const PlayerActionsModal = ({ lineupPlayer, onMakeCaptain, onClose }) => 
   if (!lineupPlayer) return <></>;
 
   return (
-    <Modal show={!!lineupPlayer}>
-      <div className="button small modal-close" onClick={onClose}>
-        X
-      </div>
-      <div className="player-header">
-        <h2>{localizeValue(lineupPlayer.player.name)}</h2>
-      </div>
+    <Modal show={!!lineupPlayer} onClose={onClose}>
+      <h2>{localizeValue(lineupPlayer.player.name)}</h2>
       {onMakeCaptain ? (
         <div className="flex flex-col items-start">
-          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'captain')}>
+          <button className="btn-primary mb-2" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'captain')}>
             Make captain
           </button>
-          <button className="button" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'assistant')}>
+          <button className="btn-primary" onClick={() => onMakeCaptain(lineupPlayer.uuid, 'assistant')}>
             Make captain assistant
           </button>
         </div>
