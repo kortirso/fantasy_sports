@@ -2,20 +2,20 @@
   <div class="grid grid-cols-2 gap-8">
     <div>
       <h2><%= @fantasy_league.name %></h2>
-      <table cellSpacing="0" class="w-full">
+      <table cellSpacing="0" class="table">
         <thead>
-          <tr class="bg-gray-200">
-            <th class="py-1 px-2 text-left">Rank</th>
-            <th class="py-1 px-2 text-left">Team</th>
-            <th class="py-1 px-2 text-left">Total points</th>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Total points</th>
           </tr>
         </thead>
         <tbody>
           <% @fantasy_league_members.each.with_index(1) do |member, index| %>
             <tr>
-              <td class="p-2"><%= index %></td>
-              <td class="p-2"><%= member.name %></td>
-              <td class="p-2"><%= member.points %></td>
+              <td><%= index %></td>
+              <td><%= member.name %></td>
+              <td><%= member.points %></td>
             </tr>
           <% end %>
         </tbody>

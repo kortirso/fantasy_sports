@@ -8,7 +8,7 @@
       "positionView": "View by position",
       "teamView": "View by team",
       "sort": "Sort by",
-      "week": "Gameweek {number} deadline:",
+      "week": "Gameweek {number}",
       "selection": "Transfers",
       "makeTransfers": "Make transfers",
       "save": "Save",
@@ -41,9 +41,11 @@
       "chips": "Chips",
       "benchBoost": "Bench boost",
       "tripleCaptain": "Triple captain",
-      "chipsLimit": "Maximum amount of chips for week"
+      "chipsLimit": "Maximum amount of chips for week",
+      "deadline": "Deadline - {value}"
     },
     "squadPoints": {
+      "title": "Squad points",
       "totalPoints": "Total points",
       "averagePoints": "Average points",
       "hightestPoints": "Hightest points",
@@ -113,9 +115,11 @@
       "chips": "Бонусы",
       "benchBoost": "Очки запасных",
       "tripleCaptain": "Тройной бонус капитана",
-      "chipsLimit": "Достигнут лимит на бонусы"
+      "chipsLimit": "Достигнут лимит на бонусы",
+      "deadline": "Дедлайн - {value}"
     },
     "squadPoints": {
+      "title": "Результаты",
       "totalPoints": "Всего очков",
       "averagePoints": "Средний результат",
       "hightestPoints": "Наилучший результат",

@@ -29,11 +29,11 @@
   }
 
   .btn-primary {
-    @apply btn bg-blue-500 hover:bg-blue-600 text-white;
+    @apply btn bg-green-600 hover:bg-green-700 text-white;
   }
 
   .btn-danger {
-    @apply btn bg-red-500 hover:bg-red-600;
+    @apply btn bg-red-600 hover:bg-red-700;
   }
 
   .btn-info {
@@ -65,13 +65,13 @@
   }
 
   .form-field .form-value {
-    @apply bg-sky-200 border border-sky-300 rounded-sm py-1 px-4 leading-8;
+    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 leading-8;
 
     min-height: 42px;
   }
 
   .form-field .form-value:focus {
-    @apply border-sky-400;
+    @apply border-gray-400;
   }
 
   .form-field .form-value.full {
@@ -79,7 +79,7 @@
   }
 
   .form-field select {
-    @apply bg-sky-200 border border-sky-300 rounded-sm py-1 px-4 text-sm;
+    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 text-sm;
 
     min-width: 60px;
   }
@@ -190,5 +190,50 @@
 
   .player-card-action.captain {
     @apply right-0 top-9;
+  }
+
+  .tooltip {
+    @apply relative;
+  }
+
+  .tooltip .tooltiptext {
+    @apply w-24 invisible bg-zinc-800 text-white text-sm text-center py-1 px-0 rounded whitespace-nowrap;
+    @apply absolute z-10 opacity-0 transition-opacity delay-300;
+
+    bottom: 125%;
+    left: 50%;
+    margin-left: -3rem;
+  }
+
+  .tooltip .tooltiptext:after {
+    @apply absolute;
+
+    content: "";
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+
+  .tooltip:hover .tooltiptext {
+    @apply opacity-100 visible;
+  }
+
+  .table {
+    @apply w-full;
+  }
+
+  .table thead tr {
+    @apply bg-gray-200;
+  }
+
+  .table thead tr th {
+    @apply py-1 px-2 text-left;
+  }
+
+  .table tbody tr td {
+    @apply p-2 border-b border-gray-200;
   }
 }

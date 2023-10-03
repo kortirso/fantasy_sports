@@ -5,7 +5,6 @@ import { currentLocale, localizeValue } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Week, PlayerModal, PlayerCard } from '../../components';
-
 import { teamsRequest } from '../../requests/teamsRequest';
 
 import { lineupPlayersRequest } from './requests/lineupPlayersRequest';
@@ -32,20 +31,15 @@ export const SquadPoints = ({
   const [playerUuid, setPlayerUuid] = useState();
 
   useEffect(() => {
-    const fetchTeams = async () => {
-      return await teamsRequest(seasonUuid);
-    };
-
-    const fetchLineupPlayers = async () => {
-      return await lineupPlayersRequest(lineupUuid);
-    };
+    const fetchTeams = async () => await teamsRequest(seasonUuid);
+    const fetchLineupPlayers = async () => await lineupPlayersRequest(lineupUuid);
 
     Promise.all([fetchTeams(), fetchLineupPlayers()]).then(
-      ([fetchTeamsData, fetchLineupPlayersData]) =>
+      ([teamsData, lineupPlayersData]) =>
         setPageState({
           loading: false,
-          teamNames: fetchTeamsData,
-          lineupPlayers: fetchLineupPlayersData,
+          teamNames: teamsData,
+          lineupPlayers: lineupPlayersData,
         }),
     );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -55,9 +49,7 @@ export const SquadPoints = ({
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
 
-  const sportPositionName = (sportPosition) => {
-    return sportPosition.name.en.split(' ').join('-');
-  };
+  const sportPositionName = (sportPosition) => sportPosition.name.en.split(' ').join('-');
 
   const activePlayersByPosition = (positionKind) => {
     return pageState.lineupPlayers.filter(
@@ -67,37 +59,34 @@ export const SquadPoints = ({
 
   const reservePlayers = () => {
     return pageState.lineupPlayers
-      .filter((element) => {
-        return !element.active;
-      })
-      .sort((a, b) => {
-        return a.change_order > b.change_order ? 1 : -1;
-      });
+      .filter((element) => !element.active)
+      .sort((a, b) => a.change_order > b.change_order ? 1 : -1);
   };
 
   return (
     <>
-      <div className="deadline flex items-center justify-center">
-        <span>{strings.formatString(strings.squadPoints.week, { number: weekPosition })}</span>
-      </div>
-      <div className="flex flex-row justify-between transfers-stats">
-        <div className="transfers-stat flex items-center justify-between">
+      <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded">
+        {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
+      </span>
+      <h1>{strings.squadPoints.title}</h1>
+      <div className="flex flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
+        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
           <p>{strings.squadPoints.totalPoints}</p>
-          <p>{points}</p>
+          <p className="text-xl">{points}</p>
         </div>
-        <div className="transfers-stat flex items-center justify-between">
+        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
           <p>{strings.squadPoints.averagePoints}</p>
-          <p>{averagePoints}</p>
+          <p className="text-xl">{averagePoints}</p>
         </div>
-        <div className="transfers-stat flex items-center justify-between">
+        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10">
           <p>{strings.squadPoints.hightestPoints}</p>
-          <p>{maxPoints}</p>
+          <p className="text-xl">{maxPoints}</p>
         </div>
       </div>
-      <div className="points-header flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <div>
           {previousPointsUrl ? (
-            <a className="button small" href={previousPointsUrl}>
+            <a className="btn-primary btn-small" href={previousPointsUrl}>
               {strings.week.previous}
             </a>
           ) : null}
@@ -105,15 +94,18 @@ export const SquadPoints = ({
         <div></div>
         <div>
           {nextPointsUrl ? (
-            <a className="button small" href={nextPointsUrl}>
+            <a className="btn-primary btn-small" href={nextPointsUrl}>
               {strings.week.next}
             </a>
           ) : null}
         </div>
       </div>
-      <div id="team-players-by-positions" className={sportKind}>
+      <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
         {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-          <div className={`sport-position ${sportPositionName(sportPosition)}`} key={positionKind}>
+          <div
+            className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
+            key={positionKind}
+          >
             {activePlayersByPosition(positionKind).map((item) => (
               <PlayerCard
                 key={item.uuid}
@@ -127,7 +119,7 @@ export const SquadPoints = ({
         ))}
       </div>
       {sport.changes && (
-        <div className="substitutions">
+        <div className="flex flex-row justify-center mt-4 mb-8">
           {reservePlayers().map((item) => (
             <PlayerCard
               key={item.uuid}

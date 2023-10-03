@@ -45,13 +45,13 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     return seasonPlayer.games_players.data.map((item) => {
       return (
         <tr key={item.attributes.uuid}>
-          <td>{item.attributes.week.position}</td>
-          <td>{localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}</td>
-          <td>{item.attributes.points}</td>
+          <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.week.position}</td>
+          <td className="text-center border-b border-gray-200 py-2 px-4">{localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}</td>
+          <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
-            <td key={stat}>{item.attributes.statistic[stat]}</td>
+            <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
           ))}
-          <td></td>
+          <td className="text-center border-b border-gray-200 py-2 px-4"></td>
         </tr>
       );
     });
@@ -64,24 +64,24 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         <h2 className="mb-2">{localizeValue(seasonPlayer.player.name)}</h2>
         <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
       </div>
-      <div className="flex justify-between mb-8">
-        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+      <div className="flex justify-between mb-8 bg-gray-200 rounded shadow">
+        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
           <p className="text-sm">{strings.player.form}</p>
           <p className="mt-1">{seasonPlayer.form}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
           <p className="text-sm">{strings.player.poinstPerGame}</p>
           <p className="mt-1">{perGamePoints()}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
           <p className="text-sm">{strings.player.lastWeek}</p>
           <p className="mt-1">{lastPoints()}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
           <p className="text-sm">{strings.player.totalPoints}</p>
           <p className="mt-1">{seasonPlayer.player.points}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-200 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
           <p className="text-sm">{strings.player.price}</p>
           <p className="mt-1">{seasonPlayer.price}</p>
         </div>
@@ -90,19 +90,19 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           <p className="mt-1">{seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
-      <div className="player-modal-table">
+      <div className="w-full overflow-x-scroll">
         <h3>{strings.player.thisSeason}</h3>
         {seasonPlayer.games_players.data.length === 0 ? (
           <p>{strings.player.noSeasonGames}</p>
         ) : (
-          <table cellSpacing="0">
+          <table cellSpacing="0" className="min-w-full">
             <thead>
-              <tr>
-                <th>GW</th>
-                <th>Opponent</th>
-                <th>Pts</th>
+              <tr className="bg-gray-200">
+                <th className="text-sm py-2 px-4">GW</th>
+                <th className="text-sm py-2 px-4">Opponent</th>
+                <th className="text-sm py-2 px-4">Pts</th>
                 {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
-                  <th className="tooltip" key={stat}>
+                  <th className="tooltip text-sm py-2 px-4" key={stat}>
                     {stat}
                     <span className="tooltiptext">{value}</span>
                   </th>

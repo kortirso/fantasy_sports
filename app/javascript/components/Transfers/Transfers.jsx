@@ -240,6 +240,9 @@ export const Transfers = ({
   return (
     <div className="grid grid-cols-4 gap-8">
       <div className="col-span-3">
+        <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mr-2">
+          {strings.formatString(strings.transfers.week, { number: weekPosition })}
+        </span>
         <h1>{strings.transfers.selection}</h1>
         {!fantasyTeamCompleted && (
           <div class="flex">
@@ -264,16 +267,12 @@ export const Transfers = ({
             </div>
           </div>
         )}
-        <div className="p-2 flex items-center justify-center bg-sky-200">
-          <span>{strings.formatString(strings.transfers.week, { number: weekPosition })}</span>
-          <span className="pl-2">{weekDeadlineAt}</span>
-        </div>
-        <div className="flex flex-row justify-between mt-2">
-          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-200">
+        <div className="flex flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
+          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
             <p>{strings.transfers.free}</p>
             <p className="text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
-          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-200">
+          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
             <p>{strings.transfers.cost}</p>
             <p className="text-xl">0</p>
           </div>
@@ -283,6 +282,9 @@ export const Transfers = ({
           </div>
         </div>
         <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
+          <span className="absolute left-16 top-4 inline-block bg-red-600 text-white text-sm py-1 px-2 rounded mb-4">
+            <span>{strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}</span>
+          </span>
           {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
             <div
               className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}

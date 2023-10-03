@@ -1,17 +1,17 @@
-<table cellSpacing="0" class="w-full">
+<table cellSpacing="0" class="table">
   <thead>
-    <tr class="bg-gray-200">
-      <th class="py-1 px-2 text-left"><%= t('views.fantasy_teams.fantasy_leagues.index.table.league') %></th>
-      <th class="py-1 px-2 text-left"><%= t('views.fantasy_teams.fantasy_leagues.index.table.teams') %></th>
-      <th class="py-1 px-2 text-left"><%= t('views.fantasy_teams.fantasy_leagues.index.table.rank') %></th>
+    <tr>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.league') %></th>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.teams') %></th>
+      <th><%= t('views.fantasy_teams.fantasy_leagues.index.table.rank') %></th>
     </tr>
   </thead>
   <tbody>
     <% @fantasy_leagues.each do |league| %>
       <tr>
-        <td class="p-2"><%= link_to league.name, fantasy_league_path(league.uuid) %></td>
-        <td class="p-2"><%= league.fantasy_teams.size %></td>
-        <td class="p-2"><%= league.fantasy_teams.where('points > ?', @fantasy_team.points).size + 1 %></td>
+        <td><%= link_to league.name, fantasy_league_path(league.uuid) %></td>
+        <td><%= league.fantasy_teams.size %></td>
+        <td><%= league.fantasy_teams.where('points > ?', @fantasy_team.points).size + 1 %></td>
       </tr>
     <% end %>
   </tbody>

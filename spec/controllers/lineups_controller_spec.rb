@@ -74,11 +74,8 @@ describe LineupsController do
             }
           end
 
-          it 'does not update lineup' do
+          it 'does not update lineup', :aggregate_failures do
             expect(lineup.reload.active_chips).to eq []
-          end
-
-          it 'returns status 422' do
             expect(response).to have_http_status :unprocessable_entity
           end
         end
@@ -92,11 +89,8 @@ describe LineupsController do
             }
           end
 
-          it 'does not update lineup' do
+          it 'does not update lineup', :aggregate_failures do
             expect(lineup.reload.active_chips).to eq []
-          end
-
-          it 'returns status 422' do
             expect(response).to have_http_status :unprocessable_entity
           end
         end
@@ -106,11 +100,8 @@ describe LineupsController do
             patch :update, params: { id: lineup.uuid, lineup: { active_chips: [Chipable::BENCH_BOOST] }, locale: 'en' }
           end
 
-          it 'updates lineup' do
+          it 'updates lineup', :aggregate_failures do
             expect(lineup.reload.active_chips).to eq [Chipable::BENCH_BOOST]
-          end
-
-          it 'returns status 200' do
             expect(response).to have_http_status :ok
           end
         end

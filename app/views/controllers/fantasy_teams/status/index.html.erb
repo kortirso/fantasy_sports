@@ -1,7 +1,7 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <% if @lineup %>
     <h1><%= t('views.fantasy_teams.status.index.title', week: @lineup.week.position) %></h1>
-    <%= react_component 'TransfersStatus', weekUuid: @lineup.week.uuid %>
+    <%= react_component 'TransfersStatus', weekUuid: @lineup.week.uuid, sportKind: @season.league.sport_kind %>
   <% else %>
     <h2><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
   <% end %>
