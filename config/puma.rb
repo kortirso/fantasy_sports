@@ -15,7 +15,7 @@ threads min_threads_count, max_threads_count
 worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch('PORT', 5001)
+port ENV.fetch('PORT', 5002)
 
 # rubocop: disable Style/ExpandPathArguments
 app_dir = File.expand_path('../..', __FILE__)
