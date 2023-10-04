@@ -380,6 +380,8 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    skylight (6.0.1)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -455,6 +457,7 @@ DEPENDENCIES
   service_operator
   shoulda-matchers (~> 5.0)
   simplecov
+  skylight
   sprockets-rails
   strong_migrations (~> 1.4)
   tailwindcss-rails
