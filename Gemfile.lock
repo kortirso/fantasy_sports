@@ -235,6 +235,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
+      racc (~> 1.4)
     pagy (6.1.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -416,6 +418,8 @@ GEM
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.30-x86_64-darwin)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.30-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.2.2)
     tilt (2.3.0)
     timeout (0.4.0)
@@ -435,6 +439,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   action_policy (~> 0.6)
