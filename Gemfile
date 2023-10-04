@@ -100,6 +100,11 @@ group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem 'rack-mini-profiler', '>= 2.3.3'
 
+  gem 'capistrano', '~> 3.17', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', '~> 1.6', require: false
+  gem 'capistrano-rvm', require: false
+
   # security checks
   gem 'brakeman'
 
