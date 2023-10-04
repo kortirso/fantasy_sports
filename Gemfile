@@ -88,6 +88,9 @@ gem 'frozen_record'
 # performance metrics
 gem 'skylight'
 
+# view pagination
+gem 'pagy', '~> 6.0'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'main'
   gem 'rubocop', '~> 1.35', require: false

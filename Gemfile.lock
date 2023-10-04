@@ -468,6 +468,7 @@ DEPENDENCIES
   jwt (~> 2.5)
   kudos
   letter_opener
+  pagy (~> 6.0)
   pg (~> 1.4)
   pghero
   puma (~> 6.0)
