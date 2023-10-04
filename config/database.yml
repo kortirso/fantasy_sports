@@ -19,4 +19,4 @@ production:
   <<: *default
   database: fantasy_sports_production
   username: fantasy_sports
-  password: <%= ENV['FANTASY_SPORTS_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials[:database_password] %>

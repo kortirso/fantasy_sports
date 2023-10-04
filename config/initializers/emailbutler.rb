@@ -3,8 +3,11 @@
 require 'emailbutler/adapters/active_record'
 
 Emailbutler.configure do |config|
+  credentials = Rails.application.credentials
+
   config.adapter = Emailbutler::Adapters::ActiveRecord.new
-  # config.ui_username = 'username'
-  # config.ui_password = 'password'
-  # config.ui_secured_environments = ['production']
+  config.ui_username = credentials.dig(:emailbutler, :username)
+  config.ui_password = credentials.dig(:emailbutler, :password)
+  config.ui_secured_environments = ['production']
+  config.skip_before_actions = %i[verify_authenticity_token authenticate check_email_confirmation]
 end
