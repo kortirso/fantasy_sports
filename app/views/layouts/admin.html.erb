@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag 'tailwind', 'inter-font' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body class="flex flex-row">
+  <body class="relative flex flex-col m-0 p-0 min-h-screen">
     <%= render PageWrappers::AdminComponent.new do %>
       <%= yield %>
     <% end %>

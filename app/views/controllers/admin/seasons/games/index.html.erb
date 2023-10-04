@@ -1,8 +1,8 @@
 <div class="flex flex-row justify-between items-center">
   <h1><%= t('views.admin.seasons.games.index.header') %></h1>
-  <%= link_to t('views.admin.seasons.games.index.new_game'), new_admin_season_game_path, class: 'button' %>
+  <%= link_to t('views.admin.seasons.games.index.new_game'), new_admin_season_game_path, class: 'btn-primary' %>
 </div>
-<table class="admin-table" cellSpacing="0">
+<table class="table" cellSpacing="0">
   <thead>
     <tr>
       <th>ID</th>
@@ -28,8 +28,8 @@
         <td><%= game.external_id %></td>
         <td><%= game.start_at %></td>
         <td>
-          <%= link_to t('views.admin.seasons.games.index.edit'), edit_admin_season_game_path(@season.uuid, game.uuid), class: 'button small' %>
-          <%= link_to t('views.admin.seasons.games.index.statistics'), admin_season_game_statistics_path(@season.uuid, game.uuid), class: 'button small' %>
+          <%= link_to t('views.admin.seasons.games.index.edit'), edit_admin_season_game_path(@season.uuid, game.uuid), class: 'btn-primary btn-small' %>
+          <%= link_to t('views.admin.seasons.games.index.statistics'), admin_season_game_statistics_path(@season.uuid, game.uuid), class: 'btn-primary btn-small' %>
         </td>
       </tr>
     <% end %>

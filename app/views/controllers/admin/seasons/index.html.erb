@@ -1,10 +1,10 @@
 <div class="flex flex-row justify-between items-center">
   <h1><%= t('views.admin.seasons.index.header') %></h1>
-  <%= link_to t('views.admin.seasons.index.new_season'), new_admin_season_path, class: 'button' %>
+  <%= link_to t('views.admin.seasons.index.new_season'), new_admin_season_path, class: 'btn-primary' %>
 </div>
 <% @leagues.each do |league| %>
   <h3><%= localized_value(league.name) %></h3>
-  <table class="admin-table" cellSpacing="0">
+  <table class="table mb-4" cellSpacing="0">
     <thead>
       <tr>
         <th>ID</th>
@@ -19,7 +19,7 @@
           <td><%= season.id %></td>
           <td><%= season.name %></td>
           <td><%= season.active %></td>
-          <td><%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'button' %></td>
+          <td><%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary' %></td>
         </tr>
       <% end %>
     </tbody>

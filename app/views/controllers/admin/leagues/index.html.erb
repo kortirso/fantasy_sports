@@ -1,10 +1,10 @@
 <div class="flex flex-row justify-between items-center">
   <h1><%= t('views.admin.leagues.index.header') %></h1>
-  <%= link_to t('views.admin.leagues.index.new_league'), new_admin_league_path, class: 'button' %>
+  <%= link_to t('views.admin.leagues.index.new_league'), new_admin_league_path, class: 'btn-primary' %>
 </div>
 <% Sport.all.pluck(:title).each do |sport_kind| %>
   <h3><%= sport_kind.capitalize %></h3>
-  <table class="admin-table" cellSpacing="0">
+  <table class="table mb-4" cellSpacing="0">
     <thead>
       <tr>
         <th>ID</th>

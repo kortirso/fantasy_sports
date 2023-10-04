@@ -70,6 +70,12 @@
     min-height: 42px;
   }
 
+  .form-field .form-value[type="checkbox"] {
+    @apply p-0;
+
+    min-height: auto;
+  }
+
   .form-field .form-value:focus {
     @apply border-gray-400;
   }
