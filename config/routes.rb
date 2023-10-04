@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   mount Emailbutler::Engine => '/emailbutler'
   mount PgHero::Engine, at: 'pghero'
+  mount Que::Web => '/que'
 
   localized do
     namespace :admin do

@@ -50,6 +50,7 @@ gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator'
 
 # active jobs adapter
 gem 'que', '~> 2.2.0'
+gem 'que-web'
 
 # http client
 gem 'faraday', '~> 2.0'
