@@ -2,7 +2,10 @@
 
 module Users
   class SessionsController < ApplicationController
+    include Deps[generate_token: 'services.auth.generate_token']
+
     skip_before_action :authenticate
+    skip_before_action :check_email_confirmation
     before_action :find_user, only: %i[create]
     before_action :authenticate_user, only: %i[create]
     before_action :check_email_confirmation, only: %i[create]
@@ -10,7 +13,7 @@ module Users
     def new; end
 
     def create
-      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: @user).result
+      session[:fantasy_sports_token] = generate_token.call(user: @user)[:result]
       redirect_to after_login_path, notice: t('controllers.users.sessions.success_create')
     end
 

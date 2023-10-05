@@ -2,6 +2,8 @@
 
 module Users
   class RegistrationsController < ApplicationController
+    include Deps[generate_token: 'services.auth.generate_token']
+
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
 
@@ -19,7 +21,7 @@ module Users
     private
 
     def success_create_response(user)
-      session[:fantasy_sports_token] = ::Auth::GenerateToken.call(user: user).result
+      session[:fantasy_sports_token] = generate_token.call(user: user)[:result]
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 

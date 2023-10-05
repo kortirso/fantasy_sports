@@ -12,10 +12,10 @@ module Authentication
   def current_user
     return unless session[:fantasy_sports_token]
 
-    auth_call = Auth::FetchUser.call(token: session[:fantasy_sports_token])
-    return if auth_call.failure?
+    auth_call = FantasySports::Container['services.auth.fetch_session'].call(token: session[:fantasy_sports_token])
+    return if auth_call[:errors].present?
 
-    Current.user ||= auth_call.result
+    Current.user ||= auth_call[:result].user
   end
 
   def authenticate

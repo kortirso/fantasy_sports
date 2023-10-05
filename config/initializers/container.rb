@@ -15,6 +15,8 @@ module FantasySports
       end
     end
 
+    register('jwt_encoder') { JwtEncoder.new }
+
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
     register('contracts.games.update') { Games::UpdateContract.new }
@@ -36,6 +38,10 @@ module FantasySports
     register('validators.fantasy_team') { FantasyTeamValidator.new }
     register('validators.league') { LeagueValidator.new }
     register('validators.season') { SeasonValidator.new }
+
+    # services
+    register('services.auth.fetch_session') { Auth::FetchSessionService.new }
+    register('services.auth.generate_token') { Auth::GenerateTokenService.new }
   end
 end
 

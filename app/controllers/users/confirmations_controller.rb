@@ -3,8 +3,9 @@
 module Users
   class ConfirmationsController < ApplicationController
     skip_before_action :authenticate
+    skip_before_action :check_email_confirmation
     before_action :find_user
-    before_action :check_email_confirmation
+    before_action :check_confirmation_token
 
     def complete
       Users::UpdateService.call(user: @user, params: { confirmation_token: nil, confirmed_at: DateTime.now })
@@ -20,7 +21,7 @@ module Users
       failed_complete_confirmation
     end
 
-    def check_email_confirmation
+    def check_confirmation_token
       return if @user.confirmation_token == params[:confirmation_token]
 
       failed_complete_confirmation
