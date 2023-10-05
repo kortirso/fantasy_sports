@@ -89,6 +89,9 @@ gem 'frozen_record'
 # performance metrics
 gem 'skylight'
 
+# bugs tracking
+gem 'bugsnag'
+
 # view pagination
 gem 'pagy', '~> 6.0'
 
