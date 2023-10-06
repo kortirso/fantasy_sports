@@ -22,7 +22,7 @@ module Users
     end
 
     def find_user
-      @user = User.find_by(email: params[:email]&.downcase)
+      @user = User.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_recovery

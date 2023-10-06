@@ -52,7 +52,7 @@ describe Users::RegistrationsController do
     end
 
     context 'for valid data' do
-      let(:user_params) { { email: 'useR@gmail.com', password: '12345678', password_confirmation: '12345678' } }
+      let(:user_params) { { email: ' useR@gmail.com ', password: '12345678', password_confirmation: '12345678' } }
       let(:request) { post :create, params: { user: user_params, locale: 'en' } }
 
       it 'creates new user', :aggregate_failures do

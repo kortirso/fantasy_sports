@@ -36,7 +36,7 @@ module Users
 
     def user_params
       params_hash = params.require(:user).permit(:email, :password, :password_confirmation)
-      params_hash[:email].downcase!
+      params_hash[:email] = params_hash[:email].strip.downcase
       params_hash
     end
   end

@@ -26,7 +26,7 @@ module Users
     private
 
     def find_user
-      @user = User.find_by(email: user_params[:email]&.downcase)
+      @user = User.find_by(email: user_params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_sign_in
