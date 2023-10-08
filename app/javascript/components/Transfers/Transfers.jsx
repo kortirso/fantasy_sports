@@ -162,7 +162,7 @@ export const Transfers = ({
     const emptySlots =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
     return [...Array(emptySlots).keys()].map((item) => {
-      return <PlayerCard key={item} teamName="" name="" value="" />;
+      return <PlayerCard key={item} />;
     });
   };
 
@@ -296,6 +296,7 @@ export const Transfers = ({
                   teamName={pageState.teamNames[item.team.uuid]?.short_name}
                   name={localizeValue(item.player.name).split(' ')[0]}
                   value={item.price}
+                  number={item.shirt_number}
                   onActionClick={() => removeTeamMember(item)}
                   onInfoClick={() => setPlayerUuid(item.uuid)}
                 />

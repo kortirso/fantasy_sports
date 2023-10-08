@@ -4,14 +4,18 @@
       <div class="p-4 shadow rounded">
         <div class="h-full flex flex-col justify-between">
           <h3><%= localized_value(season[:leagues_name]) %></h3>
-          <p>
-            <%=
-              render Views::Homes::Show::FantasyTeamLinkComponent.new(
-                season_uuid: season[:uuid],
-                fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
-              )
-            %>
-          </p>
+          <% if season[:start_at].nil? || DateTime.now > season[:start_at] %>
+            <p>
+              <%=
+                render Views::Homes::Show::FantasyTeamLinkComponent.new(
+                  season_uuid: season[:uuid],
+                  fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
+                )
+              %>
+            </p>
+          <% else %>
+            <p>Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
+          <% end %>
         </div>
       </div>
     <% end %>

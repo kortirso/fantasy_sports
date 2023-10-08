@@ -157,6 +157,7 @@
 
   .basketball-field .player-jersey.BOS { background-image: url('icons/jerseys/basketball/boston.svg') }
   .basketball-field .player-jersey.LAL { background-image: url('icons/jerseys/basketball/lal.svg') }
+  .basketball-field .player-jersey.LAL span { color: #552583; }
   .basketball-field .player-jersey.BKN { background-image: url('icons/jerseys/basketball/brooklyn.svg') }
   .basketball-field .player-jersey.NYK { background-image: url('icons/jerseys/basketball/knicks.svg') }
   .basketball-field .player-jersey.TOR { background-image: url('icons/jerseys/basketball/toronto.svg') }

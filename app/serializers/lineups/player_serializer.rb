@@ -12,7 +12,8 @@ module Lineups
 
     attribute :teams_player do |object|
       {
-        uuid: object.teams_player.uuid
+        uuid: object.teams_player.uuid,
+        shirt_number: object.teams_player.shirt_number
       }
     end
 

@@ -282,6 +282,7 @@ export const Squad = ({
                 teamName={pageState.teamNames[item.team.uuid]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={oppositeTeamNames(item)}
+                number={item.teams_player.shirt_number}
                 status={item.status}
                 onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
                 onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
@@ -300,6 +301,7 @@ export const Squad = ({
               teamName={pageState.teamNames[item.team.uuid]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={oppositeTeamNames(item)}
+              number={item.teams_player.shirt_number}
               status={item.status}
               onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
               onActionClick={() => changePlayer(item, false)}

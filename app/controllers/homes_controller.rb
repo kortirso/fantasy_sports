@@ -11,7 +11,7 @@ class HomesController < ApplicationController
   def find_seasons
     @seasons = Season.active.includes(:league).order('leagues.id ASC')
     @seasons = @seasons.where(leagues: { sport_kind: League.sport_kinds[params['sport_kind']] }) if params['sport_kind']
-    @seasons = @seasons.hashable_pluck(:id, :uuid, 'leagues.sport_kind', 'leagues.name')
+    @seasons = @seasons.hashable_pluck(:id, :uuid, :start_at, 'leagues.sport_kind', 'leagues.name')
   end
 
   def find_user_fantasy_teams

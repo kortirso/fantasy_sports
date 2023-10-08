@@ -1031,7 +1031,8 @@ CREATE TABLE public.seasons (
     active boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    uuid uuid NOT NULL
+    uuid uuid NOT NULL,
+    start_at timestamp(6) without time zone
 );
 
 
@@ -2186,6 +2187,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221201161232'),
 ('20221208151825'),
 ('20221226171032'),
-('20230928164428');
+('20230928164428'),
+('20231008190606');
 
 
