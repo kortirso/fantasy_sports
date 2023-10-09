@@ -157,7 +157,6 @@
 
   .basketball-field .player-jersey.BOS { background-image: url('icons/jerseys/basketball/boston.svg') }
   .basketball-field .player-jersey.LAL { background-image: url('icons/jerseys/basketball/lal.svg') }
-  .basketball-field .player-jersey.LAL span { color: #552583; }
   .basketball-field .player-jersey.BKN { background-image: url('icons/jerseys/basketball/brooklyn.svg') }
   .basketball-field .player-jersey.NYK { background-image: url('icons/jerseys/basketball/knicks.svg') }
   .basketball-field .player-jersey.TOR { background-image: url('icons/jerseys/basketball/toronto.svg') }
@@ -186,6 +185,37 @@
   .basketball-field .player-jersey.NOP { background-image: url('icons/jerseys/basketball/pelicans.svg') }
   .basketball-field .player-jersey.SAS { background-image: url('icons/jerseys/basketball/spurs.svg') }
   .basketball-field .player-jersey.HOU { background-image: url('icons/jerseys/basketball/houston.svg') }
+
+  .basketball-field .player-jersey.BOS span { color: #fff; }
+  .basketball-field .player-jersey.LAL span { color: #552583; }
+  .basketball-field .player-jersey.BKN span { color: #fff; }
+  .basketball-field .player-jersey.NYK span { color: #F58426; }
+  .basketball-field .player-jersey.TOR span { color: #fff; }
+  .basketball-field .player-jersey.PHI span { color: #fff; }
+  .basketball-field .player-jersey.DET span { color: #C8102E; }
+  .basketball-field .player-jersey.IND span { color: #FDBB30; }
+  .basketball-field .player-jersey.CLE span { color: #000; }
+  .basketball-field .player-jersey.MIL span { color: #EEE1C6; }
+  .basketball-field .player-jersey.CHI span { color: #fff; }
+  .basketball-field .player-jersey.ATL span { color: #FDB927; }
+  .basketball-field .player-jersey.WAS span { color: #fff; }
+  .basketball-field .player-jersey.MIA span { color: #98002E; }
+  .basketball-field .player-jersey.ORL span { color: #fff; }
+  .basketball-field .player-jersey.CHA span { color: #fff; }
+  .basketball-field .player-jersey.DEN span { color: #fff; }
+  .basketball-field .player-jersey.MIN span { color: #fff; }
+  .basketball-field .player-jersey.OKC span { color: #fdbb30; }
+  .basketball-field .player-jersey.POR span { color: #fff; }
+  .basketball-field .player-jersey.UTA span { color: #F9A01B; }
+  .basketball-field .player-jersey.GSW span { color: #FDB927; }
+  .basketball-field .player-jersey.LAC span { color: #fff; }
+  .basketball-field .player-jersey.SAC span { color: #fff; }
+  .basketball-field .player-jersey.PHX span { color: #fff; }
+  .basketball-field .player-jersey.DAL span { color: #fff; }
+  .basketball-field .player-jersey.MEM span { color: #fff; }
+  .basketball-field .player-jersey.NOP span { color: #fff; }
+  .basketball-field .player-jersey.SAS span { color: #fff; }
+  .basketball-field .player-jersey.HOU span { color: #000; }
 
   .player-card-action {
     @apply absolute top-2 w-6 h-6 cursor-pointer bg-white hover:bg-gray-200 border border-gray-300 rounded flex flex-row justify-center items-center;
