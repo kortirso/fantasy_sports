@@ -91,7 +91,7 @@
   }
 
   .form-dropdown {
-    @apply block absolute z-10 left-0 w-full border border-gray-200 rounded-sm;
+    @apply block absolute z-10 left-0 w-full border border-gray-200 rounded-sm max-h-72 overflow-x-scroll;
 
     top: 42px;
   }
