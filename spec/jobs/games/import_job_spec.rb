@@ -12,7 +12,7 @@ describe Games::ImportJob, type: :service do
   context 'for unexisting game' do
     let(:game_id) { 'unexisting' }
 
-    it 'calls service' do
+    it 'does not call service' do
       job_call
 
       expect(Games::ImportService).not_to have_received(:call)
