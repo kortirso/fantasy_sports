@@ -6,7 +6,7 @@ module Cacheable
   private
 
   def cached_response(**, &block)
-    Rails.cache.fetch(cache_key(**), &block)
+    Rails.cache.fetch(cache_key(**), expires_in: 12.hours, &block)
   end
 
   def cache_key(payload:, name:, version:)

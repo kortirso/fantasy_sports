@@ -34,10 +34,6 @@ module ApplicationService
     @errors.any?
   end
 
-  def call_parameters
-    method(:call).super_method.parameters
-  end
-
   private
 
   def fails!(messages)

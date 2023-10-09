@@ -108,13 +108,8 @@ describe FantasyTeams::FantasyLeaguesController do
             post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' }, locale: 'en' }
           }
 
-          it 'does not create fantasy league' do
+          it 'does not create fantasy league', :aggregate_failures do
             expect { request }.not_to change(FantasyLeague, :count)
-          end
-
-          it 'redirects to new template' do
-            request
-
             expect(response).to redirect_to new_fantasy_team_fantasy_league_en_path
           end
         end
@@ -124,13 +119,8 @@ describe FantasyTeams::FantasyLeaguesController do
             post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: 'Name' }, locale: 'en' }
           }
 
-          it 'creates fantasy league' do
+          it 'creates fantasy league', :aggregate_failures do
             expect { request }.to change(@current_user.fantasy_leagues, :count).by(1)
-          end
-
-          it 'redirects to leagues list' do
-            request
-
             expect(response).to redirect_to fantasy_team_fantasy_leagues_en_path
           end
         end

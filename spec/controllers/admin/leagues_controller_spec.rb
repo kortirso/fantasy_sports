@@ -99,13 +99,8 @@ describe Admin::LeaguesController do
         context 'for invalid params' do
           let(:request) { post :create, params: { league: { name_en: '' }, locale: 'en' } }
 
-          it 'does not create league' do
+          it 'does not create league', :aggregate_failures do
             expect { request }.not_to change(League, :count)
-          end
-
-          it 'redirects to new_admin_league_path' do
-            request
-
             expect(response).to redirect_to new_admin_league_en_path
           end
         end
@@ -115,13 +110,8 @@ describe Admin::LeaguesController do
             post :create, params: { league: { name_en: 'En', name_ru: 'Ru', sport_kind: 'football' }, locale: 'en' }
           }
 
-          it 'creates league' do
+          it 'creates league', :aggregate_failures do
             expect { request }.to change(League, :count).by(1)
-          end
-
-          it 'redirects to admin_leagues_path' do
-            request
-
             expect(response).to redirect_to admin_leagues_en_path
           end
         end

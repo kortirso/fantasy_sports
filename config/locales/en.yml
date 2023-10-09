@@ -43,6 +43,9 @@ en:
       seasons:
         create:
           success: Season is created
+        teams_players:
+          update:
+            success: Teams player is updated
     application:
       page_not_found: Page is not found
     maintenable:
@@ -124,6 +127,7 @@ en:
           name: Name
           active: Active
           games: Games
+          teams_players: Teams players
         new:
           name: Name
           active: Active
@@ -150,6 +154,17 @@ en:
             index:
               name: Name
               submit: Save
+        teams_players:
+          index:
+            header: Teams players
+            edit: Edit
+          edit:
+            title: Edit teams player
+            active: Active
+            price_cents: Price cents
+            shirt_number: Shirt number
+            form: Form
+            save: Save
     fantasy_leagues:
       show:
         title: Inviting friends to join

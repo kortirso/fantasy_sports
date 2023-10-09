@@ -8,6 +8,7 @@ class Season < ApplicationRecord
 
   has_many :seasons_teams, class_name: 'Seasons::Team', foreign_key: :season_id, dependent: :destroy
   has_many :teams, through: :seasons_teams
+  has_many :teams_players, through: :seasons_teams
   has_many :active_teams_players, through: :seasons_teams
 
   has_many :weeks, dependent: :destroy
