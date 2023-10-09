@@ -116,13 +116,8 @@ describe Admin::Seasons::GamesController do
       context 'for invalid params' do
         let(:request) { post :create, params: { season_id: season.uuid, game: { week_id: week.id }, locale: 'en' } }
 
-        it 'does not create game' do
+        it 'does not create game', :aggregate_failures do
           expect { request }.not_to change(Game, :count)
-        end
-
-        it 'redirects to new_admin_season_game_path' do
-          request
-
           expect(response).to redirect_to new_admin_season_game_en_path
         end
       end
@@ -140,13 +135,8 @@ describe Admin::Seasons::GamesController do
           }
         }
 
-        it 'creates game' do
+        it 'creates game', :aggregate_failures do
           expect { request }.to change(season.games, :count).by(1)
-        end
-
-        it 'redirects to admin_season_games_path' do
-          request
-
           expect(response).to redirect_to admin_season_games_en_path
         end
       end
@@ -190,15 +180,10 @@ describe Admin::Seasons::GamesController do
           }
         }
 
-        it 'does not update game' do
+        it 'does not update game', :aggregate_failures do
           request
 
           expect(game.reload.week_id).to eq week.id
-        end
-
-        it 'redirects to edit_admin_season_game_path' do
-          request
-
           expect(response).to redirect_to edit_admin_season_game_en_path
         end
       end
@@ -210,15 +195,10 @@ describe Admin::Seasons::GamesController do
           }
         }
 
-        it 'does not update game' do
+        it 'does not update game', :aggregate_failures do
           request
 
           expect(game.reload.week_id).to eq week.id
-        end
-
-        it 'redirects to edit_admin_season_game_path' do
-          request
-
           expect(response).to redirect_to edit_admin_season_game_en_path
         end
       end
@@ -231,15 +211,10 @@ describe Admin::Seasons::GamesController do
           }
         }
 
-        it 'updates game' do
+        it 'updates game', :aggregate_failures do
           request
 
           expect(game.reload.week_id).to eq week2.id
-        end
-
-        it 'redirects to admin_season_games_path' do
-          request
-
           expect(response).to redirect_to admin_season_games_en_path
         end
       end
@@ -279,13 +254,8 @@ describe Admin::Seasons::GamesController do
       context 'for existing game' do
         let(:request) { delete :destroy, params: { season_id: season.uuid, id: game.uuid, locale: 'en' } }
 
-        it 'destroys game' do
+        it 'destroys game', :aggregate_failures do
           expect { request }.to change(Game, :count).by(-1)
-        end
-
-        it 'redirects to admin_season_games_path' do
-          request
-
           expect(response).to redirect_to admin_season_games_en_path
         end
       end

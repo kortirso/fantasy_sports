@@ -19,7 +19,10 @@
           <td><%= season.id %></td>
           <td><%= season.name %></td>
           <td><%= season.active %></td>
-          <td><%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary' %></td>
+          <td>
+            <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary' %>
+            <%= link_to t('views.admin.seasons.index.teams_players'), admin_season_teams_players_path(season.uuid), class: 'btn-primary' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

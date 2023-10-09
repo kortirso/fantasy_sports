@@ -43,6 +43,9 @@ ru:
       seasons:
         create:
           success: Сезон создан
+        teams_players:
+          update:
+            success: Teams player is updated
     application:
       page_not_found: Страница не найдена
     maintenable:
@@ -124,6 +127,7 @@ ru:
           name: Название
           active: Активность
           games: Игры
+          teams_players: Игроки команд
         new:
           name: Название
           active: Активность
@@ -150,6 +154,17 @@ ru:
             index:
               name: Имя
               submit: Сохранить
+        teams_players:
+          index:
+            header: Игроки команд
+            edit: Изменить
+          edit:
+            title: Изменение игрока команды
+            active: Активный
+            price_cents: Цена в центах
+            shirt_number: Номер игрока
+            form: Форма
+            save: Сохранить
     fantasy_leagues:
       show:
         title: Пригласить друзей присоединиться к
