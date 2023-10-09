@@ -18,7 +18,7 @@ describe SchedulerJob, type: :service do
   end
 
   context 'when no season to start' do
-    it 'calls service', :aggregate_failures do
+    it 'does nothing', :aggregate_failures do
       job_call
 
       expect(week1.reload.status).to eq Week::INACTIVE
@@ -32,7 +32,7 @@ describe SchedulerJob, type: :service do
     before { Timecop.freeze(2023, 1, 1) }
     after { Timecop.return }
 
-    it 'update week status', :aggregate_failures do
+    it 'updates week status', :aggregate_failures do
       job_call
 
       expect(week1.reload.status).to eq Week::COMING
@@ -50,7 +50,7 @@ describe SchedulerJob, type: :service do
 
     after { Timecop.return }
 
-    it 'update week status', :aggregate_failures do
+    it 'calls week change service', :aggregate_failures do
       job_call
 
       expect(Weeks::ChangeService).to have_received(:call).with(week: week1)
@@ -66,7 +66,7 @@ describe SchedulerJob, type: :service do
 
     after { Timecop.return }
 
-    it 'update week status', :aggregate_failures do
+    it 'calls game import job', :aggregate_failures do
       job_call
 
       expect(Weeks::ChangeService).not_to have_received(:call)
