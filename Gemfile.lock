@@ -400,7 +400,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    service_operator (0.2.3)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     simplecov (0.22.0)
@@ -501,7 +500,6 @@ DEPENDENCIES
   rubocop-rails (~> 2.15)
   rubocop-rspec (~> 2.12)
   ruby_event_store-rspec
-  service_operator
   shoulda-matchers (~> 5.0)
   simplecov
   skylight

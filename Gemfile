@@ -61,9 +61,6 @@ gem 'awesome_print'
 # running application
 gem 'foreman'
 
-# organizing services
-gem 'service_operator'
-
 # email tracking system
 gem 'emailbutler'
 
