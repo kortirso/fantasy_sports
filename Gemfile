@@ -51,6 +51,7 @@ gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator'
 # active jobs adapter
 gem 'que', '~> 2.2.0'
 gem 'que-web'
+gem 'whenever', require: false
 
 # http client
 gem 'faraday', '~> 2.0'
@@ -125,4 +126,5 @@ group :test do
   gem 'ruby_event_store-rspec'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', require: false
+  gem 'timecop'
 end
