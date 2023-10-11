@@ -45,6 +45,8 @@ en:
         create:
           success: Season is created
         teams_players:
+          create:
+            success: Teams player is created
           update:
             success: Teams player is updated
       players:
@@ -173,6 +175,7 @@ en:
           index:
             header: Teams players
             edit: Edit
+            new_teams_player: New teams player
           edit:
             title: Edit teams player
             active: Active
@@ -180,6 +183,10 @@ en:
             shirt_number: Shirt number
             form: Form
             save: Save
+          new:
+            title: New teams player
+            player_id: Player
+            seasons_team_id: Team
     fantasy_leagues:
       show:
         title: Inviting friends to join

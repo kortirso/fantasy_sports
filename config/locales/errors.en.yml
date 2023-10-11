@@ -6,6 +6,8 @@ en:
       sport_kind: Sport kind
       position_kind: Position kind
       active_chips: Active chips
+      shirt_number: Shirt number
+      form: Form
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -51,3 +53,11 @@ en:
             filled?: can't be blank
       lineup:
         active_chips_duplicates: should not have duplicates
+      teams_player:
+        rules:
+          shirt_number:
+            filled?: can't be blank
+            invalid: is invalid
+          form:
+            filled?: can't be blank
+            invalid: is invalid

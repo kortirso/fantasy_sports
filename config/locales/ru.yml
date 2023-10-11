@@ -45,8 +45,10 @@ ru:
         create:
           success: Сезон создан
         teams_players:
+          create:
+            success: Игрок команды добавлен
           update:
-            success: Teams player is updated
+            success: Игрок команды обновлён
       players:
         create:
           success: Игрок создан
@@ -173,6 +175,7 @@ ru:
           index:
             header: Игроки команд
             edit: Изменить
+            new_teams_player: Новый игрок команды
           edit:
             title: Изменение игрока команды
             active: Активный
@@ -180,6 +183,10 @@ ru:
             shirt_number: Номер игрока
             form: Форма
             save: Сохранить
+          new:
+            title: Новый игрок команды
+            player_id: Игрок
+            seasons_team_id: Команда
     fantasy_leagues:
       show:
         title: Пригласить друзей присоединиться к

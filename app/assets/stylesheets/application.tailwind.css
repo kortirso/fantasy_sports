@@ -85,9 +85,10 @@
   }
 
   .form-field select {
-    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 text-sm;
+    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 text-sm leading-8;
 
     min-width: 60px;
+    min-height: 42px;
   }
 
   .form-dropdown {

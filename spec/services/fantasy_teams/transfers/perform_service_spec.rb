@@ -7,10 +7,10 @@ describe FantasyTeams::Transfers::PerformService, type: :service do
     ).call(fantasy_team: fantasy_team, teams_players_ids: [teams_player1.id], only_validate: only_validate)
   }
 
-  let!(:fantasy_team) { create :fantasy_team, budget_cents: 100 }
   let!(:teams_player1) { create :teams_player, price_cents: 400 }
   let!(:teams_player2) { create :teams_player, price_cents: 500 }
   let!(:season) { create :season }
+  let!(:fantasy_team) { create :fantasy_team, budget_cents: 100, season: season }
   let!(:week) { create :week, season: season, status: Week::COMING }
   let!(:lineup) {
     create :lineup, fantasy_team: fantasy_team, week: week, transfers_limited: true, free_transfers_amount: 2

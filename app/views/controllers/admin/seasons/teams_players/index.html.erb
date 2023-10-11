@@ -1,5 +1,6 @@
 <div class="flex flex-row justify-between items-center">
   <h1><%= t('views.admin.seasons.teams_players.index.header') %></h1>
+  <%= link_to t('views.admin.seasons.teams_players.index.new_teams_player'), new_admin_season_teams_player_path(@season.uuid), class: 'btn-primary' %>
 </div>
 <table class="table" cellSpacing="0">
   <thead>
