@@ -7,6 +7,7 @@ ru:
       name: Название
       budget_cents: Бюджет
       sport_kind: Вид спорта
+      position_kind: Игровая позиция
       active_chips: Активные бонусы
     errors:
       user:
@@ -37,6 +38,14 @@ ru:
             filled?: не может быть пустым
             invalid: не может быть пустым
           sport_kind:
+            filled?: должен быть указан
+            invalid: неверное значение
+      player:
+        rules:
+          name:
+            filled?: не может быть пустым
+            invalid: не может быть пустым
+          position_kind:
             filled?: должен быть указан
             invalid: неверное значение
       season:

@@ -4,6 +4,7 @@ en:
       password_confirmation: Password confirmation
       budget_cents: Budget
       sport_kind: Sport kind
+      position_kind: Position kind
       active_chips: Active chips
     errors:
       user:
@@ -34,6 +35,14 @@ en:
             filled?: can't be blank
             invalid: is invalid
           sport_kind:
+            filled?: can't be blank
+            invalid: is invalid
+      player:
+        rules:
+          name:
+            filled?: can't be blank
+            invalid: is invalid
+          position_kind:
             filled?: can't be blank
             invalid: is invalid
       season:

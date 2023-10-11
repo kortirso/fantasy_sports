@@ -14,11 +14,9 @@ class LeagueContract < ApplicationContract
     end
   end
 
-  # rubocop: disable Rails/RedundantActiveRecordAllMethod
   rule(:sport_kind) do
-    if Sport.all.pluck(:title).exclude?(values[:sport_kind])
+    if Sport.pluck(:title).exclude?(values[:sport_kind])
       key.failure(:invalid)
     end
   end
-  # rubocop: enable Rails/RedundantActiveRecordAllMethod
 end

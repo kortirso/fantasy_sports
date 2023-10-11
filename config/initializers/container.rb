@@ -28,6 +28,7 @@ module FantasySports
     register('contracts.fantasy_team') { FantasyTeamContract.new }
     register('contracts.league') { LeagueContract.new }
     register('contracts.season') { SeasonContract.new }
+    register('contracts.players.create') { Players::CreateContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -40,9 +41,11 @@ module FantasySports
     register('validators.fantasy_team') { FantasyTeamValidator.new }
     register('validators.league') { LeagueValidator.new }
     register('validators.season') { SeasonValidator.new }
+    register('validators.players.create') { Players::CreateValidator.new }
 
     # forms
     register('forms.teams.players.update') { Teams::Players::UpdateForm.new }
+    register('forms.players.create') { Players::CreateForm.new }
 
     # services
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }

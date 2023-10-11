@@ -1,0 +1,29 @@
+<% if params[:sport_kind] %>
+  <div class="flex flex-row justify-between items-center">
+    <h1><%= t('views.admin.players.index.header') %></h1>
+    <%= link_to t('views.admin.players.index.new_player'), new_admin_player_path(sport_kind: params[:sport_kind]), class: 'btn-primary' %>
+  </div>
+  <table class="table mb-4" cellSpacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th><%= t('views.admin.players.index.name') %></th>
+        <th><%= t('views.admin.players.index.position_kind') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= player.id %></td>
+          <td><%= localized_value(player.name) %></td>
+          <td><%= localized_value(@sport_positions[player.position_kind]) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="flex flex-row justify-between items-center">
+    <h1><%= t('views.admin.players.index.header') %></h1>
+  </div>
+  <%= link_to 'Basketball', admin_players_path(sport_kind: 'basketball'), class: 'btn-primary' %>
+<% end %>

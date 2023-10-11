@@ -15,6 +15,7 @@ ru:
         welcome: Главная
         leagues: Лиги
         seasons: Сезоны
+        players: Игроки
     views:
       homes:
         show:
@@ -46,6 +47,9 @@ ru:
         teams_players:
           update:
             success: Teams player is updated
+      players:
+        create:
+          success: Игрок создан
     application:
       page_not_found: Страница не найдена
     maintenable:
@@ -109,6 +113,17 @@ ru:
         not_enough_chips: Вы не можете активировать эти бонусы
   views:
     admin:
+      players:
+        index:
+          header: Игроки
+          new_player: Добавить нового игрока
+          name: Имя
+          position_kind: Игровая позиция
+        new:
+          name_en: Имя (en)
+          name_ru: Имя (ru)
+          position_kind: Игровая позиция
+          create: Создать нового игрока
       leagues:
         index:
           header: Лиги

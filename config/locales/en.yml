@@ -15,6 +15,7 @@ en:
         welcome: Welcome
         leagues: Leagues
         seasons: Seasons
+        players: Players
     views:
       homes:
         show:
@@ -46,6 +47,9 @@ en:
         teams_players:
           update:
             success: Teams player is updated
+      players:
+        create:
+          success: Player is created
     application:
       page_not_found: Page is not found
     maintenable:
@@ -109,6 +113,17 @@ en:
         not_enough_chips: You can not active these chips
   views:
     admin:
+      players:
+        index:
+          header: Players
+          new_player: New player
+          name: Name
+          position_kind: Position kind
+        new:
+          name_en: Name (en)
+          name_ru: Name (ru)
+          position_kind: Position kind
+          create: Create new player
       leagues:
         index:
           header: Leagues

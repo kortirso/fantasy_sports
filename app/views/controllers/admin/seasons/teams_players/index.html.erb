@@ -22,7 +22,7 @@
       <tr>
         <td><%= teams_player.id %></td>
         <td><%= localized_value(teams_player.player.name) %></td>
-        <td><%= localized_value(Sports::Position.find_by(title: teams_player.player.position_kind).name) %></td>
+        <td><%= localized_value(@sport_positions[teams_player.player.position_kind]) %></td>
         <td><%= localized_value(teams_player.seasons_team.team.name) %></td>
         <td><%= teams_player.player.points %></td>
         <td><%= teams_player.player.statistic %></td>

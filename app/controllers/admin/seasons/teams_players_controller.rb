@@ -36,6 +36,7 @@ module Admin
       end
 
       def find_teams_players
+        @sport_positions = Sports::Position.where(sport: @season.league.sport_kind).pluck(:title, :name).to_h
         @teams_players = @season.teams_players.order(id: :asc, active: :asc).includes(:player, seasons_team: :team)
       end
 
