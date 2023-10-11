@@ -13,7 +13,6 @@ task sportradar_nba_schedule_import: :environment do
       csv << [
         game['id'],
         game['scheduled'],
-        game['time_zones']['venue'],
         game['home']['alias'],
         game['away']['alias']
       ]

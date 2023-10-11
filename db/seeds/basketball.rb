@@ -143,35 +143,20 @@ active_week = week1
 next_week = week2
 seasons_teams = nba2024.seasons_teams.map { |e| [e.team.short_name, e.id] }.to_h
 
-TIMEZONES = {
-  'US/Mountain' => { from: '2023.11.05', till: '2024.03.12', default: '-0600', winter: '-0700' },
-  'US/Pacific' => { from: '2023.11.05', till: '2024.03.12', default: '-0700', winter: '-0800' },
-  'US/Eastern' => { from: '2023.11.05', till: '2024.03.12', default: '-0400', winter: '-0500' },
-  'US/Central' => { from: '2023.11.05', till: '2024.03.12', default: '-0500', winter: '-0600' },
-  'US/Arizona' => { default: '-0700' },
-  'America/Mexico_City' => { default: '-0600' },
-  'Europe/Paris' => { from: '2023.10.29', till: '2024.03.26', default: '+0200', winter: '+0100' }
-}
-
 games_rows.each do |row|
   game_time = DateTime.parse(row[1])
-  timezone = TIMEZONES[row[2]]
 
-  date = game_time.to_date.to_s
-  offset = timezone[:from] && date > timezone[:from] && date < timezone[:till] ? timezone[:winter] : timezone[:default]
-
-  utc_game_time = game_time.change(offset: offset).new_offset(0)
-  if next_week && utc_game_time > next_week.deadline_at
+  if next_week && game_time > next_week.deadline_at
     active_week = next_week
     next_week = next_week.season.weeks.find_by(position: next_week.position + 1)
   end
 
   Games::CreateService.call(
     week_id:                active_week.id,
-    home_season_team_id:    seasons_teams[row[3]],
-    visitor_season_team_id: seasons_teams[row[4]],
+    home_season_team_id:    seasons_teams[row[2]],
+    visitor_season_team_id: seasons_teams[row[3]],
     source:                 Sourceable::SPORTRADAR,
     external_id:            row[0],
-    start_at:               utc_game_time
+    start_at:               game_time
   )
 end
