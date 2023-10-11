@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 class WeekSerializer < ApplicationSerializer
-  attributes :uuid, :position
-
-  attribute :date_deadline_at do |object|
-    object.deadline_at&.strftime('%d.%m.%Y')
-  end
-
-  attribute :time_deadline_at do |object|
-    object.deadline_at&.strftime('%H:%M')
-  end
+  attributes :uuid, :position, :deadline_at
 
   attribute :games, if: proc { |_, params| params_with_field?(params, 'games') } do |object|
     GameSerializer

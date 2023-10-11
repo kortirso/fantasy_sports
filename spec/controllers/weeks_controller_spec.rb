@@ -28,7 +28,7 @@ describe WeeksController do
             expect(response).to have_http_status :ok
           end
 
-          %w[uuid position date_deadline_at time_deadline_at].each do |attr|
+          %w[uuid position deadline_at].each do |attr|
             it "contains week #{attr}" do
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end
@@ -50,7 +50,7 @@ describe WeeksController do
             expect(response).to have_http_status :ok
           end
 
-          %w[uuid position date_deadline_at time_deadline_at games previous next].each do |attr|
+          %w[uuid position deadline_at games previous next].each do |attr|
             it "contains week #{attr}" do
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end

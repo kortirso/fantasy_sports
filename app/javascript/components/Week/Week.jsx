@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { currentLocale } from '../../helpers';
+import { currentLocale, convertDateTime, convertDate } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Game } from './Game';
@@ -44,8 +44,7 @@ export const Week = ({ uuid, teamNames }) => {
           ) : null}
         </div>
         <p>
-          {strings.week.gameweek} {pageState.week.position} - {pageState.week.date_deadline_at}{' '}
-          {pageState.week.time_deadline_at}
+          {strings.week.gameweek} {pageState.week.position} - {convertDateTime(pageState.week.deadline_at)}
         </p>
         <div className="w-48">
           {pageState.week.next.uuid ? (
@@ -61,9 +60,9 @@ export const Week = ({ uuid, teamNames }) => {
       <div className="mb-4">
         {pageState.games.map((item, index) => (
           <div key={index}>
-            {index === 0 || item.date_start_at !== pageState.games[index - 1].date_start_at ? (
+            {index === 0 || convertDate(item.start_at) !== convertDate(pageState.games[index - 1].start_at) ? (
               <div className="py-1 px-0 bg-gray-200 text-center">
-                <p>{item.date_start_at}</p>
+                <p>{convertDate(item.start_at)}</p>
               </div>
             ) : null}
             <Game item={item} teamNames={teamNames} />
