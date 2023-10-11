@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { currentLocale, localizeValue } from '../../helpers';
+import { currentLocale, localizeValue, convertTime } from '../../helpers';
 import { strings } from '../../locales';
 
 import { gameStatisticsRequest } from './requests/gameStatisticsRequest';
@@ -72,7 +72,7 @@ export const Game = ({ item, teamNames }) => {
             {item.points[0]} - {item.points[1]}
           </p>
         ) : (
-          <p className="py-2 px-4 border border-gray-200 mx-4">{item.time_start_at}</p>
+          <p className="py-2 px-4 border border-gray-200 mx-4">{convertTime(item.start_at)}</p>
         )}
         <p className="text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
       </div>
