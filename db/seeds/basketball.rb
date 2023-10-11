@@ -2,7 +2,7 @@ require 'csv'
 
 nba = League.create(sport_kind: 'basketball', name: { en: 'NBA', ru: 'НБА' })
 
-nba2024 = nba.seasons.create name: '2023/2024', active: true, start_at: DateTime.new(2023, 10, 17, 23, 0, 0)
+nba2024 = nba.seasons.create name: '2023/2024', active: true, start_at: DateTime.new(2023, 10, 16, 0, 0, 0)
 
 overall_fantasy_nba_league = nba2024.all_fantasy_leagues.create leagueable: nba2024, name: 'Overall', global: true
 
