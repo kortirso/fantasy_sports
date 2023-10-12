@@ -13,6 +13,7 @@ module FantasyTeams
         @fantasy_teams_update_points_service = fantasy_teams_update_points_service
       end
 
+      # TODO: teams_players_ids probably contains player_ids
       def call(fantasy_team:, teams_players_ids:, only_validate: true)
         @fantasy_team = fantasy_team
         @existed_teams_players_ids = @fantasy_team.teams_players.ids
@@ -37,6 +38,10 @@ module FantasyTeams
 
       def added_teams_players_ids
         @added_teams_players_ids ||= @teams_players_ids - @existed_teams_players_ids
+      end
+
+      def added_teams_players
+        @added_teams_players ||= Teams::Player.where(id: added_teams_players_ids).hashable_pluck(:id, :player_id)
       end
 
       def added_players
@@ -164,16 +169,17 @@ module FantasyTeams
       end
 
       def generate_lineups_player(lineups_player)
-        selected_teams_player = selected_teams_player(lineups_player)
-        @added_players.delete(selected_teams_player)
+        selected_player = selected_player_for_position(lineups_player)
+        @added_players.delete(selected_player)
+        teams_player = added_teams_players.find { |element| element[:player_id] == selected_player.id }
         {
-          teams_player_id: selected_teams_player.id,
+          teams_player_id: teams_player[:id],
           lineup_id: coming_lineup.id,
           change_order: lineups_player.change_order
         }
       end
 
-      def selected_teams_player(lineups_player)
+      def selected_player_for_position(lineups_player)
         added_players.find { |player| player.position_kind == lineups_player.teams_player.player.position_kind }
       end
 
