@@ -4,23 +4,31 @@ import { currentLocale, localizeValue } from '../../helpers';
 import { strings } from '../../locales';
 import { sportsData } from '../../data';
 
+import { PlayerModal } from '../../components';
+import { teamsRequest } from '../../requests/teamsRequest';
+
 import { weekTransfersRequest } from './requests/weekTransfersRequest';
 
 strings.setLanguage(currentLocale);
 
-export const TransfersStatus = ({ weekUuid, sportKind }) => {
+export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
   const [pageState, setPageState] = useState({
     loading: true,
+    teamNames: {},
     weekTransfers: { transfers_in: [], transfers_out: [] },
   });
+  const [playerUuid, setPlayerUuid] = useState();
+
   const sportPositions = sportsData.positions[sportKind];
 
   useEffect(() => {
+    const fetchTeams = async () => await teamsRequest(seasonUuid);
     const fetchWeekTransfers = async () => await weekTransfersRequest(weekUuid);
 
-    Promise.all([fetchWeekTransfers()]).then(([fetchWeekTransfersData]) =>
+    Promise.all([fetchTeams(), fetchWeekTransfers()]).then(([teamsData, fetchWeekTransfersData]) =>
       setPageState({
         loading: false,
+        teamNames: teamsData,
         weekTransfers: fetchWeekTransfersData,
       }),
     );
@@ -39,13 +47,16 @@ export const TransfersStatus = ({ weekUuid, sportKind }) => {
             <th>{strings.transfersStatus.position}</th>
             <th>{strings.transfersStatus.player}</th>
             <th>{strings.transfersStatus.team}</th>
-            <th>Amount</th>
+            <th>{strings.transfersStatus.amount}</th>
           </tr>
         </thead>
         <tbody>
           {transfers.map((item, index) => (
             <tr key={index}>
-              <td></td>
+              <td
+                className="cursor-pointer"
+                onClick={() => setPlayerUuid(item[0].data.attributes.uuid)}
+              >i</td>
               <td>{localizeValue(sportPositions[item[0].data.attributes.player.position_kind].name)}</td>
               <td>{localizeValue(item[0].data.attributes.player.name).split(' ')[0]}</td>
               <td>{item[0].data.attributes.team.name}</td>
@@ -67,6 +78,13 @@ export const TransfersStatus = ({ weekUuid, sportKind }) => {
         <h2>{strings.transfersStatus.transfersOut}</h2>
         {renderTransfersData(pageState?.weekTransfers.transfers_out)}
       </div>
+      <PlayerModal
+        sportKind={sportKind}
+        seasonUuid={seasonUuid}
+        playerUuid={playerUuid}
+        teamNames={pageState.teamNames}
+        onClose={() => setPlayerUuid(undefined)}
+      />
     </section>
   );
 };

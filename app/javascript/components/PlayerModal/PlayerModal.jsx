@@ -51,7 +51,6 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
             <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
           ))}
-          <td className="text-center border-b border-gray-200 py-2 px-4"></td>
         </tr>
       );
     });
@@ -98,16 +97,15 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           <table cellSpacing="0" className="min-w-full">
             <thead>
               <tr className="bg-gray-200">
-                <th className="text-sm py-2 px-4">GW</th>
-                <th className="text-sm py-2 px-4">Opponent</th>
-                <th className="text-sm py-2 px-4">Pts</th>
+                <th className="text-sm py-2 px-4">{strings.player.week}</th>
+                <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
+                <th className="text-sm py-2 px-4">{strings.player.pts}</th>
                 {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
                   <th className="tooltip text-sm py-2 px-4" key={stat}>
                     {stat}
-                    <span className="tooltiptext">{value}</span>
+                    <span className="tooltiptext">{localizeValue(value)}</span>
                   </th>
                 ))}
-                <th>Price</th>
               </tr>
             </thead>
             <tbody>{renderSeasonGames()}</tbody>
