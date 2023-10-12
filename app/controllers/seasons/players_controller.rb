@@ -4,8 +4,6 @@ module Seasons
   class PlayersController < ApplicationController
     include Cacheable
 
-    skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_season_players
     before_action :find_season_player, only: %i[show]
 

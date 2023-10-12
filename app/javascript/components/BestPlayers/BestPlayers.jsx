@@ -7,15 +7,16 @@ import { sportsData } from '../../data';
 import { PlayerModal } from '../../components';
 import { teamsRequest } from '../../requests/teamsRequest';
 
-import { weekTransfersRequest } from './requests/weekTransfersRequest';
+import { bestSeasonPlayersRequest, bestWeekPlayersRequest } from './requests/bestPlayersRequest';
 
 strings.setLanguage(currentLocale);
 
-export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
+export const BestPlayers = ({ weekUuid, seasonUuid, sportKind }) => {
   const [pageState, setPageState] = useState({
     loading: true,
     teamNames: {},
-    weekTransfers: { transfers_in: [], transfers_out: [] },
+    bestSeasonPlayers: [],
+    bestWeekPlayers: [],
   });
   const [playerUuid, setPlayerUuid] = useState();
 
@@ -23,35 +24,37 @@ export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
 
   useEffect(() => {
     const fetchTeams = async () => await teamsRequest(seasonUuid);
-    const fetchWeekTransfers = async () => await weekTransfersRequest(weekUuid);
+    const fetchBestSeasonPlayers = async () => await bestSeasonPlayersRequest(seasonUuid);
+    const fetchBestWeekPlayers = async () => await bestWeekPlayersRequest(seasonUuid, weekUuid);
 
-    Promise.all([fetchTeams(), fetchWeekTransfers()]).then(([teamsData, weekTransfersData]) =>
+    Promise.all([fetchTeams(), fetchBestSeasonPlayers(), fetchBestWeekPlayers()]).then(([teamsData, bestSeasonPlayers, bestWeekPlayers]) =>
       setPageState({
         loading: false,
         teamNames: teamsData,
-        weekTransfers: weekTransfersData,
+        bestSeasonPlayers: bestSeasonPlayers,
+        bestWeekPlayers: bestWeekPlayers,
       }),
     );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (pageState.loading) return <></>;
 
-  const renderTransfersData = (transfers) => {
-    if (!transfers || transfers.length === 0) return <></>;
+  const renderPlayersData = (players) => {
+    if (!players || players.length === 0) return <></>;
 
     return (
       <table className="table">
         <thead>
           <tr>
             <th></th>
-            <th>{strings.transfersStatus.player}</th>
-            <th>{strings.transfersStatus.position}</th>
-            <th>{strings.transfersStatus.team}</th>
-            <th>{strings.transfersStatus.amount}</th>
+            <th>{strings.bestPlayers.player}</th>
+            <th>{strings.bestPlayers.position}</th>
+            <th>{strings.bestPlayers.team}</th>
+            <th>{strings.bestPlayers.points}</th>
           </tr>
         </thead>
         <tbody>
-          {transfers.map((item, index) => (
+          {players.map((item, index) => (
             <tr key={index}>
               <td
                 className="cursor-pointer"
@@ -69,14 +72,14 @@ export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
   };
 
   return (
-    <section className="grid grid-cols-2 gap-8">
+    <section className="grid grid-cols-2 gap-8 mb-8">
       <div>
-        <h2>{strings.transfersStatus.transfersIn}</h2>
-        {renderTransfersData(pageState.weekTransfers.transfers_in)}
+        <h2>{strings.bestPlayers.week}</h2>
+        {renderPlayersData(pageState.bestWeekPlayers)}
       </div>
       <div>
-        <h2>{strings.transfersStatus.transfersOut}</h2>
-        {renderTransfersData(pageState.weekTransfers.transfers_out)}
+        <h2>{strings.bestPlayers.total}</h2>
+        {renderPlayersData(pageState.bestSeasonPlayers)}
       </div>
       <PlayerModal
         sportKind={sportKind}

@@ -8,6 +8,7 @@ import {
   SquadPoints,
   Transfers,
   TransfersStatus,
+  BestPlayers,
 } from './components';
 import { Flash, Toggle } from './components/atoms';
 
@@ -19,6 +20,7 @@ const components = {
   Toggle,
   Transfers,
   TransfersStatus,
+  BestPlayers,
 };
 const queryClient = new QueryClient();
 

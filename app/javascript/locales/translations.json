@@ -75,6 +75,14 @@
     },
     "achievements": {
       "summary": "Summary"
+    },
+    "bestPlayers": {
+      "week": "Best players of the week",
+      "total": "Best players of the season",
+      "position": "Position",
+      "player": "Player",
+      "team": "Team",
+      "points": "Points"
     }
   },
   "ru": {
@@ -153,6 +161,14 @@
     },
     "achievements": {
       "summary": "Сводка"
+    },
+    "bestPlayers": {
+      "week": "Лучшие игроки недели",
+      "total": "Лучшие игроки сезона",
+      "position": "Позиция",
+      "player": "Игрок",
+      "team": "Команда",
+      "points": "Очки"
     }
   }
 }

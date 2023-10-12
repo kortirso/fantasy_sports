@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CupsController < ApplicationController
-  before_action :find_cup
+  before_action :find_cup, only: %i[show]
 
   def show
     @fantasy_team = @cup.fantasy_league.fantasy_teams.find_by!(user: Current.user)

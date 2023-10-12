@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AchievementsController < ApplicationController
-  before_action :find_achievements
+  before_action :find_achievements, only: %i[index]
 
   def index
     render json: { achievements: AchievementSerializer.new(@achievements).serializable_hash }, status: :ok

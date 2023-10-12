@@ -3,7 +3,7 @@
 class AchievementGroupsController < ApplicationController
   include Cacheable
 
-  before_action :find_achievement_groups
+  before_action :find_achievement_groups, only: %i[index]
 
   def index
     render json: { achievement_groups: achievement_groups_json_response }, status: :ok
