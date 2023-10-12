@@ -112,7 +112,7 @@ export const SquadPoints = ({
                 teamName={pageState.teamNames[item.team.uuid]?.short_name}
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={item.points}
-                number={item.shirt_number}
+                number={item.teams_player.shirt_number}
                 onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
               />
             ))}
@@ -127,7 +127,7 @@ export const SquadPoints = ({
               teamName={pageState.teamNames[item.team.uuid]?.short_name}
               name={localizeValue(item.player.name).split(' ')[0]}
               value={item.points}
-              number={item.shirt_number}
+              number={item.teams_player.shirt_number}
               onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
             />
           ))}

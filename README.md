@@ -23,7 +23,7 @@ $ foreman s
 ### Starting new week
 
 ```ruby
-  Weeks::ChangeService.call(week: week)
+  Weeks::ChangeService.call(week_id: week.id)
 ```
 week - coming week that must start
 

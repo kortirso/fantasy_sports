@@ -1,4 +1,5 @@
 export * from './Achievements';
+export * from './BestPlayers';
 export * from './PlayerActionsModal';
 export * from './PlayerCard';
 export * from './PlayerModal';

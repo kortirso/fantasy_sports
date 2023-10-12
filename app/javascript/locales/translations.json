@@ -60,17 +60,29 @@
       "teamsSelectedBy": "Selection",
       "thisSeason": "This season",
       "previousSeasons": "Previous seasons",
-      "noSeasonGames": "There are no games yet"
+      "noSeasonGames": "There are no games yet",
+      "week": "GW",
+      "opponent": "Opponent",
+      "pts": "Pts"
     },
     "transfersStatus": {
       "transfersIn": "Top Transfers in this Gameweek",
       "transfersOut": "Top Transfers out this Gameweek",
       "position": "Position",
       "player": "Player",
-      "team": "Team"
+      "team": "Team",
+      "amount": "Amount"
     },
     "achievements": {
       "summary": "Summary"
+    },
+    "bestPlayers": {
+      "week": "Best players of the week",
+      "total": "Best players of the season",
+      "position": "Position",
+      "player": "Player",
+      "team": "Team",
+      "points": "Points"
     }
   },
   "ru": {
@@ -134,17 +146,29 @@
       "teamsSelectedBy": "Выбранность",
       "thisSeason": "Текущий сезон",
       "previousSeasons": "Предыдущие сезоны",
-      "noSeasonGames": "Пока нет данных"
+      "noSeasonGames": "Пока нет данных",
+      "week": "Неделя",
+      "opponent": "Соперник",
+      "pts": "Очки"
     },
     "transfersStatus": {
-      "transfersIn": "Top Transfers in this Gameweek",
-      "transfersOut": "Top Transfers out this Gameweek",
+      "transfersIn": "Самые частые приобретения недели",
+      "transfersOut": "Самые частые уходы недели",
       "position": "Позиция",
       "player": "Игрок",
-      "team": "Команда"
+      "team": "Команда",
+      "amount": "Кол-во"
     },
     "achievements": {
       "summary": "Сводка"
+    },
+    "bestPlayers": {
+      "week": "Лучшие игроки недели",
+      "total": "Лучшие игроки сезона",
+      "position": "Позиция",
+      "player": "Игрок",
+      "team": "Команда",
+      "points": "Очки"
     }
   }
 }

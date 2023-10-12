@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { Chevron } from '../../assets';
+
 export const Dropdown = ({ title, items, onSelect, selectedValue }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,8 +14,9 @@ export const Dropdown = ({ title, items, onSelect, selectedValue }) => {
     <div className="form-field">
       <label className="form-label">{title}</label>
       <div className="relative cursor-pointer">
-        <div className="form-value" onClick={() => setIsOpen(!isOpen)}>
+        <div className="form-value flex justify-between items-center" onClick={() => setIsOpen(!isOpen)}>
           {selectedValue ? items[selectedValue] : ''}
+          <Chevron rotated={isOpen} />
         </div>
         {isOpen && (
           <ul className="form-dropdown">
