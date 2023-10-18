@@ -14,6 +14,6 @@ describe Week do
     it { is_expected.to have_many(:fantasy_leagues).dependent(:destroy) }
     it { is_expected.to have_many(:lineups).dependent(:destroy) }
     it { is_expected.to have_many(:fantasy_teams).through(:lineups) }
-    it { is_expected.to have_many(:teams_player).through(:lineups) }
+    it { is_expected.to have_many(:teams_players).through(:lineups) }
   end
 end
