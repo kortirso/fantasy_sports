@@ -83,13 +83,13 @@ positions = {
 }.freeze
 
 def price(value)
-  return 2_250 if value >= 45
-  return 2_000 if value >= 40
-  return 1_800 if value >= 35
-  return 1_600 if value >= 30
-  return 1_400 if value >= 25
-  return 1_200 if value >= 20
-  return 1_000 if value >= 17.5
+  return 2_250 if value >= 45 # 2000
+  return 2_000 if value >= 40 # 1850
+  return 1_800 if value >= 35 # 1700
+  return 1_600 if value >= 30 # 1500
+  return 1_400 if value >= 25 # 1350
+  return 1_200 if value >= 20 # 1150
+  return 1_000 if value >= 17.5 # 1000
   return 900 if value >= 15
   return 750 if value >= 12.5
   return 600 if value >= 10
