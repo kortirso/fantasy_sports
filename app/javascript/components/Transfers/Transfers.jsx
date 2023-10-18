@@ -40,6 +40,7 @@ export const Transfers = ({
   const [teamMembers, setTeamMembers] = useState([]);
   const [budget, setBudget] = useState(fantasyTeamBudget);
   const [teamName, setTeamName] = useState('');
+  const [search, setSearch] = useState('');
   const [playerUuid, setPlayerUuid] = useState();
   const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamUuid, setFavouriteTeamUuid] = useState(null);
@@ -95,6 +96,11 @@ export const Transfers = ({
 
         return true;
       })
+      .filter((element) => {
+        if (search === '') return true;
+
+        return Object.values(element.player.name).find((element) => { return element.toLowerCase().includes(search) })
+      })
       .sort((a, b) => {
         if (PLAYER_SORT_PARAMS.includes(sortBy)) {
           return a.player[sortBy] < b.player[sortBy] ? 1 : -1;
@@ -102,7 +108,7 @@ export const Transfers = ({
           return a[sortBy] < b[sortBy] ? 1 : -1;
         }
       });
-  }, [pageState.seasonPlayers, filterByPosition, filterByTeam, sortBy]);
+  }, [pageState.seasonPlayers, filterByPosition, filterByTeam, sortBy, search]);
 
   const filteredSlicedPlayers = useMemo(() => {
     return filteredPlayers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
@@ -358,6 +364,14 @@ export const Transfers = ({
           onSelect={(value) => setSortBy(value)}
           selectedValue={sortBy}
         />
+        <div className="form-field my-4">
+          <label className="form-label">Search by name</label>
+          <input
+            className="form-value w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         {filteredSlicedPlayers.map((item) => (
           <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-gray-200" key={item.uuid}>
             <div
