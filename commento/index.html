@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>h3 { margin: 0 0 .25rem }p { margin: 0 0 .5rem }.table { padding: 0 .5rem; margin-bottom: 1rem }.table-header { border-bottom: 1px solid #ddd; margin-bottom: .5rem }.table-header h3 { padding: .25rem; background: #bbb }.table-header p { padding: .25rem; margin: 0 }.table-body { padding: 0 .25rem }.column-body { margin-bottom: .5rem; }.column-body p { margin: 0 }.column-data { display: flex; flex-direction: column; margin: .5rem 0 }.column-data span { font-style: italic; padding-left: 1rem }</style>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>cups</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>cups.fantasy_league_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>cups_pairs</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>cups_pairs.cups_round_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups_pairs.home_lineup_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups_pairs.visitor_lineup_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>cups_rounds</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>cups_rounds.cup_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups_rounds.week_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups_rounds.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>cups_rounds.position: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>fantasy_leagues</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>fantasy_leagues.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues.leagueable_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues.leagueable_type: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues.season_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues.global: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues.invite_code: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>fantasy_leagues_teams</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>fantasy_leagues_teams.fantasy_league_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues_teams.pointable_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_leagues_teams.pointable_type: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>fantasy_teams</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>fantasy_teams.user_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.sport_kind: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.completed: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.budget_cents: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.points: </p>
+          <div class='column-data'>
+            <span>app/services/fantasy_teams/points/update_service.rb:21</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams.available_chips: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>fantasy_teams_players</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>fantasy_teams_players.fantasy_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>fantasy_teams_players.teams_player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>games</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>games.week_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.home_season_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.visitor_season_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.source: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.external_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.start_at: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.points: </p>
+          <div class='column-data'>
+            <span>app/operations/games/update_operation.rb:53</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>games_players</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>games_players.game_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_players.teams_player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_players.position_kind: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_players.statistic: </p>
+          <div class='column-data'>
+            <span>app/operations/games/update_operation.rb:60</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_players.points: </p>
+          <div class='column-data'>
+            <span>app/operations/games/update_operation.rb:60</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_players.seasons_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>leagues</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>leagues.sport_kind: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>leagues.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>leagues.maintenance: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>lineups</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>lineups.fantasy_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.week_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.points: </p>
+          <div class='column-data'>
+            <span>app/services/lineups/points/update_service.rb:26</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.free_transfers_amount: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.transfers_limited: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.penalty_points: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups.active_chips: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>lineups_players</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>lineups_players.lineup_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups_players.teams_player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups_players.change_order: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups_players.points: </p>
+          <div class='column-data'>
+            <span>app/services/lineups/players/points/update_service.rb:41</span>            <span>app/services/lineups/players/points/update_service.rb:51</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups_players.status: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>lineups_players.statistic: </p>
+          <div class='column-data'>
+            <span>app/services/lineups/players/points/update_service.rb:41</span>            <span>app/services/lineups/players/points/update_service.rb:51</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>players</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>players.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players.position_kind: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players.points: </p>
+          <div class='column-data'>
+            <span>app/services/players/statistic/update_service.rb:32</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players.statistic: </p>
+          <div class='column-data'>
+            <span>app/services/players/statistic/update_service.rb:32</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>players_seasons</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>players_seasons.player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.season_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.points: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.statistic: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>seasons</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>seasons.league_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.active: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>seasons_teams</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>seasons_teams.season_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons_teams.team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>teams</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>teams.name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams.short_name: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>teams_players</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>teams_players.seasons_team_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams_players.player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams_players.active: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams_players.price_cents: </p>
+          <div class='column-data'>
+            <span>app/services/teams/players/price/change_service.rb:31</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams_players.shirt_number: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>teams_players.form: </p>
+          <div class='column-data'>
+            <span>app/services/teams/players/form/change_service.rb:24</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>transfers</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>transfers.teams_player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>transfers.direction: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>transfers.lineup_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>users_sessions</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>users_sessions.user_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>weeks</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>weeks.season_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>weeks.position: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>weeks.status: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>weeks.deadline_at: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>users</h3>
+        <p>for users</p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>users.email: 123</p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>users.password_digest: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>users.role: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>users.confirmation_token: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>users.confirmed_at: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>users.restore_token: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

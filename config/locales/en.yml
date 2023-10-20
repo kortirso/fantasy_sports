@@ -92,6 +92,8 @@ en:
         lineup_update: Lineup is updated
       update:
         success: Lineup is updated
+    confirmation:
+      permission: Email is not confirmed yet
   services:
     fantasy_teams:
       create:
@@ -227,8 +229,8 @@ en:
     users:
       registrations:
         new:
-          sing_up: Sign up
-          password: Password
+          sign_up: Sign up
+          password: "Password (minimum %{value} characters)"
           password_confirmation: Password confirmation
           create: Sign up
           have_account: Already have account?
@@ -239,6 +241,7 @@ en:
         new:
           login: Login
           sign_in: Sign in
+          password: Password
           no_account: Don't have account?
           forgot: Forgot password?
       restore:

@@ -17,6 +17,7 @@
       "sortByPoints": "Total points",
       "sortByPrice": "Price",
       "sortByForm": "Form",
+      "selectFavouriteTeam": "Select favourite team",
       "favouriteTeam": "Favourite team",
       "unlimited": "Unlimited",
       "playerInTeam": "Player already in the team",
@@ -28,7 +29,8 @@
       "outcome": "Outcome players",
       "penaltyPoints": "Penalty points for transfers",
       "cancel": "Cancel",
-      "approve": "Approve"
+      "approve": "Approve",
+      "search": "Search by name"
     },
     "week": {
       "previous": "Previous week",
@@ -103,6 +105,7 @@
       "sortByPoints": "Сумма очков",
       "sortByPrice": "Цена",
       "sortByForm": "Форма",
+      "selectFavouriteTeam": "Выберите любимую команду",
       "favouriteTeam": "Любимая команда",
       "unlimited": "Без ограничений",
       "playerInTeam": "Игрок уже в команде",
@@ -114,7 +117,8 @@
       "outcome": "Уходящие игроки",
       "penaltyPoints": "Стоимость трансферов",
       "cancel": "Отмена",
-      "approve": "Подтвердить"
+      "approve": "Подтвердить",
+      "search": "Поиск по имени"
     },
     "week": {
       "previous": "Предыдущая неделя",

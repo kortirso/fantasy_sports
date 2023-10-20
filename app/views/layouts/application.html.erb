@@ -17,7 +17,7 @@
     <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
     <%= yield %>
     <div id="modal-root"></div>
-    <%= react_component 'Flash', values: flash.to_h %>
+    <%= react_component 'Flash', content: flash.to_h %>
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

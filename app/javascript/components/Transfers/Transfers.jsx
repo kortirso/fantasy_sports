@@ -269,6 +269,7 @@ export const Transfers = ({
                 }, {})}
                 onSelect={(value) => setFavouriteTeamUuid(value)}
                 selectedValue={favouriteTeamUuid}
+                placeholder={strings.transfers.selectFavouriteTeam}
               />
             </div>
           </div>
@@ -365,7 +366,7 @@ export const Transfers = ({
           selectedValue={sortBy}
         />
         <div className="form-field my-4">
-          <label className="form-label">Search by name</label>
+          <label className="form-label">{strings.transfers.search}</label>
           <input
             className="form-value w-full"
             value={search}
@@ -425,7 +426,7 @@ export const Transfers = ({
         teamNames={pageState.teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
-      <Flash values={alerts} />
+      <Flash content={alerts} />
       <Modal show={!!transfersData} onClose={() => setTransfersData(null)}>
         <div className="transfers-header">
           <h2>{strings.transfers.confirmationScreen}</h2>

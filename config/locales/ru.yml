@@ -92,6 +92,8 @@ ru:
         lineup_update: Состав обновлён
       update:
         success: Состав обновлён
+    confirmation:
+      permission: Необходимо подтвердить электронную почту
   services:
     fantasy_teams:
       create:
@@ -227,8 +229,8 @@ ru:
     users:
       registrations:
         new:
-          sing_up: Регистрация
-          password: Пароль
+          sign_up: Регистрация
+          password: "Пароль (минимум %{value} символов)"
           password_confirmation: Подтверждение пароля
           create: Создать пользователя
           have_account: Уже есть аккаунт?
@@ -239,6 +241,7 @@ ru:
         new:
           login: Вход
           sign_in: Войти
+          password: Пароль
           no_account: Нет аккаунта?
           forgot: Забыли пароль?
       restore:

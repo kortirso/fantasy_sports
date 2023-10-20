@@ -348,7 +348,7 @@ export const Squad = ({
       {Object.keys(pageState.teamNames).length > 0 ? (
         <Week uuid={weekUuid} teamNames={pageState.teamNames} />
       ) : null}
-      <Flash values={alerts} />
+      <Flash content={alerts} />
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}

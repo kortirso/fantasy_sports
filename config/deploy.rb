@@ -76,13 +76,14 @@ namespace :yarn do
   end
 end
 
+# rubocop: disable Layout/LineLength
 namespace :que do
   desc 'Start que worker'
   task :start do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, 'exec que ./config/environment.rb'
+          execute :bundle, 'exec que -l error ./config/environment.rb'
         end
       end
     end
@@ -93,12 +94,13 @@ namespace :que do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute "ps aux | grep '[b]in/que' | awk '{ print $2 }' | xargs kill"
+          execute "ps aux | grep '/var/www/html/fantasy_sports/shared/bundle/ruby/3.2.0/[b]in/que' | awk '{ print $2 }' | xargs kill"
         end
       end
     end
   end
 end
+# rubocop: enable Layout/LineLength
 
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
