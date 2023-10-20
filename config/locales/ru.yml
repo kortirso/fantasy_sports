@@ -16,6 +16,9 @@ ru:
         leagues: Лиги
         seasons: Сезоны
         players: Игроки
+      page_component:
+        home: Главная страница
+        logout: Выход
     views:
       homes:
         show:

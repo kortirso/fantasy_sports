@@ -16,6 +16,9 @@ en:
         leagues: Leagues
         seasons: Seasons
         players: Players
+      page_component:
+        home: Home
+        logout: Logout
     views:
       homes:
         show:
