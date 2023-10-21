@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - translations health check
 
+### Fixed
+- transfers page error handling
+
 ## [1.0.0] - 2023-10-20
 ### Added
 - release 1.0.0

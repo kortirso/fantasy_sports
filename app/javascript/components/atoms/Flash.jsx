@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 export const Flash = ({ content }) => {
-  const [messages, setMessages] = useState(content);
+  const [messages, setMessages] = useState({});
 
   useEffect(() => {
+    setMessages(content);
+
     setTimeout(() => setMessages({}), 4000);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [content]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const flashBackground = (value) => {
     if (value === 'notice') return 'bg-green-400';
