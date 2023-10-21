@@ -118,7 +118,7 @@ describe Admin::Seasons::GamesController do
 
         it 'does not create game', :aggregate_failures do
           expect { request }.not_to change(Game, :count)
-          expect(response).to redirect_to new_admin_season_game_en_path
+          expect(response).to redirect_to new_admin_season_game_path
         end
       end
 
@@ -137,7 +137,7 @@ describe Admin::Seasons::GamesController do
 
         it 'creates game', :aggregate_failures do
           expect { request }.to change(season.games, :count).by(1)
-          expect(response).to redirect_to admin_season_games_en_path
+          expect(response).to redirect_to admin_season_games_path
         end
       end
     end
@@ -184,7 +184,7 @@ describe Admin::Seasons::GamesController do
           request
 
           expect(game.reload.week_id).to eq week.id
-          expect(response).to redirect_to edit_admin_season_game_en_path
+          expect(response).to redirect_to edit_admin_season_game_path
         end
       end
 
@@ -199,7 +199,7 @@ describe Admin::Seasons::GamesController do
           request
 
           expect(game.reload.week_id).to eq week.id
-          expect(response).to redirect_to edit_admin_season_game_en_path
+          expect(response).to redirect_to edit_admin_season_game_path
         end
       end
 
@@ -215,7 +215,7 @@ describe Admin::Seasons::GamesController do
           request
 
           expect(game.reload.week_id).to eq week2.id
-          expect(response).to redirect_to admin_season_games_en_path
+          expect(response).to redirect_to admin_season_games_path
         end
       end
     end
@@ -256,7 +256,7 @@ describe Admin::Seasons::GamesController do
 
         it 'destroys game', :aggregate_failures do
           expect { request }.to change(Game, :count).by(-1)
-          expect(response).to redirect_to admin_season_games_en_path
+          expect(response).to redirect_to admin_season_games_path
         end
       end
     end

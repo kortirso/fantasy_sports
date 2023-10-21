@@ -14,7 +14,7 @@ describe Users::SessionsController do
       it 'renders new template' do
         post :create, params: { user: { email: 'unexisting@gmail.com', password: '1' }, locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -27,7 +27,7 @@ describe Users::SessionsController do
         it 'redirects to users_confirm_path' do
           post :create, params: { user: { email: user.email.upcase, password: user.password }, locale: 'en' }
 
-          expect(response).to redirect_to users_confirm_en_path
+          expect(response).to redirect_to users_confirm_path
         end
       end
 
@@ -35,7 +35,7 @@ describe Users::SessionsController do
         it 'renders new template' do
           post :create, params: { user: { email: user.email, password: 'invalid_password' }, locale: 'en' }
 
-          expect(response).to redirect_to users_login_en_path
+          expect(response).to redirect_to users_login_path
         end
       end
 
@@ -43,7 +43,7 @@ describe Users::SessionsController do
         it 'renders new template' do
           post :create, params: { user: { email: user.email, password: '' }, locale: 'en' }
 
-          expect(response).to redirect_to users_login_en_path
+          expect(response).to redirect_to users_login_path
         end
       end
 
@@ -51,7 +51,7 @@ describe Users::SessionsController do
         it 'redirects to dashboard path' do
           post :create, params: { user: { email: user.email, password: user.password }, locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -59,7 +59,7 @@ describe Users::SessionsController do
         it 'redirects to dashboard path' do
           post :create, params: { user: { email: user.email.upcase, password: user.password }, locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
     end
@@ -69,7 +69,7 @@ describe Users::SessionsController do
     it 'redirects to root path' do
       get :destroy, params: { locale: 'en' }
 
-      expect(response).to redirect_to root_en_path
+      expect(response).to redirect_to root_path
     end
   end
 end

@@ -15,7 +15,7 @@ describe Users::RegistrationsController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to redirect_to users_sign_up_en_path
+        expect(response).to redirect_to users_sign_up_path
       end
     end
 
@@ -24,7 +24,7 @@ describe Users::RegistrationsController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to redirect_to users_sign_up_en_path
+        expect(response).to redirect_to users_sign_up_path
       end
     end
 
@@ -33,7 +33,7 @@ describe Users::RegistrationsController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to redirect_to users_sign_up_en_path
+        expect(response).to redirect_to users_sign_up_path
       end
     end
 
@@ -47,7 +47,7 @@ describe Users::RegistrationsController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to redirect_to users_sign_up_en_path
+        expect(response).to redirect_to users_sign_up_path
       end
     end
 
@@ -58,7 +58,7 @@ describe Users::RegistrationsController do
       it 'creates new user', :aggregate_failures do
         expect { request }.to change(User, :count).by(1)
         expect(User.last.email).to eq 'user@gmail.com'
-        expect(response).to redirect_to users_confirm_en_path
+        expect(response).to redirect_to users_confirm_path
       end
     end
   end

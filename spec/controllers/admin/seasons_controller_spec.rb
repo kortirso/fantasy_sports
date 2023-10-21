@@ -6,7 +6,7 @@ describe Admin::SeasonsController do
       it 'redirects to login path' do
         get :index, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -17,7 +17,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           get :index, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -42,7 +42,7 @@ describe Admin::SeasonsController do
       it 'redirects to login path' do
         get :new, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -53,7 +53,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           get :new, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -76,7 +76,7 @@ describe Admin::SeasonsController do
       it 'redirects to login path' do
         post :create, params: { season: {}, locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -87,7 +87,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           post :create, params: { season: {}, locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -103,7 +103,7 @@ describe Admin::SeasonsController do
 
           it 'does not create season', :aggregate_failures do
             expect { request }.not_to change(Season, :count)
-            expect(response).to redirect_to new_admin_season_en_path
+            expect(response).to redirect_to new_admin_season_path
           end
         end
 
@@ -112,7 +112,7 @@ describe Admin::SeasonsController do
 
           it 'does not create season', :aggregate_failures do
             expect { request }.not_to change(Season, :count)
-            expect(response).to redirect_to new_admin_season_en_path
+            expect(response).to redirect_to new_admin_season_path
           end
         end
 
@@ -123,7 +123,7 @@ describe Admin::SeasonsController do
 
           it 'creates season', :aggregate_failures do
             expect { request }.to change(league.seasons, :count).by(1)
-            expect(response).to redirect_to admin_seasons_en_path
+            expect(response).to redirect_to admin_seasons_path
           end
         end
       end

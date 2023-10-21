@@ -102,6 +102,9 @@ en:
     confirmation:
       permission: Email is not confirmed yet
   services:
+    auth:
+      fetch_session:
+        forbidden: Forbidden
     fantasy_teams:
       create:
         exists: Fantasy team is already exists
@@ -290,3 +293,16 @@ en:
         password_restore_email:
           subject: Password recovery link from Fantasy Sports
           click: Click link below to restore your password
+  validators:
+    fantasy_teams:
+      players:
+        transfers:
+          invalid_amount: Invalid players amount at position %{value}
+          players_from_team: Too many players from team %{value}
+          invalid_price: Fantasy team's price is too high
+    lineups:
+      players:
+        invalid_list: Invalid players list
+        invalid_active_players: Invalid amount of active players
+        invalid_changes: Invalid changing order
+        invalid_captains: Invalid captains count

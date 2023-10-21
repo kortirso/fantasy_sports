@@ -102,6 +102,9 @@ ru:
     confirmation:
       permission: Необходимо подтвердить электронную почту
   services:
+    auth:
+      fetch_session:
+        forbidden: Доступ запрещён
     fantasy_teams:
       create:
         exists: Команда уже создана
@@ -290,3 +293,16 @@ ru:
         password_restore_email:
           subject: Восстановление пароля от Fantasy Sports
           click: Нажмите на ссылку ниже, чтобы восстановить пароль
+  validators:
+    fantasy_teams:
+      players:
+        transfers:
+          invalid_amount: Неверное количество игроков на позиции %{value}
+          players_from_team: Много игроков из команды %{value}
+          invalid_price: Стоимость команды слишком высокая
+    lineups:
+      players:
+        invalid_list: Неверный состав команды
+        invalid_active_players: Неверное количество активных игроков
+        invalid_changes: Неверный порядок замен
+        invalid_captains: Неверные данные о капитане

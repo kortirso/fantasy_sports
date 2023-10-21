@@ -89,14 +89,14 @@ describe FantasyTeamsController do
 
           it 'does not create fantasy team', :aggregate_failures do
             expect { request }.not_to change(FantasyTeam, :count)
-            expect(response).to redirect_to home_en_path
+            expect(response).to redirect_to home_path
           end
         end
 
         context 'if fantasy team is not exist' do
           it 'creates fantasy team', :aggregate_failures do
             expect { request }.to change(@current_user.fantasy_teams, :count).by(1)
-            expect(response).to redirect_to fantasy_team_transfers_en_path(FantasyTeam.last.uuid)
+            expect(response).to redirect_to fantasy_team_transfers_path(FantasyTeam.last.uuid)
           end
         end
       end

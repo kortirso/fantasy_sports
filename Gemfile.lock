@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/enriclluelles/route_translator
-  revision: cadbfc2e2e31dc406701a41ddde5a84e872b789c
-  branch: master
-  specs:
-    route_translator (13.1.0)
-      actionpack (>= 5.2, < 7.1)
-      activesupport (>= 5.2, < 7.1)
-
-GIT
   remote: https://github.com/flyerhzm/bullet
   revision: 0a394470269b3ac54c287b90c628106cf3e1b568
   branch: main
@@ -519,7 +510,6 @@ DEPENDENCIES
   rails_event_store
   redis (~> 5.0)
   redis-rails
-  route_translator!
   rspec-rails (~> 6.0)
   rubocop (~> 1.35)
   rubocop-performance (~> 1.14)

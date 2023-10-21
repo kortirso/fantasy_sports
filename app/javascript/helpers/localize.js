@@ -7,9 +7,3 @@ export const localizeValue = (value) => {
 
   return value[currentLocale] || value[DEFAULT_LOCALE];
 };
-
-export const localizeRoute = (value) => {
-  if (currentLocale === DEFAULT_LOCALE) return value;
-
-  return `/${currentLocale}${value}`;
-};

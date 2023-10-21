@@ -124,7 +124,7 @@ describe Admin::Seasons::TeamsPlayersController do
 
         it 'does not create teams player', :aggregate_failures do
           expect { request }.not_to change(Teams::Player, :count)
-          expect(response).to redirect_to new_admin_season_teams_player_en_path(season.uuid)
+          expect(response).to redirect_to new_admin_season_teams_player_path(season.uuid)
         end
       end
 
@@ -141,7 +141,7 @@ describe Admin::Seasons::TeamsPlayersController do
 
         it 'creates teams player', :aggregate_failures do
           expect { request }.to change(season.teams_players, :count).by(1)
-          expect(response).to redirect_to admin_season_teams_players_en_path(season.uuid)
+          expect(response).to redirect_to admin_season_teams_players_path(season.uuid)
         end
       end
     end
@@ -191,7 +191,7 @@ describe Admin::Seasons::TeamsPlayersController do
           request
 
           expect(teams_player.reload.price_cents).not_to eq ''
-          expect(response).to redirect_to edit_admin_season_teams_player_en_path(season.uuid, teams_player.uuid)
+          expect(response).to redirect_to edit_admin_season_teams_player_path(season.uuid, teams_player.uuid)
         end
       end
 
@@ -206,7 +206,7 @@ describe Admin::Seasons::TeamsPlayersController do
           request
 
           expect(teams_player.reload.price_cents).to eq 1_450
-          expect(response).to redirect_to admin_season_teams_players_en_path(season.uuid)
+          expect(response).to redirect_to admin_season_teams_players_path(season.uuid)
         end
       end
     end

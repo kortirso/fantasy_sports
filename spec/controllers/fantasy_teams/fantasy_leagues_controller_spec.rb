@@ -110,7 +110,7 @@ describe FantasyTeams::FantasyLeaguesController do
 
           it 'does not create fantasy league', :aggregate_failures do
             expect { request }.not_to change(FantasyLeague, :count)
-            expect(response).to redirect_to new_fantasy_team_fantasy_league_en_path
+            expect(response).to redirect_to new_fantasy_team_fantasy_league_path
           end
         end
 
@@ -121,7 +121,7 @@ describe FantasyTeams::FantasyLeaguesController do
 
           it 'creates fantasy league', :aggregate_failures do
             expect { request }.to change(@current_user.fantasy_leagues, :count).by(1)
-            expect(response).to redirect_to fantasy_team_fantasy_leagues_en_path
+            expect(response).to redirect_to fantasy_team_fantasy_leagues_path
           end
         end
       end

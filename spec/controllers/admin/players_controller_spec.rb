@@ -6,7 +6,7 @@ describe Admin::PlayersController do
       it 'redirects to login path' do
         get :index, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -17,7 +17,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           get :index, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -48,7 +48,7 @@ describe Admin::PlayersController do
       it 'redirects to login path' do
         get :new, params: { locale: 'en', sport_kind: 'basketball' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -59,7 +59,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           get :new, params: { locale: 'en', sport_kind: 'basketball' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -82,7 +82,7 @@ describe Admin::PlayersController do
       it 'redirects to login path' do
         post :create, params: { player: {}, locale: 'en', sport_kind: 'basketball' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -93,7 +93,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           post :create, params: { player: {}, locale: 'en', sport_kind: 'basketball' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -107,7 +107,7 @@ describe Admin::PlayersController do
 
           it 'does not create player', :aggregate_failures do
             expect { request }.not_to change(Player, :count)
-            expect(response).to redirect_to new_admin_player_en_path(sport_kind: 'basketball')
+            expect(response).to redirect_to new_admin_player_path(sport_kind: 'basketball')
           end
         end
 
@@ -122,7 +122,7 @@ describe Admin::PlayersController do
 
           it 'creates player', :aggregate_failures do
             expect { request }.to change(Player, :count).by(1)
-            expect(response).to redirect_to admin_players_en_path(sport_kind: 'basketball')
+            expect(response).to redirect_to admin_players_path(sport_kind: 'basketball')
           end
         end
       end
