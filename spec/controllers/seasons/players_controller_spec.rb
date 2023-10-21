@@ -26,18 +26,12 @@ describe Seasons::PlayersController do
           get :index, params: { season_id: season.uuid, locale: 'en' }
         end
 
-        it 'returns status 200' do
+        it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
-        end
-
-        %w[uuid price player team].each do |attr|
-          it "response contains team #{attr}" do
+          %w[uuid price player team].each do |attr|
             expect(response.body).to have_json_path("season_players/data/0/attributes/#{attr}")
           end
-        end
-
-        %w[points statistic].each do |attr|
-          it "response contains teams player #{attr}" do
+          %w[points statistic].each do |attr|
             expect(response.body).to have_json_path("season_players/data/0/attributes/player/#{attr}")
           end
         end
@@ -73,18 +67,12 @@ describe Seasons::PlayersController do
           get :show, params: { season_id: season.uuid, id: teams_player.uuid, locale: 'en' }
         end
 
-        it 'returns status 200' do
+        it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
-        end
-
-        %w[uuid price player team].each do |attr|
-          it "response contains team #{attr}" do
+          %w[uuid price player team].each do |attr|
             expect(response.body).to have_json_path("season_player/data/attributes/#{attr}")
           end
-        end
-
-        %w[points statistic].each do |attr|
-          it "response contains teams player #{attr}" do
+          %w[points statistic].each do |attr|
             expect(response.body).to have_json_path("season_player/data/attributes/player/#{attr}")
           end
         end

@@ -21,18 +21,39 @@ describe Weeks::TransfersController do
         let!(:lineup) { create :lineup, week: week }
 
         before do
-          create_list :transfer, 5, lineup: lineup
+          create_list :transfer, 3, lineup: lineup, direction: Transfer::IN
+          create_list :transfer, 2, lineup: lineup, direction: Transfer::OUT
 
-          get :index, params: { week_id: week.uuid, locale: 'en' }
+          create :lineups_player, lineup: lineup
         end
 
-        it 'returns status 200' do
-          expect(response).to have_http_status :ok
+        context 'for first week of season' do
+          it 'returns status 200', :aggregate_failures do
+            get :index, params: { week_id: week.uuid, locale: 'en' }
+
+            expect(response).to have_http_status :ok
+            expect(response.parsed_body['transfers_in'].size).to eq 1
+            expect(response.parsed_body['transfers_out'].size).to eq 0
+
+            %w[transfers_in transfers_out].each do |attr|
+              expect(response.body).to have_json_path(attr)
+            end
+          end
         end
 
-        %w[transfers_in transfers_out].each do |attr|
-          it "response contains week #{attr}" do
-            expect(response.body).to have_json_path(attr)
+        context 'for week with previous' do
+          before { create :week, position: week.position - 1, season: week.season }
+
+          it 'returns status 200', :aggregate_failures do
+            get :index, params: { week_id: week.uuid, locale: 'en' }
+
+            expect(response).to have_http_status :ok
+            expect(response.parsed_body['transfers_in'].size).to eq 3
+            expect(response.parsed_body['transfers_out'].size).to eq 2
+
+            %w[transfers_in transfers_out].each do |attr|
+              expect(response.body).to have_json_path(attr)
+            end
           end
         end
       end

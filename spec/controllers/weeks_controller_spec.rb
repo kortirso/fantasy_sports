@@ -24,18 +24,13 @@ describe WeeksController do
             get :show, params: { id: week.uuid, locale: 'en' }
           end
 
-          it 'returns status 200' do
+          it 'returns status 200', :aggregate_failures do
             expect(response).to have_http_status :ok
-          end
-
-          %w[uuid position deadline_at].each do |attr|
-            it "contains week #{attr}" do
+            %w[uuid position deadline_at].each do |attr|
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end
-          end
 
-          %w[games previous next].each do |attr|
-            it "does not contain week #{attr}" do
+            %w[games previous next].each do |attr|
               expect(response.body).not_to have_json_path("week/data/attributes/#{attr}")
             end
           end
@@ -46,12 +41,9 @@ describe WeeksController do
             get :show, params: { id: week.uuid, locale: 'en', fields: 'games,previous,next' }
           end
 
-          it 'returns status 200' do
+          it 'returns status 200', :aggregate_failures do
             expect(response).to have_http_status :ok
-          end
-
-          %w[uuid position deadline_at games previous next].each do |attr|
-            it "contains week #{attr}" do
+            %w[uuid position deadline_at games previous next].each do |attr|
               expect(response.body).to have_json_path("week/data/attributes/#{attr}")
             end
           end

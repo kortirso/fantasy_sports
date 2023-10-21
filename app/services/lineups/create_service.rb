@@ -32,6 +32,7 @@ module Lineups
       params[:transfers_limited] = false if previous_lineup.nil?
       params[:free_transfers_amount] *= 2 if previous_lineup&.transfers&.size&.zero?
 
+      # commento: lineups.transfers_limited, lineups.free_transfers_amount
       @result = Lineup.create!(params)
     end
 
