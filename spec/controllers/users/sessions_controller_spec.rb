@@ -14,7 +14,7 @@ describe Users::SessionsController do
       it 'renders new template' do
         post :create, params: { user: { email: 'unexisting@gmail.com', password: '1' }, locale: 'en' }
 
-        expect(response).to render_template :new
+        expect(response).to redirect_to users_login_en_path
       end
     end
 
@@ -35,7 +35,7 @@ describe Users::SessionsController do
         it 'renders new template' do
           post :create, params: { user: { email: user.email, password: 'invalid_password' }, locale: 'en' }
 
-          expect(response).to render_template :new
+          expect(response).to redirect_to users_login_en_path
         end
       end
 
@@ -43,7 +43,7 @@ describe Users::SessionsController do
         it 'renders new template' do
           post :create, params: { user: { email: user.email, password: '' }, locale: 'en' }
 
-          expect(response).to render_template :new
+          expect(response).to redirect_to users_login_en_path
         end
       end
 

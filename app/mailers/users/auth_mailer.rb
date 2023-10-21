@@ -13,7 +13,7 @@ module Users
       @user = User.find_by(id: args[:id])
       return if @user.nil?
 
-      mail(to: @user.email, subject: t('mailers.users.auth.restore_email.subject'))
+      mail(to: @user.email, subject: t('mailers.users.auth.password_restore_email.subject'))
     end
   end
 end

@@ -27,7 +27,7 @@ module Users
 
     def failed_create_response(errors)
       @user = User.new(user_params)
-      render :new, alert: errors
+      redirect_to users_sign_up_path, alert: errors
     end
 
     def after_registration_path

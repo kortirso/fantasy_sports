@@ -45,7 +45,7 @@ module Users
     end
 
     def failed_sign_in
-      render :new, alert: t('controllers.users.sessions.invalid')
+      redirect_to users_login_path, alert: t('controllers.users.sessions.invalid')
     end
 
     def after_login_path

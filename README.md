@@ -18,6 +18,14 @@ $ yarn install
 $ foreman s
 ```
 
+## Tasks
+
+Check translations
+
+```bash
+$ i18n-tasks health
+```
+
 ## Process
 
 ### Starting new week

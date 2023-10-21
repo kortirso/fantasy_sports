@@ -43,6 +43,7 @@ gem 'strong_migrations', '~> 1.4'
 gem 'jsonapi-serializer', '2.2.0'
 
 # translating
+gem 'i18n-tasks', '~> 1.0.13'
 gem 'route_translator', git: 'https://github.com/enriclluelles/route_translator', branch: 'master'
 
 # active jobs adapter

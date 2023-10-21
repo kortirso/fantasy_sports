@@ -5,13 +5,13 @@ en:
         title: Page is not found
     page_wrappers:
       users_component:
-        home: Home
         logout: Logout
         change_locale: Change locale
         login: Login
         sign_up: Sign Up
         restore: Restore password
       admin:
+        home: Home
         welcome: Welcome
         leagues: Leagues
         seasons: Seasons
@@ -48,19 +48,23 @@ en:
         create:
           success: Season is created
         teams_players:
-          create:
-            success: Teams player is created
           update:
             success: Teams player is updated
+        games:
+          create:
+            success: Game is created
+          update:
+            success: Game is updated
+          destroy:
+            success: Game is destroyed
       players:
         create:
           success: Player is created
+      permission: Unauthorized
     application:
       page_not_found: Page is not found
     maintenable:
       maintenance: League is on maintenance
-    admin:
-      permission: Unauthorized
     authentication:
       permission: Permission is denied
     users:
@@ -115,6 +119,8 @@ en:
       create:
         league_does_not_exist: League does not exist
     lineups:
+      create:
+        record_exists: Lineup is already exists
       update:
         too_many_chips: Too many chips are activated
         not_enough_chips: You can not active these chips
@@ -229,6 +235,7 @@ en:
         finance: Finance
         squad_value: 'Squad value:'
         bank: 'In the bank:'
+        cups: Cups
     users:
       registrations:
         new:

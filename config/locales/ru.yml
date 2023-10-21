@@ -5,14 +5,14 @@ ru:
         title: Страница не найдена
     page_wrappers:
       users_component:
-        home: Главная
         logout: Выход
         change_locale: Изменить локаль
         login: Вход
         sign_up: Регистрация
         restore: Восстановить пароль
       admin:
-        welcome: Главная
+        home: Главная
+        welcome: Админ панель
         leagues: Лиги
         seasons: Сезоны
         players: Игроки
@@ -48,19 +48,23 @@ ru:
         create:
           success: Сезон создан
         teams_players:
-          create:
-            success: Игрок команды добавлен
           update:
             success: Игрок команды обновлён
+        games:
+          create:
+            success: Игра создана
+          update:
+            success: Игра обновлена
+          destroy:
+            success: Игра уничтожена
       players:
         create:
           success: Игрок создан
+      permission: Доступ запрещён
     application:
       page_not_found: Страница не найдена
     maintenable:
       maintenance: Лига находится на обслуживании
-    admin:
-      permission: Доступ запрещён
     authentication:
       permission: Необходимо войти
     users:
@@ -115,6 +119,8 @@ ru:
       create:
         league_does_not_exist: Лига не существует
     lineups:
+      create:
+        record_exists: Состав уже создан
       update:
         too_many_chips: Слишком много бонусов активируется
         not_enough_chips: Вы не можете активировать эти бонусы
@@ -229,6 +235,7 @@ ru:
         finance: Финансы
         squad_value: 'Стоимость команды:'
         bank: 'В Банке:'
+        cups: Кубки
     users:
       registrations:
         new:

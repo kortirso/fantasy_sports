@@ -22,7 +22,7 @@ module Lineups
         add_lineup_players
       end
     rescue ActiveRecord::RecordNotUnique
-      fail!(I18n.t('services.fantasy_teams.lineups.create.record_exists'))
+      fail!(I18n.t('services.lineups.create.record_exists'))
     end
 
     private
