@@ -25,12 +25,9 @@ describe LineupsController do
           get :show, params: { id: lineup.uuid, locale: 'en' }
         end
 
-        it 'returns status 200' do
+        it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
-        end
-
-        %w[uuid active_chips fantasy_team].each do |attr|
-          it "contains lineup #{attr}" do
+          %w[uuid active_chips fantasy_team].each do |attr|
             expect(response.body).to have_json_path("lineup/data/attributes/#{attr}")
           end
         end

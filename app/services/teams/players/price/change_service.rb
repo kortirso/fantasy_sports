@@ -41,7 +41,7 @@ module Teams
             .group(:teams_player_id)
             .order('sum_direction desc')
             .sum(:direction)
-            .select { |_, value| value.abs >= transfers_limit }
+            .select { |_, value| value.abs >= transfers_amount_for_small_price_change }
           # example of @transfers_data
           # {14=>100, 8=>46, 18=>44, 23=>39, 3=>39, 9=>38, 22=>34, 13=>20, 12=>12}
         end
@@ -56,10 +56,6 @@ module Teams
           return PRICE_MEDIUM_CHANGE if transfers_amount >= transfers_amount_for_medium_price_change
 
           PRICE_SMALL_CHANGE if transfers_amount >= transfers_amount_for_small_price_change
-        end
-
-        def transfers_limit
-          @week.lineups.size * LIMIT_FOR_SMALL_CHANGE
         end
 
         def transfers_amount_for_big_price_change

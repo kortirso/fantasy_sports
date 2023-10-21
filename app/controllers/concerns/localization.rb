@@ -19,6 +19,6 @@ module Localization
   end
 
   def set_locale
-    I18n.locale = session[:fantasy_sports_locale].presence || Current.user&.locale.presence || I18n.default_locale
+    I18n.locale = Current.user&.locale.presence || session[:fantasy_sports_locale].presence || I18n.default_locale
   end
 end

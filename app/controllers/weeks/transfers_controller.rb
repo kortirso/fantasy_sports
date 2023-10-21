@@ -18,15 +18,19 @@ module Weeks
     end
 
     def transfers_in
-      find_transfers(@week.transfers.in)
+      return find_transfers(@week.teams_players.group(:id).count) if @week.previous.nil?
+
+      find_transfers(@week.transfers.in.group(:teams_player_id).count)
     end
 
     def transfers_out
-      find_transfers(@week.transfers.out)
+      return [] if @week.previous.nil?
+
+      find_transfers(@week.transfers.out.group(:teams_player_id).count)
     end
 
-    def find_transfers(transfers_scope)
-      transfers = transfers_scope.group(:teams_player_id).count.sort_by { |_k, v| -v }.first(10).to_h
+    def find_transfers(grouped_teams_players_ids)
+      transfers = grouped_teams_players_ids.sort_by { |_k, v| -v }.first(10).to_h
       teams_players = Teams::Player.where(id: transfers.keys).includes(:player, seasons_team: :team)
       transfers.map do |teams_player_id, amount|
         [

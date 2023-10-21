@@ -10,12 +10,9 @@ describe TeamsController do
       get :index, params: { season_uuid: season.uuid, locale: 'en' }
     end
 
-    it 'returns status 200' do
+    it 'returns status 200', :aggregate_failures do
       expect(response).to have_http_status :ok
-    end
-
-    %w[uuid name].each do |attr|
-      it "contains team #{attr}" do
+      %w[uuid name].each do |attr|
         expect(response.body).to have_json_path("teams/data/0/attributes/#{attr}")
       end
     end
