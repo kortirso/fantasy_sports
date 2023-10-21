@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Modified
 - remove locale from url
+- welcome page translation
 
 ### Fixed
 - transfers page error handling
