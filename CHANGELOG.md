@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - for first week status calculate transfers in by final amount of teams players
 
+### Fixed
+- passing children to js components
+
 ## [1.0.1] - 2023-10-21
 ### Added
 - translations health check
