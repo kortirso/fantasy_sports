@@ -16,7 +16,7 @@ describe Users::RestoreController do
       it 'redirects to users_restore path' do
         post :create, params: { email: 'unexisting@gmail.com', locale: 'en' }
 
-        expect(response).to redirect_to users_restore_en_path
+        expect(response).to redirect_to users_restore_path
       end
     end
 
@@ -28,7 +28,7 @@ describe Users::RestoreController do
 
         it 'does not call restore service', :aggregate_failures do
           expect(Users::RestoreService).not_to have_received(:call)
-          expect(response).to redirect_to users_restore_en_path
+          expect(response).to redirect_to users_restore_path
         end
       end
 
@@ -37,7 +37,7 @@ describe Users::RestoreController do
 
         it 'calls restore service', :aggregate_failures do
           expect(Users::RestoreService).to have_received(:call)
-          expect(response).to redirect_to users_restore_en_path
+          expect(response).to redirect_to users_restore_path
         end
       end
     end

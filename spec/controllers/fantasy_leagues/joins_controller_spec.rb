@@ -31,7 +31,7 @@ describe FantasyLeagues::JoinsController do
 
           it 'does not call join service', :aggregate_failures do
             expect(FantasyLeagues::JoinService).not_to have_received(:call)
-            expect(response).to redirect_to home_en_path
+            expect(response).to redirect_to home_path
           end
         end
 
@@ -42,7 +42,7 @@ describe FantasyLeagues::JoinsController do
 
           it 'does not call join service', :aggregate_failures do
             expect(FantasyLeagues::JoinService).not_to have_received(:call)
-            expect(response).to redirect_to home_en_path
+            expect(response).to redirect_to home_path
           end
         end
 
@@ -64,7 +64,7 @@ describe FantasyLeagues::JoinsController do
 
             it 'does not call join service', :aggregate_failures do
               expect(FantasyLeagues::JoinService).not_to have_received(:call)
-              expect(response).to redirect_to home_en_path
+              expect(response).to redirect_to home_path
             end
           end
 
@@ -80,7 +80,7 @@ describe FantasyLeagues::JoinsController do
 
               it 'calls join service', :aggregate_failures do
                 expect(FantasyLeagues::JoinService).to have_received(:call)
-                expect(response).to redirect_to fantasy_teams_en_path
+                expect(response).to redirect_to fantasy_teams_path
               end
             end
 
@@ -93,7 +93,7 @@ describe FantasyLeagues::JoinsController do
 
               it 'does not call join service', :aggregate_failures do
                 expect(FantasyLeagues::JoinService).not_to have_received(:call)
-                expect(response).to redirect_to home_en_path
+                expect(response).to redirect_to home_path
               end
             end
           end

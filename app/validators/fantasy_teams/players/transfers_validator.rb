@@ -41,7 +41,9 @@ module FantasyTeams
         Sports::Position.where(sport: @fantasy_team.sport_kind).each do |position|
           next if @position_kinds.count(position.title) == position.total_amount
 
-          @errors.push("Invalid players amount at position #{position.name['en']}")
+          @errors.push(
+            I18n.t('validators.fantasy_teams.players.transfers.invalid_amount', value: position.name[I18n.locale.to_s])
+          )
         end
       end
 
@@ -51,14 +53,19 @@ module FantasyTeams
           .each { |key, value|
             next if value <= @max_team_players
 
-            @errors.push("Too many players from team #{Team.find(key).name['en']}")
+            @errors.push(
+              I18n.t(
+                'validators.fantasy_teams.players.transfers.players_from_team',
+                value: Team.find(key).name[I18n.locale.to_s]
+              )
+            )
           }
       end
 
       def validate_players_price(budget_limit)
         return if @total_price_cents <= budget_limit
 
-        @errors.push("Fantasy team's price is too high")
+        @errors.push(I18n.t('validators.fantasy_teams.players.transfers.invalid_price'))
       end
     end
   end

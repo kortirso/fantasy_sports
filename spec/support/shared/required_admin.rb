@@ -7,7 +7,7 @@ shared_examples_for 'required admin' do
     it 'render shared error' do
       do_request
 
-      expect(response).to redirect_to home_en_path
+      expect(response).to redirect_to home_path
     end
   end
 end

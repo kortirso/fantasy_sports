@@ -1203,7 +1203,8 @@ CREATE TABLE public.users (
     role integer DEFAULT 0 NOT NULL,
     confirmation_token character varying,
     confirmed_at timestamp(6) without time zone,
-    restore_token character varying
+    restore_token character varying,
+    locale character varying DEFAULT 'en'::character varying NOT NULL
 );
 
 
@@ -2188,6 +2189,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221208151825'),
 ('20221226171032'),
 ('20230928164428'),
-('20231008190606');
+('20231008190606'),
+('20231021133617');
 
 

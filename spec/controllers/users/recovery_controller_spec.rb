@@ -6,7 +6,7 @@ describe Users::RecoveryController do
       it 'redirects to users_recovery path' do
         get :new, params: { email: 'unexisting@gmail.com', locale: 'en' }
 
-        expect(response).to redirect_to users_recovery_en_path(email: 'unexisting@gmail.com')
+        expect(response).to redirect_to users_recovery_path(email: 'unexisting@gmail.com')
       end
     end
 
@@ -17,7 +17,7 @@ describe Users::RecoveryController do
         it 'redirects to users_recovery path' do
           get :new, params: { email: user.email, restore_token: '123', locale: 'en' }
 
-          expect(response).to redirect_to users_recovery_en_path(email: user.email, restore_token: '123')
+          expect(response).to redirect_to users_recovery_path(email: user.email, restore_token: '123')
         end
       end
 
@@ -36,7 +36,7 @@ describe Users::RecoveryController do
       it 'redirects to users_recovery path' do
         post :create, params: { email: 'unexisting@gmail.com', locale: 'en' }
 
-        expect(response).to redirect_to users_recovery_en_path(email: 'unexisting@gmail.com')
+        expect(response).to redirect_to users_recovery_path(email: 'unexisting@gmail.com')
       end
     end
 
@@ -47,7 +47,7 @@ describe Users::RecoveryController do
         it 'redirects to users_recovery path' do
           post :create, params: { email: user.email, restore_token: '123', locale: 'en' }
 
-          expect(response).to redirect_to users_recovery_en_path(email: user.email, restore_token: '123')
+          expect(response).to redirect_to users_recovery_path(email: user.email, restore_token: '123')
         end
       end
 
@@ -63,7 +63,7 @@ describe Users::RecoveryController do
           end
 
           it 'redirects to users_recovery path' do
-            expect(response).to redirect_to users_recovery_en_path(email: user.email, restore_token: user.restore_token)
+            expect(response).to redirect_to users_recovery_path(email: user.email, restore_token: user.restore_token)
           end
         end
 
@@ -78,7 +78,7 @@ describe Users::RecoveryController do
           end
 
           it 'redirects to users_login path' do
-            expect(response).to redirect_to users_login_en_path
+            expect(response).to redirect_to users_login_path
           end
         end
       end

@@ -6,10 +6,10 @@ module Auth
 
     def call(token:)
       payload = extract_uuid(token)
-      return { errors: ['Forbidden'] } if payload.blank?
+      return { errors: [I18n.t('services.auth.fetch_session.forbidden')] } if payload.blank?
 
       session = find_session(payload)
-      return { errors: ['Forbidden'] } if session.blank?
+      return { errors: [I18n.t('services.auth.fetch_session.forbidden')] } if session.blank?
 
       { result: session }
     end

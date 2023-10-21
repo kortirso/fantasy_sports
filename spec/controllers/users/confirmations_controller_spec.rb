@@ -42,7 +42,7 @@ describe Users::ConfirmationsController do
 
         it 'calls Users::UpdateService', :aggregate_failures do
           expect(Users::UpdateService).to have_received(:call)
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
     end

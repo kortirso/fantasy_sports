@@ -6,7 +6,7 @@ describe Admin::LeaguesController do
       it 'redirects to login path' do
         get :index, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -17,7 +17,7 @@ describe Admin::LeaguesController do
         it 'redirects to home path' do
           get :index, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -42,7 +42,7 @@ describe Admin::LeaguesController do
       it 'redirects to login path' do
         get :new, params: { locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -53,7 +53,7 @@ describe Admin::LeaguesController do
         it 'redirects to home path' do
           get :new, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -76,7 +76,7 @@ describe Admin::LeaguesController do
       it 'redirects to login path' do
         post :create, params: { league: {}, locale: 'en' }
 
-        expect(response).to redirect_to users_login_en_path
+        expect(response).to redirect_to users_login_path
       end
     end
 
@@ -87,7 +87,7 @@ describe Admin::LeaguesController do
         it 'redirects to home path' do
           post :create, params: { league: {}, locale: 'en' }
 
-          expect(response).to redirect_to home_en_path
+          expect(response).to redirect_to home_path
         end
       end
 
@@ -101,7 +101,7 @@ describe Admin::LeaguesController do
 
           it 'does not create league', :aggregate_failures do
             expect { request }.not_to change(League, :count)
-            expect(response).to redirect_to new_admin_league_en_path
+            expect(response).to redirect_to new_admin_league_path
           end
         end
 
@@ -112,7 +112,7 @@ describe Admin::LeaguesController do
 
           it 'creates league', :aggregate_failures do
             expect { request }.to change(League, :count).by(1)
-            expect(response).to redirect_to admin_leagues_en_path
+            expect(response).to redirect_to admin_leagues_path
           end
         end
       end

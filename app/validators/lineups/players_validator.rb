@@ -50,25 +50,25 @@ module Lineups
     def validate_lineup_player_ids
       return if @players_uuids.sort == @lineups_players_uuids
 
-      @errors.push('Invalid players list')
+      @errors.push(I18n.t('validators.lineups.players.invalid_list'))
     end
 
     def validate_active_players_count
       return if @active_players == @active_players_limit
 
-      @errors.push('Invalid amount of active players')
+      @errors.push(I18n.t('validators.lineups.players.invalid_active_players'))
     end
 
     def validate_change_orders
       return if @positive_change_orders.sort == CHANGE_ORDERS_TEMPLATE
 
-      @errors.push('Invalid changing order')
+      @errors.push(I18n.t('validators.lineups.players.invalid_changes'))
     end
 
     def validate_captains_count
       return if @captains.sort == [Lineups::Player::ASSISTANT, Lineups::Player::CAPTAIN]
 
-      @errors.push('Invalid captains count')
+      @errors.push(I18n.t('validators.lineups.players.invalid_captains'))
     end
   end
 end
