@@ -253,7 +253,7 @@ export const Transfers = ({
         {!fantasyTeamCompleted && (
           <div class="flex">
             <div className="form-field mr-4">
-              <label className="form-label">{strings.transfers.name}</label>
+              <label className="form-label">{strings.transfers.name} *</label>
               <input
                 className="form-value"
                 value={teamName}
