@@ -66,7 +66,7 @@ export const Game = ({ item, teamNames }) => {
         className="flex justify-center items-center p-2 border-b border-gray-200 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-lg flex-1 text-right">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
+        <p className="lg:text-lg flex-1 text-right">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
         {item.points.length > 0 ? (
           <p className="py-2 px-3 bg-black text-white text-lg mx-4">
             {item.points[0]} - {item.points[1]}
@@ -74,7 +74,7 @@ export const Game = ({ item, teamNames }) => {
         ) : (
           <p className="py-2 px-4 border border-gray-200 mx-4">{convertTime(item.start_at)}</p>
         )}
-        <p className="text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
+        <p className="lg:text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
       </div>
       {isOpen && item.points.length > 0 && gameStatistics ? (
         <ul className="list-none p-0">

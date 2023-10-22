@@ -43,7 +43,7 @@ export const Week = ({ uuid, teamNames }) => {
             </button>
           ) : null}
         </div>
-        <p>
+        <p className="text-center">
           {strings.week.gameweek} {pageState.week.position} - {convertDateTime(pageState.week.deadline_at)}
         </p>
         <div className="w-48">
@@ -57,7 +57,7 @@ export const Week = ({ uuid, teamNames }) => {
           ) : null}
         </div>
       </div>
-      <div className="mb-4">
+      <div className="bg-white mb-4">
         {pageState.games.map((item, index) => (
           <div key={index}>
             {index === 0 || convertDate(item.start_at) !== convertDate(pageState.games[index - 1].start_at) ? (

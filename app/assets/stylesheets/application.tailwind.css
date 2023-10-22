@@ -45,7 +45,7 @@
   }
 
   .user-navigation-link {
-    @apply flex flex-row items-center p-2 pl-8 text-white;
+    @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-white;
   }
 
   .user-navigation-link img {
@@ -97,6 +97,10 @@
     top: 42px;
   }
 
+  .sport-position {
+    @apply flex flex-row justify-center gap-2;
+  }
+
   .football-field {
     height: 45rem;
     background-image: url('football_field.jpg');
@@ -123,37 +127,98 @@
   .football-field .player-jersey { background-image: url('icons/jerseys/basketball/default.svg') }
 
   .basketball-field {
-    height: 50rem;
+    height: calc(100vw - 4rem);
+    max-height: 886px;
     background-image: url('basketball_field.jpg');
   }
 
   .basketball-field .sport-position {
     @apply absolute;
+
+    scale: .75;
+  }
+
+  @media (min-width: 768px) {
+    .basketball-field .sport-position { scale: .8 }
+  }
+
+  @media (min-width: 840px) {
+    .basketball-field .sport-position { scale: .9 }
+  }
+
+  @media (min-width: 1024px) {
+    .basketball-field { height: calc(100vw - 22rem) }
+    .basketball-field .sport-position { scale: .95 }
+  }
+
+  @media (min-width: 1280px) {
+    .basketball-field { height: calc((100vw - 23rem) * 0.70) }
+    .basketball-field .sport-position { scale: 1 }
   }
 
   .basketball-field .sport-position.Center {
-    top: 50%;
+    top: 46%;
     left: 50%;
+    margin-left: -24px;
   }
 
   .basketball-field .sport-position.Power-Forward {
     top: 70%;
-    left: 12%;
+    left: 50%;
+    margin-left: -272px;
   }
 
   .basketball-field .sport-position.Small-Forward {
     top: 75%;
-    left: 62%;
+    left: 50%;
+    margin-left: 0;
   }
 
   .basketball-field .sport-position.Point-Guard {
-    top: 15%;
-    left: 37%;
+    top: 10%;
+    left: 50%;
+    margin-left: -132px;
   }
 
   .basketball-field .sport-position.Shooting-Guard {
-    top: 35%;
-    left: 8%;
+    top: 34%;
+    left: 50%;
+    margin-left: -252px;
+  }
+
+  @media (min-width: 640px) {
+    .basketball-field .sport-position.Center { top: 48% }
+    .basketball-field .sport-position.Power-Forward { top: 74%; margin-left: -312px }
+    .basketball-field .sport-position.Small-Forward { top: 76%; margin-left: 32px }
+    .basketball-field .sport-position.Point-Guard { top: 11% }
+    .basketball-field .sport-position.Shooting-Guard { top: 36%; margin-left: -282px }
+  }
+
+  @media (min-width: 768px) {
+    .basketball-field .sport-position.Center { top: 50% }
+    .basketball-field .sport-position.Point-Guard { top: 14% }
+  }
+
+  @media (min-width: 840px) {
+    .basketball-field .sport-position.Center { top: 52% }
+    .basketball-field .sport-position.Power-Forward { margin-left: -362px }
+    .basketball-field .sport-position.Small-Forward { margin-left: 72px }
+    .basketball-field .sport-position.Point-Guard { top: 16% }
+    .basketball-field .sport-position.Shooting-Guard { top: 40%; margin-left: -312px }
+  }
+
+  @media (min-width: 1024px) {
+    .basketball-field .sport-position.Center { top: 50% }
+    .basketball-field .sport-position.Power-Forward { margin-left: -332px }
+    .basketball-field .sport-position.Point-Guard { top: 14% }
+  }
+
+  @media (min-width: 1280px) {
+    .basketball-field .sport-position.Center { top: 50%; margin-left: 0 }
+    .basketball-field .sport-position.Power-Forward { margin-left: -362px }
+    .basketball-field .sport-position.Small-Forward { margin-left: 92px }
+    .basketball-field .sport-position.Point-Guard { top: 16% }
+    .basketball-field .sport-position.Shooting-Guard { margin-left: -332px }
   }
 
   .basketball-field .player-jersey.BOS { background-image: url('icons/jerseys/basketball/boston.svg') }
@@ -260,7 +325,7 @@
   }
 
   .table {
-    @apply w-full;
+    @apply bg-white w-full;
   }
 
   .table thead tr {

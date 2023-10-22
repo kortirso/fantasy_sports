@@ -1,5 +1,5 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div class="grid grid-cols-2 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
       <h2><%= t('views.fantasy_teams.fantasy_leagues.index.leagues') %></h2>
       <h3><%= t('views.fantasy_teams.fantasy_leagues.index.general_leagues') %></h3>
@@ -22,6 +22,7 @@
     </div>
     <div>
       <h2><%= t('views.fantasy_teams.fantasy_leagues.index.cups') %></h2>
+      <p><%= t('views.fantasy_teams.fantasy_leagues.index.cups_description') %></p>
     </div>
   </div>
 <% end %>

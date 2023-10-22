@@ -264,7 +264,7 @@ export const Squad = ({
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
       <h1>{strings.squad.title}</h1>
-      <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
+      <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
         {sport.changes ? (
           <span className="absolute left-16 top-4 inline-block bg-red-600 text-white text-sm py-1 px-2 rounded mb-4">
             <span>{strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}</span>
@@ -272,7 +272,7 @@ export const Squad = ({
         ) : null }
         {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
           <div
-            className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
+            className={`sport-position ${sportPositionName(sportPosition)}`}
             key={positionKind}
           >
             {activePlayersByPosition(positionKind).map((item) => (

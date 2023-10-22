@@ -6,7 +6,7 @@ export const Toggle = ({ header, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4 shadow">
+    <div className="bg-white rounded shadow">
       <div className="py-2 px-4 cursor-pointer flex justify-between items-center" onClick={() => setIsOpen(!isOpen)}>
         <h3 className="m-0 text-lg">{header}</h3>
         <Chevron rotated={isOpen} />

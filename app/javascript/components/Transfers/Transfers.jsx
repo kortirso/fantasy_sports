@@ -35,6 +35,7 @@ export const Transfers = ({
     loading: true,
     teamNames: {},
     seasonPlayers: [],
+    visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
   });
 
   const [teamMembers, setTeamMembers] = useState([]);
@@ -70,6 +71,7 @@ export const Transfers = ({
           loading: false,
           teamNames: fetchTeamsData,
           seasonPlayers: fetchSeasonPlayersData,
+          visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
         }),
     );
 
@@ -244,8 +246,8 @@ export const Transfers = ({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-8">
-      <div className="col-span-3">
+    <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-10 xl:gap-8">
+      <div className="xl:col-span-7">
         <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mr-2">
           {strings.formatString(strings.transfers.week, { number: weekPosition })}
         </span>
@@ -274,151 +276,176 @@ export const Transfers = ({
             </div>
           </div>
         )}
-        <div className="flex flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
-          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
-            <p>{strings.transfers.free}</p>
-            <p className="text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
+        <div className="flex flex-col md:flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
+          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+            <p className="text-center">{strings.transfers.free}</p>
+            <p className="ml-4 md:ml-0 text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
-          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
-            <p>{strings.transfers.cost}</p>
-            <p className="text-xl">0</p>
+          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+            <p className="text-center">{strings.transfers.cost}</p>
+            <p className="ml-4 md:ml-0 text-xl">0</p>
           </div>
-          <div className="flex flex-col items-center justify-between flex-1 py-2 px-10">
-            <p>{strings.transfers.remaining}</p>
-            <p className="text-xl">{budget}</p>
+          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
+            <p className="text-center">{strings.transfers.remaining}</p>
+            <p className="ml-4 md:ml-0 text-xl">{budget}</p>
           </div>
         </div>
-        <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
-          <span className="absolute left-16 top-4 inline-block bg-red-600 text-white text-sm py-1 px-2 rounded mb-4">
-            <span>{strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}</span>
-          </span>
-          {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-            <div
-              className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
-              key={positionKind}
-            >
-              {playersByPosition[positionKind]?.map((item) => (
-                <PlayerCard
-                  key={item.uuid}
-                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                  name={localizeValue(item.player.name).split(' ')[0]}
-                  value={item.price}
-                  number={item.shirt_number}
-                  onActionClick={() => removeTeamMember(item)}
-                  onInfoClick={() => setPlayerUuid(item.uuid)}
-                />
+        {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
+          <>
+            <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
+              <p className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
+                {strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}
+              </p>
+              {pageState.visibleMode === 'lineup' ? (
+                <p
+                  className="absolute right-4 top-4 bg-green-600 text-white text-sm py-1 px-2 rounded shadow cursor-pointer"
+                  onClick={() => setPageState({ ...pageState, visibleMode: 'seasonPlayers' })}
+                >
+                  {strings.transfers.showSeasonPlayers}
+                </p>
+              ) : null}
+              {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+                <div
+                  className={`sport-position ${sportPositionName(sportPosition)}`}
+                  key={positionKind}
+                >
+                  {playersByPosition[positionKind]?.map((item) => (
+                    <PlayerCard
+                      key={item.uuid}
+                      teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                      name={localizeValue(item.player.name).split(' ')[0]}
+                      value={item.price}
+                      number={item.shirt_number}
+                      onActionClick={() => removeTeamMember(item)}
+                      onInfoClick={() => setPlayerUuid(item.uuid)}
+                    />
+                  ))}
+                  {renderEmptySlots(positionKind)}
+                </div>
               ))}
-              {renderEmptySlots(positionKind)}
             </div>
-          ))}
-        </div>
-        <div className="my-8 mx-auto text-center">
-          <button
-            className="btn-primary"
-            onClick={() => (fantasyTeamCompleted ? submitCompleted(true) : submit())}
-          >
-            {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
-          </button>
-        </div>
-        {Object.keys(pageState.teamNames).length > 0 ? (
-          <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+            <div className="my-8 mx-auto text-center">
+              <button
+                className="btn-primary"
+                onClick={() => (fantasyTeamCompleted ? submitCompleted(true) : submit())}
+              >
+                {fantasyTeamCompleted ? strings.transfers.makeTransfers : strings.transfers.save}
+              </button>
+            </div>
+            {Object.keys(pageState.teamNames).length > 0 ? (
+              <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+            ) : null}
+          </>
         ) : null}
       </div>
-      <div>
-        <Dropdown
-          title={strings.transfers.positionView}
-          items={Object.entries(sportPositions).reduce(
-            (result, [key, values]) => {
-              result[key] = localizeValue(values.name);
-              return result;
-            },
-            { all: strings.transfers.allPlayers },
+      {pageState.visibleMode === 'all' || pageState.visibleMode === 'seasonPlayers' ? (
+        <div className="lg:col-span-3">
+          {pageState.visibleMode === 'seasonPlayers' ? (
+            <span
+              className="inline-block mb-2 bg-green-600 text-white text-sm py-1 px-2 rounded shadow cursor-pointer"
+              onClick={() => setPageState({ ...pageState, visibleMode: 'lineup' })}
+            >
+              {strings.transfers.showLineup}
+            </span>
+          ) : null}
+          <div className="sm:grid sm:grid-cols-2 xl:grid-cols-1 sm:gap-x-4 sm:mb-4">
+            <Dropdown
+              title={strings.transfers.positionView}
+              items={Object.entries(sportPositions).reduce(
+                (result, [key, values]) => {
+                  result[key] = localizeValue(values.name);
+                  return result;
+                },
+                { all: strings.transfers.allPlayers },
+              )}
+              onSelect={(value) => {
+                setFilterByPosition(value);
+                setPage(0);
+              }}
+              selectedValue={filterByPosition}
+            />
+            <Dropdown
+              title={strings.transfers.teamView}
+              items={Object.entries(pageState.teamNames).reduce(
+                (result, [key, values]) => {
+                  result[key] = localizeValue(values.name);
+                  return result;
+                },
+                { all: strings.transfers.allTeams },
+              )}
+              onSelect={(value) => {
+                setFilterByTeam(value);
+                setPage(0);
+              }}
+              selectedValue={filterByTeam}
+            />
+            <Dropdown
+              title={strings.transfers.sort}
+              items={{
+                points: strings.transfers.sortByPoints,
+                price: strings.transfers.sortByPrice,
+                form: strings.transfers.sortByForm,
+              }}
+              onSelect={(value) => setSortBy(value)}
+              selectedValue={sortBy}
+            />
+            <div className="form-field mb-4">
+              <label className="form-label">{strings.transfers.search}</label>
+              <input
+                className="form-value w-full"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
+          {filteredSlicedPlayers.map((item) => (
+            <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-gray-200" key={item.uuid}>
+              <div
+                className="flex items-center justify-center mr-2 btn-info btn-small text-black py-0 leading-6"
+                onClick={() => setPlayerUuid(item.uuid)}
+              >
+                ?
+              </div>
+              <div className="flex-1">
+                <span className="text-lg mr-4">
+                  {localizeValue(item.player.name)?.split(' ')[0]}
+                </span>
+                {false ? (
+                  <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>
+                ) : null}
+                <span className="text-sm">
+                  {localizeValue(sportPositions[item.player.position_kind].short_name)}
+                </span>
+              </div>
+              <div className="w-12 flex flex-row items-center justify-center">{item.price}</div>
+              <div className="w-12 flex flex-row items-center justify-center">
+                {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
+              </div>
+              <div className="btn-primary btn-small py-0 leading-6" onClick={() => addTeamMember(item)}>
+                +
+              </div>
+            </div>
+          ))}
+          {pageState.seasonPlayers.length > PER_PAGE && (
+            <div className="py-2 px-0 flex flex-row justify-center items-center">
+              <span
+                className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
+                onClick={pageDown}
+              >
+                -
+              </span>
+              <span className="mx-4">{`${page + 1} of ${lastPageIndex}`}</span>
+              <span
+                className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
+                onClick={pageUp}
+              >
+                +
+              </span>
+            </div>
           )}
-          onSelect={(value) => {
-            setFilterByPosition(value);
-            setPage(0);
-          }}
-          selectedValue={filterByPosition}
-        />
-        <Dropdown
-          title={strings.transfers.teamView}
-          items={Object.entries(pageState.teamNames).reduce(
-            (result, [key, values]) => {
-              result[key] = localizeValue(values.name);
-              return result;
-            },
-            { all: strings.transfers.allTeams },
-          )}
-          onSelect={(value) => {
-            setFilterByTeam(value);
-            setPage(0);
-          }}
-          selectedValue={filterByTeam}
-        />
-        <Dropdown
-          title={strings.transfers.sort}
-          items={{
-            points: strings.transfers.sortByPoints,
-            price: strings.transfers.sortByPrice,
-            form: strings.transfers.sortByForm,
-          }}
-          onSelect={(value) => setSortBy(value)}
-          selectedValue={sortBy}
-        />
-        <div className="form-field my-4">
-          <label className="form-label">{strings.transfers.search}</label>
-          <input
-            className="form-value w-full"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
         </div>
-        {filteredSlicedPlayers.map((item) => (
-          <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-gray-200" key={item.uuid}>
-            <div
-              className="flex items-center justify-center mr-2 btn-info btn-small text-black py-0 leading-6"
-              onClick={() => setPlayerUuid(item.uuid)}
-            >
-              ?
-            </div>
-            <div className="flex-1">
-              <span className="text-lg mr-4">
-                {localizeValue(item.player.name)?.split(' ')[0]}
-              </span>
-              {false ? (
-                <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>
-              ) : null}
-              <span className="text-sm">
-                {localizeValue(sportPositions[item.player.position_kind].short_name)}
-              </span>
-            </div>
-            <div className="w-12 flex flex-row items-center justify-center">{item.price}</div>
-            <div className="w-12 flex flex-row items-center justify-center">
-              {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
-            </div>
-            <div className="btn-primary btn-small py-0 leading-6" onClick={() => addTeamMember(item)}>
-              +
-            </div>
-          </div>
-        ))}
-        {pageState.seasonPlayers.length > PER_PAGE && (
-          <div className="py-2 px-0 flex flex-row justify-center items-center">
-            <span
-              className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
-              onClick={pageDown}
-            >
-              -
-            </span>
-            <span className="mx-4">{`${page + 1} of ${lastPageIndex}`}</span>
-            <span
-              className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
-              onClick={pageUp}
-            >
-              +
-            </span>
-          </div>
-        )}
-      </div>
+      ) : null}
+
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}

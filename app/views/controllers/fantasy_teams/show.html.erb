@@ -1,8 +1,8 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div class="grid grid-cols-4 gap-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-10 gap-8">
     <%=
       react_component 'Squad',
-        component_class: 'col-span-3',
+        component_class: 'xl:col-span-7',
         seasonUuid:      @season.uuid,
         sportKind:       @season.league.sport_kind,
         lineupUuid:      @lineup.uuid,
