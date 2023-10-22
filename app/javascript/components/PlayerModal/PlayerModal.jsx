@@ -38,7 +38,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     const data = seasonPlayer.games_players.data;
     const lastGameData = data[data.length - 1];
 
-    return lastGameData ? lastGameData.attributes.points : '-';
+    return lastGameData && lastGameData.attributes.points ? lastGameData.attributes.points : '-';
   };
 
   const renderSeasonGames = () => {
@@ -46,7 +46,9 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
       return (
         <tr key={item.attributes.uuid}>
           <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.week.position}</td>
-          <td className="text-center border-b border-gray-200 py-2 px-4">{localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}</td>
+          <td className="text-center border-b border-gray-200 py-2 px-4 whitespace-nowrap">
+            {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}
+          </td>
           <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
             <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
@@ -63,30 +65,30 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         <h2 className="mb-2">{localizeValue(seasonPlayer.player.name)}</h2>
         <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
       </div>
-      <div className="flex justify-between mb-8 bg-gray-200 rounded shadow">
-        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
+      <div className="grid grid-cols-2 lg:grid-cols-6 justify-between mb-8 bg-gray-200 rounded shadow">
+        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.form}</p>
-          <p className="mt-1">{seasonPlayer.form}</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.form}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.poinstPerGame}</p>
-          <p className="mt-1">{perGamePoints()}</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{perGamePoints()}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.lastWeek}</p>
-          <p className="mt-1">{lastPoints()}</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{lastPoints()}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.totalPoints}</p>
-          <p className="mt-1">{seasonPlayer.player.points}</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.player.points}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-r border-gray-300 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.price}</p>
-          <p className="mt-1">{seasonPlayer.price}</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.price}</p>
         </div>
-        <div className="flex-1 py-3 px-0 flex flex-col items-center">
+        <div className="flex-1 py-3 px-0 flex lg:flex-col justify-center items-center">
           <p className="text-sm">{strings.player.teamsSelectedBy}</p>
-          <p className="mt-1">{seasonPlayer.teams_selected_by}%</p>
+          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
       <div className="w-full overflow-x-scroll">

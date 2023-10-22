@@ -69,21 +69,21 @@ export const SquadPoints = ({
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
       <h1>{strings.squadPoints.title}</h1>
-      <div className="flex flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
-        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
-          <p>{strings.squadPoints.totalPoints}</p>
-          <p className="text-xl">{points}</p>
+      <div className="flex flex-col md:flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
+        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+          <p className="text-center">{strings.squadPoints.totalPoints}</p>
+          <p className="ml-4 md:ml-0 text-xl">{points}</p>
         </div>
-        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10 border-r border-gray-300">
-          <p>{strings.squadPoints.averagePoints}</p>
-          <p className="text-xl">{averagePoints}</p>
+        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+          <p className="text-center">{strings.squadPoints.averagePoints}</p>
+          <p className="ml-4 md:ml-0 text-xl">{averagePoints}</p>
         </div>
-        <div className="flex flex-col items-center justify-between flex-1 py-2 px-10">
-          <p>{strings.squadPoints.hightestPoints}</p>
-          <p className="text-xl">{maxPoints}</p>
+        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
+          <p className="text-center">{strings.squadPoints.hightestPoints}</p>
+          <p className="ml-4 md:ml-0 text-xl">{maxPoints}</p>
         </div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-4">
         <div>
           {previousPointsUrl ? (
             <a className="btn-primary btn-small" href={previousPointsUrl}>
@@ -100,10 +100,10 @@ export const SquadPoints = ({
           ) : null}
         </div>
       </div>
-      <div className={`flex flex-col relative bg-no-repeat bg-contain bg-center ${sportKind}-field`}>
+      <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
         {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
           <div
-            className={`flex flex-row justify-center sport-position ${sportPositionName(sportPosition)}`}
+            className={`sport-position ${sportPositionName(sportPosition)}`}
             key={positionKind}
           >
             {activePlayersByPosition(positionKind).map((item) => (

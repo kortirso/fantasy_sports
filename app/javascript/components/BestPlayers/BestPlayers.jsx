@@ -72,7 +72,7 @@ export const BestPlayers = ({ weekUuid, seasonUuid, sportKind }) => {
   };
 
   return (
-    <section className="grid grid-cols-2 gap-8 mb-8">
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
       <div>
         <h2>{strings.bestPlayers.week}</h2>
         {renderPlayersData(pageState.bestWeekPlayers)}

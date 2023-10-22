@@ -1,7 +1,7 @@
 <%= render PageWrappers::PageComponent.new do %>
   <h1><%= t('views.rules.index.title') %></h1>
-  <div class="grid grid-cols-3 gap-8">
-    <div>
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8">
+    <div class="mb-8">
       <h2><%= t('views.rules.index.basketball') %></h2>
       <%=
         react_component 'Toggle',
@@ -15,7 +15,7 @@
           ).html_safe
       %>
     </div>
-    <div>
+    <div class="mb-8">
       <h2><%= t('views.rules.index.football') %></h2>
       <%=
         react_component 'Toggle',

@@ -30,7 +30,9 @@
       "penaltyPoints": "Penalty points for transfers",
       "cancel": "Cancel",
       "approve": "Approve",
-      "search": "Search by name"
+      "search": "Search by name",
+      "showLineup": "Show lineup",
+      "showSeasonPlayers": "Show season players"
     },
     "week": {
       "previous": "Previous week",
@@ -118,7 +120,9 @@
       "penaltyPoints": "Стоимость трансферов",
       "cancel": "Отмена",
       "approve": "Подтвердить",
-      "search": "Поиск по имени"
+      "search": "Поиск по имени",
+      "showLineup": "Показать состав",
+      "showSeasonPlayers": "Показать игроков"
     },
     "week": {
       "previous": "Предыдущая неделя",

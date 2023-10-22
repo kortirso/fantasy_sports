@@ -1,13 +1,13 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
-  <div class="grid grid-cols-2 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
       <h2><%= @fantasy_league.name %></h2>
       <table cellSpacing="0" class="table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Total points</th>
+            <th><%= t('views.fantasy_leagues.show.rank') %></th>
+            <th><%= t('views.fantasy_leagues.show.team_name') %></th>
+            <th><%= t('views.fantasy_leagues.show.points') %></th>
           </tr>
         </thead>
         <tbody>

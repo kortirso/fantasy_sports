@@ -1,22 +1,20 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <section class="grid grid-cols-5 gap-4">
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
     <% @seasons.each do |season| %>
-      <div class="p-4 shadow rounded">
-        <div class="h-full flex flex-col justify-between">
-          <h3><%= localized_value(season[:leagues_name]) %></h3>
-          <% if season[:start_at].nil? || DateTime.now > season[:start_at] %>
-            <p>
-              <%=
-                render Views::Homes::Show::FantasyTeamLinkComponent.new(
-                  season_uuid: season[:uuid],
-                  fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
-                )
-              %>
-            </p>
-          <% else %>
-            <p>Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
-          <% end %>
-        </div>
+      <div class="flex flex-col justify-between p-4 bg-white shadow rounded">
+        <h3><%= localized_value(season[:leagues_name]) %></h3>
+        <% if season[:start_at].nil? || DateTime.now > season[:start_at] %>
+          <div>
+            <%=
+              render Views::Homes::Show::FantasyTeamLinkComponent.new(
+                season_uuid: season[:uuid],
+                fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
+              )
+            %>
+          </div>
+        <% else %>
+          <p>Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
+        <% end %>
       </div>
     <% end %>
   </section>

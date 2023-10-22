@@ -207,6 +207,9 @@ en:
       nba: NBA 23-24 from 24.10.2023
     fantasy_leagues:
       show:
+        rank: Rank
+        team_name: Team name
+        points: Total points
         title: Inviting friends to join
         link: You can send this link to your friends
         email: Or send email with provided text
@@ -216,7 +219,7 @@ en:
           title: Gameweek %{week} status
       points:
         index:
-          no_lineups: There is no active week
+          no_lineups: There is no your active lineup
       fantasy_leagues:
         index:
           leagues: Fantasy leagues
@@ -224,6 +227,7 @@ en:
           user_leagues: User fantasy leagues
           new_user_league: Add fantasy league
           cups: Cups
+          cups_description: Fantasy cups information will be added later
           table:
             league: League
             teams: Teams amount

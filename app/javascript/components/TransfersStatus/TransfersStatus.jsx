@@ -69,7 +69,7 @@ export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
   };
 
   return (
-    <section className="grid grid-cols-2 gap-8">
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
         <h2>{strings.transfersStatus.transfersIn}</h2>
         {renderTransfersData(pageState.weekTransfers.transfers_in)}

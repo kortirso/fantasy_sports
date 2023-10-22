@@ -17,9 +17,9 @@ export const PlayerCard = ({
   };
 
   return (
-    <div>
+    <>
       <div
-        className={`relative flex flex-col w-32 overflow-hidden rounded mr-2 py-2 px-0 ${className}`}
+        className={`relative flex flex-col w-32 overflow-hidden rounded ${className}`}
         onClick={onCardClick ? onCardClick : undefined}
       >
         <p className={`player-jersey bg-no-repeat bg-contain bg-center h-20 mb-2 flex justify-center items-center ${teamName}`}>
@@ -55,6 +55,6 @@ export const PlayerCard = ({
           <div className="player-card-action captain">{renderStatusIcon()}</div>
         ) : null}
       </div>
-    </div>
+    </>
   );
 };
