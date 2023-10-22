@@ -7,19 +7,7 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fantasy-sports.org/ru</loc>
-    <lastmod>2023-10-06T22:00:00+04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://fantasy-sports.org/users/login</loc>
-    <lastmod>2023-10-06T22:00:00+04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://fantasy-sports.org/ru/users/login</loc>
     <lastmod>2023-10-06T22:00:00+04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -31,19 +19,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fantasy-sports.org/ru/users/sign_up</loc>
-    <lastmod>2023-10-06T22:00:00+04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://fantasy-sports.org/users/restore</loc>
-    <lastmod>2023-10-06T22:00:00+04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://fantasy-sports.org/ru/users/restore</loc>
     <lastmod>2023-10-06T22:00:00+04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
