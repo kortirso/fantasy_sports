@@ -35,9 +35,10 @@
       "showSeasonPlayers": "Show season players"
     },
     "week": {
-      "previous": "Previous week",
-      "next": "Next week",
-      "gameweek": "Gameweek"
+      "previous": "Previous",
+      "next": "Next",
+      "gameweek": "Gameweek",
+      "localTIme": "All times are shown in your local time"
     },
     "squad": {
       "title": "Team squad",
@@ -125,9 +126,10 @@
       "showSeasonPlayers": "Показать игроков"
     },
     "week": {
-      "previous": "Предыдущая неделя",
-      "next": "Следующая неделя",
-      "gameweek": "Игровая неделя"
+      "previous": "Предыдущая",
+      "next": "Следующая",
+      "gameweek": "Игровая неделя",
+      "localTIme": "Время указано в вашем часовом поясе"
     },
     "squad": {
       "title": "Состав команды",

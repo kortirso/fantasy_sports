@@ -43,9 +43,12 @@ export const Week = ({ uuid, teamNames }) => {
             </button>
           ) : null}
         </div>
-        <p className="text-center">
-          {strings.week.gameweek} {pageState.week.position} - {convertDateTime(pageState.week.deadline_at)}
-        </p>
+        <div className="text-center">
+          <p>
+            <span className="font-semibold">{strings.week.gameweek} {pageState.week.position}</span>: {convertDateTime(pageState.week.deadline_at)}
+          </p>
+          <p className="text-sm">{strings.week.localTIme}</p>
+        </div>
         <div className="w-48">
           {pageState.week.next.uuid ? (
             <button
