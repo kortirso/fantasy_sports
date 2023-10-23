@@ -138,28 +138,32 @@
     scale: .6;
   }
 
-  @media (min-width: 500px) {
-    .basketball-field .sport-position { scale: .7 }
-  }
-
-  @media (min-width: 640px) {
-    .basketball-field { height: calc(100vw - 4rem) }
-  }
-
-  @media (min-width: 768px) {
+  @media screen and (min-width: 500px) and (max-width: 639px) {
+    .basketball-field { height: calc(100vw - 2rem) }
     .basketball-field .sport-position { scale: .8 }
   }
 
-  @media (min-width: 840px) {
+  @media screen and (min-width: 640px) and (max-width: 767px) {
+    .basketball-field { height: calc(100vw - 4rem) }
     .basketball-field .sport-position { scale: .9 }
   }
 
-  @media (min-width: 1024px) {
-    .basketball-field { height: calc(100vw - 22rem) }
-    .basketball-field .sport-position { scale: .95 }
+  @media screen and (min-width: 768px) and (max-width: 839px) {
+    .basketball-field { height: calc(100vw - 4rem) }
+    .basketball-field .sport-position { scale: .9 }
   }
 
-  @media (min-width: 1280px) {
+  @media screen and (min-width: 840px) and (max-width: 1023px) {
+    .basketball-field { height: calc(100vw - 4rem) }
+    .basketball-field .sport-position { scale: 1 }
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1279px) {
+    .basketball-field { height: calc(100vw - 22rem) }
+    .basketball-field .sport-position { scale: 1 }
+  }
+
+  @media screen and (min-width: 1280px) {
     .basketball-field { height: calc((100vw - 23rem) * 0.70) }
     .basketball-field .sport-position { scale: 1 }
   }

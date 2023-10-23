@@ -152,7 +152,7 @@ export const Transfers = ({
       });
 
     setTeamMembers(teamMembers.concat(item));
-    setBudget(budget - item.price);
+    setBudget((budget - item.price).toFixed(1));
   };
 
   const sportPositionName = (sportPosition) => {
@@ -161,7 +161,7 @@ export const Transfers = ({
 
   const removeTeamMember = (element) => {
     setTeamMembers(teamMembers.filter((item) => item.uuid !== element.uuid));
-    setBudget(budget + element.price);
+    setBudget((budget + element.price).toFixed(1));
   };
 
   const renderEmptySlots = (positionKind) => {
@@ -445,7 +445,6 @@ export const Transfers = ({
           )}
         </div>
       ) : null}
-
       <PlayerModal
         sportKind={sportKind}
         seasonUuid={seasonUuid}
@@ -460,8 +459,8 @@ export const Transfers = ({
           <p className="text-center mb-8">
             {strings.transfers.penaltyPoints} - {transfersData?.penalty_points}
           </p>
-          <div className="flex justify-between mb-8">
-            <div className="flex-1 py-3 px-0 flex flex-col items-center border-r border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-between mb-8">
+            <div className="flex-1 py-3 px-0 flex flex-col items-center sm:border-r border-gray-200">
               <h4>{strings.transfers.income}</h4>
               {transfersData?.in_names?.map((item, index) => (
                 <p key={index}>{localizeValue(item)}</p>
