@@ -23,16 +23,18 @@ module Statable
 
   FOOTBALL_STATS = [MP, GS, A, CS, GC, OG, PS, PM, YC, RC, S, B].freeze
   RENDERED_FOOTBALL_STATS = [GS, A, YC, RC, S, B].freeze
-  BASKETBALL_STATS = [P, REB, A, BLK, STL, TO].freeze
+  BASKETBALL_STATS = [MP, P, REB, A, BLK, STL, TO].freeze
+  RENDERED_BASKETBALL_STATS = [P, REB, A, BLK, STL, TO].freeze
 
   SPORT_STATS = {
     Sportable::FOOTBALL => FOOTBALL_STATS,
     Sportable::BASKETBALL => BASKETBALL_STATS
   }.freeze
 
+  # rendered stats in game statistics block
   RENDERED_SPORT_STATS = {
     Sportable::FOOTBALL => RENDERED_FOOTBALL_STATS,
-    Sportable::BASKETBALL => BASKETBALL_STATS
+    Sportable::BASKETBALL => RENDERED_BASKETBALL_STATS
   }.freeze
 
   included do

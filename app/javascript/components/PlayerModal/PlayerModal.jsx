@@ -21,6 +21,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     };
 
     if (playerUuid) fetchSeasonPlayer();
+    else setSeasonPlayer(undefined);
   }, [seasonUuid, playerUuid]);
 
   if (!seasonPlayer) return <></>;

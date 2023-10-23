@@ -34,6 +34,7 @@ module Basketball
       return unless shirt_number
 
       @result[team_index][:players][shirt_number] = {
+        'MP' => transform_minutes_played(player_data['min']),
         'P' => player_data['pts'],
         'REB' => player_data['reb'],
         'A' => player_data['ast'],
@@ -65,6 +66,13 @@ module Basketball
       when 0 then @home_season_team_id
       when 1 then @visitor_season_team_id
       end
+    end
+
+    def transform_minutes_played(value)
+      return 0 if value == '00:00'
+
+      minutes = value.split(':').first.to_i
+      minutes.zero? ? 1 : minutes
     end
   end
 end
