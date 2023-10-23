@@ -67,28 +67,28 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-6 justify-between mb-8 bg-gray-200 rounded shadow">
         <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.form}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.form}</p>
+          <p className="text-xs sm:text-sm">{strings.player.form}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.form}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.poinstPerGame}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{perGamePoints()}</p>
+          <p className="text-xs sm:text-sm">{strings.player.poinstPerGame}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{perGamePoints()}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.lastWeek}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{lastPoints()}</p>
+          <p className="text-xs sm:text-sm">{strings.player.lastWeek}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{lastPoints()}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.totalPoints}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.player.points}</p>
+          <p className="text-xs sm:text-sm">{strings.player.totalPoints}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.player.points}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.price}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.price}</p>
+          <p className="text-xs sm:text-sm">{strings.player.price}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.price}</p>
         </div>
         <div className="flex-1 py-3 px-0 flex lg:flex-col justify-center items-center">
-          <p className="text-sm">{strings.player.teamsSelectedBy}</p>
-          <p className="ml-4 lg:ml-0 lg:mt-1">{seasonPlayer.teams_selected_by}%</p>
+          <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
       <div className="w-full overflow-x-scroll">
