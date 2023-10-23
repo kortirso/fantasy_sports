@@ -9,7 +9,10 @@ module FantasyLeagues
 
     def index
       FantasyLeagues::JoinService.call(fantasy_team: @fantasy_team, fantasy_league: @fantasy_league)
-      redirect_to fantasy_teams_path, notice: t('controllers.fantasy_leagues.joins.success')
+      redirect_to(
+        fantasy_team_fantasy_leagues_path(@fantasy_team.uuid),
+        notice: t('controllers.fantasy_leagues.joins.success')
+      )
     end
 
     private
