@@ -205,6 +205,9 @@ en:
       description: Fantasy game management system. Free to play fantasy games, set up your fantasy team in different sport. In active development.
       active_leagues: Active fantasy leagues
       nba: NBA 23-24 from 24.10.2023
+    homes:
+      show:
+        no_season: There is no active season for this sport yet. It will be added soon.
     fantasy_leagues:
       show:
         rank: Rank

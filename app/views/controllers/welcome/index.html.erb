@@ -3,6 +3,12 @@
     <div class="flex-1 flex flex-col justify-center">
       <h1 class="text-center lg:text-left">Fantasy Sports</h1>
       <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
+      <% if Current.user.nil? %>
+        <div class="flex mb-4">
+          <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'btn-primary mr-2' %>
+          <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'btn-primary' %>
+        </div>
+      <% end %>
       <p><%= t('views.welcome.active_leagues') %></p>
       <ul>
         <li><%= t('views.welcome.nba') %></li>
