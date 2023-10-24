@@ -19,8 +19,8 @@ class SchedulerJob < ApplicationJob
   end
 
   def change_weeks
-    Week.coming.where('deadline_at < ? AND deadline_at > ?', 15.minutes.after, 15.minutes.ago).each do |week|
-      Weeks::ChangeService.call(week: week)
+    Week.coming.where('deadline_at < ? AND deadline_at > ?', 15.minutes.after, 15.minutes.ago).ids.each do |week_id|
+      Weeks::ChangeService.call(week_id: week_id)
     end
   end
 

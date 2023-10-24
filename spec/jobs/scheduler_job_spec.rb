@@ -53,7 +53,7 @@ describe SchedulerJob, type: :service do
     it 'calls week change service', :aggregate_failures do
       job_call
 
-      expect(Weeks::ChangeService).to have_received(:call).with(week: week1)
+      expect(Weeks::ChangeService).to have_received(:call).with(week_id: week1.id)
       expect(Games::ImportJob).not_to have_received(:perform_later)
     end
   end
