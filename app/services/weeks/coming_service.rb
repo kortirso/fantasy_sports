@@ -21,7 +21,7 @@ module Weeks
     private
 
     def create_lineups(week)
-      week.season.fantasy_teams.find_each { |fantasy_team|
+      week.season.fantasy_teams.completed.find_each { |fantasy_team|
         @lineup_create_service.call(fantasy_team: fantasy_team, week: week)
       }
     end

@@ -10,7 +10,7 @@ describe Weeks::ComingService, type: :service do
   let(:lineup_create_service) { double }
   let!(:season) { create :season }
   let!(:fantasy_league) { create :fantasy_league, season: season }
-  let!(:fantasy_team) { create :fantasy_team, season: season }
+  let!(:fantasy_team) { create :fantasy_team, season: season, completed: true }
 
   before do
     create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
