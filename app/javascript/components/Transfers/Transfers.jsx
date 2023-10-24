@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
 import { sportsData } from '../../data';
-import { currentLocale, localizeValue, csrfToken } from '../../helpers';
+import { currentLocale, localizeValue, csrfToken, convertDateTime } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Dropdown, Modal, Flash } from '../../components/atoms';
@@ -294,7 +294,7 @@ export const Transfers = ({
           <>
             <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
               <p className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
-                {strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}
+                {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
               </p>
               {pageState.visibleMode === 'lineup' ? (
                 <p

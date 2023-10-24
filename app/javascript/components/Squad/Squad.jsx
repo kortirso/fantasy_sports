@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { sportsData } from '../../data';
-import { currentLocale, localizeValue, csrfToken } from '../../helpers';
+import { currentLocale, localizeValue, csrfToken, convertDateTime } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Flash } from '../../components/atoms';
@@ -267,7 +267,7 @@ export const Squad = ({
       <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
         {sport.changes ? (
           <span className="absolute left-16 top-4 inline-block bg-red-600 text-white text-sm py-1 px-2 rounded mb-4">
-            <span>{strings.formatString(strings.squad.deadline, { value: weekDeadlineAt })}</span>
+            <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
           </span>
         ) : null }
         {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
