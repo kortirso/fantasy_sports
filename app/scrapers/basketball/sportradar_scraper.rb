@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Basketball
-  class SportradarScraper
-    prepend ApplicationService
-
+  class SportradarScraper < BaseScraper
     def initialize
       @api_key = Rails.application.credentials[:sportradar_api_key]
 
