@@ -2,12 +2,10 @@
 
 module FantasyTeams
   class PlayersController < ApplicationController
-    include Cacheable
-
-    before_action :find_fantasy_team
+    before_action :find_fantasy_team, only: %i[index]
 
     def index
-      render json: { teams_players: teams_players_json_response }, status: :ok
+      render json: { teams_players: teams_players }, status: :ok
     end
 
     private
@@ -16,8 +14,12 @@ module FantasyTeams
       @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:fantasy_team_id])
     end
 
-    def teams_players_json_response
-      cached_response(payload: @fantasy_team, name: :teams_players, version: :v1) do
+    def teams_players
+      Rails.cache.fetch(
+        ['fantasy_teams_players_index_v1', @fantasy_team.id, @fantasy_team.updated_at],
+        expires_in: 12.hours,
+        race_condition_ttl: 10.seconds
+      ) do
         Teams::PlayerSerializer.new(
           @fantasy_team.teams_players.active.includes(:player, seasons_team: :team)
         ).serializable_hash

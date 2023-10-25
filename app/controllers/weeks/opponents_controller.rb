@@ -6,10 +6,20 @@ module Weeks
     before_action :find_opponents, only: %i[index]
 
     def index
-      render json: { opponents: @opponents }, status: :ok
+      render json: { opponents: opponents }, status: :ok
     end
 
     private
+
+    def opponents
+      Rails.cache.fetch(
+        ['weeks_opponents_index_v1', @week.id],
+        expires_in: 24.hours,
+        race_condition_ttl: 10.seconds
+      ) do
+        @opponents
+      end
+    end
 
     def find_week
       @week = Week.find_by!(uuid: params[:week_id])

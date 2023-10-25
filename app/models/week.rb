@@ -9,7 +9,7 @@ class Week < ApplicationRecord
   ACTIVE   = 'active'
   FINISHED = 'finished'
 
-  belongs_to :season
+  belongs_to :season, touch: true
 
   has_many :games, dependent: :destroy
   has_many :games_players, through: :games

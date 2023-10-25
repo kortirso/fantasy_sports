@@ -2,9 +2,9 @@
 
 module Players
   class FindBestService
-    def call(season:, week_uuid: nil)
+    def call(season:, week_id: nil)
       positions = Sports::Position.where(sport: season.league.sport_kind).pluck(:title, :default_amount).to_h
-      result = collect_players_points(season, week_uuid, positions)
+      result = collect_players_points(season, week_id, positions)
       return { output: [], ids: [] } if result.blank?
 
       transform_result(result, positions)
@@ -12,8 +12,8 @@ module Players
 
     private
 
-    def collect_players_points(season, week_uuid, positions, result={})
-      games_players(season, week_uuid)
+    def collect_players_points(season, week_id, positions, result={})
+      games_players(season, week_id)
         .each_with_object({}) { |games_player, acc| increment_points_for_games_player(games_player, acc) }
         .group_by { |_, values| values[:players_position_kind] }
         .each { |position_kind, values| result[position_kind] = sort_by_points(values, positions[position_kind]) }
@@ -29,10 +29,10 @@ module Players
       values.sort_by { |element| -element.dig(1, :points) }.first(default_amount)
     end
 
-    def games_players(season, week_uuid)
+    def games_players(season, week_id)
       Games::Player
         .joins(:game, teams_player: :player)
-        .where(games: { week_id: weeks(season, week_uuid) })
+        .where(games: { week_id: weeks(season, week_id) })
         .hashable_pluck(:teams_player_id, 'players.position_kind', :points)
     end
 
@@ -51,12 +51,8 @@ module Players
       }
     end
 
-    def weeks(season, week_uuid)
-      week_uuid ? find_week(season, week_uuid) : find_season_weeks(season)
-    end
-
-    def find_week(season, week_uuid)
-      Week.where(season_id: season.id, uuid: week_uuid).select(:id)
+    def weeks(season, week_id)
+      week_id || find_season_weeks(season)
     end
 
     def find_season_weeks(season)

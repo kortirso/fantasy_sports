@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Modified
 - basketball rules page
+- performance for searching best players
 
 ## [1.0.2] - 2023-10-22
 ### Modified

@@ -2,8 +2,6 @@
 
 module Games
   class StatisticsController < ApplicationController
-    include Cacheable
-
     before_action :find_game
 
     def index
@@ -17,7 +15,11 @@ module Games
     end
 
     def game_json_response
-      cached_response(payload: @game, name: :game_statistics, version: :v1) do
+      Rails.cache.fetch(
+        ['games_statistics_index_v1', @game.id, @game.updated_at],
+        expires_in: 24.hours,
+        race_condition_ttl: 10.seconds
+      ) do
         Games::StatisticsService.call(game: @game).result
       end
     end

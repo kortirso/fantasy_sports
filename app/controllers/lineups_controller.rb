@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class LineupsController < ApplicationController
-  include Cacheable
-
   before_action :find_lineup, only: %i[show]
   before_action :find_lineup_for_update, only: %i[update]
 
   def show
-    render json: { lineup: lineup_json_response }, status: :ok
+    render json: { lineup: lineup }, status: :ok
   end
 
   def update
@@ -32,8 +30,12 @@ class LineupsController < ApplicationController
     @lineup = Current.user.lineups.joins(:week).where(weeks: { status: Week::COMING }).find_by!(uuid: params[:id])
   end
 
-  def lineup_json_response
-    cached_response(payload: @lineup, name: :lineup, version: :v1) do
+  def lineup
+    Rails.cache.fetch(
+      ['lineups_show_v1', @lineup.id, @lineup.updated_at],
+      expires_in: 12.hours,
+      race_condition_ttl: 10.seconds
+    ) do
       LineupSerializer.new(@lineup).serializable_hash
     end
   end
