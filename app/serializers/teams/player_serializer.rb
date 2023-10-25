@@ -13,7 +13,7 @@ module Teams
       {
         name: player.name,
         position_kind: player.position_kind,
-        points: player.points,
+        points: player.points.to_f,
         statistic: player.statistic
       }
     end

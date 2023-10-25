@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - basketball rules page
 - performance for searching best players
 
+### Fixed
+- sorting players by points
+
 ## [1.0.2] - 2023-10-22
 ### Modified
 - for first week status calculate transfers in by final amount of teams players
