@@ -10,9 +10,7 @@ module Seasons
     end
 
     def show
-      render json: {
-        season_player: Controllers::Seasons::Players::ShowSerializer.new(@season_player).serializable_hash
-      }, status: :ok
+      render json: { season_player: season_player_json_response }, status: :ok
     end
 
     private
@@ -42,7 +40,7 @@ module Seasons
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
-        Teams::PlayerSerializer.new(@season_players).serializable_hash
+        Controllers::Seasons::Players::ShowSerializer.new(@season_player).serializable_hash
       end
     end
   end
