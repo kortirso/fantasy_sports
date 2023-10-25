@@ -38,8 +38,8 @@ export const Game = ({ item, teamNames }) => {
     if (element.home_team.length === 0 && element.visitor_team.length === 0) return null;
 
     return (
-      <li className="mt-0 mx-auto mb-4 w-3/4" key={`fixture-${index}`}>
-        <h5 className="text-center bg-blue-400 mb-1">{localizeValue(STATS_VALUES[element.key])}</h5>
+      <li className="mt-0 mx-auto mb-4 md:w-1/2 px-4" key={`fixture-${index}`}>
+        <h5 className="text-center bg-green-400 py-1 px-2 mb-1 rounded shadow">{localizeValue(STATS_VALUES[element.key])}</h5>
         <div className="flex">
           <div className="flex-1 py-0 px-2 text-right border-r border-gray-200">
             {element.home_team.map((player, index) => (
@@ -48,7 +48,7 @@ export const Game = ({ item, teamNames }) => {
               </p>
             ))}
           </div>
-          <div className="flex-1 py-0 px-2 border-t border-gray-200">
+          <div className="flex-1 py-0 px-2">
             {element.visitor_team.map((player, index) => (
               <p className="pt-0 px-0 pb-1" key={`visitor-team-player-${index}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
@@ -68,7 +68,7 @@ export const Game = ({ item, teamNames }) => {
       >
         <p className="lg:text-lg flex-1 text-right">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
         {item.points.length > 0 ? (
-          <p className="py-2 px-3 bg-black text-white text-lg mx-4">
+          <p className="py-2 px-3 bg-black text-white text-lg mx-4 rounded">
             {item.points[0]} - {item.points[1]}
           </p>
         ) : (
@@ -77,7 +77,7 @@ export const Game = ({ item, teamNames }) => {
         <p className="lg:text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
       </div>
       {isOpen && item.points.length > 0 && gameStatistics ? (
-        <ul className="list-none p-0">
+        <ul className="list-none p-0 pt-4">
           {gameStatistics.map((element, index) => renderStatistics(element, index))}
         </ul>
       ) : null}
