@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - basketball rules page
 - performance for searching best players
+- rendering player statistics
 
 ### Fixed
 - sorting players by points
