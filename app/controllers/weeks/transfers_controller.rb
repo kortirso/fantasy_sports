@@ -5,13 +5,23 @@ module Weeks
     before_action :find_week, only: %i[index]
 
     def index
-      render json: {
-        transfers_in: transfers_in,
-        transfers_out: transfers_out
-      }, status: :ok
+      render json: json_response, status: :ok
     end
 
     private
+
+    def json_response
+      Rails.cache.fetch(
+        ['weeks_transfers_index_v1', @week.transfers.maximum(:updated_at)],
+        expires_in: 24.hours,
+        race_condition_ttl: 10.seconds
+      ) do
+        {
+          transfers_in: transfers_in,
+          transfers_out: transfers_out
+        }
+      end
+    end
 
     def find_week
       @week = Week.find_by!(uuid: params[:week_id])

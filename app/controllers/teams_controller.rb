@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class TeamsController < ApplicationController
-  include Cacheable
-
   skip_before_action :authenticate, only: %i[index]
   skip_before_action :check_email_confirmation, only: %i[index]
-  before_action :find_teams
+  before_action :find_teams, only: %i[index]
 
   def index
-    render json: { teams: teams_json_response }, status: :ok
+    render json: { teams: teams }, status: :ok
   end
 
   private
@@ -17,8 +15,12 @@ class TeamsController < ApplicationController
     @teams = Season.active.find_by!(uuid: params[:season_uuid]).teams
   end
 
-  def teams_json_response
-    cached_response(payload: @teams, name: :teams, version: :v1) do
+  def teams
+    Rails.cache.fetch(
+      ['teams_index_v1', @teams.maximum(:updated_at)],
+      expires_in: 12.hours,
+      race_condition_ttl: 10.seconds
+    ) do
       TeamSerializer.new(@teams).serializable_hash
     end
   end

@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
 class AchievementGroupsController < ApplicationController
-  include Cacheable
-
-  before_action :find_achievement_groups, only: %i[index]
-
   def index
-    render json: { achievement_groups: achievement_groups_json_response }, status: :ok
+    render json: { achievement_groups: achievement_groups }, status: :ok
   end
 
   private
 
-  def find_achievement_groups
-    @achievement_groups = Kudos::AchievementGroup.where(parent_id: nil).order(position: :asc)
-  end
-
-  def achievement_groups_json_response
-    cached_response(payload: @achievement_groups, name: :achievement_groups, version: :v1) do
-      AchievementGroupSerializer.new(@achievement_groups).serializable_hash
+  def achievement_groups
+    Rails.cache.fetch(
+      'achievement_groups_index_v1',
+      expires_in: 24.hours,
+      race_condition_ttl: 10.seconds
+    ) do
+      AchievementGroupSerializer.new(
+        Kudos::AchievementGroup.where(parent_id: nil).order(position: :asc)
+      ).serializable_hash
     end
   end
 end

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class WeeksController < ApplicationController
-  include Cacheable
-
-  before_action :find_week
+  before_action :find_week, only: %i[show]
 
   def show
-    render json: { week: week_json_response }, status: :ok
+    render json: { week: week }, status: :ok
   end
 
   private
@@ -15,11 +13,11 @@ class WeeksController < ApplicationController
     @week = Week.find_by!(uuid: params[:id])
   end
 
-  def week_json_response
-    cached_response(
-      payload: @week,
-      name: (request_fields ? request_fields.join(',') : :week),
-      version: :v1
+  def week
+    Rails.cache.fetch(
+      [(request_fields ? request_fields.join(',') : :week), 'show_v1', @week.id, @week.updated_at],
+      expires_in: 12.hours,
+      race_condition_ttl: 10.seconds
     ) do
       WeekSerializer.new(@week, { params: { fields: request_fields } }).serializable_hash
     end

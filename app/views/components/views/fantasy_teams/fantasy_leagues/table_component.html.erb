@@ -10,8 +10,8 @@
     <% @fantasy_leagues.each do |league| %>
       <tr>
         <td><%= link_to league.name, fantasy_league_path(league.uuid) %></td>
-        <td><%= league.fantasy_teams.size %></td>
-        <td><%= league.fantasy_teams.where('points > ?', @fantasy_team.points).size + 1 %></td>
+        <td><%= league.fantasy_teams.completed.size %></td>
+        <td><%= league.fantasy_teams.completed.where('points > ?', @fantasy_team.points).size + 1 %></td>
       </tr>
     <% end %>
   </tbody>

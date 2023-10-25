@@ -3,7 +3,6 @@
 module Lineups
   class PlayersController < ApplicationController
     include Maintenable
-    include Cacheable
 
     before_action :find_lineup, only: %i[show]
     before_action :find_user_lineup, only: %i[update]
@@ -11,7 +10,7 @@ module Lineups
     before_action :validate_league_maintenance, only: %i[update]
 
     def show
-      render json: { lineup_players: lineup_players_json_response }, status: :ok
+      render json: { lineup_players: lineup_players }, status: :ok
     end
 
     def update
@@ -57,8 +56,12 @@ module Lineups
         }
     end
 
-    def lineup_players_json_response
-      cached_response(payload: @lineup, name: :lineup_players, version: :v1) do
+    def lineup_players
+      Rails.cache.fetch(
+        ['lineups_players_show_v1', @lineup.id, @lineup.updated_at],
+        expires_in: 12.hours,
+        race_condition_ttl: 10.seconds
+      ) do
         Lineups::PlayerSerializer.new(
           @lineup.lineups_players.includes(teams_player: [:player, { seasons_team: :team }])
         ).serializable_hash

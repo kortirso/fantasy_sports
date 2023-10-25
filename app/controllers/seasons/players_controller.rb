@@ -2,8 +2,6 @@
 
 module Seasons
   class PlayersController < ApplicationController
-    include Cacheable
-
     before_action :find_season_players
     before_action :find_season_player, only: %i[show]
 
@@ -29,7 +27,11 @@ module Seasons
     end
 
     def season_players_json_response
-      cached_response(payload: @season_players, name: :season_players, version: :v1) do
+      Rails.cache.fetch(
+        ['seasons_players_index_v1', @season_players.maximum(:updated_at)],
+        expires_in: 6.hours,
+        race_condition_ttl: 10.seconds
+      ) do
         Teams::PlayerSerializer.new(@season_players).serializable_hash
       end
     end
