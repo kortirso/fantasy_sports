@@ -34,7 +34,7 @@ module Games
     end
 
     def fetch_game_data(scraper, game)
-      scraper.call(external_id: game.external_id).result
+      scraper.new.call(external_id: game.external_id)
     end
   end
 end

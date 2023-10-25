@@ -11,6 +11,7 @@ module Basketball
       @game = Game.find_by(external_id: external_id)
 
       parse_data(fetch_data(external_id))
+      @result
     end
 
     private

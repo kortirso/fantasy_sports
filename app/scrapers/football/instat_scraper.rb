@@ -44,6 +44,7 @@ module Football
 
       calculate_bonus_points_for_players
       attach_bonus_points_to_players
+      @result
     end
 
     private

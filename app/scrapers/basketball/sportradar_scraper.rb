@@ -13,6 +13,7 @@ module Basketball
 
       parse_players_data(data)
       parse_game_data(data)
+      @result
     end
 
     private
