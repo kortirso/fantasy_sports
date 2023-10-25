@@ -26,7 +26,7 @@ module Players
     end
 
     def sort_by_points(values, default_amount)
-      values.sort_by { |element| element.dig(1, :points) }.first(default_amount)
+      values.sort_by { |element| -element.dig(1, :points) }.first(default_amount)
     end
 
     def games_players(season, week_uuid)
