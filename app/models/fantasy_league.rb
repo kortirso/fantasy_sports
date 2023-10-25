@@ -22,7 +22,7 @@ class FantasyLeague < ApplicationRecord
   scope :general, -> { where.not(leagueable_type: 'User') }
 
   def members
-    leagueable_type == 'Week' ? lineups : fantasy_teams
+    leagueable_type == 'Week' ? lineups : fantasy_teams.completed
   end
 
   def invitational?
