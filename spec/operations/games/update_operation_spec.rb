@@ -18,8 +18,8 @@ describe Games::UpdateOperation, type: :service do
   let!(:teams_player2) { create :teams_player, seasons_team: game.visitor_season_team, active: true, shirt_number: 2 }
   let(:game_data) {
     [
-      { points: 0, players: { 1 => { 'MP' => 90 } } },
-      { points: 0, players: { 2 => { 'MP' => 45 } } }
+      { points: 1, players: { 1 => { 'MP' => 90 } } },
+      { points: 2, players: { 2 => { 'MP' => 45 } } }
     ]
   }
 
@@ -43,6 +43,7 @@ describe Games::UpdateOperation, type: :service do
         games_ids: [game.id],
         seasons_teams_ids: [game.home_season_team_id, game.visitor_season_team_id]
       )
+      expect(game.reload.points).to eq([1, 2])
       expect(service_call.success?).to be_truthy
     end
   end

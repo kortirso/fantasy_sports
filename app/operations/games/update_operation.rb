@@ -11,15 +11,13 @@ module Games
     }.freeze
 
     def initialize(
-      game_update_service:               ::Games::UpdateService,
-      form_change_service:               ::Teams::Players::Form::ChangeService,
+      form_change_service: ::Teams::Players::Form::ChangeService,
       lineups_players_points_update_job: ::Lineups::Players::Points::UpdateJob,
-      players_statistic_update_job:      ::Players::Statistic::UpdateJob
+      players_statistic_update_job: ::Players::Statistic::UpdateJob
     )
-      @game_update_service               = game_update_service
-      @form_change_service               = form_change_service
+      @form_change_service = form_change_service
       @lineups_players_points_update_job = lineups_players_points_update_job
-      @players_statistic_update_job      = players_statistic_update_job
+      @players_statistic_update_job = players_statistic_update_job
     end
 
     # game_data must have specific format
@@ -54,8 +52,9 @@ module Games
     private
 
     def update_game(game_data)
+      # TODO: use service for update, modify contract to allow set array of values as points
       # commento: games.points
-      @game_update_service.call(game: @game, params: { points: [game_data[0][:points], game_data[1][:points]] })
+      @game.update!(points: [game_data[0][:points], game_data[1][:points]])
     end
 
     def update_games_players(game_data)
