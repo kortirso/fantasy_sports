@@ -14,7 +14,13 @@
           <% @fantasy_league_members.each.with_index(1) do |member, index| %>
             <tr>
               <td><%= index %></td>
-              <td><%= member.name %></td>
+              <td>
+                <% if @fantasy_team.id === member.id %>
+                  <%= member.name %>
+                <% else %>
+                  <%= link_to member.name, fantasy_team_points_path(member.uuid), class: 'text-blue-500 underline' %>
+                <% end %>
+              </td>
               <td><%= member.points %></td>
             </tr>
           <% end %>
