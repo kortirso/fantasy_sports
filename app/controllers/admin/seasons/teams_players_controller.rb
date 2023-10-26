@@ -70,7 +70,7 @@ module Admin
       end
 
       def find_seasons_teams
-        @seasons_teams = @season.teams.hashable_pluck(:id, :name)
+        @seasons_teams = @season.seasons_teams.includes(:team)
       end
 
       def find_teams_player

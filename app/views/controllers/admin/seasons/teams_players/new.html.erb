@@ -7,7 +7,7 @@
     </div>
     <div class="form-field">
       <%= form.label :seasons_team_id, t('views.admin.seasons.teams_players.new.seasons_team_id'), class: 'form-label' %>
-      <%= form.select :seasons_team_id, @seasons_teams.map { |team| [localized_value(team[:name]), team[:id]] }, {}, class: 'form-value w-52' %>
+      <%= form.select :seasons_team_id, @seasons_teams.map { |season_team| [localized_value(season_team.team.name), season_team.id] }, {}, class: 'form-value w-52' %>
     </div>
     <div class="form-field">
       <%= form.label :price_cents, t('views.admin.seasons.teams_players.edit.price_cents'), class: 'form-label' %>
