@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Modified
+- sync games once after 3 hours from start_at
+
 ## [1.0.3] - 2023-10-25
 ### Added
 - links to other player's fantasy teams
