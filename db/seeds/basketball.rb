@@ -104,7 +104,7 @@ rows.each do |row|
   Teams::Player.create seasons_team: eval("#{row[0]}_nba2024"), player: player, price_cents: (row[7] == 'TW' ? 400 : price(row[7].to_d)), shirt_number: row[5].to_i
 end
 
-week1 = nba2024.weeks.create position: 1, deadline_at: DateTime.new(2023, 10, 24, 20, 0, 0)
+week1 = nba2024.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2023, 10, 24, 20, 0, 0)
 week2 = nba2024.weeks.create position: 2, deadline_at: DateTime.new(2023, 10, 30, 20, 0, 0)
 week3 = nba2024.weeks.create position: 3, deadline_at: DateTime.new(2023, 11, 6, 20, 0, 0)
 week4 = nba2024.weeks.create position: 4, deadline_at: DateTime.new(2023, 11, 13, 20, 0, 0)

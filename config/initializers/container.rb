@@ -54,6 +54,7 @@ module FantasySports
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
     register('services.players.find_best') { Players::FindBestService.new }
+    register('services.games.players.create_for_game') { Games::Players::CreateForGameService.new }
   end
 end
 

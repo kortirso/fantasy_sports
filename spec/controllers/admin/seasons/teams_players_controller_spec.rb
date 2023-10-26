@@ -198,7 +198,7 @@ describe Admin::Seasons::TeamsPlayersController do
       context 'for valid params' do
         let(:request) {
           patch :update, params: {
-            season_id: season.uuid, id: teams_player.uuid, teams_player: { price_cents: '1450' }, locale: 'en'
+            season_id: season.uuid, id: teams_player.uuid, teams_player: { price_cents: '1450', active: false }
           }
         }
 

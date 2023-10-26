@@ -16,6 +16,8 @@ describe Weeks::ComingService, type: :service do
     create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
 
     allow(lineup_create_service).to receive(:call)
+
+    allow(FantasySports::Container.resolve('services.games.players.create_for_game')).to receive(:call)
   end
 
   context 'for nil week' do
@@ -46,6 +48,7 @@ describe Weeks::ComingService, type: :service do
 
     context 'for inactive week' do
       let!(:week) { create :week, status: Week::INACTIVE, season: season }
+      let!(:game) { create :game, week: week }
 
       it 'updates week', :aggregate_failures do
         expect(service_call.success?).to be_truthy
@@ -54,6 +57,9 @@ describe Weeks::ComingService, type: :service do
         expect(lineup_create_service).to have_received(:call).with(
           fantasy_team: fantasy_team,
           week: week
+        )
+        expect(FantasySports::Container.resolve('services.games.players.create_for_game')).to(
+          have_received(:call).with(game: game)
         )
       end
     end
