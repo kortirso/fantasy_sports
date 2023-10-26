@@ -5,7 +5,15 @@ module Games
     prepend ApplicationService
     include Validateable
 
-    def call(params)
+    GAMES_PLAYERS_AVAILABLE = %w[active coming].freeze
+
+    def initialize(
+      games_players_create_service: FantasySports::Container['services.games.players.create_for_game']
+    )
+      @games_players_create_service = games_players_create_service
+    end
+
+    def call(params:)
       return if validate_with(validator, params) && failure?
 
       ActiveRecord::Base.transaction do
@@ -21,19 +29,8 @@ module Games
     end
 
     def create_games_players
-      games_players = [@result.home_season_team, @result.visitor_season_team].flat_map do |season_team|
-        season_team.active_teams_players
-          .includes(:player)
-          .hashable_pluck(:id, 'players.position_kind').map do |teams_player|
-            {
-              game_id: @result.id,
-              teams_player_id: teams_player[:id],
-              position_kind: teams_player[:players_position_kind],
-              seasons_team_id: season_team.id
-            }
-          end
-      end
-      Games::Player.upsert_all(games_players) if games_players.any?
+      # only for active or coming weeks
+      @games_players_create_service.call(game: @result) if GAMES_PLAYERS_AVAILABLE.include?(@result.week.status)
     end
 
     def validator = FantasySports::Container['validators.games.create']

@@ -17,7 +17,7 @@ module Admin
       def edit; end
 
       def create
-        service_call = ::Games::CreateService.call(**game_create_params.to_h.symbolize_keys)
+        service_call = ::Games::CreateService.call(params: game_create_params.to_h.symbolize_keys)
         if service_call.success?
           redirect_to admin_season_games_path(@season.uuid), notice: t('controllers.admin.seasons.games.create.success')
         else
