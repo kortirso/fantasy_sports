@@ -25,16 +25,19 @@ class SchedulerJob < ApplicationJob
   end
 
   def import_games
-    # fetch game statistics 2 times, after 2-2.5 hours and 3-3.5 hours after game start
-    # game started at 5:00 will be fetched at 7:00 and 8:00
-    # game started at 5:30 will be fetched at 8:00 and 9:00
-    Game
-      .joins(:week)
-      .where(weeks: { status: Week::ACTIVE })
-      .where('start_at > ? AND start_at < ?', 100.minutes.ago, 220.minutes.after)
-      .pluck(:id)
-      .each do |game_id|
-        Games::ImportJob.perform_later(game_id: game_id)
-      end
+    # fetch game statistics 1 time, 3-3.5 hours after game start and no points before
+    # game started at 5:00 will be fetched at 8:00
+    # game started at 5:30 will be fetched at 9:00
+    Season.active.pluck(:id).each do |season_id|
+      game_ids =
+        Game
+          .joins(:week)
+          .where(weeks: { status: Week::ACTIVE, season_id: season_id })
+          .where('start_at < ?', 165.minutes.ago)
+          .where(points: [])
+          .pluck(:id)
+
+      Games::ImportJob.perform_later(game_ids: game_ids) if game_ids.any?
+    end
   end
 end

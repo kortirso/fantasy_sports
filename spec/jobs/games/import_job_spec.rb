@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Games::ImportJob, type: :service do
-  subject(:job_call) { described_class.perform_now(game_id: game_id) }
+  subject(:job_call) { described_class.perform_now(game_ids: game_ids) }
 
   let!(:game) { create :game }
 
@@ -10,7 +10,7 @@ describe Games::ImportJob, type: :service do
   end
 
   context 'for unexisting game' do
-    let(:game_id) { 'unexisting' }
+    let(:game_ids) { ['unexisting'] }
 
     it 'does not call service' do
       job_call
@@ -20,7 +20,7 @@ describe Games::ImportJob, type: :service do
   end
 
   context 'for existing game' do
-    let(:game_id) { game.id }
+    let(:game_ids) { [game.id] }
 
     it 'calls service' do
       job_call

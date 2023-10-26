@@ -10,7 +10,7 @@ describe SchedulerJob, type: :service do
   let!(:week2) {
     create :week, status: Week::INACTIVE, season: season, position: 2, deadline_at: DateTime.new(2023, 1, 14, 0, 10, 0)
   }
-  let!(:game) { create :game, week: week1, start_at: DateTime.new(2023, 1, 8, 2, 0, 0) }
+  let!(:game) { create :game, week: week1, start_at: DateTime.new(2023, 1, 7, 21, 0, 0) }
 
   before do
     allow(Weeks::ChangeService).to receive(:call)
@@ -70,7 +70,29 @@ describe SchedulerJob, type: :service do
       job_call
 
       expect(Weeks::ChangeService).not_to have_received(:call)
-      expect(Games::ImportJob).to have_received(:perform_later).with(game_id: game.id)
+      expect(Games::ImportJob).to have_received(:perform_later).with(game_ids: [game.id])
+    end
+
+    context 'when game has points' do
+      before { game.update!(points: [1, 2]) }
+
+      it 'does not call game import job', :aggregate_failures do
+        job_call
+
+        expect(Weeks::ChangeService).not_to have_received(:call)
+        expect(Games::ImportJob).not_to have_received(:perform_later)
+      end
+    end
+
+    context 'when game is not finished yet' do
+      before { game.update!(start_at: DateTime.new(2023, 1, 7, 22, 0, 0)) }
+
+      it 'does not call game import job', :aggregate_failures do
+        job_call
+
+        expect(Weeks::ChangeService).not_to have_received(:call)
+        expect(Games::ImportJob).not_to have_received(:perform_later)
+      end
     end
   end
 end

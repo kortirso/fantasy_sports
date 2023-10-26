@@ -4,11 +4,10 @@ module Games
   class ImportJob < ApplicationJob
     queue_as :default
 
-    def perform(game_id:)
-      game = Game.find_by(id: game_id)
-      return unless game
-
-      Games::ImportService.call(game: game)
+    def perform(game_ids:)
+      Game.where(id: game_ids).each do |game|
+        Games::ImportService.call(game: game)
+      end
     end
   end
 end
