@@ -54,7 +54,7 @@ module Games
     def update_game(game_data)
       # TODO: use service for update, modify contract to allow set array of values as points
       # commento: games.points
-      @game.update!(points: [game_data[0][:points], game_data[1][:points]])
+      @game.update!(points: [game_data[0][:points], game_data[1][:points]].compact)
     end
 
     def update_games_players(game_data)

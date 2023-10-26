@@ -50,7 +50,7 @@ export const Game = ({ item, teamNames }) => {
           </div>
           <div className="flex-1 py-0 px-2">
             {element.visitor_team.map((player, index) => (
-              <p className="pt-0 px-0 pb-1" key={`visitor-team-player-${index}`}>
+              <p key={`visitor-team-player-${index}`}>
                 {localizeValue(player[0]).split(' ')[0]} ({player[1]})
               </p>
             ))}
