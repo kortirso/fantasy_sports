@@ -22,6 +22,7 @@ module Teams
           teams_player
           .seasons_team
           .games.joins(:week)
+          .where(games: { points: [] })
           .where(weeks: { status: %w[active coming] }).map do |game|
             {
               game_id: game.id,

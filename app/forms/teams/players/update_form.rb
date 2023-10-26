@@ -9,8 +9,11 @@ module Teams
         errors = validator.call(params: params)
         return { errors: errors } if errors.any?
 
-        teams_player.update!(params)
-        destroy_redundant_games_players(teams_player) if ActiveModel::Type::Boolean.new.cast(params[:active]) == false
+        ActiveRecord::Base.transaction do
+          destroy_redundant_games_players(teams_player) if to_bool(params[:active]) == false && teams_player.active
+          create_games_players(teams_player) if to_bool(params[:active]) == true && !teams_player.active
+          teams_player.update!(params)
+        end
 
         { result: teams_player.reload }
       end
@@ -24,6 +27,28 @@ module Teams
           .where(games: { points: [] })
           .where(weeks: { status: %w[active coming] })
           .destroy_all
+      end
+
+      def create_games_players(teams_player)
+        games_players =
+          teams_player
+          .seasons_team
+          .games.joins(:week)
+          .where(games: { points: [] })
+          .where(weeks: { status: %w[active coming] }).map do |game|
+            {
+              game_id: game.id,
+              teams_player_id: teams_player.id,
+              position_kind: teams_player.player.position_kind,
+              seasons_team_id: teams_player.seasons_team_id
+            }
+          end
+
+        Games::Player.upsert_all(games_players) if games_players.any?
+      end
+
+      def to_bool(value)
+        ActiveModel::Type::Boolean.new.cast(value)
       end
     end
   end
