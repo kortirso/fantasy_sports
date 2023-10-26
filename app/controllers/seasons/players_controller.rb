@@ -17,7 +17,7 @@ module Seasons
 
     def find_season_players
       @season_players =
-        Season.active.find_by!(uuid: params[:season_id]).active_teams_players.includes(:player, seasons_team: :team)
+        Season.active.find_by!(uuid: params[:season_id]).active_teams_players
     end
 
     def find_season_player
@@ -30,7 +30,7 @@ module Seasons
         expires_in: 6.hours,
         race_condition_ttl: 10.seconds
       ) do
-        Teams::PlayerSerializer.new(@season_players).serializable_hash
+        Teams::PlayerSerializer.new(@season_players.includes(:player, seasons_team: :team)).serializable_hash
       end
     end
 

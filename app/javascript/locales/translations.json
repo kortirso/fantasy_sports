@@ -58,7 +58,7 @@
     },
     "player": {
       "form": "Form",
-      "poinstPerGame": "Pts / game",
+      "poinstPerGame": "Avg points",
       "lastWeek": "Last Pts",
       "totalPoints": "Total Pts",
       "price": "Price",
@@ -149,7 +149,7 @@
     },
     "player": {
       "form": "Форма",
-      "poinstPerGame": "Очки / игра",
+      "poinstPerGame": "Ср очки",
       "lastWeek": "Последняя игра",
       "totalPoints": "Всего очков",
       "price": "Стоимость",

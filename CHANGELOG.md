@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - sync games once after 3 hours from start_at
 - players synscronization
+- players modal
 
 ## [1.0.3] - 2023-10-25
 ### Added

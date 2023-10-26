@@ -51,23 +51,23 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 justify-between mb-8 bg-gray-200 rounded shadow">
-        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.form}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.form}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.poinstPerGame}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.points_per_game}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.totalPoints}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.player.points}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b md:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.price}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.price}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b md:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r lg:border-r-0 border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.teams_selected_by}%</p>
         </div>
