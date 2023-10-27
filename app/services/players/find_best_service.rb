@@ -2,10 +2,10 @@
 
 module Players
   class FindBestService
-    def call(season:, week_id: nil)
-      Rails.cache.fetch(cache_key(season, week_id), expires_in: 24.hours, race_condition_ttl: 10.seconds) do
+    def call(season:, week: nil)
+      Rails.cache.fetch(cache_key(season, week), expires_in: 24.hours, race_condition_ttl: 10.seconds) do
         positions = Sports::Position.where(sport: season.league.sport_kind).pluck(:title, :default_amount).to_h
-        result = collect_players_points(season, week_id, positions)
+        result = collect_players_points(season, week, positions)
         return { output: [], ids: [] } if result.blank?
 
         transform_result(result, positions)
@@ -14,14 +14,14 @@ module Players
 
     private
 
-    def cache_key(season, week_id)
-      return ['seasons_week_best_players_index_v1', week.id, week.updated_at] if week
+    def cache_key(season, week)
+      return ['seasons_week_best_players_index_v2', week.id, week.updated_at] if week
 
-      ['seasons_best_players_index_v1', season.id, season.weeks.maximum(:updated_at)]
+      ['seasons_best_players_index_v2', season.id, season.weeks.maximum(:updated_at)]
     end
 
-    def collect_players_points(season, week_id, positions, result={})
-      games_players(season, week_id)
+    def collect_players_points(season, week, positions, result={})
+      games_players(season, week)
         .each_with_object({}) { |games_player, acc| increment_points_for_games_player(games_player, acc) }
         .group_by { |_, values| values[:players_position_kind] }
         .each { |position_kind, values| result[position_kind] = sort_by_points(values, positions[position_kind]) }
@@ -37,10 +37,10 @@ module Players
       values.sort_by { |element| -element.dig(1, :points) }.first(default_amount)
     end
 
-    def games_players(season, week_id)
+    def games_players(season, week)
       Games::Player
         .joins(:game, teams_player: :player)
-        .where(games: { week_id: weeks(season, week_id) })
+        .where(games: { week_id: weeks(season, week) })
         .hashable_pluck(:teams_player_id, 'players.position_kind', :points)
     end
 
@@ -59,8 +59,8 @@ module Players
       }
     end
 
-    def weeks(season, week_id)
-      week_id || find_season_weeks(season)
+    def weeks(season, week)
+      week&.id || find_season_weeks(season)
     end
 
     def find_season_weeks(season)

@@ -21,9 +21,8 @@ module Seasons
       @week = params[:week_uuid] ? @season.weeks.find_by(uuid: params[:week_uuid]) : nil
     end
 
-    # rubocop: disable Metrics/AbcSize
     def best_players
-      call = find_best_service.call(season: @season, week_id: @week&.id)
+      call = find_best_service.call(season: @season, week: @week)
       return [] if call[:ids].empty?
 
       call[:output].map do |element|
@@ -35,7 +34,6 @@ module Seasons
         ]
       end
     end
-    # rubocop: enable Metrics/AbcSize
 
     def teams_players(ids)
       @teams_players ||= Teams::Player.where(id: ids).includes(:player, seasons_team: :team)
