@@ -133,7 +133,11 @@ describe Admin::Seasons::TeamsPlayersController do
           post :create, params: {
             season_id: season.uuid,
             teams_player: {
-              player_id: player.id, seasons_team_id: seasons_team.id, price_cents: '1450', shirt_number: '1', form: '2'
+              player_id: player.id,
+              seasons_team_id: seasons_team.id,
+              price_cents: '1450',
+              shirt_number_string: '1',
+              form: '2'
             },
             locale: 'en'
           }

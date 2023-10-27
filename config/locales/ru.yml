@@ -159,11 +159,16 @@ ru:
           active: Активность
           games: Игры
           teams_players: Игроки команд
+          seasons_teams: Команды
         new:
           name: Название
           active: Активность
           league_id: Лига
           create: Создать новый сезон
+        teams:
+          index:
+            header: Команды в сезоне
+            seasons_team_players: Игроки команд
         games:
           index:
             header: Игры

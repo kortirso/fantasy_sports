@@ -59,7 +59,7 @@ module Basketball
         .where(seasons_team_id: season_team_by_team_index(team_index), active: true)
         .where('players.name @> ?', { en: full_name }.to_json)
         .first
-        &.shirt_number
+        &.shirt_number_string
     end
 
     def season_team_by_team_index(team_index)

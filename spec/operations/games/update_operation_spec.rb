@@ -14,12 +14,16 @@ describe Games::UpdateOperation, type: :service do
   let(:points_result) { 10 }
 
   let!(:game) { create :game, source: Sourceable::INSTAT }
-  let!(:teams_player1) { create :teams_player, seasons_team: game.home_season_team, active: true, shirt_number: 1 }
-  let!(:teams_player2) { create :teams_player, seasons_team: game.visitor_season_team, active: true, shirt_number: 2 }
+  let!(:teams_player1) {
+    create :teams_player, seasons_team: game.home_season_team, active: true, shirt_number_string: '1'
+  }
+  let!(:teams_player2) {
+    create :teams_player, seasons_team: game.visitor_season_team, active: true, shirt_number_string: '2'
+  }
   let(:game_data) {
     [
-      { points: 1, players: { 1 => { 'MP' => 90 } } },
-      { points: 2, players: { 2 => { 'MP' => 45 } } }
+      { points: 1, players: { '1' => { 'MP' => 90 } } },
+      { points: 2, players: { '2' => { 'MP' => 45 } } }
     ]
   }
 

@@ -21,7 +21,13 @@ describe Teams::Players::CreateForm, type: :service do
 
   context 'for valid params' do
     let(:params) {
-      { player_id: player.id, seasons_team_id: seasons_team.id, price_cents: 123, shirt_number: 1, form: 5.0 }
+      {
+        player_id: player.id,
+        seasons_team_id: seasons_team.id,
+        price_cents: 123,
+        shirt_number_string: '1',
+        form: 5.0
+      }
     }
 
     it 'creates teams_player and games_player', :aggregate_failures do
