@@ -3,14 +3,22 @@
 module Players
   class FindBestService
     def call(season:, week_id: nil)
-      positions = Sports::Position.where(sport: season.league.sport_kind).pluck(:title, :default_amount).to_h
-      result = collect_players_points(season, week_id, positions)
-      return { output: [], ids: [] } if result.blank?
+      Rails.cache.fetch(cache_key(season, week_id), expires_in: 24.hours, race_condition_ttl: 10.seconds) do
+        positions = Sports::Position.where(sport: season.league.sport_kind).pluck(:title, :default_amount).to_h
+        result = collect_players_points(season, week_id, positions)
+        return { output: [], ids: [] } if result.blank?
 
-      transform_result(result, positions)
+        transform_result(result, positions)
+      end
     end
 
     private
+
+    def cache_key(season, week_id)
+      return ['seasons_week_best_players_index_v1', week.id, week.updated_at] if week
+
+      ['seasons_best_players_index_v1', season.id, season.weeks.maximum(:updated_at)]
+    end
 
     def collect_players_points(season, week_id, positions, result={})
       games_players(season, week_id)
@@ -41,7 +49,7 @@ module Players
       output = positions.keys.flat_map do |position_kind|
         result[position_kind]&.map do |element|
           ids.push(element[0])
-          [element[0], element[1][:points]]
+          [element[0], element[1][:points].round(1)]
         end
       end.compact
 
