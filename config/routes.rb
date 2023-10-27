@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         resources :statistics, only: %i[index create], module: 'games'
       end
       resources :teams_players, only: %i[index new edit create update], module: 'seasons'
+      resources :teams, only: %i[index show], module: 'seasons'
     end
   end
 

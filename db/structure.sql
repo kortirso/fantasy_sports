@@ -1134,7 +1134,8 @@ CREATE TABLE public.teams_players (
     price_cents integer DEFAULT 0 NOT NULL,
     shirt_number integer,
     form double precision DEFAULT 0.0 NOT NULL,
-    uuid uuid DEFAULT gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    shirt_number_string character varying
 );
 
 
@@ -2190,6 +2191,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221226171032'),
 ('20230928164428'),
 ('20231008190606'),
-('20231021133617');
+('20231021133617'),
+('20231027124827');
 
 

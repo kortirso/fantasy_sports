@@ -1,0 +1,23 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.seasons.teams.index.header') %></h1>
+</div>
+<table class="table" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @seasons_teams.each do |seasons_team| %>
+      <tr>
+        <td><%= seasons_team.id %></td>
+        <td><%= localized_value(seasons_team.team.name) %></td>
+        <td>
+          <%= link_to t('views.admin.seasons.teams.index.seasons_team_players'), admin_season_team_path(@season.uuid, seasons_team.id), class: 'btn-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -8,7 +8,7 @@ module Teams
       params do
         optional(:active)
         optional(:price_cents).filled(:integer)
-        optional(:shirt_number).filled(:integer)
+        optional(:shirt_number_string).filled(:string)
         optional(:form).filled(:float)
       end
     end

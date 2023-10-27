@@ -24,11 +24,11 @@ module Games
     # [
     #   {
     #     points: 123,
-    #     players: { 1 => { 'MP' => 90 } }, ... list of home team players, key is shirt_number, value - stats
+    #     players: { '1' => { 'MP' => 90 } }, ... list of home team players, key is shirt_number, value - stats
     #   },
     #   {
     #     points: 124,
-    #     players: { 2 => { 'MP' => 45 } }  ... list of visitor team players, key is shirt_number, value - stats
+    #     players: { '2' => { 'MP' => 45 } }  ... list of visitor team players, key is shirt_number, value - stats
     #   }
     # ]
     def call(game:, game_data:)
@@ -70,10 +70,10 @@ module Games
         @game
         .games_players
         .includes(:teams_player)
-        .where(teams_player: { seasons_team_id: season_team_id, active: true, shirt_number: game_data.keys })
+        .where(teams_player: { seasons_team_id: season_team_id, active: true, shirt_number_string: game_data.keys })
 
       games_players.each do |games_player|
-        statistic = game_data[games_player.teams_player.shirt_number].transform_values(&:to_i)
+        statistic = game_data[games_player.teams_player.shirt_number_string].transform_values(&:to_i)
 
         points = @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
         @games_players_update_data.push({

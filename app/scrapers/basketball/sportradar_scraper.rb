@@ -28,7 +28,7 @@ module Basketball
     end
 
     def parse_player_data(player_data, team_index)
-      @result[team_index][:players][player_data['jersey_number'].to_i] = {
+      @result[team_index][:players][player_data['jersey_number']] = {
         'MP' => transform_minutes_played(player_data.dig('statistics', 'minutes')),
         'P' => player_data.dig('statistics', 'points'),
         'REB' => player_data.dig('statistics', 'rebounds'),

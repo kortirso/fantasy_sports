@@ -159,11 +159,16 @@ en:
           active: Active
           games: Games
           teams_players: Teams players
+          seasons_teams: Teams
         new:
           name: Name
           active: Active
           league_id: League
           create: Create new season
+        teams:
+          index:
+            header: Teams in season
+            seasons_team_players: Team players
         games:
           index:
             header: Games
