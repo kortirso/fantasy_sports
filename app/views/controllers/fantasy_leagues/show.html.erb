@@ -15,13 +15,13 @@
             <tr>
               <td><%= index %></td>
               <td>
-                <% if @fantasy_team&.id === member.id %>
-                  <%= member.name %>
+                <% if @fantasy_team&.id === member[:id] %>
+                  <%= member[:name] %>
                 <% else %>
-                  <%= link_to member.name, fantasy_team_points_path(member.uuid), class: 'text-blue-500 underline' %>
+                  <%= link_to member[:name], fantasy_team_points_path(member[:uuid]), class: 'text-blue-500 underline' %>
                 <% end %>
               </td>
-              <td><%= member.points %></td>
+              <td><%= member[:points] %></td>
             </tr>
           <% end %>
         </tbody>

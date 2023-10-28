@@ -29,6 +29,7 @@ module Weeks
       change_form_for_teams_players(week)
       generate_cups(week)
       generate_cups_pairs(week)
+      add_week_fantasy_league(week)
     end
 
     private
@@ -55,6 +56,19 @@ module Weeks
 
     def generate_cups_pairs(week)
       @cups_pairs_generate_service.call(week: week) if week.position > @generate_week_position
+    end
+
+    def add_week_fantasy_league(week)
+      fantasy_league = FantasyLeague.create!(leagueable: week, season: week.season, name: "Week #{week.position}")
+
+      members = week.lineups.ids.map do |lineup_id|
+        {
+          pointable_id: lineup_id,
+          pointable_type: 'Lineup',
+          fantasy_league_id: fantasy_league.id
+        }
+      end
+      FantasyLeagues::Team.upsert_all(members) if members.any?
     end
   end
 end
