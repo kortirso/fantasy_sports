@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - shirt_number of players to string
 
+### Fixed
+- updating game statistics through admin panel
+
 ## [1.0.4] - 2023-10-26
 ### Modified
 - sync games once after 3 hours from start_at

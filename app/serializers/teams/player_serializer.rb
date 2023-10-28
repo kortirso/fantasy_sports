@@ -2,11 +2,13 @@
 
 module Teams
   class PlayerSerializer < ApplicationSerializer
-    attributes :uuid, :form, :shirt_number_string
+    attributes :uuid, :form
 
     attribute :price do |object|
       object.price_cents / 100.0
     end
+
+    attribute :shirt_number, &:shirt_number_string
 
     attribute :player do |object|
       player = object.player

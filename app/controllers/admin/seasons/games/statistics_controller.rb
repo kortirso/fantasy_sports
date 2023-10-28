@@ -27,7 +27,7 @@ module Admin
         end
 
         def game_data
-          result = params.permit(game_data: {})[:game_data].to_h.values.map { |e| e.transform_keys(&:to_i) }
+          result = params.permit(game_data: {})[:game_data].to_h.values
 
           [
             {

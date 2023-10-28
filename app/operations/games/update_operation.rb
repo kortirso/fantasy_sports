@@ -52,14 +52,16 @@ module Games
     private
 
     def update_game(game_data)
+      return if game_data.dig(0, :points).nil? || game_data.dig(1, :points).nil?
+
       # TODO: use service for update, modify contract to allow set array of values as points
       # commento: games.points
-      @game.update!(points: [game_data[0][:points], game_data[1][:points]].compact)
+      @game.update!(points: [game_data.dig(0, :points), game_data.dig(1, :points)])
     end
 
     def update_games_players(game_data)
-      calculate_games_players_points(@game.home_season_team_id, game_data[0][:players])
-      calculate_games_players_points(@game.visitor_season_team_id, game_data[1][:players])
+      calculate_games_players_points(@game.home_season_team_id, game_data.dig(0, :players))
+      calculate_games_players_points(@game.visitor_season_team_id, game_data.dig(1, :players))
       # commento: games_players.points, games_players.statistic
       Games::Player.upsert_all(@games_players_update_data) if @games_players_update_data.any?
     end
