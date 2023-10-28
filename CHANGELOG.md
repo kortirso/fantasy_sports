@@ -5,8 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- game week's fantasy leagues
+
 ### Modified
 - shirt_number of players to string
+
+### Fixed
+- updating game statistics through admin panel
 
 ## [1.0.4] - 2023-10-26
 ### Modified

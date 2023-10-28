@@ -68,15 +68,16 @@ describe Weeks::StartService, type: :service do
       let!(:game2) { create :game, week: week }
       let!(:fantasy_league) { create :fantasy_league, leagueable: previous_week.season, season: previous_week.season }
 
-      it 'updates week, calls change_service and succeed', :aggregate_failures do
-        service = service_call
+      before { create :lineup, week: week }
 
+      it 'updates week, calls change_service and succeed', :aggregate_failures do
+        expect { service_call }.to change(week.fantasy_leagues, :count).by(1)
         expect(week.reload.status).to eq Week::ACTIVE
         expect(price_change_service).to have_received(:call).with(week: week)
         expect(form_change_service).to have_received(:call).with(games_ids: [game1.id, game2.id])
         expect(cup_create_service).to have_received(:call).with(fantasy_league: fantasy_league)
         expect(cups_pairs_generate_service).not_to have_received(:call)
-        expect(service.success?).to be_truthy
+        expect(service_call.success?).to be_truthy
       end
 
       context 'when cup already exists' do

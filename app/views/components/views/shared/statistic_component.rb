@@ -28,7 +28,7 @@ module Views
           {
             uuid: fantasy_league.uuid,
             name: fantasy_league.name,
-            place: fantasy_league.fantasy_teams.completed.where('points > ?', @fantasy_team.points).size + 1
+            place: fantasy_league.members.where('points > ?', @fantasy_team.points).size + 1
           }
         end
       end
