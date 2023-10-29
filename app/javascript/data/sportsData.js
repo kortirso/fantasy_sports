@@ -23,7 +23,7 @@ export const sportsData = {
       max_active_players: 10,
       max_team_players: 2,
       free_transfers_per_week: 1,
-      points_per_transfer: 10,
+      points_per_transfer: 50,
       changes: false,
       captain: false,
       chips: {},

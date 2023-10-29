@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - save user session in cookies
 
+### Modified
+- change price for transfer in basketball
+
 ## [1.0.5] - 2023-10-29
 ### Added
 - game week's fantasy leagues

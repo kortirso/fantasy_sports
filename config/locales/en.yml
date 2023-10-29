@@ -302,7 +302,7 @@ en:
           description: For basketball there are no special actions for managing squad.
         transfers_basketball:
           unlimited: After selecting your squad you can buy and sell players. Unlimited transfers can be made for free until your first week start.
-          free_per_week: Starting from first week you will receive 1 free transfer each week. Each additional transfer will deduct 40 points from total points at the start of the next week.
+          free_per_week: Starting from first week you will receive 1 free transfer each week. Each additional transfer will deduct 50 points from total points at the start of the next week.
           maximum: You can not use free transfer then you will have 2 free transfers for next week.
         points_basketball:
           description: During the season, your fantasy players will be allocated points based on their performance
