@@ -136,8 +136,7 @@ describe Admin::Seasons::TeamsPlayersController do
               player_id: player.id,
               seasons_team_id: seasons_team.id,
               price_cents: '1450',
-              shirt_number_string: '1',
-              form: '2'
+              shirt_number_string: '1'
             },
             locale: 'en'
           }

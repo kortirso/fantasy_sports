@@ -20,6 +20,7 @@ module Lineups
     attribute :player do |object|
       player = object.teams_player.player
       {
+        uuid: object.teams_player.players_season.uuid,
         name: player.name,
         position_kind: player.position_kind
       }

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Modified
 - shirt_number of players to string
+- calculating and using players season statistic
 
 ### Fixed
 - updating game statistics through admin panel

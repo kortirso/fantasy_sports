@@ -11,13 +11,9 @@ module Games
     }.freeze
 
     def initialize(
-      form_change_service: ::Teams::Players::Form::ChangeService,
-      lineups_players_points_update_job: ::Lineups::Players::Points::UpdateJob,
-      players_statistic_update_job: ::Players::Statistic::UpdateJob
+      players_seasons_mass_update_job: ::Players::Seasons::MassUpdateJob
     )
-      @form_change_service = form_change_service
-      @lineups_players_points_update_job = lineups_players_points_update_job
-      @players_statistic_update_job = players_statistic_update_job
+      @players_seasons_mass_update_job = players_seasons_mass_update_job
     end
 
     # game_data must have specific format
@@ -42,11 +38,9 @@ module Games
       ActiveRecord::Base.transaction do
         update_game(game_data)
         update_games_players(game_data)
-        update_teams_players
       end
       # this data can be updated in background
       update_players
-      update_lineups_players
     end
 
     private
@@ -93,22 +87,8 @@ module Games
     end
     # rubocop: enable Metrics/AbcSize
 
-    def update_teams_players
-      @form_change_service.call(
-        games_ids: Game.where(week_id: @game.week.weeks_ids_for_form_calculation).order(id: :asc).ids,
-        seasons_teams_ids: [@game.home_season_team_id, @game.visitor_season_team_id]
-      )
-    end
-
     def update_players
-      @players_statistic_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids)
-    end
-
-    def update_lineups_players
-      @lineups_players_points_update_job.perform_now(
-        team_player_ids: @team_player_ids,
-        week_id: @game.week_id
-      )
+      @players_seasons_mass_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids.flatten)
     end
   end
 end

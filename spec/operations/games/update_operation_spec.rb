@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 describe Games::UpdateOperation, type: :service do
-  subject(:service_call) {
-    described_class
-    .new(
-      form_change_service: form_change_service
-    )
-    .call(game: game, game_data: game_data)
-  }
+  subject(:service_call) { described_class.call(game: game, game_data: game_data) }
 
   let(:points_calculate_service) { double }
-  let(:form_change_service) { double }
   let(:points_result) { 10 }
 
   let!(:game) { create :game, source: Sourceable::INSTAT }
@@ -35,7 +28,6 @@ describe Games::UpdateOperation, type: :service do
 
     allow(Games::Players::Points::Calculate::FootballService).to receive(:new).and_return(points_calculate_service)
     allow(points_calculate_service).to receive_messages(call: points_calculate_service, result: points_result)
-    allow(form_change_service).to receive(:call)
   end
 
   context 'for valid params' do
@@ -43,10 +35,6 @@ describe Games::UpdateOperation, type: :service do
       service_call
 
       expect(points_calculate_service).to have_received(:call).twice
-      expect(form_change_service).to have_received(:call).with(
-        games_ids: [game.id],
-        seasons_teams_ids: [game.home_season_team_id, game.visitor_season_team_id]
-      )
       expect(game.reload.points).to eq([1, 2])
       expect(service_call.success?).to be_truthy
     end

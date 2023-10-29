@@ -286,7 +286,7 @@ export const Squad = ({
                 status={item.status}
                 onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
                 onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
-                onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
+                onInfoClick={() => setPlayerUuid(item.player.uuid)}
               />
             ))}
           </div>
@@ -305,7 +305,7 @@ export const Squad = ({
               status={item.status}
               onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
               onActionClick={() => changePlayer(item, false)}
-              onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
+              onInfoClick={() => setPlayerUuid(item.player.uuid)}
             />
           ))}
         </div>

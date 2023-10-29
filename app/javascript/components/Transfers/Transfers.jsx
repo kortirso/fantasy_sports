@@ -14,7 +14,7 @@ import { seasonPlayersRequest } from './requests/seasonPlayersRequest';
 
 // these sorting params belong to teams_player.player
 // other sorting params belong to teams_player
-const PLAYER_SORT_PARAMS = ['points'];
+const TEAM_SORT_PARAMS = ['price'];
 const PER_PAGE = 20;
 
 strings.setLanguage(currentLocale);
@@ -104,8 +104,8 @@ export const Transfers = ({
         return Object.values(element.player.name).find((element) => { return element.toLowerCase().includes(search) })
       })
       .sort((a, b) => {
-        if (PLAYER_SORT_PARAMS.includes(sortBy)) {
-          return a.player[sortBy] < b.player[sortBy] ? 1 : -1;
+        if (TEAM_SORT_PARAMS.includes(sortBy)) {
+          return a.team[sortBy] < b.team[sortBy] ? 1 : -1;
         } else {
           return a[sortBy] < b[sortBy] ? 1 : -1;
         }
@@ -417,9 +417,9 @@ export const Transfers = ({
                   {localizeValue(sportPositions[item.player.position_kind].short_name)}
                 </span>
               </div>
-              <div className="w-12 flex flex-row items-center justify-center">{item.price}</div>
+              <div className="w-12 flex flex-row items-center justify-center">{item.team.price}</div>
               <div className="w-12 flex flex-row items-center justify-center">
-                {PLAYER_SORT_PARAMS.includes(sortBy) ? item.player[sortBy] : item[sortBy]}
+                {TEAM_SORT_PARAMS.includes(sortBy) ? item.team[sortBy] : item[sortBy]}
               </div>
               <div className="btn-primary btn-small py-0 leading-6" onClick={() => addTeamMember(item)}>
                 +

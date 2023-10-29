@@ -60,7 +60,8 @@ module Admin
 
       def find_teams_players
         @sport_positions = Sports::Position.where(sport: @season.league.sport_kind).pluck(:title, :name).to_h
-        @teams_players = @season.teams_players.order(id: :asc, active: :asc).includes(:player, seasons_team: :team)
+        @teams_players =
+          @season.teams_players.order(id: :asc, active: :asc).includes(:player, :players_season, seasons_team: :team)
       end
 
       def find_inactive_players
@@ -82,7 +83,7 @@ module Admin
       def teams_player_create_params
         params
           .require(:teams_player)
-          .permit(:player_id, :seasons_team_id, :price_cents, :shirt_number_string, :form)
+          .permit(:player_id, :seasons_team_id, :price_cents, :shirt_number_string)
           .to_h
           .symbolize_keys
           .merge(active: true)

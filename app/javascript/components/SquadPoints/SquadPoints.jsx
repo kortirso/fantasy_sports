@@ -113,7 +113,7 @@ export const SquadPoints = ({
                 name={localizeValue(item.player.name).split(' ')[0]}
                 value={item.points}
                 number={item.teams_player.shirt_number}
-                onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
+                onInfoClick={() => setPlayerUuid(item.player.uuid)}
               />
             ))}
           </div>
@@ -128,7 +128,7 @@ export const SquadPoints = ({
               name={localizeValue(item.player.name).split(' ')[0]}
               value={item.points}
               number={item.teams_player.shirt_number}
-              onInfoClick={() => setPlayerUuid(item.teams_player.uuid)}
+              onInfoClick={() => setPlayerUuid(item.player.uuid)}
             />
           ))}
         </div>

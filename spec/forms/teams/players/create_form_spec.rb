@@ -25,8 +25,7 @@ describe Teams::Players::CreateForm, type: :service do
         player_id: player.id,
         seasons_team_id: seasons_team.id,
         price_cents: 123,
-        shirt_number_string: '1',
-        form: 5.0
+        shirt_number_string: '1'
       }
     }
 
