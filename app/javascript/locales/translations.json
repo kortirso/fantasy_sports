@@ -68,7 +68,8 @@
       "noSeasonGames": "There are no games yet",
       "week": "GW",
       "opponent": "Opponent",
-      "pts": "Pts"
+      "pts": "Pts",
+      "total": "Total"
     },
     "transfersStatus": {
       "transfersIn": "Top Transfers in this Gameweek",
@@ -159,7 +160,8 @@
       "noSeasonGames": "Пока нет данных",
       "week": "Неделя",
       "opponent": "Соперник",
-      "pts": "Очки"
+      "pts": "Очки",
+      "total": "Итого"
     },
     "transfersStatus": {
       "transfersIn": "Самые частые приобретения недели",

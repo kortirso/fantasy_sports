@@ -4,6 +4,8 @@ module Controllers
   module Seasons
     module Players
       class ShowSerializer < ::Players::SeasonSerializer
+        attributes :statistic
+
         attribute :games_players do |object|
           games_players =
             object
