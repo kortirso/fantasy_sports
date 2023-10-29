@@ -13,13 +13,16 @@ module Users
     def new; end
 
     def create
-      session[:fantasy_sports_token] = generate_token.call(user: @user)[:result]
+      cookies[:fantasy_sports_token] = {
+        value: generate_token.call(user: @user)[:result],
+        expires: 1.week.from_now
+      }
       redirect_to after_login_path, notice: t('controllers.users.sessions.success_create')
     end
 
     def destroy
       # TODO: Here can be destroying token from database
-      session[:fantasy_sports_token] = nil
+      cookies.delete(:fantasy_sports_token)
       redirect_to after_logout_path, notice: t('controllers.users.sessions.success_destroy')
     end
 

@@ -12,7 +12,7 @@ describe User do
   describe 'associations' do
     it { is_expected.to have_many(:fantasy_teams).dependent(:destroy) }
     it { is_expected.to have_many(:lineups).through(:fantasy_teams) }
-    it { is_expected.to have_one(:users_session).class_name('::Users::Session').dependent(:destroy) }
+    it { is_expected.to have_many(:users_sessions).class_name('::Users::Session').dependent(:destroy) }
     it { is_expected.to have_many(:kudos_users_achievements).dependent(:destroy) }
     it { is_expected.to have_many(:kudos_achievements).through(:kudos_users_achievements) }
   end

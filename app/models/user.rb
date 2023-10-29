@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :fantasy_teams, dependent: :destroy
   has_many :lineups, through: :fantasy_teams
 
-  has_one :users_session, class_name: 'Users::Session', dependent: :destroy
+  has_many :users_sessions, class_name: 'Users::Session', dependent: :destroy
 
   scope :not_confirmed, -> { where(confirmed_at: nil) }
 

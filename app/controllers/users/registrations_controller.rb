@@ -21,7 +21,10 @@ module Users
     private
 
     def success_create_response(user)
-      session[:fantasy_sports_token] = generate_token.call(user: user)[:result]
+      cookies[:fantasy_sports_token] = {
+        value: generate_token.call(user: user)[:result],
+        expires: 1.week.from_now
+      }
       redirect_to after_registration_path, notice: t('controllers.users.registrations.success_create')
     end
 

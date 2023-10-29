@@ -2,7 +2,7 @@
 
 class JwtEncoder
   HMAC_SECRET = Rails.application.secret_key_base
-  EXPIRATION_SECONDS = 86_400
+  EXPIRATION_SECONDS = 604_800
 
   def encode(payload)
     JWT.encode(modify_payload(payload), HMAC_SECRET)

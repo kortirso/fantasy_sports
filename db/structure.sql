@@ -2022,7 +2022,7 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 -- Name: index_users_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_sessions_on_user_id ON public.users_sessions USING btree (user_id);
+CREATE INDEX index_users_sessions_on_user_id ON public.users_sessions USING btree (user_id);
 
 
 --
@@ -2199,6 +2199,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231027124827'),
 ('20231028144736'),
 ('20231028150107'),
-('20231028174302');
+('20231028174302'),
+('20231029174712');
 
 

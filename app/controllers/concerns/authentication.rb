@@ -10,9 +10,9 @@ module Authentication
   private
 
   def current_user
-    return unless session[:fantasy_sports_token]
+    return unless cookies[:fantasy_sports_token]
 
-    auth_call = FantasySports::Container['services.auth.fetch_session'].call(token: session[:fantasy_sports_token])
+    auth_call = FantasySports::Container['services.auth.fetch_session'].call(token: cookies[:fantasy_sports_token])
     return if auth_call[:errors].present?
 
     Current.user ||= auth_call[:result].user
