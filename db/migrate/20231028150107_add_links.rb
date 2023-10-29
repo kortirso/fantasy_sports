@@ -6,7 +6,7 @@ class AddLinks < ActiveRecord::Migration[7.0]
       Teams::Player.where(active: false).destroy_all
       Teams::Player.all.map do |teams_player|
         players_season =
-          Players::Season.create(
+          Players::Season.find_or_create_by(
             season_id: teams_player.seasons_team.season_id,
             player_id: teams_player.player_id
           )

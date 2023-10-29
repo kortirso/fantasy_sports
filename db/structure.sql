@@ -940,9 +940,9 @@ CREATE TABLE public.players_seasons (
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
+    uuid uuid NOT NULL,
     average_points numeric(8,2) DEFAULT 0.0 NOT NULL,
-    form numeric(8,2) DEFAULT 0.0 NOT NULL,
-    uuid uuid NOT NULL
+    form numeric(8,2) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -2197,8 +2197,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231008190606'),
 ('20231021133617'),
 ('20231027124827'),
+('20231028144736'),
 ('20231028150107'),
-('20231028174302'),
-('20231028184736');
+('20231028174302');
 
 
