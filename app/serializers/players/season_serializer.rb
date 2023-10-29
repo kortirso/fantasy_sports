@@ -2,7 +2,19 @@
 
 module Players
   class SeasonSerializer < ApplicationSerializer
-    attributes :uuid, :form, :points, :average_points
+    attributes :uuid
+
+    attribute :form do |object|
+      object.form.to_f
+    end
+
+    attribute :points do |object|
+      object.points.to_f
+    end
+
+    attribute :average_points do |object|
+      object.average_points.to_f
+    end
 
     attribute :player do |object|
       player = object.player
@@ -17,7 +29,7 @@ module Players
       {
         uuid: team&.uuid,
         name: team&.name,
-        price: object.active_teams_player&.price_cents.to_i / 100.0
+        price: (object.active_teams_player&.price_cents.to_i / 100.0).round(1)
       }
     end
   end

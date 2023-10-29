@@ -18,15 +18,15 @@ describe Seasons::PlayersController do
 
       context 'for existing season' do
         let!(:season) { create :season, active: true }
+        let!(:players_season) { create :players_season, season: season }
 
         before do
-          create_list :players_season, 2, season: season
-
           get :index, params: { season_id: season.uuid, locale: 'en' }
         end
 
         it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
+          expect(response.parsed_body.dig('season_players', 'data', 0, 'attributes', 'uuid')).to eq players_season.uuid
           %w[uuid player team form points average_points].each do |attr|
             expect(response.body).to have_json_path("season_players/data/0/attributes/#{attr}")
           end

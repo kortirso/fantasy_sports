@@ -21,12 +21,12 @@ module Seasons
     end
 
     def find_season_player
-      @season_player = @season_players.find_by(uuid: params[:id])
+      @season_player = @season_players.find_by!(uuid: params[:id])
     end
 
     def season_players_json_response
       Rails.cache.fetch(
-        ['seasons_players_index_v2', @season_players.maximum(:updated_at)],
+        ['seasons_players_index_v3', @season_players.maximum(:updated_at)],
         expires_in: 6.hours,
         race_condition_ttl: 10.seconds
       ) do
@@ -38,7 +38,7 @@ module Seasons
 
     def season_player_json_response
       Rails.cache.fetch(
-        ['seasons_players_show_v2', @season_player.id, @season_player.updated_at],
+        ['seasons_players_show_v3', @season_player.id, @season_player.updated_at],
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
