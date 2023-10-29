@@ -98,7 +98,7 @@ describe FantasyTeams::TransfersController do
               patch :update, params: {
                 fantasy_team_id: fantasy_team.uuid,
                 locale: 'en',
-                fantasy_team: { teams_players_uuids: [], only_validate: true }
+                fantasy_team: { players_seasons_uuids: [], only_validate: true }
               }
             }
 
@@ -119,7 +119,7 @@ describe FantasyTeams::TransfersController do
               patch :update, params: {
                 fantasy_team_id: fantasy_team.uuid,
                 locale: 'en',
-                fantasy_team: { teams_players_uuids: [], only_validate: true }
+                fantasy_team: { players_seasons_uuids: [], only_validate: true }
               }
             }
 

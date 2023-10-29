@@ -16,12 +16,15 @@ module FantasyTeams
 
     def teams_players
       Rails.cache.fetch(
-        ['fantasy_teams_players_index_v1', @fantasy_team.id, @fantasy_team.updated_at],
+        ['fantasy_teams_players_index_v2', @fantasy_team.id, @fantasy_team.updated_at],
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
-        Teams::PlayerSerializer.new(
-          @fantasy_team.teams_players.active.includes(:player, seasons_team: :team)
+        players_season_id_ids = @fantasy_team.teams_players.active.select(:players_season_id)
+        ::Players::SeasonSerializer.new(
+          ::Players::Season
+            .where(id: players_season_id_ids)
+            .includes(:player, active_teams_player: [seasons_team: :team])
         ).serializable_hash
       end
     end

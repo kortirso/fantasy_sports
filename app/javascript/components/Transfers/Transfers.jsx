@@ -152,7 +152,7 @@ export const Transfers = ({
       });
 
     setTeamMembers(teamMembers.concat(item));
-    setBudget((budget - item.price).toFixed(1));
+    setBudget((budget - item.team.price).toFixed(1));
   };
 
   const sportPositionName = (sportPosition) => {
@@ -161,7 +161,7 @@ export const Transfers = ({
 
   const removeTeamMember = (element) => {
     setTeamMembers(teamMembers.filter((item) => item.uuid !== element.uuid));
-    setBudget((budget + element.price).toFixed(1));
+    setBudget((budget + element.team.price).toFixed(1));
   };
 
   const renderEmptySlots = (positionKind) => {
@@ -180,7 +180,7 @@ export const Transfers = ({
         name: teamName,
         budget_cents: budget * 100,
         favourite_team_uuid: favouriteTeamUuid,
-        teams_players_uuids: teamMembers.map((element) => element.uuid),
+        players_seasons_uuids: teamMembers.map((element) => element.uuid),
       },
     };
 
@@ -212,7 +212,7 @@ export const Transfers = ({
   const submitCompleted = async (onlyValidate) => {
     const payload = {
       fantasy_team: {
-        teams_players_uuids: teamMembers.map((element) => element.uuid),
+        players_seasons_uuids: teamMembers.map((element) => element.uuid),
         only_validate: onlyValidate,
       },
     };
@@ -314,8 +314,8 @@ export const Transfers = ({
                       key={item.uuid}
                       teamName={pageState.teamNames[item.team.uuid]?.short_name}
                       name={localizeValue(item.player.name).split(' ')[0]}
-                      value={item.price}
-                      number={item.shirt_number}
+                      value={item.team.price}
+                      number={item.team.shirt_number}
                       onActionClick={() => removeTeamMember(item)}
                       onInfoClick={() => setPlayerUuid(item.uuid)}
                     />

@@ -25,11 +25,13 @@ module Players
     end
 
     attribute :team do |object|
-      team = object.active_teams_player&.seasons_team&.team
+      active_teams_player = object.active_teams_player
+      team = active_teams_player&.seasons_team&.team
       {
         uuid: team&.uuid,
         name: team&.name,
-        price: (object.active_teams_player&.price_cents.to_i / 100.0).round(1)
+        price: (active_teams_player&.price_cents.to_i / 100.0).round(1),
+        shirt_number: active_teams_player&.shirt_number_string
       }
     end
   end

@@ -16,7 +16,9 @@ module FantasyTeams
     def update
       service_call = FantasyTeams::Transfers::PerformService.call(
         fantasy_team: @fantasy_team,
-        teams_players_ids: Teams::Player.where(uuid: params[:fantasy_team][:teams_players_uuids]).ids,
+        teams_players_ids: Teams::Player.where(
+          players_season_id: ::Players::Season.where(uuid: params[:fantasy_team][:players_seasons_uuids]).select(:id)
+        ).ids,
         only_validate: params[:fantasy_team][:only_validate]
       )
       if service_call.success?

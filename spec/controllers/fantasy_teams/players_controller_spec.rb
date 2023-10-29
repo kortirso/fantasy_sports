@@ -35,19 +35,16 @@ describe FantasyTeams::PlayersController do
           get :index, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
         end
 
-        it 'returns status 200' do
+        it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
-        end
-
-        %w[uuid price player team].each do |attr|
-          it "response contains teams player #{attr}" do
+          %w[uuid player team].each do |attr|
             expect(response.body).to have_json_path("teams_players/data/0/attributes/#{attr}")
           end
-        end
-
-        %w[points statistic].each do |attr|
-          it "response contains player #{attr}" do
+          %w[name position_kind].each do |attr|
             expect(response.body).to have_json_path("teams_players/data/0/attributes/player/#{attr}")
+          end
+          %w[uuid name price shirt_number].each do |attr|
+            expect(response.body).to have_json_path("teams_players/data/0/attributes/team/#{attr}")
           end
         end
       end
