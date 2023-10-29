@@ -41,10 +41,9 @@ class Week < ApplicationRecord
     Week
       .where(season_id: season_id)
       .where('position <= ?', position)
-      .where('position > 0')
+      .where('position > ?', position - Teams::Player::WEEKS_COUNT_FOR_FORM_CALCULATION)
       .order(position: :desc)
       .ids
-      .first(Teams::Player::WEEKS_COUNT_FOR_FORM_CALCULATION)
   end
 
   def opponent_visible?

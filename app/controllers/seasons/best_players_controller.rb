@@ -36,7 +36,7 @@ module Seasons
     end
 
     def teams_players(ids)
-      @teams_players ||= Teams::Player.where(id: ids).includes(:player, seasons_team: :team)
+      @teams_players ||= Teams::Player.where(id: ids).includes(:player, :players_season, seasons_team: :team)
     end
   end
 end

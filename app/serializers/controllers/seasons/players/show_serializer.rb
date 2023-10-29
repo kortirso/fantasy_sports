@@ -3,7 +3,7 @@
 module Controllers
   module Seasons
     module Players
-      class ShowSerializer < Teams::PlayerSerializer
+      class ShowSerializer < ::Players::SeasonSerializer
         attribute :games_players do |object|
           games_players =
             object
@@ -15,13 +15,8 @@ module Controllers
         end
 
         attributes :teams_selected_by do |object|
-          teams_count = object.seasons_team.season.fantasy_teams.count
-          teams_count.zero? ? 0 : (100.0 * object.fantasy_teams.count / teams_count).round(1)
-        end
-
-        attributes :points_per_game do |object|
-          played_games = object.games_players.pluck(:statistic).count { |statistic| statistic['MP'].to_i.positive? }
-          played_games.zero? ? 0 : (object.player.points.to_f / played_games).round(1)
+          teams_count = object.active_teams_player.seasons_team.season.fantasy_teams.count
+          teams_count.zero? ? 0 : (100.0 * object.active_teams_player.fantasy_teams.count / teams_count).round(1)
         end
       end
     end

@@ -57,15 +57,15 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.poinstPerGame}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.points_per_game}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.average_points}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.totalPoints}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.player.points}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.points}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.price}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.price}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.team.price}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r lg:border-r-0 border-gray-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>

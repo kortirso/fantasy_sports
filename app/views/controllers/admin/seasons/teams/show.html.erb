@@ -6,13 +6,14 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Shirt</th>
       <th>Name</th>
       <th>Position</th>
       <th>Points</th>
+      <th>Avg points</th>
       <th>Statistics</th>
       <th>Active</th>
       <th>Price</th>
-      <th>Shirt</th>
       <th>Form</th>
       <th></th>
     </tr>
@@ -21,14 +22,15 @@
     <% @teams_players.each do |teams_player| %>
       <tr>
         <td><%= teams_player.id %></td>
+        <td><%= teams_player.shirt_number_string %></td>
         <td><%= localized_value(teams_player.player.name) %></td>
         <td><%= localized_value(@sport_positions[teams_player.player.position_kind]) %></td>
-        <td><%= teams_player.player.points %></td>
-        <td><%= teams_player.player.statistic %></td>
+        <td><%= teams_player.players_season.points %></td>
+        <td><%= teams_player.players_season.average_points %></td>
+        <td><%= teams_player.players_season.statistic %></td>
         <td><%= teams_player.active %></td>
         <td><%= teams_player.price_cents / 100.0 %></td>
-        <td><%= teams_player.shirt_number_string %></td>
-        <td><%= teams_player.form %></td>
+        <td><%= teams_player.players_season.form %></td>
         <td>
           <%= link_to t('views.admin.seasons.teams_players.index.edit'), edit_admin_season_teams_player_path(@season.uuid, teams_player.uuid), class: 'btn-primary btn-small' %>
         </td>

@@ -9,7 +9,11 @@ module Teams
         errors = validator.call(params: params)
         return { errors: errors } if errors.any?
 
-        teams_player = Teams::Player.create!(params)
+        seasons_team = ::Seasons::Team.find_by(id: params[:seasons_team_id])
+        players_season =
+          ::Players::Season.find_or_create_by(player_id: params[:player_id], season_id: seasons_team.season_id)
+
+        teams_player = ::Teams::Player.create!(params.merge(players_season_id: players_season.id))
         create_games_players(teams_player)
 
         { result: teams_player }

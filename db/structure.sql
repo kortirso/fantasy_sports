@@ -939,7 +939,10 @@ CREATE TABLE public.players_seasons (
     points numeric(8,2) DEFAULT 0 NOT NULL,
     statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    average_points numeric(8,2) DEFAULT 0.0 NOT NULL,
+    form numeric(8,2) DEFAULT 0.0 NOT NULL,
+    uuid uuid NOT NULL
 );
 
 
@@ -1135,7 +1138,8 @@ CREATE TABLE public.teams_players (
     shirt_number integer,
     form double precision DEFAULT 0.0 NOT NULL,
     uuid uuid DEFAULT gen_random_uuid() NOT NULL,
-    shirt_number_string character varying
+    shirt_number_string character varying,
+    players_season_id bigint NOT NULL
 );
 
 
@@ -2192,6 +2196,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230928164428'),
 ('20231008190606'),
 ('20231021133617'),
-('20231027124827');
+('20231027124827'),
+('20231028150107'),
+('20231028174302'),
+('20231028184736');
 
 

@@ -32,7 +32,7 @@ module Admin
           @seasons_team
             .teams_players
             .where(active: true)
-            .includes(:player)
+            .includes(:player, :players_season)
             .sort_by { |teams_player| teams_player.shirt_number_string.to_i }
       end
     end
