@@ -73,7 +73,7 @@ describe Seasons::PlayersController do
 
         it 'returns status 200', :aggregate_failures do
           expect(response).to have_http_status :ok
-          %w[uuid player team form points average_points games_players teams_selected_by].each do |attr|
+          %w[uuid player team form points average_points games_players teams_selected_by statistic].each do |attr|
             expect(response.body).to have_json_path("season_player/data/attributes/#{attr}")
           end
           %w[name position_kind].each do |attr|

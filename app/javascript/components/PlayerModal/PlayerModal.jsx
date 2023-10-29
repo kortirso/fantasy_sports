@@ -43,6 +43,17 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     });
   };
 
+  const renderOverallStatistic = () => (
+    <tr key={`overall-${seasonPlayer.uuid}`}>
+      <td className="text-center border-b border-gray-200 py-2 px-4"></td>
+      <td className="text-center border-b border-gray-200 py-2 px-4 whitespace-nowrap">{strings.player.total}</td>
+      <td className="text-center border-b border-gray-200 py-2 px-4">{seasonPlayer.points}</td>
+      {Object.keys(statisticsOrder[sportKind]).map((stat) => (
+        <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{seasonPlayer.statistic[stat]}</td>
+      ))}
+    </tr>
+  )
+
   return (
     <Modal show={!!playerUuid} onClose={onClose}>
       <div className="mb-2">
@@ -91,7 +102,10 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
                 ))}
               </tr>
             </thead>
-            <tbody>{renderSeasonGames()}</tbody>
+            <tbody>
+              {renderSeasonGames()}
+              {renderOverallStatistic()}
+            </tbody>
           </table>
         )}
       </div>
