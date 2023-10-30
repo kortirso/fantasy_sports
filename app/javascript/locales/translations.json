@@ -3,7 +3,7 @@
     "transfers": {
       "name": "Your fantasy team name",
       "free": "Free transfers",
-      "cost": "Transfers cost (points)",
+      "cost": "Transfers penalty (points)",
       "remaining": "Money remaining",
       "positionView": "View by position",
       "teamView": "View by team",
@@ -95,7 +95,7 @@
     "transfers": {
       "name": "Название вашей команды",
       "free": "Бесплатные трансферы",
-      "cost": "Стоимость трансферов (очков)",
+      "cost": "Штраф за трансферы (очков)",
       "remaining": "Остаток бюджета",
       "positionView": "Фильтр по позициям",
       "teamView": "Фильтр по командам",

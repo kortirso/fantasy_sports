@@ -38,6 +38,7 @@ export const Transfers = ({
     visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
   });
 
+  const [defaultTeamMembers, setDefaultTeamMembers] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
   const [budget, setBudget] = useState(fantasyTeamBudget);
   const [teamName, setTeamName] = useState('');
@@ -63,6 +64,7 @@ export const Transfers = ({
     const fetchFantasyTeamPlayers = async () => {
       const data = await fantasyTeamPlayersRequest(fantasyTeamUuid);
       setTeamMembers(data);
+      setDefaultTeamMembers(data);
     };
 
     Promise.all([fetchTeams(), fetchSeasonPlayers()]).then(
@@ -119,6 +121,18 @@ export const Transfers = ({
   const lastPageIndex = useMemo(() => {
     return Math.trunc(filteredPlayers.length / PER_PAGE) + 1;
   }, [filteredPlayers]);
+
+  const changesCount = useMemo(() => {
+    if (!transfersLimited) return 0;
+
+    let count = 0
+    defaultTeamMembers.forEach((defaultElement) => {
+      if (!teamMembers.find((element) => element.uuid === defaultElement.uuid)) count += 1;
+    });
+    if (freeTransfers >= count) return 0;
+
+    return (freeTransfers - count) * sport.points_per_transfer;
+  }, [transfersLimited, freeTransfers, defaultTeamMembers, teamMembers, sport.points_per_transfer]);
 
   const pageDown = () => {
     if (page !== 0) setPage(page - 1);
@@ -283,7 +297,7 @@ export const Transfers = ({
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
             <p className="text-center">{strings.transfers.cost}</p>
-            <p className="ml-4 md:ml-0 text-xl">0</p>
+            <p className="ml-4 md:ml-0 text-xl">{changesCount}</p>
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
             <p className="text-center">{strings.transfers.remaining}</p>
