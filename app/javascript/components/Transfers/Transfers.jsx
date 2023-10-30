@@ -152,7 +152,7 @@ export const Transfers = ({
       });
 
     setTeamMembers(teamMembers.concat(item));
-    setBudget((budget - item.team.price).toFixed(1));
+    setBudget(budget - item.team.price);
   };
 
   const sportPositionName = (sportPosition) => {
@@ -161,7 +161,7 @@ export const Transfers = ({
 
   const removeTeamMember = (element) => {
     setTeamMembers(teamMembers.filter((item) => item.uuid !== element.uuid));
-    setBudget((budget + element.team.price).toFixed(1));
+    setBudget(budget + element.team.price);
   };
 
   const renderEmptySlots = (positionKind) => {
@@ -287,7 +287,7 @@ export const Transfers = ({
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
             <p className="text-center">{strings.transfers.remaining}</p>
-            <p className="ml-4 md:ml-0 text-xl">{budget}</p>
+            <p className="ml-4 md:ml-0 text-xl">{budget.toFixed(1)}</p>
           </div>
         </div>
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (

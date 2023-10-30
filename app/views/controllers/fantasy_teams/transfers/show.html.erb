@@ -5,7 +5,7 @@
       sportKind: @season.league.sport_kind,
       fantasyTeamUuid: @fantasy_team.uuid,
       fantasyTeamCompleted: @fantasy_team.completed?,
-      fantasyTeamBudget: @fantasy_team.budget_cents / 100.0,
+      fantasyTeamBudget: (@fantasy_team.budget_cents / 100.0).round(1),
       weekUuid: @season.coming_week.uuid,
       weekPosition: @season.coming_week.position,
       weekDeadlineAt: @season.coming_week.deadline_at,
