@@ -30,6 +30,12 @@
           <p class="basis-2/5"><%= fantasy_league[:place] %></p>
         </div>
       <% end %>
+      <% lineups_fantasy_leagues.each do |fantasy_league| %>
+        <div class="p-2 border-b border-blue-200 flex">
+          <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]) %></p>
+          <p class="basis-2/5"><%= fantasy_league[:place] %></p>
+        </div>
+      <% end %>
       <% if fantasy_cups.present? %>
         <div class="p-2 border-b border-blue-200">
           <h3 class="mt-2 mx-0 mb-0"><%= t('views.shared.statistic.cups') %></h3>

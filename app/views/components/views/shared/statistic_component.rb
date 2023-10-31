@@ -3,8 +3,9 @@
 module Views
   module Shared
     class StatisticComponent < ApplicationViewComponent
-      def initialize(fantasy_team:, score_detect_service: ::Cups::Pairs::ScoreDetectService)
+      def initialize(fantasy_team:, week: nil, score_detect_service: ::Cups::Pairs::ScoreDetectService)
         @fantasy_team = fantasy_team
+        @week = week
         @season = fantasy_team.season
         @score_detect_service = score_detect_service
 
@@ -29,6 +30,19 @@ module Views
             uuid: fantasy_league.uuid,
             name: fantasy_league.name,
             place: fantasy_league.members.where('points > ?', @fantasy_team.points).size + 1
+          }
+        end
+      end
+
+      def lineups_fantasy_leagues
+        lineup = @fantasy_team.lineups.find_by(week_id: @week&.id)
+        return [] unless lineup
+
+        lineup.fantasy_leagues.order(global: :desc).map do |fantasy_league|
+          {
+            uuid: fantasy_league.uuid,
+            name: fantasy_league.name,
+            place: fantasy_league.members.where('points > ?', lineup.points).size + 1
           }
         end
       end

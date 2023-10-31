@@ -15,7 +15,7 @@
           previousPointsUrl: @lineup.week.position > 1 && @lineup.week.opponent_visible? ? fantasy_team_points_url(@fantasy_team.uuid, week: @lineup.week.position - 1) : nil,
           nextPointsUrl: @lineup.week.finished? ? fantasy_team_points_url(@fantasy_team.uuid, week: @lineup.week.position + 1) : nil
       %>
-      <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team) %>
+      <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, week: @week) %>
     </div>
   <% else %>
     <h2><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
