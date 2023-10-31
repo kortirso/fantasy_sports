@@ -207,6 +207,7 @@ en:
             player_id: Player
             seasons_team_id: Team
     welcome:
+      home: View fantasy league
       description: Fantasy game management system. Free to play fantasy games, set up your fantasy team in different sport. In active development.
       active_leagues: Active fantasy leagues
       nba: NBA 23-24 from 24.10.2023

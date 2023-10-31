@@ -8,6 +8,10 @@
           <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'btn-primary mr-2' %>
           <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'btn-primary' %>
         </div>
+      <% else %>
+        <div class="flex mb-4">
+          <%= link_to t('views.welcome.home'), home_path, class: 'btn-primary' %>
+        </div>
       <% end %>
       <p><%= t('views.welcome.active_leagues') %></p>
       <ul>
