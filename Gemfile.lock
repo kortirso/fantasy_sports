@@ -77,12 +77,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    aggregate_root (2.12.1)
-      ruby_event_store (= 2.12.1)
     airbrussh (1.5.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    arkency-command_bus (0.4.1)
-      concurrent-ruby
     ast (2.4.2)
     awesome_print (1.9.2)
     base64 (0.1.1)
@@ -299,17 +295,6 @@ GEM
     rails-i18n (7.0.8)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
-    rails_event_store (2.12.1)
-      activejob (>= 6.0)
-      activemodel (>= 6.0)
-      activesupport (>= 6.0)
-      aggregate_root (= 2.12.1)
-      arkency-command_bus (>= 0.4)
-      rails_event_store_active_record (= 2.12.1)
-      ruby_event_store (= 2.12.1)
-      ruby_event_store-browser (= 2.12.1)
-    rails_event_store_active_record (2.12.1)
-      ruby_event_store-active_record (= 2.12.1)
     railties (7.0.8)
       actionpack (= 7.0.8)
       activesupport (= 7.0.8)
@@ -392,16 +377,6 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    ruby_event_store (2.12.1)
-      concurrent-ruby (~> 1.0, >= 1.1.6)
-    ruby_event_store-active_record (2.12.1)
-      activerecord (>= 6.0)
-      ruby_event_store (= 2.12.1)
-    ruby_event_store-browser (2.12.1)
-      rack
-      ruby_event_store (= 2.12.1)
-    ruby_event_store-rspec (2.12.1)
-      rspec (~> 3.0)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -506,7 +481,6 @@ DEPENDENCIES
   que-web
   rails (~> 7.0)
   rails-controller-testing (= 1.0.5)
-  rails_event_store
   redis (~> 5.0)
   redis-rails
   rspec-rails (~> 6.0)
@@ -514,7 +488,6 @@ DEPENDENCIES
   rubocop-performance (~> 1.14)
   rubocop-rails (~> 2.15)
   rubocop-rspec (~> 2.12)
-  ruby_event_store-rspec
   shoulda-matchers (~> 5.0)
   simplecov
   skylight

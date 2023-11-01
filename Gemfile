@@ -65,9 +65,6 @@ gem 'emailbutler'
 # A performance dashboard for Postgres
 gem 'pghero'
 
-# event store
-gem 'rails_event_store'
-
 # cache store
 gem 'redis', '~> 5.0'
 gem 'redis-rails'
@@ -120,7 +117,6 @@ group :test do
   gem 'json_spec', '1.1.5'
   gem 'rails-controller-testing', '1.0.5'
   gem 'rspec-rails', '~> 6.0'
-  gem 'ruby_event_store-rspec'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', require: false
   gem 'timecop'

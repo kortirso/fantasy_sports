@@ -3,25 +3,26 @@
 module FantasyTeams
   class CreateService
     prepend ApplicationService
-    include Publishable
 
     def initialize(
-      league_join_service: ::FantasyLeagues::JoinService
+      league_join_service: ::FantasyLeagues::JoinService,
+      publish_job: ::FantasyTeams::CreateJob
     )
       @league_join_service = league_join_service
+      @publish_job = publish_job
     end
 
     def call(season:, user:)
       @season = season
-      @user   = user
+      @user = user
 
       return if validate_fantasy_team_uniqueness && failure?
 
       ActiveRecord::Base.transaction do
         create_fantasy_team
         connect_fantasy_team_with_main_league
-        publish_created_fantasy_team
       end
+      publish_created_fantasy_team
     end
 
     private
@@ -49,7 +50,7 @@ module FantasyTeams
     end
 
     def publish_created_fantasy_team
-      publish_event(event: FantasyTeams::CreatedEvent, data: { fantasy_team_uuid: @result.uuid })
+      @publish_job.perform_later(id: @result.id)
     end
   end
 end
