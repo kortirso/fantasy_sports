@@ -21,10 +21,12 @@ class SchedulerJob < ApplicationJob
   def change_weeks
     Week.coming.where('deadline_at < ? AND deadline_at > ?', 15.minutes.after, 15.minutes.ago).ids.each do |week_id|
       Weeks::ChangeService.call(week_id: week_id)
+      Achievements::RefreshAfterWeekChangeJob.perform_later(week_id: week_id)
     end
   end
 
   def import_games
+    refresh_achievements = false
     # fetch game statistics 1 time, 3-3.5 hours after game start and no points before
     # game started at 5:00 will be fetched at 8:00
     # game started at 5:30 will be fetched at 9:00
@@ -36,8 +38,11 @@ class SchedulerJob < ApplicationJob
           .where('start_at < ?', 165.minutes.ago)
           .where(points: [])
           .pluck(:id)
+      next if game_ids.blank?
 
-      Games::ImportJob.perform_later(game_ids: game_ids) if game_ids.any?
+      Games::ImportJob.perform_later(game_ids: game_ids)
+      refresh_achievements = true
     end
+    Achievements::RefreshAfterGameJob.perform_later if refresh_achievements
   end
 end

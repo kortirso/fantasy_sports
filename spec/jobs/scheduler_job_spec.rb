@@ -15,6 +15,8 @@ describe SchedulerJob, type: :service do
   before do
     allow(Weeks::ChangeService).to receive(:call)
     allow(Games::ImportJob).to receive(:perform_later)
+    allow(Achievements::RefreshAfterWeekChangeJob).to receive(:perform_later)
+    allow(Achievements::RefreshAfterGameJob).to receive(:perform_later)
   end
 
   context 'when no season to start' do
@@ -25,6 +27,7 @@ describe SchedulerJob, type: :service do
       expect(week2.reload.status).to eq Week::INACTIVE
       expect(Weeks::ChangeService).not_to have_received(:call)
       expect(Games::ImportJob).not_to have_received(:perform_later)
+      expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
     end
   end
 
@@ -39,6 +42,7 @@ describe SchedulerJob, type: :service do
       expect(week2.reload.status).to eq Week::INACTIVE
       expect(Weeks::ChangeService).not_to have_received(:call)
       expect(Games::ImportJob).not_to have_received(:perform_later)
+      expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
     end
   end
 
@@ -54,7 +58,9 @@ describe SchedulerJob, type: :service do
       job_call
 
       expect(Weeks::ChangeService).to have_received(:call).with(week_id: week1.id)
+      expect(Achievements::RefreshAfterWeekChangeJob).to have_received(:perform_later).with(week_id: week1.id)
       expect(Games::ImportJob).not_to have_received(:perform_later)
+      expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
     end
   end
 
@@ -71,6 +77,8 @@ describe SchedulerJob, type: :service do
 
       expect(Weeks::ChangeService).not_to have_received(:call)
       expect(Games::ImportJob).to have_received(:perform_later).with(game_ids: [game.id])
+      expect(Games::ImportJob).to have_received(:perform_later).with(game_ids: [game.id])
+      expect(Achievements::RefreshAfterGameJob).to have_received(:perform_later)
     end
 
     context 'when game has points' do
@@ -81,6 +89,7 @@ describe SchedulerJob, type: :service do
 
         expect(Weeks::ChangeService).not_to have_received(:call)
         expect(Games::ImportJob).not_to have_received(:perform_later)
+        expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
       end
     end
 
@@ -92,6 +101,7 @@ describe SchedulerJob, type: :service do
 
         expect(Weeks::ChangeService).not_to have_received(:call)
         expect(Games::ImportJob).not_to have_received(:perform_later)
+        expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
       end
     end
   end
