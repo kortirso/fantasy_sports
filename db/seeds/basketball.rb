@@ -152,11 +152,13 @@ games_rows.each do |row|
   end
 
   Games::CreateService.call(
-    week_id:                active_week.id,
-    home_season_team_id:    seasons_teams[row[2]],
-    visitor_season_team_id: seasons_teams[row[3]],
-    source:                 Sourceable::SPORTRADAR,
-    external_id:            row[0],
-    start_at:               game_time
+    params: {
+      week_id: active_week.id,
+      home_season_team_id: seasons_teams[row[2]],
+      visitor_season_team_id: seasons_teams[row[3]],
+      source: Sourceable::SPORTRADAR,
+      external_id: row[0],
+      start_at: game_time
+    }
   )
 end
