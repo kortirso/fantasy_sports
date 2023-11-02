@@ -28,7 +28,9 @@ class FantasyTeamsController < ApplicationController
     service_call = FantasyTeams::CompleteService.call(
       fantasy_team: @fantasy_team,
       params: fantasy_team_params,
-      teams_players_ids: Teams::Player.where(uuid: params[:fantasy_team][:teams_players_uuids]).ids
+      teams_players_ids: Teams::Player.where(
+        players_season_id: ::Players::Season.where(uuid: params[:fantasy_team][:players_seasons_uuids]).select(:id)
+      ).ids
     )
     if service_call.success?
       render json: { redirect_path: fantasy_team_path(@fantasy_team.uuid) }, status: :ok

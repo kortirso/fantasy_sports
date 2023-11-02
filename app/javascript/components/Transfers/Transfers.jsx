@@ -267,7 +267,7 @@ export const Transfers = ({
         </span>
         <h1>{strings.transfers.selection}</h1>
         {!fantasyTeamCompleted && (
-          <div class="flex">
+          <div class="flex flex-col sm:flex-row">
             <div className="form-field mr-4">
               <label className="form-label">{strings.transfers.name} *</label>
               <input

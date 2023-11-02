@@ -266,7 +266,7 @@ export const Squad = ({
       <h1>{strings.squad.title}</h1>
       <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
         {sport.changes ? (
-          <span className="absolute left-16 top-4 inline-block bg-red-600 text-white text-sm py-1 px-2 rounded mb-4">
+          <span className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
             <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
           </span>
         ) : null }
@@ -293,7 +293,7 @@ export const Squad = ({
         ))}
       </div>
       {sport.changes ? (
-        <div className="flex flex-row justify-center mt-4 mb-8">
+        <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
           {reservePlayers().map((item) => (
             <PlayerCard
               key={item.uuid}
@@ -310,16 +310,15 @@ export const Squad = ({
           ))}
         </div>
       ) : null}
-      {pageState.lineup?.fantasy_team &&
-      Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
-        <div>
+      {pageState.lineup?.fantasy_team && Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
+        <div className="mb-4">
           <h3 className="text-center">{strings.squad.chips}</h3>
           <div className="flex justify-center">
             <button
               className={
                 pageState.lineup.active_chips.includes('bench_boost')
-                  ? 'btn-primary btn-small mr-2 bg-blue-800'
-                  : 'btn-primary btn-small'
+                  ? 'btn-primary btn-small mr-2 bg-green-800'
+                  : 'btn-primary btn-small mr-2'
               }
               onClick={() => toggleChip('bench_boost')}
             >
@@ -328,7 +327,7 @@ export const Squad = ({
             <button
               className={
                 pageState.lineup.active_chips.includes('triple_captain')
-                  ? 'btn-primary btn-small mr-2 bg-blue-800'
+                  ? 'btn-primary btn-small bg-green-800'
                   : 'btn-primary btn-small'
               }
               onClick={() => toggleChip('triple_captain')}
