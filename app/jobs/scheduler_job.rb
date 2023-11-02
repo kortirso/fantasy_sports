@@ -22,6 +22,7 @@ class SchedulerJob < ApplicationJob
     Week.coming.where('deadline_at < ? AND deadline_at > ?', 15.minutes.after, 15.minutes.ago).ids.each do |week_id|
       Weeks::ChangeService.call(week_id: week_id)
       Achievements::RefreshAfterWeekChangeJob.perform_later(week_id: week_id)
+      Teams::Players::CorrectPricesJob.perform_later(week_id: week_id)
     end
   end
 
