@@ -1,15 +1,15 @@
 export const statisticsOrder = {
   football: {
-    MP: { en: 'Minutes played', ru: 'Сыграно минут' },
-    GS: { en: 'Goals scored', ru: 'Забито голов' },
+    MP: { en: 'Minutes played', ru: 'Сыграно' },
+    GS: { en: 'Goals scored', ru: 'Забито' },
     A: { en: 'Assists', ru: 'Передачи' },
     CS: { en: 'Clean sheets', ru: 'Сухие игры' },
-    GC: { en: 'Goals conceded', ru: 'Пропущено голов' },
-    OG: { en: 'Own goals', ru: 'Голы в свои ворота' },
+    GC: { en: 'Goals conceded', ru: 'Пропущено' },
+    OG: { en: 'Own goals', ru: 'В свои ворота' },
     PS: { en: 'Penalties saved', ru: 'Пенальти отбито' },
-    PM: { en: 'Penalties missed', ru: 'Пенальти промазано' },
-    YC: { en: 'Yellow cards', ru: 'Жёлтые карточки' },
-    RC: { en: 'Red cards', ru: 'Красные карточки' },
+    PM: { en: 'Penalties missed', ru: 'Пенальти мимо' },
+    YC: { en: 'Yellow cards', ru: 'Жёлтые карт' },
+    RC: { en: 'Red cards', ru: 'Красные карт' },
     B: { en: 'Bonus', ru: 'Бонусы' },
   },
   basketball: {

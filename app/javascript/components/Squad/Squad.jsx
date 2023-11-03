@@ -264,18 +264,38 @@ export const Squad = ({
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
       <h1>{strings.squad.title}</h1>
-      <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
+      <div className={`${sportKind}-field`}>
+        <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+          {sport.changes ? (
+            <span className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
+              <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
+            </span>
+          ) : null }
+          {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+            <div
+              className={`sport-position ${sportPositionName(sportPosition)}`}
+              key={positionKind}
+            >
+              {activePlayersByPosition(positionKind).map((item) => (
+                <PlayerCard
+                  key={item.uuid}
+                  className={classListForPlayerCard(item.uuid)}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                  name={localizeValue(item.player.name).split(' ')[0]}
+                  value={oppositeTeamNames(item)}
+                  number={item.teams_player.shirt_number}
+                  status={item.status}
+                  onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
+                  onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
+                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
         {sport.changes ? (
-          <span className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
-            <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
-          </span>
-        ) : null }
-        {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-          <div
-            className={`sport-position ${sportPositionName(sportPosition)}`}
-            key={positionKind}
-          >
-            {activePlayersByPosition(positionKind).map((item) => (
+          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
+            {reservePlayers().map((item) => (
               <PlayerCard
                 key={item.uuid}
                 className={classListForPlayerCard(item.uuid)}
@@ -285,31 +305,13 @@ export const Squad = ({
                 number={item.teams_player.shirt_number}
                 status={item.status}
                 onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
-                onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
+                onActionClick={() => changePlayer(item, false)}
                 onInfoClick={() => setPlayerUuid(item.player.uuid)}
               />
             ))}
           </div>
-        ))}
+        ) : null}
       </div>
-      {sport.changes ? (
-        <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
-          {reservePlayers().map((item) => (
-            <PlayerCard
-              key={item.uuid}
-              className={classListForPlayerCard(item.uuid)}
-              teamName={pageState.teamNames[item.team.uuid]?.short_name}
-              name={localizeValue(item.player.name).split(' ')[0]}
-              value={oppositeTeamNames(item)}
-              number={item.teams_player.shirt_number}
-              status={item.status}
-              onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
-              onActionClick={() => changePlayer(item, false)}
-              onInfoClick={() => setPlayerUuid(item.player.uuid)}
-            />
-          ))}
-        </div>
-      ) : null}
       {pageState.lineup?.fantasy_team && Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
         <div className="mb-4">
           <h3 className="text-center">{strings.squad.chips}</h3>

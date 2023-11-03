@@ -100,13 +100,29 @@ export const SquadPoints = ({
           ) : null}
         </div>
       </div>
-      <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
-        {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-          <div
-            className={`sport-position ${sportPositionName(sportPosition)}`}
-            key={positionKind}
-          >
-            {activePlayersByPosition(positionKind).map((item) => (
+      <div className={`${sportKind}-field`}>
+        <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+          {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+            <div
+              className={`sport-position ${sportPositionName(sportPosition)}`}
+              key={positionKind}
+            >
+              {activePlayersByPosition(positionKind).map((item) => (
+                <PlayerCard
+                  key={item.uuid}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                  name={localizeValue(item.player.name).split(' ')[0]}
+                  value={item.points}
+                  number={item.teams_player.shirt_number}
+                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        {sport.changes && (
+          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
+            {reservePlayers().map((item) => (
               <PlayerCard
                 key={item.uuid}
                 teamName={pageState.teamNames[item.team.uuid]?.short_name}
@@ -117,22 +133,8 @@ export const SquadPoints = ({
               />
             ))}
           </div>
-        ))}
+        )}
       </div>
-      {sport.changes && (
-        <div className="flex flex-row justify-center mt-4 mb-8">
-          {reservePlayers().map((item) => (
-            <PlayerCard
-              key={item.uuid}
-              teamName={pageState.teamNames[item.team.uuid]?.short_name}
-              name={localizeValue(item.player.name).split(' ')[0]}
-              value={item.points}
-              number={item.teams_player.shirt_number}
-              onInfoClick={() => setPlayerUuid(item.player.uuid)}
-            />
-          ))}
-        </div>
-      )}
       {Object.keys(pageState.teamNames).length > 0 ? (
         <Week uuid={weekUuid} teamNames={pageState.teamNames} />
       ) : null}

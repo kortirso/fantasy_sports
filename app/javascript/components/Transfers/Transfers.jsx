@@ -305,8 +305,8 @@ export const Transfers = ({
           </div>
         </div>
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
-          <>
-            <div className={`flex flex-col relative bg-no-repeat bg-cover bg-center ${sportKind}-field`}>
+          <div className={`${sportKind}-field`}>
+            <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
               <p className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
                 {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
               </p>
@@ -349,7 +349,7 @@ export const Transfers = ({
             {Object.keys(pageState.teamNames).length > 0 ? (
               <Week uuid={weekUuid} teamNames={pageState.teamNames} />
             ) : null}
-          </>
+          </div>
         ) : null}
       </div>
       {pageState.visibleMode === 'all' || pageState.visibleMode === 'seasonPlayers' ? (
