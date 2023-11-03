@@ -10,7 +10,8 @@ module Games
         'balldontlie' => Basketball::BalldontlieScraper
       },
       'football' => {
-        'instat' => Football::InstatScraper
+        'instat' => Football::InstatScraper,
+        'sports' => Football::SportsScraper
       }
     }.freeze
 

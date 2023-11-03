@@ -1,6 +1,6 @@
 league = League.create(sport_kind: 'football', name: { en: 'Premier Liga', ru: 'Премьер-Лига' })
 
-league2024 = league.seasons.create name: '2023/2024', active: true, start_at: DateTime.new(2023, 11, 8, 0, 0, 0)
+league2024 = league.seasons.create name: '2023/2024', active: true
 
 overall_league = league2024.all_fantasy_leagues.create leagueable: league2024, name: 'Overall', global: true
 
@@ -11,7 +11,7 @@ liverpool = Team.create name: { en: 'Liverpool', ru: 'Ливерпуль' }, sho
 aston_villa = Team.create name: { en: 'Aston Villa', ru: 'Астон Вилла' }, short_name: 'AVL'
 newcastle = Team.create name: { en: 'Newcastle United', ru: 'Ньюкасл' }, short_name: 'NEW'
 brighton = Team.create name: { en: 'Brighton & Hove Albion', ru: 'Брайтон' }, short_name: 'BHA'
-manchester = Team.create name: { en: 'Manchester United', ru: 'Манчестер Югайтед' }, short_name: 'MAN'
+manchester = Team.create name: { en: 'Manchester United', ru: 'Манчестер Юнайтед' }, short_name: 'MAN'
 west_ham = Team.create name: { en: 'West Ham United', ru: 'Вест Хэм' }, short_name: 'WHU'
 brentford = Team.create name: { en: 'Brentford', ru: 'Брентфорд' }, short_name: 'BRE'
 chelsea = Team.create name: { en: 'Chelsea', ru: 'Челси' }, short_name: 'CHE'
@@ -36,7 +36,7 @@ team8_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: man
 team9_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: west_ham, name: 'West Ham', global: true
 team10_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: brentford, name: 'Brentford', global: true
 team11_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: chelsea, name: 'Chelsea', global: true
-team12_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: wolvs, name: 'Wolvs', global: true
+team12_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: wolvs, name: 'Wolves', global: true
 team13_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: crystal_palace, name: 'Crystal Palace', global: true
 team14_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: fulham, name: 'Fulham', global: true
 team15_fantasy_rpl_league = league2024.all_fantasy_leagues.create leagueable: everton, name: 'Everton', global: true
@@ -82,43 +82,28 @@ rows.each do |row|
   Teams::Player.create seasons_team: eval("#{row[0]}_league2024"), player: player, price_cents: row[7].to_d, shirt_number_string: row[5].to_s, players_season: players_season
 end
 
-week12 = league2024.weeks.create position: 12, status: 'coming', deadline_at: DateTime.new(2023, 11, 11, 11, 0, 0)
-week13 = league2024.weeks.create position: 13, deadline_at: DateTime.new(2023, 11, 25, 11, 0, 0)
+league2024.weeks.create position: 1, status: 'coming'
+(2..38).each do |index|
+  league2024.weeks.create position: index
+end
 
-Games::CreateService.call(
-  params: {
-    week_id: week12.id,
-    home_season_team_id: wolvs_league2024.id,
-    visitor_season_team_id: tottenham_league2024.id,
-    start_at: DateTime.new(2023, 11, 11, 12, 30, 0)
-  }
-)
+games_rows = CSV.read(Rails.root.join('db/data/premier_league_games_2024.csv'), col_sep: ',')
+seasons_teams = league2024.seasons_teams.map { |e| [e.team.short_name, e.id] }.to_h
+weeks_positions = league2024.weeks.map { |e| [e.position, e.id] }.to_h
 
-Games::CreateService.call(
-  params: {
-    week_id: week12.id,
-    home_season_team_id: arsenal_league2024.id,
-    visitor_season_team_id: burnley_league2024.id,
-    start_at: DateTime.new(2023, 11, 11, 15, 0, 0)
-  }
-)
+games_rows.each do |row|
+  Games::CreateService.call(
+    params: {
+      week_id: weeks_positions[row[2].to_i],
+      home_season_team_id: seasons_teams[row[3]],
+      visitor_season_team_id: seasons_teams[row[4]],
+      source: Sourceable::SPORTS,
+      external_id: row[0],
+      start_at: DateTime.parse(row[1])
+    }
+  )
+end
 
-Games::CreateService.call(
-  params: {
-    week_id: week12.id,
-    home_season_team_id: chelsea_league2024.id,
-    visitor_season_team_id: manchester_city_league2024.id,
-    start_at: DateTime.new(2023, 11, 12, 16, 30, 0)
-  }
-)
-
-Games::CreateService.call(
-  params: {
-    week_id: week13.id,
-    home_season_team_id: manchester_city_league2024.id,
-    visitor_season_team_id: liverpool_league2024.id,
-    start_at: DateTime.new(2023, 11, 25, 12, 30, 0)
-  }
-)
-
-
+league2024.weeks.each do |week|
+  week.update(deadline_at: week.games.minimum(:start_at) - 3.hours)
+end

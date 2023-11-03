@@ -9,20 +9,18 @@ module HttpService
     option :url
     option :connection, default: proc { build_connection }
 
-    def get(path:, params: {})
+    def get(path:, params: {}, headers: {})
       response = connection.get(path) do |request|
-        params.each do |param, value|
-          request.params[param] = value
-        end
+        params.each { |param, value| request.params[param] = value }
+        headers.each { |header, value| request.headers[header] = value }
       end
       response.body if response.success?
     end
 
-    def post(path:, body: {}, params: {})
+    def post(path:, body: {}, params: {}, headers: {})
       response = connection.post(path) do |request|
-        params.each do |param, value|
-          request.params[param] = value
-        end
+        params.each { |param, value| request.params[param] = value }
+        headers.each { |header, value| request.headers[header] = value }
         request.body = body.to_json
       end
       response.body if response.success?
