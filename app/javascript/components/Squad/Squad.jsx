@@ -36,9 +36,11 @@ export const Squad = ({
   const [playerActionsUuid, setPlayerActionsUuid] = useState();
   const [alerts, setAlerts] = useState({});
   // dynamic data
-  const [playerUuidForChange, setPlayerUuidForChange] = useState(null);
-  const [playerUuidsToChange, setPlayerUuidsToChange] = useState([]);
-  const [changeOrder, setChangeOrder] = useState(0);
+  const [changes, setChanges] = useState({
+    playerUuidForChange: null,
+    playerUuidsToChange: [],
+    changeOrder: 0
+  })
 
   useEffect(() => {
     const fetchLineup = async () => await lineupRequest(lineupUuid);
@@ -63,9 +65,7 @@ export const Squad = ({
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
 
-  const sportPositionName = (sportPosition) => {
-    return sportPosition.name.en.split(' ').join('-');
-  };
+  const sportPositionName = (sportPosition) => sportPosition.name.en.split(' ').join('-');
 
   const activePlayersByPosition = (positionKind) => {
     return pageState.lineupPlayers.filter(
@@ -94,48 +94,51 @@ export const Squad = ({
   };
 
   const changePlayer = (item, isActive) => {
-    if (playerUuidForChange === null) {
-      // beginning of change selection
-      const positionKind = item.player.position_kind;
+    if (changes.playerUuidForChange === null) {
+      let positionKind = isActive ? item.player.position_kind : null; // position who left field
+      let nextPositionKind = isActive ? null : item.player.position_kind; // added to position
       const playersToChange = isActive ? reservePlayers() : pageState.lineupPlayers;
-
-      let activePlayersOnPosition = isActive ? activePlayersByPosition(positionKind).length : 0;
-      let activePlayersOnNextPosition = isActive ? 0 : activePlayersByPosition(positionKind).length;
 
       const result = playersToChange
         .map((element) => {
           // skip for the same player
           if (element.uuid === item.uuid) return null;
 
-          const nextPositionKind = element.player.position_kind;
+          // skip for players on substitution
+          if (!isActive && element.active === false) return null;
+
+          if (isActive) nextPositionKind = element.player.position_kind;
+          else positionKind = element.player.position_kind;
           // allow change for player on the same position
           if (nextPositionKind === positionKind) return element.uuid;
 
           // skip change if current position player amount will left less than minimum
-          if (!isActive) activePlayersOnPosition = activePlayersByPosition(nextPositionKind).length;
-          if (activePlayersOnPosition === sportPositions[positionKind].min_game_amount) return null;
-          // skip change if change position player amount will be more than maximum
-          if (isActive)
-            activePlayersOnNextPosition = activePlayersByPosition(nextPositionKind).length;
-          if (activePlayersOnNextPosition === sportPositions[nextPositionKind].max_game_amount)
-            return null;
+          if (activePlayersByPosition(positionKind).length === sportPositions[positionKind].min_game_amount) return null;
+          // skip change if next position player amount will be more than maximum
+          if (activePlayersByPosition(nextPositionKind).length === sportPositions[nextPositionKind].max_game_amount) return null;
+
           // allow change for player
           return element.uuid;
         })
         .filter((element) => element);
 
-      setPlayerUuidsToChange(result);
       if (result.length > 0) {
-        setChangeOrder(item.change_order);
-        setPlayerUuidForChange(item.uuid);
+        setChanges({
+          playerUuidForChange: item.uuid,
+          playerUuidsToChange: result,
+          changeOrder: item.change_order
+        });
+      } else {
+        setChanges({ ...changes, playerUuidsToChange: result });
       }
     } else {
-      if (playerUuidsToChange.includes(item.uuid))
-        changePlayers(item.uuid, !isActive, Math.max(item.change_order, changeOrder));
+      if (changes.playerUuidsToChange.includes(item.uuid)) changePlayers(item.uuid, !isActive, Math.max(item.change_order, changes.changeOrder));
 
-      setChangeOrder(0);
-      setPlayerUuidForChange(null);
-      setPlayerUuidsToChange([]);
+      setChanges({
+        playerUuidForChange: null,
+        playerUuidsToChange: [],
+        changeOrder: 0
+      });
     }
   };
 
@@ -148,7 +151,7 @@ export const Squad = ({
         element.active = stateForInitialPlayer;
         element.change_order = stateForInitialPlayer ? 0 : changeOrderValue;
       }
-      if (element.uuid === playerUuidForChange) {
+      if (element.uuid === changes.playerUuidForChange) {
         element.active = !stateForInitialPlayer;
         element.change_order = stateForInitialPlayer ? changeOrderValue : 0;
       }
@@ -182,8 +185,8 @@ export const Squad = ({
 
   const classListForPlayerCard = (uuid) => {
     return [
-      playerUuidForChange === uuid ? 'bg-red-400/75' : '',
-      playerUuidsToChange.includes(uuid) ? 'bg-green-400/75' : '',
+      changes.playerUuidForChange === uuid ? 'bg-red-400/75' : '',
+      changes.playerUuidsToChange.includes(uuid) ? 'bg-green-400/75' : '',
     ].join(' ');
   };
 
