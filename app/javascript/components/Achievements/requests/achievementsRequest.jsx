@@ -12,5 +12,5 @@ export const achievementsRequest = async (groupUuid) => {
   const result = await apiRequest({
     url: `/achievements.json${encodeParams(groupUuid)}`,
   });
-  return result.achievements.data.map((element) => element.attributes);
+  return result;
 };

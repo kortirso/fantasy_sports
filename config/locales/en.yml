@@ -320,6 +320,10 @@ en:
           budget_description: The total value of your initial squad must not exceed 100 points.
           per_team_title: Players per team
           per_team_description: You can select up to %{value} players from a single team.
+    profile:
+      achievements:
+        index:
+          title: Achievements
   mailers:
     users:
       auth:

@@ -320,6 +320,10 @@ ru:
           budget_description: Суммарная стоимость состава не должна превышать 100 очков.
           per_team_title: Игроки из одной команды
           per_team_description: Вы можете выбрать до %{value} игроков из одной команды.
+    profile:
+      achievements:
+        index:
+          title: Достижения
   mailers:
     users:
       auth:
