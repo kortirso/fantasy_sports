@@ -4,6 +4,9 @@ general_group = Kudos::AchievementGroup.create(
 basketball_group = Kudos::AchievementGroup.create(
   name: { en: 'Basketball', ru: 'Баскетбол' }
 )
+football_group = Kudos::AchievementGroup.create(
+  name: { en: 'Football', ru: 'Футбол' }
+)
 
 Kudos::Achievement.create(
   award_name: 'fantasy_team_create',
@@ -159,4 +162,60 @@ Kudos::Achievement.create(
     'ru' => 'Номера игроков состава различаются на 1'
   },
   kudos_achievement_group: general_group
+)
+
+Kudos::Achievement.create(
+  award_name: 'football_lineup_points',
+  rank: 1,
+  points: 5,
+  title: { 'en' => 'First points', 'ru' => 'Первые очки' },
+  description: {
+    'en' => 'Earn at least 10 points by fantasy team in a week',
+    'ru' => 'Получите как минимум 10 очков командой за неделю'
+  },
+  kudos_achievement_group: football_group
+)
+Kudos::Achievement.create(
+  award_name: 'football_lineup_points',
+  rank: 2,
+  points: 10,
+  title: { 'en' => 'First results', 'ru' => 'Первые результаты' },
+  description: {
+    'en' => 'Earn at least 25 points by fantasy team in a week',
+    'ru' => 'Получите как минимум 25 очков командой за неделю'
+  },
+  kudos_achievement_group: football_group
+)
+Kudos::Achievement.create(
+  award_name: 'football_lineup_points',
+  rank: 3,
+  points: 25,
+  title: { 'en' => 'Good progress', 'ru' => 'Хороший прогресс' },
+  description: {
+    'en' => 'Earn at least 50 points by fantasy team in a week',
+    'ru' => 'Получите как минимум 50 очков командой за неделю'
+  },
+  kudos_achievement_group: football_group
+)
+Kudos::Achievement.create(
+  award_name: 'football_lineup_points',
+  rank: 4,
+  points: 50,
+  title: { 'en' => 'You know what to do', 'ru' => 'Вы знаете, что делать' },
+  description: {
+    'en' => 'Earn at least 75 points by fantasy team in a week',
+    'ru' => 'Получите как минимум 75 очков командой за неделю'
+  },
+  kudos_achievement_group: football_group
+)
+Kudos::Achievement.create(
+  award_name: 'football_lineup_points',
+  rank: 5,
+  points: 100,
+  title: { 'en' => 'Coach of the week', 'ru' => 'Тренер недели' },
+  description: {
+    'en' => 'Earn at least 100 points by fantasy team in a week',
+    'ru' => 'Получите как минимум 100 очков командой за неделю'
+  },
+  kudos_achievement_group: football_group
 )

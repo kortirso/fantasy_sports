@@ -16,6 +16,14 @@ class Achievement < Kudos::Achievement
     4 => 1
   }.freeze
 
+  FOOTBALL_LINEUP_POINTS = {
+    1 => 10,
+    2 => 25,
+    3 => 50,
+    4 => 75,
+    5 => 100
+  }.freeze
+
   award_for :basketball_lineup_points do |achievements, points, user|
     achievements.each do |achievement|
       if !user.awarded?(achievement: achievement) && points >= BASKETBALL_LINEUP_POINTS[achievement.rank]
@@ -27,6 +35,14 @@ class Achievement < Kudos::Achievement
   award_for :basketball_top_lineup do |achievements, index, user|
     achievements.each do |achievement|
       if !user.awarded?(achievement: achievement) && index <= BASKETBALL_TOP_LINEUP_INDEX[achievement.rank]
+        user.award(achievement: achievement)
+      end
+    end
+  end
+
+  award_for :football_lineup_points do |achievements, points, user|
+    achievements.each do |achievement|
+      if !user.awarded?(achievement: achievement) && points >= FOOTBALL_LINEUP_POINTS[achievement.rank]
         user.award(achievement: achievement)
       end
     end
