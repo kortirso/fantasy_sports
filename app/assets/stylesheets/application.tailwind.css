@@ -29,7 +29,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-green-600 hover:bg-green-700 text-white;
+    @apply btn bg-green-400 hover:bg-green-500 text-black;
   }
 
   .btn-danger {
@@ -45,15 +45,19 @@
   }
 
   .user-navigation-link {
-    @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-white;
+    @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-black;
   }
 
   .user-navigation-link img {
     @apply w-8 h-8 mr-2;
   }
 
+  .user-navigation-link:hover {
+    @apply bg-neutral-300 rounded;
+  }
+
   .user-navigation-link.active {
-    @apply bg-zinc-600;
+    @apply bg-white rounded shadow;
   }
 
   .form-field {
@@ -104,7 +108,7 @@
   .football-field .field {
     height: calc(100vw - 2rem);
     max-height: 886px;
-    background-image: url('football_field.jpg');
+    background-image: url('football_field.webp');
   }
 
   .football-field .field .sport-position {
@@ -122,10 +126,10 @@
   .basketball-field .field {
     height: calc(100vw - 2rem);
     max-height: 886px;
-    background-image: url('basketball_field.jpg');
+    background-image: url('basketball_field.webp');
   }
 
-  .basketball-field .field .sport-position {
+  .basketball-field .sport-position {
     @apply absolute;
 
     scale: .6;
@@ -133,65 +137,65 @@
 
   @media screen and (min-width: 500px) and (max-width: 639px) {
     .basketball-field .field, .football-field .field { height: calc(100vw - 2rem) }
-    .basketball-field .field .sport-position { scale: .8 }
+    .basketball-field .sport-position { scale: .8 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 0.8 }
   }
 
   @media screen and (min-width: 640px) and (max-width: 767px) {
     .basketball-field .field, .football-field .field { height: calc(100vw - 4rem) }
-    .basketball-field .field .sport-position { scale: .9 }
+    .basketball-field .sport-position { scale: .9 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 0.9 }
   }
 
   @media screen and (min-width: 768px) and (max-width: 839px) {
     .basketball-field .field, .football-field .field { height: calc(100vw - 4rem) }
-    .basketball-field .field .sport-position { scale: .9 }
+    .basketball-field .sport-position { scale: .9 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 1 }
   }
 
   @media screen and (min-width: 840px) and (max-width: 1023px) {
     .basketball-field .field, .football-field .field { height: calc(100vw - 4rem) }
-    .basketball-field .field .sport-position { scale: 1 }
+    .basketball-field .sport-position { scale: 1 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 1 }
   }
 
   @media screen and (min-width: 1024px) and (max-width: 1279px) {
     .basketball-field .field, .football-field .field { height: calc(100vw - 22rem) }
-    .basketball-field .field .sport-position { scale: 1 }
+    .basketball-field .sport-position { scale: 1 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 1 }
   }
 
   @media screen and (min-width: 1280px) {
     .basketball-field .field, .football-field .field { height: calc((100vw - 23rem) * 0.70) }
-    .basketball-field .field .sport-position { scale: 1 }
+    .basketball-field .sport-position { scale: 1 }
     .football-field .field .sport-position .player-card, .changes .player-card { scale: 1 }
   }
 
-  .basketball-field .field .sport-position.Center {
+  .basketball-field .sport-position.Center {
     top: 42%;
     left: 50%;
     margin-left: -52px;
   }
 
-  .basketball-field .field .sport-position.Power-Forward {
+  .basketball-field .sport-position.Power-Forward {
     top: 68%;
     left: 50%;
     margin-left: -222px;
   }
 
-  .basketball-field .field .sport-position.Small-Forward {
+  .basketball-field .sport-position.Small-Forward {
     top: 68%;
     left: 50%;
     margin-left: -42px;
   }
 
-  .basketball-field .field .sport-position.Point-Guard {
+  .basketball-field .sport-position.Point-Guard {
     top: 6%;
     left: 50%;
     margin-left: -132px;
   }
 
-  .basketball-field .field .sport-position.Shooting-Guard {
+  .basketball-field .sport-position.Shooting-Guard {
     top: 34%;
     left: 50%;
     margin-left: -222px;
@@ -403,5 +407,29 @@
 
   .table tbody tr td {
     @apply p-2 border-b border-gray-200;
+  }
+
+  .season-link {
+    @apply relative h-40;
+  }
+
+  .season-link img {
+    @apply w-full h-40 object-cover;
+  }
+
+  .season-link-content {
+    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-end items-end bg-black/50 text-white;
+  }
+
+  .season-link-content h2 {
+    @apply mb-4;
+  }
+
+  .badge {
+    @apply px-2 py-1 rounded shadow;
+  }
+
+  .badge-light {
+    @apply badge bg-white border-black text-sm text-black;
   }
 }

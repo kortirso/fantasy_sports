@@ -21,4 +21,11 @@ module ApplicationHelper
       }
     ) { '' }
   end
+
+  def league_background(league_name)
+    case league_name
+    when 'English Premier League', 'Premier Liga' then 'english_premier_league.webp'
+    when 'NBA' then 'nba_league.webp'
+    end
+  end
 end

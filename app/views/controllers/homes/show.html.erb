@@ -2,19 +2,29 @@
   <% if @seasons.any? %>
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       <% @seasons.each do |season| %>
-        <div class="flex flex-col justify-between p-4 bg-white shadow rounded">
-          <h3><%= localized_value(season[:leagues_name]) %></h3>
+        <div class="flex flex-col justify-between bg-white shadow-md rounded overflow-hidden h-40">
           <% if season[:start_at].nil? || DateTime.now > season[:start_at] %>
-            <div>
-              <%=
-                render Views::Homes::Show::FantasyTeamLinkComponent.new(
-                  season_uuid: season[:uuid],
-                  fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
-                )
-              %>
-            </div>
+            <%=
+              render Views::Homes::Show::FantasyTeamLinkComponent.new(
+                season_uuid: season[:uuid],
+                fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
+              ) do
+            %>
+              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
+              <div class="season-link-content">
+                <h2 class="font-semibold"><%= localized_value(season[:leagues_name]) %></h2>
+                <p class="font-semibold"><%= season[:name] %></p>
+              </div>
+            <% end %>
           <% else %>
-            <p>Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
+            <div class="season-link">
+              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
+              <div class="season-link-content">
+                <h2 class="font-semibold"><%= localized_value(season[:leagues_name]) %></h2>
+                <p class="font-semibold"><%= season[:name] %></p>
+                <p class="badge-light absolute top-2 left-2">Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
+              </div>
+            </div>
           <% end %>
         </div>
       <% end %>

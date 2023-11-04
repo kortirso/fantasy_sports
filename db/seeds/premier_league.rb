@@ -1,4 +1,4 @@
-league = League.create(sport_kind: 'football', name: { en: 'Premier Liga', ru: 'Премьер-Лига' })
+league = League.create(sport_kind: 'football', name: { en: 'English Premier League', ru: 'Английская Премьер-Лига' })
 
 league2024 = league.seasons.create name: '2023/2024', active: true
 
