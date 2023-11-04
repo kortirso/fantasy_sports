@@ -5,15 +5,17 @@ module Teams
     class CorrectPricesJob < ApplicationJob
       queue_as :default
 
+      ALLOWED_LEAGUES_FOR_CORRECTING = %w[NBA].freeze
+
       def perform(week_id:)
         @week = Week.find_by(id: week_id)
         return unless @week
+        # TODO: add feature flag
+        return unless ALLOWED_LEAGUES_FOR_CORRECTING.include?(@week.season.league.name['en'])
 
         @objects = []
         # players with huge amount of points, but price < 1_500
-        update_top_cheap_players(low_price_players.keys[0..9], 100)
-        update_top_cheap_players(low_price_players.keys[10..19], 50)
-        update_top_cheap_players(low_price_players.keys[20..29], 20)
+        update_cheap_players
         # player with price > 1_000, but coefficient < 1.5
         update_lazy_players
 
@@ -21,6 +23,12 @@ module Teams
       end
 
       private
+
+      def update_cheap_players
+        update_top_cheap_players(low_price_players.keys[0..9], 100)
+        update_top_cheap_players(low_price_players.keys[10..19], 50)
+        update_top_cheap_players(low_price_players.keys[20..29], 20)
+      end
 
       def update_top_cheap_players(ids, price_change)
         best_players(ids).each do |teams_player|

@@ -3,7 +3,9 @@
 describe Teams::Players::CorrectPricesJob, type: :service do
   subject(:job_call) { described_class.perform_now(week_id: week_id) }
 
-  let!(:week) { create :week }
+  let!(:league) { create :league, name: { en: 'NBA' } }
+  let!(:season) { create :season, league: league }
+  let!(:week) { create :week, season: season }
   let!(:lineup) { create :lineup, week: week }
   let!(:players_season1) { create :players_season, average_points: 60 }
   let!(:teams_player1) { create :teams_player, players_season: players_season1, price_cents: 400 }
@@ -32,6 +34,18 @@ describe Teams::Players::CorrectPricesJob, type: :service do
 
   context 'for existing week' do
     let(:week_id) { week.id }
+
+    context 'for disabled league' do
+      before { league.update!(name: { en: 'WNBA' }) }
+
+      it 'does not update teams players', :aggregate_failures do
+        job_call
+
+        expect(teams_player1.reload.price_cents).to eq 400
+        expect(teams_player2.reload.price_cents).to eq 1_600
+        expect(teams_player3.reload.price_cents).to eq 950
+      end
+    end
 
     context 'for cheap players' do
       it 'updates teams players', :aggregate_failures do
