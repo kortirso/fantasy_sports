@@ -99,9 +99,20 @@ def price(value)
 end
 
 rows.each do |row|
-  player = Player.create position_kind: positions[row[6]], name: { en: "#{row[2]} #{row[1]}", ru: "#{row[4]} #{row[3]}" }
+  player = Player.create(
+    position_kind: positions[row[6]],
+    first_name: { en: row[1], ru: row[3] },
+    last_name: { en: row[2], ru: row[4] },
+    name: { en: "#{row[2]} #{row[1]}", ru: "#{row[4]} #{row[3]}" }
+  )
   players_season = Players::Season.create season: nba2024, player: player
-  Teams::Player.create seasons_team: eval("#{row[0]}_nba2024"), player: player, price_cents: (row[7] == 'TW' ? 400 : price(row[7].to_d)), shirt_number_string: row[5].to_s, players_season: players_season
+  Teams::Player.create(
+    seasons_team: eval("#{row[0]}_nba2024"),
+    player: player,
+    price_cents: (row[7] == 'TW' ? 400 : price(row[7].to_d)),
+    shirt_number_string: row[5].to_s,
+    players_season: players_season
+  )
 end
 
 week1 = nba2024.weeks.create position: 1, status: 'coming', deadline_at: DateTime.new(2023, 10, 24, 20, 0, 0)
