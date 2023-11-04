@@ -111,7 +111,7 @@ export const SquadPoints = ({
                 <PlayerCard
                   key={item.uuid}
                   teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                  name={localizeValue(item.player.name).split(' ')[0]}
+                  name={localizeValue(item.player.shirt_name)}
                   value={item.points}
                   number={item.teams_player.shirt_number}
                   onInfoClick={() => setPlayerUuid(item.player.uuid)}
@@ -126,7 +126,7 @@ export const SquadPoints = ({
               <PlayerCard
                 key={item.uuid}
                 teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                name={localizeValue(item.player.name).split(' ')[0]}
+                name={localizeValue(item.player.shirt_name)}
                 value={item.points}
                 number={item.teams_player.shirt_number}
                 onInfoClick={() => setPlayerUuid(item.player.uuid)}

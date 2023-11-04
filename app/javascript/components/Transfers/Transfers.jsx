@@ -327,7 +327,7 @@ export const Transfers = ({
                     <PlayerCard
                       key={item.uuid}
                       teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                      name={localizeValue(item.player.name).split(' ')[0]}
+                      name={localizeValue(item.player.shirt_name)}
                       value={item.team.price}
                       number={item.team.shirt_number}
                       onActionClick={() => removeTeamMember(item)}
@@ -422,7 +422,7 @@ export const Transfers = ({
               </div>
               <div className="flex-1">
                 <span className="text-lg mr-4">
-                  {localizeValue(item.player.name)?.split(' ')[0]}
+                  {localizeValue(item.player.shirt_name)}
                 </span>
                 {false ? (
                   <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>

@@ -20,6 +20,7 @@ module Players
       player = object.player
       {
         name: player.name,
+        shirt_name: player.shirt_name,
         position_kind: player.position_kind
       }
     end

@@ -22,6 +22,7 @@ module Lineups
       {
         uuid: object.teams_player.players_season.uuid,
         name: player.name,
+        shirt_name: player.shirt_name,
         position_kind: player.position_kind
       }
     end

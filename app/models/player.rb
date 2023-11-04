@@ -13,4 +13,10 @@ class Player < ApplicationRecord
   has_many :seasons, through: :players_seasons
 
   delegate :team, to: :active_seasons_team
+
+  def shirt_name
+    return last_name if nickname.values.any?(&:blank?)
+
+    nickname
+  end
 end

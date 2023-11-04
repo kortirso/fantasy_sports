@@ -60,7 +60,7 @@ export const BestPlayers = ({ weekUuid, seasonUuid, sportKind }) => {
                 className="cursor-pointer"
                 onClick={() => setPlayerUuid(item[0].data.attributes.players_season.uuid)}
               >i</td>
-              <td>{localizeValue(item[0].data.attributes.player.name).split(' ')[0]}</td>
+              <td>{localizeValue(item[0].data.attributes.player.shirt_name)}</td>
               <td>{localizeValue(sportPositions[item[0].data.attributes.player.position_kind].name)}</td>
               <td>{item[0].data.attributes.team.name}</td>
               <td>{item[1]}</td>
