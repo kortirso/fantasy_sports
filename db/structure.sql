@@ -905,7 +905,10 @@ CREATE TABLE public.players (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     points numeric(8,2) DEFAULT 0 NOT NULL,
-    statistic jsonb DEFAULT '{}'::jsonb NOT NULL
+    statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
+    first_name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    last_name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    nickname jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -2200,6 +2203,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231028144736'),
 ('20231028150107'),
 ('20231028174302'),
-('20231029174712');
+('20231029174712'),
+('20231104141458');
 
 

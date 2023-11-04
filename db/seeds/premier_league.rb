@@ -22,7 +22,7 @@ everton = Team.create name: { en: 'Everton', ru: 'Эвертон' }, short_name:
 nottingham = Team.create name: { en: 'Nottingham Forest', ru: 'Ноттингем Форест' }, short_name: 'NOT'
 bournemouth = Team.create name: { en: 'Bournemouth', ru: 'Борнмут' }, short_name: 'BOR'
 luton = Team.create name: { en: 'Luton Town', ru: 'Лутон Таун' }, short_name: 'LUT'
-burnley = Team.create name: { en: 'Burnley', ru: 'Бернли' }, short_name: 'BUR'
+burnley = Team.create name: { en: 'Burnley', ru: 'Бёрнли' }, short_name: 'BUR'
 sheffield = Team.create name: { en: 'Sheffield United', ru: 'Шеффилд Юнайтед' }, short_name: 'SHE'
 
 league2024.all_fantasy_leagues.create leagueable: tottenham, name: 'Tottenham', global: true
@@ -67,7 +67,7 @@ luton_league2024 = Seasons::Team.create team: luton, season: league2024
 burnley_league2024 = Seasons::Team.create team: burnley, season: league2024
 sheffield_league2024 = Seasons::Team.create team: sheffield, season: league2024
 
-rows = CSV.read(Rails.root.join('db/data/premier_league_players_2024.csv'), col_sep: ',')
+rows = CSV.read(Rails.root.join('db/data/premier_league_players_2024.csv'), col_sep: ';')
 
 positions = {
   'G' => 'football_goalkeeper',
@@ -77,9 +77,21 @@ positions = {
 }.freeze
 
 rows.each do |row|
-  player = Player.create position_kind: positions[row[6]], name: { en: "#{row[2]} #{row[1]}", ru: "#{row[4]} #{row[3]}" }
+  player = Player.create(
+    position_kind: positions[row[8]],
+    first_name: { en: row[1], ru: row[4] },
+    last_name: { en: row[2], ru: row[5] },
+    name: { en: "#{row[2]} #{row[1]}", ru: "#{row[5]} #{row[4]}" },
+    nickname: { en: row[3], ru: row[6] }
+  )
   players_season = Players::Season.create season: league2024, player: player
-  Teams::Player.create seasons_team: eval("#{row[0]}_league2024"), player: player, price_cents: row[7].to_d, shirt_number_string: row[5].to_s, players_season: players_season
+  Teams::Player.create(
+    seasons_team: eval("#{row[0]}_league2024"),
+    player: player,
+    price_cents: row[9].to_i,
+    shirt_number_string: row[7].to_s,
+    players_season: players_season
+  )
 end
 
 league2024.weeks.create position: 1, status: 'coming'
