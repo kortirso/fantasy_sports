@@ -80,7 +80,8 @@
       "amount": "Amount"
     },
     "achievements": {
-      "summary": "Summary"
+      "summary": "Summary",
+      "points": "Total points"
     },
     "bestPlayers": {
       "week": "Best players of the week",
@@ -172,7 +173,8 @@
       "amount": "Кол-во"
     },
     "achievements": {
-      "summary": "Сводка"
+      "summary": "Сводка",
+      "points": "Очки достижений"
     },
     "bestPlayers": {
       "week": "Лучшие игроки недели",

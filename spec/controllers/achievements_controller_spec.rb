@@ -4,10 +4,10 @@ describe AchievementsController do
   describe 'GET#index' do
     let!(:groups) { create_list :kudos_achievement_group, 2 }
     let!(:group) { create :kudos_achievement_group, parent: groups.first }
-    let!(:achievement1) { create :kudos_achievement, kudos_achievement_group: groups.first }
-    let!(:achievement2) { create :kudos_achievement, kudos_achievement_group: groups.last }
-    let!(:achievement3) { create :kudos_achievement, kudos_achievement_group: group }
-    let!(:achievement4) { create :kudos_achievement, kudos_achievement_group: groups.first }
+    let!(:achievement1) { create :kudos_achievement, award_name: 'first', kudos_achievement_group: groups.first }
+    let!(:achievement2) { create :kudos_achievement, award_name: 'second', kudos_achievement_group: groups.last }
+    let!(:achievement3) { create :kudos_achievement, award_name: 'third', kudos_achievement_group: group }
+    let!(:achievement4) { create :kudos_achievement, award_name: 'forth', kudos_achievement_group: groups.first }
     let!(:users_achievement1) { create :kudos_users_achievement, kudos_achievement: achievement1 }
     let!(:users_achievement2) { create :kudos_users_achievement, kudos_achievement: achievement2 }
     let!(:users_achievement3) { create :kudos_users_achievement, kudos_achievement: achievement3 }
@@ -30,7 +30,7 @@ describe AchievementsController do
         before { do_request }
 
         it 'returns all user achievements', :aggregate_failures do
-          data = response.parsed_body['achievements']['data']
+          data = response.parsed_body['received']['data']
 
           expect(data.size).to eq 3
           expect(data.pluck('id').map(&:to_i)).to(
@@ -44,7 +44,7 @@ describe AchievementsController do
         before { get :index, params: { group_uuid: groups.first.uuid, locale: 'en' } }
 
         it 'returns user achievements from specific group and sub-groups', :aggregate_failures do
-          data = response.parsed_body['achievements']['data']
+          data = response.parsed_body['received']['data']
 
           expect(data.size).to eq 2
           expect(data.pluck('id').map(&:to_i)).to contain_exactly(users_achievement1.id, users_achievement3.id)

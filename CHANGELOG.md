@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - basketball achievements
 - service for correcting prices
+- show unreceived achievements
 
 ### Fixed
 - rendering week fantasy leagues
