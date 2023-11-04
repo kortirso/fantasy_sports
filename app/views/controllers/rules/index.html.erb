@@ -22,7 +22,7 @@
       <%=
         react_component 'Toggle',
           header: t('views.rules.index.transfers'),
-          children: render(partial: 'transfers_basketball').html_safe
+          children: render(partial: 'transfers').html_safe
       %>
       <%=
         react_component 'Toggle',
@@ -42,6 +42,21 @@
               positions: Sports::Position.where(sport: 'football').to_a
             }
           ).html_safe
+      %>
+      <%=
+        react_component 'Toggle',
+          header: t('views.rules.index.managing'),
+          children: render(partial: 'managing_football').html_safe
+      %>
+      <%=
+        react_component 'Toggle',
+          header: t('views.rules.index.transfers'),
+          children: render(partial: 'transfers').html_safe
+      %>
+      <%=
+        react_component 'Toggle',
+          header: t('views.rules.index.points'),
+          children: render(partial: 'points_football').html_safe
       %>
     </div>
   </div>
