@@ -55,6 +55,7 @@ module Football
       update_players_minutes
       sort_ratings
       update_players_statistic
+      update_game_points
       update_player_bonuses
 
       @result
@@ -190,7 +191,6 @@ module Football
         @players_minutes[team_index].each do |shirt_number_string, minutes|
           update_player_statistic(team_index, opponent_team_index, shirt_number_string, minutes)
         end
-        @result[team_index][:points] = goal_conceded(0, 90, 0, opponent_team_index, team_index)
       end
     end
 
@@ -217,6 +217,15 @@ module Football
       }
     end
     # rubocop: enable Metrics/AbcSize
+
+    def update_game_points
+      [0, 1].each do |team_index|
+        team_goals = @result[team_index][:players].values.sum { |e| e['GS'] }
+        opponent_own_goals = @result[team_index.zero? ? 1 : 0][:players].values.sum { |e| e['OG'] }
+
+        @result[team_index][:points] = team_goals + opponent_own_goals
+      end
+    end
 
     # { "#{team_index}-#{shirt_number_string}" => { :rating => 4 } }
     def update_player_bonuses
@@ -249,7 +258,7 @@ module Football
         next false if shirt_number_string && @player_ids[team_index][event[:player_id]] != shirt_number_string
         next true if time_range.blank?
 
-        event[:minute] < time_range.last && event[:minute] > time_range.first
+        event[:minute] <= time_range.last && event[:minute] >= time_range.first
       end
     end
     # rubocop: enable Metrics/CyclomaticComplexity

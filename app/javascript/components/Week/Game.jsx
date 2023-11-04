@@ -38,7 +38,7 @@ export const Game = ({ item, teamNames }) => {
     if (element.home_team.length === 0 && element.visitor_team.length === 0) return null;
 
     return (
-      <li className="mt-0 mx-auto mb-4 md:w-1/2 px-4" key={`fixture-${index}`}>
+      <li className="mt-0 mx-auto pb-4 md:w-1/2 px-4" key={`fixture-${index}`}>
         <h5 className="text-center bg-green-400 py-1 px-2 mb-1 rounded shadow">{localizeValue(STATS_VALUES[element.key])}</h5>
         <div className="flex">
           <div className="flex-1 py-0 px-2 text-right border-r border-gray-200">
