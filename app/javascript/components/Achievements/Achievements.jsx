@@ -78,7 +78,6 @@ export const Achievements = () => {
           <div className="mb-2 rounded relative overflow-hidden opacity-75" key={index}>
             <div className="relative text-center bg-gray-400 text-white py-1 pl-4 pr-16 sm:px-16">
               <p className="text-xl">{localizeValue(achievement.title)}</p>
-              <span className="hidden sm:block absolute top-2 right-20">{convertDate(achievement.updated_at)}</span>
             </div>
             <div className="text-center bg-gray-200 py-1 pl-4 pr-16 sm:px-16">{localizeValue(achievement.description)}</div>
             <div className="achievement-icon"></div>
