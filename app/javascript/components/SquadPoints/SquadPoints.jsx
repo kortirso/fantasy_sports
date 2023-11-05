@@ -114,6 +114,7 @@ export const SquadPoints = ({
                   name={localizeValue(item.player.shirt_name)}
                   value={item.points}
                   number={item.teams_player.shirt_number}
+                  status={item.status}
                   onInfoClick={() => setPlayerUuid(item.player.uuid)}
                 />
               ))}
@@ -129,6 +130,7 @@ export const SquadPoints = ({
                 name={localizeValue(item.player.shirt_name)}
                 value={item.points}
                 number={item.teams_player.shirt_number}
+                status={item.status}
                 onInfoClick={() => setPlayerUuid(item.player.uuid)}
               />
             ))}
