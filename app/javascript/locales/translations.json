@@ -76,8 +76,7 @@
       "transfersOut": "Top Transfers out this Gameweek",
       "position": "Position",
       "player": "Player",
-      "team": "Team",
-      "amount": "Amount"
+      "team": "Team"
     },
     "achievements": {
       "summary": "Summary",
@@ -169,8 +168,7 @@
       "transfersOut": "Самые частые уходы недели",
       "position": "Позиция",
       "player": "Игрок",
-      "team": "Команда",
-      "amount": "Кол-во"
+      "team": "Команда"
     },
     "achievements": {
       "summary": "Сводка",

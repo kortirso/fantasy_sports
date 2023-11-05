@@ -73,11 +73,11 @@ export const BestPlayers = ({ weekUuid, seasonUuid, sportKind }) => {
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      <div>
+      <div className="w-full overflow-y-scroll">
         <h2>{strings.bestPlayers.week}</h2>
         {renderPlayersData(pageState.bestWeekPlayers)}
       </div>
-      <div>
+      <div className="w-full overflow-y-scroll">
         <h2>{strings.bestPlayers.total}</h2>
         {renderPlayersData(pageState.bestSeasonPlayers)}
       </div>

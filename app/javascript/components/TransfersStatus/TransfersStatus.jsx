@@ -47,7 +47,7 @@ export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
             <th>{strings.transfersStatus.player}</th>
             <th>{strings.transfersStatus.position}</th>
             <th>{strings.transfersStatus.team}</th>
-            <th>{strings.transfersStatus.amount}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -70,11 +70,11 @@ export const TransfersStatus = ({ weekUuid, seasonUuid, sportKind }) => {
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div>
+      <div className="w-full overflow-y-scroll">
         <h2>{strings.transfersStatus.transfersIn}</h2>
         {renderTransfersData(pageState.weekTransfers.transfers_in)}
       </div>
-      <div>
+      <div className="w-full overflow-y-scroll">
         <h2>{strings.transfersStatus.transfersOut}</h2>
         {renderTransfersData(pageState.weekTransfers.transfers_out)}
       </div>
