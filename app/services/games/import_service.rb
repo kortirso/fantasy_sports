@@ -4,6 +4,8 @@ module Games
   class ImportService
     prepend ApplicationService
 
+    InvalidScrapingError = Class.new(StandardError)
+
     SCRAPERS = {
       'basketball' => {
         'sportradar' => Basketball::SportradarScraper,
@@ -26,6 +28,8 @@ module Games
       return unless scraper
 
       @game_update_operation.call(game: game, game_data: fetch_game_data(scraper, game))
+    rescue InvalidScrapingError => _e
+      # for invalid scraping just skip game fetching, retry will help
     end
 
     private

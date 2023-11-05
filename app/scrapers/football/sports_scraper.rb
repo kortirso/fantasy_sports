@@ -47,6 +47,8 @@ module Football
 
     def call(external_id:)
       @game = Game.find_by(external_id: external_id)
+      return unless @game
+
       @home_team_name = @game.home_season_team.team.short_name
       @visitor_team_name = @game.visitor_season_team.team.short_name
 
@@ -96,6 +98,8 @@ module Football
     end
 
     def parse_lineup(data)
+      raise Games::ImportService::InvalidScrapingError if data.nil?
+
       team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
       data['startXI'].each { |player_data| parse_lineup_player_data(player_data, team_index) }
       data['substitutes'].each { |player_data| parse_lineup_player_data(player_data, team_index, false) }
@@ -122,7 +126,10 @@ module Football
     # rubocop: enable Style/OptionalBooleanParameter
 
     def parse_events(data)
-      @events = data['response'].map { |event_data| parse_event(event_data) }
+      response = data['response']
+      raise Games::ImportService::InvalidScrapingError if data.blank?
+
+      @events = response.map { |event_data| parse_event(event_data) }
     end
 
     def parse_event(data)
@@ -141,7 +148,7 @@ module Football
     end
 
     def parse_statistic(data)
-      return unless data
+      raise Games::ImportService::InvalidScrapingError if data.nil?
 
       team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
       data['players'].each { |player_data| parse_player_statistic(player_data, team_index) }
