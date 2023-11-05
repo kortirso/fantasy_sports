@@ -44,6 +44,18 @@
     @apply py-1 px-2 text-sm leading-6;
   }
 
+  .btn-transfer {
+    @apply flex justify-center items-center text-stone-700 cursor-pointer rounded;
+    @apply bg-amber-200 hover:bg-amber-300 border border-amber-300;
+
+    width: 26px;
+    height: 26px;
+  }
+
+  .btn-transfer-remove {
+    @apply btn-transfer bg-orange-600 hover:bg-orange-700 border-orange-700;
+  }
+
   .user-navigation-link {
     @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-white;
   }
