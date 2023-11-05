@@ -80,6 +80,9 @@ export const Transfers = ({
     if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  console.log(teamMembers);
+  console.log(pageState.seasonPlayers);
+
   useEffect(() => {
     setPlayersByPosition(
       Object.keys(sportPositions).reduce((result, sportPosition) => {
@@ -186,6 +189,13 @@ export const Transfers = ({
     return [...Array(emptySlots).keys()].map((item) => {
       return <PlayerCard key={item} />;
     });
+  };
+
+  const renderChangeButton = (item) => {
+    const existingTeamMember = teamMembers.find((teamMember) => teamMember.uuid === item.uuid)
+
+    if (!existingTeamMember) return <div className="btn-transfer" onClick={() => addTeamMember(item)}>+</div>;
+    return <div className="btn-transfer-remove" onClick={() => removeTeamMember(item)}>-</div>;
   };
 
   const submit = async () => {
@@ -435,9 +445,7 @@ export const Transfers = ({
               <div className="w-12 flex flex-row items-center justify-center">
                 {TEAM_SORT_PARAMS.includes(sortBy) ? item.team[sortBy] : item[sortBy]}
               </div>
-              <div className="btn-primary btn-small py-0 leading-6" onClick={() => addTeamMember(item)}>
-                +
-              </div>
+              {renderChangeButton(item)}
             </div>
           ))}
           {pageState.seasonPlayers.length > PER_PAGE && (
