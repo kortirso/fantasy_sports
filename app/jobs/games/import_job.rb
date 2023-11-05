@@ -5,19 +5,17 @@ module Games
     queue_as :default
 
     def perform(game_ids:)
-      team_player_ids = []
-      week_id = nil
+      week = nil
 
       Game.where(id: game_ids).each do |game|
         Games::ImportService.call(game: game)
-        team_player_ids.push(game.games_players.pluck(:teams_player_id))
-        week_id ||= game.week_id
+        week ||= game.week
       end
-      return unless week_id
+      return unless week
 
       ::Lineups::Players::Points::UpdateJob.perform_later(
-        team_player_ids: team_player_ids.flatten,
-        week_id: week_id
+        team_player_ids: week.teams_players.ids,
+        week_id: week.id
       )
     end
   end

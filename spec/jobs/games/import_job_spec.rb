@@ -5,8 +5,11 @@ describe Games::ImportJob, type: :service do
 
   let!(:game) { create :game }
   let!(:games_player) { create :games_player, game: game }
+  let!(:lineup) { create :lineup, week: game.week }
 
   before do
+    create :lineups_player, lineup: lineup, teams_player: games_player.teams_player
+
     allow(Games::ImportService).to receive(:call)
     allow(Lineups::Players::Points::UpdateJob).to receive(:perform_later)
   end

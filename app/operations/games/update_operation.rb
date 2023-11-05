@@ -30,7 +30,6 @@ module Games
     def call(game:, game_data:)
       @game = game
       @games_players_update_data = []
-      @team_player_ids = []
       @player_ids = []
       @points_calculate_service = POINTS_CALCULATE_SERVICES[@game.week.season.league.sport_kind].new
 
@@ -81,7 +80,6 @@ module Games
           statistic: statistic
         })
 
-        @team_player_ids.push(games_player.teams_player_id)
         @player_ids.push(games_player.teams_player.player_id)
       end
     end
