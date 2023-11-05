@@ -42,6 +42,8 @@ module FantasySports
 
     config.active_job.queue_adapter = :que
 
+    config.skylight.probes << 'active_job'
+
     config.autoload_paths << Rails.root.join('app/views/components')
     config.view_component.view_component_path = 'app/views/components'
 
