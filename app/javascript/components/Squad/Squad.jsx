@@ -105,6 +105,9 @@ export const Squad = ({
           // skip for the same player
           if (element.uuid === item.uuid) return null;
 
+          // allow for reserve players change with each other (except goalkeeper)
+          if (element.change_order > 1 && item.change_order > 1) return element.uuid;
+
           if (isActive) nextPositionKind = element.player.position_kind;
           else positionKind = element.player.position_kind;
           // allow change for player on the same position
@@ -131,7 +134,7 @@ export const Squad = ({
         setChanges({ ...changes, playerUuidsToChange: result });
       }
     } else {
-      if (changes.playerUuidsToChange.includes(item.uuid)) changePlayers(item);
+      if (changes.playerUuidsToChange.includes(item.uuid)) changePlayers(item.uuid, item.active, item.change_order);
 
       setChanges({
         playerUuidForChange: null,
@@ -142,18 +145,18 @@ export const Squad = ({
     }
   };
 
-  const changePlayers = (item) => {
+  const changePlayers = (uuid, active, changeOrder) => {
     // item - changeable player
     const changedLineupPlayers = pageState.lineupPlayers.map((element) => {
       // for changleable player set remembered active and order
-      if (element.uuid === item.uuid) {
+      if (element.uuid === uuid) {
         element.active = changes.changeActive;
         element.change_order = changes.changeOrder;
       }
       // for remembered player set current player's active and order
       if (element.uuid === changes.playerUuidForChange) {
-        element.active = item.active;
-        element.change_order = item.change_order;
+        element.active = active;
+        element.change_order = changeOrder;
       }
       return element;
     });
@@ -260,8 +263,6 @@ export const Squad = ({
       setAlerts({ alert: toggleResultResult.errors });
     }
   };
-
-  console.log(pageState.lineupPlayers);
 
   return (
     <>
