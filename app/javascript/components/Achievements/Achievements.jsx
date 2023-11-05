@@ -41,8 +41,8 @@ export const Achievements = () => {
         <p className="text-xl mb-4">{strings.achievements.points} - {achievements.points}</p>
         <div className="flex flex-row md:flex-col flex-wrap">
           <div
-            className={`mr-2 md:mr-0 mb-2 py-2 px-4 rounded cursor-pointer text-white ${
-              activeGroupUuid === undefined ? 'bg-green-600' : 'bg-green-400'
+            className={`mr-2 md:mr-0 mb-2 py-2 px-4 rounded shadow cursor-pointer text-white ${
+              activeGroupUuid === undefined ? 'bg-stone-700' : 'bg-stone-400'
             }`}
             onClick={() => setActiveGroupUuid(undefined)}
             key="group-summary"
@@ -51,8 +51,8 @@ export const Achievements = () => {
           </div>
           {achievementGroups.map((group) => (
             <div
-              className={`mr-2 md:mr-0 mb-2 py-2 px-4 rounded cursor-pointer text-white ${
-                activeGroupUuid === group.uuid ? 'bg-green-600' : 'bg-green-400'
+              className={`mr-2 md:mr-0 mb-2 py-2 px-4 rounded shadow cursor-pointer text-white ${
+                activeGroupUuid === group.uuid ? 'bg-stone-700' : 'bg-stone-400'
               }`}
               onClick={() => setActiveGroupUuid(group.uuid)}
               key={`group-${group.uuid}`}
@@ -64,22 +64,22 @@ export const Achievements = () => {
       </div>
       <div className="flex-1 p-2">
         {achievements.received.map((achievement, index) => (
-          <div className="mb-2 rounded relative overflow-hidden" key={index}>
-            <div className="relative text-center bg-green-600 text-white py-1 pl-4 pr-16 sm:px-16">
+          <div className="mb-2 rounded shadow relative overflow-hidden" key={index}>
+            <div className="relative text-center bg-stone-700 text-white py-1 pl-4 pr-16 sm:px-16">
               <p className="text-xl">{localizeValue(achievement.title)}</p>
               <span className="hidden sm:block absolute top-2 right-20">{convertDate(achievement.updated_at)}</span>
             </div>
-            <div className="text-center bg-green-200 py-1 pl-4 pr-16 sm:px-16">{localizeValue(achievement.description)}</div>
+            <div className="text-center bg-stone-300 py-1 pl-4 pr-16 sm:px-16">{localizeValue(achievement.description)}</div>
             <div className="achievement-icon"></div>
-            <div className="absolute top-3 right-3 w-12 h-12 bg-orange-400 rounded flex justify-center items-center font-semibold text-xl">{achievement.points}</div>
+            <div className="absolute top-3 right-3 w-12 h-12 bg-amber-500 rounded flex justify-center items-center font-semibold text-xl">{achievement.points}</div>
           </div>
         ))}
         {achievements.unreceived.map((achievement, index) => (
-          <div className="mb-2 rounded relative overflow-hidden opacity-75" key={index}>
-            <div className="relative text-center bg-gray-400 text-white py-1 pl-4 pr-16 sm:px-16">
+          <div className="mb-2 rounded shadow relative overflow-hidden opacity-50" key={index}>
+            <div className="relative text-center bg-stone-400 text-white py-1 pl-4 pr-16 sm:px-16">
               <p className="text-xl">{localizeValue(achievement.title)}</p>
             </div>
-            <div className="text-center bg-gray-200 py-1 pl-4 pr-16 sm:px-16">{localizeValue(achievement.description)}</div>
+            <div className="text-center bg-stone-200 py-1 pl-4 pr-16 sm:px-16">{localizeValue(achievement.description)}</div>
             <div className="achievement-icon"></div>
             <div className="absolute top-3 right-3 w-12 h-12 bg-white rounded flex justify-center items-center font-semibold text-xl">{achievement.points}</div>
           </div>

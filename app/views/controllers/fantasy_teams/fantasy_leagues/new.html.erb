@@ -1,7 +1,7 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <h1><%= t('views.fantasy_teams.fantasy_leagues.new.title') %></h1>
-  <section class="p-4 bg-white rounded shadow">
-    <%= form_with model: @fantasy_league, url: fantasy_team_fantasy_leagues_path, method: :post do |form| %>
+  <section class="flex flex-row">
+    <%= form_with model: @fantasy_league, url: fantasy_team_fantasy_leagues_path, method: :post, class: 'p-4 bg-white rounded border border border-stone-300' do |form| %>
       <div class="form-field">
         <%= form.label :name, t('views.fantasy_teams.fantasy_leagues.new.name'), class: 'form-label' %>
         <%= form.text_field :name, class: 'form-value', required: true %>

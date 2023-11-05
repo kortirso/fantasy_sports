@@ -17,7 +17,6 @@ en:
         seasons: Seasons
         players: Players
       page_component:
-        home: Home
         logout: Logout
     views:
       shared:
@@ -202,13 +201,15 @@ en:
             player_id: Player
             seasons_team_id: Team
     welcome:
-      home: View fantasy league
-      description: Fantasy game management system. Free to play fantasy games, set up your fantasy team in different sport. In active development.
+      home: View fantasy leagues
+      description: Fantasy sports engine system. Fantasy Sports gives you the opportunity to run your own teams of professional players. You draft your teams of the best players from across the leagues and receive points based on those players' performance in games each week.
       active_leagues: Active fantasy leagues
       nba: NBA 23-24 from 24.10.2023
+      epl: English Premier League 23-24 from 09.11.2023
     homes:
       show:
         no_season: There is no active season for this sport yet. It will be added soon.
+        starts: Season starts %{date} at %{time} UTC
     fantasy_leagues:
       show:
         rank: Rank

@@ -262,7 +262,7 @@ export const Transfers = ({
   return (
     <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-10 xl:gap-8">
       <div className="xl:col-span-7">
-        <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mr-2">
+        <span className="badge-dark inline-block">
           {strings.formatString(strings.transfers.week, { number: weekPosition })}
         </span>
         <h1>{strings.transfers.selection}</h1>
@@ -290,12 +290,12 @@ export const Transfers = ({
             </div>
           </div>
         )}
-        <div className="flex flex-col md:flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
-          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+        <div className="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
+          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p className="text-center">{strings.transfers.free}</p>
             <p className="ml-4 md:ml-0 text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
           </div>
-          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+          <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p className="text-center">{strings.transfers.cost}</p>
             <p className="ml-4 md:ml-0 text-xl">{changesCount}</p>
           </div>
@@ -307,12 +307,12 @@ export const Transfers = ({
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
           <div className={`${sportKind}-field`}>
             <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
-              <p className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
+              <p className="badge-danger absolute left-4 top-4">
                 {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
               </p>
               {pageState.visibleMode === 'lineup' ? (
                 <p
-                  className="absolute right-4 top-4 bg-green-600 text-white text-sm py-1 px-2 rounded shadow cursor-pointer"
+                  className="absolute right-4 top-4 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
                   onClick={() => setPageState({ ...pageState, visibleMode: 'seasonPlayers' })}
                 >
                   {strings.transfers.showSeasonPlayers}
@@ -356,7 +356,7 @@ export const Transfers = ({
         <div className="lg:col-span-3">
           {pageState.visibleMode === 'seasonPlayers' ? (
             <span
-              className="inline-block mb-2 bg-green-600 text-white text-sm py-1 px-2 rounded shadow cursor-pointer"
+              className="inline-block mb-2 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
               onClick={() => setPageState({ ...pageState, visibleMode: 'lineup' })}
             >
               {strings.transfers.showLineup}
@@ -413,7 +413,7 @@ export const Transfers = ({
             </div>
           </div>
           {filteredSlicedPlayers.map((item) => (
-            <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-gray-200" key={item.uuid}>
+            <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-stone-200" key={item.uuid}>
               <div
                 className="flex items-center justify-center mr-2 btn-info btn-small text-black py-0 leading-6"
                 onClick={() => setPlayerUuid(item.uuid)}

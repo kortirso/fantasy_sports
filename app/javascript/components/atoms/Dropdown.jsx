@@ -22,7 +22,7 @@ export const Dropdown = ({ title, items, onSelect, selectedValue, placeholder = 
           <ul className="form-dropdown">
             {Object.entries(items).map(([key, value]) => (
               <li
-                className="bg-white hover:bg-gray-200 py-2 px-3"
+                className="bg-white hover:bg-stone-200 py-2 px-3"
                 onClick={() => selectValue(key)}
                 key={key}
               >

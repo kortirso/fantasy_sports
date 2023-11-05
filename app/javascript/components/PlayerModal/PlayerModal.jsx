@@ -30,13 +30,13 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     return seasonPlayer.games_players.data.map((item) => {
       return (
         <tr key={item.attributes.uuid}>
-          <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.week.position}</td>
-          <td className="text-center border-b border-gray-200 py-2 px-4 whitespace-nowrap">
+          <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.week.position}</td>
+          <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">
             {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}
           </td>
-          <td className="text-center border-b border-gray-200 py-2 px-4">{item.attributes.points}</td>
+          <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
-            <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
+            <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
           ))}
         </tr>
       );
@@ -45,11 +45,11 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
 
   const renderOverallStatistic = () => (
     <tr key={`overall-${seasonPlayer.uuid}`}>
-      <td className="text-center border-b border-gray-200 py-2 px-4"></td>
-      <td className="text-center border-b border-gray-200 py-2 px-4 whitespace-nowrap">{strings.player.total}</td>
-      <td className="text-center border-b border-gray-200 py-2 px-4">{seasonPlayer.points}</td>
+      <td className="text-center border-b border-stone-200 py-2 px-4"></td>
+      <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">{strings.player.total}</td>
+      <td className="text-center border-b border-stone-200 py-2 px-4">{seasonPlayer.points}</td>
       {Object.keys(statisticsOrder[sportKind]).map((stat) => (
-        <td className="text-center border-b border-gray-200 py-2 px-4" key={stat}>{seasonPlayer.statistic[stat]}</td>
+        <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{seasonPlayer.statistic[stat]}</td>
       ))}
     </tr>
   )
@@ -57,28 +57,28 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   return (
     <Modal show={!!playerUuid} onClose={onClose}>
       <div className="mb-2">
-        <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mb-2">{localizeValue(sportPositions[seasonPlayer.player.position_kind].name)}</span>
+        <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[seasonPlayer.player.position_kind].name)}</span>
         <h2 className="mb-2">{localizeValue(seasonPlayer.player.name)}</h2>
         <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-5 justify-between mb-8 bg-gray-200 rounded shadow">
-        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
+      <div className="grid grid-cols-2 lg:grid-cols-5 justify-between mb-8 bg-stone-200 border border-stone-300 rounded">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.form}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.form}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.poinstPerGame}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.average_points}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.totalPoints}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.points}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.price}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.team.price}</p>
         </div>
-        <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r lg:border-r-0 border-gray-300 flex lg:flex-col justify-center items-center">
+        <div className="flex-1 py-3 px-0 border-b-0 border-r lg:border-r-0 border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.teams_selected_by}%</p>
         </div>
@@ -90,7 +90,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         ) : (
           <table cellSpacing="0" className="min-w-full">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-stone-200">
                 <th className="text-sm py-2 px-4">{strings.player.week}</th>
                 <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
                 <th className="text-sm py-2 px-4">{strings.player.pts}</th>

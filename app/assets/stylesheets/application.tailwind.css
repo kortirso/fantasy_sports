@@ -29,15 +29,15 @@
   }
 
   .btn-primary {
-    @apply btn bg-green-400 hover:bg-green-500 text-black;
+    @apply btn bg-amber-200 border border-amber-300 hover:bg-amber-300 text-stone-700;
   }
 
   .btn-danger {
-    @apply btn bg-red-600 hover:bg-red-700;
+    @apply btn bg-orange-600 hover:bg-orange-700;
   }
 
   .btn-info {
-    @apply btn bg-white hover:bg-gray-100 border border-gray-200 text-black;
+    @apply btn bg-white hover:bg-stone-100 border border-stone-200 text-black;
   }
 
   .btn-small {
@@ -45,7 +45,7 @@
   }
 
   .user-navigation-link {
-    @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-black;
+    @apply flex flex-row items-center p-2 pl-2 lg:pl-8 text-white;
   }
 
   .user-navigation-link img {
@@ -53,11 +53,11 @@
   }
 
   .user-navigation-link:hover {
-    @apply bg-neutral-300 rounded;
+    @apply bg-amber-200 text-stone-700;
   }
 
   .user-navigation-link.active {
-    @apply bg-white rounded shadow;
+    @apply bg-amber-300 shadow text-stone-700;
   }
 
   .form-field {
@@ -69,7 +69,7 @@
   }
 
   .form-field .form-value {
-    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 leading-8;
+    @apply bg-stone-200 border border-stone-300 rounded-sm py-1 px-4 leading-8;
 
     min-height: 42px;
   }
@@ -81,7 +81,7 @@
   }
 
   .form-field .form-value:focus {
-    @apply border-gray-400;
+    @apply border-stone-400;
   }
 
   .form-field .form-value.full {
@@ -89,14 +89,14 @@
   }
 
   .form-field select {
-    @apply bg-gray-200 border border-gray-300 rounded-sm py-1 px-4 text-sm leading-8;
+    @apply bg-stone-200 border border-stone-300 rounded-sm py-1 px-4 text-sm leading-8;
 
     min-width: 60px;
     min-height: 42px;
   }
 
   .form-dropdown {
-    @apply block absolute z-10 left-0 w-full border border-gray-200 rounded-sm max-h-72 overflow-x-scroll;
+    @apply block absolute z-10 left-0 w-full border border-stone-200 rounded-sm max-h-72 overflow-x-scroll;
 
     top: 42px;
   }
@@ -106,6 +106,8 @@
   }
 
   .football-field .field {
+    @apply rounded-t;
+
     height: calc(100vw - 2rem);
     max-height: 886px;
     background-image: url('football_field.webp');
@@ -353,7 +355,7 @@
   .basketball-field .player-jersey.HOU span { color: #000; }
 
   .player-card-action {
-    @apply absolute top-0 w-6 h-6 cursor-pointer bg-white hover:bg-gray-200 border border-gray-300 rounded flex flex-row justify-center items-center;
+    @apply absolute top-0 w-6 h-6 cursor-pointer bg-white hover:bg-stone-200 border border-stone-300 rounded flex flex-row justify-center items-center;
   }
 
   .player-card-action.info {
@@ -369,7 +371,7 @@
   }
 
   .tooltip .tooltiptext {
-    @apply w-24 invisible bg-zinc-800 text-white text-xs text-center py-1 px-0 rounded whitespace-nowrap;
+    @apply w-24 invisible bg-stone-700 text-white text-xs text-center py-1 px-0 rounded whitespace-nowrap;
     @apply absolute z-10 opacity-0 transition-opacity delay-300;
 
     bottom: 125%;
@@ -386,7 +388,7 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
+    border-color: #44403c transparent transparent transparent;
   }
 
   .tooltip:hover .tooltiptext {
@@ -398,7 +400,7 @@
   }
 
   .table thead tr {
-    @apply bg-gray-200;
+    @apply bg-stone-200;
   }
 
   .table thead tr th {
@@ -406,7 +408,7 @@
   }
 
   .table tbody tr td {
-    @apply p-2 border-b border-gray-200;
+    @apply p-2 border-b border-stone-200;
   }
 
   .season-link {
@@ -418,18 +420,30 @@
   }
 
   .season-link-content {
-    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-end items-end bg-black/50 text-white;
+    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center bg-stone-700/50 text-white text-center;
   }
 
   .season-link-content h2 {
-    @apply mb-4;
+    @apply m-0 font-semibold;
+  }
+
+  .season-link-content .season-link-date {
+    @apply absolute bottom-4 right-4 font-semibold;
   }
 
   .badge {
-    @apply px-2 py-1 rounded shadow;
+    @apply px-2 py-1 text-sm rounded shadow;
   }
 
   .badge-light {
-    @apply badge bg-white border-black text-sm text-black;
+    @apply badge bg-white border-stone-700 text-stone-700;
+  }
+
+  .badge-dark {
+    @apply badge bg-stone-700 text-white;
+  }
+
+  .badge-danger {
+    @apply badge bg-orange-700 text-white;
   }
 }

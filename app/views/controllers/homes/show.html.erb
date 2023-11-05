@@ -12,17 +12,19 @@
             %>
               <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
               <div class="season-link-content">
-                <h2 class="font-semibold"><%= localized_value(season[:leagues_name]) %></h2>
-                <p class="font-semibold"><%= season[:name] %></p>
+                <h2><%= localized_value(season[:leagues_name]) %></h2>
+                <p class="season-link-date"><%= season[:name] %></p>
               </div>
             <% end %>
           <% else %>
             <div class="season-link">
               <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
               <div class="season-link-content">
-                <h2 class="font-semibold"><%= localized_value(season[:leagues_name]) %></h2>
-                <p class="font-semibold"><%= season[:name] %></p>
-                <p class="badge-light absolute top-2 left-2">Season will start <%= season[:start_at].strftime('%Y.%m.%d') %> at <%= season[:start_at].strftime('%H:%M') %> UTC</p>
+                <h2><%= localized_value(season[:leagues_name]) %></h2>
+                <p class="season-link-date"><%= season[:name] %></p>
+                <p class="badge-light absolute top-2 left-2">
+                  <%= t('views.homes.show.starts', date: season[:start_at].strftime('%Y.%m.%d'), time: season[:start_at].strftime('%H:%M')) %>
+                </p>
               </div>
             </div>
           <% end %>

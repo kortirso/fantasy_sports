@@ -266,14 +266,14 @@ export const Squad = ({
 
   return (
     <>
-      <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded mr-2">
+      <span className="badge-dark inline-block mr-2">
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
       <h1>{strings.squad.title}</h1>
       <div className={`${sportKind}-field`}>
         <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
           {sport.changes ? (
-            <span className="absolute left-4 top-4 bg-red-600 text-white text-sm py-1 px-2 rounded shadow">
+            <span className="badge-danger absolute left-4 top-4">
               <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
             </span>
           ) : null }
@@ -300,7 +300,7 @@ export const Squad = ({
           ))}
         </div>
         {sport.changes ? (
-          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
+          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-8">
             {reservePlayers().map((item) => (
               <PlayerCard
                 key={item.uuid}
@@ -319,13 +319,13 @@ export const Squad = ({
         ) : null}
       </div>
       {pageState.lineup?.fantasy_team && Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
-        <div className="mb-4">
+        <div className="mb-8">
           <h3 className="text-center">{strings.squad.chips}</h3>
           <div className="flex justify-center">
             <button
               className={
                 pageState.lineup.active_chips.includes('bench_boost')
-                  ? 'btn-primary btn-small mr-2 bg-green-800'
+                  ? 'btn-primary btn-small mr-2 bg-amber-400'
                   : 'btn-primary btn-small mr-2'
               }
               onClick={() => toggleChip('bench_boost')}
@@ -335,7 +335,7 @@ export const Squad = ({
             <button
               className={
                 pageState.lineup.active_chips.includes('triple_captain')
-                  ? 'btn-primary btn-small bg-green-800'
+                  ? 'btn-primary btn-small bg-amber-400'
                   : 'btn-primary btn-small'
               }
               onClick={() => toggleChip('triple_captain')}
@@ -346,7 +346,7 @@ export const Squad = ({
         </div>
       ) : null}
       {sport?.changes ? (
-        <div>
+        <div className="text-center mb-8">
           <button className="btn-primary" onClick={submit}>
             {strings.squad.save}
           </button>

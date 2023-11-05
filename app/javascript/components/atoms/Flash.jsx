@@ -10,9 +10,9 @@ export const Flash = ({ content }) => {
   }, [content]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const flashBackground = (value) => {
-    if (value === 'notice') return 'bg-green-400';
+    if (value === 'notice') return 'bg-amber-200';
 
-    return 'bg-red-400';
+    return 'bg-orange-700 text-white';
   };
 
   const closeMessageFromList = (key, value) => {

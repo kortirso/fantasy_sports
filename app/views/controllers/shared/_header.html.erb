@@ -9,7 +9,7 @@
       <%= link_to locale, change_locale(locale), aria: { label: t('components.page_wrappers.users_component.change_locale') } %>
     <% end %>
     <% if Current.user %>
-      <%= link_to t('components.page_wrappers.page_component.home'), home_path %>
+      <%= link_to t('views.welcome.home'), home_path %>
       <%= link_to t('components.page_wrappers.page_component.logout'), users_logout_path %>
     <% else %>
       <div class="flex">

@@ -65,16 +65,16 @@ export const SquadPoints = ({
 
   return (
     <>
-      <span className="inline-block bg-zinc-800 text-white text-sm py-1 px-2 rounded">
+      <span className="badge-dark inline-block">
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
       <h1>{strings.squadPoints.title}</h1>
-      <div className="flex flex-col md:flex-row justify-between mt-2 bg-gray-200 rounded shadow mb-4">
-        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+      <div className="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
+        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
           <p className="text-center">{strings.squadPoints.totalPoints}</p>
           <p className="ml-4 md:ml-0 text-xl">{points}</p>
         </div>
-        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-gray-300">
+        <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
           <p className="text-center">{strings.squadPoints.averagePoints}</p>
           <p className="ml-4 md:ml-0 text-xl">{averagePoints}</p>
         </div>

@@ -47,7 +47,7 @@ export const Week = ({ uuid, teamNames }) => {
           <p>
             <span className="font-semibold">{strings.week.gameweek} {pageState.week.position}</span>: {convertDateTime(pageState.week.deadline_at)}
           </p>
-          <p className="text-sm">{strings.week.localTIme}</p>
+          <p className="text-sm">{strings.week.localTime}</p>
         </div>
         <div className="w-48">
           {pageState.week.next.uuid ? (
@@ -64,11 +64,11 @@ export const Week = ({ uuid, teamNames }) => {
         {pageState.games.map((item, index) => (
           <div key={index}>
             {index === 0 || convertDate(item.start_at) !== convertDate(pageState.games[index - 1].start_at) ? (
-              <div className="py-1 px-0 bg-gray-200 text-center">
+              <div className="py-1 px-0 bg-stone-200 border border-stone-300 text-center rounded">
                 <p>{convertDate(item.start_at)}</p>
               </div>
             ) : null}
-            <Game item={item} teamNames={teamNames} />
+            <Game item={item} teamNames={teamNames} last={index === pageState.games.length - 1 || convertDate(item.start_at) !== convertDate(pageState.games[index + 1].start_at)} />
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-8 xl:my-24">
-    <div class="flex-1 flex flex-col justify-center">
+    <div class="flex-1 flex flex-col justify-center pr-16">
       <h1 class="text-center lg:text-left">Fantasy Sports</h1>
       <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
       <% if Current.user.nil? %>
@@ -13,12 +13,15 @@
           <%= link_to t('views.welcome.home'), home_path, class: 'btn-primary' %>
         </div>
       <% end %>
-      <p><%= t('views.welcome.active_leagues') %></p>
+      <p class="mb-2"><%= t('views.welcome.active_leagues') %></p>
       <ul>
-        <li><%= t('views.welcome.nba') %></li>
+        <li class="mb-2"><%= t('views.welcome.nba') %></li>
+        <li><%= t('views.welcome.epl') %></li>
       </ul>
     </div>
-    <div class="flex-1">
+    <div class="relative flex-1 flex flex-col justify-center lg:items-center">
+      <%= image_tag 'basketball-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'rounded' %>
+      <%= image_tag 'football-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'mt-4 xl:absolute xl:top-60 xl:-left-12 rounded' %>
     </div>
   </section>
 <% end %>
