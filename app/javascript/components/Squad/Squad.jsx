@@ -39,6 +39,7 @@ export const Squad = ({
   const [changes, setChanges] = useState({
     playerUuidForChange: null,
     playerUuidsToChange: [],
+    changeActive: false,
     changeOrder: 0
   })
 
@@ -104,9 +105,6 @@ export const Squad = ({
           // skip for the same player
           if (element.uuid === item.uuid) return null;
 
-          // skip for players on substitution
-          if (!isActive && element.active === false) return null;
-
           if (isActive) nextPositionKind = element.player.position_kind;
           else positionKind = element.player.position_kind;
           // allow change for player on the same position
@@ -126,34 +124,36 @@ export const Squad = ({
         setChanges({
           playerUuidForChange: item.uuid,
           playerUuidsToChange: result,
+          changeActive: item.active,
           changeOrder: item.change_order
         });
       } else {
         setChanges({ ...changes, playerUuidsToChange: result });
       }
     } else {
-      if (changes.playerUuidsToChange.includes(item.uuid)) changePlayers(item.uuid, !isActive, Math.max(item.change_order, changes.changeOrder));
+      if (changes.playerUuidsToChange.includes(item.uuid)) changePlayers(item);
 
       setChanges({
         playerUuidForChange: null,
         playerUuidsToChange: [],
+        changeActive: false,
         changeOrder: 0
       });
     }
   };
 
-  const changePlayers = (playerUuidToChange, stateForInitialPlayer, changeOrderValue) => {
-    // playerUuidToChange - id of changeable player
-    // playerUuidForChange - id of initial player
-    // stateForInitialPlayer - new state for initial player
+  const changePlayers = (item) => {
+    // item - changeable player
     const changedLineupPlayers = pageState.lineupPlayers.map((element) => {
-      if (element.uuid === playerUuidToChange) {
-        element.active = stateForInitialPlayer;
-        element.change_order = stateForInitialPlayer ? 0 : changeOrderValue;
+      // for changleable player set remembered active and order
+      if (element.uuid === item.uuid) {
+        element.active = changes.changeActive;
+        element.change_order = changes.changeOrder;
       }
+      // for remembered player set current player's active and order
       if (element.uuid === changes.playerUuidForChange) {
-        element.active = !stateForInitialPlayer;
-        element.change_order = stateForInitialPlayer ? changeOrderValue : 0;
+        element.active = item.active;
+        element.change_order = item.change_order;
       }
       return element;
     });
@@ -260,6 +260,8 @@ export const Squad = ({
       setAlerts({ alert: toggleResultResult.errors });
     }
   };
+
+  console.log(pageState.lineupPlayers);
 
   return (
     <>
