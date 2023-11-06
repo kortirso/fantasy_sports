@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - refresh free transfers amount after approving transfers
 
+### Fixed
+- bug with scraping own goals for Sourceable::Sports
+
 ## [1.1.0] - 2023-11-05
 ### Added
 - basketball achievements

@@ -133,12 +133,18 @@ module Football
     end
 
     def parse_event(data)
+      type = data['type'] == 'subst' ? EVENT_MAPPER['Substitution'] : EVENT_MAPPER[data['detail']]
+      team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
+
+      # change team index for own goals
+      team_index = team_index.zero? ? 1 : 0 if type == 1
+
       {
         minute: data.dig('time', 'elapsed'),
-        team_index: find_team_index(NAME_MAPPER[data.dig('team', 'name')]),
+        team_index: team_index,
         player_id: data.dig('player', 'id'),
         player_assist_id: data.dig('assist', 'id'),
-        type: data['type'] == 'subst' ? EVENT_MAPPER['Substitution'] : EVENT_MAPPER[data['detail']]
+        type: type
       }
     end
 
