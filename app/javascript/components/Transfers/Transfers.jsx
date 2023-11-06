@@ -36,23 +36,26 @@ export const Transfers = ({
     teamNames: {},
     seasonPlayers: [],
     visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
+    defaultTeamMembers: [],
+    teamMembers: [],
+    budget: fantasyTeamBudget,
+    freeTransfersAmount: freeTransfers,
+    alerts: {}
   });
 
-  const [defaultTeamMembers, setDefaultTeamMembers] = useState([]);
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [budget, setBudget] = useState(fantasyTeamBudget);
+  // fields for initial squad
   const [teamName, setTeamName] = useState('');
-  const [search, setSearch] = useState('');
-  const [playerUuid, setPlayerUuid] = useState();
-  const [playersByPosition, setPlayersByPosition] = useState({});
   const [favouriteTeamUuid, setFavouriteTeamUuid] = useState(null);
-  const [transfersData, setTransfersData] = useState(null);
-  const [alerts, setAlerts] = useState({});
+  // other fields
+  const [playerUuid, setPlayerUuid] = useState(); // for PlayerModal
+  const [playersByPosition, setPlayersByPosition] = useState({}); // for rendering players on the field
+  const [transfersData, setTransfersData] = useState(null); // for transfers modal
   // filters state
   const [filterByPosition, setFilterByPosition] = useState('all');
   const [filterByTeam, setFilterByTeam] = useState('all');
   const [sortBy, setSortBy] = useState('points');
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState('');
 
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
@@ -62,37 +65,38 @@ export const Transfers = ({
     const fetchSeasonPlayers = async () => await seasonPlayersRequest(seasonUuid);
 
     const fetchFantasyTeamPlayers = async () => {
+      if (!fantasyTeamCompleted) return [];
+
       const data = await fantasyTeamPlayersRequest(fantasyTeamUuid);
-      setTeamMembers(data);
-      setDefaultTeamMembers(data);
+      return data;
     };
 
-    Promise.all([fetchTeams(), fetchSeasonPlayers()]).then(
-      ([fetchTeamsData, fetchSeasonPlayersData]) =>
+    Promise.all([fetchTeams(), fetchSeasonPlayers(), fetchFantasyTeamPlayers()]).then(
+      ([teamsData, seasonPlayersData, fantasyTeamPlayers]) =>
         setPageState({
           loading: false,
-          teamNames: fetchTeamsData,
-          seasonPlayers: fetchSeasonPlayersData,
+          teamNames: teamsData,
+          seasonPlayers: seasonPlayersData,
           visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
+          defaultTeamMembers: fantasyTeamPlayers,
+          teamMembers: fantasyTeamPlayers,
+          budget: fantasyTeamBudget,
+          freeTransfersAmount: freeTransfers,
+          alerts: {}
         }),
     );
-
-    if (fantasyTeamCompleted) fetchFantasyTeamPlayers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  console.log(teamMembers);
-  console.log(pageState.seasonPlayers);
 
   useEffect(() => {
     setPlayersByPosition(
       Object.keys(sportPositions).reduce((result, sportPosition) => {
-        result[sportPosition] = teamMembers.filter((item) => {
+        result[sportPosition] = pageState.teamMembers.filter((item) => {
           return item.player.position_kind === sportPosition;
         });
         return result;
       }, {}),
     );
-  }, [sportPositions, teamMembers]);
+  }, [sportPositions, pageState.teamMembers]);
 
   const filteredPlayers = useMemo(() => {
     return pageState.seasonPlayers
@@ -122,20 +126,20 @@ export const Transfers = ({
   }, [filteredPlayers, page]);
 
   const lastPageIndex = useMemo(() => {
-    return Math.trunc(filteredPlayers.length / PER_PAGE) + 1;
+    return Math.trunc(filteredPlayers.length / (PER_PAGE + 1)) + 1;
   }, [filteredPlayers]);
 
-  const changesCount = useMemo(() => {
+  const penaltyPoints = useMemo(() => {
     if (!transfersLimited) return 0;
 
     let count = 0
-    defaultTeamMembers.forEach((defaultElement) => {
-      if (!teamMembers.find((element) => element.uuid === defaultElement.uuid)) count += 1;
+    pageState.defaultTeamMembers.forEach((defaultElement) => {
+      if (!pageState.teamMembers.find((element) => element.uuid === defaultElement.uuid)) count += 1;
     });
-    if (freeTransfers >= count) return 0;
+    if (pageState.freeTransfersAmount >= count) return 0;
 
-    return (freeTransfers - count) * sport.points_per_transfer;
-  }, [transfersLimited, freeTransfers, defaultTeamMembers, teamMembers, sport.points_per_transfer]);
+    return (pageState.freeTransfersAmount - count) * sport.points_per_transfer;
+  }, [transfersLimited, pageState.freeTransfersAmount, pageState.defaultTeamMembers, pageState.teamMembers, sport.points_per_transfer]);
 
   const pageDown = () => {
     if (page !== 0) setPage(page - 1);
@@ -147,38 +151,43 @@ export const Transfers = ({
 
   const addTeamMember = (item) => {
     // if fantasy team is full
-    if (teamMembers.length === sport.max_players)
-      return setAlerts({ alert: strings.transfers.teamFull });
+    if (pageState.teamMembers.length === sport.max_players)
+      return setPageState({ ...pageState, alerts: { alert: strings.transfers.teamFull } });
     // if player is already in team
-    if (teamMembers.find((element) => element.uuid === item.uuid))
-      return setAlerts({ alert: strings.transfers.playerInTeam });
+    if (pageState.teamMembers.find((element) => element.uuid === item.uuid))
+      return setPageState({ ...pageState, alerts: { alert: strings.transfers.playerInTeam } });
     // if all position already in use
     const positionKind = item.player.position_kind;
     const positionsLeft =
       sportPositions[positionKind].total_amount - playersByPosition[positionKind].length;
-    if (positionsLeft === 0) return setAlerts({ alert: strings.transfers.noPositions });
+    if (positionsLeft === 0)
+      return setPageState({ ...pageState, alerts: { alert: strings.transfers.noPositions } });
     // if there are already max_team_players
-    const playersFromTeam = teamMembers.filter((element) => {
+    const playersFromTeam = pageState.teamMembers.filter((element) => {
       return element.team.uuid === item.team.uuid;
     });
-    if (playersFromTeam.length >= sport.max_team_players)
-      return setAlerts({
-        alert: strings.formatString(strings.transfers.maxTeamPlayers, {
-          number: sport.max_team_players,
-        }),
-      });
+    if (playersFromTeam.length >= sport.max_team_players) {
+      const alert = strings.formatString(strings.transfers.maxTeamPlayers, {
+        number: sport.max_team_players,
+      })
+      return setPageState({ ...pageState, alerts: { alert: alert } });
+    }
 
-    setTeamMembers(teamMembers.concat(item));
-    setBudget(budget - item.team.price);
+    setPageState({
+      ...pageState,
+      teamMembers: pageState.teamMembers.concat(item),
+      budget: pageState.budget - item.team.price
+    })
   };
 
-  const sportPositionName = (sportPosition) => {
-    return sportPosition.name.en.split(' ').join('-');
-  };
+  const sportPositionName = (sportPosition) => sportPosition.name.en.split(' ').join('-');
 
   const removeTeamMember = (element) => {
-    setTeamMembers(teamMembers.filter((item) => item.uuid !== element.uuid));
-    setBudget(budget + element.team.price);
+    setPageState({
+      ...pageState,
+      teamMembers: pageState.teamMembers.filter((item) => item.uuid !== element.uuid),
+      budget: pageState.budget + element.team.price
+    })
   };
 
   const renderEmptySlots = (positionKind) => {
@@ -192,7 +201,7 @@ export const Transfers = ({
   };
 
   const renderChangeButton = (item) => {
-    const existingTeamMember = teamMembers.find((teamMember) => teamMember.uuid === item.uuid)
+    const existingTeamMember = pageState.teamMembers.find((teamMember) => teamMember.uuid === item.uuid)
 
     if (!existingTeamMember) return <div className="btn-transfer" onClick={() => addTeamMember(item)}>+</div>;
     return <div className="btn-transfer-remove" onClick={() => removeTeamMember(item)}>-</div>;
@@ -202,9 +211,9 @@ export const Transfers = ({
     const payload = {
       fantasy_team: {
         name: teamName,
-        budget_cents: budget * 100,
+        budget_cents: pageState.budget * 100,
         favourite_team_uuid: favouriteTeamUuid,
-        players_seasons_uuids: teamMembers.map((element) => element.uuid),
+        players_seasons_uuids: pageState.teamMembers.map((element) => element.uuid),
       },
     };
 
@@ -224,7 +233,7 @@ export const Transfers = ({
     if (submitResult.redirect_path) {
       window.location = submitResult.redirect_path;
     } else {
-      setAlerts({ alert: submitResult.errors });
+      setPageState({ ...pageState, alerts: { alert: submitResult.errors } });
     }
   };
 
@@ -236,7 +245,7 @@ export const Transfers = ({
   const submitCompleted = async (onlyValidate) => {
     const payload = {
       fantasy_team: {
-        players_seasons_uuids: teamMembers.map((element) => element.uuid),
+        players_seasons_uuids: pageState.teamMembers.map((element) => element.uuid),
         only_validate: onlyValidate,
       },
     };
@@ -258,13 +267,27 @@ export const Transfers = ({
       if (submitResult.result) {
         setTransfersData(submitResult.result);
       } else {
-        setAlerts({ alert: submitResult.errors });
+        setPageState({ ...pageState, alerts: { alert: submitResult.errors } });
       }
     } else {
       if (submitResult.result) {
-        setAlerts({ notice: submitResult.result });
+        if (transfersLimited) {
+          let count = 0 // amount of transfers
+          pageState.defaultTeamMembers.forEach((defaultElement) => {
+            if (!pageState.teamMembers.find((element) => element.uuid === defaultElement.uuid)) count += 1;
+          });
+
+          setPageState({
+            ...pageState,
+            defaultTeamMembers: pageState.teamMembers,
+            freeTransfersAmount: count >= pageState.freeTransfersAmount ? 0 : (pageState.freeTransfersAmount - count),
+            alerts: { notice: submitResult.result }
+          })
+        } else {
+          setPageState({ ...pageState, alerts: { notice: submitResult.result } });
+        }
       } else {
-        setAlerts({ alert: submitResult.errors });
+        setPageState({ ...pageState, alerts: { alert: submitResult.errors } });
       }
     }
   };
@@ -303,15 +326,15 @@ export const Transfers = ({
         <div className="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p className="text-center">{strings.transfers.free}</p>
-            <p className="ml-4 md:ml-0 text-xl">{transfersLimited ? freeTransfers : strings.transfers.unlimited}</p>
+            <p className="ml-4 md:ml-0 text-xl">{transfersLimited ? pageState.freeTransfersAmount : strings.transfers.unlimited}</p>
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p className="text-center">{strings.transfers.cost}</p>
-            <p className="ml-4 md:ml-0 text-xl">{changesCount}</p>
+            <p className="ml-4 md:ml-0 text-xl">{penaltyPoints}</p>
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
             <p className="text-center">{strings.transfers.remaining}</p>
-            <p className="ml-4 md:ml-0 text-xl">{budget.toFixed(1)}</p>
+            <p className="ml-4 md:ml-0 text-xl">{pageState.budget.toFixed(1)}</p>
           </div>
         </div>
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
@@ -474,7 +497,7 @@ export const Transfers = ({
         teamNames={pageState.teamNames}
         onClose={() => setPlayerUuid(undefined)}
       />
-      <Flash content={alerts} />
+      <Flash content={pageState.alerts} />
       <Modal show={!!transfersData} onClose={() => setTransfersData(null)}>
         <div className="transfers-header">
           <h2>{strings.transfers.confirmationScreen}</h2>
