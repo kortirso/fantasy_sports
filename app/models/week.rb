@@ -16,7 +16,7 @@ class Week < ApplicationRecord
 
   has_many :lineups, dependent: :destroy
   has_many :fantasy_teams, through: :lineups
-  has_many :teams_players, through: :lineups
+  has_many :teams_players, -> { distinct }, through: :lineups
   has_many :transfers, through: :lineups
 
   has_many :cups_rounds, class_name: '::Cups::Round', dependent: :destroy

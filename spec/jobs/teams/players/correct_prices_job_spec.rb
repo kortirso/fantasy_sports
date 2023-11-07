@@ -6,7 +6,8 @@ describe Teams::Players::CorrectPricesJob, type: :service do
   let!(:league) { create :league, name: { en: 'NBA' } }
   let!(:season) { create :season, league: league }
   let!(:week) { create :week, season: season }
-  let!(:lineup) { create :lineup, week: week }
+  let!(:lineup1) { create :lineup, week: week }
+  let!(:lineup2) { create :lineup, week: week }
   let!(:players_season1) { create :players_season, average_points: 60 }
   let!(:teams_player1) { create :teams_player, players_season: players_season1, price_cents: 400 }
   let!(:players_season2) { create :players_season, average_points: 60 }
@@ -15,9 +16,12 @@ describe Teams::Players::CorrectPricesJob, type: :service do
   let!(:teams_player3) { create :teams_player, players_season: players_season3, price_cents: 950 }
 
   before do
-    create :lineups_player, lineup: lineup, teams_player: teams_player1
-    create :lineups_player, lineup: lineup, teams_player: teams_player2
-    create :lineups_player, lineup: lineup, teams_player: teams_player3
+    create :lineups_player, lineup: lineup1, teams_player: teams_player1
+    create :lineups_player, lineup: lineup1, teams_player: teams_player2
+    create :lineups_player, lineup: lineup1, teams_player: teams_player3
+    create :lineups_player, lineup: lineup2, teams_player: teams_player1
+    create :lineups_player, lineup: lineup2, teams_player: teams_player2
+    create :lineups_player, lineup: lineup2, teams_player: teams_player3
   end
 
   context 'for unexisting week' do

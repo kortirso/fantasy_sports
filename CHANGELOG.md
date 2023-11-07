@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - bug with scraping own goals for Sourceable::Sports
+- bug with correcting prices
 
 ## [1.1.0] - 2023-11-05
 ### Added
