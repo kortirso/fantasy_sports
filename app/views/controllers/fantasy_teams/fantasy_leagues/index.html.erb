@@ -10,7 +10,7 @@
         )
       %>
       <h3 class="mt-4"><%= t('views.fantasy_teams.fantasy_leagues.index.user_leagues') %></h3>
-      <%= link_to t('views.fantasy_teams.fantasy_leagues.index.new_user_league'), new_fantasy_team_fantasy_league_path(@fantasy_team.uuid), class: 'btn-primary mb-6' %>
+      <%= react_component 'FantasyLeagueForm', uuid: @fantasy_team.uuid %>
       <% if @fantasy_leagues.where(leagueable_type: 'User').load.exists? %>
         <%=
           render Views::FantasyTeams::FantasyLeagues::TableComponent.new(

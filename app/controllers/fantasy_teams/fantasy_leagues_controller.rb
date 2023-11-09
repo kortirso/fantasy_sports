@@ -7,10 +7,6 @@ module FantasyTeams
 
     def index; end
 
-    def new
-      @fantasy_league = FantasyLeague.new
-    end
-
     def create
       form = FantasyLeagues::CreateForm.call(
         fantasy_team: @fantasy_team,
@@ -18,15 +14,9 @@ module FantasyTeams
         params: fantasy_league_params
       )
       if form.success?
-        redirect_to(
-          fantasy_team_fantasy_leagues_path(@fantasy_team.uuid),
-          notice: t('controllers.fantasy_teams.fantasy_leagues.success_create')
-        )
+        render json: { redirect_path: fantasy_team_fantasy_leagues_path(@fantasy_team.uuid) }, status: :ok
       else
-        redirect_to(
-          new_fantasy_team_fantasy_league_path,
-          alert: t('controllers.fantasy_teams.fantasy_leagues.fail_create')
-        )
+        render json: { errors: t('controllers.fantasy_teams.fantasy_leagues.fail_create') }, status: :ok
       end
     end
 

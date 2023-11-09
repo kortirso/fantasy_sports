@@ -44,29 +44,6 @@ describe FantasyTeams::FantasyLeaguesController do
     end
   end
 
-  describe 'GET#new' do
-    let!(:fantasy_team) { create :fantasy_team }
-
-    it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
-
-    context 'for logged users' do
-      sign_in_user
-
-      before { fantasy_team.update(user: @current_user) }
-
-      it 'renders new template' do
-        get :new, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
-
-        expect(response).to render_template :new
-      end
-    end
-
-    def do_request
-      get :new, params: { fantasy_team_id: 'unexisting', locale: 'en' }
-    end
-  end
-
   describe 'POST#create' do
     let!(:season) { create :season }
     let!(:fantasy_team) { create :fantasy_team }
@@ -108,9 +85,8 @@ describe FantasyTeams::FantasyLeaguesController do
             post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' }, locale: 'en' }
           }
 
-          it 'does not create fantasy league', :aggregate_failures do
+          it 'does not create fantasy league' do
             expect { request }.not_to change(FantasyLeague, :count)
-            expect(response).to redirect_to new_fantasy_team_fantasy_league_path
           end
         end
 
@@ -119,9 +95,8 @@ describe FantasyTeams::FantasyLeaguesController do
             post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: 'Name' }, locale: 'en' }
           }
 
-          it 'creates fantasy league', :aggregate_failures do
+          it 'creates fantasy league' do
             expect { request }.to change(@current_user.fantasy_leagues, :count).by(1)
-            expect(response).to redirect_to fantasy_team_fantasy_leagues_path
           end
         end
       end
