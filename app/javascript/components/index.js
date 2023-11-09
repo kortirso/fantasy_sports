@@ -8,3 +8,4 @@ export * from './SquadPoints';
 export * from './Transfers';
 export * from './TransfersStatus';
 export * from './Week';
+export * from './FantasyLeague';

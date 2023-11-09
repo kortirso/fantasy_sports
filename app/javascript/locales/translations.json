@@ -89,6 +89,12 @@
       "player": "Player",
       "team": "Team",
       "points": "Points"
+    },
+    "fantasyLeagueForm": {
+      "create": "Create Fantasy League",
+      "name": "Name",
+      "new": "New Fantasy League",
+      "save": "Save Fantasy League"
     }
   },
   "ru": {
@@ -181,6 +187,12 @@
       "player": "Игрок",
       "team": "Команда",
       "points": "Очки"
+    },
+    "fantasyLeagueForm": {
+      "create": "Создать фэнтези лигу",
+      "name": "Название",
+      "new": "Новая фэнтези лига",
+      "save": "Сохранить фэнтези лигу"
     }
   }
 }

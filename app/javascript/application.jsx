@@ -9,6 +9,7 @@ import {
   Transfers,
   TransfersStatus,
   BestPlayers,
+  FantasyLeagueForm,
 } from './components';
 import { Flash, Toggle } from './components/atoms';
 
@@ -21,6 +22,7 @@ const components = {
   Transfers,
   TransfersStatus,
   BestPlayers,
+  FantasyLeagueForm,
 };
 const queryClient = new QueryClient();
 
