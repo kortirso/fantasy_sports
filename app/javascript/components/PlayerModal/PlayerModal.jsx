@@ -26,14 +26,33 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
 
   if (!seasonPlayer) return <></>;
 
+  const gameHomeLabel = (item) => item.attributes.team.is_home_game ? 'H' : 'A';
+
+  const gamePoints = (item) => {
+    const points = item.attributes.team.points;
+
+    if (points.length === 0) return '';
+    else return `${item.attributes.team.points[0]} - ${item.attributes.team.points[1]}`;
+  }
+
+  const gameResult = (item) => {
+    const game_result = item.attributes.team.game_result;
+
+    if (game_result === null) return '';
+    if (game_result === 'W') return <span className="px-1 rounded bg-green-400 border border-green-500 text-white text-sm">W</span>;
+    if (game_result === 'L') return <span className="px-1 rounded bg-red-400 border border-red-500 text-white text-sm">L</span>;
+    if (game_result === 'D') return <span className="px-1 rounded bg-stone-400 border border-stone-500 text-white text-sm">D</span>;
+  }
+
   const renderSeasonGames = () => {
     return seasonPlayer.games_players.data.map((item) => {
       return (
         <tr key={item.attributes.uuid}>
           <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.week.position}</td>
           <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">
-            {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)}
+            {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)} ({gameHomeLabel(item)}) {gamePoints(item)}
           </td>
+          <td className="text-center border-b border-stone-200 py-2 px-1">{gameResult(item)}</td>
           <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
             <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{item.attributes.statistic[stat]}</td>
@@ -47,6 +66,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     <tr key={`overall-${seasonPlayer.uuid}`}>
       <td className="text-center border-b border-stone-200 py-2 px-4"></td>
       <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">{strings.player.total}</td>
+      <td className="text-center border-b border-stone-200 py-2 px-1"></td>
       <td className="text-center border-b border-stone-200 py-2 px-4">{seasonPlayer.points}</td>
       {Object.keys(statisticsOrder[sportKind]).map((stat) => (
         <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{seasonPlayer.statistic[stat]}</td>
@@ -93,6 +113,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
               <tr className="bg-stone-200">
                 <th className="text-sm py-2 px-4">{strings.player.week}</th>
                 <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
+                <th></th>
                 <th className="text-sm py-2 px-4">{strings.player.pts}</th>
                 {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
                   <th className="tooltip text-sm py-2 px-4" key={stat}>

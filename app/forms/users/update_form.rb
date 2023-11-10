@@ -2,26 +2,28 @@
 
 module Users
   class UpdateForm
-    prepend ApplicationService
-    include Validateable
+    include Deps[validator: 'validators.users.update']
 
     def call(user:, params:)
-      return if validate_with(validator, params) && failure?
-      return if validate_user(user, params) && failure?
+      errors = validator.call(params: params)
+      return { errors: errors } if errors.any?
 
-      @result.save!
+      user.assign_attributes(params)
+      error = validate_user(user)
+      return { errors: [error] } if error.present?
+
+      # commento: users.password, users.password_confirmation
+      user.save!
+
+      { result: user.reload }
     end
 
     private
 
-    def validate_user(user, params)
-      @result = user
-      @result.assign_attributes(params)
-      return if @result.valid?
+    def validate_user(user)
+      return if user.valid?
 
-      fail!(I18n.t('services.users.create.invalid'))
+      I18n.t('services.users.create.invalid')
     end
-
-    def validator = FantasySports::Container['validators.users.update']
   end
 end

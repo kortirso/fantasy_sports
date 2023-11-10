@@ -2,17 +2,14 @@
 
 module Leagues
   class CreateForm
-    prepend ApplicationService
-    include Validateable
+    include Deps[validator: 'validators.league']
 
     def call(params:)
-      return if validate_with(validator, params) && failure?
+      errors = validator.call(params: params)
+      return { errors: errors } if errors.any?
 
-      League.create!(params)
+      # commento: leagues.name
+      { result: League.create!(params) }
     end
-
-    private
-
-    def validator = FantasySports::Container['validators.league']
   end
 end

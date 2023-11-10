@@ -2,46 +2,42 @@
 
 module FantasyLeagues
   class CreateForm
-    prepend ApplicationService
-    include Validateable
-
-    def initialize(
-      league_join_service: JoinService
-    )
-      @league_join_service = league_join_service
-    end
+    include Deps[
+      validator: 'validators.fantasy_league',
+      join_fantasy_league: 'services.persisters.fantasy_teams.join_fantasy_league'
+    ]
 
     def call(fantasy_team:, leagueable:, params:)
-      return if validate_with(validator, params) && failure?
+      errors = validator.call(params: params)
+      return { errors: errors } if errors.any?
 
-      @fantasy_team = fantasy_team
-      @leagueable = leagueable
-
-      ActiveRecord::Base.transaction do
-        create_fantasy_league(params)
-        attach_fantasy_team_to_league
+      result = ActiveRecord::Base.transaction do
+        fantasy_league = create_fantasy_league(leagueable, fantasy_team, params)
+        attach_fantasy_team_to_league(fantasy_team, fantasy_league)
+        fantasy_league
       end
+
+      { result: result }
     end
 
     private
 
-    def create_fantasy_league(params)
+    def create_fantasy_league(leagueable, fantasy_team, params)
       params.merge!(
-        leagueable: @leagueable,
-        season_id: @fantasy_team.season_id,
-        global: global_league?
+        leagueable: leagueable,
+        season_id: fantasy_team.season_id,
+        global: global_league?(leagueable)
       )
-      @result = FantasyLeague.create!(params)
+      # comment: fantasy_leagues.name
+      FantasyLeague.create!(params)
     end
 
-    def attach_fantasy_team_to_league
-      @league_join_service.call(fantasy_team: @fantasy_team, fantasy_league: @result)
+    def attach_fantasy_team_to_league(fantasy_team, fantasy_league)
+      join_fantasy_league.call(fantasy_team: fantasy_team, fantasy_league: fantasy_league)
     end
 
-    def global_league?
-      !@leagueable.is_a?(User)
+    def global_league?(leagueable)
+      !leagueable.is_a?(User)
     end
-
-    def validator = FantasySports::Container['validators.fantasy_league']
   end
 end

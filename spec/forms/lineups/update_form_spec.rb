@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 describe Lineups::UpdateForm, type: :service do
-  subject(:service_call) { described_class.call(lineup: lineup, params: params) }
+  subject(:form) { instance.call(lineup: lineup, params: params) }
 
+  let!(:instance) { described_class.new }
   let!(:lineup) { create :lineup, active_chips: [] }
 
   before do
@@ -13,7 +14,7 @@ describe Lineups::UpdateForm, type: :service do
     let(:params) { { active_chips: [Chipable::BENCH_BOOST, Chipable::BENCH_BOOST] } }
 
     it 'does not update lineup', :aggregate_failures do
-      expect(service_call.failure?).to be_truthy
+      expect(form[:errors]).not_to be_blank
       expect(lineup.reload.active_chips).to eq []
     end
   end
@@ -22,7 +23,7 @@ describe Lineups::UpdateForm, type: :service do
     let(:params) { { active_chips: [] } }
 
     it 'does not update lineup', :aggregate_failures do
-      expect(service_call.success?).to be_truthy
+      expect(form[:errors]).to be_blank
       expect(lineup.reload.active_chips).to eq []
     end
   end
@@ -31,7 +32,7 @@ describe Lineups::UpdateForm, type: :service do
     let(:params) { { active_chips: [Chipable::BENCH_BOOST, Chipable::TRIPLE_CAPTAIN] } }
 
     it 'does not update lineup', :aggregate_failures do
-      expect(service_call.failure?).to be_truthy
+      expect(form[:errors]).not_to be_blank
       expect(lineup.reload.active_chips).to eq []
     end
   end
@@ -44,7 +45,7 @@ describe Lineups::UpdateForm, type: :service do
     end
 
     it 'does not update lineup', :aggregate_failures do
-      expect(service_call.failure?).to be_truthy
+      expect(form[:errors]).not_to be_blank
       expect(lineup.reload.active_chips).to eq []
     end
   end
@@ -57,7 +58,7 @@ describe Lineups::UpdateForm, type: :service do
     end
 
     it 'updates lineup and fantasy team', :aggregate_failures do
-      expect(service_call.success?).to be_truthy
+      expect(form[:errors]).to be_blank
       expect(lineup.reload.active_chips).to eq [Chipable::TRIPLE_CAPTAIN]
       expect(lineup.fantasy_team.reload.available_chips).to eq({ Chipable::TRIPLE_CAPTAIN => 0 })
     end
@@ -72,7 +73,7 @@ describe Lineups::UpdateForm, type: :service do
     end
 
     it 'updates lineup and fantasy team', :aggregate_failures do
-      expect(service_call.success?).to be_truthy
+      expect(form[:errors]).to be_blank
       expect(lineup.reload.active_chips).to eq []
       expect(lineup.fantasy_team.reload.available_chips).to eq({ Chipable::TRIPLE_CAPTAIN => 1 })
     end

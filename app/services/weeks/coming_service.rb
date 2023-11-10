@@ -16,6 +16,7 @@ module Weeks
       return if week.nil?
       return unless week.inactive?
 
+      # commento: weeks.status
       week.update!(status: Week::COMING)
       create_games_players(week)
       create_lineups(week)

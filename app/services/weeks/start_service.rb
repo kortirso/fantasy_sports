@@ -7,7 +7,7 @@ module Weeks
     GENERATE_WEEK_POSITION = 3
 
     def initialize(
-      price_change_service: Teams::Players::Price::ChangeService,
+      price_change_service: Teams::Players::CorrectPriceService,
       cup_create_service: Cups::CreateService,
       cups_pairs_generate_service: Cups::Pairs::GenerateService,
       generate_week_position: GENERATE_WEEK_POSITION
@@ -22,6 +22,7 @@ module Weeks
       return if week.nil?
       return unless week.coming?
 
+      # commento: weeks.status
       week.update!(status: Week::ACTIVE)
       change_price_for_teams_players(week)
       generate_cups(week)
@@ -50,6 +51,7 @@ module Weeks
     end
 
     def add_week_fantasy_league(week)
+      # commento: fantasy_leagues.name, fantasy_leagues.leagueable
       fantasy_league = FantasyLeague.create!(leagueable: week, season: week.season, name: "Week #{week.position}")
 
       members = week.lineups.ids.map do |lineup_id|

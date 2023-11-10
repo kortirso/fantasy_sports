@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 describe Games::ImportService, type: :service do
-  subject(:service_call) { described_class.new(game_update_operation: game_update_operation).call(game: game) }
+  subject(:service_call) { described_class.new(update_service: update_service).call(game: game) }
 
-  let(:game_update_operation) { double }
+  let(:update_service) { double }
   let(:scraper) { double }
   let!(:league) { create :league }
   let!(:season) { create :season, league: league }
@@ -11,8 +11,8 @@ describe Games::ImportService, type: :service do
   let!(:game) { create :game, week: week }
 
   before do
-    allow(game_update_operation).to receive(:call)
-    allow(Football::SportsScraper).to receive(:new).and_return(scraper)
+    allow(update_service).to receive(:call)
+    allow(Scrapers::Football::Sports).to receive(:new).and_return(scraper)
   end
 
   context 'for unexisting scraper' do
@@ -21,7 +21,7 @@ describe Games::ImportService, type: :service do
     it 'does not call update operation' do
       service_call
 
-      expect(game_update_operation).not_to have_received(:call)
+      expect(update_service).not_to have_received(:call)
     end
   end
 
@@ -37,7 +37,7 @@ describe Games::ImportService, type: :service do
       it 'does not call update operation' do
         service_call
 
-        expect(game_update_operation).not_to have_received(:call)
+        expect(update_service).not_to have_received(:call)
       end
     end
 
@@ -47,7 +47,7 @@ describe Games::ImportService, type: :service do
       it 'calls update operation' do
         service_call
 
-        expect(game_update_operation).to have_received(:call)
+        expect(update_service).to have_received(:call)
       end
     end
   end

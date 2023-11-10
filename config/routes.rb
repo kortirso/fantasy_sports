@@ -19,6 +19,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :frontend do
+      resources :fantasy_teams, only: %i[] do
+        scope module: :fantasy_teams do
+          resources :fantasy_leagues, only: %i[index create]
+        end
+      end
+    end
+  end
+
   namespace :users do
     get 'sign_up', to: 'registrations#new'
     post 'sign_up', to: 'registrations#create'
@@ -48,7 +58,7 @@ Rails.application.routes.draw do
       resources :status, only: %i[index]
       resources :points, only: %i[index]
       resources :players, only: %i[index]
-      resources :fantasy_leagues, only: %i[index create]
+      resources :fantasy_leagues, only: %i[index]
     end
   end
   resources :lineups, only: %i[] do

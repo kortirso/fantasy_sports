@@ -8,15 +8,11 @@ describe FantasyLeagues::JoinsController do
     context 'for logged users' do
       sign_in_user
 
-      before do
-        allow(FantasyLeagues::JoinService).to receive(:call)
-      end
-
       context 'for not existing fantasy league' do
         before { do_request }
 
         it 'does not call join service', :aggregate_failures do
-          expect(FantasyLeagues::JoinService).not_to have_received(:call)
+          expect { do_request }.not_to change(FantasyLeagues::Team, :count)
           expect(response).to have_http_status :not_found
         end
       end
@@ -27,10 +23,12 @@ describe FantasyLeagues::JoinsController do
         context 'for unexisting invite code' do
           let!(:fantasy_league) { create :fantasy_league, leagueable: user, invite_code: nil }
 
-          before { get :index, params: { fantasy_league_id: fantasy_league.uuid, invite_code: '1234', locale: 'en' } }
+          let(:request) {
+            get :index, params: { fantasy_league_id: fantasy_league.uuid, invite_code: '1234', locale: 'en' }
+          }
 
           it 'does not call join service', :aggregate_failures do
-            expect(FantasyLeagues::JoinService).not_to have_received(:call)
+            expect { request }.not_to change(FantasyLeagues::Team, :count)
             expect(response).to redirect_to home_path
           end
         end
@@ -38,10 +36,12 @@ describe FantasyLeagues::JoinsController do
         context 'for invalid invite code' do
           let!(:fantasy_league) { create :fantasy_league, leagueable: user, invite_code: SecureRandom.hex }
 
-          before { get :index, params: { fantasy_league_id: fantasy_league.uuid, invite_code: '1234', locale: 'en' } }
+          let(:request) {
+            get :index, params: { fantasy_league_id: fantasy_league.uuid, invite_code: '1234', locale: 'en' }
+          }
 
           it 'does not call join service', :aggregate_failures do
-            expect(FantasyLeagues::JoinService).not_to have_received(:call)
+            expect { request }.not_to change(FantasyLeagues::Team, :count)
             expect(response).to redirect_to home_path
           end
         end
@@ -60,10 +60,8 @@ describe FantasyLeagues::JoinsController do
           end
 
           context 'for unexisting fantasy team of user' do
-            before { request }
-
             it 'does not call join service', :aggregate_failures do
-              expect(FantasyLeagues::JoinService).not_to have_received(:call)
+              expect { request }.not_to change(FantasyLeagues::Team, :count)
               expect(response).to redirect_to home_path
             end
           end
@@ -74,12 +72,10 @@ describe FantasyLeagues::JoinsController do
             context 'for first joining to league' do
               before do
                 create :fantasy_leagues_team, fantasy_league: another_fantasy_league, pointable: fantasy_team
-
-                request
               end
 
               it 'calls join service', :aggregate_failures do
-                expect(FantasyLeagues::JoinService).to have_received(:call)
+                expect { request }.to change(FantasyLeagues::Team, :count).by(1)
                 expect(response).to redirect_to fantasy_team_fantasy_leagues_path(fantasy_team.uuid)
               end
             end
@@ -87,12 +83,10 @@ describe FantasyLeagues::JoinsController do
             context 'for second joining to league' do
               before do
                 create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
-
-                request
               end
 
               it 'does not call join service', :aggregate_failures do
-                expect(FantasyLeagues::JoinService).not_to have_received(:call)
+                expect { request }.not_to change(FantasyLeagues::Team, :count)
                 expect(response).to redirect_to home_path
               end
             end

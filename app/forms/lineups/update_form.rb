@@ -2,54 +2,55 @@
 
 module Lineups
   class UpdateForm
-    prepend ApplicationService
-    include Validateable
+    include Deps[validator: 'validators.lineups.update']
 
     def call(lineup:, params:)
-      @lineup = lineup
-      return if validate_with(validator, params) && failure?
-      return if params[:active_chips] && validate_chips(params[:active_chips]) && failure?
+      errors = validator.call(params: params)
+      return { errors: errors } if errors.any?
+
+      error = params[:active_chips] ? validate_chips(lineup, params[:active_chips]) : nil
+      return { errors: [error] } if error.present?
 
       ActiveRecord::Base.transaction do
-        update_available_chips(params[:active_chips]) if params[:active_chips]
-        update_lineup(params)
+        update_available_chips(lineup, params[:active_chips]) if params[:active_chips]
+        update_lineup(lineup, params)
       end
+
+      { result: lineup.reload }
     end
 
     private
 
-    def validate_chips(chips)
-      return if @lineup.active_chips.sort == chips.sort
-      return if chips.size <= Sport.find_by(title: fantasy_team.sport_kind).max_chips_per_week
+    # rubocop: disable Metrics/AbcSize
+    def validate_chips(lineup, chips)
+      return if lineup.active_chips.sort == chips.sort
 
-      fail!(I18n.t('services.lineups.update.too_many_chips'))
-    end
+      max_chips_per_week = Sport.find_by(title: lineup.fantasy_team.sport_kind).max_chips_per_week
+      return I18n.t('services.lineups.update.too_many_chips') if chips.size > max_chips_per_week
 
-    def update_available_chips(chips)
-      added_chips = chips - @lineup.active_chips
       # if added chips can not be added
-      if added_chips.any? { |chip| fantasy_team.available_chips[chip].zero? }
-        return fail!(I18n.t('services.lineups.update.not_enough_chips'))
-      end
-      return change_available_chips(added_chips, -1) if added_chips.any?
+      not_enough_chips = (chips - lineup.active_chips).any? { |chip| lineup.fantasy_team.available_chips[chip].zero? }
+      I18n.t('services.lineups.update.not_enough_chips') if not_enough_chips
+    end
+    # rubocop: enable Metrics/AbcSize
 
-      removed_chips = @lineup.active_chips - chips
-      change_available_chips(removed_chips, 1) if removed_chips.any?
+    def update_available_chips(lineup, chips)
+      added_chips = chips - lineup.active_chips
+      return change_available_chips(lineup, added_chips, -1) if added_chips.any?
+
+      removed_chips = lineup.active_chips - chips
+      change_available_chips(lineup, removed_chips, 1) if removed_chips.any?
     end
 
-    def update_lineup(params)
-      @lineup.update!(params) unless failure?
+    def change_available_chips(lineup, chips, modifier)
+      chips.each { |chip| lineup.fantasy_team.available_chips[chip] += modifier }
+      # commento: fantasy_teams.available_chips
+      lineup.fantasy_team.save!
     end
 
-    def change_available_chips(chips, modifier)
-      chips.each { |chip| fantasy_team.available_chips[chip] += modifier }
-      fantasy_team.save!
+    def update_lineup(lineup, params)
+      # commento: lineups.active_chips
+      lineup.update!(params)
     end
-
-    def fantasy_team
-      @fantasy_team ||= @lineup.fantasy_team
-    end
-
-    def validator = FantasySports::Container['validators.lineups.update']
   end
 end

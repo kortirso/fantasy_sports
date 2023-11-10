@@ -2,10 +2,6 @@
 
 describe Users::ConfirmationsController do
   describe 'GET#complete' do
-    before do
-      allow(Users::UpdateService).to receive(:call)
-    end
-
     context 'for unexisting user' do
       it 'renders failed_complete template' do
         get :complete, params: { email: 'unexisting@gmail.com', confirmation_token: '1', locale: 'en' }
@@ -36,12 +32,10 @@ describe Users::ConfirmationsController do
       end
 
       context 'for valid confirmation token' do
-        before do
+        it 'updates user', :aggregate_failures do
           get :complete, params: { email: user.email, confirmation_token: user.confirmation_token, locale: 'en' }
-        end
 
-        it 'calls Users::UpdateService', :aggregate_failures do
-          expect(Users::UpdateService).to have_received(:call)
+          expect(user.reload.confirmed_at).not_to be_nil
           expect(response).to redirect_to home_path
         end
       end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Teams::Players::Price::ChangeService, type: :service do
+describe Teams::Players::CorrectPriceService, type: :service do
   subject(:service_call) { described_class.call(week: week) }
 
   let!(:week) { create :week }
@@ -26,12 +26,12 @@ describe Teams::Players::Price::ChangeService, type: :service do
   it 'updates teams players prices', :aggregate_failures do
     service_call
 
-    expect(teams_player1.reload.price_cents).to eq 500 + Teams::Players::Price::ChangeService::PRICE_SMALL_CHANGE
-    expect(teams_player2.reload.price_cents).to eq 500 + Teams::Players::Price::ChangeService::PRICE_MEDIUM_CHANGE
-    expect(teams_player3.reload.price_cents).to eq 500 + Teams::Players::Price::ChangeService::PRICE_BIG_CHANGE
-    expect(teams_player4.reload.price_cents).to eq 500 - Teams::Players::Price::ChangeService::PRICE_SMALL_CHANGE
-    expect(teams_player5.reload.price_cents).to eq 500 - Teams::Players::Price::ChangeService::PRICE_MEDIUM_CHANGE
-    expect(teams_player6.reload.price_cents).to eq 500 - Teams::Players::Price::ChangeService::PRICE_BIG_CHANGE
+    expect(teams_player1.reload.price_cents).to eq 500 + Teams::Players::CorrectPriceService::PRICE_SMALL_CHANGE
+    expect(teams_player2.reload.price_cents).to eq 500 + Teams::Players::CorrectPriceService::PRICE_MEDIUM_CHANGE
+    expect(teams_player3.reload.price_cents).to eq 500 + Teams::Players::CorrectPriceService::PRICE_BIG_CHANGE
+    expect(teams_player4.reload.price_cents).to eq 500 - Teams::Players::CorrectPriceService::PRICE_SMALL_CHANGE
+    expect(teams_player5.reload.price_cents).to eq 500 - Teams::Players::CorrectPriceService::PRICE_MEDIUM_CHANGE
+    expect(teams_player6.reload.price_cents).to eq 500 - Teams::Players::CorrectPriceService::PRICE_BIG_CHANGE
     expect(teams_player7.reload.price_cents).to eq 500
   end
 

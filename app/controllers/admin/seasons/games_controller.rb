@@ -3,6 +3,11 @@
 module Admin
   module Seasons
     class GamesController < AdminController
+      include Deps[
+        create_form: 'forms.games.create',
+        update_form: 'forms.games.update'
+      ]
+
       before_action :find_season
       before_action :find_games, only: %i[index]
       before_action :find_game, only: %i[edit update destroy]
@@ -17,20 +22,18 @@ module Admin
       def edit; end
 
       def create
-        service_call = ::Games::CreateService.call(params: game_create_params.to_h.symbolize_keys)
-        if service_call.success?
-          redirect_to admin_season_games_path(@season.uuid), notice: t('controllers.admin.seasons.games.create.success')
+        case create_form.call(params: game_create_params.to_h.symbolize_keys)
+        in { errors: errors } then redirect_to new_admin_season_game_path(@season.uuid), alert: errors
         else
-          redirect_to new_admin_season_game_path(@season.uuid), alert: service_call.errors
+          redirect_to admin_season_games_path(@season.uuid), notice: t('controllers.admin.seasons.games.create.success')
         end
       end
 
       def update
-        service_call = ::Games::UpdateService.call(game: @game, params: game_update_params.to_h.symbolize_keys)
-        if service_call.success?
-          redirect_to admin_season_games_path(@season.uuid), notice: t('controllers.admin.seasons.games.update.success')
+        case update_form.call(game: @game, params: game_update_params.to_h.symbolize_keys)
+        in { errors: errors } then redirect_to edit_admin_season_game_path(@season.uuid, @game.uuid), alert: errors
         else
-          redirect_to edit_admin_season_game_path(@season.uuid, @game.uuid), alert: service_call.errors
+          redirect_to admin_season_games_path(@season.uuid), notice: t('controllers.admin.seasons.games.update.success')
         end
       end
 
