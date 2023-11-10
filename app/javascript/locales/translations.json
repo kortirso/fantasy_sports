@@ -32,7 +32,9 @@
       "approve": "Approve",
       "search": "Search by name",
       "showLineup": "Show lineup",
-      "showSeasonPlayers": "Show season players"
+      "showSeasonPlayers": "Show season players",
+      "points": "Points",
+      "price": "Price"
     },
     "week": {
       "previous": "Previous",
@@ -130,7 +132,9 @@
       "approve": "Подтвердить",
       "search": "Поиск по имени",
       "showLineup": "Показать состав",
-      "showSeasonPlayers": "Показать игроков"
+      "showSeasonPlayers": "Показать игроков",
+      "points": "Очки",
+      "price": "Цена"
     },
     "week": {
       "previous": "Предыдущая",

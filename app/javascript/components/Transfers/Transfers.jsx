@@ -16,6 +16,11 @@ import { seasonPlayersRequest } from './requests/seasonPlayersRequest';
 // other sorting params belong to teams_player
 const TEAM_SORT_PARAMS = ['price'];
 const PER_PAGE = 20;
+const SORT_PARAMS = {
+  'price': { 'en': 'Price', 'ru': 'Цена' },
+  'points': { 'en': 'Pts', 'ru': 'Очки' },
+  'form': { 'en': 'Form', 'ru': 'Форма' }
+}
 
 strings.setLanguage(currentLocale);
 
@@ -445,6 +450,16 @@ export const Transfers = ({
               />
             </div>
           </div>
+          <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1">
+            <div className="flex-1"></div>
+            <div className="w-12 flex flex-row items-center justify-center text-sm">
+              {sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
+            </div>
+            <div className="w-12 flex flex-row items-center justify-center text-sm">
+              {localizeValue(SORT_PARAMS[sortBy])}
+            </div>
+            <div className="w-6"></div>
+          </div>
           {filteredSlicedPlayers.map((item) => (
             <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-stone-200" key={item.uuid}>
               <div
@@ -464,7 +479,9 @@ export const Transfers = ({
                   {localizeValue(sportPositions[item.player.position_kind].short_name)}
                 </span>
               </div>
-              <div className="w-12 flex flex-row items-center justify-center">{item.team.price}</div>
+              <div className="w-12 flex flex-row items-center justify-center">
+                {sortBy === 'price' ? item.points : item.team.price}
+              </div>
               <div className="w-12 flex flex-row items-center justify-center">
                 {TEAM_SORT_PARAMS.includes(sortBy) ? item.team[sortBy] : item[sortBy]}
               </div>

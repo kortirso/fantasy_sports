@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - render game results in PlayerModal
+- headers for transfers table
 
 ### Modified
 - refresh free transfers amount after approving transfers
