@@ -604,6 +604,39 @@ ALTER SEQUENCE public.fantasy_teams_players_id_seq OWNED BY public.fantasy_teams
 
 
 --
+-- Name: feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feedbacks (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    title character varying,
+    description text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feedbacks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feedbacks_id_seq OWNED BY public.feedbacks.id;
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1373,6 +1406,13 @@ ALTER TABLE ONLY public.fantasy_teams_players ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedbacks ALTER COLUMN id SET DEFAULT nextval('public.feedbacks_id_seq'::regclass);
+
+
+--
 -- Name: games id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1591,6 +1631,14 @@ ALTER TABLE ONLY public.fantasy_teams
 
 ALTER TABLE ONLY public.fantasy_teams_players
     ADD CONSTRAINT fantasy_teams_players_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedbacks feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feedbacks
+    ADD CONSTRAINT feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -1910,6 +1958,13 @@ CREATE INDEX index_fantasy_teams_on_uuid ON public.fantasy_teams USING btree (uu
 
 
 --
+-- Name: index_feedbacks_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_feedbacks_on_user_id ON public.feedbacks USING btree (user_id);
+
+
+--
 -- Name: index_games_on_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2204,6 +2259,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231028150107'),
 ('20231028174302'),
 ('20231029174712'),
-('20231104141458');
+('20231104141458'),
+('20231110155626');
 
 

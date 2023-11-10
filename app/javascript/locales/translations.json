@@ -97,6 +97,16 @@
       "name": "Name",
       "new": "New Fantasy League",
       "save": "Save Fantasy League"
+    },
+    "feedbackForm": {
+      "create": "Feedback",
+      "title": "Title",
+      "description": "Description",
+      "new": "New feedback",
+      "save": "Seed feedback",
+      "send": "You can directly send your question/feedback/bug report to ",
+      "leave": " or just leave here.",
+      "telegram": "Telegram"
     }
   },
   "ru": {
@@ -197,6 +207,16 @@
       "name": "Название",
       "new": "Новая фэнтези лига",
       "save": "Сохранить фэнтези лигу"
+    },
+    "feedbackForm": {
+      "create": "Обратная связь",
+      "title": "Заголовок",
+      "description": "Текст",
+      "new": "Новый отзыв",
+      "save": "Отправить",
+      "send": "Вы можете напрямую отправить ваш вопрос/отзыв/баг репорт в ",
+      "leave": " или оставьте тут.",
+      "telegram": "Телеграм"
     }
   }
 }

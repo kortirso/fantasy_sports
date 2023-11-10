@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :frontend do
+      resource :feedback, only: %i[create]
       resources :fantasy_teams, only: %i[] do
         scope module: :fantasy_teams do
           resources :fantasy_leagues, only: %i[index create]

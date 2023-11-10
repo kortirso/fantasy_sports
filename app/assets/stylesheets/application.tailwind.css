@@ -469,4 +469,8 @@
   .modal.auto {
     @apply sm:w-auto lg:w-auto;
   }
+
+  .simple-link {
+    @apply cursor-pointer text-blue-500 underline;
+  }
 }
