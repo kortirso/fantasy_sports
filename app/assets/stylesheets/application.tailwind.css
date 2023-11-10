@@ -460,7 +460,7 @@
   }
 
   .modal {
-    @apply relative p-4 sm:p-8 bg-white rounded w-full sm:w-4/5 lg:w-3/5 overflow-y-scroll;
+    @apply relative p-4 sm:p-8 bg-white rounded overflow-y-scroll;
 
     max-width: 90%;
     max-height: 90%;

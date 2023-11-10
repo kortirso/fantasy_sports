@@ -10,4 +10,14 @@ class Game < ApplicationRecord
 
   has_many :games_players, class_name: '::Games::Player', dependent: :destroy
   has_many :teams_players, through: :games_players
+
+  def result_for_team(team_index)
+    return if points.blank?
+    return 'D' if points[0] == points[1]
+
+    home_win = points[0] > points[1]
+    return 'W' if team_index.zero? ? home_win : !home_win
+
+    'L'
+  end
 end
