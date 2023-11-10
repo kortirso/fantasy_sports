@@ -2,6 +2,8 @@
 
 module Admin
   class LeaguesController < AdminController
+    include Deps[create_form: 'forms.leagues.create']
+
     before_action :find_leagues, only: %i[index]
 
     def index; end
@@ -11,11 +13,9 @@ module Admin
     end
 
     def create
-      form = ::Leagues::CreateForm.call(params: league_params)
-      if form.success?
-        redirect_to admin_leagues_path, notice: t('controllers.admin.leagues.create.success')
-      else
-        redirect_to new_admin_league_path, alert: form.errors
+      case create_form.call(params: league_params)
+      in { errors: errors } then redirect_to new_admin_league_path, alert: errors
+      else redirect_to admin_leagues_path, notice: t('controllers.admin.leagues.create.success')
       end
     end
 

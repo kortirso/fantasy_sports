@@ -11,10 +11,13 @@ module FantasyLeagues
       errors = validator.call(params: params)
       return { errors: errors } if errors.any?
 
-      ActiveRecord::Base.transaction do
+      result = ActiveRecord::Base.transaction do
         fantasy_league = create_fantasy_league(leagueable, fantasy_team, params)
         attach_fantasy_team_to_league(fantasy_team, fantasy_league)
+        fantasy_league
       end
+
+      { result: result }
     end
 
     private
@@ -25,6 +28,7 @@ module FantasyLeagues
         season_id: fantasy_team.season_id,
         global: global_league?(leagueable)
       )
+      # comment: fantasy_leagues.name
       FantasyLeague.create!(params)
     end
 

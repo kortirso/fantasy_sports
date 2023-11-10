@@ -15,7 +15,7 @@ module Admin
         end
 
         def create
-          ::Games::UpdateOperation.call(game: @game, game_data: game_data)
+          ::Games::UpdateService.call(game: @game, game_data: game_data)
           redirect_to admin_season_games_path(@season.uuid)
         end
 

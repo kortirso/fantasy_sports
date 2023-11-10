@@ -34,7 +34,7 @@ describe Teams::Players::UpdateForm, type: :service do
   context 'for valid params' do
     let(:params) { { price_cents: 123 } }
 
-    it 'updates teams_player', :aggregate_failures do
+    it 'does not create teams_player', :aggregate_failures do
       expect { form }.not_to change(Games::Player, :count)
       expect(form[:errors]).to be_nil
       expect(teams_player.reload.price_cents).to eq 123
@@ -44,7 +44,7 @@ describe Teams::Players::UpdateForm, type: :service do
   context 'for valid params with active false' do
     let(:params) { { price_cents: 123, active: false } }
 
-    it 'updates teams_player', :aggregate_failures do
+    it 'removes teams_player', :aggregate_failures do
       expect { form }.to change(Games::Player, :count).by(-2)
       expect(form[:errors]).to be_nil
       expect(teams_player.reload.price_cents).to eq 123
@@ -59,7 +59,7 @@ describe Teams::Players::UpdateForm, type: :service do
       Games::Player.destroy_all
     end
 
-    it 'updates teams_player', :aggregate_failures do
+    it 'creates teams_player', :aggregate_failures do
       expect { form }.to change(Games::Player, :count).by(2)
       expect(form[:errors]).to be_nil
       expect(teams_player.reload.price_cents).to eq 123

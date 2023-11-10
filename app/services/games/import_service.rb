@@ -8,26 +8,26 @@ module Games
 
     SCRAPERS = {
       'basketball' => {
-        'sportradar' => Basketball::SportradarScraper,
-        'balldontlie' => Basketball::BalldontlieScraper
+        'sportradar' => Scrapers::Basketball::Sportradar,
+        'balldontlie' => Scrapers::Basketball::Balldontlie
       },
       'football' => {
-        'instat' => Football::InstatScraper,
-        'sports' => Football::SportsScraper
+        'instat' => Scrapers::Football::Instat,
+        'sports' => Scrapers::Football::Sports
       }
     }.freeze
 
     def initialize(
-      game_update_operation: ::Games::UpdateOperation
+      update_service: ::Games::UpdateService
     )
-      @game_update_operation = game_update_operation
+      @update_service = update_service
     end
 
     def call(game:)
       scraper = find_scraper(game)
       return unless scraper
 
-      @game_update_operation.call(game: game, game_data: fetch_game_data(scraper, game))
+      @update_service.call(game: game, game_data: fetch_game_data(scraper, game))
     rescue InvalidScrapingError => _e
       # for invalid scraping just skip game fetching, retry will help
     end

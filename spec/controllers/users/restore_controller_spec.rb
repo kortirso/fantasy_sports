@@ -10,7 +10,7 @@ describe Users::RestoreController do
   end
 
   describe 'POST#create' do
-    before { allow(Users::RestoreService).to receive(:call) }
+    before { allow(FantasySports::Container.resolve('services.users.restore')).to receive(:call) }
 
     context 'for unexisting user' do
       it 'redirects to users_restore path' do
@@ -24,19 +24,23 @@ describe Users::RestoreController do
       let!(:user) { create :user }
 
       context 'for invalid email' do
-        before { post :create, params: { email: 'invalid@gmail.com', locale: 'en' } }
-
         it 'does not call restore service', :aggregate_failures do
-          expect(Users::RestoreService).not_to have_received(:call)
+          post :create, params: { email: 'invalid@gmail.com', locale: 'en' }
+
+          expect(FantasySports::Container.resolve('services.users.restore')).not_to(
+            have_received(:call)
+          )
           expect(response).to redirect_to users_restore_path
         end
       end
 
       context 'for valid email' do
-        before { post :create, params: { email: user.email.upcase, locale: 'en' } }
-
         it 'calls restore service', :aggregate_failures do
-          expect(Users::RestoreService).to have_received(:call)
+          post :create, params: { email: user.email.upcase, locale: 'en' }
+
+          expect(FantasySports::Container.resolve('services.users.restore')).to(
+            have_received(:call).with(user: user)
+          )
           expect(response).to redirect_to users_restore_path
         end
       end

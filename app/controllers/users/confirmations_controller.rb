@@ -2,13 +2,15 @@
 
 module Users
   class ConfirmationsController < ApplicationController
+    include Deps[update_service: 'services.persisters.users.update']
+
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
     before_action :find_user
     before_action :check_confirmation_token
 
     def complete
-      Users::UpdateService.call(user: @user, params: { confirmation_token: nil, confirmed_at: DateTime.now })
+      update_service.call(user: @user, params: { confirmation_token: nil, confirmed_at: DateTime.now })
       redirect_to home_path, notice: t('controllers.users.confirmations.success')
     end
 

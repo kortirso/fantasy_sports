@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LineupsController < ApplicationController
+  include Deps[update_form: 'forms.lineups.update']
+
   before_action :find_lineup, only: %i[show]
   before_action :find_lineup_for_update, only: %i[update]
 
@@ -9,14 +11,13 @@ class LineupsController < ApplicationController
   end
 
   def update
-    form = Lineups::UpdateForm.call(
+    form = update_form.call(
       lineup: @lineup,
       params: schema_params(params: params, schema: LineupSchema, required: :lineup)
     )
-    if form.success?
-      render json: { message: t('controllers.lineups.update.success') }, status: :ok
-    else
-      json_response_with_errors(form.errors, 422)
+    case form
+    in { errors: errors } then json_response_with_errors(errors, 422)
+    else render json: { message: t('controllers.lineups.update.success') }, status: :ok
     end
   end
 

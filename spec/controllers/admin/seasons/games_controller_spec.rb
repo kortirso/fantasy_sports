@@ -174,14 +174,10 @@ describe Admin::Seasons::GamesController do
       end
 
       context 'for invalid params' do
-        let(:request) {
+        it 'does not update game', :aggregate_failures do
           patch :update, params: {
             season_id: season.uuid, id: game.uuid, game: { week_id: 'unexisting' }, locale: 'en'
           }
-        }
-
-        it 'does not update game', :aggregate_failures do
-          request
 
           expect(game.reload.week_id).to eq week.id
           expect(response).to redirect_to edit_admin_season_game_path
@@ -189,14 +185,10 @@ describe Admin::Seasons::GamesController do
       end
 
       context 'for unexisting week id' do
-        let(:request) {
+        it 'does not update game', :aggregate_failures do
           patch :update, params: {
             season_id: season.uuid, id: game.uuid, game: { week_id: 777 }, locale: 'en'
           }
-        }
-
-        it 'does not update game', :aggregate_failures do
-          request
 
           expect(game.reload.week_id).to eq week.id
           expect(response).to redirect_to edit_admin_season_game_path
@@ -205,14 +197,11 @@ describe Admin::Seasons::GamesController do
 
       context 'for valid params' do
         let!(:week2) { create :week, season: season }
-        let(:request) {
+
+        it 'updates game', :aggregate_failures do
           patch :update, params: {
             season_id: season.uuid, id: game.uuid, game: { week_id: week2.id }, locale: 'en'
           }
-        }
-
-        it 'updates game', :aggregate_failures do
-          request
 
           expect(game.reload.week_id).to eq week2.id
           expect(response).to redirect_to admin_season_games_path

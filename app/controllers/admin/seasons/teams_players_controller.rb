@@ -23,8 +23,6 @@ module Admin
       def edit; end
 
       def create
-        # commento: teams_players.active, teams_players.price_cents, teams_players.shirt_number_string
-        # commento: teams_players.form
         case create_form.call(params: teams_player_create_params)
         in { errors: errors } then redirect_to new_admin_season_teams_player_path(@season.uuid), alert: errors
         else
@@ -36,8 +34,6 @@ module Admin
       end
 
       def update
-        # commento: teams_players.active, teams_players.price_cents, teams_players.shirt_number_string
-        # commento: teams_players.form
         case update_form.call(teams_player: @teams_player, params: teams_player_update_params)
         in { errors: errors }
           redirect_to(

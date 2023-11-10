@@ -2,7 +2,10 @@
 
 module Users
   class RegistrationsController < ApplicationController
-    include Deps[generate_token: 'services.auth.generate_token']
+    include Deps[
+      generate_token: 'services.auth.generate_token',
+      create_form: 'forms.users.create'
+    ]
 
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
@@ -12,8 +15,10 @@ module Users
     end
 
     def create
-      form = Users::CreateForm.call(params: user_params.to_h.symbolize_keys)
-      form.success? ? success_create_response(form.result) : failed_create_response(form.errors)
+      case create_form.call(params: user_params.to_h.symbolize_keys)
+      in { errors: errors } then failed_create_response(errors)
+      in { result: result } then success_create_response(result)
+      end
     end
 
     def confirm; end

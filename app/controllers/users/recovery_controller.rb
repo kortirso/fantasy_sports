@@ -2,6 +2,8 @@
 
 module Users
   class RecoveryController < ApplicationController
+    include Deps[update_form: 'forms.users.update']
+
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
     before_action :find_user
@@ -10,8 +12,10 @@ module Users
     def new; end
 
     def create
-      form = Users::UpdateForm.call(user: @user, params: user_params)
-      form.success? ? success_recovery_response : failed_recovery(form.errors)
+      case update_form.call(user: @user, params: user_params)
+      in { errors: errors } then failed_recovery(errors)
+      else success_recovery_response
+      end
     end
 
     private

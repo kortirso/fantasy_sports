@@ -2,28 +2,22 @@
 
 module Seasons
   class CreateForm
-    prepend ApplicationService
-    include Validateable
+    include Deps[validator: 'validators.season']
 
     def call(params:)
-      return if find_league(params[:league_id]) && failure?
-      return if validate_with(validator, params) && failure?
+      league = League.find_by(id: params[:league_id])
+      return { errors: [I18n.t('services.seasons.create.league_does_not_exist')] } if league.nil?
 
-      ActiveRecord::Base.transaction do
-        @league.seasons.active.update!(active: false) if params[:active]
-        @league.seasons.create!(params)
+      errors = validator.call(params: params)
+      return { errors: errors } if errors.any?
+
+      result = ActiveRecord::Base.transaction do
+        # commento: seasons.name, seasons.active
+        league.seasons.active.update!(active: false) if params[:active]
+        league.seasons.create!(params)
       end
+
+      { result: result }
     end
-
-    private
-
-    def find_league(league_id)
-      @league = League.find_by(id: league_id)
-      return if @league
-
-      fail!(I18n.t('services.seasons.create.league_does_not_exist'))
-    end
-
-    def validator = FantasySports::Container['validators.season']
   end
 end

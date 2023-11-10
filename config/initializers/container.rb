@@ -16,6 +16,7 @@ module FantasySports
     end
 
     register('jwt_encoder') { JwtEncoder.new }
+    register('to_bool') { ToBool.new }
 
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
@@ -50,6 +51,13 @@ module FantasySports
     register('forms.teams.players.update') { Teams::Players::UpdateForm.new }
     register('forms.players.create') { Players::CreateForm.new }
     register('forms.fantasy_leagues.create') { FantasyLeagues::CreateForm.new }
+    register('forms.leagues.create') { Leagues::CreateForm.new }
+    register('forms.lineups.update') { Lineups::UpdateForm.new }
+    register('forms.seasons.create') { Seasons::CreateForm.new }
+    register('forms.users.create') { Users::CreateForm.new }
+    register('forms.users.update') { Users::UpdateForm.new }
+    register('forms.games.create') { Games::CreateForm.new }
+    register('forms.games.update') { Games::UpdateForm.new }
 
     # services
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
@@ -60,6 +68,8 @@ module FantasySports
     register('services.persisters.fantasy_teams.join_fantasy_league') {
       Persisters::FantasyTeams::JoinFantasyLeagueService.new
     }
+    register('services.persisters.users.update') { Persisters::Users::UpdateService.new }
+    register('services.users.restore') { Users::RestoreService.new }
   end
 end
 

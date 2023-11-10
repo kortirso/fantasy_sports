@@ -14,6 +14,7 @@ module Weeks
       return if week.nil?
       return unless week.active?
 
+      # commento: weeks.status
       week.update!(status: Week::FINISHED)
       make_bench_subsctitutions(week)
     end

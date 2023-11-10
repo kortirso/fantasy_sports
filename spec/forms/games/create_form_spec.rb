@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-describe Games::CreateService, type: :service do
-  subject(:service_call) { described_class.call(params: params) }
+describe Games::CreateForm, type: :service do
+  subject(:form) { instance.call(params: params) }
 
+  let!(:instance) { described_class.new }
   let(:params) {
     {
       week_id: week.id,
@@ -22,11 +23,11 @@ describe Games::CreateService, type: :service do
     end
 
     it 'creates Game and Games::Player', :aggregate_failures do
-      expect { service_call }.to(
+      expect { form }.to(
         change(week.games, :count).by(1)
           .and(change(Games::Player, :count).by(9))
       )
-      expect(service_call.success?).to be_truthy
+      expect(form[:errors]).to be_blank
     end
 
     context 'when week is not coming' do
@@ -35,11 +36,11 @@ describe Games::CreateService, type: :service do
       define_negated_matcher :not_change, :change
 
       it 'creates Game, but not Games::Player', :aggregate_failures do
-        expect { service_call }.to(
+        expect { form }.to(
           change(week.games, :count).by(1)
             .and(not_change(Games::Player, :count))
         )
-        expect(service_call.success?).to be_truthy
+        expect(form[:errors]).to be_blank
       end
     end
   end

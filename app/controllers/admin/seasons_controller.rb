@@ -2,7 +2,10 @@
 
 module Admin
   class SeasonsController < AdminController
-    include Boolable
+    include Deps[
+      create_form: 'forms.seasons.create',
+      to_bool: 'to_bool'
+    ]
 
     before_action :find_leagues, only: %i[index new]
 
@@ -13,11 +16,9 @@ module Admin
     end
 
     def create
-      form = ::Seasons::CreateForm.call(params: season_params)
-      if form.success?
-        redirect_to admin_seasons_path, notice: t('controllers.admin.seasons.create.success')
-      else
-        redirect_to new_admin_season_path, alert: form.errors
+      case create_form.call(params: season_params)
+      in { errors: errors } then redirect_to new_admin_season_path, alert: errors
+      else redirect_to admin_seasons_path, notice: t('controllers.admin.seasons.create.success')
       end
     end
 
@@ -33,7 +34,7 @@ module Admin
         .permit(:name, :league_id)
         .to_h
         .symbolize_keys
-        .merge(active: to_bool(params[:season][:active]))
+        .merge(active: to_bool.call(params[:season][:active]))
     end
   end
 end

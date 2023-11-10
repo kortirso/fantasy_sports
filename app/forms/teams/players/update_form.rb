@@ -3,20 +3,31 @@
 module Teams
   module Players
     class UpdateForm
-      include Deps[validator: 'validators.teams.players.update']
+      include Deps[
+        validator: 'validators.teams.players.update',
+        to_bool: 'to_bool'
+      ]
 
+      # rubocop: disable Metrics/AbcSize
       def call(teams_player:, params:)
         errors = validator.call(params: params)
         return { errors: errors } if errors.any?
 
         ActiveRecord::Base.transaction do
-          destroy_redundant_games_players(teams_player) if to_bool(params[:active]) == false && teams_player.active
-          create_games_players(teams_player) if to_bool(params[:active]) == true && !teams_player.active
+          unless params[:active].nil?
+            active_change = to_bool.call(params[:active])
+
+            destroy_redundant_games_players(teams_player) if active_change == false && teams_player.active
+            create_games_players(teams_player) if active_change == true && !teams_player.active
+          end
+          # commento: teams_players.active, teams_players.price_cents, teams_players.shirt_number_string
+          # commento: teams_players.form
           teams_player.update!(params)
         end
 
         { result: teams_player.reload }
       end
+      # rubocop: enable Metrics/AbcSize
 
       private
 
@@ -44,11 +55,8 @@ module Teams
             }
           end
 
+        # commento: games_players.position_kind
         Games::Player.upsert_all(games_players) if games_players.any?
-      end
-
-      def to_bool(value)
-        ActiveModel::Type::Boolean.new.cast(value)
       end
     end
   end

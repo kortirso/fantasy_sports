@@ -14,7 +14,6 @@ module Admin
     end
 
     def create
-      # commento: players.name, players.position_kind
       case create_form.call(params: player_params)
       in { errors: errors } then redirect_to new_admin_player_path(sport_kind: params[:sport_kind]), alert: errors
       else
