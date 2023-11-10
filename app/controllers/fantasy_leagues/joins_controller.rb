@@ -2,13 +2,15 @@
 
 module FantasyLeagues
   class JoinsController < ApplicationController
+    include Deps[join_fantasy_league: 'services.persisters.fantasy_teams.join_fantasy_league']
+
     before_action :find_fantasy_league
     before_action :validate_invite_code
     before_action :find_fantasy_team
     before_action :validate_fantasy_team_uniqueness
 
     def index
-      FantasyLeagues::JoinService.call(fantasy_team: @fantasy_team, fantasy_league: @fantasy_league)
+      join_fantasy_league.call(fantasy_team: @fantasy_team, fantasy_league: @fantasy_league)
       redirect_to(
         fantasy_team_fantasy_leagues_path(@fantasy_team.uuid),
         notice: t('controllers.fantasy_leagues.joins.success')

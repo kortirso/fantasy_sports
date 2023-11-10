@@ -8,7 +8,7 @@ module FantasyTeams
       fantasy_team_validator: FantasySports::Container['validators.fantasy_team'],
       transfers_validator:    FantasyTeams::Players::TransfersValidator.new,
       lineup_creator:         ::Lineups::CreateService,
-      league_join_service:    ::FantasyLeagues::JoinService
+      league_join_service:    FantasySports::Container['services.persisters.fantasy_teams.join_fantasy_league']
     )
       @fantasy_team_validator = fantasy_team_validator
       @transfers_validator    = transfers_validator

@@ -49,12 +49,17 @@ module FantasySports
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
     register('forms.teams.players.update') { Teams::Players::UpdateForm.new }
     register('forms.players.create') { Players::CreateForm.new }
+    register('forms.fantasy_leagues.create') { FantasyLeagues::CreateForm.new }
 
     # services
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
     register('services.players.find_best') { Players::FindBestService.new }
     register('services.games.players.create_for_game') { Games::Players::CreateForGameService.new }
+
+    register('services.persisters.fantasy_teams.join_fantasy_league') {
+      Persisters::FantasyTeams::JoinFantasyLeagueService.new
+    }
   end
 end
 

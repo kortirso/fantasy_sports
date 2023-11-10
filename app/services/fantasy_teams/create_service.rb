@@ -5,7 +5,7 @@ module FantasyTeams
     prepend ApplicationService
 
     def initialize(
-      league_join_service: ::FantasyLeagues::JoinService,
+      league_join_service: FantasySports::Container['services.persisters.fantasy_teams.join_fantasy_league'],
       publish_job: ::FantasyTeams::CreateJob
     )
       @league_join_service = league_join_service

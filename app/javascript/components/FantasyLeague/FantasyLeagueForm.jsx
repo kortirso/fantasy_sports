@@ -17,7 +17,7 @@ export const FantasyLeagueForm = ({ uuid }) => {
 
   const onSubmit = async () => {
     const result = await apiRequest({
-      url: `/fantasy_teams/${uuid}/fantasy_leagues.json`,
+      url: `/api/frontend/fantasy_teams/${uuid}/fantasy_leagues.json`,
       options: {
         method: 'POST',
         headers: {
@@ -28,8 +28,8 @@ export const FantasyLeagueForm = ({ uuid }) => {
       },
     });
 
-    if (result.errors) setPageState({ ...pageState, errors: result.errors })
-    else window.location = result.redirect_path;
+    if (result.errors.length > 0) setPageState({ ...pageState, errors: result.errors });
+    else window.location = `/fantasy_teams/${uuid}/fantasy_leagues`;
   };
 
   return (
