@@ -8,6 +8,7 @@ en:
       active_chips: Active chips
       shirt_number: Shirt number
       form: Form
+      description: Description
     errors:
       user:
         password_length: must be greater or equal %{length} characters

@@ -11,6 +11,7 @@ ru:
       active_chips: Активные бонусы
       shirt_number: Номер игрока
       form: Форма
+      description: Описание
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
@@ -50,6 +51,10 @@ ru:
           position_kind:
             filled?: должен быть указан
             invalid: неверное значение
+      feedback:
+        rules:
+          description:
+            filled?: не может быть пустым
       season:
         rules:
           name:

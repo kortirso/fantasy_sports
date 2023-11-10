@@ -36,6 +36,7 @@
         <% end %>
       <% end %>
       <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), rules_path, class: "user-navigation-link #{'active' if current_page?(rules_path)}" %>
+      <%= react_component 'FeedbackForm' %>
       <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
     </section>
     <section class="flex-1 flex items-end pl-8">
