@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { currentLocale, localizeValue } from '../../helpers';
+import { currentLocale, localizeValue, convertDateTime } from '../../helpers';
 import { strings } from '../../locales';
 import { sportsData, statisticsOrder } from '../../data';
 
@@ -11,22 +11,26 @@ import { seasonPlayerRequest } from './requests/seasonPlayerRequest';
 strings.setLanguage(currentLocale);
 
 export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onClose }) => {
-  const [seasonPlayer, setSeasonPlayer] = useState();
+  const [pageState, setPageState] = useState({
+    seasonPlayer: undefined,
+    renderMode: 'history'
+  });
+
   const sportPositions = sportsData.positions[sportKind];
 
   useEffect(() => {
     const fetchSeasonPlayer = async () => {
       const data = await seasonPlayerRequest(seasonUuid, playerUuid);
-      setSeasonPlayer(data);
+      setPageState({ ...pageState, seasonPlayer: data });
     };
 
     if (playerUuid) fetchSeasonPlayer();
-    else setSeasonPlayer(undefined);
-  }, [seasonUuid, playerUuid]);
+    else setPageState({ seasonPlayer: undefined, renderMode: 'history' });
+  }, [seasonUuid, playerUuid, pageState]);
 
-  if (!seasonPlayer) return <></>;
+  if (!pageState.seasonPlayer) return <></>;
 
-  const gameHomeLabel = (item) => item.attributes.team.is_home_game ? 'H' : 'A';
+  const gameHomeLabel = (is_home_game) => is_home_game ? 'H' : 'A';
 
   const gamePoints = (item) => {
     const points = item.attributes.team.points;
@@ -45,12 +49,12 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   }
 
   const renderSeasonGames = () => {
-    return seasonPlayer.games_players.data.map((item) => {
+    return pageState.seasonPlayer.games_players.data.map((item) => {
       return (
         <tr key={item.attributes.uuid}>
           <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.week.position}</td>
           <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">
-            {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)} ({gameHomeLabel(item)}) {gamePoints(item)}
+            {localizeValue(teamNames[item.attributes.opponent_team.uuid].name)} ({gameHomeLabel(item.attributes.team.is_home_game)}) {gamePoints(item)}
           </td>
           <td className="text-center border-b border-stone-200 py-2 px-1">{gameResult(item)}</td>
           <td className="text-center border-b border-stone-200 py-2 px-4">{item.attributes.points}</td>
@@ -63,72 +67,132 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   };
 
   const renderOverallStatistic = () => (
-    <tr key={`overall-${seasonPlayer.uuid}`}>
+    <tr key={`overall-${pageState.seasonPlayer.uuid}`}>
       <td className="text-center border-b border-stone-200 py-2 px-4"></td>
       <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">{strings.player.total}</td>
       <td className="text-center border-b border-stone-200 py-2 px-1"></td>
-      <td className="text-center border-b border-stone-200 py-2 px-4">{seasonPlayer.points}</td>
+      <td className="text-center border-b border-stone-200 py-2 px-4">{pageState.seasonPlayer.points}</td>
       {Object.keys(statisticsOrder[sportKind]).map((stat) => (
-        <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{seasonPlayer.statistic[stat]}</td>
+        <td className="text-center border-b border-stone-200 py-2 px-4" key={stat}>{pageState.seasonPlayer.statistic[stat]}</td>
       ))}
     </tr>
-  )
+  );
+
+  const renderFixtures = () => {
+    return pageState.seasonPlayer.fixtures.map((item) => {
+      return (
+        <tr key={item.uuid}>
+          <td className="text-center border-b border-stone-200 py-2 px-4">{convertDateTime(item.start_at)}</td>
+          <td className="text-center border-b border-stone-200 py-2 px-4">{item.week_position}</td>
+          <td className="text-center border-b border-stone-200 py-2 px-4 whitespace-nowrap">
+            {localizeValue(teamNames[item.opponent_team_uuid].name)} ({gameHomeLabel(item.is_home_game)})
+          </td>
+          <td className="text-center border-b border-stone-200 py-1 px-2">{renderDifficulty(item.difficulty)}</td>
+        </tr>
+      );
+    });
+  };
+
+  const renderDifficulty = (value) => {
+    if (value === 5) return <span className="bg-orange-700 border border-orange-800 py-1 px-2 rounded text-sm text-white">{value}</span>;
+    if (value === 4) return <span className="bg-orange-300 border border-orange-400 py-1 px-2 rounded text-sm">{value}</span>;
+    if (value === 3) return <span className="bg-stone-300 border border-stone-400 py-1 px-2 rounded text-sm">{value}</span>;
+    if (value === 2) return <span className="bg-green-300 border border-green-400 py-1 px-2 rounded text-sm">{value}</span>;
+  };
 
   return (
-    <Modal show={!!playerUuid} onClose={onClose}>
+    <Modal show={!!playerUuid} size='player' onClose={onClose}>
       <div className="mb-2">
-        <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[seasonPlayer.player.position_kind].name)}</span>
-        <h2 className="mb-2">{localizeValue(seasonPlayer.player.name)}</h2>
-        <p className="text-sm">{localizeValue(seasonPlayer.team.name)}</p>
+        <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[pageState.seasonPlayer.player.position_kind].name)}</span>
+        <h2 className="mb-2">{localizeValue(pageState.seasonPlayer.player.name)}</h2>
+        <p className="text-sm">{localizeValue(pageState.seasonPlayer.team.name)}</p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 justify-between mb-8 bg-stone-200 border border-stone-300 rounded">
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.form}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.form}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.form}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.poinstPerGame}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.average_points}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.average_points}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.totalPoints}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.points}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.points}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 md:border-r border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.price}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.team.price}</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.team.price}</p>
         </div>
         <div className="flex-1 py-3 px-0 border-b-0 border-r lg:border-r-0 border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{seasonPlayer.teams_selected_by}%</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
-      <div className="w-full overflow-x-scroll">
-        <h3>{strings.player.thisSeason}</h3>
-        {seasonPlayer.games_players.data.length === 0 ? (
-          <p>{strings.player.noSeasonGames}</p>
-        ) : (
-          <table cellSpacing="0" className="min-w-full">
-            <thead>
-              <tr className="bg-stone-200">
-                <th className="text-sm py-2 px-4">{strings.player.week}</th>
-                <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
-                <th></th>
-                <th className="text-sm py-2 px-4">{strings.player.pts}</th>
-                {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
-                  <th className="tooltip text-sm py-2 px-4" key={stat}>
-                    {stat}
-                    <span className="tooltiptext">{localizeValue(value)}</span>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {renderSeasonGames()}
-              {renderOverallStatistic()}
-            </tbody>
-          </table>
-        )}
+      <div className="w-full">
+        <div className="flex flex-row">
+          <h3
+            className={`cursor-pointer mr-4 ${pageState.renderMode === 'history' ? 'underline' : null}`}
+            onClick={() => setPageState({ ...pageState, renderMode: 'history' })}
+          >
+            {strings.player.thisSeason}
+          </h3>
+          <h3
+            className={`cursor-pointer ${pageState.renderMode === 'fixtures' ? 'underline' : null}`}
+            onClick={() => setPageState({ ...pageState, renderMode: 'fixtures' })}
+          >
+            {strings.player.fixtures}
+          </h3>
+        </div>
+        {pageState.renderMode === 'history' ? (
+          <div className="w-full overflow-x-scroll">
+            {pageState.seasonPlayer.games_players.data.length === 0 ? (
+              <p>{strings.player.noSeasonGames}</p>
+            ) : (
+              <table cellSpacing="0" className="min-w-full">
+                <thead>
+                  <tr className="bg-stone-200">
+                    <th className="text-sm py-2 px-4">{strings.player.week}</th>
+                    <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
+                    <th></th>
+                    <th className="text-sm py-2 px-4">{strings.player.pts}</th>
+                    {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
+                      <th className="tooltip text-sm py-2 px-4" key={stat}>
+                        {stat}
+                        <span className="tooltiptext">{localizeValue(value)}</span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderSeasonGames()}
+                  {renderOverallStatistic()}
+                </tbody>
+              </table>
+            )}
+          </div>
+        ) : null}
+        {pageState.renderMode === 'fixtures' ? (
+          <div className="w-full overflow-x-scroll">
+            {pageState.seasonPlayer.fixtures.length === 0 ? (
+              <p>{strings.player.noFixtures}</p>
+            ) : (
+              <table cellSpacing="0" className="min-w-full">
+                <thead>
+                  <tr className="bg-stone-200">
+                    <th className="text-sm py-2 px-4">{strings.player.startAt}</th>
+                    <th className="text-sm py-2 px-4">{strings.player.week}</th>
+                    <th className="text-sm py-2 px-4">{strings.player.opponent}</th>
+                    <th className="text-sm py-2 px-4">{strings.player.difficulty}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderFixtures()}
+                </tbody>
+              </table>
+            )}
+          </div>
+        ) : null}
       </div>
       {false ? <h3>{strings.player.previousSeasons}</h3> : null}
     </Modal>

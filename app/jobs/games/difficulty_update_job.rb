@@ -8,7 +8,7 @@ module Games
       week = Week.find_by(id: week_id)
       return unless week
 
-      Games::DifficultyUpdateService.call(week: week)
+      Games::DifficultyUpdateService.new.call(week: week)
     end
   end
 end

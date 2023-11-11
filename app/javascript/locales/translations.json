@@ -71,7 +71,10 @@
       "week": "GW",
       "opponent": "Opponent",
       "pts": "Pts",
-      "total": "Total"
+      "total": "Total",
+      "fixtures": "Fixtures",
+      "difficulty": "Difficulty",
+      "startAt": "Start time"
     },
     "transfersStatus": {
       "transfersIn": "Top Transfers in this Gameweek",
@@ -181,7 +184,10 @@
       "week": "Неделя",
       "opponent": "Соперник",
       "pts": "Очки",
-      "total": "Итого"
+      "total": "Итого",
+      "fixtures": "Расписание",
+      "difficulty": "Сложность",
+      "startAt": "Начало игры"
     },
     "transfersStatus": {
       "transfersIn": "Самые частые приобретения недели",

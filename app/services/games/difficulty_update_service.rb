@@ -64,8 +64,8 @@ module Games
           game_payload(
             game,
             generate_difficulty(
-              seasons_teams_difficulties[game[:home_season_team_id]],
-              seasons_teams_difficulties[game[:visitor_season_team_id]]
+              seasons_teams_difficulties[game[:home_season_team_id]] || 2,
+              seasons_teams_difficulties[game[:visitor_season_team_id]] || 2
             )
           )
         end
