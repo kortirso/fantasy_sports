@@ -183,8 +183,8 @@ module Scrapers
       end
 
       def update_substitution_players(team_index, event)
-        player_off = @player_ids[team_index][event[:player_id]]
-        player_in = @player_ids[team_index][event[:player_assist_id]]
+        player_off = @player_ids[team_index][event[:player_assist_id]]
+        player_in = @player_ids[team_index][event[:player_id]]
 
         @players_minutes[team_index][player_off][:until] = event[:minute]
         @players_minutes[team_index][player_in] = {
