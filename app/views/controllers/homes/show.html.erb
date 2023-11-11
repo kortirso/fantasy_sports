@@ -10,18 +10,20 @@
                 fantasy_team: @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
               ) do
             %>
-              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
+              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
               <div class="season-link-content">
                 <h2><%= localized_value(season[:leagues_name]) %></h2>
                 <p class="season-link-date"><%= season[:name] %></p>
+                <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
               </div>
             <% end %>
           <% else %>
             <div class="season-link">
-              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background' %>
+              <%= image_tag league_background(season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
               <div class="season-link-content">
                 <h2><%= localized_value(season[:leagues_name]) %></h2>
                 <p class="season-link-date"><%= season[:name] %></p>
+                <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
                 <p class="badge-light absolute top-2 left-2">
                   <%= t('views.homes.show.starts', date: season[:start_at].strftime('%Y.%m.%d'), time: season[:start_at].strftime('%H:%M')) %>
                 </p>

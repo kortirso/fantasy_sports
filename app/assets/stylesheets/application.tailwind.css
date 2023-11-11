@@ -427,16 +427,20 @@
     @apply relative h-40;
   }
 
-  .season-link img {
+  .season-link .season-link-background {
     @apply w-full h-40 object-cover;
   }
 
   .season-link-content {
-    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center bg-stone-700/50 text-white text-center;
+    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center bg-stone-700/70 text-white text-center;
   }
 
   .season-link-content h2 {
-    @apply m-0 font-semibold;
+    @apply m-0 font-semibold hyphens-none;
+  }
+
+  .season-link .season-link-sport {
+    @apply absolute top-2 left-2 w-8 h-8;
   }
 
   .season-link-content .season-link-date {
