@@ -651,8 +651,16 @@ CREATE TABLE public.games (
     external_id character varying,
     start_at timestamp(6) without time zone,
     uuid uuid DEFAULT gen_random_uuid() NOT NULL,
-    points integer[] DEFAULT '{}'::integer[] NOT NULL
+    points integer[] DEFAULT '{}'::integer[] NOT NULL,
+    difficulty integer[] DEFAULT '{3,3}'::integer[] NOT NULL
 );
+
+
+--
+-- Name: COLUMN games.difficulty; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.games.difficulty IS 'Game difficulty for teams';
 
 
 --
@@ -829,8 +837,16 @@ CREATE TABLE public.leagues (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    maintenance boolean DEFAULT false NOT NULL
+    maintenance boolean DEFAULT false NOT NULL,
+    points_system jsonb DEFAULT '{}'::jsonb NOT NULL
 );
+
+
+--
+-- Name: COLUMN leagues.points_system; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.leagues.points_system IS 'Team points for game result in tournament';
 
 
 --
@@ -1071,8 +1087,16 @@ CREATE TABLE public.seasons (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     uuid uuid NOT NULL,
-    start_at timestamp(6) without time zone
+    start_at timestamp(6) without time zone,
+    members_count integer DEFAULT 1 NOT NULL
 );
+
+
+--
+-- Name: COLUMN seasons.members_count; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.seasons.members_count IS 'Amount of teams in tournament';
 
 
 --
@@ -2260,6 +2284,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231028174302'),
 ('20231029174712'),
 ('20231104141458'),
-('20231110155626');
+('20231110155626'),
+('20231111130838');
 
 
