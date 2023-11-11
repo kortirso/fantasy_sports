@@ -72,11 +72,11 @@ export const Game = ({ item, teamNames, last }) => {
       >
         <p className="lg:text-lg flex-1 text-right">{localizeValue(teamNames[item.home_team.uuid].name)}</p>
         {expandeable ? (
-          <p className="py-1 px-3 bg-stone-700 text-white text-lg mx-4 rounded shadow">
+          <p className="py-1 px-3 bg-stone-700 border border-stone-800 text-white text-lg mx-4 rounded">
             {item.points[0]} - {item.points[1]}
           </p>
         ) : (
-          <p className="py-2 px-4 border border-stone-200 mx-4">{convertTime(item.start_at)}</p>
+          <p className="py-2 px-4 border border-stone-200 rounded mx-4">{convertTime(item.start_at)}</p>
         )}
         <p className="lg:text-lg flex-1">{localizeValue(teamNames[item.visitor_team.uuid].name)}</p>
       </div>
