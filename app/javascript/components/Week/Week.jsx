@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { currentLocale, convertDateTime, convertDate } from '../../helpers';
 import { strings } from '../../locales';
+import { Arrow } from '../../assets';
 
 import { Game } from './Game';
 import { weekRequest } from './requests/weekRequest';
@@ -13,20 +14,46 @@ export const Week = ({ uuid, teamNames }) => {
     loading: true,
     week: null,
     games: [],
+    collapseData: {},
   });
   const [weekUuid, setWeekUuid] = useState(uuid);
 
   useEffect(() => {
     const fetchWeek = async () => await weekRequest(weekUuid);
 
-    Promise.all([fetchWeek()]).then(([fetchWeekData]) =>
+    Promise.all([fetchWeek()]).then(([weekData]) => {
+      const games = weekData.games.data.map((element) => element.attributes);
+      const groupedGames = Object.groupBy(games, (game) => convertDate(game.start_at));
+
+      const collapseData = {}
+      let previousKey = null;
+      Object.entries(groupedGames).forEach(([key, games], index) => {
+        collapseData[key] = false;
+
+        if (index > 0) {
+          if (games[0].points.length > 0) {
+            collapseData[previousKey] = true;
+          }
+        }
+        previousKey = key;
+      })
+
       setPageState({
         loading: false,
-        week: fetchWeekData,
-        games: fetchWeekData.games.data.map((element) => element.attributes),
-      }),
-    );
+        week: weekData,
+        games: groupedGames,
+        collapseData: collapseData
+      })
+    });
   }, [weekUuid]);
+
+  const renderGames = (games) => {
+    return games.map((game, index) => <Game item={game} teamNames={teamNames} last={index === games.length - 1} />);
+  };
+
+  const toggleGameDay = (key) => {
+    setPageState({ ...pageState, collapseData: { ...pageState.collapseData, [key]: !pageState.collapseData[key] } });
+  };
 
   if (pageState.loading || pageState.week === null) return <></>;
 
@@ -61,14 +88,19 @@ export const Week = ({ uuid, teamNames }) => {
         </div>
       </div>
       <div className="bg-white mb-4">
-        {pageState.games.map((item, index) => (
-          <div key={index}>
-            {index === 0 || convertDate(item.start_at) !== convertDate(pageState.games[index - 1].start_at) ? (
-              <div className="py-1 px-0 bg-stone-200 border border-stone-300 text-center rounded">
-                <p>{convertDate(item.start_at)}</p>
-              </div>
-            ) : null}
-            <Game item={item} teamNames={teamNames} last={index === pageState.games.length - 1 || convertDate(item.start_at) !== convertDate(pageState.games[index + 1].start_at)} />
+        {Object.entries(pageState.games).map(([key, games]) => (
+          <div key={key}>
+            <div
+              className={`py-1 px-0 bg-stone-200 border border-stone-300 flex justify-between items-center rounded cursor-pointer ${pageState.collapseData[key] ? 'mb-2' : null}`}
+              onClick={() => toggleGameDay(key)}
+            >
+              <p className="w-10"></p>
+              <p>{key}</p>
+              <p className="w-10">
+                <Arrow rotated={!pageState.collapseData[key]} />
+              </p>
+            </div>
+            {pageState.collapseData[key] ? null : renderGames(games)}
           </div>
         ))}
       </div>
