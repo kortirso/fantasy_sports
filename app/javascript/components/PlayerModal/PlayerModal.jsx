@@ -21,12 +21,12 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   useEffect(() => {
     const fetchSeasonPlayer = async () => {
       const data = await seasonPlayerRequest(seasonUuid, playerUuid);
-      setPageState({ ...pageState, seasonPlayer: data });
+      setPageState({ seasonPlayer: data, renderMode: 'history' });
     };
 
     if (playerUuid) fetchSeasonPlayer();
     else setPageState({ seasonPlayer: undefined, renderMode: 'history' });
-  }, [seasonUuid, playerUuid, pageState]);
+  }, [seasonUuid, playerUuid]);
 
   if (!pageState.seasonPlayer) return <></>;
 
@@ -132,13 +132,13 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
       <div className="w-full">
         <div className="flex flex-row">
           <h3
-            className={`cursor-pointer mr-4 ${pageState.renderMode === 'history' ? 'underline' : null}`}
+            className={`cursor-pointer mr-4 ${pageState.renderMode === 'history' ? 'underline' : ''}`}
             onClick={() => setPageState({ ...pageState, renderMode: 'history' })}
           >
             {strings.player.thisSeason}
           </h3>
           <h3
-            className={`cursor-pointer ${pageState.renderMode === 'fixtures' ? 'underline' : null}`}
+            className={`cursor-pointer ${pageState.renderMode === 'fixtures' ? 'underline' : ''}`}
             onClick={() => setPageState({ ...pageState, renderMode: 'fixtures' })}
           >
             {strings.player.fixtures}
