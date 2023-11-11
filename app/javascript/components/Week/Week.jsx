@@ -23,7 +23,13 @@ export const Week = ({ uuid, teamNames }) => {
 
     Promise.all([fetchWeek()]).then(([weekData]) => {
       const games = weekData.games.data.map((element) => element.attributes);
-      const groupedGames = Object.groupBy(games, (game) => convertDate(game.start_at));
+      const groupedGames = games.reduce((result, game) => {
+        convertedTime = convertDate(game.start_at);
+
+        if (result[convertedTime] === undefined) result[convertedTime] = [game];
+        else result[convertedTime].push(game);
+        return result;
+      }, {});
 
       const collapseData = {}
       let previousKey = null;
