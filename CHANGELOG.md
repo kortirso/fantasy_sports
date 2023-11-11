@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - collapsing games list for previous days
+- calculating game difficulty for teams
 
 ## [1.1.1] - 2023-11-10
 ### Added

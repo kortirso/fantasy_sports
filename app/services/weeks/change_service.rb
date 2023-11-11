@@ -18,6 +18,7 @@ module Weeks
       return if find_week(week_id) && failure?
 
       update_weeks
+      refresh_data(week_id)
     end
 
     private
@@ -35,6 +36,11 @@ module Weeks
         @coming_service.call(week: @week.next)
       end
       update_league_maintenance(false)
+    end
+
+    def refresh_data(week_id)
+      Achievements::RefreshAfterWeekChangeJob.perform_later(week_id: week_id)
+      Teams::Players::CorrectPricesJob.perform_later(week_id: week_id)
     end
 
     def update_league_maintenance(maintenance)

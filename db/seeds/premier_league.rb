@@ -1,6 +1,16 @@
-league = League.create(sport_kind: 'football', name: { en: 'English Premier League', ru: 'Английская Премьер-Лига' })
+require 'csv'
 
-league2024 = league.seasons.create name: '2023/2024', active: true
+league = League.create(
+  sport_kind: 'football',
+  name: { en: 'Premier League', ru: 'Премьер-Лига' },
+  points_system: { W: 3, D: 1, L: 0 }
+)
+
+league2024 = league.seasons.create(
+  name: '2023/2024',
+  active: true,
+  members_count: 20
+)
 
 overall_league = league2024.all_fantasy_leagues.create leagueable: league2024, name: 'Overall', global: true
 

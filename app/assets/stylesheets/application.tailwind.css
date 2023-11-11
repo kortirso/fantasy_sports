@@ -470,6 +470,10 @@
     @apply sm:w-auto lg:w-auto;
   }
 
+  .modal.player {
+    width: 1000px;
+  }
+
   .simple-link {
     @apply cursor-pointer text-blue-500 underline;
   }

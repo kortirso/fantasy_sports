@@ -15,8 +15,6 @@ describe SchedulerJob, type: :service do
   before do
     allow(Weeks::ChangeService).to receive(:call)
     allow(Games::ImportJob).to receive(:perform_later)
-    allow(Achievements::RefreshAfterWeekChangeJob).to receive(:perform_later)
-    allow(Teams::Players::CorrectPricesJob).to receive(:perform_later)
     allow(Achievements::RefreshAfterGameJob).to receive(:perform_later)
   end
 
@@ -59,8 +57,6 @@ describe SchedulerJob, type: :service do
       job_call
 
       expect(Weeks::ChangeService).to have_received(:call).with(week_id: week1.id)
-      expect(Achievements::RefreshAfterWeekChangeJob).to have_received(:perform_later).with(week_id: week1.id)
-      expect(Teams::Players::CorrectPricesJob).to have_received(:perform_later).with(week_id: week1.id)
       expect(Games::ImportJob).not_to have_received(:perform_later)
       expect(Achievements::RefreshAfterGameJob).not_to have_received(:perform_later)
     end
