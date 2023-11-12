@@ -12,7 +12,7 @@ module FantasyLeagues
     def index
       join_fantasy_league.call(fantasy_team: @fantasy_team, fantasy_league: @fantasy_league)
       redirect_to(
-        fantasy_team_fantasy_leagues_path(@fantasy_team.uuid),
+        fantasy_team_points_path(@fantasy_team.uuid),
         notice: t('controllers.fantasy_leagues.joins.success')
       )
     end

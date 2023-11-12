@@ -22,13 +22,13 @@
     </div>
     <% fantasy_leagues.each do |fantasy_league| %>
       <div class="p-2 border-b border-stone-300 flex">
-        <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]) %></p>
+        <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]), class: 'simple-link' %></p>
         <p class="basis-2/5"><%= fantasy_league[:place] %></p>
       </div>
     <% end %>
     <% lineups_fantasy_leagues.each do |fantasy_league| %>
       <div class="p-2 border-b border-stone-300 flex">
-        <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]) %></p>
+        <p class="basis-3/5"><%= link_to fantasy_league[:name], fantasy_league_path(fantasy_league[:uuid]), class: 'simple-link' %></p>
         <p class="basis-2/5"><%= fantasy_league[:place] %></p>
       </div>
     <% end %>
@@ -38,7 +38,7 @@
       </div>
       <% fantasy_cups.each do |cup| %>
         <div class="p-2 border-b border-stone-300 flex">
-          <p class="basis-3/5"><%= link_to cup[:name], cup_path(cup[:uuid]) %></p>
+          <p class="basis-3/5"><%= link_to cup[:name], cup_path(cup[:uuid]), class: 'simple-link' %></p>
           <p class="basis-2/5 flex flex-row justify-between">
             <span class="flex-1 text-center"><%= cup[:game_week] %></span>
             <span class="flex-1 text-center"><%= cup[:pair_result] %></span>
@@ -46,6 +46,7 @@
         </div>
       <% end %>
     <% end %>
+    <%= react_component 'FantasyLeagueForm', uuid: @fantasy_team.uuid %>
   </div>
   <div class="bg-stone-200 border border-stone-300 mb-4 p-4 rounded">
     <div class="p-2 pt-0">

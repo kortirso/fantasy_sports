@@ -28,11 +28,9 @@ en:
           team: Team squad
           transfers: Transfers
           points: Points
-          leagues: Fantasy Leagues and Cups
           rules: Rules
           status: Status
         profile_navigation_component:
-          title: Profile
           achievements: Achievements
   controllers:
     admin:
@@ -80,9 +78,6 @@ en:
         invalid: Password can't be changed
     fantasy_teams:
       success_create: Fantasy team is created
-      fantasy_leagues:
-        success_create: Fantasy league is created
-        fail_create: Fantasy league is not created
     fantasy_leagues:
       joins:
         success: Your team joined to fantasy league
@@ -225,22 +220,6 @@ en:
       points:
         index:
           no_lineups: There is no your active lineup
-      fantasy_leagues:
-        index:
-          leagues: Fantasy leagues
-          general_leagues: General fantasy leagues
-          user_leagues: User fantasy leagues
-          new_user_league: Add fantasy league
-          cups: Cups
-          cups_description: Fantasy cups information will be added later
-          table:
-            league: League
-            teams: Teams amount
-            rank: Rank
-        new:
-          title: Add fantasy league
-          name: Name
-          create: Create fantasy league
     shared:
       statistic:
         title: Points/Rankings
@@ -298,7 +277,8 @@ en:
         managing_basketball:
           description: For basketball there are no special actions for managing squad.
         managing_football:
-          subs: 4 players are substitutes. Before the deadline, you can change players within the roster without any penalties. If a first team player did not take part in the games, then it is considered that he was replaced by a replacement player who will bring points to the team.
+          minimum: Initial squad must contain at least 1 goalkeeper, 3 defenders, 2 midfielders и 1 forward, other 4 players can be different posietions. 4 players are substitutes.
+          subs: Before the deadline, you can change players within the roster without any penalties. If a first team player did not take part in the games, then it is considered that he was replaced by a replacement player who will bring points to the team.
           subs_bonus_points: 1 time per season you can activate the substitute points bonus; in such a game week, substitute players also bring points for the team.
           captain: One player can be appointed captain, such a player will bring 2 times more points per week. If the captain did not take part in the games, then the assistant captain will bring 2 times more points.
           triple_captain: You can activate the triple captain bonus once per season.

@@ -59,7 +59,6 @@ Rails.application.routes.draw do
       resources :status, only: %i[index]
       resources :points, only: %i[index]
       resources :players, only: %i[index]
-      resources :fantasy_leagues, only: %i[index]
     end
   end
   resources :lineups, only: %i[] do

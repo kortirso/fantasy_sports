@@ -76,7 +76,7 @@ describe FantasyLeagues::JoinsController do
 
               it 'calls join service', :aggregate_failures do
                 expect { request }.to change(FantasyLeagues::Team, :count).by(1)
-                expect(response).to redirect_to fantasy_team_fantasy_leagues_path(fantasy_team.uuid)
+                expect(response).to redirect_to fantasy_team_points_path(fantasy_team.uuid)
               end
             end
 

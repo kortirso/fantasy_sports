@@ -35,7 +35,7 @@ export const FantasyLeagueForm = ({ uuid }) => {
   return (
     <>
       <p
-        className="btn-primary mb-4"
+        className="btn-primary mt-4"
         onClick={() => setPageState({ ...pageState, isOpen: true })}
       >{strings.fantasyLeagueForm.create}</p>
       <Modal
@@ -53,7 +53,6 @@ export const FantasyLeagueForm = ({ uuid }) => {
             <input
               className="form-value w-full"
               value={pageState.name}
-              placeholder="League's name"
               onChange={(e) => setPageState({ ...pageState, name: e.target.value })}
             />
           </div>

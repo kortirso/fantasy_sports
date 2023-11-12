@@ -1,6 +1,6 @@
 <% if @fantasy_team %>
   <% if @fantasy_team[:completed] %>
-    <%= link_to fantasy_team_status_index_path(@fantasy_team[:uuid]), class: 'season-link' do %>
+    <%= link_to fantasy_team_points_path(@fantasy_team[:uuid]), class: 'season-link' do %>
       <%= content %>
     <% end %>
   <% else %>

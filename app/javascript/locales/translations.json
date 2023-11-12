@@ -34,7 +34,9 @@
       "showLineup": "Show lineup",
       "showSeasonPlayers": "Show season players",
       "points": "Points",
-      "price": "Price"
+      "price": "Price",
+      "description": "On this page you can make transfers by removing some players from your team and replacing them with others who will be available in the next game week's squad. The number of free transfers is limited; for additional transfers, your team will lose points from the total amount. The team's budget determines the available players for transfers.",
+      "deadlineDescription": "Deadline indicates when the next game week will start."
     },
     "week": {
       "previous": "Previous",
@@ -44,6 +46,9 @@
     },
     "squad": {
       "title": "Team squad",
+      "description": "On this page you can determine the starting lineup of the team for the next game week, assign a captain and priority for substitute players, activate week bonuses.",
+      "reservePriority": "Rank players by substitution priority (players on the left to go first), after all games have ended, substitutions will be made automatically.",
+      "bonusesHelp": "You can activate one of the game week bonuses. Bonuses are given in limited quantities for the season.",
       "save": "Save team",
       "chips": "Chips",
       "benchBoost": "Bench boost",
@@ -56,7 +61,8 @@
       "totalPoints": "Total points",
       "averagePoints": "Average points",
       "hightestPoints": "Hightest points",
-      "week": "Gameweek {number}"
+      "week": "Gameweek {number}",
+      "description": "This page shows game results and points scored by players during the current active game week."
     },
     "player": {
       "form": "Form",
@@ -147,7 +153,9 @@
       "showLineup": "Показать состав",
       "showSeasonPlayers": "Показать игроков",
       "points": "Очки",
-      "price": "Цена"
+      "price": "Цена",
+      "description": "На этой странице вы можете провести трансферы, удалив из команды некоторых игроков и заменив их на других, которые будут доступны в составе на следующую неделю. Количество бесплатных трансферов ограничено, за дополнительные трансферы ваша команда будет терять очки из общего количества. Бюджет команды определяет доступных игроков для трансферов.",
+      "deadlineDescription": "Дедлайн показывает, когда начнётся следующая неделя."
     },
     "week": {
       "previous": "Предыдущая",
@@ -157,6 +165,9 @@
     },
     "squad": {
       "title": "Состав команды",
+      "description": "На этой странице вы можете определить стартовый состав команды на следующую игровую неделю, назначить капитана и приоритет запасных игроков, активировать бонусы недели.",
+      "reservePriority": "Расположите игроков по приоритету выхода с замены (игроки слева выходят первыми), после окончания всех игр замены будут выполнены автоматически.",
+      "bonusesHelp": "Вы можете активировать один из бонусов игровой недели. Бонусы даются в ограниченном количестве на сезон.",
       "save": "Сохранить изменения",
       "chips": "Бонусы",
       "benchBoost": "Очки запасных",
@@ -165,11 +176,12 @@
       "deadline": "Дедлайн - {value}"
     },
     "squadPoints": {
-      "title": "Результаты",
+      "title": "Результаты недели",
       "totalPoints": "Всего очков",
       "averagePoints": "Средний результат",
-      "hightestPoints": "Наилучший результат",
-      "week": "Игровая неделя {number}"
+      "hightestPoints": "Лучший результат",
+      "week": "Игровая неделя {number}",
+      "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе."
     },
     "player": {
       "form": "Форма",

@@ -303,7 +303,8 @@ export const Transfers = ({
         <span className="badge-dark inline-block">
           {strings.formatString(strings.transfers.week, { number: weekPosition })}
         </span>
-        <h1>{strings.transfers.selection}</h1>
+        <h1 className="mb-2">{strings.transfers.selection}</h1>
+        <p className="mb-4">{strings.transfers.description}</p>
         {!fantasyTeamCompleted && (
           <div class="flex flex-col sm:flex-row">
             <div className="form-field mr-4">
@@ -345,7 +346,10 @@ export const Transfers = ({
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
           <div className={`${sportKind}-field`}>
             <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
-              <p className="badge-danger absolute left-4 top-4">
+              <p
+                className="badge-danger absolute left-4 top-4"
+                title={strings.transfers.deadlineDescription}
+              >
                 {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
               </p>
               {pageState.visibleMode === 'lineup' ? (

@@ -68,7 +68,8 @@ export const SquadPoints = ({
       <span className="badge-dark inline-block">
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
-      <h1>{strings.squadPoints.title}</h1>
+      <h1 className="mb-2">{strings.squadPoints.title}</h1>
+      <p className="mb-4">{strings.squadPoints.description}</p>
       <div className="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
         <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
           <p className="text-center">{strings.squadPoints.totalPoints}</p>

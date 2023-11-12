@@ -269,7 +269,8 @@ export const Squad = ({
       <span className="badge-dark inline-block mr-2">
         {strings.formatString(strings.squadPoints.week, { number: weekPosition })}
       </span>
-      <h1>{strings.squad.title}</h1>
+      <h1 className="mb-2">{strings.squad.title}</h1>
+      <p className="mb-4">{strings.squad.description}</p>
       <div className={`${sportKind}-field`}>
         <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
           {sport.changes ? (
@@ -300,49 +301,55 @@ export const Squad = ({
           ))}
         </div>
         {sport.changes ? (
-          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-8">
-            {reservePlayers().map((item) => (
-              <PlayerCard
-                key={item.uuid}
-                className={classListForPlayerCard(item.uuid)}
-                teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                name={localizeValue(item.player.shirt_name)}
-                value={oppositeTeamNames(item)}
-                number={item.teams_player.shirt_number}
-                status={item.status}
-                onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
-                onActionClick={() => changePlayer(item, false)}
-                onInfoClick={() => setPlayerUuid(item.player.uuid)}
-              />
-            ))}
+          <div className="changes pb-4 sm:py-4 bg-green-400/50 mb-8">
+            <div className="flex flex-row justify-center items-center mb-2">
+              {reservePlayers().map((item) => (
+                <PlayerCard
+                  key={item.uuid}
+                  className={classListForPlayerCard(item.uuid)}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                  name={localizeValue(item.player.shirt_name)}
+                  value={oppositeTeamNames(item)}
+                  number={item.teams_player.shirt_number}
+                  status={item.status}
+                  onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
+                  onActionClick={() => changePlayer(item, false)}
+                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                />
+              ))}
+            </div>
+            <p className="px-4 md:px-12">{strings.squad.reservePriority}</p>
           </div>
         ) : null}
       </div>
       {pageState.lineup?.fantasy_team && Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
         <div className="mb-8">
-          <h3 className="text-center">{strings.squad.chips}</h3>
-          <div className="flex justify-center">
-            <button
-              className={
-                pageState.lineup.active_chips.includes('bench_boost')
-                  ? 'btn-primary btn-small mr-2 bg-amber-400'
-                  : 'btn-primary btn-small mr-2'
-              }
-              onClick={() => toggleChip('bench_boost')}
-            >
-              {strings.squad.benchBoost}
-            </button>
-            <button
-              className={
-                pageState.lineup.active_chips.includes('triple_captain')
-                  ? 'btn-primary btn-small bg-amber-400'
-                  : 'btn-primary btn-small'
-              }
-              onClick={() => toggleChip('triple_captain')}
-            >
-              {strings.squad.tripleCaptain}
-            </button>
+          <div className="mb-2">
+            <h3 className="text-center">{strings.squad.chips}</h3>
+            <div className="flex justify-center">
+              <button
+                className={
+                  pageState.lineup.active_chips.includes('bench_boost')
+                    ? 'btn-primary btn-small mr-2 bg-amber-400'
+                    : 'btn-primary btn-small mr-2'
+                }
+                onClick={() => toggleChip('bench_boost')}
+              >
+                {strings.squad.benchBoost}
+              </button>
+              <button
+                className={
+                  pageState.lineup.active_chips.includes('triple_captain')
+                    ? 'btn-primary btn-small bg-amber-400'
+                    : 'btn-primary btn-small'
+                }
+                onClick={() => toggleChip('triple_captain')}
+              >
+                {strings.squad.tripleCaptain}
+              </button>
+            </div>
           </div>
+          <p className="px-4 md:px-12">{strings.squad.bonusesHelp}</p>
         </div>
       ) : null}
       {sport?.changes ? (
