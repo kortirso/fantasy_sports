@@ -106,9 +106,9 @@ export const Transfers = ({
   const filteredPlayers = useMemo(() => {
     return pageState.seasonPlayers
       .filter((element) => {
-        if (filterByPosition !== 'all' && filterByPosition !== element.player.position_kind)
-          return false;
-        if (filterByTeam !== 'all' && filterByTeam !== element.team.uuid.toString()) return false;
+        if (filterByPosition !== 'all' && filterByPosition !== element.player.position_kind) return false;
+        if (element.team.uuid === null) return false;
+        if (filterByTeam !== 'all' && filterByTeam !== element.team.uuid) return false;
 
         return true;
       })
