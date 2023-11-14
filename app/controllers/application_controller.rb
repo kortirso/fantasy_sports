@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
   rescue_from InvalidInputParamsError, with: :invalid_params
 
+  # rubocop: disable Lint/UselessMethodDefinition
+  # https://github.com/dry-rb/dry-auto_inject/issues/91
+  def initialize = super
+  # rubocop: enable Lint/UselessMethodDefinition
+
   def page_not_found
     message = t('controllers.application.page_not_found')
     return json_response_with_errors([message], 404) if request.format.json?

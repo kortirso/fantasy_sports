@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require 'que/view'
+
 Rails.application.routes.draw do
   mount Emailbutler::Engine => '/emailbutler'
   mount PgHero::Engine, at: 'pghero'
-  mount Que::Web => '/que'
+  mount Que::View::Engine => '/que_view'
 
   namespace :admin do
     get '', to: 'welcome#index'

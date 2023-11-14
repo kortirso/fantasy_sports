@@ -31,7 +31,7 @@ module Lineups
 
       def update_lineups_players(lineups_players_params)
         grouped_params = lineups_players_params.index_by { |players_param| players_param[:uuid] }
-        @lineup.lineups_players.includes(:lineup, :teams_player).each do |lineups_player|
+        @lineup.lineups_players.includes(:lineup).each do |lineups_player|
           lineups_player.update(grouped_params[lineups_player.uuid].except(:uuid))
         end
       end
