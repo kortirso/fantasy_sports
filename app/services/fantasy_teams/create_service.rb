@@ -45,7 +45,7 @@ module FantasyTeams
     def connect_fantasy_team_with_main_league
       @league_join_service.call(
         fantasy_team: @result,
-        fantasy_league: @season.fantasy_leagues.find_by(name: 'Overall')
+        fantasy_league_uuid: @season.fantasy_leagues.find_by(name: 'Overall').uuid
       )
     end
 

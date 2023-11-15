@@ -114,7 +114,7 @@ seasons_teams = league2024.seasons_teams.map { |e| [e.team.short_name, e.id] }.t
 weeks_positions = league2024.weeks.map { |e| [e.position, e.id] }.to_h
 
 games_rows.each do |row|
-  Games::CreateService.call(
+  FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: weeks_positions[row[2].to_i],
       home_season_team_id: seasons_teams[row[3]],

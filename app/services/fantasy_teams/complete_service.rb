@@ -73,7 +73,7 @@ module FantasyTeams
 
       @league_join_service.call(
         fantasy_team: @fantasy_team,
-        fantasy_league: team.fantasy_leagues.last
+        fantasy_league_uuid: team.fantasy_leagues.last.uuid
       )
     end
   end

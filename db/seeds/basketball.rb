@@ -146,13 +146,13 @@ week23 = nba2024.weeks.create position: 23, deadline_at: DateTime.new(2024, 3, 2
 week24 = nba2024.weeks.create position: 24, deadline_at: DateTime.new(2024, 4, 1, 20, 0, 0)
 week25 = nba2024.weeks.create position: 25, deadline_at: DateTime.new(2024, 4, 8, 20, 0, 0)
 
-nba2024.teams.each.with_index do |team, team_index|
-  team_fantasy_league = team.fantasy_leagues.last
-  20.times do |index|
-    user = Users::CreateForm.call(params: { email: "basketball-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }, with_send_confirmation: false).result
-    # FantasyTeams::GenerateSampleService.call(season: nba2024, user: user, favourite_team_uuid: team.uuid)
-  end
-end
+# nba2024.teams.each.with_index do |team, team_index|
+#   team_fantasy_league = team.fantasy_leagues.last
+#   20.times do |index|
+#     user = FantasySports::Container['forms.users.create'].call(params: { email: "basketball-team-#{team_index}-#{index}@gmail.com", password: '1234qwerQWER', password_confirmation: '1234qwerQWER' }, with_send_confirmation: false).result
+#     FantasyTeams::GenerateSampleService.call(season: nba2024, user: user, favourite_team_uuid: team.uuid)
+#   end
+# end
 
 games_rows = CSV.read(Rails.root.join('db/data/nba_games_2024.csv'), col_sep: ',')
 active_week = week1
@@ -167,7 +167,7 @@ games_rows.each do |row|
     next_week = next_week.season.weeks.find_by(position: next_week.position + 1)
   end
 
-  Games::CreateService.call(
+  FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: active_week.id,
       home_season_team_id: seasons_teams[row[2]],

@@ -80,6 +80,7 @@ en:
       success_create: Fantasy team is created
     fantasy_leagues:
       joins:
+        not_found: Fantasy league is not found
         success: Your team joined to fantasy league
         invalid_code: Invalid invite code
         no_team: You don't have a fantasy team for joining
