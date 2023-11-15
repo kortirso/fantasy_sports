@@ -64,6 +64,13 @@ export const SquadPoints = ({
       .sort((a, b) => a.change_order > b.change_order ? 1 : -1);
   };
 
+  const renderActiveChip = () => {
+    if (activeChips.includes('bench_boost')) return strings.squadPoints.benchBoostIsActive;
+    if (activeChips.includes('triple_captain')) return strings.squadPoints.tripleCaptainIsActive;
+
+    return null;
+  };
+
   return (
     <>
       <span className="badge-dark inline-block">
@@ -126,8 +133,8 @@ export const SquadPoints = ({
         {sport.changes && (
           <div className="changes">
             <div className="flex flex-row justify-center items-center">
-              {activeChips.includes('bench_boost') ? (
-                <div className="badge-dark absolute top-2 left-2">{strings.squadPoints.benchBoostIsActive}</div>
+              {activeChips.length > 0 ? (
+                <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
               ) : null}
               {reservePlayers().map((item) => (
                 <PlayerCard

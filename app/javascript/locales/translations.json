@@ -63,7 +63,8 @@
       "hightestPoints": "Hightest points",
       "week": "Gameweek {number}",
       "description": "This page shows game results and points scored by players during the current active game week.",
-      "benchBoostIsActive": "Bench boost is active"
+      "benchBoostIsActive": "Bench boost is active",
+      "tripleCaptainIsActive": "Triple captain boost"
     },
     "player": {
       "form": "Form",
@@ -117,6 +118,10 @@
       "send": "You can directly send your question/feedback/bug report to ",
       "leave": " or just leave here.",
       "telegram": "Telegram"
+    },
+    "playerActions": {
+      "makeCaptain": "Make captain (x2 points)",
+      "makeAssistant": "Make captain assistant"
     }
   },
   "ru": {
@@ -183,7 +188,8 @@
       "hightestPoints": "Лучший результат",
       "week": "Игровая неделя {number}",
       "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе.",
-      "benchBoostIsActive": "Бонус за очки запасных"
+      "benchBoostIsActive": "Бонус за очки запасных",
+      "tripleCaptainIsActive": "Тройной бонус капитана"
     },
     "player": {
       "form": "Форма",
@@ -237,6 +243,10 @@
       "send": "Вы можете напрямую отправить ваш вопрос/отзыв/баг репорт в ",
       "leave": " или оставьте тут.",
       "telegram": "Телеграм"
+    },
+    "playerActions": {
+      "makeCaptain": "Назначить капитаном (x2 очки)",
+      "makeAssistant": "Назначить помощником капитана"
     }
   }
 }

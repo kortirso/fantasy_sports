@@ -20,6 +20,7 @@ export const Squad = ({
   seasonUuid,
   sportKind,
   lineupUuid,
+  activeChips,
   weekUuid,
   weekPosition,
   weekDeadlineAt,
@@ -265,14 +266,14 @@ export const Squad = ({
   };
 
   const renderBenchBoostStatus = () => {
-    if (pageState.lineup.fantasy_team.available_chips.bench_boost === 0) return 'btn-disabled btn-small mr-2';
     if (pageState.lineup.active_chips.includes('bench_boost')) return 'btn-primary btn-small mr-2 bg-amber-400';
+    if (pageState.lineup.fantasy_team.available_chips.bench_boost === 0 && !activeChips.includes('bench_boost')) return 'btn-disabled btn-small mr-2';
     return 'btn-primary btn-small mr-2';
   };
 
   const renderTripleCaptainStatus = () => {
-    if (pageState.lineup.fantasy_team.available_chips.triple_captain === 0) return 'btn-disabled btn-small';
     if (pageState.lineup.active_chips.includes('triple_captain')) return 'btn-primary btn-small bg-amber-400';
+    if (pageState.lineup.fantasy_team.available_chips.triple_captain === 0 && !activeChips.includes('triple_captain')) return 'btn-disabled btn-small';
     return 'btn-primary btn-small';
   };
 
@@ -341,13 +342,13 @@ export const Squad = ({
             <div className="flex justify-center">
               <button
                 className={renderBenchBoostStatus()}
-                onClick={pageState.lineup.fantasy_team.available_chips.bench_boost > 0 ? (() => toggleChip('bench_boost')) : null}
+                onClick={pageState.lineup.fantasy_team.available_chips.bench_boost > 0 || activeChips.includes('bench_boost') ? (() => toggleChip('bench_boost')) : null}
               >
                 {strings.squad.benchBoost}
               </button>
               <button
                 className={renderTripleCaptainStatus()}
-                onClick={pageState.lineup.fantasy_team.available_chips.triple_captain > 0 ? (() => toggleChip('triple_captain')) : null}
+                onClick={pageState.lineup.fantasy_team.available_chips.triple_captain > 0 || activeChips.includes('triple_captain') ? (() => toggleChip('triple_captain')) : null}
               >
                 {strings.squad.tripleCaptain}
               </button>
