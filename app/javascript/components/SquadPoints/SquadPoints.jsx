@@ -15,6 +15,7 @@ export const SquadPoints = ({
   seasonUuid,
   sportKind,
   lineupUuid,
+  activeChips,
   weekUuid,
   weekPosition,
   points,
@@ -61,6 +62,13 @@ export const SquadPoints = ({
     return pageState.lineupPlayers
       .filter((element) => !element.active)
       .sort((a, b) => a.change_order > b.change_order ? 1 : -1);
+  };
+
+  const renderActiveChip = () => {
+    if (activeChips.includes('bench_boost')) return strings.squadPoints.benchBoostIsActive;
+    if (activeChips.includes('triple_captain')) return strings.squadPoints.tripleCaptainIsActive;
+
+    return null;
   };
 
   return (
@@ -123,18 +131,23 @@ export const SquadPoints = ({
           ))}
         </div>
         {sport.changes && (
-          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
-            {reservePlayers().map((item) => (
-              <PlayerCard
-                key={item.uuid}
-                teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                name={localizeValue(item.player.shirt_name)}
-                value={item.points}
-                number={item.teams_player.shirt_number}
-                status={item.status}
-                onInfoClick={() => setPlayerUuid(item.player.uuid)}
-              />
-            ))}
+          <div className="changes">
+            <div className="flex flex-row justify-center items-center">
+              {activeChips.length > 0 ? (
+                <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
+              ) : null}
+              {reservePlayers().map((item) => (
+                <PlayerCard
+                  key={item.uuid}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                  name={localizeValue(item.player.shirt_name)}
+                  value={item.points}
+                  number={item.teams_player.shirt_number}
+                  status={item.status}
+                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>

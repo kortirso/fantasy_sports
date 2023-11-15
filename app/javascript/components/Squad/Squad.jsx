@@ -20,6 +20,7 @@ export const Squad = ({
   seasonUuid,
   sportKind,
   lineupUuid,
+  activeChips,
   weekUuid,
   weekPosition,
   weekDeadlineAt,
@@ -50,13 +51,13 @@ export const Squad = ({
     const fetchWeekOpponents = async () => await weekOpponentsRequest(weekUuid);
 
     Promise.all([fetchLineup(), fetchTeams(), fetchLineupPlayers(), fetchWeekOpponents()]).then(
-      ([fetchLineupData, fetchTeamsData, fetchLineupPlayersData, fetchWeekOpponentsData]) =>
+      ([lineupData, teamsData, lineupPlayersData, weekOpponentsData]) =>
         setPageState({
           loading: false,
-          lineup: fetchLineupData,
-          teamNames: fetchTeamsData,
-          lineupPlayers: fetchLineupPlayersData,
-          teamOpponents: fetchWeekOpponentsData,
+          lineup: lineupData,
+          teamNames: teamsData,
+          lineupPlayers: lineupPlayersData,
+          teamOpponents: weekOpponentsData,
         }),
     );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -264,6 +265,18 @@ export const Squad = ({
     }
   };
 
+  const renderBenchBoostStatus = () => {
+    if (pageState.lineup.active_chips.includes('bench_boost')) return 'btn-primary btn-small mr-2 bg-amber-400';
+    if (pageState.lineup.fantasy_team.available_chips.bench_boost === 0 && !activeChips.includes('bench_boost')) return 'btn-disabled btn-small mr-2';
+    return 'btn-primary btn-small mr-2';
+  };
+
+  const renderTripleCaptainStatus = () => {
+    if (pageState.lineup.active_chips.includes('triple_captain')) return 'btn-primary btn-small bg-amber-400';
+    if (pageState.lineup.fantasy_team.available_chips.triple_captain === 0 && !activeChips.includes('triple_captain')) return 'btn-disabled btn-small';
+    return 'btn-primary btn-small';
+  };
+
   return (
     <>
       <span className="badge-dark inline-block mr-2">
@@ -301,7 +314,7 @@ export const Squad = ({
           ))}
         </div>
         {sport.changes ? (
-          <div className="changes pb-4 sm:py-4 bg-green-400/50 mb-8">
+          <div className="changes">
             <div className="flex flex-row justify-center items-center mb-2">
               {reservePlayers().map((item) => (
                 <PlayerCard
@@ -328,22 +341,14 @@ export const Squad = ({
             <h3 className="text-center">{strings.squad.chips}</h3>
             <div className="flex justify-center">
               <button
-                className={
-                  pageState.lineup.active_chips.includes('bench_boost')
-                    ? 'btn-primary btn-small mr-2 bg-amber-400'
-                    : 'btn-primary btn-small mr-2'
-                }
-                onClick={() => toggleChip('bench_boost')}
+                className={renderBenchBoostStatus()}
+                onClick={pageState.lineup.fantasy_team.available_chips.bench_boost > 0 || activeChips.includes('bench_boost') ? (() => toggleChip('bench_boost')) : null}
               >
                 {strings.squad.benchBoost}
               </button>
               <button
-                className={
-                  pageState.lineup.active_chips.includes('triple_captain')
-                    ? 'btn-primary btn-small bg-amber-400'
-                    : 'btn-primary btn-small'
-                }
-                onClick={() => toggleChip('triple_captain')}
+                className={renderTripleCaptainStatus()}
+                onClick={pageState.lineup.fantasy_team.available_chips.triple_captain > 0 || activeChips.includes('triple_captain') ? (() => toggleChip('triple_captain')) : null}
               >
                 {strings.squad.tripleCaptain}
               </button>

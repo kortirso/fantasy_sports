@@ -40,6 +40,10 @@
     @apply btn bg-white hover:bg-stone-100 border border-stone-200 text-black;
   }
 
+  .btn-disabled {
+    @apply btn bg-stone-200 border border-stone-300 hover:bg-stone-200;
+  }
+
   .btn-small {
     @apply py-1 px-2 text-sm leading-6;
   }
@@ -127,6 +131,10 @@
 
   .football-field .field .sport-position {
     @apply h-1/4 flex flex-row items-center;
+  }
+
+  .changes {
+    @apply relative pb-4 sm:py-4 bg-green-400/50 mb-8;
   }
 
   .football-field .field .sport-position .player-card,
