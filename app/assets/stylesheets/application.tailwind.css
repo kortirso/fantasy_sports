@@ -129,6 +129,10 @@
     @apply h-1/4 flex flex-row items-center;
   }
 
+  .changes {
+    @apply relative pb-4 sm:py-4 bg-green-400/50 mb-8;
+  }
+
   .football-field .field .sport-position .player-card,
   .changes .player-card {
     scale: .7;

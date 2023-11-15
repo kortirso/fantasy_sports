@@ -50,13 +50,13 @@ export const Squad = ({
     const fetchWeekOpponents = async () => await weekOpponentsRequest(weekUuid);
 
     Promise.all([fetchLineup(), fetchTeams(), fetchLineupPlayers(), fetchWeekOpponents()]).then(
-      ([fetchLineupData, fetchTeamsData, fetchLineupPlayersData, fetchWeekOpponentsData]) =>
+      ([lineupData, teamsData, lineupPlayersData, weekOpponentsData]) =>
         setPageState({
           loading: false,
-          lineup: fetchLineupData,
-          teamNames: fetchTeamsData,
-          lineupPlayers: fetchLineupPlayersData,
-          teamOpponents: fetchWeekOpponentsData,
+          lineup: lineupData,
+          teamNames: teamsData,
+          lineupPlayers: lineupPlayersData,
+          teamOpponents: weekOpponentsData,
         }),
     );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -301,7 +301,7 @@ export const Squad = ({
           ))}
         </div>
         {sport.changes ? (
-          <div className="changes pb-4 sm:py-4 bg-green-400/50 mb-8">
+          <div className="changes">
             <div className="flex flex-row justify-center items-center mb-2">
               {reservePlayers().map((item) => (
                 <PlayerCard

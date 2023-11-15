@@ -15,6 +15,7 @@ export const SquadPoints = ({
   seasonUuid,
   sportKind,
   lineupUuid,
+  activeChips,
   weekUuid,
   weekPosition,
   points,
@@ -123,18 +124,23 @@ export const SquadPoints = ({
           ))}
         </div>
         {sport.changes && (
-          <div className="changes flex flex-row justify-center items-center sm:py-4 bg-green-400/50 mb-4">
-            {reservePlayers().map((item) => (
-              <PlayerCard
-                key={item.uuid}
-                teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                name={localizeValue(item.player.shirt_name)}
-                value={item.points}
-                number={item.teams_player.shirt_number}
-                status={item.status}
-                onInfoClick={() => setPlayerUuid(item.player.uuid)}
-              />
-            ))}
+          <div className="changes">
+            <div className="flex flex-row justify-center items-center">
+              {activeChips.includes('bench_boost') ? (
+                <div className="badge-dark absolute top-2 left-2">{strings.squadPoints.benchBoostIsActive}</div>
+              ) : null}
+              {reservePlayers().map((item) => (
+                <PlayerCard
+                  key={item.uuid}
+                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                  name={localizeValue(item.player.shirt_name)}
+                  value={item.points}
+                  number={item.teams_player.shirt_number}
+                  status={item.status}
+                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>

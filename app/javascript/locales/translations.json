@@ -62,7 +62,8 @@
       "averagePoints": "Average points",
       "hightestPoints": "Hightest points",
       "week": "Gameweek {number}",
-      "description": "This page shows game results and points scored by players during the current active game week."
+      "description": "This page shows game results and points scored by players during the current active game week.",
+      "benchBoostIsActive": "Bench boost is active"
     },
     "player": {
       "form": "Form",
@@ -181,7 +182,8 @@
       "averagePoints": "Средний результат",
       "hightestPoints": "Лучший результат",
       "week": "Игровая неделя {number}",
-      "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе."
+      "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе.",
+      "benchBoostIsActive": "Бонус за очки запасных"
     },
     "player": {
       "form": "Форма",
