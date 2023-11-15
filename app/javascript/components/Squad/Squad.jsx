@@ -264,6 +264,18 @@ export const Squad = ({
     }
   };
 
+  const renderBenchBoostStatus = () => {
+    if (pageState.lineup.fantasy_team.available_chips.bench_boost === 0) return 'btn-disabled btn-small mr-2';
+    if (pageState.lineup.active_chips.includes('bench_boost')) return 'btn-primary btn-small mr-2 bg-amber-400';
+    return 'btn-primary btn-small mr-2';
+  };
+
+  const renderTripleCaptainStatus = () => {
+    if (pageState.lineup.fantasy_team.available_chips.triple_captain === 0) return 'btn-disabled btn-small';
+    if (pageState.lineup.active_chips.includes('triple_captain')) return 'btn-primary btn-small bg-amber-400';
+    return 'btn-primary btn-small';
+  };
+
   return (
     <>
       <span className="badge-dark inline-block mr-2">
@@ -328,22 +340,14 @@ export const Squad = ({
             <h3 className="text-center">{strings.squad.chips}</h3>
             <div className="flex justify-center">
               <button
-                className={
-                  pageState.lineup.active_chips.includes('bench_boost')
-                    ? 'btn-primary btn-small mr-2 bg-amber-400'
-                    : 'btn-primary btn-small mr-2'
-                }
-                onClick={() => toggleChip('bench_boost')}
+                className={renderBenchBoostStatus()}
+                onClick={pageState.lineup.fantasy_team.available_chips.bench_boost > 0 ? (() => toggleChip('bench_boost')) : null}
               >
                 {strings.squad.benchBoost}
               </button>
               <button
-                className={
-                  pageState.lineup.active_chips.includes('triple_captain')
-                    ? 'btn-primary btn-small bg-amber-400'
-                    : 'btn-primary btn-small'
-                }
-                onClick={() => toggleChip('triple_captain')}
+                className={renderTripleCaptainStatus()}
+                onClick={pageState.lineup.fantasy_team.available_chips.triple_captain > 0 ? (() => toggleChip('triple_captain')) : null}
               >
                 {strings.squad.tripleCaptain}
               </button>
