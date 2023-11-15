@@ -55,7 +55,7 @@ gem 'i18n-tasks', '~> 1.0.13'
 
 # active jobs adapter
 gem 'que', '~> 2.3'
-gem 'que-view', '~> 0.1'
+gem 'que-view', '~> 0.2'
 gem 'whenever', require: false
 
 # http client
