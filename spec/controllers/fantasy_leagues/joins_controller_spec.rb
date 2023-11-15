@@ -13,6 +13,7 @@ describe FantasyLeagues::JoinsController do
 
         it 'does not call join service', :aggregate_failures do
           expect { do_request }.not_to change(FantasyLeagues::Team, :count)
+          expect(cookies[:fantasy_sports_invite_code]).to eq 'unexisting'
           expect(response).to have_http_status :not_found
         end
       end
@@ -29,6 +30,7 @@ describe FantasyLeagues::JoinsController do
 
           it 'does not call join service', :aggregate_failures do
             expect { request }.not_to change(FantasyLeagues::Team, :count)
+            expect(cookies[:fantasy_sports_invite_code]).to eq '1234'
             expect(response).to redirect_to home_path
           end
         end
@@ -42,6 +44,7 @@ describe FantasyLeagues::JoinsController do
 
           it 'does not call join service', :aggregate_failures do
             expect { request }.not_to change(FantasyLeagues::Team, :count)
+            expect(cookies[:fantasy_sports_invite_code]).to eq '1234'
             expect(response).to redirect_to home_path
           end
         end
@@ -62,6 +65,7 @@ describe FantasyLeagues::JoinsController do
           context 'for unexisting fantasy team of user' do
             it 'does not call join service', :aggregate_failures do
               expect { request }.not_to change(FantasyLeagues::Team, :count)
+              expect(cookies[:fantasy_sports_invite_code]).to eq fantasy_league.invite_code
               expect(response).to redirect_to home_path
             end
           end
@@ -76,6 +80,7 @@ describe FantasyLeagues::JoinsController do
 
               it 'calls join service', :aggregate_failures do
                 expect { request }.to change(FantasyLeagues::Team, :count).by(1)
+                expect(cookies[:fantasy_sports_invite_code]).to be_nil
                 expect(response).to redirect_to fantasy_team_points_path(fantasy_team.uuid)
               end
             end
@@ -87,6 +92,7 @@ describe FantasyLeagues::JoinsController do
 
               it 'does not call join service', :aggregate_failures do
                 expect { request }.not_to change(FantasyLeagues::Team, :count)
+                expect(cookies[:fantasy_sports_invite_code]).to eq fantasy_league.invite_code
                 expect(response).to redirect_to home_path
               end
             end
@@ -96,7 +102,7 @@ describe FantasyLeagues::JoinsController do
     end
 
     def do_request
-      get :index, params: { fantasy_league_id: 'unexisting', invite_code: '', locale: 'en' }
+      get :index, params: { fantasy_league_id: 'unexisting', invite_code: 'unexisting', locale: 'en' }
     end
   end
 end

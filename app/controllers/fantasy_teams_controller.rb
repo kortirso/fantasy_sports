@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class FantasyTeamsController < ApplicationController
+  include Deps[join_fantasy_league: 'services.persisters.fantasy_teams.join_fantasy_league']
   include Maintenable
 
   before_action :find_fantasy_team, only: %i[show update]
@@ -15,6 +16,7 @@ class FantasyTeamsController < ApplicationController
   def create
     service_call = FantasyTeams::CreateService.call(season: @season, user: Current.user)
     if service_call.success?
+      join_fantasy_league.call(fantasy_team: service_call.result, invite_code: cookies[:fantasy_sports_invite_code])
       redirect_to(
         fantasy_team_transfers_path(service_call.result.uuid),
         notice: t('controllers.fantasy_teams.success_create')

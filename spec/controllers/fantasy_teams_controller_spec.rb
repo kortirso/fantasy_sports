@@ -98,6 +98,28 @@ describe FantasyTeamsController do
             expect { request }.to change(@current_user.fantasy_teams, :count).by(1)
             expect(response).to redirect_to fantasy_team_transfers_path(FantasyTeam.last.uuid)
           end
+
+          context 'if invite token is saved in cookies' do
+            let!(:user) { create :user }
+            let!(:user_fantasy_league) {
+              create :fantasy_league, leagueable: user, season: season, invite_code: SecureRandom.hex
+            }
+
+            before do
+              cookies[:fantasy_sports_invite_code] = {
+                value: user_fantasy_league.invite_code,
+                expires: 1.week.from_now
+              }
+            end
+
+            it 'creates fantasy team and joins by saved invite code', :aggregate_failures do
+              expect { request }.to(
+                change(@current_user.fantasy_teams, :count).by(1)
+                  .and(change(user_fantasy_league.fantasy_teams, :count).by(1))
+              )
+              expect(response).to redirect_to fantasy_team_transfers_path(FantasyTeam.last.uuid)
+            end
+          end
         end
       end
     end

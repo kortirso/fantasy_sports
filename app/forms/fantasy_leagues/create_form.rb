@@ -33,7 +33,7 @@ module FantasyLeagues
     end
 
     def attach_fantasy_team_to_league(fantasy_team, fantasy_league)
-      join_fantasy_league.call(fantasy_team: fantasy_team, fantasy_league: fantasy_league)
+      join_fantasy_league.call(fantasy_team: fantasy_team, fantasy_league_uuid: fantasy_league.uuid)
     end
 
     def global_league?(leagueable)

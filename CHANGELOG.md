@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - collapsing games list for previous days
 - calculating game difficulty for teams
+- remembering invite code during sign up
 
 ## [1.1.1] - 2023-11-10
 ### Added

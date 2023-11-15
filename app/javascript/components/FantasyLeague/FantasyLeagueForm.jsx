@@ -29,7 +29,7 @@ export const FantasyLeagueForm = ({ uuid }) => {
     });
 
     if (result.errors.length > 0) setPageState({ ...pageState, errors: result.errors });
-    else window.location = `/fantasy_teams/${uuid}/fantasy_leagues`;
+    else window.location.reload();
   };
 
   return (
