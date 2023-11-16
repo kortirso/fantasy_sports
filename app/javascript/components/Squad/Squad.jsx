@@ -168,15 +168,20 @@ export const Squad = ({
     });
   };
 
-  const changeCaptain = (lineupPlayerUuid, status) => {
-    // lineupPlayerUuid - id of changeable player
+  const changeCaptain = (lineupPlayer, status) => {
+    // lineupPlayer - changeable player
     // status - captain or assistant
+    const oldStatus = lineupPlayer.status; // captain, assistant or regular
     const changedLineupPlayers = pageState.lineupPlayers.map((element) => {
-      if (element.uuid === lineupPlayerUuid) {
+      // for current player -> change to status
+      if (element.uuid === lineupPlayer.uuid) {
         element.status = status;
       }
-      if (element.uuid !== lineupPlayerUuid && element.status === status) {
-        element.status = 'regular';
+      // for another player with such status -> change
+      if (element.uuid !== lineupPlayer.uuid && element.status === status) {
+        if (status === 'captain' && oldStatus === 'assistant') element.status = 'assistant';
+        else if (status === 'assistant' && oldStatus === 'captain') element.status = 'captain';
+        else element.status = 'regular';
       }
       return element;
     });

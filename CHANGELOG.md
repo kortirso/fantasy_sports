@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - rendering active bench boost bonus at points page
 - rendering wasted chips
 
+### Fixed
+- bug with changing captain/assistant
+
 ## [1.1.1] - 2023-11-10
 ### Added
 - render game results in PlayerModal
