@@ -33,7 +33,7 @@ module Scrapers
         'Penalty' => 2,
         'Missed Penalty' => 3,
         'Yellow Card' => 4,
-        'Red card' => 5,
+        'Red Card' => 5,
         'Substitution' => 6
       }.freeze
 
@@ -183,10 +183,12 @@ module Scrapers
       end
 
       def update_substitution_players(team_index, event)
-        player_off = @player_ids[team_index][event[:player_assist_id]]
-        player_in = @player_ids[team_index][event[:player_id]]
+        player_off = @player_ids[team_index][event[:player_id]]
+        player_in = event[:player_assist_id].nil? ? nil : @player_ids[team_index][event[:player_assist_id]]
 
         @players_minutes[team_index][player_off][:until] = event[:minute]
+        return unless player_in
+
         @players_minutes[team_index][player_in] = {
           from: event[:minute],
           until: nil
@@ -224,7 +226,8 @@ module Scrapers
           'OG' => player_events(team_index, [1], shirt_number_string).size,
           'PS' => player_events(opponent_team_index, [3], shirt_number_string, [play_from, play_until]).size,
           'PM' => player_events(team_index, [3], shirt_number_string).size,
-          'YC' => player_events(team_index, [4], shirt_number_string).size,
+          # if player got 2 YC -> it is 1 RC
+          'YC' => red_card.positive? ? 0 : player_events(team_index, [4], shirt_number_string).size,
           'RC' => red_card,
           'S' => @players_statistic.dig("#{team_index}-#{shirt_number_string}", :saves).to_i,
           'B' => 0

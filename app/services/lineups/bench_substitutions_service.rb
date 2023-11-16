@@ -77,11 +77,11 @@ module Lineups
       return if maximum_players_at_position?(position_kind)
 
       # check other positions
-      (sport_positions.keys - position_kind).each do |sport_position|
+      other_positions(position_kind).each do |sport_position|
         # if lineup has minimum amount of position players - they can not be used for changes
-        next if minimum_players_at_position?(sport_position)
+        next if minimum_players_at_position?(sport_position.title)
 
-        position_player = substitution_for_position(position_kind)
+        position_player = substitution_for_position(sport_position.title)
         return position_player if position_player
       end
     end
@@ -169,6 +169,10 @@ module Lineups
 
     def sport_positions
       @sport_positions ||= Sports::Position.where(sport: @week.league.sport_kind).to_a
+    end
+
+    def other_positions(position_kind)
+      sport_positions.reject { |e| e.title == position_kind }
     end
 
     def substitution_for_position(position_kind)
