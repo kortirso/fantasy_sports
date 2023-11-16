@@ -26,9 +26,9 @@ class SchedulerJob < ApplicationJob
 
   def import_games
     refresh_achievements = false
-    # fetch game statistics 1 time, 3-3.5 hours after game start and no points before
+    # fetch game statistics 1 time, 3 hours after game start and no points before
     # game started at 5:00 will be fetched at 8:00
-    # game started at 5:30 will be fetched at 9:00
+    # game started at 5:30 will be fetched at 8:30
     Season.active.pluck(:id).each do |season_id|
       game_ids =
         Game
