@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
 describe Lineups::BenchSubstitutionsService, type: :service do
-  subject(:service_call) {
-    described_class
-      .new(lineups_players_update_points_service: lineups_players_update_points_service)
-      .call(week: week)
-  }
+  subject(:service_call) { described_class.call(lineup: lineup) }
 
-  let(:lineups_players_update_points_service) { double }
-  let!(:week) { create :week }
-  let!(:lineup) { create :lineup, week: week }
+  let!(:lineup) { create :lineup }
 
   # rubocop: disable Layout/LineLength, RSpec/LetSetup
   let!(:goalies) { create_list :player, 2, position_kind: Positionable::GOALKEEPER }
@@ -35,22 +29,11 @@ describe Lineups::BenchSubstitutionsService, type: :service do
   let!(:lineups_player15) { create(:lineups_player, lineup: lineup, teams_player: teams_players[14], change_order: 0, statistic: { 'MP' => 1 }) }
   # rubocop: enable Layout/LineLength, RSpec/LetSetup
 
-  before do
-    allow(lineups_players_update_points_service).to receive(:call)
-  end
-
   it 'updates change order of players', :aggregate_failures do
-    service_call
-
+    expect(service_call.success?).to be_truthy
     expect(lineups_player1.reload.change_order).to eq 1
     expect(lineups_player2.reload.change_order).to eq 0
     expect(lineups_player13.reload.status).to eq Lineups::Player::ASSISTANT
     expect(lineups_player14.reload.status).to eq Lineups::Player::CAPTAIN
-  end
-
-  it 'succeeds' do
-    service = service_call
-
-    expect(service.success?).to be_truthy
   end
 end
