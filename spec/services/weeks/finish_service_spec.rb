@@ -12,48 +12,27 @@ describe Weeks::FinishService, type: :service do
       allow(week).to receive(:update)
     end
 
-    it 'does not update week' do
-      service_call
-
+    it 'does not update week', :aggregate_failures do
+      expect(service_call.success?).to be_truthy
       expect(week).not_to have_received(:update)
-    end
-
-    it 'and it succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 
   context 'for not active week' do
     let!(:week) { create :week, status: Week::COMING }
 
-    it 'does not update week' do
-      service_call
-
+    it 'does not update week', :aggregate_failures do
+      expect(service_call.success?).to be_truthy
       expect(week.reload.status).not_to eq Week::FINISHED
-    end
-
-    it 'and it succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 
   context 'for active week' do
     let!(:week) { create :week, status: Week::ACTIVE }
 
-    it 'updates week' do
-      service_call
-
+    it 'updates week', :aggregate_failures do
+      expect(service_call.success?).to be_truthy
       expect(week.reload.status).to eq Week::FINISHED
-    end
-
-    it 'and it succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 end

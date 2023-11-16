@@ -27,6 +27,11 @@ module Weeks
       week.lineups.each do |lineup|
         @bench_substitutions_service.call(lineup: lineup)
       end
+
+      ::Lineups::Players::Points::UpdateJob.perform_later(
+        team_player_ids: week.teams_players.ids,
+        week_id: week.id
+      )
     end
   end
 end

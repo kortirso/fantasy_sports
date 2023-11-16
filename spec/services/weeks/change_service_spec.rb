@@ -23,17 +23,10 @@ describe Weeks::ChangeService, type: :service do
     let(:week) { create :week, status: Week::INACTIVE }
 
     it 'does not call services', :aggregate_failures do
-      service_call
-
+      expect(service_call.failure?).to be_truthy
       expect(finish_service).not_to have_received(:call)
       expect(start_service).not_to have_received(:call)
       expect(coming_service).not_to have_received(:call)
-    end
-
-    it 'and it fails' do
-      service = service_call
-
-      expect(service.failure?).to be_truthy
     end
   end
 
@@ -41,17 +34,10 @@ describe Weeks::ChangeService, type: :service do
     let!(:week) { create :week, status: Week::COMING }
 
     it 'calls services', :aggregate_failures do
-      service_call
-
+      expect(service_call.success?).to be_truthy
       expect(finish_service).to have_received(:call).with(week: week.previous)
       expect(start_service).to have_received(:call).with(week: week)
       expect(coming_service).to have_received(:call).with(week: week.next)
-    end
-
-    it 'and it succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 end

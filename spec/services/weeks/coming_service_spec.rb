@@ -29,7 +29,6 @@ describe Weeks::ComingService, type: :service do
 
     it 'does not update week', :aggregate_failures do
       expect(service_call.success?).to be_truthy
-
       expect(week).not_to have_received(:update)
     end
   end
@@ -40,7 +39,6 @@ describe Weeks::ComingService, type: :service do
 
       it 'does not update week', :aggregate_failures do
         expect(service_call.success?).to be_truthy
-
         expect(week.reload.status).not_to eq Week::COMING
         expect(lineup_create_service).not_to have_received(:call)
       end
@@ -52,7 +50,6 @@ describe Weeks::ComingService, type: :service do
 
       it 'updates week', :aggregate_failures do
         expect(service_call.success?).to be_truthy
-
         expect(week.reload.status).to eq Week::COMING
         expect(lineup_create_service).to have_received(:call).with(
           fantasy_team: fantasy_team,
