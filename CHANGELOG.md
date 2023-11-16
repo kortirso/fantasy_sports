@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - remembering invite code during sign up
 - rendering active bench boost bonus at points page
 - rendering wasted chips
+- precalculating places in leagues
 
 ### Fixed
 - bug with changing captain/assistant

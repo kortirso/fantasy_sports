@@ -32,18 +32,20 @@
         <p class="basis-2/5"><%= fantasy_league[:place] %></p>
       </div>
     <% end %>
-    <% if fantasy_cups.present? %>
-      <div class="p-2">
-        <h3 class="mt-2 mx-0 mb-0"><%= t('views.shared.statistic.cups') %></h3>
-      </div>
-      <% fantasy_cups.each do |cup| %>
-        <div class="p-2 border-b border-stone-300 flex">
-          <p class="basis-3/5"><%= link_to cup[:name], cup_path(cup[:uuid]), class: 'simple-link' %></p>
-          <p class="basis-2/5 flex flex-row justify-between">
-            <span class="flex-1 text-center"><%= cup[:game_week] %></span>
-            <span class="flex-1 text-center"><%= cup[:pair_result] %></span>
-          </p>
+    <% if false # TODO: open for rendering cups %>
+      <% if fantasy_cups.present? %>
+        <div class="p-2">
+          <h3 class="mt-2 mx-0 mb-0"><%= t('views.shared.statistic.cups') %></h3>
         </div>
+        <% fantasy_cups.each do |cup| %>
+          <div class="p-2 border-b border-stone-300 flex">
+            <p class="basis-3/5"><%= link_to cup[:name], cup_path(cup[:uuid]), class: 'simple-link' %></p>
+            <p class="basis-2/5 flex flex-row justify-between">
+              <span class="flex-1 text-center"><%= cup[:game_week] %></span>
+              <span class="flex-1 text-center"><%= cup[:pair_result] %></span>
+            </p>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
     <%= react_component 'FantasyLeagueForm', uuid: @fantasy_team.uuid %>

@@ -41,6 +41,7 @@ module FantasyTeams
         create_fantasy_teams_players(teams_players_ids)
         lineup = @lineup_creator.call(fantasy_team: @fantasy_team).result
         create_transfers(lineup, teams_players_ids)
+        connect_fantasy_team_with_main_league
         attach_fantasy_team_to_team_league(params[:favourite_team_uuid])
       end
     end
@@ -62,6 +63,13 @@ module FantasyTeams
             direction: Transfer::IN
           }
         }
+      )
+    end
+
+    def connect_fantasy_team_with_main_league
+      @league_join_service.call(
+        fantasy_team: @fantasy_team,
+        fantasy_league_uuid: @fantasy_team.season.fantasy_leagues.find_by(name: 'Overall').uuid
       )
     end
 
