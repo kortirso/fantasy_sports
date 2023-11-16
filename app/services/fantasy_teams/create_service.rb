@@ -18,10 +18,7 @@ module FantasyTeams
 
       return if validate_fantasy_team_uniqueness && failure?
 
-      ActiveRecord::Base.transaction do
-        create_fantasy_team
-        connect_fantasy_team_with_main_league
-      end
+      create_fantasy_team
       publish_created_fantasy_team
     end
 
@@ -39,13 +36,6 @@ module FantasyTeams
         sport_kind: @season.league.sport_kind,
         available_chips: Sport.find_by(title: @season.league.sport_kind).chips,
         season: @season
-      )
-    end
-
-    def connect_fantasy_team_with_main_league
-      @league_join_service.call(
-        fantasy_team: @result,
-        fantasy_league_uuid: @season.fantasy_leagues.find_by(name: 'Overall').uuid
       )
     end
 
