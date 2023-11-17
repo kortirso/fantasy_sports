@@ -5,26 +5,50 @@ module Scrapers
     class Sports < BaseScraper
       # TODO: rebuild for different leagues
       NAME_MAPPER = {
-        'Tottenham' => 'TOT',
-        'Arsenal' => 'ARS',
-        'Manchester City' => 'MCI',
-        'Liverpool' => 'LIV',
-        'Aston Villa' => 'AVL',
-        'Newcastle' => 'NEW',
-        'Brighton' => 'BHA',
-        'Manchester United' => 'MAN',
-        'West Ham' => 'WHU',
-        'Brentford' => 'BRE',
-        'Chelsea' => 'CHE',
-        'Wolves' => 'WOL',
-        'Crystal Palace' => 'CRY',
-        'Fulham' => 'FUL',
-        'Everton' => 'EVE',
-        'Nottingham Forest' => 'NOT',
-        'Bournemouth' => 'BOR',
-        'Luton' => 'LUT',
-        'Burnley' => 'BUR',
-        'Sheffield Utd' => 'SHE'
+        'English Premier League' => {
+          'Tottenham' => 'TOT',
+          'Arsenal' => 'ARS',
+          'Manchester City' => 'MCI',
+          'Liverpool' => 'LIV',
+          'Aston Villa' => 'AVL',
+          'Newcastle' => 'NEW',
+          'Brighton' => 'BHA',
+          'Manchester United' => 'MAN',
+          'West Ham' => 'WHU',
+          'Brentford' => 'BRE',
+          'Chelsea' => 'CHE',
+          'Wolves' => 'WOL',
+          'Crystal Palace' => 'CRY',
+          'Fulham' => 'FUL',
+          'Everton' => 'EVE',
+          'Nottingham Forest' => 'NOT',
+          'Bournemouth' => 'BOR',
+          'Luton' => 'LUT',
+          'Burnley' => 'BUR',
+          'Sheffield Utd' => 'SHE'
+        },
+        'Seria A' => {
+          'Bologna' => 'BOL',
+          'AC Milan' => 'MIL',
+          'Empoli' => 'EMP',
+          'Verona' => 'VER',
+          'Frosinone' => 'FRO',
+          'Napoli' => 'NAP',
+          'Genoa' => 'GEN',
+          'Fiorentina' => 'FIO',
+          'Inter' => 'INT',
+          'Monza' => 'MNZ',
+          'Lecce' => 'LEC',
+          'Lazio' => 'LAZ',
+          'AS Roma' => 'ROM',
+          'Salernitana' => 'SAL',
+          'Sassuolo' => 'SAS',
+          'Atalanta' => 'ATA',
+          'Torino' => 'TOR',
+          'Cagliari' => 'CAG',
+          'Udinese' => 'UDI',
+          'Juventus' => 'JUV'
+        }
       }.freeze
 
       EVENT_MAPPER = {
@@ -49,9 +73,6 @@ module Scrapers
       def call(external_id:)
         @game = Game.find_by(external_id: external_id)
         return unless @game
-
-        @home_team_name = @game.home_season_team.team.short_name
-        @visitor_team_name = @game.visitor_season_team.team.short_name
 
         fetch_data(external_id)
 
@@ -101,7 +122,7 @@ module Scrapers
       def parse_lineup(data)
         raise Games::ImportService::InvalidScrapingError if data.nil?
 
-        team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
         data['startXI'].each { |player_data| parse_lineup_player_data(player_data, team_index) }
         data['substitutes'].each { |player_data| parse_lineup_player_data(player_data, team_index, false) }
       end
@@ -135,7 +156,7 @@ module Scrapers
 
       def parse_event(data)
         type = data['type'] == 'subst' ? EVENT_MAPPER['Substitution'] : EVENT_MAPPER[data['detail']]
-        team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
 
         # change team index for own goals
         team_index = team_index.zero? ? 1 : 0 if type == 1
@@ -157,7 +178,7 @@ module Scrapers
       def parse_statistic(data)
         raise Games::ImportService::InvalidScrapingError if data.nil?
 
-        team_index = find_team_index(NAME_MAPPER[data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
         data['players'].each { |player_data| parse_player_statistic(player_data, team_index) }
       end
 
@@ -289,6 +310,10 @@ module Scrapers
           true
         end
       end
+
+      def league_name = @league_name ||= @game.week.season.league.name['en']
+      def home_team_name = @home_team_name ||= @game.home_season_team.team.short_name
+      def visitor_team_name = @visitor_team_name ||= @game.visitor_season_team.team.short_name
     end
   end
 end

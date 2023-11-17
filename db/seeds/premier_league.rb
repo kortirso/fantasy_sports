@@ -2,7 +2,7 @@ require 'csv'
 
 league = League.create(
   sport_kind: 'football',
-  name: { en: 'Premier League', ru: 'Премьер-Лига' },
+  name: { en: 'English Premier League', ru: 'Английская Премьер-Лига' },
   points_system: { W: 3, D: 1, L: 0 }
 )
 
