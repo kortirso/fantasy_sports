@@ -122,15 +122,15 @@ module Scrapers
       def parse_lineup(data)
         raise Games::ImportService::InvalidScrapingError if data.nil?
 
-        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[league_name][data.dig('team', 'name')])
         data['startXI'].each { |player_data| parse_lineup_player_data(player_data, team_index) }
         data['substitutes'].each { |player_data| parse_lineup_player_data(player_data, team_index, false) }
       end
 
       def find_team_index(short_name)
         case short_name
-        when @home_team_name then 0
-        when @visitor_team_name then 1
+        when home_team_name then 0
+        when visitor_team_name then 1
         end
       end
 
@@ -156,7 +156,7 @@ module Scrapers
 
       def parse_event(data)
         type = data['type'] == 'subst' ? EVENT_MAPPER['Substitution'] : EVENT_MAPPER[data['detail']]
-        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[league_name][data.dig('team', 'name')])
 
         # change team index for own goals
         team_index = team_index.zero? ? 1 : 0 if type == 1
@@ -178,7 +178,7 @@ module Scrapers
       def parse_statistic(data)
         raise Games::ImportService::InvalidScrapingError if data.nil?
 
-        team_index = find_team_index(NAME_MAPPER[@league_name][data.dig('team', 'name')])
+        team_index = find_team_index(NAME_MAPPER[league_name][data.dig('team', 'name')])
         data['players'].each { |player_data| parse_player_statistic(player_data, team_index) }
       end
 
