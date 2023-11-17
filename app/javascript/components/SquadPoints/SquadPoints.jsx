@@ -138,12 +138,9 @@ export const SquadPoints = ({
               </div>
             ))}
           </div>
-          {sport.changes && (
+          {sport.changes ? (
             <div className="changes">
               <div className="flex flex-row justify-center items-center">
-                {activeChips.length > 0 ? (
-                  <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
-                ) : null}
                 {reservePlayers().map((item) => (
                   <PlayerCard
                     key={item.uuid}
@@ -155,9 +152,12 @@ export const SquadPoints = ({
                     onInfoClick={() => setPlayerUuid(item.player.uuid)}
                   />
                 ))}
+                {activeChips.length > 0 ? (
+                  <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
+                ) : null}
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       ) : null}
       {Object.keys(pageState.teamNames).length > 0 ? (

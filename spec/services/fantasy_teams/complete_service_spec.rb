@@ -8,7 +8,8 @@ describe FantasyTeams::CompleteService, type: :service do
     ).call(fantasy_team: fantasy_team, params: params, teams_players_ids: [teams_player.id])
   }
 
-  let!(:fantasy_team) { create :fantasy_team }
+  let!(:season) { create :season }
+  let!(:fantasy_team) { create :fantasy_team, season: season }
   let!(:teams_player) { create :teams_player }
   let(:params) { { name: name, budget_cents: 500, favourite_team_uuid: favourite_team_uuid } }
   let(:transfers_validator) { double }
@@ -21,7 +22,7 @@ describe FantasyTeams::CompleteService, type: :service do
     allow(lineup_creator).to receive(:call).and_return(lineup_creator_result)
     allow(lineup_creator_result).to receive(:result).and_return(lineup)
 
-    season = create :season
+    create :fantasy_league, leagueable: season, season: season, name: 'Overall'
     fantasy_league = create :fantasy_league, season: season
     create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
     create :week, season: season, status: Week::COMING
@@ -30,10 +31,10 @@ describe FantasyTeams::CompleteService, type: :service do
   context 'for invalid params' do
     let(:name) { '' }
 
-    it 'does not update fantasy team' do
-      service_call
-
+    it 'does not update fantasy team', :aggregate_failures do
+      expect(service_call.failure?).to be_truthy
       expect(fantasy_team.reload.name).not_to eq name
+      expect(lineup_creator).not_to have_received(:call)
     end
 
     it 'does not create fantasy team players' do
@@ -42,18 +43,6 @@ describe FantasyTeams::CompleteService, type: :service do
 
     it 'does not create transfers' do
       expect { service_call }.not_to change(Transfer, :count)
-    end
-
-    it 'does not call lineup_creator' do
-      service_call
-
-      expect(lineup_creator).not_to have_received(:call)
-    end
-
-    it 'fails' do
-      service = service_call
-
-      expect(service.failure?).to be_truthy
     end
   end
 
@@ -64,10 +53,10 @@ describe FantasyTeams::CompleteService, type: :service do
       allow(transfers_validator).to receive(:call).and_return(['Some error'])
     end
 
-    it 'does not update fantasy team' do
-      service_call
-
+    it 'does not update fantasy team', :aggregate_failures do
+      expect(service_call.failure?).to be_truthy
       expect(fantasy_team.reload.name).not_to eq name
+      expect(lineup_creator).not_to have_received(:call)
     end
 
     it 'does not create fantasy team players' do
@@ -76,18 +65,6 @@ describe FantasyTeams::CompleteService, type: :service do
 
     it 'does not create transfers' do
       expect { service_call }.not_to change(Transfer, :count)
-    end
-
-    it 'does not call lineup_creator' do
-      service_call
-
-      expect(lineup_creator).not_to have_received(:call)
-    end
-
-    it 'fails' do
-      service = service_call
-
-      expect(service.failure?).to be_truthy
     end
   end
 
@@ -98,30 +75,14 @@ describe FantasyTeams::CompleteService, type: :service do
       allow(transfers_validator).to receive(:call).and_return([])
     end
 
-    it 'updates fantasy team' do
-      service_call
-
+    it 'updates fantasy team', :aggregate_failures do
+      expect { service_call }.to(
+        change(FantasyTeams::Player, :count).by(1)
+          .and(change(Transfer, :count).by(1))
+          .and(change(FantasyLeagues::Team, :count).by(1))
+      )
       expect(fantasy_team.reload.name).to eq name
-    end
-
-    it 'creates fantasy team players' do
-      expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
-    end
-
-    it 'creates transfer' do
-      expect { service_call }.to change(Transfer, :count).by(1)
-    end
-
-    it 'calls lineup_creator' do
-      service_call
-
       expect(lineup_creator).to have_received(:call)
-    end
-
-    it 'succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 
@@ -135,30 +96,14 @@ describe FantasyTeams::CompleteService, type: :service do
       allow(transfers_validator).to receive(:call).and_return([])
     end
 
-    it 'updates fantasy team' do
-      service_call
-
+    it 'updates fantasy team', :aggregate_failures do
+      expect { service_call }.to(
+        change(FantasyTeams::Player, :count).by(1)
+          .and(change(fantasy_league.members, :count).by(1))
+          .and(change(FantasyLeagues::Team, :count).by(2))
+      )
       expect(fantasy_team.reload.name).to eq name
-    end
-
-    it 'creates fantasy team players' do
-      expect { service_call }.to change(FantasyTeams::Player, :count).by(1)
-    end
-
-    it 'calls lineup_creator' do
-      service_call
-
       expect(lineup_creator).to have_received(:call)
-    end
-
-    it 'attaches fantasy team to team league' do
-      expect { service_call }.to change(fantasy_league.members, :count).by(1)
-    end
-
-    it 'succeed' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 end

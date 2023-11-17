@@ -17,7 +17,7 @@ module Views
       end
 
       def overall_rank
-        @season.fantasy_teams.completed.where('points > ?', overall_points).size + 1
+        fantasy_leagues[0][:place]
       end
 
       def fantasy_teams_amount
@@ -25,26 +25,37 @@ module Views
       end
 
       def fantasy_leagues
-        @fantasy_team.fantasy_leagues.order(global: :desc).map do |fantasy_league|
-          {
-            uuid: fantasy_league.uuid,
-            name: fantasy_league.name,
-            place: fantasy_league.members.where('points > ?', @fantasy_team.points).size + 1
-          }
-        end
+        @fantasy_leagues ||=
+          @fantasy_team
+            .fantasy_leagues_teams
+            .joins(:fantasy_league)
+            .order('fantasy_leagues.global DESC, fantasy_leagues.id ASC')
+            .hashable_pluck('fantasy_leagues.uuid', 'fantasy_leagues.name', :current_place)
+            .map do |member|
+              {
+                uuid: member[:fantasy_leagues_uuid],
+                name: member[:fantasy_leagues_name],
+                place: member[:current_place]
+              }
+            end
       end
 
       def lineups_fantasy_leagues
         lineup = @fantasy_team.lineups.find_by(week_id: @week&.id)
         return [] unless lineup
 
-        lineup.fantasy_leagues.order(global: :desc).map do |fantasy_league|
-          {
-            uuid: fantasy_league.uuid,
-            name: fantasy_league.name,
-            place: fantasy_league.members.where('points > ?', lineup.points).size + 1
-          }
-        end
+        lineup
+          .fantasy_leagues_teams
+          .joins(:fantasy_league)
+          .order('fantasy_leagues.global DESC')
+          .hashable_pluck('fantasy_leagues.uuid', 'fantasy_leagues.name', :current_place)
+          .map do |member|
+            {
+              uuid: member[:fantasy_leagues_uuid],
+              name: member[:fantasy_leagues_name],
+              place: member[:current_place]
+            }
+          end
       end
 
       def fantasy_cups

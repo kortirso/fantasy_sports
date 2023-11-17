@@ -7,6 +7,7 @@ module FantasyTeams
     before_action :find_fantasy_team
     before_action :find_week
     before_action :find_fantasy_team_relationships
+    before_action :calculate_lineups_data
     before_action :check_league_maintenance
 
     def index; end
@@ -26,6 +27,12 @@ module FantasyTeams
     def find_fantasy_team_relationships
       @lineup = Lineup.find_by(fantasy_team: @fantasy_team, week: @week)
       @season = @fantasy_team.season
+    end
+
+    def calculate_lineups_data
+      return if @week.nil?
+
+      @lineups_data = @week.lineups.pluck(:points)
     end
   end
 end

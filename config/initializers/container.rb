@@ -67,6 +67,9 @@ module FantasySports
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
     register('services.players.find_best') { Players::FindBestService.new }
     register('services.games.players.create_for_game') { Games::Players::CreateForGameService.new }
+    register('services.fantasy_leagues.teams.update_current_place') {
+      FantasyLeagues::Teams::CurrentPlaceUpdateService.new
+    }
 
     register('services.persisters.fantasy_teams.join_fantasy_league') {
       Persisters::FantasyTeams::JoinFantasyLeagueService.new

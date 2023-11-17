@@ -40,6 +40,7 @@ module Lineups
     def make_bench_substitutions
       return if @lineups_players_for_update.blank?
 
+      # commento: lineups_players.change_order, lineups_players.status
       Lineups::Player.upsert_all(
         @lineups_players_for_update,
         record_timestamps: true
