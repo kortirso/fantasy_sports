@@ -23,6 +23,7 @@ class Week < ApplicationRecord
   has_many :cups_pairs, class_name: '::Cups::Pair', through: :cups_rounds
 
   scope :active, -> { where(status: ACTIVE) }
+  scope :future, -> { where(status: [COMING, INACTIVE]) }
   scope :opponent_visible, -> { where(status: [ACTIVE, FINISHED]) }
 
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }

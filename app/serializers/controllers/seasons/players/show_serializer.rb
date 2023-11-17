@@ -18,7 +18,7 @@ module Controllers
 
         # rubocop: disable Metrics/BlockLength
         attribute :fixtures do |object|
-          week_ids = Week.where(season_id: object.season_id).inactive.order(position: :asc).limit(4).ids
+          week_ids = Week.where(season_id: object.season_id).future.order(position: :asc).limit(4).ids
           seasons_team = object.active_teams_player.seasons_team
 
           Rails.cache.fetch(
