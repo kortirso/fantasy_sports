@@ -64,7 +64,8 @@
       "week": "Gameweek {number}",
       "description": "This page shows game results and points scored by players during the current active game week.",
       "benchBoostIsActive": "Bench boost is active",
-      "tripleCaptainIsActive": "Triple captain boost"
+      "tripleCaptainIsActive": "Triple captain boost",
+      "noLineup": "You don't have lineup for this week"
     },
     "player": {
       "form": "Form",
@@ -189,7 +190,8 @@
       "week": "Игровая неделя {number}",
       "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе.",
       "benchBoostIsActive": "Бонус за очки запасных",
-      "tripleCaptainIsActive": "Тройной бонус капитана"
+      "tripleCaptainIsActive": "Тройной бонус капитана",
+      "noLineup": "У вас нет активного состава на эту неделю"
     },
     "player": {
       "form": "Форма",
