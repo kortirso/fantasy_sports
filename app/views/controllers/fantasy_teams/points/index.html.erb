@@ -11,7 +11,7 @@
           weekUuid: @week.uuid,
           weekPosition: @week.position,
           points: @lineup&.points,
-          averagePoints: @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size) : 0,
+          averagePoints: @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size).round(1) : 0,
           maxPoints: @lineups_data.max,
           previousPointsUrl: @week.position > 1 && @week.opponent_visible? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position - 1) : nil,
           nextPointsUrl: @week.finished? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position + 1) : nil

@@ -85,11 +85,11 @@ module Views
       end
 
       def squad_value
-        @fantasy_team.teams_players.sum(:price_cents) / 100.0
+        (@fantasy_team.teams_players.sum(:price_cents) / 100.0).round(1)
       end
 
       def squad_budget
-        @fantasy_team.budget_cents / 100.0
+        (@fantasy_team.budget_cents / 100.0).round(1)
       end
     end
   end
