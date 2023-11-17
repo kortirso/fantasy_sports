@@ -220,7 +220,7 @@ en:
           title: Gameweek %{week} status
       points:
         index:
-          no_lineups: There is no your active lineup
+          no_lineups: There is no active week
     shared:
       statistic:
         title: Points/Rankings

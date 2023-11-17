@@ -220,7 +220,7 @@ ru:
           title: Статус %{week} игровой недели
       points:
         index:
-          no_lineups: На данный момент у вас нет активного состава
+          no_lineups: На данный момент нет активной недели
     shared:
       statistic:
         title: Очки\Места
