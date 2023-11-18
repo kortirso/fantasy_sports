@@ -2,31 +2,31 @@
 
 require 'csv'
 
-NAME_MAPPER = {
-  'Tottenham' => 'TOT',
-  'Arsenal' => 'ARS',
-  'Manchester City' => 'MCI',
-  'Liverpool' => 'LIV',
-  'Aston Villa' => 'AVL',
-  'Newcastle' => 'NEW',
-  'Brighton' => 'BHA',
-  'Manchester United' => 'MAN',
-  'West Ham' => 'WHU',
-  'Brentford' => 'BRE',
-  'Chelsea' => 'CHE',
-  'Wolves' => 'WOL',
-  'Crystal Palace' => 'CRY',
-  'Fulham' => 'FUL',
-  'Everton' => 'EVE',
-  'Nottingham Forest' => 'NOT',
-  'Bournemouth' => 'BOR',
-  'Luton' => 'LUT',
-  'Burnley' => 'BUR',
-  'Sheffield Utd' => 'SHE'
-}.freeze
-
 desc 'Import Premier League schedule from Sports'
 task sports_premier_league_schedule_import: :environment do
+  NAME_MAPPER = {
+    'Tottenham' => 'TOT',
+    'Arsenal' => 'ARS',
+    'Manchester City' => 'MCI',
+    'Liverpool' => 'LIV',
+    'Aston Villa' => 'AVL',
+    'Newcastle' => 'NEW',
+    'Brighton' => 'BHA',
+    'Manchester United' => 'MAN',
+    'West Ham' => 'WHU',
+    'Brentford' => 'BRE',
+    'Chelsea' => 'CHE',
+    'Wolves' => 'WOL',
+    'Crystal Palace' => 'CRY',
+    'Fulham' => 'FUL',
+    'Everton' => 'EVE',
+    'Nottingham Forest' => 'NOT',
+    'Bournemouth' => 'BOR',
+    'Luton' => 'LUT',
+    'Burnley' => 'BUR',
+    'Sheffield Utd' => 'SHE'
+  }.freeze
+
   api_key = Rails.application.credentials[:sports_api_key]
   http_service = HttpService::Client.new(url: 'https://v3.football.api-sports.io')
   result = http_service.get(
