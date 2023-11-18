@@ -95,7 +95,7 @@ export const SquadPoints = ({
           </div>
         </div>
       ) : (
-        <div>
+        <div className="mb-4">
           <span className="badge-dark">{strings.squadPoints.noLineup}</span>
         </div>
       )}
