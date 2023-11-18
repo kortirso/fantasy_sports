@@ -123,6 +123,12 @@
     "playerActions": {
       "makeCaptain": "Make captain (x2 points)",
       "makeAssistant": "Make captain assistant"
+    },
+    "fantasyTeamDestroyForm": {
+      "button": "Destroy fantasy team",
+      "title": "Destroying fantasy team",
+      "description": "Are you really would like to destroy your team? This action is irrevertable, fantasy team can't be restored.",
+      "destroy": "Destroy"
     }
   },
   "ru": {
@@ -249,6 +255,12 @@
     "playerActions": {
       "makeCaptain": "Назначить капитаном (x2 очки)",
       "makeAssistant": "Назначить помощником капитана"
+    },
+    "fantasyTeamDestroyForm": {
+      "button": "Удалить фэнтези команду",
+      "title": "Удаление фэнтези команды",
+      "description": "Вы точно хотите удалить команду? Это действие нельзя отменить, команду нельзя будет никак восстановить.",
+      "destroy": "Удалить"
     }
   }
 }

@@ -77,6 +77,7 @@ en:
         success: Password is changed
         invalid: Password can't be changed
     fantasy_teams:
+      not_found: Fantasy team is not found
       success_create: Fantasy team is created
     fantasy_leagues:
       joins:
