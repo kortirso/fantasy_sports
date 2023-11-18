@@ -70,12 +70,13 @@ module FantasySports
     register('services.fantasy_leagues.teams.update_current_place') {
       FantasyLeagues::Teams::CurrentPlaceUpdateService.new
     }
-
     register('services.persisters.fantasy_teams.join_fantasy_league') {
       Persisters::FantasyTeams::JoinFantasyLeagueService.new
     }
     register('services.persisters.users.update') { Persisters::Users::UpdateService.new }
     register('services.users.restore') { Users::RestoreService.new }
+    register('services.weeks.bench_substitutions') { Weeks::BenchSubstitutionsService.new }
+    register('services.weeks.finish') { Weeks::FinishService.new }
   end
 end
 

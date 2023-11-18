@@ -5,7 +5,7 @@ module Weeks
     prepend ApplicationService
 
     def initialize(
-      finish_service: Weeks::FinishService,
+      finish_service: FantasySports::Container['services.weeks.finish'],
       start_service:  Weeks::StartService,
       coming_service: Weeks::ComingService
     )

@@ -8,6 +8,11 @@ every '0,30 * * * *' do
   runner 'SchedulerJob.perform_later'
 end
 
+# At minute 0 past hour 0 and 12
+every '0 0,12 * * *' do
+  runner 'Weeks::BenchSubstitutionsJob.perform_later'
+end
+
 # Clear expired users sessions
 every 1.day do
   runner 'Users::Sessions::RemoveExpiredJob.perform_later'

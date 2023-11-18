@@ -32,25 +32,14 @@ describe Lineups::Players::Points::UpdateService, type: :service do
 
   context 'for simple lineup' do
     it 'updates lineups players points', :aggregate_failures do
-      service_call
-
+      expect(service_call.success?).to be_truthy
+      expect(lineups_update_points_service).to have_received(:call).with(
+        lineup_ids: [lineup1.id, lineup2.id],
+        final_points: false
+      )
       expect(lineups_player1.reload.points).to eq 4
       expect(lineups_player2.reload.points).to eq 8
       expect(lineups_player3.reload.points).to eq 20
-    end
-
-    it 'calls lineups_update_points_service' do
-      service_call
-
-      expect(lineups_update_points_service).to have_received(:call).with(
-        lineup_ids: [lineup1.id, lineup2.id]
-      )
-    end
-
-    it 'succeeds' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 
@@ -58,25 +47,14 @@ describe Lineups::Players::Points::UpdateService, type: :service do
     before { lineup2.update(active_chips: [Chipable::TRIPLE_CAPTAIN]) }
 
     it 'updates lineups players points', :aggregate_failures do
-      service_call
-
+      expect(service_call.success?).to be_truthy
       expect(lineups_player1.reload.points).to eq 4
       expect(lineups_player2.reload.points).to eq 12
       expect(lineups_player3.reload.points).to eq 20
-    end
-
-    it 'calls lineups_update_points_service' do
-      service_call
-
       expect(lineups_update_points_service).to have_received(:call).with(
-        lineup_ids: [lineup1.id, lineup2.id]
+        lineup_ids: [lineup1.id, lineup2.id],
+        final_points: false
       )
-    end
-
-    it 'succeeds' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 end

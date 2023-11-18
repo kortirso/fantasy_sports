@@ -6,10 +6,11 @@ module Lineups
       class UpdateJob < ApplicationJob
         queue_as :default
 
-        def perform(team_player_ids:, week_id:)
+        def perform(team_player_ids:, week_id:, final_points: false)
           Lineups::Players::Points::UpdateService.call(
             team_player_ids: team_player_ids,
-            week_id: week_id
+            week_id: week_id,
+            final_points: final_points
           )
 
           Week.find_by(id: week_id)&.season&.all_fantasy_leagues&.each do |fantasy_league|
