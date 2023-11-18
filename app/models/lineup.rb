@@ -16,4 +16,7 @@ class Lineup < ApplicationRecord
   has_many :fantasy_leagues, through: :fantasy_leagues_teams
 
   has_many :transfers, dependent: :destroy
+
+  scope :with_final_points, -> { where(final_points: true) }
+  scope :without_final_points, -> { where(final_points: false) }
 end

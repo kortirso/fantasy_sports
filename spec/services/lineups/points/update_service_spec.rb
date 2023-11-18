@@ -4,12 +4,13 @@ describe Lineups::Points::UpdateService, type: :service do
   subject(:service_call) {
     described_class
       .new(fantasy_teams_update_points_service: fantasy_teams_update_points_service)
-      .call(lineup_ids: lineup_ids)
+      .call(lineup_ids: lineup_ids, final_points: final_points)
   }
 
   let(:fantasy_teams_update_points_service) { double }
   let!(:lineup) { create :lineup }
   let(:lineup_ids) { [lineup.id] }
+  let(:final_points) { false }
 
   before do
     allow(fantasy_teams_update_points_service).to receive(:call)
@@ -20,48 +21,38 @@ describe Lineups::Points::UpdateService, type: :service do
   end
 
   context 'for simple lineup' do
-    it 'updates lineup points' do
-      service_call
-
+    it 'updates points', :aggregate_failures do
+      expect(service_call.success?).to be_truthy
       expect(lineup.reload.points).to eq 4
-    end
-
-    it 'calls updating points for fantasy teams' do
-      service_call
-
+      expect(lineup.final_points).to be_falsy
       expect(fantasy_teams_update_points_service).to(
         have_received(:call).with(fantasy_team_ids: [lineup.fantasy_team_id])
       )
     end
 
-    it 'succeeds' do
-      service = service_call
+    context 'for final points' do
+      let(:final_points) { true }
 
-      expect(service.success?).to be_truthy
+      it 'updates points', :aggregate_failures do
+        expect(service_call.success?).to be_truthy
+        expect(lineup.reload.points).to eq 4
+        expect(lineup.final_points).to be_truthy
+        expect(fantasy_teams_update_points_service).to(
+          have_received(:call).with(fantasy_team_ids: [lineup.fantasy_team_id])
+        )
+      end
     end
   end
 
   context 'for lineup with bench boost' do
     before { lineup.update(active_chips: [Chipable::BENCH_BOOST]) }
 
-    it 'updates lineup points with bench players' do
-      service_call
-
+    it 'updates lineup points with bench players', :aggregate_failures do
+      expect(service_call.success?).to be_truthy
       expect(lineup.reload.points).to eq 5
-    end
-
-    it 'calls updating points for fantasy teams' do
-      service_call
-
       expect(fantasy_teams_update_points_service).to(
         have_received(:call).with(fantasy_team_ids: [lineup.fantasy_team_id])
       )
-    end
-
-    it 'succeeds' do
-      service = service_call
-
-      expect(service.success?).to be_truthy
     end
   end
 end

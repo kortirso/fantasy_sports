@@ -11,7 +11,7 @@ module Lineups
         @fantasy_teams_update_points_service = fantasy_teams_update_points_service
       end
 
-      def call(lineup_ids:)
+      def call(lineup_ids:, final_points: false)
         fantasy_team_ids = []
         lineups = Lineup.where(id: lineup_ids).map do |lineup|
           fantasy_team_ids.push(lineup.fantasy_team_id)
@@ -19,11 +19,12 @@ module Lineups
           {
             id: lineup.id,
             points: players(lineup).pluck(:points).sum(&:to_d),
+            final_points: final_points,
             fantasy_team_id: lineup.fantasy_team_id,
             week_id: lineup.week_id
           }
         end
-        # commento: lineups.points
+        # commento: lineups.points, lineups.final_points
         Lineup.upsert_all(lineups) if lineups.any?
 
         @fantasy_teams_update_points_service.call(fantasy_team_ids: fantasy_team_ids)

@@ -19,7 +19,8 @@ describe Lineups::Players::Points::UpdateJob, type: :service do
 
     expect(Lineups::Players::Points::UpdateService).to have_received(:call).with(
       team_player_ids: [teams_player.id],
-      week_id: week.id
+      week_id: week.id,
+      final_points: false
     )
     expect(FantasySports::Container.resolve('services.fantasy_leagues.teams.update_current_place')).to(
       have_received(:call).with(fantasy_league: fantasy_league)

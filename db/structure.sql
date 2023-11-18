@@ -885,8 +885,16 @@ CREATE TABLE public.lineups (
     free_transfers_amount integer DEFAULT 0 NOT NULL,
     transfers_limited boolean DEFAULT true,
     penalty_points integer DEFAULT 0 NOT NULL,
-    active_chips character varying[] DEFAULT '{}'::character varying[] NOT NULL
+    active_chips character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    final_points boolean DEFAULT false NOT NULL
 );
+
+
+--
+-- Name: COLUMN lineups.final_points; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.lineups.final_points IS 'Flag shows that points is completely calculated, no more changes';
 
 
 --
@@ -2210,6 +2218,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231118141932'),
 ('20231116182940'),
 ('20231116182358'),
 ('20231111130838'),
