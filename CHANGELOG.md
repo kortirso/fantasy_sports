@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - making substitutions after 1 day of last game
+- destroying fantasy teams
 
 ### Modified
 - open only 1 dropdown at time on Transfers page
