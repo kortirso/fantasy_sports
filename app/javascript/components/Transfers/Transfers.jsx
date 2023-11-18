@@ -48,19 +48,26 @@ export const Transfers = ({
     alerts: {}
   });
 
+  const [filterState, setFilterState] = useState({
+    position: 'all',
+    team: 'all',
+    sortBy: 'points',
+    page: 0,
+    search: '',
+    openDropdown: null
+  });
+
+  const [teamState, setTeamState] = useState({
+    uuid: null,
+    openDropdown: false
+  })
+
   // fields for initial squad
   const [teamName, setTeamName] = useState('');
-  const [favouriteTeamUuid, setFavouriteTeamUuid] = useState(null);
   // other fields
   const [playerUuid, setPlayerUuid] = useState(); // for PlayerModal
   const [playersByPosition, setPlayersByPosition] = useState({}); // for rendering players on the field
   const [transfersData, setTransfersData] = useState(null); // for transfers modal
-  // filters state
-  const [filterByPosition, setFilterByPosition] = useState('all');
-  const [filterByTeam, setFilterByTeam] = useState('all');
-  const [sortBy, setSortBy] = useState('points');
-  const [page, setPage] = useState(0);
-  const [search, setSearch] = useState('');
 
   const sportPositions = sportsData.positions[sportKind];
   const sport = sportsData.sports[sportKind];
@@ -106,29 +113,29 @@ export const Transfers = ({
   const filteredPlayers = useMemo(() => {
     return pageState.seasonPlayers
       .filter((element) => {
-        if (filterByPosition !== 'all' && filterByPosition !== element.player.position_kind) return false;
+        if (filterState.position !== 'all' && filterState.position !== element.player.position_kind) return false;
         if (element.team.uuid === null) return false;
-        if (filterByTeam !== 'all' && filterByTeam !== element.team.uuid) return false;
+        if (filterState.team !== 'all' && filterState.team !== element.team.uuid) return false;
 
         return true;
       })
       .filter((element) => {
-        if (search === '') return true;
+        if (filterState.search === '') return true;
 
-        return Object.values(element.player.name).find((element) => { return element.toLowerCase().includes(search) })
+        return Object.values(element.player.name).find((element) => { return element.toLowerCase().includes(filterState.search) })
       })
       .sort((a, b) => {
-        if (TEAM_SORT_PARAMS.includes(sortBy)) {
-          return a.team[sortBy] < b.team[sortBy] ? 1 : -1;
+        if (TEAM_SORT_PARAMS.includes(filterState.sortBy)) {
+          return a.team[filterState.sortBy] < b.team[filterState.sortBy] ? 1 : -1;
         } else {
-          return a[sortBy] < b[sortBy] ? 1 : -1;
+          return a[filterState.sortBy] < b[filterState.sortBy] ? 1 : -1;
         }
       });
-  }, [pageState.seasonPlayers, filterByPosition, filterByTeam, sortBy, search]);
+  }, [pageState.seasonPlayers, filterState]);
 
   const filteredSlicedPlayers = useMemo(() => {
-    return filteredPlayers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
-  }, [filteredPlayers, page]);
+    return filteredPlayers.slice(filterState.page * PER_PAGE, filterState.page * PER_PAGE + PER_PAGE);
+  }, [filteredPlayers, filterState.page]);
 
   const lastPageIndex = useMemo(() => {
     return Math.trunc(filteredPlayers.length / (PER_PAGE + 1)) + 1;
@@ -147,11 +154,11 @@ export const Transfers = ({
   }, [transfersLimited, pageState.freeTransfersAmount, pageState.defaultTeamMembers, pageState.teamMembers, sport.points_per_transfer]);
 
   const pageDown = () => {
-    if (page !== 0) setPage(page - 1);
+    if (filterState.page !== 0) setFilterState({ ...filterState, page: filterState.page - 1 });
   };
 
   const pageUp = () => {
-    if (page !== lastPageIndex - 1) setPage(page + 1);
+    if (filterState.page !== lastPageIndex - 1) setFilterState({ ...filterState, page: filterState.page + 1 });
   };
 
   const addTeamMember = (item) => {
@@ -217,7 +224,7 @@ export const Transfers = ({
       fantasy_team: {
         name: teamName,
         budget_cents: pageState.budget * 100,
-        favourite_team_uuid: favouriteTeamUuid,
+        favourite_team_uuid: teamState.uuid,
         players_seasons_uuids: pageState.teamMembers.map((element) => element.uuid),
       },
     };
@@ -322,8 +329,11 @@ export const Transfers = ({
                   result[key] = localizeValue(values.name);
                   return result;
                 }, {})}
-                onSelect={(value) => setFavouriteTeamUuid(value)}
-                selectedValue={favouriteTeamUuid}
+                isOpen={teamState.openDropdown}
+                onOpen={() => setTeamState({ ...teamState, openDropdown: true })}
+                onClose={() => setTeamState({ ...teamState, openDropdown: false })}
+                onSelect={(value) => setTeamState({ ...teamState, uuid: value, openDropdown: false })}
+                selectedValue={teamState.uuid}
                 placeholder={strings.transfers.selectFavouriteTeam}
               />
             </div>
@@ -414,11 +424,11 @@ export const Transfers = ({
                 },
                 { all: strings.transfers.allPlayers },
               )}
-              onSelect={(value) => {
-                setFilterByPosition(value);
-                setPage(0);
-              }}
-              selectedValue={filterByPosition}
+              isOpen={filterState.openDropdown === 'position'}
+              onOpen={() => setFilterState({ ...filterState, openDropdown: 'position' })}
+              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, position: value, page: 0, openDropdown: null })}
+              selectedValue={filterState.position}
             />
             <Dropdown
               title={strings.transfers.teamView}
@@ -429,11 +439,11 @@ export const Transfers = ({
                 },
                 { all: strings.transfers.allTeams },
               )}
-              onSelect={(value) => {
-                setFilterByTeam(value);
-                setPage(0);
-              }}
-              selectedValue={filterByTeam}
+              isOpen={filterState.openDropdown === 'team'}
+              onOpen={() => setFilterState({ ...filterState, openDropdown: 'team' })}
+              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, team: value, page: 0, openDropdown: null })}
+              selectedValue={filterState.team}
             />
             <Dropdown
               title={strings.transfers.sort}
@@ -442,25 +452,28 @@ export const Transfers = ({
                 price: strings.transfers.sortByPrice,
                 form: strings.transfers.sortByForm,
               }}
-              onSelect={(value) => setSortBy(value)}
-              selectedValue={sortBy}
+              isOpen={filterState.openDropdown === 'sortBy'}
+              onOpen={() => setFilterState({ ...filterState, openDropdown: 'sortBy' })}
+              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, sortBy: value, page: 0, openDropdown: null })}
+              selectedValue={filterState.sortBy}
             />
             <div className="form-field mb-4">
               <label className="form-label">{strings.transfers.search}</label>
               <input
                 className="form-value w-full"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={filterState.search}
+                onChange={(e) => setFilterState({ ...filterState, search: e.target.value, page: 0 })}
               />
             </div>
           </div>
           <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1">
             <div className="flex-1"></div>
             <div className="w-12 flex flex-row items-center justify-center text-sm">
-              {sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
+              {filterState.sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
             </div>
             <div className="w-12 flex flex-row items-center justify-center text-sm">
-              {localizeValue(SORT_PARAMS[sortBy])}
+              {localizeValue(SORT_PARAMS[filterState.sortBy])}
             </div>
             <div className="w-6"></div>
           </div>
@@ -484,10 +497,10 @@ export const Transfers = ({
                 </span>
               </div>
               <div className="w-12 flex flex-row items-center justify-center">
-                {sortBy === 'price' ? item.points : item.team.price}
+                {filterState.sortBy === 'price' ? item.points : item.team.price}
               </div>
               <div className="w-12 flex flex-row items-center justify-center">
-                {TEAM_SORT_PARAMS.includes(sortBy) ? item.team[sortBy] : item[sortBy]}
+                {TEAM_SORT_PARAMS.includes(filterState.sortBy) ? item.team[filterState.sortBy] : item[filterState.sortBy]}
               </div>
               {renderChangeButton(item)}
             </div>
@@ -500,7 +513,7 @@ export const Transfers = ({
               >
                 -
               </span>
-              <span className="mx-4">{`${page + 1} of ${lastPageIndex}`}</span>
+              <span className="mx-4">{`${filterState.page + 1} of ${lastPageIndex}`}</span>
               <span
                 className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
                 onClick={pageUp}

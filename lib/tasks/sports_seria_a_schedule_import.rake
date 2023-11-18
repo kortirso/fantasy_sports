@@ -2,7 +2,7 @@
 
 require 'csv'
 
-NAME_MAPPER = {
+SERIA_A_NAME_MAPPER = {
   'Bologna' => 'BOL',
   'AC Milan' => 'MIL',
   'Empoli' => 'EMP',
@@ -42,8 +42,8 @@ task sports_seria_a_schedule_import: :environment do
         game.dig('fixture', 'id'),
         game.dig('fixture', 'date'),
         game.dig('league', 'round').split(' - ')[-1],
-        NAME_MAPPER[game.dig('teams', 'home', 'name')],
-        NAME_MAPPER[game.dig('teams', 'away', 'name')]
+        SERIA_A_NAME_MAPPER[game.dig('teams', 'home', 'name')],
+        SERIA_A_NAME_MAPPER[game.dig('teams', 'away', 'name')]
       ]
     end
   end

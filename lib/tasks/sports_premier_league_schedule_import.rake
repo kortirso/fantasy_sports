@@ -2,7 +2,7 @@
 
 require 'csv'
 
-NAME_MAPPER = {
+PREMIER_LEAGUE_NAME_MAPPER = {
   'Tottenham' => 'TOT',
   'Arsenal' => 'ARS',
   'Manchester City' => 'MCI',
@@ -41,8 +41,8 @@ task sports_premier_league_schedule_import: :environment do
         game.dig('fixture', 'id'),
         game.dig('fixture', 'date'),
         game.dig('league', 'round').split(' - ')[-1],
-        NAME_MAPPER[game.dig('teams', 'home', 'name')],
-        NAME_MAPPER[game.dig('teams', 'away', 'name')]
+        PREMIER_LEAGUE_NAME_MAPPER[game.dig('teams', 'home', 'name')],
+        PREMIER_LEAGUE_NAME_MAPPER[game.dig('teams', 'away', 'name')]
       ]
     end
   end

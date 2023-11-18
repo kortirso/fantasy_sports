@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Modified
+- open only 1 dropdown at time on Transfers page
+
 ## [1.1.2] - 2023-11-17
 ### Added
 - collapsing games list for previous days
