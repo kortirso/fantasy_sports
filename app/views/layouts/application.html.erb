@@ -15,6 +15,9 @@
   </head>
   <body class="relative flex flex-col m-0 p-0 min-h-screen">
     <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
+    <% if @watches %>
+      <input type="hidden" id="watches" value="<%= @watches %>" />
+    <% end %>
     <%= yield %>
     <div id="modal-root"></div>
     <%= react_component 'Flash', content: flash.to_h %>

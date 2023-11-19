@@ -7,15 +7,15 @@ describe Api::Frontend::FantasyTeamsController do
 
     context 'for logged users' do
       let!(:fantasy_team) { create :fantasy_team }
-      let(:request) { delete :destroy, params: { id: fantasy_team.uuid } }
+      let(:request) { delete :destroy, params: { id: fantasy_team.uuid }, format: :json }
 
       sign_in_user
 
       context 'for team of another user' do
         it 'does not destroy fantasy team', :aggregate_failures do
           expect { request }.not_to change(FantasyTeam, :count)
-          expect(response).to have_http_status :ok
-          expect(response.parsed_body.dig('errors', 0)).to eq 'Fantasy team is not found'
+          expect(response).to have_http_status :not_found
+          expect(response.parsed_body.dig('errors', 0)).to eq 'Page is not found'
         end
       end
 
@@ -31,7 +31,7 @@ describe Api::Frontend::FantasyTeamsController do
     end
 
     def do_request
-      delete :destroy, params: { id: 'unexisting' }
+      delete :destroy, params: { id: 'unexisting' }, format: :json
     end
   end
 end

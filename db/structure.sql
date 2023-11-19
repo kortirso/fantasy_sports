@@ -606,6 +606,38 @@ ALTER SEQUENCE public.fantasy_teams_players_id_seq OWNED BY public.fantasy_teams
 
 
 --
+-- Name: fantasy_teams_watches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fantasy_teams_watches (
+    id bigint NOT NULL,
+    fantasy_team_id bigint NOT NULL,
+    players_season_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: fantasy_teams_watches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.fantasy_teams_watches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: fantasy_teams_watches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.fantasy_teams_watches_id_seq OWNED BY public.fantasy_teams_watches.id;
+
+
+--
 -- Name: feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1440,6 +1472,13 @@ ALTER TABLE ONLY public.fantasy_teams_players ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: fantasy_teams_watches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_watches ALTER COLUMN id SET DEFAULT nextval('public.fantasy_teams_watches_id_seq'::regclass);
+
+
+--
 -- Name: feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1668,6 +1707,14 @@ ALTER TABLE ONLY public.fantasy_teams_players
 
 
 --
+-- Name: fantasy_teams_watches fantasy_teams_watches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fantasy_teams_watches
+    ADD CONSTRAINT fantasy_teams_watches_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feedbacks feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1856,6 +1903,13 @@ ALTER TABLE ONLY public.weeks
 --
 
 CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_players USING btree (fantasy_team_id, teams_player_id);
+
+
+--
+-- Name: idx_on_fantasy_team_id_players_season_id_46f81fc3f4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_fantasy_team_id_players_season_id_46f81fc3f4 ON public.fantasy_teams_watches USING btree (fantasy_team_id, players_season_id);
 
 
 --
@@ -2218,6 +2272,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231119135501'),
 ('20231118141932'),
 ('20231116182940'),
 ('20231116182358'),

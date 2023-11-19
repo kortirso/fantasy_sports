@@ -9,7 +9,7 @@ describe Api::Frontend::FeedbacksController do
       sign_in_user
 
       context 'for invalid params' do
-        let(:request) { post :create, params: { feedback: { title: 'Title', description: '' } } }
+        let(:request) { post :create, params: { feedback: { title: 'Title', description: '' } }, format: :json }
 
         it 'does not create feedback', :aggregate_failures do
           expect { request }.not_to change(Feedback, :count)
@@ -19,7 +19,7 @@ describe Api::Frontend::FeedbacksController do
       end
 
       context 'for valid params' do
-        let(:request) { post :create, params: { feedback: { title: 'Title', description: 'Text' } } }
+        let(:request) { post :create, params: { feedback: { title: 'Title', description: 'Text' } }, format: :json }
 
         it 'creates feedback', :aggregate_failures do
           expect { request }.to change(@current_user.feedbacks, :count).by(1)
@@ -30,7 +30,7 @@ describe Api::Frontend::FeedbacksController do
     end
 
     def do_request
-      post :create, params: { feedback: { title: 'Title', description: 'Text' } }
+      post :create, params: { feedback: { title: 'Title', description: 'Text' } }, format: :json
     end
   end
 end

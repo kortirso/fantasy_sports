@@ -13,8 +13,7 @@ module Api
       private
 
       def find_fantasy_team
-        @fantasy_team = current_user.fantasy_teams.find_by(uuid: params[:id])
-        render json: { errors: [t('controllers.fantasy_teams.not_found')] }, status: :ok if @fantasy_team.nil?
+        @fantasy_team = current_user.fantasy_teams.find_by!(uuid: params[:id])
       end
     end
   end

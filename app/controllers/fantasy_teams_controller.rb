@@ -9,6 +9,7 @@ class FantasyTeamsController < ApplicationController
   before_action :find_season, only: %i[create]
   before_action :check_league_maintenance, only: %i[show]
   before_action :find_league, only: %i[update]
+  before_action :set_watchable_players, only: %i[show]
   before_action :validate_league_maintenance, only: %i[update]
 
   def show; end

@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
 import { sportsData } from '../../data';
-import { currentLocale, localizeValue, csrfToken, convertDateTime } from '../../helpers';
+import { currentLocale, localizeValue, csrfToken, convertDateTime, currentWatches } from '../../helpers';
 import { strings } from '../../locales';
 
-import { Dropdown, Modal, Flash } from '../../components/atoms';
+import { Dropdown, Modal, Flash, Checkbox } from '../../components/atoms';
 import { Week, PlayerModal, PlayerCard } from '../../components';
 
 import { apiRequest } from '../../requests/helpers/apiRequest';
@@ -54,7 +54,8 @@ export const Transfers = ({
     sortBy: 'points',
     page: 0,
     search: '',
-    openDropdown: null
+    openDropdown: null,
+    onlyWatched: false
   });
 
   const [teamState, setTeamState] = useState({
@@ -116,6 +117,7 @@ export const Transfers = ({
         if (filterState.position !== 'all' && filterState.position !== element.player.position_kind) return false;
         if (element.team.uuid === null) return false;
         if (filterState.team !== 'all' && filterState.team !== element.team.uuid) return false;
+        if (filterState.onlyWatched && !currentWatches.includes(element.uuid)) return false;
 
         return true;
       })
@@ -464,6 +466,13 @@ export const Transfers = ({
                 className="form-value w-full"
                 value={filterState.search}
                 onChange={(e) => setFilterState({ ...filterState, search: e.target.value, page: 0 })}
+              />
+            </div>
+            <div>
+              <Checkbox
+                id="watchlist"
+                label={strings.transfers.fromWatchlist}
+                onClick={() => setFilterState({ ...filterState, onlyWatched: !filterState.onlyWatched })}
               />
             </div>
           </div>
