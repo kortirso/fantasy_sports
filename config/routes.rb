@@ -29,6 +29,13 @@ Rails.application.routes.draw do
           resources :fantasy_leagues, only: %i[index create]
         end
       end
+      resources :players_seasons, only: %i[] do
+        scope module: :players_seasons do
+          resources :watches, only: %i[create] do
+            delete :destroy, on: :collection
+          end
+        end
+      end
     end
   end
 

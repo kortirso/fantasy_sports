@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
-import { currentLocale, localizeValue, convertDateTime } from '../../helpers';
+import { currentLocale, localizeValue, convertDateTime, currentWatches, csrfToken } from '../../helpers';
 import { strings } from '../../locales';
 import { sportsData, statisticsOrder } from '../../data';
 
 import { Modal } from '../../components/atoms';
 
 import { seasonPlayerRequest } from './requests/seasonPlayerRequest';
+import { apiRequest } from '../../requests/helpers/apiRequest';
 
 strings.setLanguage(currentLocale);
 
 export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onClose }) => {
   const [pageState, setPageState] = useState({
     seasonPlayer: undefined,
-    renderMode: 'history'
+    renderMode: 'history',
+    watches: currentWatches,
+    errors: []
   });
 
   const sportPositions = sportsData.positions[sportKind];
@@ -21,14 +24,46 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
   useEffect(() => {
     const fetchSeasonPlayer = async () => {
       const data = await seasonPlayerRequest(seasonUuid, playerUuid);
-      setPageState({ seasonPlayer: data, renderMode: 'history' });
+      setPageState({ ...pageState, seasonPlayer: data, renderMode: 'history' });
     };
 
     if (playerUuid) fetchSeasonPlayer();
-    else setPageState({ seasonPlayer: undefined, renderMode: 'history' });
-  }, [seasonUuid, playerUuid]);
+    else setPageState({ ...pageState, seasonPlayer: undefined, renderMode: 'history' });
+  }, [seasonUuid, playerUuid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!pageState.seasonPlayer) return <></>;
+
+  const addToWatchlist = async (uuid) => {
+    const result = await apiRequest({
+      url: `/api/frontend/players_seasons/${uuid}/watches.json`,
+      options: {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken(),
+        }
+      },
+    });
+
+    if (result.errors) setPageState({ ...pageState, errors: result.errors })
+    else setPageState({ ...pageState, watches: pageState.watches.concat(uuid) });
+  };
+
+  const removeFromWatchlist = async (uuid) => {
+    const result = await apiRequest({
+      url: `/api/frontend/players_seasons/${uuid}/watches.json`,
+      options: {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken(),
+        }
+      },
+    });
+
+    if (result.errors) setPageState({ ...pageState, errors: result.errors })
+    else setPageState({ ...pageState, watches: pageState.watches.filter((item) => item !== uuid) });
+  };
 
   const gameHomeLabel = (is_home_game) => is_home_game ? 'H' : 'A';
 
@@ -102,10 +137,21 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
 
   return (
     <Modal show={!!playerUuid} size='player' onClose={onClose}>
-      <div className="mb-2">
+      <div className="relative mb-2">
         <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[pageState.seasonPlayer.player.position_kind].name)}</span>
         <h2 className="mb-2">{localizeValue(pageState.seasonPlayer.player.name)}</h2>
         <p className="text-sm">{localizeValue(pageState.seasonPlayer.team.name)}</p>
+        {pageState.watches.includes(pageState.seasonPlayer.uuid) ? (
+          <p
+            className="btn-primary btn-small absolute right-0 bottom-0"
+            onClick={() => removeFromWatchlist(pageState.seasonPlayer.uuid)}
+          >{strings.player.removeFromWatchlist}</p>
+        ) : (
+          <p
+            className="btn-primary btn-small absolute right-0 bottom-0"
+            onClick={() => addToWatchlist(pageState.seasonPlayer.uuid)}
+          >{strings.player.addToWatchlist}</p>
+        )}
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 justify-between mb-8 bg-stone-200 border border-stone-300 rounded">
         <div className="flex-1 py-3 px-0 border-b lg:border-b-0 border-r border-stone-300 flex lg:flex-col justify-center items-center">

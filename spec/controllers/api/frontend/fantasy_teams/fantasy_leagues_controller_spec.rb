@@ -28,7 +28,7 @@ describe Api::Frontend::FantasyTeams::FantasyLeaguesController do
         let!(:fantasy_team) { create :fantasy_team }
 
         it 'returns json not_found status with errors' do
-          post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' } }
+          post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' } }, format: :json
 
           expect(response).to have_http_status :not_found
         end
@@ -39,7 +39,7 @@ describe Api::Frontend::FantasyTeams::FantasyLeaguesController do
 
         context 'for invalid params' do
           let(:request) {
-            post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' } }
+            post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: '' } }, format: :json
           }
 
           it 'does not create fantasy league' do
@@ -49,7 +49,9 @@ describe Api::Frontend::FantasyTeams::FantasyLeaguesController do
 
         context 'for valid params' do
           let(:request) {
-            post :create, params: { fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: 'Name' } }
+            post :create, params: {
+              fantasy_team_id: fantasy_team.uuid, fantasy_league: { name: 'Name' }
+            }, format: :json
           }
 
           it 'creates fantasy league' do
@@ -60,7 +62,7 @@ describe Api::Frontend::FantasyTeams::FantasyLeaguesController do
     end
 
     def do_request
-      post :create, params: { fantasy_team_id: 'unexisting', fantasy_league: { name: 'Name' } }
+      post :create, params: { fantasy_team_id: 'unexisting', fantasy_league: { name: 'Name' } }, format: :json
     end
   end
 end

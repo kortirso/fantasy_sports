@@ -8,6 +8,7 @@ module FantasyTeams
     before_action :find_week
     before_action :find_fantasy_team_relationships
     before_action :calculate_lineups_data
+    before_action :set_watchable_players
     before_action :check_league_maintenance
 
     def index; end
