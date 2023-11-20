@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="48" height="52" viewBox="0 0 48 52">
+  <path
+    stroke="#292524"
+    stroke-width="1"
+    fill="#2e2b54"
+    d="M 1 24 L 8 8 L 17 5 L 18 3 L 30 3 L 31 5 L 40 8 L 47 24 L 39 28 L 36 23 L 36 51 L 12 51 L 12 23 L 9 28 Z"
+  />
+  <path fill="#FF0031" d="M 12.5 50.5 L 12.5 22.5 L 8.5 8.5 L 17 5.5 L 18 3.5 L 24 3.5 L 24 50.5 Z" />
+  <path fill="#FF0031" d="M 36 22.5 L 40 8.5 L 46.75 24 L 39 27.5 Z" />
+</svg>
