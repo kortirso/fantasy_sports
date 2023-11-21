@@ -2,7 +2,7 @@
 
 module Players
   class SeasonSerializer < ApplicationSerializer
-    attributes :uuid
+    attributes :uuid, :statistic
 
     attribute :form do |object|
       object.form.to_f
