@@ -478,11 +478,11 @@
   }
 
   .season-link .season-link-background {
-    @apply w-full h-40 object-cover;
+    @apply w-full h-40 object-contain;
   }
 
   .season-link-content {
-    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center bg-stone-700/70 text-white text-center;
+    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center text-black text-center;
   }
 
   .season-link-content h2 {

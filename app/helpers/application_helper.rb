@@ -24,9 +24,10 @@ module ApplicationHelper
 
   def league_background(league_name)
     case league_name
-    when 'English Premier League', 'Premier League' then 'english_premier_league.webp'
-    when 'Seria A' then 'seria_a_league.webp'
-    when 'NBA' then 'nba_league.webp'
+    when 'English Premier League', 'Premier League' then 'leagues/epl.webp'
+    when 'Russian Premier League' then 'leagues/rpl.webp'
+    when 'Seria A' then 'leagues/seria_a.webp'
+    when 'NBA' then 'leagues/nba.webp'
     end
   end
 end

@@ -3,7 +3,6 @@
 module Scrapers
   module Football
     class Sports < BaseScraper
-      # TODO: rebuild for different leagues
       NAME_MAPPER = {
         'English Premier League' => {
           'Tottenham' => 'TOT',
@@ -48,6 +47,24 @@ module Scrapers
           'Cagliari' => 'CAG',
           'Udinese' => 'UDI',
           'Juventus' => 'JUV'
+        },
+        'Russian Premier League' => {
+          'Spartak Moscow' => 'SPK',
+          'Orenburg' => 'ORB',
+          'FC Rostov' => 'ROS',
+          'Fakel Voronezh' => 'FAK',
+          'Dinamo Moscow' => 'DIN',
+          'Krasnodar' => 'KRA',
+          'Lokomotiv Moscow' => 'LOK',
+          'Rubin' => 'RUB',
+          'Akhmat Grozny' => 'AKH',
+          'Krylya Sovetov' => 'KRS',
+          'PFC Sochi' => 'SOC',
+          'Baltika' => 'BAL',
+          'Nizhny Novgorod' => 'NVG',
+          'Zenit Saint Petersburg' => 'ZEN',
+          'Ural' => 'URA',
+          'CSKA Moscow' => 'CSK'
         }
       }.freeze
 
