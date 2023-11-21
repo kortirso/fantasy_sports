@@ -15,11 +15,28 @@ import { seasonPlayersRequest } from './requests/seasonPlayersRequest';
 // these sorting params belong to teams_player.player
 // other sorting params belong to teams_player
 const TEAM_SORT_PARAMS = ['price'];
+const STATISTIC_SORT_PARAM = ['MP'];
 const PER_PAGE = 20;
 const SORT_PARAMS = {
   'price': { 'en': 'Price', 'ru': 'Цена' },
   'points': { 'en': 'Pts', 'ru': 'Очки' },
   'form': { 'en': 'Form', 'ru': 'Форма' }
+}
+
+const BASKETBALL_SORT_PARAMS = {
+  'MP': { 'en': 'Minutes played', 'ru': 'Сыграно минут' },
+  'P': { 'en': 'Game points', 'ru': 'Игровые очки' },
+  'REB': { 'en': 'Rebounds', 'ru': 'Подробы' },
+  'A': { 'en': 'Assists', 'ru': 'Передачи' },
+  'BLK': { 'en': 'Blocks', 'ru': 'Блоки' },
+  'STL': { 'en': 'Steals', 'ru': 'Перехваты' }
+}
+
+const FOOTBALL_SORT_PARAMS = {
+  'MP': { 'en': 'Minutes played', 'ru': 'Сыграно минут' },
+  'GS': { 'en': 'Goals scored', 'ru': 'Забито голов' },
+  'A': { 'en': 'Assists', 'ru': 'Передачи' },
+  'CS': { 'en': 'Clean sheets', 'ru': 'Сухие игры' }
 }
 
 strings.setLanguage(currentLocale);
@@ -36,6 +53,26 @@ export const Transfers = ({
   transfersLimited,
   freeTransfers,
 }) => {
+  const generateSortParams = () => {
+    if (sportKind === 'basketball') return { ...SORT_PARAMS, ...BASKETBALL_SORT_PARAMS };
+    if (sportKind === 'football') return { ...SORT_PARAMS, ...FOOTBALL_SORT_PARAMS };
+
+    return SORT_PARAMS;
+  };
+
+  const generateSortItems = () => {
+    const basis = {
+      points: strings.transfers.sortByPoints,
+      price: strings.transfers.sortByPrice,
+      form: strings.transfers.sortByForm,
+    };
+
+    return Object.entries(sportKind === 'football' ? FOOTBALL_SORT_PARAMS : BASKETBALL_SORT_PARAMS).reduce((result, [key, value]) => {
+      result[key] = localizeValue(value);
+      return result;
+    }, basis);
+  };
+
   const [pageState, setPageState] = useState({
     loading: true,
     teamNames: {},
@@ -45,7 +82,9 @@ export const Transfers = ({
     teamMembers: [],
     budget: fantasyTeamBudget,
     freeTransfersAmount: freeTransfers,
-    alerts: {}
+    alerts: {},
+    sortParams: generateSortParams(),
+    sortItems: generateSortItems()
   });
 
   const [filterState, setFilterState] = useState({
@@ -87,15 +126,12 @@ export const Transfers = ({
     Promise.all([fetchTeams(), fetchSeasonPlayers(), fetchFantasyTeamPlayers()]).then(
       ([teamsData, seasonPlayersData, fantasyTeamPlayers]) =>
         setPageState({
+          ...pageState,
           loading: false,
           teamNames: teamsData,
           seasonPlayers: seasonPlayersData,
-          visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
           defaultTeamMembers: fantasyTeamPlayers,
-          teamMembers: fantasyTeamPlayers,
-          budget: fantasyTeamBudget,
-          freeTransfersAmount: freeTransfers,
-          alerts: {}
+          teamMembers: fantasyTeamPlayers
         }),
     );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -129,6 +165,11 @@ export const Transfers = ({
       .sort((a, b) => {
         if (TEAM_SORT_PARAMS.includes(filterState.sortBy)) {
           return a.team[filterState.sortBy] < b.team[filterState.sortBy] ? 1 : -1;
+        } else if (STATISTIC_SORT_PARAM.includes(filterState.sortBy)) {
+          const aStatistic = a.statistic[filterState.sortBy] ? a.statistic[filterState.sortBy] : 0;
+          const bStatistic = b.statistic[filterState.sortBy] ? b.statistic[filterState.sortBy] : 0;
+
+          return aStatistic < bStatistic ? 1 : -1;
         } else {
           return a[filterState.sortBy] < b[filterState.sortBy] ? 1 : -1;
         }
@@ -219,6 +260,19 @@ export const Transfers = ({
 
     if (!existingTeamMember) return <div className="btn-transfer" onClick={() => addTeamMember(item)}>+</div>;
     return <div className="btn-transfer-remove" onClick={() => removeTeamMember(item)}>-</div>;
+  };
+
+  const sortValue = (item) => {
+    if (TEAM_SORT_PARAMS.includes(filterState.sortBy)) return item.team[filterState.sortBy];
+    if (STATISTIC_SORT_PARAM.includes(filterState.sortBy)) return item.statistic[filterState.sortBy];
+
+    return item[filterState.sortBy];
+  };
+
+  const renderShortSortBy = () => {
+    if (STATISTIC_SORT_PARAM.includes(filterState.sortBy)) return filterState.sortBy;
+
+    return localizeValue(pageState.sortParams[filterState.sortBy])
   };
 
   const submit = async () => {
@@ -449,11 +503,7 @@ export const Transfers = ({
             />
             <Dropdown
               title={strings.transfers.sort}
-              items={{
-                points: strings.transfers.sortByPoints,
-                price: strings.transfers.sortByPrice,
-                form: strings.transfers.sortByForm,
-              }}
+              items={pageState.sortItems}
               isOpen={filterState.openDropdown === 'sortBy'}
               onOpen={() => setFilterState({ ...filterState, openDropdown: 'sortBy' })}
               onClose={() => setFilterState({ ...filterState, openDropdown: null })}
@@ -482,7 +532,7 @@ export const Transfers = ({
               {filterState.sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
             </div>
             <div className="w-12 flex flex-row items-center justify-center text-sm">
-              {localizeValue(SORT_PARAMS[filterState.sortBy])}
+              {renderShortSortBy()}
             </div>
             <div className="w-6"></div>
           </div>
@@ -509,7 +559,7 @@ export const Transfers = ({
                 {filterState.sortBy === 'price' ? item.points : item.team.price}
               </div>
               <div className="w-12 flex flex-row items-center justify-center">
-                {TEAM_SORT_PARAMS.includes(filterState.sortBy) ? item.team[filterState.sortBy] : item[filterState.sortBy]}
+                {sortValue(item)}
               </div>
               {renderChangeButton(item)}
             </div>
