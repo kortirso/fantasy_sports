@@ -1,0 +1,188 @@
+.football-field .player-jersey { background-image: url('icons/jerseys/football/default.svg') }
+.basketball-field .player-jersey { background-image: url('icons/jerseys/basketball/default.svg') }
+
+.football-field .sport-position.Goalkeeper .player-jersey,
+.football-field .changes .player-card:nth-of-type(1) .player-jersey { background-image: url('icons/jerseys/football/goalkeeper.svg') }
+
+.football-field .sport-position.Goalkeeper .player-jersey span,
+.football-field .changes .player-card:nth-of-type(1) .player-jersey span { color: #fff }
+
+.player-jersey.TOT { background-image: url('icons/jerseys/football/epl/tottenham.svg') }
+.player-jersey.ARS { background-image: url('icons/jerseys/football/epl/arsenal.svg') }
+.player-jersey.MCI { background-image: url('icons/jerseys/football/epl/manchester_city.svg') }
+.player-jersey.LIV { background-image: url('icons/jerseys/football/epl/liverpool.svg') }
+.player-jersey.AVL { background-image: url('icons/jerseys/football/epl/aston_villa.svg') }
+.player-jersey.NEW { background-image: url('icons/jerseys/football/epl/newcastle.svg') }
+.player-jersey.BHA { background-image: url('icons/jerseys/football/epl/brighton.svg') }
+.player-jersey.MAN { background-image: url('icons/jerseys/football/epl/manchester.svg') }
+.player-jersey.WHU { background-image: url('icons/jerseys/football/epl/west_ham.svg') }
+.player-jersey.BRE { background-image: url('icons/jerseys/football/epl/brentford.svg') }
+.player-jersey.CHE { background-image: url('icons/jerseys/football/epl/chelsea.svg') }
+.player-jersey.WOL { background-image: url('icons/jerseys/football/epl/wolvs.svg') }
+.player-jersey.CRY { background-image: url('icons/jerseys/football/epl/crystal_palace.svg') }
+.player-jersey.FUL { background-image: url('icons/jerseys/football/epl/fulham.svg') }
+.player-jersey.EVE { background-image: url('icons/jerseys/football/epl/everton.svg') }
+.player-jersey.NOT { background-image: url('icons/jerseys/football/epl/nottingham.svg') }
+.player-jersey.BOR { background-image: url('icons/jerseys/football/epl/bournemouth.svg') }
+.player-jersey.LUT { background-image: url('icons/jerseys/football/epl/luton.svg') }
+.player-jersey.BUR { background-image: url('icons/jerseys/football/epl/burnley.svg') }
+.player-jersey.SHE { background-image: url('icons/jerseys/football/epl/sheffield.svg') }
+
+.player-jersey.JUV { background-image: url('icons/jerseys/football/seria_a/juventus.svg') }
+.player-jersey.MIL { background-image: url('icons/jerseys/football/seria_a/milan.svg') }
+.player-jersey.INT { background-image: url('icons/jerseys/football/seria_a/inter.svg') }
+.player-jersey.ROM { background-image: url('icons/jerseys/football/seria_a/roma.svg') }
+.player-jersey.NAP { background-image: url('icons/jerseys/football/seria_a/napoli.svg') }
+.player-jersey.LAZ { background-image: url('icons/jerseys/football/seria_a/lazio.svg') }
+.player-jersey.FIO { background-image: url('icons/jerseys/football/seria_a/fiorentina.svg') }
+.player-jersey.UDI { background-image: url('icons/jerseys/football/seria_a/udineze.svg') }
+.player-jersey.BOL { background-image: url('icons/jerseys/football/seria_a/bolognia.svg') }
+.player-jersey.ATA { background-image: url('icons/jerseys/football/seria_a/atalanta.svg') }
+.player-jersey.GEN { background-image: url('icons/jerseys/football/seria_a/genoa.svg') }
+.player-jersey.CAG { background-image: url('icons/jerseys/football/seria_a/cagliari.svg') }
+.player-jersey.LEC { background-image: url('icons/jerseys/football/seria_a/lecce.svg') }
+.player-jersey.MNZ { background-image: url('icons/jerseys/football/seria_a/monza.svg') }
+.player-jersey.SAL { background-image: url('icons/jerseys/football/seria_a/salernitana.svg') }
+.player-jersey.SAS { background-image: url('icons/jerseys/football/seria_a/sassuolo.svg') }
+.player-jersey.TOR { background-image: url('icons/jerseys/football/seria_a/torino.svg') }
+.player-jersey.FRO { background-image: url('icons/jerseys/football/seria_a/frosinone.svg') }
+.player-jersey.VER { background-image: url('icons/jerseys/football/seria_a/verona.svg') }
+.player-jersey.EMP { background-image: url('icons/jerseys/football/seria_a/empoli.svg') }
+
+.player-jersey.SPK { background-image: url('icons/jerseys/football/rpl/spartak.svg') }
+.player-jersey.ORB { background-image: url('icons/jerseys/football/rpl/orenburg.svg') }
+.player-jersey.ROS { background-image: url('icons/jerseys/football/rpl/rostov.svg') }
+.player-jersey.FAK { background-image: url('icons/jerseys/football/rpl/fakel.svg') }
+.player-jersey.DIN { background-image: url('icons/jerseys/football/rpl/dinamo.svg') }
+.player-jersey.KRA { background-image: url('icons/jerseys/football/rpl/krasnodar.svg') }
+.player-jersey.LOK { background-image: url('icons/jerseys/football/rpl/lokomotiv.svg') }
+.player-jersey.RUB { background-image: url('icons/jerseys/football/rpl/rubin.svg') }
+.player-jersey.AKH { background-image: url('icons/jerseys/football/rpl/akhmat.svg') }
+.player-jersey.KRS { background-image: url('icons/jerseys/football/rpl/krylya_sovetov.svg') }
+.player-jersey.SOC { background-image: url('icons/jerseys/football/rpl/sochi.svg') }
+.player-jersey.BAL { background-image: url('icons/jerseys/football/rpl/baltika.svg') }
+.player-jersey.NVG { background-image: url('icons/jerseys/football/rpl/nizhny_novgorod.svg') }
+.player-jersey.ZEN { background-image: url('icons/jerseys/football/rpl/zenit.svg') }
+.player-jersey.URA { background-image: url('icons/jerseys/football/rpl/ural.svg') }
+.player-jersey.CSK { background-image: url('icons/jerseys/football/rpl/cska.svg') }
+
+.basketball-field .player-jersey.BOS { background-image: url('icons/jerseys/basketball/nba/boston.svg') }
+.basketball-field .player-jersey.LAL { background-image: url('icons/jerseys/basketball/nba/lal.svg') }
+.basketball-field .player-jersey.BKN { background-image: url('icons/jerseys/basketball/nba/brooklyn.svg') }
+.basketball-field .player-jersey.NYK { background-image: url('icons/jerseys/basketball/nba/knicks.svg') }
+.basketball-field .player-jersey.TOR { background-image: url('icons/jerseys/basketball/nba/toronto.svg') }
+.basketball-field .player-jersey.PHI { background-image: url('icons/jerseys/basketball/nba/philadelphia.svg') }
+.basketball-field .player-jersey.DET { background-image: url('icons/jerseys/basketball/nba/detroit.svg') }
+.basketball-field .player-jersey.IND { background-image: url('icons/jerseys/basketball/nba/indiana.svg') }
+.basketball-field .player-jersey.CLE { background-image: url('icons/jerseys/basketball/nba/cleveland.svg') }
+.basketball-field .player-jersey.MIL { background-image: url('icons/jerseys/basketball/nba/milwaukee.svg') }
+.basketball-field .player-jersey.CHI { background-image: url('icons/jerseys/basketball/nba/chicago.svg') }
+.basketball-field .player-jersey.ATL { background-image: url('icons/jerseys/basketball/nba/atlanta.svg') }
+.basketball-field .player-jersey.WAS { background-image: url('icons/jerseys/basketball/nba/washington.svg') }
+.basketball-field .player-jersey.MIA { background-image: url('icons/jerseys/basketball/nba/miami.svg') }
+.basketball-field .player-jersey.ORL { background-image: url('icons/jerseys/basketball/nba/orlando.svg') }
+.basketball-field .player-jersey.CHA { background-image: url('icons/jerseys/basketball/nba/charlotte.svg') }
+.basketball-field .player-jersey.DEN { background-image: url('icons/jerseys/basketball/nba/denver.svg') }
+.basketball-field .player-jersey.MIN { background-image: url('icons/jerseys/basketball/nba/minnesota.svg') }
+.basketball-field .player-jersey.OKC { background-image: url('icons/jerseys/basketball/nba/oklahoma.svg') }
+.basketball-field .player-jersey.POR { background-image: url('icons/jerseys/basketball/nba/portland.svg') }
+.basketball-field .player-jersey.UTA { background-image: url('icons/jerseys/basketball/nba/utah.svg') }
+.basketball-field .player-jersey.GSW { background-image: url('icons/jerseys/basketball/nba/golden_state.svg') }
+.basketball-field .player-jersey.LAC { background-image: url('icons/jerseys/basketball/nba/lac.svg') }
+.basketball-field .player-jersey.SAC { background-image: url('icons/jerseys/basketball/nba/sacramento.svg') }
+.basketball-field .player-jersey.PHX { background-image: url('icons/jerseys/basketball/nba/phoenix.svg') }
+.basketball-field .player-jersey.DAL { background-image: url('icons/jerseys/basketball/nba/dallas.svg') }
+.basketball-field .player-jersey.MEM { background-image: url('icons/jerseys/basketball/nba/memphis.svg') }
+.basketball-field .player-jersey.NOP { background-image: url('icons/jerseys/basketball/nba/pelicans.svg') }
+.basketball-field .player-jersey.SAS { background-image: url('icons/jerseys/basketball/nba/spurs.svg') }
+.basketball-field .player-jersey.HOU { background-image: url('icons/jerseys/basketball/nba/houston.svg') }
+
+.player-jersey.TOT span { color: #000 }
+.player-jersey.ARS span { color: #fff }
+.player-jersey.MCI span { color: #fff }
+.player-jersey.LIV span { color: #fff }
+.player-jersey.AVL span { color: #fff }
+.player-jersey.NEW span { color: #dc0714 }
+.player-jersey.BHA span { color: #dc0714 }
+.player-jersey.MAN span { color: #fff }
+.player-jersey.WHU span { color: #fff }
+.player-jersey.BRE span { color: #000 }
+.player-jersey.CHE span { color: #fff }
+.player-jersey.WOL span { color: #000 }
+.player-jersey.CRY span { color: #fff }
+.player-jersey.FUL span { color: #000 }
+.player-jersey.EVE span { color: #fff }
+.player-jersey.NOT span { color: #fff }
+.player-jersey.BOR span { color: #fff }
+.player-jersey.LUT span { color: #fff }
+.player-jersey.BUR span { color: #fff }
+.player-jersey.SHE span { color: #000 }
+
+.player-jersey.JUV span { color: #fff; text-shadow: 0px 1px 2px #000; }
+.player-jersey.MIL span { color: #fff }
+.player-jersey.INT span { color: #fff }
+.player-jersey.ROM span { color: #fff }
+.player-jersey.NAP span { color: #fff }
+.player-jersey.LAZ span { color: #fff }
+.player-jersey.FIO span { color: #fff }
+.player-jersey.UDI span { color: #fff; text-shadow: 0px 1px 2px #000; }
+.player-jersey.BOL span { color: #fff }
+.player-jersey.ATA span { color: #fff }
+.player-jersey.GEN span { color: #fff }
+.player-jersey.LEC span { color: #000 }
+.player-jersey.CAG span { color: #000 }
+.player-jersey.MNZ span { color: #000 }
+.player-jersey.SAL span { color: #fff }
+.player-jersey.SAS span { color: #fff }
+.player-jersey.TOR span { color: #fff }
+.player-jersey.FRO span { color: #000 }
+.player-jersey.VER span { color: #fff }
+.player-jersey.EMP span { color: #fff }
+
+.player-jersey.SPK span { color: #000 }
+.player-jersey.ORB span { color: #fff }
+.player-jersey.ROS span { color: #000 }
+.player-jersey.FAK span { color: #007aff }
+.player-jersey.DIN span { color: #fff }
+.player-jersey.KRA span { color: #fff }
+.player-jersey.LOK span { color: #fff }
+.player-jersey.RUB span { color: #fff }
+.player-jersey.AKH span { color: #000 }
+.player-jersey.KRS span { color: #fff }
+.player-jersey.SOC span { color: #fff }
+.player-jersey.BAL span { color: #fff }
+.player-jersey.NVG span { color: #fff }
+.player-jersey.ZEN span { color: #fff }
+.player-jersey.URA span { color: #fff }
+.player-jersey.CSK span { color: #fff }
+
+.basketball-field .player-jersey.BOS span { color: #fff; }
+.basketball-field .player-jersey.LAL span { color: #552583; }
+.basketball-field .player-jersey.BKN span { color: #fff; }
+.basketball-field .player-jersey.NYK span { color: #F58426; }
+.basketball-field .player-jersey.TOR span { color: #fff; }
+.basketball-field .player-jersey.PHI span { color: #fff; }
+.basketball-field .player-jersey.DET span { color: #C8102E; }
+.basketball-field .player-jersey.IND span { color: #FDBB30; }
+.basketball-field .player-jersey.CLE span { color: #000; }
+.basketball-field .player-jersey.MIL span { color: #EEE1C6; }
+.basketball-field .player-jersey.CHI span { color: #fff; }
+.basketball-field .player-jersey.ATL span { color: #FDB927; }
+.basketball-field .player-jersey.WAS span { color: #fff; }
+.basketball-field .player-jersey.MIA span { color: #98002E; }
+.basketball-field .player-jersey.ORL span { color: #fff; }
+.basketball-field .player-jersey.CHA span { color: #fff; }
+.basketball-field .player-jersey.DEN span { color: #fff; }
+.basketball-field .player-jersey.MIN span { color: #fff; }
+.basketball-field .player-jersey.OKC span { color: #fdbb30; }
+.basketball-field .player-jersey.POR span { color: #fff; }
+.basketball-field .player-jersey.UTA span { color: #F9A01B; }
+.basketball-field .player-jersey.GSW span { color: #FDB927; }
+.basketball-field .player-jersey.LAC span { color: #fff; }
+.basketball-field .player-jersey.SAC span { color: #fff; }
+.basketball-field .player-jersey.PHX span { color: #fff; }
+.basketball-field .player-jersey.DAL span { color: #fff; }
+.basketball-field .player-jersey.MEM span { color: #fff; }
+.basketball-field .player-jersey.NOP span { color: #fff; }
+.basketball-field .player-jersey.SAS span { color: #fff; }
+.basketball-field .player-jersey.HOU span { color: #000; }

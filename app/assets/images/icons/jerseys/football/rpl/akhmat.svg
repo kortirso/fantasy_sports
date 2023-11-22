@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="48" height="52" viewBox="0 0 48 52">
+  <path
+    stroke="#292524"
+    stroke-width="1"
+    fill="#006b5f"
+    d="M 1 24 L 8 8 L 17 5 L 18 3 L 30 3 L 31 5 L 40 8 L 47 24 L 39 28 L 36 23 L 36 51 L 12 51 L 12 23 L 9 28 Z"
+  />
+  <path fill="#006b5f" d="M 12.5 50.5 L 12.5 23 L 10 10 L 19 7 L 29 7 L 38 10 L 35.5 23 L 35.5 50.5 Z" />
+  <path fill="#fff" d="M 11 16 L 10 11 L 38 11 L 37 16 Z" />
+  <path fill="#fff" d="M 12.5 26 L 12.5 21 L 35.5 21 L 35.5 26 Z" />
+  <path fill="#fff" d="M 12.5 36 L 12.5 31 L 35.5 31 L 35.5 36 Z" />
+  <path fill="#fff" d="M 12.5 46 L 12.5 41 L 35.5 41 L 35.5 46 Z" />
+</svg>
