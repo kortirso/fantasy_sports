@@ -21,6 +21,7 @@ describe Games::UpdateService, type: :service do
   }
 
   before do
+    create :injury, players_season: teams_player1.players_season, return_at: nil
     game.week.league.update(sport_kind: Sportable::FOOTBALL)
 
     create :games_player, game: game, teams_player: teams_player1
@@ -32,11 +33,10 @@ describe Games::UpdateService, type: :service do
 
   context 'for valid params' do
     it 'calls updating players statistic', :aggregate_failures do
-      service_call
-
+      expect { service_call }.to change(Injury, :count).by(-1)
+      expect(service_call.success?).to be_truthy
       expect(points_calculate_service).to have_received(:call).twice
       expect(game.reload.points).to eq([1, 2])
-      expect(service_call.success?).to be_truthy
     end
   end
 end
