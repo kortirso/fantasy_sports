@@ -8,6 +8,10 @@ class Week < ApplicationRecord
   COMING   = 'coming'
   ACTIVE   = 'active'
   FINISHED = 'finished'
+  WEEKS_COUNT_FOR_FORM = {
+    Sportable::FOOTBALL => 4,
+    Sportable::BASKETBALL => 2
+  }.freeze
 
   belongs_to :season, touch: true
 
@@ -42,7 +46,7 @@ class Week < ApplicationRecord
     Week
       .where(season_id: season_id)
       .where('position <= ?', position)
-      .where('position > ?', position - Teams::Player::WEEKS_COUNT_FOR_FORM_CALCULATION)
+      .where('position > ?', position - WEEKS_COUNT_FOR_FORM[season.league.sport_kind])
       .order(position: :desc)
       .ids
   end
