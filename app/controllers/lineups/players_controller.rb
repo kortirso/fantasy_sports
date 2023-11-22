@@ -58,12 +58,13 @@ module Lineups
 
     def lineup_players
       Rails.cache.fetch(
-        ['lineups_players_show_v2', @lineup.id, @lineup.updated_at],
+        ['lineups_players_show_v3', @lineup.id, @lineup.updated_at],
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
         Lineups::PlayerSerializer.new(
-          @lineup.lineups_players.includes(teams_player: [:players_season, :player, { seasons_team: :team }])
+          @lineup.lineups_players.includes(teams_player: [:players_season, :player, { seasons_team: :team }]),
+          params: { injuries: @lineup.week.season.injuries.active.group_by(&:players_season_id) }
         ).serializable_hash
       end
     end

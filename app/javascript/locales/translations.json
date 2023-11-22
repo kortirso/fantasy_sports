@@ -86,7 +86,9 @@
       "difficulty": "Difficulty",
       "startAt": "Start time",
       "addToWatchlist": "Add to watchlist",
-      "removeFromWatchlist": "Remove from watchlist"
+      "removeFromWatchlist": "Remove from watchlist",
+      "chance": "% change of playing",
+      "expected": "expected back"
     },
     "transfersStatus": {
       "transfersIn": "Top Transfers in this Gameweek",
@@ -221,7 +223,9 @@
       "difficulty": "Сложность",
       "startAt": "Начало игры",
       "addToWatchlist": "В избранное",
-      "removeFromWatchlist": "Убрать из избранного"
+      "removeFromWatchlist": "Убрать из избранного",
+      "chance": "% шанс сыграть",
+      "expected": "возвращение"
     },
     "transfersStatus": {
       "transfersIn": "Самые частые приобретения недели",

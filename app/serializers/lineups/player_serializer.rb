@@ -17,13 +17,15 @@ module Lineups
       }
     end
 
-    attribute :player do |object|
+    attribute :player do |object, params|
       player = object.teams_player.player
+      injuries = params[:injuries][object.teams_player.players_season_id]
       {
         uuid: object.teams_player.players_season.uuid,
         name: player.name,
         shirt_name: player.shirt_name,
-        position_kind: player.position_kind
+        position_kind: player.position_kind,
+        injury: injuries.blank? ? nil : InjurySerializer.new(injuries[0]).serializable_hash
       }
     end
 

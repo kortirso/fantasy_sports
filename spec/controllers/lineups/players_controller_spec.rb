@@ -31,7 +31,8 @@ describe Lineups::PlayersController do
           before do
             lineup.week.update(status: Week::ACTIVE)
 
-            create :lineups_player, lineup: lineup
+            lineups_player = create :lineups_player, lineup: lineup
+            create :injury, players_season: lineups_player.teams_player.players_season, return_at: nil
 
             get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
           end

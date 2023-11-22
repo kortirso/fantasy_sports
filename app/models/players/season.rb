@@ -24,5 +24,7 @@ module Players
             foreign_key: :players_season_id,
             class_name: '::Teams::Player'
     # rubocop: enable Rails/HasManyOrHasOneDependent
+
+    has_many :injuries, foreign_key: :players_season_id, dependent: :destroy
   end
 end

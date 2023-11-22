@@ -71,7 +71,6 @@ export const SquadPoints = ({
     return null;
   };
 
-
   return (
     <>
       <span className="badge-dark inline-block">
@@ -132,6 +131,7 @@ export const SquadPoints = ({
                     value={item.points}
                     number={item.teams_player.shirt_number}
                     status={item.status}
+                    injury={item.player.injury}
                     onInfoClick={() => setPlayerUuid(item.player.uuid)}
                   />
                 ))}
@@ -149,6 +149,7 @@ export const SquadPoints = ({
                     value={item.points}
                     number={item.teams_player.shirt_number}
                     status={item.status}
+                    injury={item.player.injury}
                     onInfoClick={() => setPlayerUuid(item.player.uuid)}
                   />
                 ))}

@@ -56,10 +56,6 @@
     height: 26px;
   }
 
-  .btn-transfer-remove {
-    @apply btn-transfer bg-orange-600 hover:bg-orange-700 border-orange-700;
-  }
-
   .user-navigation-link {
     @apply flex flex-row items-center p-2 pl-2 lg:pl-4 text-white;
   }
@@ -419,5 +415,19 @@
 
   .toggle:hover .toggle-checkbox:checked + .toggle-label {
     @apply border-orange-400;
+  }
+
+  .player-info {
+    @apply flex items-center justify-center inline-block rounded cursor-pointer;
+    @apply bg-white hover:bg-stone-100 border border-stone-200 text-black;
+    @apply py-0 px-2 text-sm leading-6;
+  }
+
+  .player-info-warning {
+    @apply player-info bg-orange-300 hover:bg-orange-400 border border-orange-400;
+  }
+
+  .player-info-alert {
+    @apply player-info bg-orange-700 hover:bg-orange-800 border border-orange-800 text-white;
   }
 }

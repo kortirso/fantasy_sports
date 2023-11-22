@@ -310,6 +310,7 @@ export const Squad = ({
                   value={oppositeTeamNames(item)}
                   number={item.teams_player.shirt_number}
                   status={item.status}
+                  injury={item.player.injury}
                   onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
                   onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
                   onInfoClick={() => setPlayerUuid(item.player.uuid)}
@@ -330,6 +331,7 @@ export const Squad = ({
                   value={oppositeTeamNames(item)}
                   number={item.teams_player.shirt_number}
                   status={item.status}
+                  injury={item.player.injury}
                   onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
                   onActionClick={() => changePlayer(item, false)}
                   onInfoClick={() => setPlayerUuid(item.player.uuid)}
