@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - more sort options
+- injuries
 
 ## [1.1.3] - 2023-11-17
 ### Added

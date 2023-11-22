@@ -7,6 +7,7 @@ export const PlayerCard = ({
   value = '',
   number = '',
   status,
+  injury = null,
   onCardClick,
   onActionClick,
   onInfoClick,
@@ -15,6 +16,14 @@ export const PlayerCard = ({
     if (status === 'captain') return 'C';
     return 'A';
   };
+
+  const injuryLevelClass = (injury) => {
+    if (injury === null) return 'player-info';
+
+    const data = injury.data.attributes;
+    if (data.status === 0) return 'player-info-alert';
+    return 'player-info-warning';
+  }
 
   return (
     <div
@@ -45,7 +54,7 @@ export const PlayerCard = ({
       ) : null}
       {onInfoClick ? (
         <div
-          className="player-card-action info"
+          className={`absolute top-0 right-0 ${injuryLevelClass(injury)}`}
           onClick={(e) => {
             e.stopPropagation();
             onInfoClick();

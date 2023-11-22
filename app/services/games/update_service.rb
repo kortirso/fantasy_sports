@@ -31,12 +31,14 @@ module Games
       @game = game
       @games_players_update_data = []
       @player_ids = []
+      @played_player_ids = []
       @points_calculate_service = POINTS_CALCULATE_SERVICES[@game.week.season.league.sport_kind].new
 
       # this data is updated immediately
       ActiveRecord::Base.transaction do
         update_game(game_data)
         update_games_players(game_data)
+        destroy_active_injuries_for_played_players
       end
       # this data can be updated in background
       update_players
@@ -57,6 +59,10 @@ module Games
       calculate_games_players_points(@game.visitor_season_team_id, game_data.dig(1, :players))
       # commento: games_players.points, games_players.statistic
       Games::Player.upsert_all(@games_players_update_data) if @games_players_update_data.any?
+    end
+
+    def destroy_active_injuries_for_played_players
+      Injury.active.where(players_season_id: @played_player_ids).destroy_all
     end
 
     # rubocop: disable Metrics/AbcSize
@@ -81,12 +87,13 @@ module Games
         })
 
         @player_ids.push(games_player.teams_player.player_id)
+        @played_player_ids.push(games_player.teams_player.players_season_id) if statistic['MP'].to_i.positive?
       end
     end
     # rubocop: enable Metrics/AbcSize
 
     def update_players
-      @players_seasons_mass_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids.flatten)
+      @players_seasons_mass_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids)
     end
   end
 end

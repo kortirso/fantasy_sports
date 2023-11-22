@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { currentLocale, localizeValue, convertDateTime, currentWatches, csrfToken } from '../../helpers';
+import { currentLocale, localizeValue, convertDateTime, convertDate, currentWatches, csrfToken } from '../../helpers';
 import { strings } from '../../locales';
 import { sportsData, statisticsOrder } from '../../data';
 
@@ -135,9 +135,32 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     if (value === 2) return <span className="bg-green-300 border border-green-400 py-1 px-2 rounded text-sm">{value}</span>;
   };
 
+  const injuryLevelClass = (data) => {
+    if (data.status === 0) return 'bg-orange-700 border border-orange-800 text-white';
+    return 'bg-orange-200 border border-orange-300';
+  }
+
+  const renderReturnAt = (data) => {
+    if (data.return_at === null) return <></>;
+
+    return `, ${strings.player.expected} ${convertDate(data.return_at)}`;
+  };
+
+  const renderInjury = () => {
+    if (pageState.seasonPlayer.injury === null) return <></>;
+
+    const data = pageState.seasonPlayer.injury.data.attributes;
+    return (
+      <div className={`text-center mb-2 py-1 px-4 rounded ${injuryLevelClass(data)}`}>
+        {localizeValue(data.reason)}, {data.status}{strings.player.chance}{renderReturnAt(data)}
+      </div>
+    )
+  };
+
   return (
     <Modal show={!!playerUuid} size='player' onClose={onClose}>
       <div className="relative mb-2">
+        {renderInjury()}
         <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[pageState.seasonPlayer.player.position_kind].name)}</span>
         <h2 className="mb-2">{localizeValue(pageState.seasonPlayer.player.name)}</h2>
         <p className="text-sm">{localizeValue(pageState.seasonPlayer.team.name)}</p>

@@ -754,6 +754,61 @@ ALTER SEQUENCE public.games_players_id_seq OWNED BY public.games_players.id;
 
 
 --
+-- Name: injuries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.injuries (
+    id bigint NOT NULL,
+    players_season_id bigint NOT NULL,
+    reason jsonb DEFAULT '{}'::jsonb NOT NULL,
+    return_at timestamp(6) without time zone,
+    status integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN injuries.reason; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.injuries.reason IS 'Description of injury';
+
+
+--
+-- Name: COLUMN injuries.return_at; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.injuries.return_at IS 'Potential return date';
+
+
+--
+-- Name: COLUMN injuries.status; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.injuries.status IS 'Chance of playing from 0 to 100';
+
+
+--
+-- Name: injuries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.injuries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: injuries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.injuries_id_seq OWNED BY public.injuries.id;
+
+
+--
 -- Name: kudos_achievement_groups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1500,6 +1555,13 @@ ALTER TABLE ONLY public.games_players ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: injuries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.injuries ALTER COLUMN id SET DEFAULT nextval('public.injuries_id_seq'::regclass);
+
+
+--
 -- Name: kudos_achievement_groups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1736,6 +1798,14 @@ ALTER TABLE ONLY public.games
 
 ALTER TABLE ONLY public.games_players
     ADD CONSTRAINT games_players_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: injuries injuries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.injuries
+    ADD CONSTRAINT injuries_pkey PRIMARY KEY (id);
 
 
 --
@@ -2067,6 +2137,13 @@ CREATE UNIQUE INDEX index_games_players_on_game_id_and_teams_player_id ON public
 
 
 --
+-- Name: index_injuries_on_players_season_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_injuries_on_players_season_id ON public.injuries USING btree (players_season_id);
+
+
+--
 -- Name: index_kudos_achievement_groups_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2272,6 +2349,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231122115612'),
 ('20231119135501'),
 ('20231118141932'),
 ('20231116182940'),

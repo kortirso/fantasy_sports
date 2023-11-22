@@ -35,5 +35,10 @@ module Players
         shirt_number: active_teams_player&.shirt_number_string
       }
     end
+
+    attribute :injury do |object, params|
+      injuries = params[:injuries][object.id]
+      injuries.blank? ? nil : InjurySerializer.new(injuries[0]).serializable_hash
+    end
   end
 end

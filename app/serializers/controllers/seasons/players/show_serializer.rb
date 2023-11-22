@@ -53,6 +53,11 @@ module Controllers
           teams_count = object.active_teams_player.seasons_team.season.fantasy_teams.count
           teams_count.zero? ? 0 : (100.0 * object.active_teams_player.fantasy_teams.count / teams_count).round(1)
         end
+
+        attribute :injury do |object|
+          injury = object.injuries.active.last
+          injury ? InjurySerializer.new(injury).serializable_hash : nil
+        end
       end
     end
   end

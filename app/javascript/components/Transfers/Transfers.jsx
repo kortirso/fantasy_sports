@@ -255,11 +255,11 @@ export const Transfers = ({
     });
   };
 
-  const renderChangeButton = (item) => {
-    const existingTeamMember = pageState.teamMembers.find((teamMember) => teamMember.uuid === item.uuid)
+  const isExistingTeamMember = (item) => pageState.teamMembers.find((teamMember) => teamMember.uuid === item.uuid);
 
-    if (!existingTeamMember) return <div className="btn-transfer" onClick={() => addTeamMember(item)}>+</div>;
-    return <div className="btn-transfer-remove" onClick={() => removeTeamMember(item)}>-</div>;
+  const renderChangeButton = (item) => {
+    if (!isExistingTeamMember(item)) return <div className="btn-transfer" onClick={() => addTeamMember(item)}>+</div>;
+    return <div className="btn-transfer" onClick={() => removeTeamMember(item)}>-</div>;
   };
 
   const sortValue = (item) => {
@@ -274,6 +274,14 @@ export const Transfers = ({
 
     return localizeValue(pageState.sortParams[filterState.sortBy])
   };
+
+  const injuryLevelClass = (injury) => {
+    if (injury === null) return 'player-info';
+
+    const data = injury.data.attributes;
+    if (data.status === 0) return 'player-info-alert';
+    return 'player-info-warning';
+  }
 
   const submit = async () => {
     const payload = {
@@ -438,6 +446,7 @@ export const Transfers = ({
                       name={localizeValue(item.player.shirt_name)}
                       value={item.team.price}
                       number={item.team.shirt_number}
+                      injury={item.injury}
                       onActionClick={() => removeTeamMember(item)}
                       onInfoClick={() => setPlayerUuid(item.uuid)}
                     />
@@ -537,9 +546,12 @@ export const Transfers = ({
             <div className="w-6"></div>
           </div>
           {filteredSlicedPlayers.map((item) => (
-            <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1 border-b border-stone-200" key={item.uuid}>
+            <div
+              className={`flex flex-row items-center px-1 py-1 border-b border-stone-200 ${isExistingTeamMember(item) ? 'bg-stone-100' : ''}`}
+              key={item.uuid}
+            >
               <div
-                className="flex items-center justify-center mr-2 btn-info btn-small text-black py-0 leading-6"
+                className={`mr-2 ${injuryLevelClass(item.injury)}`}
                 onClick={() => setPlayerUuid(item.uuid)}
               >
                 ?
@@ -593,7 +605,7 @@ export const Transfers = ({
       <Flash content={pageState.alerts} />
       <Modal show={!!transfersData} onClose={() => setTransfersData(null)}>
         <div className="transfers-header">
-          <h2>{strings.transfers.confirmationScreen}</h2>
+          <h2 className="pr-8">{strings.transfers.confirmationScreen}</h2>
           <p className="text-center mb-8">
             {strings.transfers.penaltyPoints} - {transfersData?.penalty_points}
           </p>

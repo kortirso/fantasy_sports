@@ -21,6 +21,8 @@ describe Seasons::PlayersController do
         let!(:players_season) { create :players_season, season: season }
 
         before do
+          create :injury, players_season: players_season, return_at: nil
+
           get :index, params: { season_id: season.uuid, locale: 'en' }
         end
 

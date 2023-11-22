@@ -16,17 +16,24 @@ module FantasyTeams
 
     def teams_players
       Rails.cache.fetch(
-        ['fantasy_teams_players_index_v2', @fantasy_team.id, @fantasy_team.updated_at],
+        ['fantasy_teams_players_index_v3', @fantasy_team.id, @fantasy_team.updated_at],
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
         players_season_id_ids = @fantasy_team.teams_players.active.select(:players_season_id)
         ::Players::SeasonSerializer.new(
-          ::Players::Season
-            .where(id: players_season_id_ids)
-            .includes(:player, active_teams_player: [seasons_team: :team])
+          players(players_season_id_ids),
+          params: { injuries: injuries(players_season_id_ids) }
         ).serializable_hash
       end
+    end
+
+    def players(players_season_id_ids)
+      ::Players::Season.where(id: players_season_id_ids).includes(:player, active_teams_player: [seasons_team: :team])
+    end
+
+    def injuries(players_season_id_ids)
+      Injury.where(players_season_id: players_season_id_ids).active.group_by(&:players_season_id)
     end
   end
 end
