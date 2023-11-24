@@ -13,7 +13,8 @@ every '0 0,12 * * *' do
   runner 'Weeks::BenchSubstitutionsJob.perform_later'
 end
 
-# Clear expired users sessions
+# Clear expired things
 every 1.day do
   runner 'Users::Sessions::RemoveExpiredJob.perform_later'
+  runner 'Injuries::RemoveExpiredJob.perform_later'
 end
