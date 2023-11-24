@@ -165,11 +165,31 @@ en:
           games: Games
           teams_players: Teams players
           seasons_teams: Teams
+          seasons_injuries: Injuries
         new:
           name: Name
           active: Active
           league_id: League
           create: Create new season
+        injuries:
+          index:
+            header: Injuries
+            reason: Reason
+            status: Status
+            return_at: Return at
+            new: Add injury
+          new:
+            title: Adding injury
+            create: Create
+          edit:
+            title: Edit injury
+            update: Update
+          form:
+            reason_en: Reason En
+            reason_ru: Reason Ru
+            status: Status
+            return_at: Return at
+            teams_player: Teams player ID
         teams:
           index:
             header: Teams in season

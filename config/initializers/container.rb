@@ -32,6 +32,8 @@ module FantasySports
     register('contracts.season') { SeasonContract.new }
     register('contracts.players.create') { Players::CreateContract.new }
     register('contracts.feedback') { FeedbackContract.new }
+    register('contracts.injuries.create') { Injuries::CreateContract.new }
+    register('contracts.injuries.update') { Injuries::UpdateContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -47,6 +49,8 @@ module FantasySports
     register('validators.season') { SeasonValidator.new }
     register('validators.players.create') { Players::CreateValidator.new }
     register('validators.feedback') { FeedbackValidator.new }
+    register('validators.injuries.create') { Injuries::CreateValidator.new }
+    register('validators.injuries.update') { Injuries::UpdateValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -62,6 +66,8 @@ module FantasySports
     register('forms.games.create') { Games::CreateForm.new }
     register('forms.games.update') { Games::UpdateForm.new }
     register('forms.feedbacks.create') { Feedbacks::CreateForm.new }
+    register('forms.injuries.create') { Injuries::CreateForm.new }
+    register('forms.injuries.update') { Injuries::UpdateForm.new }
 
     # services
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }

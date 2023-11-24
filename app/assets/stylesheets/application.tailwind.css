@@ -32,10 +32,6 @@
     @apply btn bg-amber-200 border border-amber-300 hover:bg-amber-300 text-stone-700;
   }
 
-  .btn-danger {
-    @apply btn bg-orange-600 hover:bg-orange-700;
-  }
-
   .btn-info {
     @apply btn bg-white hover:bg-stone-100 border border-stone-200 text-black;
   }
@@ -349,11 +345,11 @@
   }
 
   .badge-dark {
-    @apply badge bg-stone-700 text-white;
+    @apply badge bg-stone-700 border border-stone-800 text-white;
   }
 
   .badge-danger {
-    @apply badge bg-orange-700 text-white;
+    @apply badge bg-orange-700 border border-orange-800 text-white;
   }
 
   .modal {
@@ -410,11 +406,11 @@
   }
 
   .toggle .toggle-checkbox:checked + .toggle-label {
-    @apply bg-orange-300 border-orange-300;
+    @apply bg-amber-300 border-amber-300;
   }
 
   .toggle:hover .toggle-checkbox:checked + .toggle-label {
-    @apply border-orange-400;
+    @apply border-amber-400;
   }
 
   .player-info {
@@ -424,7 +420,7 @@
   }
 
   .player-info-warning {
-    @apply player-info bg-orange-300 hover:bg-orange-400 border border-orange-400;
+    @apply player-info bg-amber-200 hover:bg-amber-300 border border-amber-300;
   }
 
   .player-info-alert {

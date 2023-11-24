@@ -1,0 +1,33 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.seasons.injuries.index.header') %></h1>
+  <%= link_to t('views.admin.seasons.injuries.index.new'), new_admin_season_injury_path(@season.id), class: 'btn-primary' %>
+</div>
+<table class="table" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th></th>
+      <th><%= t('views.admin.seasons.injuries.index.reason') %></th>
+      <th><%= t('views.admin.seasons.injuries.index.status') %></th>
+      <th><%= t('views.admin.seasons.injuries.index.return_at') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @injuries.each do |injury| %>
+      <tr>
+        <td><%= injury.id %></td>
+        <td><%= localized_value(injury.players_season.player.name) %></td>
+        <td><%= injury.reason %></td>
+        <td><%= injury.status %></td>
+        <td><%= injury.return_at %></td>
+        <td>
+          <div class="flex">
+            <%= link_to t('views.admin.seasons.injuries.index.edit'), edit_admin_season_injury_path(@season.id, injury.id), class: 'btn-primary btn-small mr-4' %>
+            <%= button_to 'X', admin_season_injury_path(@season.id, injury.id), class: 'btn-primary btn-small', method: :delete %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

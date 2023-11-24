@@ -14,11 +14,14 @@ Rails.application.routes.draw do
     resources :players, except: %i[destroy]
     resources :leagues, only: %i[index new create]
     resources :seasons, only: %i[index new create] do
-      resources :games, except: %i[show], module: 'seasons' do
-        resources :statistics, only: %i[index create], module: 'games'
+      scope module: :seasons do
+        resources :games, except: %i[show] do
+          resources :statistics, only: %i[index create], module: 'games'
+        end
+        resources :teams_players, only: %i[index new edit create update]
+        resources :teams, only: %i[index show]
+        resources :injuries, only: %i[index new create edit update destroy]
       end
-      resources :teams_players, only: %i[index new edit create update], module: 'seasons'
-      resources :teams, only: %i[index show], module: 'seasons'
     end
   end
 

@@ -20,9 +20,10 @@
           <td><%= season.name %></td>
           <td><%= season.active %></td>
           <td>
-            <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary' %>
-            <%= link_to t('views.admin.seasons.index.teams_players'), admin_season_teams_players_path(season.uuid), class: 'btn-primary' %>
-            <%= link_to t('views.admin.seasons.index.seasons_teams'), admin_season_teams_path(season.uuid), class: 'btn-primary' %>
+            <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.teams_players'), admin_season_teams_players_path(season.uuid), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.seasons_teams'), admin_season_teams_path(season.uuid), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.seasons_injuries'), admin_season_injuries_path(season.id), class: 'btn-primary btn-small' %>
           </td>
         </tr>
       <% end %>

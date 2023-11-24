@@ -15,6 +15,8 @@ ru:
       first_name: Имя
       last_name: Фамилия
       nickname: Прозвище
+      reason: Причина
+      status: Статус
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
@@ -46,6 +48,13 @@ ru:
           sport_kind:
             filled?: должен быть указан
             invalid: неверное значение
+      injury:
+        rules:
+          reason:
+            filled?: не может быть пустым
+            invalid: неверное значение
+          status:
+            filled?: не может быть пустым
       player:
         rules:
           first_name:

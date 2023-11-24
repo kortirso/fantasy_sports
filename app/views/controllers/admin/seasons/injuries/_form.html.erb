@@ -1,0 +1,24 @@
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :reason_en, t('views.admin.seasons.injuries.form.reason_en'), class: 'form-label' %>
+    <%= form.text_field :reason_en, value: @injury ? @injury.reason['en'] : nil, class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :reason_ru, t('views.admin.seasons.injuries.form.reason_ru'), class: 'form-label' %>
+    <%= form.text_field :reason_ru, value: @injury ? @injury.reason['ru'] : nil, class: 'form-value' %>
+  </div>
+</div>
+<div class="form-field">
+  <%= form.label :status, t('views.admin.seasons.injuries.form.status'), class: 'form-label' %>
+  <%= form.text_field :status, value: @injury ? @injury.status : nil, class: 'form-value' %>
+</div>
+<div class="form-field">
+  <%= form.label :return_at, t('views.admin.seasons.injuries.form.return_at'), class: 'form-label' %>
+  <%= form.text_field :return_at, value: @injury ? @injury.return_at.to_s : nil, class: 'form-value' %>
+</div>
+<% if @injury.id.nil? %>
+  <div class="form-field">
+    <%= form.label :teams_player_id, t('views.admin.seasons.injuries.form.teams_player'), class: 'form-label' %>
+    <%= form.text_field :teams_player_id, class: 'form-value' %>
+  </div>
+<% end %>

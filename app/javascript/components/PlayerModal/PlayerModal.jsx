@@ -130,14 +130,14 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
 
   const renderDifficulty = (value) => {
     if (value === 5) return <span className="bg-orange-700 border border-orange-800 py-1 px-2 rounded text-sm text-white">{value}</span>;
-    if (value === 4) return <span className="bg-orange-300 border border-orange-400 py-1 px-2 rounded text-sm">{value}</span>;
+    if (value === 4) return <span className="bg-amber-300 border border-amber-400 py-1 px-2 rounded text-sm">{value}</span>;
     if (value === 3) return <span className="bg-stone-300 border border-stone-400 py-1 px-2 rounded text-sm">{value}</span>;
     if (value === 2) return <span className="bg-green-300 border border-green-400 py-1 px-2 rounded text-sm">{value}</span>;
   };
 
   const injuryLevelClass = (data) => {
     if (data.status === 0) return 'bg-orange-700 border border-orange-800 text-white';
-    return 'bg-orange-200 border border-orange-300';
+    return 'bg-amber-200 border border-amber-300';
   }
 
   const renderReturnAt = (data) => {

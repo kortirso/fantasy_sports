@@ -1,0 +1,7 @@
+<h1><%= t('views.admin.seasons.injuries.edit.title') %></h1>
+<section>
+  <%= form_with model: @injury, url: admin_season_injury_path(@season.id, @injury.id), method: :patch do |form| %>
+    <%= render 'form', form: form %>
+    <%= form.submit t('views.admin.seasons.injuries.edit.update'), class: 'btn-primary' %>
+  <% end %>
+</section>

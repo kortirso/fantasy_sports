@@ -12,6 +12,8 @@ en:
       first_name: First name
       last_name: Last name
       nickname: Nickname
+      reason: Reason
+      status: Status
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -43,6 +45,13 @@ en:
           sport_kind:
             filled?: can't be blank
             invalid: is invalid
+      injury:
+        rules:
+          reason:
+            filled?: can't be blank
+            invalid: is invalid
+          status:
+            filled?: can't be blank
       player:
         rules:
           first_name:

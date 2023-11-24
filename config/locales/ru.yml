@@ -165,11 +165,31 @@ ru:
           games: Игры
           teams_players: Игроки команд
           seasons_teams: Команды
+          seasons_injuries: Травмы
         new:
           name: Название
           active: Активность
           league_id: Лига
           create: Создать новый сезон
+        injuries:
+          index:
+            header: Травмы
+            reason: Причина
+            status: Статус
+            return_at: Дата возвращения
+            new: Добавить травму
+          new:
+            title: Добавление травмы
+            create: Сохранить
+          edit:
+            title: Редактировать травму
+            update: Обновить
+          form:
+            reason_en: Причина En
+            reason_ru: Причина Ru
+            status: Статус
+            return_at: Дата возвращения
+            teams_player: Teams player ID
         teams:
           index:
             header: Команды в сезоне

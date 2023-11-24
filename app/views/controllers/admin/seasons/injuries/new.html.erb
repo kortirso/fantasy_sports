@@ -1,0 +1,7 @@
+<h1><%= t('views.admin.seasons.injuries.new.title') %></h1>
+<section>
+  <%= form_with model: @injury, url: admin_season_injuries_path(@season.id), method: :post do |form| %>
+    <%= render 'form', form: form %>
+    <%= form.submit t('views.admin.seasons.injuries.new.create'), class: 'btn-primary' %>
+  <% end %>
+</section>
