@@ -281,7 +281,7 @@
   }
 
   .tooltip .tooltiptext:after {
-    @apply absolute;
+    @apply absolute z-10;
 
     content: "";
     top: 100%;
