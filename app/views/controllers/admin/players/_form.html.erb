@@ -30,5 +30,5 @@
 </div>
 <div class="form-field">
   <%= form.label :position_kind, t('views.admin.players.new.position_kind'), class: 'form-label' %>
-  <%= form.select :position_kind, options_for_select(@sport_positions.map { |position_kind, name| [localized_value(name), position_kind] }, @player ? @player.position_kind) : nil, class: 'form-value' %>
+  <%= form.select :position_kind, options_for_select(@sport_positions.map { |position_kind, name| [localized_value(name), position_kind] }, (@player ? @player.position_kind : nil)), class: 'form-value' %>
 </div>
