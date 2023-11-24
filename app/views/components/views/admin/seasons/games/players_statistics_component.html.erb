@@ -12,7 +12,7 @@
     <tbody>
       <% @games_players.each do |games_player| %>
         <tr>
-          <td><%= localized_value(games_player.teams_player.player.name) %></td>
+          <td><%= localized_value(games_player.teams_player.player.full_name).presence || localized_value(games_player.teams_player.player.nickname) %></td>
           <% @statistic.each do |stat| %>
             <td class="form-field">
               <%= @form.text_field "game_data[#{@index}][#{games_player.teams_player.shirt_number_string}][#{stat}]", value: games_player.statistic[stat], class: 'form-value w-20' %>

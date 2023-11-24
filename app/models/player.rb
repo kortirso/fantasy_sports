@@ -19,4 +19,11 @@ class Player < ApplicationRecord
 
     nickname
   end
+
+  def full_name
+    {
+      'en' => "#{last_name['en']} #{first_name['en']}".strip,
+      'ru' => "#{last_name['ru']} #{first_name['ru']}".strip
+    }
+  end
 end

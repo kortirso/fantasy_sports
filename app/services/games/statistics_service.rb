@@ -22,7 +22,7 @@ module Games
         next if game_player.statistic[sport_stat].to_i.zero?
 
         [
-          game_player.teams_player.player.name,
+          game_player.teams_player.player.shirt_name,
           game_player.statistic[sport_stat]
         ]
       }

@@ -157,12 +157,20 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
     )
   };
 
+  const renderName = () => {
+    const player = pageState.seasonPlayer.player;
+    const localizedName = localizeValue(player.name);
+
+    if (localizedName.length > 0) return localizedName;
+    return localizeValue(player.nickname);
+  };
+
   return (
     <Modal show={!!playerUuid} size='player' onClose={onClose}>
       <div className="relative mb-2">
         {renderInjury()}
         <span className="badge-dark inline-block mb-2">{localizeValue(sportPositions[pageState.seasonPlayer.player.position_kind].name)}</span>
-        <h2 className="mb-2">{localizeValue(pageState.seasonPlayer.player.name)}</h2>
+        <h2 className="mb-2">{renderName()}</h2>
         <p className="text-sm">{localizeValue(pageState.seasonPlayer.team.name)}</p>
         {pageState.watches.includes(pageState.seasonPlayer.uuid) ? (
           <p

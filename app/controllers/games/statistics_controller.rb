@@ -16,7 +16,7 @@ module Games
 
     def game_json_response
       Rails.cache.fetch(
-        ['games_statistics_index_v1', @game.id, @game.updated_at],
+        ['games_statistics_index_v2', @game.id, @game.updated_at],
         expires_in: 24.hours,
         race_condition_ttl: 10.seconds
       ) do

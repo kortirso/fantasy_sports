@@ -19,7 +19,8 @@ module Players
     attribute :player do |object|
       player = object.player
       {
-        name: player.name,
+        name: player.full_name,
+        nickname: player.nickname,
         shirt_name: player.shirt_name,
         position_kind: player.position_kind
       }
