@@ -1,0 +1,21 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.feedbacks.index.header') %></h1>
+</div>
+<table class="table mb-4" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.feedbacks.index.title') %></th>
+      <th><%= t('views.admin.feedbacks.index.description') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td><%= season.id %></td>
+        <td><%= season.title %></td>
+        <td><%= season.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

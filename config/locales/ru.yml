@@ -16,6 +16,7 @@ ru:
         leagues: Лиги
         seasons: Сезоны
         players: Игроки
+        feedbacks: Отзывы
       page_component:
         logout: Выход
     views:
@@ -120,6 +121,11 @@ ru:
         not_enough_chips: Вы не можете активировать эти бонусы
   views:
     admin:
+      feedbacks:
+        index:
+          header: Отзывы
+          title: Заголовок
+          description: Содержание
       players:
         index:
           header: Игроки

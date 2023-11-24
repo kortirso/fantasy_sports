@@ -16,6 +16,7 @@ en:
         leagues: Leagues
         seasons: Seasons
         players: Players
+        feedbacks: Feedbacks
       page_component:
         logout: Logout
     views:
@@ -120,6 +121,11 @@ en:
         not_enough_chips: You can not active these chips
   views:
     admin:
+      feedbacks:
+        index:
+          header: Feedbacks
+          title: Title
+          description: Description
       players:
         index:
           header: Players

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', to: 'welcome#index'
 
+    resources :feedbacks, only: %i[index]
     resources :players, except: %i[destroy]
     resources :leagues, only: %i[index new create]
     resources :seasons, only: %i[index new create] do
