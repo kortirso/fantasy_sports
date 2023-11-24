@@ -124,13 +124,21 @@ en:
         index:
           header: Players
           new_player: New player
-          name: Name
+          first_name: First name
+          last_name: Last name
+          nickname: Nickname
           position_kind: Position kind
+          edit_player: Edit
         new:
-          name_en: Name (en)
-          name_ru: Name (ru)
+          first_name_en: First name (en)
+          first_name_ru: First name (ru)
+          last_name_en: Last name (en)
+          last_name_ru: Last name (ru)
+          nickname_en: Nickname (en)
+          nickname_ru: Nickname (ru)
           position_kind: Position kind
           create: Create new player
+          update: Update
       leagues:
         index:
           header: Leagues

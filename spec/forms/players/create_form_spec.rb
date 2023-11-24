@@ -6,7 +6,7 @@ describe Players::CreateForm, type: :service do
   let!(:instance) { described_class.new }
 
   context 'for invalid params' do
-    let(:params) { { name: { en: '' }, position_kind: '' } }
+    let(:params) { { first_name: { en: '' }, position_kind: '' } }
 
     it 'does not create player', :aggregate_failures do
       expect { form }.not_to change(Player, :count)
@@ -15,7 +15,7 @@ describe Players::CreateForm, type: :service do
   end
 
   context 'for valid params' do
-    let(:params) { { name: { en: 'player' }, position_kind: 'basketball_center' } }
+    let(:params) { { first_name: { en: 'player' }, last_name: { en: 'player' }, position_kind: 'basketball_center' } }
 
     it 'creates player', :aggregate_failures do
       expect { form }.to change(Player, :count).by(1)

@@ -1,0 +1,34 @@
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :first_name_en, t('views.admin.players.new.first_name_en'), class: 'form-label' %>
+    <%= form.text_field :first_name_en, value: @player.first_name['en'], class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :first_name_ru, t('views.admin.players.new.first_name_ru'), class: 'form-label' %>
+    <%= form.text_field :first_name_ru, value: @player.first_name['ru'], class: 'form-value' %>
+  </div>
+</div>
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :last_name_en, t('views.admin.players.new.last_name_en'), class: 'form-label' %>
+    <%= form.text_field :last_name_en, value: @player.last_name['en'], class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :last_name_ru, t('views.admin.players.new.last_name_ru'), class: 'form-label' %>
+    <%= form.text_field :last_name_ru, value: @player.last_name['ru'], class: 'form-value' %>
+  </div>
+</div>
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :nickname_en, t('views.admin.players.new.nickname_en'), class: 'form-label' %>
+    <%= form.text_field :nickname_en, value: @player.nickname['en'], class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :nickname_ru, t('views.admin.players.new.nickname_ru'), class: 'form-label' %>
+    <%= form.text_field :nickname_ru, value: @player.nickname['ru'], class: 'form-value' %>
+  </div>
+</div>
+<div class="form-field">
+  <%= form.label :position_kind, t('views.admin.players.new.position_kind'), class: 'form-label' %>
+  <%= form.select :position_kind, options_for_select(@sport_positions.map { |position_kind, name| [localized_value(name), position_kind] }, @player.position_kind), class: 'form-value' %>
+</div>

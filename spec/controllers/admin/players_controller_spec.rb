@@ -103,7 +103,9 @@ describe Admin::PlayersController do
         end
 
         context 'for invalid params' do
-          let(:request) { post :create, params: { player: { name_en: '' }, locale: 'en', sport_kind: 'basketball' } }
+          let(:request) {
+            post :create, params: { player: { first_name_en: '' }, locale: 'en', sport_kind: 'basketball' }
+          }
 
           it 'does not create player', :aggregate_failures do
             expect { request }.not_to change(Player, :count)
@@ -114,7 +116,13 @@ describe Admin::PlayersController do
         context 'for valid params' do
           let(:request) {
             post :create, params: {
-              player: { name_en: 'En', name_ru: 'Ru', position_kind: 'basketball_center' },
+              player: {
+                first_name_en: 'En',
+                first_name_ru: 'Ru',
+                last_name_en: 'En',
+                last_name_ru: 'Ru',
+                position_kind: 'basketball_center'
+              },
               locale: 'en',
               sport_kind: 'basketball'
             }

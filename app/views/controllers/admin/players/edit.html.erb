@@ -1,0 +1,7 @@
+<h1><%= t('views.admin.players.index.edit_player') %></h1>
+<section>
+  <%= form_with model: @player, url: admin_player_path(id: @player.id, sport_kind: params[:sport_kind]), method: :patch do |form| %>
+    <%= render 'form', form: form %>
+    <%= form.submit t('views.admin.players.new.update'), class: 'btn-primary' %>
+  <% end %>
+</section>

@@ -7,16 +7,24 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th><%= t('views.admin.players.index.name') %></th>
+        <th><%= t('views.admin.players.index.first_name') %></th>
+        <th><%= t('views.admin.players.index.last_name') %></th>
+        <th><%= t('views.admin.players.index.nickname') %></th>
         <th><%= t('views.admin.players.index.position_kind') %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @players.each do |player| %>
         <tr>
           <td><%= player.id %></td>
-          <td><%= localized_value(player.name) %></td>
+          <td><%= player.first_name %></td>
+          <td><%= player.last_name %></td>
+          <td><%= player.nickname %></td>
           <td><%= localized_value(@sport_positions[player.position_kind]) %></td>
+          <td>
+            <%= link_to t('views.admin.players.index.edit_player'), edit_admin_player_path(player.id, sport_kind: params[:sport_kind]), class: 'btn-primary btn-small' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -26,4 +34,5 @@
     <h1><%= t('views.admin.players.index.header') %></h1>
   </div>
   <%= link_to 'Basketball', admin_players_path(sport_kind: 'basketball'), class: 'btn-primary' %>
+  <%= link_to 'Football', admin_players_path(sport_kind: 'football'), class: 'btn-primary' %>
 <% end %>

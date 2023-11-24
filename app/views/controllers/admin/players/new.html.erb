@@ -1,18 +1,7 @@
 <h1><%= t('views.admin.players.index.new_player') %></h1>
 <section>
   <%= form_with model: @player, url: admin_players_path(sport_kind: params[:sport_kind]), method: :post do |form| %>
-    <div class="form-field">
-      <%= form.label :name_en, t('views.admin.players.new.name_en'), class: 'form-label' %>
-      <%= form.text_field :name_en, class: 'form-value' %>
-    </div>
-    <div class="form-field">
-      <%= form.label :name_ru, t('views.admin.players.new.name_ru'), class: 'form-label' %>
-      <%= form.text_field :name_ru, class: 'form-value' %>
-    </div>
-    <div class="form-field">
-      <%= form.label :position_kind, t('views.admin.players.new.position_kind'), class: 'form-label' %>
-      <%= form.select :position_kind, @sport_positions.map { |position_kind, name| [localized_value(name), position_kind] }, class: 'form-value' %>
-    </div>
+    <%= render 'form', form: form %>
     <%= form.submit t('views.admin.players.new.create'), class: 'btn-primary' %>
   <% end %>
 </section>

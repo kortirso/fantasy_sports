@@ -5,20 +5,22 @@ module Players
     config.messages.namespace = :player
 
     params do
-      required(:name).value(:hash)
+      required(:first_name).value(:hash)
+      required(:last_name).value(:hash)
+      optional(:nickname).value(:hash)
       required(:position_kind).filled(:string)
     end
 
-    rule(:name) do
-      if values[:name].values.any?(&:blank?)
-        key.failure(:invalid)
-      end
+    rule(:first_name) do
+      key.failure(:invalid) if values[:first_name].values.any?(&:blank?)
+    end
+
+    rule(:last_name) do
+      key.failure(:invalid) if values[:last_name].values.any?(&:blank?)
     end
 
     rule(:position_kind) do
-      if Sports::Position.pluck(:title).exclude?(values[:position_kind])
-        key.failure(:invalid)
-      end
+      key.failure(:invalid) if Sports::Position.pluck(:title).exclude?(values[:position_kind])
     end
   end
 end

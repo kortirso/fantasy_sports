@@ -9,6 +9,9 @@ en:
       shirt_number: Shirt number
       form: Form
       description: Description
+      first_name: First name
+      last_name: Last name
+      nickname: Nickname
     errors:
       user:
         password_length: must be greater or equal %{length} characters
@@ -42,9 +45,14 @@ en:
             invalid: is invalid
       player:
         rules:
-          name:
+          first_name:
             filled?: can't be blank
             invalid: is invalid
+          last_name:
+            filled?: can't be blank
+            invalid: is invalid
+          nickname:
+            filled?: can't be blank
           position_kind:
             filled?: can't be blank
             invalid: is invalid

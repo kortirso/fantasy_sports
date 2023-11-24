@@ -124,13 +124,21 @@ ru:
         index:
           header: Игроки
           new_player: Добавить нового игрока
-          name: Имя
-          position_kind: Игровая позиция
+          first_name: Имя
+          last_name: Фамилия
+          nickname: Прозвище
+          position_kind: Позиция
+          edit_player: Изменить
         new:
-          name_en: Имя (en)
-          name_ru: Имя (ru)
+          first_name_en: Имя (en)
+          first_name_ru: Имя (ru)
+          last_name_en: Фамилия (en)
+          last_name_ru: Фамилия (ru)
+          nickname_en: Прозвище (en)
+          nickname_ru: Прозвище (ru)
           position_kind: Игровая позиция
           create: Создать нового игрока
+          update: Обновить
       leagues:
         index:
           header: Лиги

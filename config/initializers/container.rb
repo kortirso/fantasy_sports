@@ -52,6 +52,7 @@ module FantasySports
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
     register('forms.teams.players.update') { Teams::Players::UpdateForm.new }
     register('forms.players.create') { Players::CreateForm.new }
+    register('forms.players.update') { Players::UpdateForm.new }
     register('forms.fantasy_leagues.create') { FantasyLeagues::CreateForm.new }
     register('forms.leagues.create') { Leagues::CreateForm.new }
     register('forms.lineups.update') { Lineups::UpdateForm.new }
