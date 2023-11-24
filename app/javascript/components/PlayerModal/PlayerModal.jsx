@@ -206,8 +206,8 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.teams_selected_by}%</p>
         </div>
       </div>
-      <div className="w-full">
-        <div className="flex flex-row">
+      <div className="w-full relative">
+        <div className="flex flex-row absolute top-0 left-0 w-full">
           <h3
             className={`cursor-pointer mr-4 ${pageState.renderMode === 'history' ? 'underline' : ''}`}
             onClick={() => setPageState({ ...pageState, renderMode: 'history' })}
@@ -222,7 +222,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           </h3>
         </div>
         {pageState.renderMode === 'history' ? (
-          <div className="w-full overflow-x-scroll">
+          <div className="w-full overflow-x-scroll pt-10">
             {pageState.seasonPlayer.games_players.data.length === 0 ? (
               <p>{strings.player.noSeasonGames}</p>
             ) : (
@@ -250,7 +250,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
           </div>
         ) : null}
         {pageState.renderMode === 'fixtures' ? (
-          <div className="w-full overflow-x-scroll">
+          <div className="w-full overflow-x-scroll pt-10">
             {pageState.seasonPlayer.fixtures.length === 0 ? (
               <p>{strings.player.noFixtures}</p>
             ) : (
