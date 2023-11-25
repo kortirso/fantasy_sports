@@ -1,28 +1,35 @@
 <%= render PageWrappers::GuestComponent.new do %>
-  <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-8 xl:my-24">
-    <div class="flex-1 flex flex-col justify-center pr-16">
-      <h1 class="text-center lg:text-left">Fantasy Sports</h1>
-      <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
-      <% if Current.user.nil? %>
-        <div class="flex mb-4">
-          <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'btn-primary mr-2' %>
-          <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'btn-primary' %>
-        </div>
-      <% else %>
-        <div class="flex mb-4">
-          <%= link_to t('views.welcome.home'), home_path, class: 'btn-primary' %>
-        </div>
-      <% end %>
-      <p class="mb-2"><%= t('views.welcome.active_leagues') %></p>
-      <ul>
-        <li class="mb-2"><%= t('views.welcome.nba') %></li>
-        <li class="mb-2"><%= t('views.welcome.epl') %></li>
-        <li><%= t('views.welcome.seria_a') %></li>
-      </ul>
-    </div>
-    <div class="relative flex-1 flex flex-col justify-center lg:items-center">
-      <%= image_tag 'basketball-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'rounded' %>
-      <%= image_tag 'football-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'mt-4 xl:absolute xl:top-60 xl:-left-12 rounded' %>
-    </div>
-  </section>
+  <% cache(['welcome_index_v1', Current.user&.id], expires_in: 24.hours) do %>
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-8 xl:my-24">
+      <div class="flex-1 flex flex-col justify-center lg:pr-16">
+        <h1 class="text-center lg:text-left">Fantasy Sports</h1>
+        <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
+        <% if Current.user.nil? %>
+          <div class="flex mb-4">
+            <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'btn-primary mr-2' %>
+            <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'btn-primary' %>
+          </div>
+        <% else %>
+          <div class="flex mb-4">
+            <%= link_to t('views.welcome.home'), home_path, class: 'btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="relative flex-1 flex flex-col justify-center lg:items-center">
+        <%= image_tag 'basketball-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'rounded' %>
+        <%= image_tag 'football-screenshot.webp', width: 616, height: 355, alt: 'interface-example', class: 'mt-4 xl:absolute xl:top-40 xl:-left-8 rounded' %>
+      </div>
+    </section>
+    <section class="mx-auto my-8 xl:my-32 w-full">
+      <h1 class="text-center"><%= t('views.welcome.active_leagues') %></h1>
+      <p class="text-xl text-center mb-4"><%= t('views.welcome.active_leagues_list') %></p>
+      <div class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <%= image_tag league_background('English Premier League'), alt: 'fantasy premier league', class: 'h-40' %>
+        <%= image_tag league_background('La Liga'), alt: 'fantasy la liga', class: 'h-40' %>
+        <%= image_tag league_background('NBA'), alt: 'fantasy nba', class: 'h-40' %>
+        <%= image_tag league_background('Seria A'), alt: 'fantasy serie a', class: 'h-40' %>
+        <%= image_tag league_background('Russian Premier League'), alt: 'fantasy russian premier league', class: 'h-40' %>
+      </div>
+    </section>
+  <% end %>
 <% end %>

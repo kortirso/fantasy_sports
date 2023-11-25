@@ -10,9 +10,11 @@
     <% end %>
     <% if Current.user %>
       <%= link_to t('views.welcome.home'), home_path %>
+      <%= link_to t('views.welcome.privacy'), privacy_path %>
       <%= link_to t('components.page_wrappers.page_component.logout'), users_logout_path %>
     <% else %>
       <div class="flex">
+        <%= link_to t('views.welcome.privacy'), privacy_path, class: 'mr-4' %>
         <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'mr-4' %>
         <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path %>
       </div>

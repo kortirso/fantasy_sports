@@ -5,4 +5,6 @@ class WelcomeController < ApplicationController
   skip_before_action :check_email_confirmation
 
   def index; end
+
+  def privacy; end
 end

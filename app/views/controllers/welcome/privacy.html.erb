@@ -1,0 +1,22 @@
+<%= render PageWrappers::GuestComponent.new do %>
+  <% cache('welcome_privacy_v1', expires_in: 24.hours) do %>
+    <section class="mx-auto my-12">
+      <h1><%= t('views.privacy.title') %></h1>
+      <h2 class="mt-4"><%= t('views.privacy.h1') %></h2>
+      <p><%= t('views.privacy.p1') %></p>
+      <h2 class="mt-4"><%= t('views.privacy.h2') %></h2>
+      <p class="mb-2"><%= t('views.privacy.p2') %></p>
+      <ul>
+        <li><%= t('views.privacy.li1') %></li>
+      </ul>
+      <h2 class="mt-4"><%= t('views.privacy.h3') %></h2>
+      <p><%= t('views.privacy.p3') %></p>
+      <h2 class="mt-4"><%= t('views.privacy.h4') %></h2>
+      <p><%= t('views.privacy.p4') %></p>
+      <h2 class="mt-4"><%= t('views.privacy.h5') %></h2>
+      <p><%= t('views.privacy.p5') %></p>
+      <h2 class="mt-4"><%= t('views.privacy.h6') %></h2>
+      <p><%= t('views.privacy.p6') %></p>
+    </section>
+  <% end %>
+<% end %>

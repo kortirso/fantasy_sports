@@ -103,5 +103,7 @@ Rails.application.routes.draw do
   resources :achievements, only: %i[index]
   resources :cups, only: %i[show]
 
+  get 'privacy', to: 'welcome#privacy'
+
   root 'welcome#index'
 end
