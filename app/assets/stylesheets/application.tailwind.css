@@ -337,11 +337,11 @@
   }
 
   .badge {
-    @apply px-2 py-1 text-sm rounded shadow;
+    @apply px-2 py-1 text-sm rounded;
   }
 
   .badge-light {
-    @apply badge bg-white border-stone-700 text-stone-700;
+    @apply badge bg-white border border-stone-700 text-stone-700;
   }
 
   .badge-dark {

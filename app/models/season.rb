@@ -25,4 +25,5 @@ class Season < ApplicationRecord
   has_many :injuries, through: :players_seasons
 
   scope :active, -> { where(active: true) }
+  scope :coming, -> { where(active: false).where.not(start_at: nil) }
 end

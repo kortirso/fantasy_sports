@@ -9,7 +9,7 @@ class HomesController < ApplicationController
   private
 
   def find_seasons
-    @seasons = Season.active.includes(:league).order('leagues.id ASC')
+    @seasons = Season.active.or(Season.coming).includes(:league).order('leagues.id ASC')
     @seasons = @seasons.where(leagues: { sport_kind: League.sport_kinds[params['sport_kind']] }) if params['sport_kind']
     @seasons = @seasons.hashable_pluck(:id, :uuid, :start_at, :name, 'leagues.name', 'leagues.sport_kind')
   end

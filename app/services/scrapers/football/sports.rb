@@ -65,6 +65,28 @@ module Scrapers
           'Zenit Saint Petersburg' => 'ZEN',
           'Ural' => 'URA',
           'CSKA Moscow' => 'CSK'
+        },
+        'La Liga' => {
+          'Alaves' => 'ALA',
+          'Almeria' => 'ALM',
+          'Athletic Club' => 'ATH',
+          'Atletico Madrid' => 'ATL',
+          'Barcelona' => 'BAR',
+          'Real Betis' => 'BET',
+          'Valencia' => 'VAL',
+          'Villarreal' => 'VIL',
+          'Granada CF' => 'GRA',
+          'Girona' => 'GIR',
+          'Cadiz' => 'CAD',
+          'Las Palmas' => 'LAS',
+          'Mallorca' => 'MAL',
+          'Osasuna' => 'OSA',
+          'Rayo Vallecano' => 'RAY',
+          'Real Madrid' => 'RLM',
+          'Real Sociedad' => 'RLS',
+          'Celta Vigo' => 'CEL',
+          'Getafe' => 'GET',
+          'Sevilla' => 'SEV'
         }
       }.freeze
 

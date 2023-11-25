@@ -22,7 +22,7 @@
               <div class="season-link-content">
                 <p class="season-link-date"><%= season[:name] %></p>
                 <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
-                <p class="badge-light absolute top-2 left-2">
+                <p class="badge-light absolute top-2 right-2">
                   <%= t('views.homes.show.starts', date: season[:start_at].strftime('%Y.%m.%d'), time: season[:start_at].strftime('%H:%M')) %>
                 </p>
               </div>
