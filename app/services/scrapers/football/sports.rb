@@ -242,9 +242,15 @@ module Scrapers
         end
       end
 
+      # rubocop: disable Metrics/AbcSize
       def update_substitution_players(team_index, event)
         player_off = @player_ids[team_index][event[:player_id]]
         player_in = event[:player_assist_id].nil? ? nil : @player_ids[team_index][event[:player_assist_id]]
+
+        if @players_minutes[team_index][player_off].nil?
+          player_off = event[:player_assist_id].nil? ? nil : @player_ids[team_index][event[:player_assist_id]]
+          player_in = @player_ids[team_index][event[:player_id]]
+        end
 
         @players_minutes[team_index][player_off][:until] = event[:minute]
         return unless player_in
@@ -254,6 +260,7 @@ module Scrapers
           until: nil
         }
       end
+      # rubocop: enable Metrics/AbcSize
 
       def sort_ratings
         @players_statistic = @players_statistic.sort do |element1, element2|
