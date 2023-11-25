@@ -10,6 +10,9 @@
       weekPosition: @season.coming_week.position,
       weekDeadlineAt: @season.coming_week.deadline_at,
       transfersLimited: @lineup&.transfers_limited || false,
-      freeTransfers: @lineup&.free_transfers_amount || 0
+      freeTransfers: @lineup&.free_transfers_amount || 0,
+      activeChips: @lineup&.active_chips,
+      lineupUuid: @lineup&.uuid,
+      availableChips: @fantasy_team.available_chips
   %>
 <% end %>

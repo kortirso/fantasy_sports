@@ -52,6 +52,9 @@ export const Transfers = ({
   weekDeadlineAt,
   transfersLimited,
   freeTransfers,
+  activeChips,
+  lineupUuid,
+  availableChips,
 }) => {
   const generateSortParams = () => {
     if (sportKind === 'basketball') return { ...SORT_PARAMS, ...BASKETBALL_SORT_PARAMS };
@@ -84,7 +87,8 @@ export const Transfers = ({
     freeTransfersAmount: freeTransfers,
     alerts: {},
     sortParams: generateSortParams(),
-    sortItems: generateSortItems()
+    sortItems: generateSortItems(),
+    wildcardModalIsOpen: false
   });
 
   const [filterState, setFilterState] = useState({
@@ -281,7 +285,51 @@ export const Transfers = ({
     const data = injury.data.attributes;
     if (data.status === 0) return 'player-info-alert';
     return 'player-info-warning';
-  }
+  };
+
+  const renderWildcardStatus = () => {
+    if (activeChips.includes('wildcard')) return 'btn-primary btn-small mr-2 bg-amber-400';
+    if (availableChips.wildcard === 0 && !activeChips.includes('wildcard')) return 'btn-disabled btn-small mr-2';
+    return 'btn-primary btn-small mr-2';
+  };
+
+  const renderWildcardTooltip = () => {
+    if (activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">Wildcard is already active.</p>;
+    if (availableChips.wildcard === 0) return <p className="mt-2 text-orange-700">Wildcard is not available.</p>;
+    if (activeChips.length > 0 && !activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">Another chips is active.</p>;
+
+    return (
+      <div>
+        <p className="my-2">Wildcard can be activated. Once activated you can't cancel it.</p>
+        <button
+          className="btn-primary"
+          onClick={() => toggleChip()}
+        >
+          Activate wildcard
+        </button>
+      </div>
+    );
+  };
+
+  const toggleChip = async () => {
+    const payload = { active_chips: ['wildcard'] };
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken(),
+      },
+      body: JSON.stringify({ lineup: payload }),
+    };
+
+    const result = await apiRequest({
+      url: `/lineups/${lineupUuid}.json`,
+      options: requestOptions,
+    });
+    if (result.message) window.location.reload();
+    else setPageState({ ...pageState, alerts: { alert: result.errors } });
+  };
 
   const submit = async () => {
     const payload = {
@@ -455,6 +503,24 @@ export const Transfers = ({
                 </div>
               ))}
             </div>
+
+            {lineupUuid && availableChips.wildcard ? (
+              <div className="my-8">
+                <div className="mb-2">
+                  <h3 className="text-center">{strings.squad.chips}</h3>
+                  <div className="flex justify-center">
+                    <button
+                      className={renderWildcardStatus()}
+                      onClick={() => setPageState({ ...pageState, wildcardModalIsOpen: true })}
+                    >
+                      Wildcard
+                    </button>
+                  </div>
+                </div>
+                <p className="px-4 md:px-12">{strings.squad.bonusesHelp}</p>
+              </div>
+            ) : null}
+
             <div className="my-8 mx-auto text-center">
               <button
                 className="btn-primary"
@@ -635,6 +701,17 @@ export const Transfers = ({
           ) : null}
         </div>
       </Modal>
+
+      {lineupUuid ? (
+        <Modal
+          show={pageState.wildcardModalIsOpen}
+          onClose={() => setPageState({ ...pageState, wildcardModalIsOpen: false })}
+        >
+          <h2 className="pr-8">Wildcard activating</h2>
+          <p>Wildcard allows you to change all players once per season without any penalties.</p>
+          {renderWildcardTooltip()}
+        </Modal>
+      ) : null}
     </div>
   );
 };

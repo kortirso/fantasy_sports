@@ -78,4 +78,36 @@ describe Lineups::UpdateForm, type: :service do
       expect(lineup.fantasy_team.reload.available_chips).to eq({ Chipable::TRIPLE_CAPTAIN => 1 })
     end
   end
+
+  context 'for wildcard' do
+    let(:params) { { active_chips: [Chipable::WILDCARD] } }
+
+    before do
+      lineup.update!(penalty_points: -8, transfers_limited: true)
+      lineup.fantasy_team.update(available_chips: { Chipable::WILDCARD => 1 })
+    end
+
+    it 'updates lineup and fantasy team', :aggregate_failures do
+      expect(form[:errors]).to be_blank
+      expect(lineup.reload.active_chips).to eq [Chipable::WILDCARD]
+      expect(lineup.penalty_points).to eq 0
+      expect(lineup.transfers_limited).to be_falsy
+      expect(lineup.fantasy_team.reload.available_chips).to eq({ Chipable::WILDCARD => 0 })
+    end
+  end
+
+  context 'for active wildcard' do
+    let(:params) { { active_chips: [Chipable::TRIPLE_CAPTAIN] } }
+
+    before do
+      lineup.update!(active_chips: [Chipable::WILDCARD])
+      lineup.fantasy_team.update(available_chips: { Chipable::TRIPLE_CAPTAIN => 1 })
+    end
+
+    it 'does not update lineup', :aggregate_failures do
+      expect(form[:errors]).not_to be_blank
+      expect(lineup.reload.active_chips).to eq [Chipable::WILDCARD]
+      expect(lineup.fantasy_team.reload.available_chips).to eq({ Chipable::TRIPLE_CAPTAIN => 1 })
+    end
+  end
 end

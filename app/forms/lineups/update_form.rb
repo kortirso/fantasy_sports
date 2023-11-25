@@ -28,6 +28,8 @@ module Lineups
       max_chips_per_week = Sport.find_by(title: lineup.fantasy_team.sport_kind).max_chips_per_week
       return I18n.t('services.lineups.update.too_many_chips') if chips.size > max_chips_per_week
 
+      return I18n.t('services.lineups.update.wildcard_active') if lineup.active_chips.include?(Chipable::WILDCARD)
+
       # if added chips can not be added
       not_enough_chips = (chips - lineup.active_chips).any? { |chip| lineup.fantasy_team.available_chips[chip].zero? }
       I18n.t('services.lineups.update.not_enough_chips') if not_enough_chips
@@ -49,7 +51,11 @@ module Lineups
     end
 
     def update_lineup(lineup, params)
-      # commento: lineups.active_chips
+      if params[:active_chips].include?(Chipable::WILDCARD)
+        params[:transfers_limited] = false
+        params[:penalty_points] = 0
+      end
+      # commento: lineups.active_chips, lineups.transfers_limited, lineups.penalty_points
       lineup.update!(params)
     end
   end
