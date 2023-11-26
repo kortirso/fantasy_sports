@@ -294,18 +294,18 @@ export const Transfers = ({
   };
 
   const renderWildcardTooltip = () => {
-    if (activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">Wildcard is already active.</p>;
-    if (availableChips.wildcard === 0) return <p className="mt-2 text-orange-700">Wildcard is not available.</p>;
-    if (activeChips.length > 0 && !activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">Another chips is active.</p>;
+    if (activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">{strings.transfers.wildcardIsActive}</p>;
+    if (availableChips.wildcard === 0) return <p className="mt-2 text-orange-700">{strings.transfers.wildcardIsNotAvailable}</p>;
+    if (activeChips.length > 0 && !activeChips.includes('wildcard')) return <p className="mt-2 text-orange-700">{strings.transfers.anotherChip}</p>;
 
     return (
       <div>
-        <p className="my-2">Wildcard can be activated. Once activated you can't cancel it.</p>
+        <p className="my-2">{strings.transfers.canBeActivated}</p>
         <button
           className="btn-primary"
           onClick={() => toggleChip()}
         >
-          Activate wildcard
+          {strings.transfers.activate}
         </button>
       </div>
     );
@@ -503,8 +503,7 @@ export const Transfers = ({
                 </div>
               ))}
             </div>
-
-            {lineupUuid && availableChips.wildcard ? (
+            {lineupUuid && availableChips.wildcard !== null ? (
               <div className="my-8">
                 <div className="mb-2">
                   <h3 className="text-center">{strings.squad.chips}</h3>
@@ -513,14 +512,13 @@ export const Transfers = ({
                       className={renderWildcardStatus()}
                       onClick={() => setPageState({ ...pageState, wildcardModalIsOpen: true })}
                     >
-                      Wildcard
+                      {strings.transfers.wildcard}
                     </button>
                   </div>
                 </div>
                 <p className="px-4 md:px-12">{strings.squad.bonusesHelp}</p>
               </div>
             ) : null}
-
             <div className="my-8 mx-auto text-center">
               <button
                 className="btn-primary"
@@ -701,14 +699,13 @@ export const Transfers = ({
           ) : null}
         </div>
       </Modal>
-
-      {lineupUuid ? (
+      {lineupUuid && availableChips.wildcard !== null ? (
         <Modal
           show={pageState.wildcardModalIsOpen}
           onClose={() => setPageState({ ...pageState, wildcardModalIsOpen: false })}
         >
-          <h2 className="pr-8">Wildcard activating</h2>
-          <p>Wildcard allows you to change all players once per season without any penalties.</p>
+          <h2 className="pr-8">{strings.transfers.activating}</h2>
+          <p>{strings.transfers.wildcardDescription}</p>
           {renderWildcardTooltip()}
         </Modal>
       ) : null}

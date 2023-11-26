@@ -37,7 +37,15 @@
       "price": "Price",
       "description": "On this page you can make transfers by removing some players from your team and replacing them with others who will be available in the next game week's squad. The number of free transfers is limited; for additional transfers, your team will lose points from the total amount. The team's budget determines the available players for transfers.",
       "deadlineDescription": "Deadline indicates when the next game week will start.",
-      "fromWatchlist": "From watchlist"
+      "fromWatchlist": "From watchlist",
+      "wildcard": "Wildcard",
+      "activating": "Wildcard activating",
+      "wildcardDescription": "Wildcard allows you to change all players once per season without any penalties.",
+      "wildcardIsActive": "Wildcard is already active.",
+      "wildcardIsNotAvailable": "Wildcard is not available.",
+      "anotherChip": "Another chips is active.",
+      "canBeActivated": "Wildcard can be activated. Once activated you can't cancel it.",
+      "activate": "Activate wildcard"
     },
     "week": {
       "previous": "Previous",
@@ -174,7 +182,15 @@
       "price": "Цена",
       "description": "На этой странице вы можете провести трансферы, удалив из команды некоторых игроков и заменив их на других, которые будут доступны в составе на следующую неделю. Количество бесплатных трансферов ограничено, за дополнительные трансферы ваша команда будет терять очки из общего количества. Бюджет команды определяет доступных игроков для трансферов.",
       "deadlineDescription": "Дедлайн показывает, когда начнётся следующая неделя.",
-      "fromWatchlist": "Избранные"
+      "fromWatchlist": "Избранные",
+      "wildcard": "Джокер",
+      "activating": "Активирование джокера",
+      "wildcardDescription": "Джокер позволяет 1 раз за сезон полностью поменять состав команды без штрафов.",
+      "wildcardIsActive": "Джокер уже активирован.",
+      "wildcardIsNotAvailable": "Джокер не доступен.",
+      "anotherChip": "Другой бонус активирован.",
+      "canBeActivated": "Джокер может быть активирован. После активации он не может быть отменён.",
+      "activate": "Активировать джокер"
     },
     "week": {
       "previous": "Предыдущая",
