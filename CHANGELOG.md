@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - rendering statistics table tooltip
+- refresh lineup players status after transfers
 
 ## [1.1.3] - 2023-11-17
 ### Added

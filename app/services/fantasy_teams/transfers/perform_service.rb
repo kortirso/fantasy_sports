@@ -175,7 +175,8 @@ module FantasyTeams
         {
           teams_player_id: teams_player[:id],
           lineup_id: coming_lineup.id,
-          change_order: lineups_player.change_order
+          change_order: lineups_player.change_order,
+          status: lineups_player.status
         }
       end
 
