@@ -5,6 +5,5 @@ class FantasyTeamContract < ApplicationContract
 
   params do
     required(:name).filled(:string)
-    required(:budget_cents).filled(:integer)
   end
 end

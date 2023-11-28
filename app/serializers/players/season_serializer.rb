@@ -33,6 +33,7 @@ module Players
         uuid: team&.uuid,
         name: team&.name,
         price: (active_teams_player&.price_cents.to_i / 100.0).round(1),
+        price_cents: active_teams_player&.price_cents.to_i,
         shirt_number: active_teams_player&.shirt_number_string
       }
     end

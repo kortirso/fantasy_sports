@@ -135,6 +135,7 @@ module FantasyTeams
       end
 
       def update_fantasy_team
+        # commento: fantasy_teams.budget_cents
         @fantasy_team.update!(budget_cents: @fantasy_team.budget_cents + budget_change)
       end
 

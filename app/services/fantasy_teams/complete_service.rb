@@ -37,7 +37,14 @@ module FantasyTeams
 
     def complete_fantasy_team(params, teams_players_ids)
       ActiveRecord::Base.transaction do
-        @fantasy_team.update!(params.except(:favourite_team_uuid).merge(completed: true))
+        # commento: fantasy_teams.budget_cents, fantasy_teams.completed
+        @fantasy_team.update!(
+          params.except(:favourite_team_uuid)
+            .merge(
+              completed: true,
+              budget_cents: @fantasy_team.budget_cents - Teams::Player.where(id: teams_players_ids).sum(:price_cents)
+            )
+        )
         create_fantasy_teams_players(teams_players_ids)
         lineup = @lineup_creator.call(fantasy_team: @fantasy_team).result
         create_transfers(lineup, teams_players_ids)

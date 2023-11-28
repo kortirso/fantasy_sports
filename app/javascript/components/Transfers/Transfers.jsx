@@ -46,7 +46,7 @@ export const Transfers = ({
   sportKind,
   fantasyTeamUuid,
   fantasyTeamCompleted,
-  fantasyTeamBudget,
+  fantasyTeamBudgetCents,
   weekUuid,
   weekPosition,
   weekDeadlineAt,
@@ -83,7 +83,7 @@ export const Transfers = ({
     visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
     defaultTeamMembers: [],
     teamMembers: [],
-    budget: fantasyTeamBudget,
+    budgetCents: fantasyTeamBudgetCents,
     freeTransfersAmount: freeTransfers,
     alerts: {},
     sortParams: generateSortParams(),
@@ -235,7 +235,7 @@ export const Transfers = ({
     setPageState({
       ...pageState,
       teamMembers: pageState.teamMembers.concat(item),
-      budget: pageState.budget - item.team.price
+      budgetCents: pageState.budgetCents - item.team.price_cents
     })
   };
 
@@ -245,7 +245,7 @@ export const Transfers = ({
     setPageState({
       ...pageState,
       teamMembers: pageState.teamMembers.filter((item) => item.uuid !== element.uuid),
-      budget: pageState.budget + element.team.price
+      budgetCents: pageState.budgetCents + element.team.price_cents
     })
   };
 
@@ -335,7 +335,6 @@ export const Transfers = ({
     const payload = {
       fantasy_team: {
         name: teamName,
-        budget_cents: pageState.budget * 100,
         favourite_team_uuid: teamState.uuid,
         players_seasons_uuids: pageState.teamMembers.map((element) => element.uuid),
       },
@@ -462,7 +461,7 @@ export const Transfers = ({
           </div>
           <div className="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
             <p className="text-center">{strings.transfers.remaining}</p>
-            <p className="ml-4 md:ml-0 text-xl">{pageState.budget.toFixed(1)}</p>
+            <p className="ml-4 md:ml-0 text-xl">{(pageState.budgetCents / 100).toFixed(1)}</p>
           </div>
         </div>
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (

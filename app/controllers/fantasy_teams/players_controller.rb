@@ -16,7 +16,7 @@ module FantasyTeams
 
     def teams_players
       Rails.cache.fetch(
-        ['fantasy_teams_players_index_v3', @fantasy_team.id, @fantasy_team.updated_at],
+        ['fantasy_teams_players_index_v4', @fantasy_team.id, @fantasy_team.updated_at],
         expires_in: 12.hours,
         race_condition_ttl: 10.seconds
       ) do
