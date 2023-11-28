@@ -15,7 +15,7 @@ import { seasonPlayersRequest } from './requests/seasonPlayersRequest';
 // these sorting params belong to teams_player.player
 // other sorting params belong to teams_player
 const TEAM_SORT_PARAMS = ['price'];
-const STATISTIC_SORT_PARAM = ['MP'];
+const STATISTIC_SORT_PARAM = ['MP', 'P', 'REB', 'A', 'BLK', 'STL', 'GS', 'CS'];
 const PER_PAGE = 20;
 const SORT_PARAMS = {
   'price': { 'en': 'Price', 'ru': 'Цена' },
