@@ -23,7 +23,7 @@ barcelona = Team.create name: { en: 'Barcelona', ru: 'Барселона' }, sho
 betis = Team.create name: { en: 'Betis', ru: 'Бетис' }, short_name: 'BET'
 valencia = Team.create name: { en: 'Valencia', ru: 'Валенсия' }, short_name: 'VAL'
 villarreal = Team.create name: { en: 'Villareal', ru: 'Вильярреал' }, short_name: 'VIL'
-granada = Team.create name: { en: 'Granada', ru: 'Гранад' }, short_name: 'GRA'
+granada = Team.create name: { en: 'Granada', ru: 'Гранада' }, short_name: 'GRA'
 girona = Team.create name: { en: 'Girona', ru: 'Жирона' }, short_name: 'GIR'
 cadiz = Team.create name: { en: 'Cadiz', ru: 'Кадис' }, short_name: 'CAD'
 laspalmas = Team.create name: { en: 'Las Palmas', ru: 'Лас-Пальмас' }, short_name: 'LAS'
@@ -32,7 +32,7 @@ osasuna = Team.create name: { en: 'Osasuna', ru: 'Осасуна' }, short_name:
 rayovallecano = Team.create name: { en: 'Rayo Vallecano', ru: 'Райо Вальекано' }, short_name: 'RAY'
 real_madrid = Team.create name: { en: 'Real Madrid', ru: 'Реал Мадрид' }, short_name: 'RLM'
 real_sociedad = Team.create name: { en: 'Real Sociedad', ru: 'Реаль Сосьедад' }, short_name: 'RLS'
-celta = Team.create name: { en: 'Lecce', ru: 'Celta' }, short_name: 'CEL'
+celta = Team.create name: { en: 'Celta', ru: 'Сельта' }, short_name: 'CEL'
 getafe = Team.create name: { en: 'Getafe', ru: 'Хетафе' }, short_name: 'GET'
 sevilla = Team.create name: { en: 'Sevilla', ru: 'Севилья' }, short_name: 'SEV'
 

@@ -31,6 +31,7 @@ module FantasyTeams
     end
 
     def create_fantasy_team
+      # commento: fantasy_teams.available_chips
       @result = @user.fantasy_teams.create(
         name: 'My team',
         sport_kind: @season.league.sport_kind,
