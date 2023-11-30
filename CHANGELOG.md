@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - more sort options
 - injuries
 
+### Modified
+- calculating form for players that didnt play game
+
 ### Fixed
 - rendering statistics table tooltip
 - refresh lineup players status after transfers

@@ -13,6 +13,9 @@ describe Games::UpdateService, type: :service do
   let!(:teams_player2) {
     create :teams_player, seasons_team: game.visitor_season_team, active: true, shirt_number_string: '2'
   }
+  let!(:teams_player3) {
+    create :teams_player, seasons_team: game.home_season_team, active: true, shirt_number_string: '3'
+  }
   let(:game_data) {
     [
       { points: 1, players: { '1' => { 'MP' => 90 } } },
@@ -26,9 +29,12 @@ describe Games::UpdateService, type: :service do
 
     create :games_player, game: game, teams_player: teams_player1
     create :games_player, game: game, teams_player: teams_player2
+    create :games_player, game: game, teams_player: teams_player3
 
     allow(Games::Players::Points::Calculate::FootballService).to receive(:new).and_return(points_calculate_service)
     allow(points_calculate_service).to receive_messages(call: points_calculate_service, result: points_result)
+
+    allow(Players::Seasons::MassUpdateJob).to receive(:perform_later)
   end
 
   context 'for valid params' do
@@ -37,6 +43,10 @@ describe Games::UpdateService, type: :service do
       expect(service_call.success?).to be_truthy
       expect(points_calculate_service).to have_received(:call).twice
       expect(game.reload.points).to eq([1, 2])
+      expect(Players::Seasons::MassUpdateJob).to have_received(:perform_later).with(
+        season_id: game.week.season_id,
+        player_ids: [teams_player1.player_id, teams_player3.player_id, teams_player2.player_id]
+      )
     end
   end
 end

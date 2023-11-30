@@ -67,33 +67,46 @@ module Games
 
     # rubocop: disable Metrics/AbcSize
     def calculate_games_players_points(season_team_id, game_data)
-      games_players =
-        @game
-        .games_players
-        .includes(:teams_player)
-        .where(teams_player: { seasons_team_id: season_team_id, active: true, shirt_number_string: game_data.keys })
-
-      games_players.each do |games_player|
-        statistic = game_data[games_player.teams_player.shirt_number_string].transform_values(&:to_i)
-
-        points = @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result
-        @games_players_update_data.push({
-          id: games_player.id,
-          game_id: games_player.game_id,
-          teams_player_id: games_player.teams_player_id,
-          seasons_team_id: games_player.seasons_team_id,
-          points: points,
-          statistic: statistic
-        })
-
+      games_players(season_team_id).each do |games_player|
+        player_data = game_data[games_player.teams_player.shirt_number_string]
+        if player_data
+          # if player is in game statistics
+          statistic = player_data.transform_values(&:to_i)
+          add_data_for_games_player_update(
+            games_player,
+            @points_calculate_service.call(position_kind: games_player.position_kind, statistic: statistic).result,
+            statistic
+          )
+          @played_player_ids.push(games_player.teams_player.players_season_id) if statistic['MP'].to_i.positive?
+        else
+          # for players missed game -> fill with empty statistics
+          add_data_for_games_player_update(games_player, 0, games_player.send(:select_default_statistic))
+        end
         @player_ids.push(games_player.teams_player.player_id)
-        @played_player_ids.push(games_player.teams_player.players_season_id) if statistic['MP'].to_i.positive?
       end
     end
     # rubocop: enable Metrics/AbcSize
 
+    def games_players(season_team_id)
+      @game
+        .games_players
+        .includes(:teams_player)
+        .where(teams_player: { seasons_team_id: season_team_id, active: true })
+    end
+
+    def add_data_for_games_player_update(games_player, points, statistic)
+      @games_players_update_data.push({
+        id: games_player.id,
+        game_id: games_player.game_id,
+        teams_player_id: games_player.teams_player_id,
+        seasons_team_id: games_player.seasons_team_id,
+        points: points,
+        statistic: statistic
+      })
+    end
+
     def update_players
-      @players_seasons_mass_update_job.perform_now(season_id: @game.week.season_id, player_ids: @player_ids)
+      @players_seasons_mass_update_job.perform_later(season_id: @game.week.season_id, player_ids: @player_ids)
     end
   end
 end

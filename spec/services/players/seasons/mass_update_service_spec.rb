@@ -17,6 +17,8 @@ describe Players::Seasons::MassUpdateService, type: :service do
     create :games_player, game: game2, teams_player: teams_player, points: 14, statistic: { 'MP' => 3 }
     game3 = create :game, week: week1
     create :games_player, game: game3, teams_player: teams_player, points: 0, statistic: { 'MP' => 0 }
+    game4 = create :game, week: week1
+    create :games_player, game: game4, teams_player: teams_player, points: nil, statistic: {}
   end
 
   it 'updates players seasons', :aggregate_failures do
@@ -24,7 +26,7 @@ describe Players::Seasons::MassUpdateService, type: :service do
 
     expect(players_season.reload.points).to eq 37
     expect(players_season.average_points).to eq 18.5
-    expect(players_season.form).to eq 7
+    expect(players_season.form).to eq 4.7 # (14 + 0 + nil) / 3
     expect(players_season.statistic).to eq({ 'MP' => 4 })
   end
 end
