@@ -190,7 +190,7 @@ module Scrapers
         response = data['response']
         raise Games::ImportService::InvalidScrapingError if data.blank?
 
-        @events = response.map { |event_data| parse_event(event_data) }
+        @events = response.filter_map { |event_data| parse_event(event_data) }
       end
 
       def parse_event(data)
@@ -199,9 +199,11 @@ module Scrapers
 
         # change team index for own goals
         team_index = team_index.zero? ? 1 : 0 if type == 1
+        minute = data.dig('time', 'elapsed')
+        return if minute.negative?
 
         {
-          minute: data.dig('time', 'elapsed'),
+          minute: minute,
           team_index: team_index,
           player_id: data.dig('player', 'id'),
           player_assist_id: data.dig('assist', 'id'),
