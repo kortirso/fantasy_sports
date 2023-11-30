@@ -1,7 +1,7 @@
 <div class="flex flex-col lg:flex-row flex-1 max-h-screen">
   <div class="w-full lg:w-64 bg-stone-700 flex flex-col px-4 text-lg">
     <div class="flex-1">
-      <% cache('page_component_top_v1', expires_in: 24.hours) do %>
+      <% cache(['page_component_top_v1', I18n.locale], expires_in: 24.hours) do %>
         <section class="flex flex-col">
           <%= link_to t('components.views.shared.fantasy_team_navigation_component.home'), home_path, class: 'p-4 mt-2 text-xl text-white' %>
           <div class="hidden lg:block">
