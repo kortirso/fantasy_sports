@@ -80,7 +80,7 @@ module Games
           @played_player_ids.push(games_player.teams_player.players_season_id) if statistic['MP'].to_i.positive?
         else
           # for players missed game -> fill with empty statistics
-          add_data_for_games_player_update(games_player, 0, games_player.send(:select_default_statistic))
+          add_data_for_games_player_update(games_player, 0, games_player.send(:select_default_statistic).index_with(0))
         end
         @player_ids.push(games_player.teams_player.player_id)
       end

@@ -46,10 +46,10 @@ module Players
             .transform_values do |games_players|
               games_players.each_with_object(default_statistic) do |games_player, acc|
                 if @week_ids_for_form.include?(games_player[:weeks_id])
-                  acc[:form_points] += games_player[:points].to_f
+                  acc[:form_points] += games_player[:points].to_f.round(1)
                   acc[:form_games] += 1
                 end
-                acc[:points] += games_player[:points].to_f
+                acc[:points] += games_player[:points].to_f.round(1)
                 acc[:played_games] += 1 if games_player.dig(:statistic, 'MP').to_i.positive?
                 acc[:statistic].deep_merge!(games_player[:statistic]) { |_k, a_value, b_value|
                   a_value + b_value
