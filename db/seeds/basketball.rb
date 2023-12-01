@@ -178,3 +178,20 @@ games_rows.each do |row|
     }
   )
 end
+
+# for adding new games of in-season tournament
+# active_week = nba2024.weeks.find_by(position: 7)
+# games_rows.each do |row|
+#   next if Game.find_by(external_id: row[0])
+
+#   FantasySports::Container['forms.games.create'].call(
+#     params: {
+#       week_id: active_week.id,
+#       home_season_team_id: seasons_teams[row[2]],
+#       visitor_season_team_id: seasons_teams[row[3]],
+#       source: Sourceable::SPORTRADAR,
+#       external_id: row[0],
+#       start_at: DateTime.parse(row[1])
+#     }
+#   )
+# end
