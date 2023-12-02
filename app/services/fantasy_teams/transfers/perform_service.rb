@@ -91,6 +91,9 @@ module FantasyTeams
           update_fantasy_team_points
           update_lineup
           update_lineup_players
+
+          @fantasy_team.touch
+          coming_lineup.touch
         end
       end
 
