@@ -12,7 +12,7 @@ module Controllers
             .games_players
             .includes(:seasons_team, game: [:week, { home_season_team: :team, visitor_season_team: :team }])
             .where(weeks: { status: [Week::ACTIVE, Week::FINISHED] })
-            .order(game_id: :desc)
+            .order('weeks.position DESC', 'games.start_at DESC')
           Games::PlayerSerializer.new(games_players).serializable_hash
         end
 
@@ -30,7 +30,7 @@ module Controllers
               .games
               .includes(:week, [home_season_team: :team], [visitor_season_team: :team])
               .where(week_id: week_ids)
-              .order(id: :asc)
+              .order('weeks.position ASC', 'start_at ASC')
               .map do |game|
                 player_of_home_team = object.active_teams_player.seasons_team_id == game.home_season_team_id
                 opponent_team_uuid =
