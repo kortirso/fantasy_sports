@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :fantasy_teams, only: %i[destroy] do
         scope module: :fantasy_teams do
           resources :fantasy_leagues, only: %i[index create]
+          resources :players, only: %i[index]
         end
       end
       resources :players_seasons, only: %i[] do
@@ -74,7 +75,6 @@ Rails.application.routes.draw do
       resource :transfers, only: %i[show update]
       resources :status, only: %i[index]
       resources :points, only: %i[index]
-      resources :players, only: %i[index]
     end
   end
   resources :lineups, only: %i[] do

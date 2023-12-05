@@ -74,18 +74,33 @@ export const SquadPoints = ({
     return null;
   };
 
+  const injuryLevelClass = (injury) => {
+    if (injury === null) return 'player-info';
+
+    const data = injury.data.attributes;
+    if (data.status === 0) return 'player-info-alert';
+    return 'player-info-warning';
+  };
+
   const renderActivePlayers = () => {
     return Object.entries(sportPositions).map(([positionKind, sportPosition]) => {
       return activePlayersByPosition(positionKind).map((item) => (
         <tr key={item.uuid}>
-          <td
-            className="cursor-pointer"
-            onClick={() => setPlayerUuid(item.player.uuid)}
-          >i</td>
+          <td>
+            <div className="flex justify-center items-center">
+              <span
+                className={injuryLevelClass(item.player.injury)}
+                onClick={() => setPlayerUuid(item.player.uuid)}
+              >
+                ?
+              </span>
+            </div>
+          </td>
           <td>
             <p className="text-sm">{localizeValue(item.player.shirt_name)}</p>
             <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
           </td>
+          <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
           <td>{item.points}</td>
           {Object.keys(statisticsOrder[sportKind]).map((stat) => (
             <td key={stat}>
@@ -100,14 +115,21 @@ export const SquadPoints = ({
   const renderReservePlayers = () => {
     return reservePlayers().map((item) => (
       <tr key={item.uuid}>
-        <td
-          className="cursor-pointer"
-          onClick={() => setPlayerUuid(item.player.uuid)}
-        >i</td>
+        <td>
+          <div className="flex justify-center items-center">
+            <span
+              className={injuryLevelClass(item.player.injury)}
+              onClick={() => setPlayerUuid(item.player.uuid)}
+            >
+              ?
+            </span>
+          </div>
+        </td>
         <td>
           <p className="text-sm">{localizeValue(item.player.shirt_name)}</p>
           <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
         </td>
+        <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
         <td>{item.points}</td>
         {Object.keys(statisticsOrder[sportKind]).map((stat) => (
           <td key={stat}>
@@ -229,6 +251,7 @@ export const SquadPoints = ({
               <table cellSpacing="0" className="table w-full">
                 <thead>
                   <tr className="bg-stone-200">
+                    <th className="py-2 px-4"></th>
                     <th className="py-2 px-4"></th>
                     <th className="py-2 px-4"></th>
                     <th className="text-sm py-2 px-4">{strings.player.pts}</th>
