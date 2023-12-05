@@ -35,5 +35,15 @@ module Lineups
         uuid: seasons_team.team.uuid
       }
     end
+
+    attribute :week_statistic, if: proc { |_, params| params[:games_players].present? } do |object, params|
+      games_players = params[:games_players][object.teams_player_id]
+
+      games_players.each_with_object({}) do |games_player, acc|
+        acc.deep_merge!(games_player[:statistic]) { |_k, a_value, b_value|
+          a_value + b_value
+        }
+      end
+    end
   end
 end

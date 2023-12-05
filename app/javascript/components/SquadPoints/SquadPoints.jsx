@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { sportsData } from '../../data';
 import { currentLocale, localizeValue } from '../../helpers';
 import { strings } from '../../locales';
+import { statisticsOrder } from '../../data';
 
 import { Week, PlayerModal, PlayerCard } from '../../components';
 import { teamsRequest } from '../../requests/teamsRequest';
@@ -28,6 +29,7 @@ export const SquadPoints = ({
     loading: true,
     teamNames: {},
     lineupPlayers: [],
+    viewMode: 'field', // options - 'field', 'list'
   });
   const [playerUuid, setPlayerUuid] = useState();
 
@@ -38,6 +40,7 @@ export const SquadPoints = ({
     Promise.all([fetchTeams(), fetchLineupPlayers()]).then(
       ([teamsData, lineupPlayersData]) =>
         setPageState({
+          ...pageState,
           loading: false,
           teamNames: teamsData,
           lineupPlayers: lineupPlayersData,
@@ -69,6 +72,50 @@ export const SquadPoints = ({
     if (activeChips.includes('triple_captain')) return strings.squadPoints.tripleCaptainIsActive;
 
     return null;
+  };
+
+  const renderActivePlayers = () => {
+    return Object.entries(sportPositions).map(([positionKind, sportPosition]) => {
+      return activePlayersByPosition(positionKind).map((item) => (
+        <tr key={item.uuid}>
+          <td
+            className="cursor-pointer"
+            onClick={() => setPlayerUuid(item.player.uuid)}
+          >i</td>
+          <td>
+            <p className="text-sm">{localizeValue(item.player.shirt_name)}</p>
+            <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
+          </td>
+          <td>{item.points}</td>
+          {Object.keys(statisticsOrder[sportKind]).map((stat) => (
+            <td key={stat}>
+              {item.week_statistic[stat]}
+            </td>
+          ))}
+        </tr>
+      ));
+    });
+  };
+
+  const renderReservePlayers = () => {
+    return reservePlayers().map((item) => (
+      <tr key={item.uuid}>
+        <td
+          className="cursor-pointer"
+          onClick={() => setPlayerUuid(item.player.uuid)}
+        >i</td>
+        <td>
+          <p className="text-sm">{localizeValue(item.player.shirt_name)}</p>
+          <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
+        </td>
+        <td>{item.points}</td>
+        {Object.keys(statisticsOrder[sportKind]).map((stat) => (
+          <td key={stat}>
+            {item.week_statistic[stat]}
+          </td>
+        ))}
+      </tr>
+    ));
   };
 
   return (
@@ -116,50 +163,91 @@ export const SquadPoints = ({
         </div>
       </div>
       {lineupUuid ? (
-        <div className={`${sportKind}-field`}>
-          <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
-            {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-              <div
-                className={`sport-position ${sportPositionName(sportPosition)}`}
-                key={positionKind}
-              >
-                {activePlayersByPosition(positionKind).map((item) => (
-                  <PlayerCard
-                    key={item.uuid}
-                    teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                    name={localizeValue(item.player.shirt_name)}
-                    value={item.points}
-                    number={item.teams_player.shirt_number}
-                    status={item.status}
-                    injury={item.player.injury}
-                    onInfoClick={() => setPlayerUuid(item.player.uuid)}
-                  />
-                ))}
-              </div>
-            ))}
+        <section className="relative">
+          <div className="absolute w-full top-0 flex flex-row justify-center">
+            <p
+              className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer mr-2"
+              onClick={() => setPageState({ ...pageState, viewMode: 'field' })}
+            >
+              {strings.squadPoints.fieldView}
+            </p>
+            <p
+              className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+              onClick={() => setPageState({ ...pageState, viewMode: 'list' })}
+            >
+              {strings.squadPoints.listView}
+            </p>
           </div>
-          {sport.changes ? (
-            <div className="changes">
-              <div className="flex flex-row justify-center items-center">
-                {reservePlayers().map((item) => (
-                  <PlayerCard
-                    key={item.uuid}
-                    teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                    name={localizeValue(item.player.shirt_name)}
-                    value={item.points}
-                    number={item.teams_player.shirt_number}
-                    status={item.status}
-                    injury={item.player.injury}
-                    onInfoClick={() => setPlayerUuid(item.player.uuid)}
-                  />
+          {pageState.viewMode === 'field' ? (
+            <div className={`${sportKind}-field pt-10`}>
+              <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+                {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+                  <div
+                    className={`sport-position ${sportPositionName(sportPosition)}`}
+                    key={positionKind}
+                  >
+                    {activePlayersByPosition(positionKind).map((item) => (
+                      <PlayerCard
+                        key={item.uuid}
+                        teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                        name={localizeValue(item.player.shirt_name)}
+                        value={item.points}
+                        number={item.teams_player.shirt_number}
+                        status={item.status}
+                        injury={item.player.injury}
+                        onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                      />
+                    ))}
+                  </div>
                 ))}
-                {activeChips.length > 0 ? (
-                  <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
-                ) : null}
               </div>
+              {sport.changes ? (
+                <div className="changes">
+                  <div className="flex flex-row justify-center items-center">
+                    {reservePlayers().map((item) => (
+                      <PlayerCard
+                        key={item.uuid}
+                        teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                        name={localizeValue(item.player.shirt_name)}
+                        value={item.points}
+                        number={item.teams_player.shirt_number}
+                        status={item.status}
+                        injury={item.player.injury}
+                        onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                      />
+                    ))}
+                    {activeChips.length > 0 ? (
+                      <div className="badge-dark absolute top-2 left-2">{renderActiveChip()}</div>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
             </div>
           ) : null}
-        </div>
+          {pageState.viewMode === 'list' ? (
+            <div className="w-full overflow-x-scroll pt-10">
+              <table cellSpacing="0" className="table w-full">
+                <thead>
+                  <tr className="bg-stone-200">
+                    <th className="py-2 px-4"></th>
+                    <th className="py-2 px-4"></th>
+                    <th className="text-sm py-2 px-4">{strings.player.pts}</th>
+                    {Object.entries(statisticsOrder[sportKind]).map(([stat, value]) => (
+                      <th className="tooltip text-sm py-2 px-4" key={stat}>
+                        {stat}
+                        <span className="tooltiptext">{localizeValue(value)}</span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderActivePlayers()}
+                  {renderReservePlayers()}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </section>
       ) : null}
       {Object.keys(pageState.teamNames).length > 0 ? (
         <Week uuid={weekUuid} teamNames={pageState.teamNames} />

@@ -475,7 +475,7 @@ export const Transfers = ({
               </p>
               {pageState.visibleMode === 'lineup' ? (
                 <p
-                  className="absolute right-4 top-4 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
+                  className="absolute right-4 top-4 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
                   onClick={() => setPageState({ ...pageState, visibleMode: 'seasonPlayers' })}
                 >
                   {strings.transfers.showSeasonPlayers}

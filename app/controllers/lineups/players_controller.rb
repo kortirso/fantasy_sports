@@ -4,14 +4,9 @@ module Lineups
   class PlayersController < ApplicationController
     include Maintenable
 
-    before_action :find_lineup, only: %i[show]
     before_action :find_user_lineup, only: %i[update]
     before_action :find_league, only: %i[update]
     before_action :validate_league_maintenance, only: %i[update]
-
-    def show
-      render json: { lineup_players: lineup_players }, status: :ok
-    end
 
     def update
       service_call = Lineups::Players::UpdateService.call(
@@ -26,16 +21,6 @@ module Lineups
     end
 
     private
-
-    def find_lineup
-      @lineup =
-        Lineup
-          .joins(:week, fantasy_team: :user)
-          .where('weeks.status IN (2, 3) OR users.id = ?', Current.user.id)
-          .find_by(uuid: params[:lineup_id])
-
-      page_not_found if @lineup.nil?
-    end
 
     def find_user_lineup
       @lineup = Current.user.lineups.find_by!(uuid: params[:lineup_id])
@@ -54,19 +39,6 @@ module Lineups
           hash['change_order'] = hash['change_order'].to_i
           hash.symbolize_keys
         }
-    end
-
-    def lineup_players
-      Rails.cache.fetch(
-        ['lineups_players_show_v3', @lineup.id, @lineup.updated_at],
-        expires_in: 12.hours,
-        race_condition_ttl: 10.seconds
-      ) do
-        Lineups::PlayerSerializer.new(
-          @lineup.lineups_players.includes(teams_player: [:players_season, :player, { seasons_team: :team }]),
-          params: { injuries: @lineup.week.season.injuries.active.group_by(&:players_season_id) }
-        ).serializable_hash
-      end
     end
   end
 end

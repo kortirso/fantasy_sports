@@ -40,6 +40,9 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :lineups, only: %i[] do
+        resource :players, only: %i[show], module: 'lineups'
+      end
     end
   end
 
@@ -75,7 +78,7 @@ Rails.application.routes.draw do
     end
   end
   resources :lineups, only: %i[] do
-    resource :players, only: %i[show update], module: 'lineups'
+    resource :players, only: %i[update], module: 'lineups'
   end
   resources :sports, only: %i[] do
     resources :positions, only: %i[index], module: 'sports'
