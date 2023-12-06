@@ -84,6 +84,7 @@ module FantasySports
     register('services.users.restore') { Users::RestoreService.new }
     register('services.weeks.bench_substitutions') { Weeks::BenchSubstitutionsService.new }
     register('services.weeks.finish') { Weeks::FinishService.new }
+    register('services.players.seasons.refresh_selected') { Players::Seasons::RefreshSelectedService.new }
   end
 end
 

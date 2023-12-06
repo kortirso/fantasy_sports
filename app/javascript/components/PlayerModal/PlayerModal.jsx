@@ -203,7 +203,7 @@ export const PlayerModal = ({ sportKind, seasonUuid, playerUuid, teamNames, onCl
         </div>
         <div className="flex-1 py-3 px-0 border-b-0 border-r lg:border-r-0 border-stone-300 flex lg:flex-col justify-center items-center">
           <p className="text-xs sm:text-sm">{strings.player.teamsSelectedBy}</p>
-          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.teams_selected_by}%</p>
+          <p className="ml-2 lg:ml-0 lg:mt-1 text-sm sm:text-base">{pageState.seasonPlayer.selected_by_teams_ratio}%</p>
         </div>
       </div>
       <div className="w-full relative">

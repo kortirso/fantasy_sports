@@ -1091,7 +1091,8 @@ CREATE TABLE public.players_seasons (
     updated_at timestamp(6) without time zone NOT NULL,
     uuid uuid NOT NULL,
     average_points numeric(8,2) DEFAULT 0.0 NOT NULL,
-    form numeric(8,2) DEFAULT 0.0 NOT NULL
+    form numeric(8,2) DEFAULT 0.0 NOT NULL,
+    selected_by_teams_ratio integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2349,6 +2350,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231206105837'),
 ('20231122115612'),
 ('20231119135501'),
 ('20231118141932'),

@@ -3,11 +3,11 @@
 RSpec.describe Controllers::Seasons::Players::ShowSerializer do
   subject(:serializer) { described_class.new(players_season).serializable_hash }
 
-  let!(:players_season) { create :players_season, average_points: 14.2 }
+  let!(:players_season) { create :players_season, average_points: 14.2, selected_by_teams_ratio: 34 }
   let!(:teams_player) { create :teams_player, players_season: players_season }
 
   it 'serializer contains empty attributes', :aggregate_failures do
-    expect(serializer.dig(:data, :attributes, :teams_selected_by)).to eq 0
+    expect(serializer.dig(:data, :attributes, :selected_by_teams_ratio)).to eq 34
     expect(serializer.dig(:data, :attributes, :average_points)).to eq 14.2
   end
 
