@@ -301,14 +301,13 @@ export const Squad = ({
 
   const renderActivePlayers = () => {
     return Object.entries(sportPositions).map(([positionKind, sportPosition]) => {
-      console.log(activePlayersByPosition(positionKind));
       return activePlayersByPosition(positionKind).map((item) => (
         <tr key={item.uuid} className={classListForPlayerCard(item.uuid)}>
           <td>
             <div className="flex justify-center items-center">
               <span
                 className={injuryLevelClass(item.player.injury)}
-                onClick={() => setPlayerUuid(item.uuid)}
+                onClick={() => setPlayerUuid(item.player.uuid)}
               >
                 ?
               </span>
