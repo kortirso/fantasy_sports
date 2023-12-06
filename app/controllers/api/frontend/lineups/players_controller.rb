@@ -22,13 +22,18 @@ module Api
 
         def lineup_players
           Rails.cache.fetch(
-            ['api_frontend_lineups_players_show_v1', @lineup.id, @lineup.updated_at],
+            ['api_frontend_lineups_players_show_v1', @lineup.id, @lineup.updated_at, params[:fields]],
             expires_in: 12.hours,
             race_condition_ttl: 10.seconds
           ) do
             ::Lineups::PlayerSerializer.new(
               @lineup.lineups_players.includes(teams_player: [:players_season, :player, { seasons_team: :team }]),
-              params: { injuries: injuries, games_players: games_players }
+              params: {
+                injuries: injuries,
+                games_players: games_players,
+                last_points: last_points,
+                fields: request_fields
+              }
             ).serializable_hash
           end
         end
@@ -38,12 +43,28 @@ module Api
         end
 
         def games_players
+          return if params[:fields].blank?
+          return if params[:fields].exclude?('week_statistic')
+
           @lineup
             .week
             .games_players
             .where(teams_player_id: teams_players_ids)
             .hashable_pluck(:teams_player_id, :statistic)
             .group_by { |e| e[:teams_player_id] }
+        end
+
+        def last_points
+          return if params[:fields].blank?
+          return if params[:fields].exclude?('last_points')
+
+          lineup =
+            Lineup
+              .joins(:week)
+              .find_by(weeks: { season_id: @lineup.week.season_id, position: @lineup.week.position - 1 })
+          return unless lineup
+
+          lineup.lineups_players.hashable_pluck(:id, :points, :status)
         end
 
         def teams_players_ids

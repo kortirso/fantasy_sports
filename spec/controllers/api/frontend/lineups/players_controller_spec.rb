@@ -51,15 +51,39 @@ describe Api::Frontend::Lineups::PlayersController do
         let!(:lineup) { create :lineup, fantasy_team: fantasy_team }
 
         context 'without additional fields' do
-          before do
-            create :lineups_player, lineup: lineup
-
-            get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
-          end
+          before { create :lineups_player, lineup: lineup }
 
           it 'returns status 200', :aggregate_failures do
+            get :show, params: { lineup_id: lineup.uuid, locale: 'en' }
+
             expect(response).to have_http_status :ok
             %w[uuid change_order points player team teams_player].each do |attr|
+              expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
+            end
+          end
+        end
+
+        context 'with week_statistic additional field' do
+          before { create :lineups_player, lineup: lineup }
+
+          it 'returns status 200', :aggregate_failures do
+            get :show, params: { lineup_id: lineup.uuid, fields: 'week_statistic' }
+
+            expect(response).to have_http_status :ok
+            %w[uuid change_order points player team teams_player week_statistic].each do |attr|
+              expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
+            end
+          end
+        end
+
+        context 'with fixtures additional field' do
+          before { create :lineups_player, lineup: lineup }
+
+          it 'returns status 200', :aggregate_failures do
+            get :show, params: { lineup_id: lineup.uuid, fields: 'fixtures' }
+
+            expect(response).to have_http_status :ok
+            %w[uuid change_order points player team teams_player fixtures].each do |attr|
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
           end

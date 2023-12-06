@@ -25,7 +25,10 @@ module Api
             players_season_id_ids = @fantasy_team.teams_players.active.select(:players_season_id)
             ::Controllers::FantasyTeams::Players::IndexSerializer.new(
               players(players_season_id_ids),
-              params: { injuries: injuries(players_season_id_ids) }
+              params: {
+                injuries: injuries(players_season_id_ids),
+                last_points: last_points
+              }
             ).serializable_hash
           end
         end
@@ -38,6 +41,14 @@ module Api
 
         def injuries(players_season_id_ids)
           Injury.where(players_season_id: players_season_id_ids).active.group_by(&:players_season_id)
+        end
+
+        def last_points
+          ::Lineups::Player
+            .joins(:teams_player, lineup: :week)
+            .where(lineups: { fantasy_team_id: @fantasy_team })
+            .where(weeks: { status: Week::ACTIVE })
+            .hashable_pluck('teams_players.players_season_id', :points)
         end
       end
     end

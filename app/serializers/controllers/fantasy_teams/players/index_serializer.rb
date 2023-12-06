@@ -8,6 +8,7 @@ module Controllers
           week_id = Week.where(season_id: object.season_id).coming.first.id
           seasons_team = object.active_teams_player.seasons_team
 
+          # difficulties of next 4 games
           Rails.cache.fetch(
             ['fantasy_teams_players_team_fixtures_v1', seasons_team.id, week_id],
             expires_in: 12.hours,
@@ -26,6 +27,11 @@ module Controllers
                 player_of_home_team ? game[:difficulty][0] : game[:difficulty][1]
               end
           end
+        end
+
+        attribute :last_points do |object, params|
+          result = params[:last_points].find { |element| element[:teams_players_players_season_id] == object.id }
+          result ? result[:points] : 0
         end
       end
     end

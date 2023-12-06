@@ -63,7 +63,9 @@
       "benchBoost": "Bench boost",
       "tripleCaptain": "Triple captain",
       "chipsLimit": "Maximum amount of chips for week",
-      "deadline": "Deadline - {value}"
+      "deadline": "Deadline - {value}",
+      "lastPoints": "Points",
+      "pts": "Total points"
     },
     "squadPoints": {
       "title": "Squad points",
@@ -210,7 +212,9 @@
       "benchBoost": "Очки запасных",
       "tripleCaptain": "Тройной бонус капитана",
       "chipsLimit": "Достигнут лимит на бонусы",
-      "deadline": "Дедлайн - {value}"
+      "deadline": "Дедлайн - {value}",
+      "lastPoints": "Очки",
+      "pts": "Сумма очков"
     },
     "squadPoints": {
       "title": "Результаты недели",

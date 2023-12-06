@@ -442,6 +442,7 @@ export const Transfers = ({
             <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
           </td>
           <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
+          <td>{item.last_points}</td>
           <td>{item.form}</td>
           <td>{item.points}</td>
           <td>{item.team.price}</td>
@@ -576,8 +577,9 @@ export const Transfers = ({
                       <th className="py-2 px-4"></th>
                       <th className="py-2 px-4"></th>
                       <th className="py-2 px-4"></th>
+                      <th className="text-sm py-2 px-4">{strings.squad.lastPoints}</th>
                       <th className="text-sm py-2 px-4">{strings.player.form}</th>
-                      <th className="text-sm py-2 px-4">{strings.player.pts}</th>
+                      <th className="text-sm py-2 px-4">{strings.squad.pts}</th>
                       <th className="text-sm py-2 px-4">{strings.player.price}</th>
                       <th className="text-sm py-2 px-4">{strings.player.difficulty}</th>
                       <th className="py-2 px-4"></th>
