@@ -447,7 +447,7 @@ export const Transfers = ({
           <td>{item.points}</td>
           <td>{item.team.price}</td>
           <td>
-            {item.fixtures.map((fixture) => renderDifficulty(fixture))}
+            {item.fixtures?.map((fixture) => renderDifficulty(fixture))}
           </td>
           <td>
             <div className="flex justify-center items-center">
