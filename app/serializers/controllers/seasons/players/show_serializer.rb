@@ -4,7 +4,7 @@ module Controllers
   module Seasons
     module Players
       class ShowSerializer < ::Players::SeasonSerializer
-        attributes :statistic
+        attributes :statistic, :selected_by_teams_ratio
 
         attribute :games_players do |object|
           games_players =
@@ -48,11 +48,6 @@ module Controllers
           end
         end
         # rubocop: enable Metrics/BlockLength
-
-        attributes :teams_selected_by do |object|
-          teams_count = object.active_teams_player.seasons_team.season.fantasy_teams.count
-          teams_count.zero? ? 0 : (100.0 * object.active_teams_player.fantasy_teams.count / teams_count).round(1)
-        end
 
         attribute :injury do |object|
           injury = object.injuries.active.last
