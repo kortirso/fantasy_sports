@@ -63,7 +63,9 @@
       "benchBoost": "Bench boost",
       "tripleCaptain": "Triple captain",
       "chipsLimit": "Maximum amount of chips for week",
-      "deadline": "Deadline - {value}"
+      "deadline": "Deadline - {value}",
+      "lastPoints": "Points",
+      "pts": "Total points"
     },
     "squadPoints": {
       "title": "Squad points",
@@ -74,7 +76,9 @@
       "description": "This page shows game results and points scored by players during the current active game week.",
       "benchBoostIsActive": "Bench boost is active",
       "tripleCaptainIsActive": "Triple captain boost",
-      "noLineup": "You don't have lineup for this week"
+      "noLineup": "You don't have lineup for this week",
+      "fieldView": "Field view",
+      "listView": "List view"
     },
     "player": {
       "form": "Form",
@@ -208,7 +212,9 @@
       "benchBoost": "Очки запасных",
       "tripleCaptain": "Тройной бонус капитана",
       "chipsLimit": "Достигнут лимит на бонусы",
-      "deadline": "Дедлайн - {value}"
+      "deadline": "Дедлайн - {value}",
+      "lastPoints": "Очки",
+      "pts": "Сумма очков"
     },
     "squadPoints": {
       "title": "Результаты недели",
@@ -219,7 +225,9 @@
       "description": "На этой странице представлены результаты игр и набранные игроками очки на текущей активной неделе.",
       "benchBoostIsActive": "Бонус за очки запасных",
       "tripleCaptainIsActive": "Тройной бонус капитана",
-      "noLineup": "У вас нет активного состава на эту неделю"
+      "noLineup": "У вас нет активного состава на эту неделю",
+      "fieldView": "Расположение",
+      "listView": "Список"
     },
     "player": {
       "form": "Форма",

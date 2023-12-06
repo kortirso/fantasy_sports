@@ -31,6 +31,7 @@ export const Squad = ({
     teamNames: {},
     lineupPlayers: [],
     teamOpponents: {},
+    viewMode: 'field', // options - 'field', 'list'
   });
   // main data
   const [playerUuid, setPlayerUuid] = useState();
@@ -53,6 +54,7 @@ export const Squad = ({
     Promise.all([fetchLineup(), fetchTeams(), fetchLineupPlayers(), fetchWeekOpponents()]).then(
       ([lineupData, teamsData, lineupPlayersData, weekOpponentsData]) =>
         setPageState({
+          ...pageState,
           loading: false,
           lineup: lineupData,
           teamNames: teamsData,
@@ -282,6 +284,106 @@ export const Squad = ({
     return 'btn-primary btn-small';
   };
 
+  const injuryLevelClass = (injury) => {
+    if (injury === null) return 'player-info';
+
+    const data = injury.data.attributes;
+    if (data.status === 0) return 'player-info-alert';
+    return 'player-info-warning';
+  };
+
+  const renderDifficulty = (value) => {
+    if (value === 5) return <span className="bg-orange-700 border border-orange-800 py-1 px-2 rounded text-sm text-white mr-1">{value}</span>;
+    if (value === 4) return <span className="bg-amber-300 border border-amber-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+    if (value === 3) return <span className="bg-stone-300 border border-stone-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+    if (value === 2) return <span className="bg-green-300 border border-green-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+  };
+
+  const renderActivePlayers = () => {
+    return Object.entries(sportPositions).map(([positionKind, sportPosition]) => {
+      console.log(activePlayersByPosition(positionKind));
+      return activePlayersByPosition(positionKind).map((item) => (
+        <tr key={item.uuid} className={classListForPlayerCard(item.uuid)}>
+          <td>
+            <div className="flex justify-center items-center">
+              <span
+                className={injuryLevelClass(item.player.injury)}
+                onClick={() => setPlayerUuid(item.uuid)}
+              >
+                ?
+              </span>
+            </div>
+          </td>
+          <td>
+            <p>{localizeValue(item.player.shirt_name)}</p>
+            <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
+          </td>
+          <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
+          <td>{item.last_points ? item.last_points.points : null}</td>
+          <td>{item.player.form}</td>
+          <td>{item.player.points}</td>
+          <td>{item.player.price}</td>
+          <td>
+            {item.fixtures.map((fixture) => renderDifficulty(fixture))}
+          </td>
+          {sport.changes ? (
+            <td>
+              <div className="flex justify-center items-center">
+                <span
+                  className="cursor-pointer bg-white border border-stone-200 hover:bg-stone-100 rounded px-1"
+                  onClick={() => changePlayer(item, true)}
+                >
+                  +/-
+                </span>
+              </div>
+            </td>
+          ) : null}
+        </tr>
+      ));
+    });
+  };
+
+  const renderReservePlayers = () => {
+    return reservePlayers().map((item) => (
+      <tr key={item.uuid} className={classListForPlayerCard(item.uuid)}>
+        <td>
+          <div className="flex justify-center items-center">
+            <span
+              className={injuryLevelClass(item.player.injury)}
+              onClick={() => setPlayerUuid(item.uuid)}
+            >
+              ?
+            </span>
+          </div>
+        </td>
+        <td>
+          <p>{localizeValue(item.player.shirt_name)}</p>
+          <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
+        </td>
+        <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
+        <td>{item.last_points ? item.last_points.points : null}</td>
+        <td>{item.player.form}</td>
+        <td>{item.player.points}</td>
+        <td>{item.player.price}</td>
+        <td>
+          {item.fixtures.map((fixture) => renderDifficulty(fixture))}
+        </td>
+        {sport.changes ? (
+          <td>
+            <div className="flex justify-center items-center">
+              <span
+                className="cursor-pointer bg-white border border-stone-200 hover:bg-stone-100 rounded px-1"
+                onClick={() => changePlayer(item, false)}
+              >
+                +/-
+              </span>
+            </div>
+          </td>
+        ) : null}
+      </tr>
+    ));
+  };
+
   return (
     <>
       <span className="badge-dark inline-block mr-2">
@@ -289,61 +391,104 @@ export const Squad = ({
       </span>
       <h1 className="mb-2">{strings.squad.title}</h1>
       <p className="mb-4">{strings.squad.description}</p>
-      <div className={`${sportKind}-field`}>
-        <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
-          {sport.changes ? (
-            <span className="badge-danger absolute left-4 top-4">
-              <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
-            </span>
-          ) : null }
-          {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-            <div
-              className={`sport-position ${sportPositionName(sportPosition)}`}
-              key={positionKind}
-            >
-              {activePlayersByPosition(positionKind).map((item) => (
-                <PlayerCard
-                  key={item.uuid}
-                  className={classListForPlayerCard(item.uuid)}
-                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                  name={localizeValue(item.player.shirt_name)}
-                  value={oppositeTeamNames(item)}
-                  number={item.teams_player.shirt_number}
-                  status={item.status}
-                  injury={item.player.injury}
-                  onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
-                  onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
-                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
-                />
-              ))}
-            </div>
-          ))}
+      <section className="relative">
+        <div className="absolute w-full top-0 flex flex-row justify-center">
+          <p
+            className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer mr-2"
+            onClick={() => setPageState({ ...pageState, viewMode: 'field' })}
+          >
+            {strings.squadPoints.fieldView}
+          </p>
+          <p
+            className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+            onClick={() => setPageState({ ...pageState, viewMode: 'list' })}
+          >
+            {strings.squadPoints.listView}
+          </p>
         </div>
-        {sport.changes ? (
-          <div className="changes">
-            <div className="flex flex-row justify-center items-center mb-2">
-              {reservePlayers().map((item) => (
-                <PlayerCard
-                  key={item.uuid}
-                  className={classListForPlayerCard(item.uuid)}
-                  teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                  name={localizeValue(item.player.shirt_name)}
-                  value={oppositeTeamNames(item)}
-                  number={item.teams_player.shirt_number}
-                  status={item.status}
-                  injury={item.player.injury}
-                  onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
-                  onActionClick={() => changePlayer(item, false)}
-                  onInfoClick={() => setPlayerUuid(item.player.uuid)}
-                />
+        {pageState.viewMode === 'field' ? (
+          <div className={`${sportKind}-field pt-10`}>
+            <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+              {sport.changes ? (
+                <span className="badge-danger absolute left-4 top-4">
+                  <span>{strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}</span>
+                </span>
+              ) : null }
+              {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+                <div
+                  className={`sport-position ${sportPositionName(sportPosition)}`}
+                  key={positionKind}
+                >
+                  {activePlayersByPosition(positionKind).map((item) => (
+                    <PlayerCard
+                      key={item.uuid}
+                      className={classListForPlayerCard(item.uuid)}
+                      teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                      name={localizeValue(item.player.shirt_name)}
+                      value={oppositeTeamNames(item)}
+                      number={item.teams_player.shirt_number}
+                      status={item.status}
+                      injury={item.player.injury}
+                      onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
+                      onActionClick={sport.changes ? () => changePlayer(item, true) : undefined}
+                      onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
-            <p className="px-4 md:px-12">{strings.squad.reservePriority}</p>
+            {sport.changes ? (
+              <div className="changes">
+                <div className="flex flex-row justify-center items-center mb-2">
+                  {reservePlayers().map((item) => (
+                    <PlayerCard
+                      key={item.uuid}
+                      className={classListForPlayerCard(item.uuid)}
+                      teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                      name={localizeValue(item.player.shirt_name)}
+                      value={oppositeTeamNames(item)}
+                      number={item.teams_player.shirt_number}
+                      status={item.status}
+                      injury={item.player.injury}
+                      onCardClick={sport.captain ? () => setPlayerActionsUuid(item.uuid) : undefined}
+                      onActionClick={() => changePlayer(item, false)}
+                      onInfoClick={() => setPlayerUuid(item.player.uuid)}
+                    />
+                  ))}
+                </div>
+                <p className="px-4 md:px-12">{strings.squad.reservePriority}</p>
+              </div>
+            ) : null}
           </div>
         ) : null}
-      </div>
+        {pageState.viewMode === 'list' ? (
+          <div className="w-full overflow-x-scroll pt-10">
+            <table cellSpacing="0" className="table w-full">
+              <thead>
+                <tr className="bg-stone-200">
+                  <th className="py-2 px-4"></th>
+                  <th className="py-2 px-4"></th>
+                  <th className="py-2 px-4"></th>
+                  <th className="text-sm py-2 px-4">{strings.squad.lastPoints}</th>
+                  <th className="text-sm py-2 px-4">{strings.player.form}</th>
+                  <th className="text-sm py-2 px-4">{strings.squad.pts}</th>
+                  <th className="text-sm py-2 px-4">{strings.player.price}</th>
+                  <th className="text-sm py-2 px-4">{strings.player.difficulty}</th>
+                  {sport.changes ? (
+                    <th className="py-2 px-4"></th>
+                  ) : null}
+                </tr>
+              </thead>
+              <tbody>
+                {renderActivePlayers()}
+                {renderReservePlayers()}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </section>
       {pageState.lineup?.fantasy_team && Object.entries(pageState.lineup.fantasy_team.available_chips).length > 0 ? (
-        <div className="mb-8">
+        <div className="my-8">
           <div className="mb-2">
             <h3 className="text-center">{strings.squad.chips}</h3>
             <div className="flex justify-center">

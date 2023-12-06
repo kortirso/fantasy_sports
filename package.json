@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "esbuild": "^0.19.3",
+    "js-cookie": "^3.0.5",
     "react-localization": "^1.0.19"
   },
   "devDependencies": {

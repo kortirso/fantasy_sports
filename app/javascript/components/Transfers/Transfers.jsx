@@ -81,6 +81,7 @@ export const Transfers = ({
     teamNames: {},
     seasonPlayers: [],
     visibleMode: window.innerWidth >= 1280 ? 'all' : 'lineup',
+    viewMode: 'field', // options - 'field', 'list'
     defaultTeamMembers: [],
     teamMembers: [],
     budgetCents: fantasyTeamBudgetCents,
@@ -415,6 +416,54 @@ export const Transfers = ({
     }
   };
 
+  const renderDifficulty = (value) => {
+    if (value === 5) return <span className="bg-orange-700 border border-orange-800 py-1 px-2 rounded text-sm text-white mr-1">{value}</span>;
+    if (value === 4) return <span className="bg-amber-300 border border-amber-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+    if (value === 3) return <span className="bg-stone-300 border border-stone-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+    if (value === 2) return <span className="bg-green-300 border border-green-400 py-1 px-2 rounded text-sm mr-1">{value}</span>;
+  };
+
+  const renderPlayersList = () => {
+    return Object.entries(sportPositions).map(([positionKind, sportPosition]) => {
+      return playersByPosition[positionKind]?.map((item) => (
+        <tr key={item.uuid}>
+          <td>
+            <div className="flex justify-center items-center">
+              <span
+                className={injuryLevelClass(item.injury)}
+                onClick={() => setPlayerUuid(item.uuid)}
+              >
+                ?
+              </span>
+            </div>
+          </td>
+          <td>
+            <p>{localizeValue(item.player.shirt_name)}</p>
+            <p className="text-xs">{pageState.teamNames[item.team.uuid]?.short_name}</p>
+          </td>
+          <td className="text-sm">{localizeValue(sportPositions[item.player.position_kind].short_name)}</td>
+          <td>{item.last_points}</td>
+          <td>{item.form}</td>
+          <td>{item.points}</td>
+          <td>{item.team.price}</td>
+          <td>
+            {item.fixtures.map((fixture) => renderDifficulty(fixture))}
+          </td>
+          <td>
+            <div className="flex justify-center items-center">
+              <span
+                className="cursor-pointer border border-stone-200 hover:bg-stone-100 rounded px-1"
+                onClick={() => removeTeamMember(item)}
+              >
+                +/-
+              </span>
+            </div>
+          </td>
+        </tr>
+      ));
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-10 xl:gap-8">
       <div className="xl:col-span-7">
@@ -465,43 +514,83 @@ export const Transfers = ({
           </div>
         </div>
         {pageState.visibleMode === 'all' || pageState.visibleMode === 'lineup' ? (
-          <div className={`${sportKind}-field`}>
-            <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+          <section className="relative">
+            <div className="absolute w-full top-0 flex flex-row justify-center">
               <p
-                className="badge-danger absolute left-4 top-4"
-                title={strings.transfers.deadlineDescription}
+                className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer mr-2"
+                onClick={() => setPageState({ ...pageState, viewMode: 'field' })}
               >
-                {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
+                {strings.squadPoints.fieldView}
               </p>
-              {pageState.visibleMode === 'lineup' ? (
-                <p
-                  className="absolute right-4 top-4 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
-                  onClick={() => setPageState({ ...pageState, visibleMode: 'seasonPlayers' })}
-                >
-                  {strings.transfers.showSeasonPlayers}
-                </p>
-              ) : null}
-              {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
-                <div
-                  className={`sport-position ${sportPositionName(sportPosition)}`}
-                  key={positionKind}
-                >
-                  {playersByPosition[positionKind]?.map((item) => (
-                    <PlayerCard
-                      key={item.uuid}
-                      teamName={pageState.teamNames[item.team.uuid]?.short_name}
-                      name={localizeValue(item.player.shirt_name)}
-                      value={item.team.price}
-                      number={item.team.shirt_number}
-                      injury={item.injury}
-                      onActionClick={() => removeTeamMember(item)}
-                      onInfoClick={() => setPlayerUuid(item.uuid)}
-                    />
-                  ))}
-                  {renderEmptySlots(positionKind)}
-                </div>
-              ))}
+              <p
+                className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+                onClick={() => setPageState({ ...pageState, viewMode: 'list' })}
+              >
+                {strings.squadPoints.listView}
+              </p>
             </div>
+            {pageState.viewMode === 'field' ? (
+              <div className={`${sportKind}-field pt-10`}>
+                <div className="flex flex-col relative bg-no-repeat bg-cover bg-center field">
+                  <p
+                    className="badge-danger absolute left-4 top-4"
+                    title={strings.transfers.deadlineDescription}
+                  >
+                    {strings.formatString(strings.squad.deadline, { value: convertDateTime(weekDeadlineAt) })}
+                  </p>
+                  {pageState.visibleMode === 'lineup' ? (
+                    <p
+                      className="absolute right-4 top-4 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+                      onClick={() => setPageState({ ...pageState, visibleMode: 'seasonPlayers' })}
+                    >
+                      {strings.transfers.showSeasonPlayers}
+                    </p>
+                  ) : null}
+                  {Object.entries(sportPositions).map(([positionKind, sportPosition]) => (
+                    <div
+                      className={`sport-position ${sportPositionName(sportPosition)}`}
+                      key={positionKind}
+                    >
+                      {playersByPosition[positionKind]?.map((item) => (
+                        <PlayerCard
+                          key={item.uuid}
+                          teamName={pageState.teamNames[item.team.uuid]?.short_name}
+                          name={localizeValue(item.player.shirt_name)}
+                          value={item.team.price}
+                          number={item.team.shirt_number}
+                          injury={item.injury}
+                          onActionClick={() => removeTeamMember(item)}
+                          onInfoClick={() => setPlayerUuid(item.uuid)}
+                        />
+                      ))}
+                      {renderEmptySlots(positionKind)}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {pageState.viewMode === 'list' ? (
+              <div className="w-full overflow-x-scroll pt-10">
+                <table cellSpacing="0" className="table w-full">
+                  <thead>
+                    <tr className="bg-stone-200">
+                      <th className="py-2 px-4"></th>
+                      <th className="py-2 px-4"></th>
+                      <th className="py-2 px-4"></th>
+                      <th className="text-sm py-2 px-4">{strings.squad.lastPoints}</th>
+                      <th className="text-sm py-2 px-4">{strings.player.form}</th>
+                      <th className="text-sm py-2 px-4">{strings.squad.pts}</th>
+                      <th className="text-sm py-2 px-4">{strings.player.price}</th>
+                      <th className="text-sm py-2 px-4">{strings.player.difficulty}</th>
+                      <th className="py-2 px-4"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {renderPlayersList()}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
             {lineupUuid && availableChips.wildcard !== null ? (
               <div className="my-8">
                 <div className="mb-2">
@@ -529,7 +618,7 @@ export const Transfers = ({
             {Object.keys(pageState.teamNames).length > 0 ? (
               <Week uuid={weekUuid} teamNames={pageState.teamNames} />
             ) : null}
-          </div>
+          </section>
         ) : null}
       </div>
       {pageState.visibleMode === 'all' || pageState.visibleMode === 'seasonPlayers' ? (
