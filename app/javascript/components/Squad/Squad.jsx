@@ -349,7 +349,7 @@ export const Squad = ({
           <div className="flex justify-center items-center">
             <span
               className={injuryLevelClass(item.player.injury)}
-              onClick={() => setPlayerUuid(item.uuid)}
+              onClick={() => setPlayerUuid(item.player.uuid)}
             >
               ?
             </span>
