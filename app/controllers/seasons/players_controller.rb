@@ -30,7 +30,7 @@ module Seasons
 
     def season_players_json_response
       Rails.cache.fetch(
-        ['seasons_players_index_v7', @season.id, @season_player.updated_at, @season_players.maximum(:updated_at)],
+        ['seasons_players_index_v7', @season.id, @season.updated_at, @season_players.maximum(:updated_at)],
         expires_in: 6.hours,
         race_condition_ttl: 10.seconds
       ) do
