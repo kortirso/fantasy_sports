@@ -28,6 +28,7 @@ module ApplicationHelper
     when 'Russian Premier League' then 'leagues/rpl.webp'
     when 'Seria A' then 'leagues/seria_a.webp'
     when 'La Liga' then 'leagues/la_liga.webp'
+    when 'Bundesliga' then 'leagues/bundesliga.webp'
     when 'NBA' then 'leagues/nba.webp'
     end
   end

@@ -87,6 +87,26 @@ module Scrapers
           'Celta Vigo' => 'CEL',
           'Getafe' => 'GET',
           'Sevilla' => 'SEV'
+        },
+        'Bundesliga' => {
+          'Eintracht Frankfurt' => 'EIN',
+          'FC Augsburg' => 'AUG',
+          'Bayern Munich' => 'BRN',
+          'Bayer Leverkusen' => 'BAY',
+          'Borussia Dortmund' => 'BRD',
+          'Borussia Monchengladbach' => 'BRM',
+          'VfL BOCHUM' => 'BCH',
+          'Werder Bremen' => 'WER',
+          'VfL Wolfsburg' => 'WLF',
+          'SV Darmstadt 98' => 'DRM',
+          'FC Koln' => 'KLN',
+          'FSV Mainz 05' => 'MAI',
+          'RB Leipzig' => 'LPZ',
+          'Union Berlin' => 'UNI',
+          'SC Freiburg' => 'FRE',
+          'FC Heidenheim' => 'HEI',
+          '1899 Hoffenheim' => 'HOF',
+          'VfB Stuttgart' => 'STG'
         }
       }.freeze
 
