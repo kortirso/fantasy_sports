@@ -100,7 +100,7 @@ rows.each do |row|
 end
 
 league2024.weeks.create position: 1, status: 'coming'
-(2..38).each do |index|
+(2..34).each do |index|
   league2024.weeks.create position: index
 end
 

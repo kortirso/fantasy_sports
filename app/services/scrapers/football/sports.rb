@@ -274,7 +274,7 @@ module Scrapers
           player_in = @player_ids[team_index][event[:player_id]]
         end
 
-        @players_minutes[team_index][player_off][:until] = event[:minute]
+        @players_minutes[team_index][player_off][:until] = event[:minute] if @players_minutes[team_index][player_off]
         return unless player_in
 
         @players_minutes[team_index][player_in] = {
