@@ -102,7 +102,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.5)
+    addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     airbrussh (1.5.0)
       sshkit (>= 1.6.1, != 1.7.0)
@@ -117,7 +117,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     brakeman (6.1.0)
@@ -225,7 +225,7 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    io-console (0.6.0)
+    io-console (0.7.0)
     irb (1.10.1)
       rdoc
       reline (>= 0.3.8)
@@ -260,7 +260,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     mutex_m (0.2.0)
-    net-imap (0.4.7)
+    net-imap (0.4.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -384,7 +384,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.58.0)
+    rubocop (1.59.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -447,11 +447,11 @@ GEM
     stringio (3.1.0)
     strong_migrations (1.6.4)
       activerecord (>= 5.2)
-    tailwindcss-rails (2.0.32-arm64-darwin)
+    tailwindcss-rails (2.0.33-arm64-darwin)
       railties (>= 6.0.0)
-    tailwindcss-rails (2.0.32-x86_64-darwin)
+    tailwindcss-rails (2.0.33-x86_64-darwin)
       railties (>= 6.0.0)
-    tailwindcss-rails (2.0.32-x86_64-linux)
+    tailwindcss-rails (2.0.33-x86_64-linux)
       railties (>= 6.0.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
