@@ -5,14 +5,6 @@
       <%= form.label :week_id, t('views.admin.seasons.games.index.week'), class: 'form-label' %>
       <%= form.select :week_id, @weeks, class: 'form-value' %>
     </div>
-    <div class="form-field">
-      <%= form.label :source, t('views.admin.seasons.games.index.source'), class: 'form-label' %>
-      <%= form.text_field :source, class: 'form-value' %>
-    </div>
-    <div class="form-field">
-      <%= form.label :external_id, t('views.admin.seasons.games.index.external_id'), class: 'form-label' %>
-      <%= form.text_field :external_id, class: 'form-value' %>
-    </div>
     <%= form.submit t('views.admin.seasons.games.new.save'), class: 'btn-primary' %>
   <% end %>
 </section>

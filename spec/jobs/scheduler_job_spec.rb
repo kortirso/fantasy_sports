@@ -3,7 +3,9 @@
 describe SchedulerJob, type: :service do
   subject(:job_call) { described_class.perform_now }
 
-  let!(:season) { create :season, active: true, start_at: DateTime.new(2023, 1, 1, 0, 10, 0) }
+  let!(:season) {
+    create :season, active: true, start_at: DateTime.new(2023, 1, 1, 0, 10, 0), main_external_source: 'source'
+  }
   let!(:week1) {
     create :week, status: Week::INACTIVE, season: season, position: 1, deadline_at: DateTime.new(2023, 1, 7, 0, 10, 0)
   }
@@ -74,8 +76,9 @@ describe SchedulerJob, type: :service do
       job_call
 
       expect(Weeks::ChangeService).not_to have_received(:call)
-      expect(Games::ImportJob).to have_received(:perform_later).with(game_ids: [game.id])
-      expect(Games::ImportJob).to have_received(:perform_later).with(game_ids: [game.id])
+      expect(Games::ImportJob).to(
+        have_received(:perform_later).with(game_ids: [game.id], main_external_source: 'source')
+      )
       expect(Achievements::RefreshAfterGameJob).to have_received(:perform_later)
     end
 

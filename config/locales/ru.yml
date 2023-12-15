@@ -115,6 +115,7 @@ ru:
       update:
         too_many_chips: Слишком много бонусов активируется
         not_enough_chips: Вы не можете активировать эти бонусы
+        wildcard_active: Джокер активен
   views:
     admin:
       feedbacks:
@@ -199,8 +200,6 @@ ru:
             home_season_team: Домашная команда
             visitor_season_team: Гостевая команда
             points: Счёт
-            source: Источник
-            external_id: Внешний ID
             start_time: Начало игры
             edit: Изменить
             statistics: Статистика

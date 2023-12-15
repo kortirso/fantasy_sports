@@ -13,14 +13,6 @@
       <%= form.label :visitor_season_team_id, t('views.admin.seasons.games.index.visitor_season_team'), class: 'form-label' %>
       <%= form.select :visitor_season_team_id, @season_teams.map { |season_team| [localized_value(season_team.team.name), season_team.id] }, class: 'form-value' %>
     </div>
-    <div class="form-field">
-      <%= form.label :source, t('views.admin.seasons.games.index.source'), class: 'form-label' %>
-      <%= form.text_field :source, class: 'form-value' %>
-    </div>
-    <div class="form-field">
-      <%= form.label :external_id, t('views.admin.seasons.games.index.external_id'), class: 'form-label' %>
-      <%= form.text_field :external_id, class: 'form-value' %>
-    </div>
     <%= form.submit t('views.admin.seasons.games.new.save'), class: 'btn-primary' %>
   <% end %>
 </section>

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 describe Games::ImportService, type: :service do
-  subject(:service_call) { described_class.new(update_service: update_service).call(game: game) }
+  subject(:service_call) {
+    described_class.new(update_service: update_service).call(game: game, main_external_source: Sourceable::SPORTS)
+  }
 
   let(:update_service) { double }
   let(:scraper) { double }
@@ -16,8 +18,6 @@ describe Games::ImportService, type: :service do
   end
 
   context 'for unexisting scraper' do
-    before { game.update!(source: nil) }
-
     it 'does not call update operation' do
       service_call
 
@@ -28,7 +28,7 @@ describe Games::ImportService, type: :service do
   context 'for football sports' do
     before do
       league.update!(sport_kind: Sportable::FOOTBALL)
-      game.update!(source: Sourceable::SPORTS)
+      create(:games_external_source, game: game, source: Sourceable::SPORTS)
     end
 
     context 'for invalid fetching' do

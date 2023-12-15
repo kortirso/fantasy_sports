@@ -129,9 +129,8 @@ module Scrapers
         super(url: 'https://v3.football.api-sports.io')
       end
 
-      def call(external_id:)
-        @game = Game.find_by(external_id: external_id)
-        return unless @game
+      def call(game:, external_id:)
+        @game = game
 
         fetch_data(external_id)
 

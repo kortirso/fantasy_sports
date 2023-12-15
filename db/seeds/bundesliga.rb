@@ -11,6 +11,7 @@ league2024 = league.seasons.create(
   active: false,
   members_count: 18,
   start_at: DateTime.new(2023, 12, 13, 0, 0, 0),
+  main_external_source: Sourceable::SPORTS
 )
 
 overall_league = league2024.all_fantasy_leagues.create leagueable: league2024, name: 'Overall', global: true
@@ -109,16 +110,16 @@ seasons_teams = league2024.seasons_teams.map { |e| [e.team.short_name, e.id] }.t
 weeks_positions = league2024.weeks.map { |e| [e.position, e.id] }.to_h
 
 games_rows.each do |row|
-  FantasySports::Container['forms.games.create'].call(
+  result = FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: weeks_positions[row[2].to_i],
       home_season_team_id: seasons_teams[row[3]],
       visitor_season_team_id: seasons_teams[row[4]],
-      source: Sourceable::SPORTS,
-      external_id: row[0],
       start_at: DateTime.parse(row[1])
     }
   )
+
+  Games::ExternalSource.create(game_id: result[:result], source: Sourceable::SPORTS, external_id: row[0])
 end
 
 league2024.weeks.each do |week|

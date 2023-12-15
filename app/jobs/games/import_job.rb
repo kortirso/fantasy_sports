@@ -4,11 +4,11 @@ module Games
   class ImportJob < ApplicationJob
     queue_as :default
 
-    def perform(game_ids:)
+    def perform(game_ids:, main_external_source:)
       week = nil
 
       Game.where(id: game_ids).each do |game|
-        Games::ImportService.call(game: game)
+        Games::ImportService.call(game: game, main_external_source: main_external_source)
         week ||= game.week
       end
       return unless week
