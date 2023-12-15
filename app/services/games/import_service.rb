@@ -9,7 +9,8 @@ module Games
     SCRAPERS = {
       'basketball' => {
         'sportradar' => Scrapers::Basketball::Sportradar,
-        'balldontlie' => Scrapers::Basketball::Balldontlie
+        'balldontlie' => Scrapers::Basketball::Balldontlie,
+        'sports' => Scrapers::Basketball::Sports
       },
       'football' => {
         'instat' => Scrapers::Football::Instat,
