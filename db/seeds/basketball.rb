@@ -7,7 +7,7 @@ nba2024 = nba.seasons.create(
   active: true,
   start_at: DateTime.new(2023, 10, 16, 0, 0, 0),
   members_count: 30,
-  Sourceable::SPORTRADAR
+  Sourceable::SPORTS
 )
 
 overall_fantasy_nba_league = nba2024.all_fantasy_leagues.create leagueable: nba2024, name: 'Overall', global: true
@@ -179,6 +179,23 @@ games_rows.each do |row|
 
   Games::ExternalSource.create(game_id: result[:result], source: Sourceable::SPORTRADAR, external_id: row[0])
 end
+
+games_rows = CSV.read(Rails.root.join('db/data/nba_games_sports_2024.csv'), col_sep: ',')
+games_rows.each do |row|
+  game_time = DateTime.parse(row[1])
+  game = Game.find_by(
+    start_at: game_time,
+    home_season_team_id: seasons_teams[row[2]],
+    visitor_season_team_id: seasons_teams[row[3]]
+  )
+  next if game.nil?
+
+  Games::ExternalSource.create(game_id: game.id, source: Sourceable::SPORTS, external_id: row[0])
+end
+
+# missed games
+# ["12931", "2023-12-23T00:30:00.000Z", "BKN", "DEN"]
+# ["13470", "2024-03-10T02:00:00.000Z", "DEN", "UTA"]
 
 # for adding new games of in-season tournament
 # active_week = nba2024.weeks.find_by(position: 7)
