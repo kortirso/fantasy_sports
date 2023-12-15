@@ -10,7 +10,7 @@ module Games
 
       return { errors: 'Week does not exist' } if Week.find_by(id: params[:week_id]).nil?
 
-      # commento: games.source, games.external_id, games.week_id
+      # commento: games.week_id
       game.update!(params)
 
       { result: game.reload }

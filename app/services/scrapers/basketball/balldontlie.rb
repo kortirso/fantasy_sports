@@ -8,8 +8,8 @@ module Scrapers
       end
 
       # TODO: need to add fetching game points
-      def call(external_id:)
-        @game = Game.find_by(external_id: external_id)
+      def call(game:, external_id:)
+        @game = game
 
         parse_data(fetch_data(external_id))
         @result

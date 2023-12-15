@@ -698,6 +698,53 @@ COMMENT ON COLUMN public.games.difficulty IS 'Game difficulty for teams';
 
 
 --
+-- Name: games_external_sources; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.games_external_sources (
+    id bigint NOT NULL,
+    game_id bigint NOT NULL,
+    source integer NOT NULL,
+    external_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN games_external_sources.source; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.games_external_sources.source IS 'External source name';
+
+
+--
+-- Name: COLUMN games_external_sources.external_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.games_external_sources.external_id IS 'External ID';
+
+
+--
+-- Name: games_external_sources_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.games_external_sources_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: games_external_sources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.games_external_sources_id_seq OWNED BY public.games_external_sources.id;
+
+
+--
 -- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1186,7 +1233,8 @@ CREATE TABLE public.seasons (
     updated_at timestamp(6) without time zone NOT NULL,
     uuid uuid NOT NULL,
     start_at timestamp(6) without time zone,
-    members_count integer DEFAULT 1 NOT NULL
+    members_count integer DEFAULT 1 NOT NULL,
+    main_external_source character varying
 );
 
 
@@ -1195,6 +1243,13 @@ CREATE TABLE public.seasons (
 --
 
 COMMENT ON COLUMN public.seasons.members_count IS 'Amount of teams in tournament';
+
+
+--
+-- Name: COLUMN seasons.main_external_source; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.seasons.main_external_source IS 'Main external source at the moment';
 
 
 --
@@ -1549,6 +1604,13 @@ ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_
 
 
 --
+-- Name: games_external_sources id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games_external_sources ALTER COLUMN id SET DEFAULT nextval('public.games_external_sources_id_seq'::regclass);
+
+
+--
 -- Name: games_players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1783,6 +1845,14 @@ ALTER TABLE ONLY public.fantasy_teams_watches
 
 ALTER TABLE ONLY public.feedbacks
     ADD CONSTRAINT feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: games_external_sources games_external_sources_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games_external_sources
+    ADD CONSTRAINT games_external_sources_pkey PRIMARY KEY (id);
 
 
 --
@@ -2124,6 +2194,13 @@ CREATE INDEX index_feedbacks_on_user_id ON public.feedbacks USING btree (user_id
 
 
 --
+-- Name: index_games_external_sources_on_game_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_games_external_sources_on_game_id ON public.games_external_sources USING btree (game_id);
+
+
+--
 -- Name: index_games_on_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2350,6 +2427,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231215052917'),
 ('20231206105837'),
 ('20231122115612'),
 ('20231119135501'),

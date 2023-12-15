@@ -62,11 +62,11 @@ module Admin
       end
 
       def game_create_params
-        params.require(:game).permit(:week_id, :home_season_team_id, :visitor_season_team_id, :source, :external_id)
+        params.require(:game).permit(:week_id, :home_season_team_id, :visitor_season_team_id)
       end
 
       def game_update_params
-        params.require(:game).permit(:week_id, :source, :external_id)
+        params.require(:game).permit(:week_id)
       end
     end
   end

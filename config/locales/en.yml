@@ -115,6 +115,7 @@ en:
       update:
         too_many_chips: Too many chips are activated
         not_enough_chips: You can not active these chips
+        wildcard_active: Wildcard is active
   views:
     admin:
       feedbacks:
@@ -199,8 +200,6 @@ en:
             home_season_team: Home team name
             visitor_season_team: Visitor team name
             points: Points
-            source: Source
-            external_id: External ID
             start_time: Start time
             edit: Edit game
             statistics: Statistics

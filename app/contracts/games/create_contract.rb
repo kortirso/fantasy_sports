@@ -5,8 +5,6 @@ module Games
     config.messages.namespace = :game
 
     params do
-      optional(:source).filled(:string)
-      optional(:external_id).filled(:string)
       required(:home_season_team_id).filled(:integer)
       required(:visitor_season_team_id).filled(:integer)
       required(:week_id).filled(:integer)

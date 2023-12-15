@@ -25,8 +25,7 @@ module Games
     private
 
     def create_game(...)
-      # commento: games.source, games.external_id, games.week_id
-      # commento: games.home_season_team_id, games.visitor_season_team_id
+      # commento: games.week_id, games.home_season_team_id, games.visitor_season_team_id
       Game.create!(...)
     end
 

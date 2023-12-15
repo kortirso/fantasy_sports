@@ -13,6 +13,7 @@ describe Game do
     it { is_expected.to belong_to(:visitor_season_team).class_name('Seasons::Team') }
     it { is_expected.to have_many(:games_players).class_name('::Games::Player').dependent(:destroy) }
     it { is_expected.to have_many(:teams_players).through(:games_players) }
+    it { is_expected.to have_many(:external_sources).class_name('::Games::ExternalSource').dependent(:destroy) }
   end
 
   describe '#result_for_team' do

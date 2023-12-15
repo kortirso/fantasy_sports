@@ -29,17 +29,17 @@ class SchedulerJob < ApplicationJob
     # fetch game statistics 1 time, 3 hours after game start and no points before
     # game started at 5:00 will be fetched at 8:00
     # game started at 5:30 will be fetched at 8:30
-    Season.active.pluck(:id).each do |season_id|
+    Season.active.hashable_pluck(:id, :main_external_source).each do |season|
       game_ids =
         Game
           .joins(:week)
-          .where(weeks: { status: Week::ACTIVE, season_id: season_id })
+          .where(weeks: { status: Week::ACTIVE, season_id: season[:id] })
           .where('start_at < ?', 165.minutes.ago)
           .where(points: [])
           .pluck(:id)
       next if game_ids.blank?
 
-      Games::ImportJob.perform_later(game_ids: game_ids)
+      Games::ImportJob.perform_later(game_ids: game_ids, main_external_source: season[:main_external_source])
       refresh_achievements = true
     end
     Achievements::RefreshAfterGameJob.perform_later if refresh_achievements

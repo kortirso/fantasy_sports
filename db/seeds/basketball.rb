@@ -6,7 +6,8 @@ nba2024 = nba.seasons.create(
   name: '2023/2024',
   active: true,
   start_at: DateTime.new(2023, 10, 16, 0, 0, 0),
-  members_count: 30
+  members_count: 30,
+  Sourceable::SPORTRADAR
 )
 
 overall_fantasy_nba_league = nba2024.all_fantasy_leagues.create leagueable: nba2024, name: 'Overall', global: true
@@ -167,16 +168,16 @@ games_rows.each do |row|
     next_week = next_week.season.weeks.find_by(position: next_week.position + 1)
   end
 
-  FantasySports::Container['forms.games.create'].call(
+  result = FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: active_week.id,
       home_season_team_id: seasons_teams[row[2]],
       visitor_season_team_id: seasons_teams[row[3]],
-      source: Sourceable::SPORTRADAR,
-      external_id: row[0],
       start_at: game_time
     }
   )
+
+  Games::ExternalSource.create(game_id: result[:result], source: Sourceable::SPORTRADAR, external_id: row[0])
 end
 
 # for adding new games of in-season tournament

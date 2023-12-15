@@ -10,6 +10,7 @@ class Game < ApplicationRecord
 
   has_many :games_players, class_name: '::Games::Player', dependent: :destroy
   has_many :teams_players, through: :games_players
+  has_many :external_sources, class_name: '::Games::ExternalSource', foreign_key: :game_id, dependent: :destroy
 
   def result_for_team(team_index)
     return if points.blank?
