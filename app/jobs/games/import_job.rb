@@ -7,7 +7,10 @@ module Games
     def perform(game_ids:, main_external_source:)
       week = nil
 
-      Game.where(id: game_ids).each do |game|
+      Game.where(id: game_ids).each.with_index do |game, index|
+        # delay for api restrictions on production
+        sleep 20 if index.positive? && Rails.env.production?
+
         Games::ImportService.call(game: game, main_external_source: main_external_source)
         week ||= game.week
       end
