@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - precalculating of selected by teams ratio for players
 - multiple external ids for games
 
+### Modified
+- RefreshSelectedService
+
 ## [1.1.4] - 2023-11-30
 ### Added
 - more sort options
