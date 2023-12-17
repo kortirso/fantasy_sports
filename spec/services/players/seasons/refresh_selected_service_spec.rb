@@ -16,8 +16,9 @@ describe Players::Seasons::RefreshSelectedService, type: :service do
     teams_player2 = create :teams_player, player: player2, players_season: players_season2
     create :teams_player, player: player3, players_season: players_season3, active: false
 
-    fantasy_team1 = create :fantasy_team, season: season
-    fantasy_team2 = create :fantasy_team, season: season
+    fantasy_team1 = create :fantasy_team, season: season, completed: true
+    fantasy_team2 = create :fantasy_team, season: season, completed: true
+    create :fantasy_team, season: season, completed: true
     create :fantasy_team, season: season
 
     create :fantasy_teams_player, fantasy_team: fantasy_team1, teams_player: teams_player1

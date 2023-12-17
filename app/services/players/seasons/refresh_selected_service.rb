@@ -4,7 +4,7 @@ module Players
   module Seasons
     class RefreshSelectedService
       def call(season_id:)
-        fantasy_teams_count = FantasyTeam.where(season_id: season_id).count
+        fantasy_teams_count = FantasyTeam.where(season_id: season_id).completed.count
         statistic_by_player_id = find_statistic_by_player_id(season_id)
 
         objects =
