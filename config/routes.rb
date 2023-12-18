@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   mount PgHero::Engine, at: 'pghero'
   mount Que::View::Engine => '/que_view'
 
+  get 'auth/:provider/callback', to: 'users/omniauth_callbacks#create'
+
   namespace :admin do
     get '', to: 'welcome#index'
 
@@ -65,6 +67,7 @@ Rails.application.routes.draw do
     post 'recovery', to: 'recovery#create'
   end
 
+  resource :profile, only: %i[show]
   namespace :profile do
     resources :achievements, only: %i[index]
   end
@@ -105,6 +108,7 @@ Rails.application.routes.draw do
   resources :achievement_groups, only: %i[index]
   resources :achievements, only: %i[index]
   resources :cups, only: %i[show]
+  resources :identities, only: %i[destroy]
 
   get 'privacy', to: 'welcome#privacy'
 

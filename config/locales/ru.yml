@@ -30,6 +30,7 @@ ru:
           points: Результаты
           rules: Правила
           status: Статус недели
+          profile: Профиль
         profile_navigation_component:
           achievements: Достижения
   controllers:
@@ -226,6 +227,13 @@ ru:
             title: Новый игрок команды
             player_id: Игрок
             seasons_team_id: Команда
+    profiles:
+      show:
+        title: Профиль
+        email_title: Email
+        identities_title: Внешние аккаунты
+        identity_created: просоединён
+        notifications_title: Уведомления
     welcome:
       home: Просмотр лиг
       description: Система менеджмента фэнтези лиг. Движок позволяет вам создавать свои фэнтези команды из профессиональных игроков. Вы собираете свои команды из лучших игроков и получаете очки на основе их эффективности в реальных играх сезона.

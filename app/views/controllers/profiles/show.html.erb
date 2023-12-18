@@ -1,0 +1,39 @@
+<%= render PageWrappers::PageComponent.new do %>
+  <h1><%= t('views.profiles.show.title') %></h1>
+  <div class="mb-4 pb-4 border-b border-stone-200">
+    <h3><%= t('views.profiles.show.email_title') %></h3>
+    <p><%= Current.user.email %></p>
+  </div>
+  <div class="mb-4 pb-4 border-b border-stone-200">
+    <h3><%= t('views.profiles.show.identities_title') %></h3>
+    <% @identities.each do |identity| %>
+      <div class="flex items-center py-1">
+        <p class="mr-12">
+          <%= identity[:provider].capitalize %> <%= t('views.profiles.show.identity_created') %> <%= identity[:created_at].strftime('%d.%m.%Y %H:%M') %> UTC
+        </p>
+        <%= button_to 'X', identity_path(identity[:id]), class: 'btn-primary btn-small', method: :delete %>
+      </div>
+    <% end %>
+    <% if @need_identities.present? %>
+      <div class="mt-4 flex items-center">
+        <% @need_identities.each do |provider| %>
+          <% if provider == 'telegram' %>
+            <script
+              async
+              src="https://telegram.org/js/telegram-widget.js?22"
+              data-telegram-login="<%= Rails.application.credentials.dig(:telegram_oauth, Rails.env.to_sym, :bot_name) %>"
+              data-size="medium"
+              data-userpic="false"
+              data-radius="0"
+              data-auth-url="<%= Rails.application.credentials.dig(:telegram_oauth, Rails.env.to_sym, :redirect_url) %>"
+              data-request-access="write">
+            </script>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mb-4 pb-4 border-b border-stone-200">
+    <h3><%= t('views.profiles.show.notifications_title') %></h3>
+  </div>
+<% end %>

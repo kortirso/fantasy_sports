@@ -21,6 +21,10 @@ module Authentication
   def authenticate
     return if Current.user
 
+    authentication_error
+  end
+
+  def authentication_error
     redirect_to users_login_path, alert: t('controllers.authentication.permission')
   end
 end
