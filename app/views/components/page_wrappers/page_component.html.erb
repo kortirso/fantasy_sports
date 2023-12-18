@@ -32,6 +32,7 @@
     </div>
     <div>
       <section class="flex flex-wrap lg:flex-col px-4 lg:px-0">
+        <%= link_to t('components.views.shared.fantasy_team_navigation_component.profile'), profile_path, class: "user-navigation-link #{'active' if current_page?(profile_path)}" %>
         <%= link_to profile_achievements_path, class: "user-navigation-link #{'active' if current_page?(profile_achievements_path)}" do %>
           <%= t('components.views.shared.profile_navigation_component.achievements') %>
           <% if @unread_achievements_count.positive? %>

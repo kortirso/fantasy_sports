@@ -30,6 +30,7 @@ en:
           points: Points
           rules: Rules
           status: Status
+          profile: Profile
         profile_navigation_component:
           achievements: Achievements
   controllers:
@@ -226,6 +227,13 @@ en:
             title: New teams player
             player_id: Player
             seasons_team_id: Team
+    profiles:
+      show:
+        title: Profile
+        email_title: Email
+        identities_title: Identities
+        identity_created: identity is created
+        notifications_title: Notifications
     welcome:
       home: View fantasy leagues
       description: Fantasy sports engine system. Fantasy Sports gives you the opportunity to run your own teams of professional players. You draft your teams of the best players from across the leagues and receive points based on those players' performance in games each week.

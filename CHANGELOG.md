@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - table view for squad views
 - precalculating of selected by teams ratio for players
 - multiple external ids for games
+- telegram integration
 
 ### Modified
 - RefreshSelectedService

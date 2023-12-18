@@ -34,6 +34,7 @@ module FantasySports
     register('contracts.feedback') { FeedbackContract.new }
     register('contracts.injuries.create') { Injuries::CreateContract.new }
     register('contracts.injuries.update') { Injuries::UpdateContract.new }
+    register('contracts.identity') { IdentityContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -51,6 +52,7 @@ module FantasySports
     register('validators.feedback') { FeedbackValidator.new }
     register('validators.injuries.create') { Injuries::CreateValidator.new }
     register('validators.injuries.update') { Injuries::UpdateValidator.new }
+    register('validators.identity') { IdentityValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -68,10 +70,13 @@ module FantasySports
     register('forms.feedbacks.create') { Feedbacks::CreateForm.new }
     register('forms.injuries.create') { Injuries::CreateForm.new }
     register('forms.injuries.update') { Injuries::UpdateForm.new }
+    register('forms.identities.create') { Identities::CreateForm.new }
 
     # services
+    register('services.auth.providers.telegram') { Auth::Providers::Telegram.new }
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
+    register('services.auth.attach_identity') { Auth::AttachIdentityService.new }
     register('services.players.find_best') { Players::FindBestService.new }
     register('services.games.players.create_for_game') { Games::Players::CreateForGameService.new }
     register('services.fantasy_leagues.teams.update_current_place') {
