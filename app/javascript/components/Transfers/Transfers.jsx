@@ -683,6 +683,7 @@ export const Transfers = ({
               <Checkbox
                 id="watchlist"
                 label={strings.transfers.fromWatchlist}
+                checked={filterState.onlyWatched}
                 onClick={() => setFilterState({ ...filterState, onlyWatched: !filterState.onlyWatched })}
               />
             </div>
