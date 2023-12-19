@@ -398,3 +398,10 @@ ru:
         invalid_active_players: Неверное количество активных игроков
         invalid_changes: Неверный порядок замен
         invalid_captains: Неверные данные о капитане
+  notifiers:
+    telegram:
+      user:
+        deadline_report_payload:
+          title: Подходит дедлайн для вашей фэнтези команды %{value}
+          time_left: До дедлайна осталось %{value}
+          link: Для выполнения трансферов перейдите по ссылке %{value}

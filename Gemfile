@@ -91,6 +91,9 @@ gem 'bugsnag'
 # view pagination
 gem 'pagy', '~> 6.0'
 
+# notification layer
+gem 'active_delivery'
+
 group :development, :test do
   gem 'bullet', git: 'https://github.com/flyerhzm/bullet', branch: 'main'
   gem 'rubocop', '~> 1.35', require: false

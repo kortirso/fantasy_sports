@@ -17,6 +17,7 @@ module FantasySports
 
     register('jwt_encoder') { JwtEncoder.new }
     register('to_bool') { ToBool.new }
+    register('api.telegram.client') { TelegramApi::Client.new }
 
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
@@ -75,7 +76,11 @@ module FantasySports
     register('forms.identities.create') { Identities::CreateForm.new }
     register('forms.notifications.create') { Notifications::CreateForm.new }
 
+    # notifiers
+    register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }
+
     # services
+    register('services.converters.seconds_to_text') { Converters::SecondsToTextService.new }
     register('services.auth.providers.telegram') { Auth::Providers::Telegram.new }
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
