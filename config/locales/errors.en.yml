@@ -14,6 +14,7 @@ en:
       nickname: Nickname
       reason: Reason
       status: Status
+      notification_type: Notification type
     errors:
       user:
         password_length: must be greater or equal %{length} characters

@@ -4,7 +4,10 @@ class IdentitiesController < ApplicationController
   before_action :find_identity, only: %i[destroy]
 
   def destroy
-    @identity.destroy
+    ActiveRecord::Base.transaction do
+      @identity.destroy
+      current_user.notifications.where(target: @identity.provider).destroy_all
+    end
     redirect_to profile_path
   end
 

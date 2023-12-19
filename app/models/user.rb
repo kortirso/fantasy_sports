@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :users_sessions, class_name: 'Users::Session', dependent: :destroy
   has_many :feedbacks, dependent: :destroy
   has_many :identities, dependent: :destroy
+  has_many :notifications, as: :notifyable, dependent: :destroy
 
   scope :not_confirmed, -> { where(confirmed_at: nil) }
 

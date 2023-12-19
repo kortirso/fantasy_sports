@@ -35,5 +35,6 @@
   </div>
   <div class="mb-4 pb-4 border-b border-stone-200">
     <h3><%= t('views.profiles.show.notifications_title') %></h3>
+    <%= react_component 'Notifications', notifications: @notifications, identities: @identities %>
   </div>
 <% end %>

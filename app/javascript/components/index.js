@@ -11,3 +11,4 @@ export * from './Week';
 export * from './FantasyLeague';
 export * from './FeedbackForm';
 export * from './FantasyTeamDestroyForm';
+export * from './Profile';

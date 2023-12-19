@@ -12,6 +12,7 @@ import {
   FantasyLeagueForm,
   FeedbackForm,
   FantasyTeamDestroyForm,
+  Notifications,
 } from './components';
 import { Flash, Toggle } from './components/atoms';
 
@@ -27,6 +28,7 @@ const components = {
   FantasyLeagueForm,
   FeedbackForm,
   FantasyTeamDestroyForm,
+  Notifications,
 };
 const queryClient = new QueryClient();
 
