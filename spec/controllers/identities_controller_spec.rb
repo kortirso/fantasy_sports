@@ -10,6 +10,10 @@ describe IdentitiesController do
       let!(:identity) { create :identity }
       let(:request) { delete :destroy, params: { id: identity.id } }
 
+      before do
+        create :notification, target: identity.provider, notifyable: @current_user
+      end
+
       context 'for not user identity' do
         it 'does not destroy identity', :aggregate_failures do
           expect { request }.not_to change(Identity, :count)
@@ -21,7 +25,10 @@ describe IdentitiesController do
         before { identity.update!(user: @current_user) }
 
         it 'destroys identity', :aggregate_failures do
-          expect { request }.to change(Identity, :count).by(-1)
+          expect { request }.to(
+            change(Identity, :count).by(-1)
+              .and(change(Notification, :count).by(-1))
+          )
           expect(response).to redirect_to profile_path
         end
       end

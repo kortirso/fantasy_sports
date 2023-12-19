@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Checkbox = ({ id, labelPosition = 'right', label, onClick }) => {
+export const Checkbox = ({ id, labelPosition = 'right', checked = false, label, onClick }) => {
   const renderLabel = (className) => {
     return (
       <label
@@ -12,17 +12,22 @@ export const Checkbox = ({ id, labelPosition = 'right', label, onClick }) => {
 
   return (
     <div className="flex items-center">
-      {labelPosition === 'left' ? renderLabel('mr-2') : null}
-      <div className="toggle">
-        <input id={`${id}`} type="checkbox" className="toggle-checkbox" onClick={onClick} />
+      {label && labelPosition === 'left' ? renderLabel('mr-2') : null}
+      <div className="toggle" onClick={onClick}>
+        <input
+          checked={checked}
+          id={id}
+          type="checkbox"
+          className="toggle-checkbox"
+        />
         <label
-          for={`${id}`}
+          for={id}
           role="switch"
           aria-checked="mixed"
           class="toggle-label"
         />
       </div>
-      {labelPosition === 'right' ? renderLabel('ml-2') : null}
+      {label && labelPosition === 'right' ? renderLabel('ml-2') : null}
     </div>
   );
 };

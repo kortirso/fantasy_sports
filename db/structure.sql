@@ -1123,6 +1123,40 @@ ALTER SEQUENCE public.lineups_players_id_seq OWNED BY public.lineups_players.id;
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notifications (
+    id bigint NOT NULL,
+    notifyable_id bigint NOT NULL,
+    notifyable_type character varying NOT NULL,
+    notification_type integer NOT NULL,
+    target integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
+
+
+--
 -- Name: players; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1709,6 +1743,13 @@ ALTER TABLE ONLY public.lineups_players ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
+
+
+--
 -- Name: players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1978,6 +2019,14 @@ ALTER TABLE ONLY public.lineups_players
 
 
 --
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: players players_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2101,6 +2150,13 @@ CREATE UNIQUE INDEX fantasy_teams_and_players_index ON public.fantasy_teams_play
 --
 
 CREATE UNIQUE INDEX idx_on_fantasy_team_id_players_season_id_46f81fc3f4 ON public.fantasy_teams_watches USING btree (fantasy_team_id, players_season_id);
+
+
+--
+-- Name: idx_on_notifyable_id_notifyable_type_notification_t_a2f7d79115; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_notifyable_id_notifyable_type_notification_t_a2f7d79115 ON public.notifications USING btree (notifyable_id, notifyable_type, notification_type, target);
 
 
 --
@@ -2491,6 +2547,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231218114627'),
 ('20231218081640'),
 ('20231215052917'),
 ('20231206105837'),

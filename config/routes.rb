@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :frontend do
+      resource :notifications, only: %i[create destroy]
       resource :feedback, only: %i[create]
       resources :fantasy_teams, only: %i[destroy] do
         scope module: :fantasy_teams do

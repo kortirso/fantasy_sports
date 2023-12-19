@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :week do
     position { 1 }
+    deadline_at { DateTime.now }
     season
   end
 end

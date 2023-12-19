@@ -17,6 +17,7 @@ module FantasySports
 
     register('jwt_encoder') { JwtEncoder.new }
     register('to_bool') { ToBool.new }
+    register('api.telegram.client') { TelegramApi::Client.new }
 
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
@@ -35,6 +36,7 @@ module FantasySports
     register('contracts.injuries.create') { Injuries::CreateContract.new }
     register('contracts.injuries.update') { Injuries::UpdateContract.new }
     register('contracts.identity') { IdentityContract.new }
+    register('contracts.notification') { NotificationContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -53,6 +55,7 @@ module FantasySports
     register('validators.injuries.create') { Injuries::CreateValidator.new }
     register('validators.injuries.update') { Injuries::UpdateValidator.new }
     register('validators.identity') { IdentityValidator.new }
+    register('validators.notification') { NotificationValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -71,8 +74,13 @@ module FantasySports
     register('forms.injuries.create') { Injuries::CreateForm.new }
     register('forms.injuries.update') { Injuries::UpdateForm.new }
     register('forms.identities.create') { Identities::CreateForm.new }
+    register('forms.notifications.create') { Notifications::CreateForm.new }
+
+    # notifiers
+    register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }
 
     # services
+    register('services.converters.seconds_to_text') { Converters::SecondsToTextService.new }
     register('services.auth.providers.telegram') { Auth::Providers::Telegram.new }
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }

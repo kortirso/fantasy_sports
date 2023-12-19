@@ -18,3 +18,7 @@ every 1.day do
   runner 'Users::Sessions::RemoveExpiredJob.perform_later'
   runner 'Injuries::RemoveExpiredJob.perform_later'
 end
+
+every 1.hour do
+  runner 'Deliveries::User::DeadlineReportJob.perform_later'
+end

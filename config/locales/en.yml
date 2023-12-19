@@ -398,3 +398,10 @@ en:
         invalid_active_players: Invalid amount of active players
         invalid_changes: Invalid changing order
         invalid_captains: Invalid captains count
+  notifiers:
+    telegram:
+      user:
+        deadline_report_payload:
+          title: Deadline is coming for your fantasy team %{value}
+          time_left: Time left is - %{value}
+          link: For making transfers please visit %{value}

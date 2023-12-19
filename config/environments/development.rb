@@ -80,3 +80,5 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end
+
+Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options

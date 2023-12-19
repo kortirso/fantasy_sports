@@ -17,6 +17,7 @@ ru:
       nickname: Прозвище
       reason: Причина
       status: Статус
+      notification_type: Тип уведомления
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам

@@ -146,6 +146,9 @@
       "title": "Destroying fantasy team",
       "description": "Are you really would like to destroy your team? This action is irrevertable, fantasy team can't be restored.",
       "destroy": "Destroy"
+    },
+    "profile": {
+      "deadlinesData": "Deadlines data"
     }
   },
   "ru": {
@@ -295,6 +298,9 @@
       "title": "Удаление фэнтези команды",
       "description": "Вы точно хотите удалить команду? Это действие нельзя отменить, команду нельзя будет никак восстановить.",
       "destroy": "Удалить"
+    },
+    "profile": {
+      "deadlinesData": "Дедлайны"
     }
   }
 }
