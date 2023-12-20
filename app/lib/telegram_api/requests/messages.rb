@@ -5,7 +5,7 @@ module TelegramApi
     module Messages
       def send_message(bot_secret:, chat_id:, text:)
         get(
-          path: "bot#{bot_secret}/sendMessage?chat_id=#{chat_id}&text=#{text}",
+          path: URI.parse(URI::Parser.new.escape("bot#{bot_secret}/sendMessage?chat_id=#{chat_id}&text=#{text}")).to_s,
           headers: headers
         )
       end
