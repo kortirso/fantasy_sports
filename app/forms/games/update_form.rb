@@ -8,10 +8,14 @@ module Games
       errors = validator.call(params: params)
       return { errors: errors } if errors.any?
 
-      return { errors: 'Week does not exist' } if Week.find_by(id: params[:week_id]).nil?
+      new_week = Week.future.find_by(season_id: game.week.season_id, id: params[:week_id])
+      return { errors: ['Week does not exist'] } if new_week.nil?
 
-      # commento: games.week_id
-      game.update!(params)
+      ActiveRecord::Base.transaction do
+        game.games_players.destroy_all if new_week.status == Week::INACTIVE
+        # commento: games.week_id
+        game.update!(params)
+      end
 
       { result: game.reload }
     end
