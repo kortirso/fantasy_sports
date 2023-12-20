@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - multiple external ids for games
 - telegram integration
 - notifications layer
+- clearing games_players if game moved to inactive week
 
 ### Modified
 - RefreshSelectedService
