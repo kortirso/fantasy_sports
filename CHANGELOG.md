@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - RefreshSelectedService
 
+### Fixed
+- checkbox clicking
+
 ## [1.1.4] - 2023-11-30
 ### Added
 - more sort options
