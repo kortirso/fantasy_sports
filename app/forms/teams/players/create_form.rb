@@ -13,8 +13,6 @@ module Teams
         players_season =
           ::Players::Season.find_or_create_by(player_id: params[:player_id], season_id: seasons_team.season_id)
 
-        # commento: teams_players.active, teams_players.price_cents, teams_players.shirt_number_string
-        # commento: teams_players.form
         teams_player = ::Teams::Player.create!(params.merge(players_season_id: players_season.id))
         create_games_players(teams_player)
 

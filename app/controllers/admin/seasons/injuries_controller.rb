@@ -21,6 +21,7 @@ module Admin
       def edit; end
 
       def create
+        # commento: injuries.status, injuries.reason, injuries.return_at
         case create_form.call(params: injury_params)
         in { errors: errors } then redirect_to new_admin_season_injury_path(@season.id), alert: errors
         else redirect_to admin_season_injuries_path(@season.id)
@@ -28,6 +29,7 @@ module Admin
       end
 
       def update
+        # commento: injuries.status, injuries.reason, injuries.return_at
         case update_form.call(injury: @injury, params: injury_params)
         in { errors: errors } then redirect_to edit_admin_season_injury_path(@season.id, @injury.id), alert: errors
         else redirect_to admin_season_injuries_path(@season.id)

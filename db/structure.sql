@@ -1166,8 +1166,6 @@ CREATE TABLE public.players (
     position_kind integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points numeric(8,2) DEFAULT 0 NOT NULL,
-    statistic jsonb DEFAULT '{}'::jsonb NOT NULL,
     first_name jsonb DEFAULT '{}'::jsonb NOT NULL,
     last_name jsonb DEFAULT '{}'::jsonb NOT NULL,
     nickname jsonb DEFAULT '{}'::jsonb NOT NULL
@@ -1417,8 +1415,6 @@ CREATE TABLE public.teams_players (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     price_cents integer DEFAULT 0 NOT NULL,
-    shirt_number integer,
-    form double precision DEFAULT 0.0 NOT NULL,
     uuid uuid DEFAULT gen_random_uuid() NOT NULL,
     shirt_number_string character varying,
     players_season_id bigint NOT NULL
@@ -2547,6 +2543,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20231229085758'),
 ('20231218114627'),
 ('20231218081640'),
 ('20231215052917'),

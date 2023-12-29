@@ -8,6 +8,7 @@ module Games
         week,
         generate_payload(week, week.season.league.points_system, week.season.members_count / 4)
       )
+      # commento: games.difficulty
       Game.upsert_all(objects) if objects.any?
     end
 

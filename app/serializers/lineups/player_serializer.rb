@@ -20,11 +20,12 @@ module Lineups
     attribute :player do |object, params|
       teams_player = object.teams_player
       player = teams_player.player
+      players_season = teams_player.players_season
       injuries = params[:injuries][teams_player.players_season_id]
       {
-        uuid: teams_player.players_season.uuid,
-        form: teams_player.form,
-        points: teams_player.players_season.points,
+        uuid: players_season.uuid,
+        form: players_season.form,
+        points: players_season.points,
         price: (teams_player.price_cents.to_i / 100.0).round(1),
         price_cents: teams_player.price_cents.to_i,
         name: player.name,
