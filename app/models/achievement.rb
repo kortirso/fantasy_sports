@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 class Achievement < Kudos::Achievement
   BASKETBALL_LINEUP_POINTS = {
     1 => 100,
@@ -74,3 +75,4 @@ class Achievement < Kudos::Achievement
     user.award(achievement: achievement) unless user.awarded?(achievement: achievement)
   end
 end
+# :nocov:

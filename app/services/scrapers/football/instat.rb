@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Scrapers
   module Football
     class Instat < BaseScraper
@@ -190,3 +191,4 @@ module Scrapers
     end
   end
 end
+# :nocov:

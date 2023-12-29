@@ -8,7 +8,11 @@ module Games
       week = Week.find_by(id: week_id)
       return unless week
 
-      Games::DifficultyUpdateService.new.call(week: week)
+      update_service.call(week: week)
     end
+
+    private
+
+    def update_service = FantasySports::Container['services.games.difficulty_update']
   end
 end

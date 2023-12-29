@@ -2,7 +2,7 @@
 
 return unless Rails.env.production?
 
-# :skippit:
+# :nocov:
 ENV['PGHERO_USERNAME'] = Rails.application.credentials.dig(:pghero, :username)
 ENV['PGHERO_PASSWORD'] = Rails.application.credentials.dig(:pghero, :password)
-# :skippit:
+# :nocov:

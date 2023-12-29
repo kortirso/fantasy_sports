@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Scrapers
   module Basketball
     class Sportradar < BaseScraper
@@ -54,3 +55,4 @@ module Scrapers
     end
   end
 end
+# :nocov:

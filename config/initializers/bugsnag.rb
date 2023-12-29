@@ -2,8 +2,8 @@
 
 return unless Rails.env.production?
 
-# :skippit:
+# :nocov:
 Bugsnag.configure do |config|
   config.api_key = Rails.application.credentials[:secret_key_bugsnag]
 end
-# :skippit:
+# :nocov:

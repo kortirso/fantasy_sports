@@ -98,6 +98,7 @@ module FantasySports
     register('services.weeks.bench_substitutions') { Weeks::BenchSubstitutionsService.new }
     register('services.weeks.finish') { Weeks::FinishService.new }
     register('services.players.seasons.refresh_selected') { Players::Seasons::RefreshSelectedService.new }
+    register('services.games.difficulty_update') { Games::DifficultyUpdateService.new }
   end
 end
 

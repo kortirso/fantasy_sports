@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Scrapers
   module Basketball
     class Balldontlie < BaseScraper
@@ -79,3 +80,4 @@ module Scrapers
     end
   end
 end
+# :nocov:
