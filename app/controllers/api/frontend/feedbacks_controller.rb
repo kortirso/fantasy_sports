@@ -6,7 +6,7 @@ module Api
       include Deps[create_form: 'forms.feedbacks.create']
 
       def create
-        # commento: feedback.title, feedbacks.description
+        # commento: feedbacks.title, feedbacks.description
         case create_form.call(user: current_user, params: feedback_params)
         in { errors: errors } then render json: { errors: errors }, status: :ok
         in { result: result } then render json: { result: result }, status: :ok

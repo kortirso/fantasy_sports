@@ -20,8 +20,6 @@ module Teams
             destroy_redundant_games_players(teams_player) if active_change == false && teams_player.active
             create_games_players(teams_player) if active_change == true && !teams_player.active
           end
-          # commento: teams_players.active, teams_players.price_cents, teams_players.shirt_number_string
-          # commento: teams_players.form
           teams_player.update!(params)
         end
 
