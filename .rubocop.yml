@@ -137,3 +137,6 @@ Naming/BlockForwarding:
 
 RSpec/IndexedLet:
   Enabled: false
+
+FactoryBot/ExcessiveCreateList:
+  Enabled: false
