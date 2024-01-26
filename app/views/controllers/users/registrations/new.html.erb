@@ -14,6 +14,9 @@
         <%= form.label :password_confirmation, t('views.users.registrations.new.password_confirmation'), class: 'form-label' %>
         <%= form.password_field :password_confirmation, class: 'form-value' %>
       </div>
+      <div class="mb-2 flex flex-row">
+        <%= link_to image_tag('google.svg', width: 20, height: 20, alt: 'google'), omniauth_link(:google), 'aria-label': 'Login with Google', class: 'flex justify-center mr-4' %>
+      </div>
       <div class="mb-2">
         <%= t('views.users.registrations.new.have_account') %>
         <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'underline text-blue-600' %>

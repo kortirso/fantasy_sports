@@ -18,6 +18,8 @@ module FantasySports
     register('jwt_encoder') { JwtEncoder.new }
     register('to_bool') { ToBool.new }
     register('api.telegram.client') { TelegramApi::Client.new }
+    register('api.google.auth_client') { GoogleAuthApi::Client.new }
+    register('api.google.client') { GoogleApi::Client.new }
 
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
@@ -82,9 +84,11 @@ module FantasySports
     # services
     register('services.converters.seconds_to_text') { Converters::SecondsToTextService.new }
     register('services.auth.providers.telegram') { Auth::Providers::Telegram.new }
+    register('services.auth.providers.google') { Auth::Providers::Google.new }
     register('services.auth.fetch_session') { Auth::FetchSessionService.new }
     register('services.auth.generate_token') { Auth::GenerateTokenService.new }
     register('services.auth.attach_identity') { Auth::AttachIdentityService.new }
+    register('services.auth.login_user') { Auth::LoginUserService.new }
     register('services.players.find_best') { Players::FindBestService.new }
     register('services.games.players.create_for_game') { Games::Players::CreateForGameService.new }
     register('services.fantasy_leagues.teams.update_current_place') {

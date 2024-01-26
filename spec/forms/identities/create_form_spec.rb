@@ -20,6 +20,7 @@ describe Identities::CreateForm, type: :service do
 
     it 'creates identity', :aggregate_failures do
       expect { form }.to change(user.identities, :count).by(1)
+      expect(user.reload.confirmed_at).not_to be_nil
       expect(form[:result].is_a?(Identity)).to be_truthy
     end
   end

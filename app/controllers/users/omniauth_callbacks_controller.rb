@@ -5,7 +5,9 @@ module Users
     include Deps[
       attach_identity: 'services.auth.attach_identity',
       generate_token: 'services.auth.generate_token',
-      telegram_provider: 'services.auth.providers.telegram'
+      login_user: 'services.auth.login_user',
+      telegram_provider: 'services.auth.providers.telegram',
+      google_provider: 'services.auth.providers.google'
     ]
 
     skip_before_action :verify_authenticity_token
@@ -56,6 +58,8 @@ module Users
         if attaching_identity
           attach_identity.call(user: current_user, auth: auth)
           current_user
+        else
+          login_user.call(auth: auth)[:result]
         end
     end
 
@@ -65,6 +69,7 @@ module Users
 
     def provider_service(provider)
       case provider
+      when Identity::GOOGLE then google_provider
       when Identity::TELEGRAM then telegram_provider
       end
     end

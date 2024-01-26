@@ -32,4 +32,22 @@ module ApplicationHelper
     when 'NBA' then 'leagues/nba.webp'
     end
   end
+
+  def omniauth_link(provider)
+    case provider
+    when :google then google_oauth_link
+    end
+  end
+
+  private
+
+  # rubocop: disable Layout/LineLength
+  def google_oauth_link
+    "https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=#{value(:google_oauth, :client_id)}&redirect_uri=#{value(:google_oauth, :redirect_url)}"
+  end
+  # rubocop: enable Layout/LineLength
+
+  def value(provider_oauth, key)
+    Rails.application.credentials.dig(provider_oauth, Rails.env.to_sym, key)
+  end
 end
