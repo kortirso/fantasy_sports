@@ -5,7 +5,6 @@ module Users
     include Deps[update_form: 'forms.users.update']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_user
     before_action :check_recovery_token
 

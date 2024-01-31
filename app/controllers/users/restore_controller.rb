@@ -5,7 +5,6 @@ module Users
     include Deps[restore_service: 'services.users.restore']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_user, only: %i[create]
     before_action :validate_restore_limit, only: %i[create]
 

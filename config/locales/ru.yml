@@ -16,6 +16,8 @@ ru:
         seasons: Сезоны
         players: Игроки
         feedbacks: Отзывы
+        users: Пользователи
+        banned_emails: Баны почты
       page_component:
         logout: Выход
     views:
@@ -51,6 +53,11 @@ ru:
             success: Игра обновлена
           destroy:
             success: Игра уничтожена
+      banned_emails:
+        create:
+          success: Почта забанена
+        destroy:
+          success: Почта разбанена
       permission: Доступ запрещён
     application:
       page_not_found: Страница не найдена
@@ -120,6 +127,21 @@ ru:
         wildcard_active: Джокер активен
   views:
     admin:
+      users:
+        index:
+          header: Пользователи
+          email: Почта
+          confirmed: Подтвержден?
+          banned: Забанен?
+      banned_emails:
+        index:
+          header: Баны почты
+          new_banned_email: Забанить почту
+          value: Значение
+          reason: Причина
+        new:
+          title: Забанить почту
+          create: Забанить почту
       feedbacks:
         index:
           header: Отзывы

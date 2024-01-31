@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', to: 'welcome#index'
 
+    resources :banned_emails, only: %i[index new create destroy]
+    resources :users, only: %i[index]
     resources :feedbacks, only: %i[index]
     resources :players, except: %i[destroy]
     resources :leagues, only: %i[index new create]
