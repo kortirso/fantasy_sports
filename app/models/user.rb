@@ -17,11 +17,16 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :notifications, as: :notifyable, dependent: :destroy
 
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :not_confirmed, -> { where(confirmed_at: nil) }
 
   enum role: { regular: 0, admin: 1 }
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def restoreable?
+    reset_password_sent_at.nil? || 1.hour.ago > reset_password_sent_at
   end
 end

@@ -71,6 +71,7 @@ en:
       restore:
         success: Email with restore link was send
         invalid: Password can't be restore
+        unavailable: You need to wait 1 hour after last restoring
       recovery:
         success: Password is changed
         invalid: Password can't be changed

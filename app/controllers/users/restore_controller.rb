@@ -7,6 +7,7 @@ module Users
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
     before_action :find_user, only: %i[create]
+    before_action :validate_restore_limit, only: %i[create]
 
     def new; end
 
@@ -18,14 +19,16 @@ module Users
     private
 
     def find_user
-      @user = User.find_by(email: params[:email]&.strip&.downcase)
+      @user = User.confirmed.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
-      failed_restore
+      redirect_to users_restore_path, alert: t('controllers.users.restore.invalid')
     end
 
-    def failed_restore
-      redirect_to users_restore_path, alert: t('controllers.users.restore.invalid')
+    def validate_restore_limit
+      return if @user.restoreable?
+
+      redirect_to users_restore_path, alert: t('controllers.users.restore.unavailable')
     end
   end
 end
