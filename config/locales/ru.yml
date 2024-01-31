@@ -98,6 +98,7 @@ ru:
         success: Состав обновлён
     confirmation:
       permission: Необходимо подтвердить электронную почту
+      ban: Аккаунт заблокирован
   services:
     auth:
       fetch_session:

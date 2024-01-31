@@ -23,6 +23,16 @@ describe Users::ConfirmationsController do
         end
       end
 
+      context 'for banned user' do
+        before { user.update(banned_at: DateTime.now) }
+
+        it 'renders failed_complete template' do
+          get :complete, params: { email: user.email, confirmation_token: '1', locale: 'en' }
+
+          expect(response).to render_template :failed_complete
+        end
+      end
+
       context 'for invalid confirmation token' do
         it 'renders failed_complete template' do
           get :complete, params: { email: user.email, confirmation_token: '1', locale: 'en' }

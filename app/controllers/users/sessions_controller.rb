@@ -6,6 +6,7 @@ module Users
 
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
+    skip_before_action :check_email_ban
     before_action :find_user, only: %i[create]
     before_action :authenticate_user, only: %i[create]
     before_action :check_email_confirmation, only: %i[create]
@@ -29,7 +30,7 @@ module Users
     private
 
     def find_user
-      @user = User.find_by(email: user_params[:email]&.strip&.downcase)
+      @user = User.not_banned.find_by(email: user_params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_sign_in

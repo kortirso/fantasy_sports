@@ -98,6 +98,7 @@ en:
         success: Lineup is updated
     confirmation:
       permission: Email is not confirmed yet
+      ban: Account is banned
   services:
     auth:
       fetch_session:

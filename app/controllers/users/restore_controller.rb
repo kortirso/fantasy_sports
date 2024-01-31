@@ -18,7 +18,7 @@ module Users
     private
 
     def find_user
-      @user = User.confirmed.find_by(email: params[:email]&.strip&.downcase)
+      @user = User.confirmed.not_banned.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
       redirect_to users_restore_path, alert: t('controllers.users.restore.invalid')

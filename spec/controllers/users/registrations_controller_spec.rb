@@ -60,6 +60,15 @@ describe Users::RegistrationsController do
         expect(User.last.email).to eq 'user@gmail.com'
         expect(response).to redirect_to users_confirm_path
       end
+
+      context 'for banned email' do
+        before { create :banned_email, value: 'user@gmail.com' }
+
+        it 'does not create new user', :aggregate_failures do
+          expect { request }.not_to change(User, :count)
+          expect(response).to redirect_to users_sign_up_path
+        end
+      end
     end
   end
 

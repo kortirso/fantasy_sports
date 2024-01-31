@@ -21,6 +21,7 @@ ru:
     errors:
       user:
         password_length: должен быть больше или равняться %{length} символам
+        banned: забанен
         rules:
           email:
             filled?: не может быть пустым
