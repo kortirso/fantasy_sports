@@ -1487,7 +1487,8 @@ CREATE TABLE public.users (
     confirmation_token character varying,
     confirmed_at timestamp(6) without time zone,
     restore_token character varying,
-    locale character varying DEFAULT 'en'::character varying NOT NULL
+    locale character varying DEFAULT 'en'::character varying NOT NULL,
+    reset_password_sent_at timestamp(6) without time zone
 );
 
 
@@ -2543,6 +2544,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240131082218'),
 ('20231229085758'),
 ('20231218114627'),
 ('20231218081640'),

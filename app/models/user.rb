@@ -25,4 +25,8 @@ class User < ApplicationRecord
   def confirmed?
     confirmed_at.present?
   end
+
+  def restoreable?
+    reset_password_sent_at.nil? || 1.hour.ago > reset_password_sent_at
+  end
 end

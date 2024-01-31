@@ -8,7 +8,6 @@ module Persisters
         error = validate_user(user)
         return { errors: [error] } if error.present?
 
-        # commento: users.confirmation_token, users.confirmed_at
         user.save!
       end
 
