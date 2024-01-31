@@ -18,7 +18,7 @@ module Users
     private
 
     def find_user
-      @user = User.find_by(email: params[:email]&.strip&.downcase)
+      @user = User.confirmed.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_restore

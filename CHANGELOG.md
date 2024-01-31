@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - google auth
+- allow to restore password only for confirmed users
 
 ## [1.1.5] - 2023-12-29
 ### Added

@@ -23,6 +23,19 @@ describe Users::RestoreController do
     context 'for existing user' do
       let!(:user) { create :user }
 
+      context 'for not confirmed user' do
+        before { user.update!(confirmed_at: nil) }
+
+        it 'does not call restore service', :aggregate_failures do
+          post :create, params: { email: user.email, locale: 'en' }
+
+          expect(FantasySports::Container.resolve('services.users.restore')).not_to(
+            have_received(:call)
+          )
+          expect(response).to redirect_to users_restore_path
+        end
+      end
+
       context 'for invalid email' do
         it 'does not call restore service', :aggregate_failures do
           post :create, params: { email: 'invalid@gmail.com', locale: 'en' }
