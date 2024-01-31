@@ -16,6 +16,8 @@ en:
         seasons: Seasons
         players: Players
         feedbacks: Feedbacks
+        users: Users
+        banned_emails: Banned emails
       page_component:
         logout: Logout
     views:
@@ -51,6 +53,11 @@ en:
             success: Game is updated
           destroy:
             success: Game is destroyed
+      banned_emails:
+        create:
+          success: Email is banned
+        destroy:
+          success: Email is unbanned
       permission: Unauthorized
     application:
       page_not_found: Page is not found
@@ -91,6 +98,7 @@ en:
         success: Lineup is updated
     confirmation:
       permission: Email is not confirmed yet
+      ban: Account is banned
   services:
     auth:
       fetch_session:
@@ -120,6 +128,21 @@ en:
         wildcard_active: Wildcard is active
   views:
     admin:
+      users:
+        index:
+          header: Users
+          email: Email
+          confirmed: Confirmed?
+          banned: Banned?
+      banned_emails:
+        index:
+          header: Banned emails
+          new_banned_email: New banned email
+          value: Value
+          reason: Reason
+        new:
+          title: New banned email
+          create: Create banned email
       feedbacks:
         index:
           header: Feedbacks

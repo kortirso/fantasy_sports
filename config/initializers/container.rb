@@ -39,6 +39,7 @@ module FantasySports
     register('contracts.injuries.update') { Injuries::UpdateContract.new }
     register('contracts.identity') { IdentityContract.new }
     register('contracts.notification') { NotificationContract.new }
+    register('contracts.banned_email') { BannedEmailContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -58,6 +59,7 @@ module FantasySports
     register('validators.injuries.update') { Injuries::UpdateValidator.new }
     register('validators.identity') { IdentityValidator.new }
     register('validators.notification') { NotificationValidator.new }
+    register('validators.banned_email') { BannedEmailValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -77,6 +79,7 @@ module FantasySports
     register('forms.injuries.update') { Injuries::UpdateForm.new }
     register('forms.identities.create') { Identities::CreateForm.new }
     register('forms.notifications.create') { Notifications::CreateForm.new }
+    register('forms.banned_emails.create') { BannedEmails::CreateForm.new }
 
     # notifiers
     register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }

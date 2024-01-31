@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - google auth
 - allow to restore password only for confirmed users
 - hour limit for re-restoring password
+- BannedEmail model for saving banned emails
+- disabling access for banned users
 
 ## [1.1.5] - 2023-12-29
 ### Added

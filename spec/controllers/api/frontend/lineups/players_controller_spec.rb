@@ -4,6 +4,7 @@ describe Api::Frontend::Lineups::PlayersController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'
+    it_behaves_like 'required available email'
 
     context 'for logged users' do
       sign_in_user

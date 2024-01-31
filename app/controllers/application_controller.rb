@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate, except: %i[page_not_found]
   before_action :check_email_confirmation, except: %i[page_not_found]
+  before_action :check_email_ban, except: %i[page_not_found]
 
   rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
   rescue_from InvalidInputParamsError, with: :invalid_params

@@ -19,11 +19,17 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :not_confirmed, -> { where(confirmed_at: nil) }
+  scope :banned, -> { where.not(banned_at: nil) }
+  scope :not_banned, -> { where(banned_at: nil) }
 
   enum role: { regular: 0, admin: 1 }
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def banned?
+    banned_at.present?
   end
 
   def restoreable?

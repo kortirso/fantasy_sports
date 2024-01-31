@@ -261,6 +261,38 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: banned_emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.banned_emails (
+    id bigint NOT NULL,
+    value character varying,
+    reason character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: banned_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.banned_emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: banned_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.banned_emails_id_seq OWNED BY public.banned_emails.id;
+
+
+--
 -- Name: cups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1488,7 +1520,8 @@ CREATE TABLE public.users (
     confirmed_at timestamp(6) without time zone,
     restore_token character varying,
     locale character varying DEFAULT 'en'::character varying NOT NULL,
-    reset_password_sent_at timestamp(6) without time zone
+    reset_password_sent_at timestamp(6) without time zone,
+    banned_at timestamp(6) without time zone
 );
 
 
@@ -1576,6 +1609,13 @@ CREATE SEQUENCE public.weeks_id_seq
 --
 
 ALTER SEQUENCE public.weeks_id_seq OWNED BY public.weeks.id;
+
+
+--
+-- Name: banned_emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.banned_emails ALTER COLUMN id SET DEFAULT nextval('public.banned_emails_id_seq'::regclass);
 
 
 --
@@ -1829,6 +1869,14 @@ ALTER TABLE ONLY public.weeks ALTER COLUMN id SET DEFAULT nextval('public.weeks_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: banned_emails banned_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.banned_emails
+    ADD CONSTRAINT banned_emails_pkey PRIMARY KEY (id);
 
 
 --
@@ -2154,6 +2202,13 @@ CREATE UNIQUE INDEX idx_on_fantasy_team_id_players_season_id_46f81fc3f4 ON publi
 --
 
 CREATE UNIQUE INDEX idx_on_notifyable_id_notifyable_type_notification_t_a2f7d79115 ON public.notifications USING btree (notifyable_id, notifyable_type, notification_type, target);
+
+
+--
+-- Name: index_banned_emails_on_value; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_banned_emails_on_value ON public.banned_emails USING btree (value);
 
 
 --
@@ -2544,6 +2599,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240131085828'),
 ('20240131082218'),
 ('20231229085758'),
 ('20231218114627'),

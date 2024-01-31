@@ -1,0 +1,26 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.banned_emails.index.header') %></h1>
+  <%= link_to t('views.admin.banned_emails.index.new_banned_email'), new_admin_banned_email_path, class: 'btn-primary' %>
+</div>
+<table class="table mb-4" cell-spacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.banned_emails.index.value') %></th>
+      <th><%= t('views.admin.banned_emails.index.reason') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @banned_emails.each do |banned_email| %>
+      <tr>
+        <td><%= banned_email.id %></td>
+        <td><%= banned_email.value %></td>
+        <td><%= banned_email.reason %></td>
+        <td>
+          <%= button_to 'X', admin_banned_email_path(banned_email.id), class: 'btn-primary btn-small', method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

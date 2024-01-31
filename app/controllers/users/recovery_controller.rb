@@ -5,7 +5,6 @@ module Users
     include Deps[update_form: 'forms.users.update']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_user
     before_action :check_recovery_token
 
@@ -26,7 +25,7 @@ module Users
     end
 
     def find_user
-      @user = User.find_by(email: params[:email]&.strip&.downcase)
+      @user = User.not_banned.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_recovery

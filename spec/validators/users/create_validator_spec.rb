@@ -33,5 +33,13 @@ describe Users::CreateValidator, type: :service do
     it 'result does not contain errors' do
       expect(validator_call.empty?).to be_truthy
     end
+
+    context 'for banned email' do
+      before { create :banned_email, value: '1@gmail.com' }
+
+      it 'result contains error' do
+        expect(validator_call.first).to eq('Email is banned')
+      end
+    end
   end
 end

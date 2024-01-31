@@ -5,7 +5,6 @@ module Users
     include Deps[update_service: 'services.persisters.users.update']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_user
     before_action :check_confirmation_token
 
@@ -18,7 +17,7 @@ module Users
     private
 
     def find_user
-      @user = User.not_confirmed.find_by(email: params[:email]&.strip&.downcase)
+      @user = User.not_confirmed.not_banned.find_by(email: params[:email]&.strip&.downcase)
       return if @user.present?
 
       failed_complete_confirmation

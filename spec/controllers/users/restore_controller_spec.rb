@@ -36,6 +36,19 @@ describe Users::RestoreController do
         end
       end
 
+      context 'for not banned user' do
+        before { user.update!(banned_at: DateTime.now) }
+
+        it 'does not call restore service', :aggregate_failures do
+          post :create, params: { email: user.email, locale: 'en' }
+
+          expect(FantasySports::Container.resolve('services.users.restore')).not_to(
+            have_received(:call)
+          )
+          expect(response).to redirect_to users_restore_path
+        end
+      end
+
       context 'for not restoreable user' do
         before { user.update!(reset_password_sent_at: 1.minute.ago) }
 

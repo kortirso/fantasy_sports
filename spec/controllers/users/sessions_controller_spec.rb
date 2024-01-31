@@ -61,6 +61,16 @@ describe Users::SessionsController do
 
           expect(response).to redirect_to home_path
         end
+
+        context 'for banned user' do
+          before { user.update!(banned_at: DateTime.now) }
+
+          it 'renders new template' do
+            post :create, params: { user: { email: user.email.upcase, password: user.password }, locale: 'en' }
+
+            expect(response).to redirect_to users_login_path
+          end
+        end
       end
     end
   end

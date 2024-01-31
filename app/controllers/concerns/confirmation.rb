@@ -10,4 +10,10 @@ module Confirmation
 
     redirect_to users_confirm_path, alert: t('controllers.confirmation.permission')
   end
+
+  def check_email_ban
+    return if Current.user.nil? || !Current.user.banned?
+
+    redirect_to root_path, alert: t('controllers.confirmation.ban')
+  end
 end

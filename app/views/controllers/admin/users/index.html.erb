@@ -1,0 +1,23 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.users.index.header') %></h1>
+</div>
+<table class="table mb-4" cell-spacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.users.index.email') %></th>
+      <th><%= t('views.admin.users.index.confirmed') %></th>
+      <th><%= t('views.admin.users.index.banned') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.confirmed? %></td>
+        <td><%= user.banned? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

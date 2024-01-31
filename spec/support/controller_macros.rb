@@ -24,4 +24,12 @@ module ControllerMacros
         FantasySports::Container['services.auth.generate_token'].call(user: @current_user)[:result]
     end
   end
+
+  def sign_in_banned_user
+    before do
+      @current_user = create :user, :banned
+      @request.cookies[:fantasy_sports_token] =
+        FantasySports::Container['services.auth.generate_token'].call(user: @current_user)[:result]
+    end
+  end
 end

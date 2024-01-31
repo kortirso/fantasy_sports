@@ -4,6 +4,7 @@ describe Api::Frontend::FantasyTeamsController do
   describe 'DELETE#destroy' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'
+    it_behaves_like 'required available email'
 
     context 'for logged users' do
       let!(:fantasy_team) { create :fantasy_team }

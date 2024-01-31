@@ -14,6 +14,8 @@ module Users
       unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
         key.failure(:invalid)
       end
+
+      key.failure(I18n.t('dry_validation.errors.user.banned')) if BannedEmail.exists?(value: value)
     end
 
     rule(:password, :password_confirmation) do
