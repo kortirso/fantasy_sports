@@ -129,19 +129,43 @@ describe Admin::Seasons::GamesController do
       context 'for valid params' do
         let!(:seasons_team1) { create :seasons_team, season: season }
         let!(:seasons_team2) { create :seasons_team, season: season }
-        let(:request) {
-          post :create, params: {
-            season_id: season.uuid,
-            game: {
-              week_id: week.id, home_season_team_id: seasons_team1.id, visitor_season_team_id: seasons_team2.id
-            },
-            locale: 'en'
-          }
-        }
 
-        it 'creates game', :aggregate_failures do
-          expect { request }.to change(season.games, :count).by(1)
-          expect(response).to redirect_to admin_season_games_path
+        context 'with start time' do
+          let(:request) {
+            post :create, params: {
+              season_id: season.uuid,
+              game: {
+                week_id: week.id,
+                home_season_team_id: seasons_team1.id,
+                visitor_season_team_id: seasons_team2.id,
+                start_at: '2024-01-31 12:51'
+              },
+              locale: 'en'
+            }
+          }
+
+          it 'creates game', :aggregate_failures do
+            expect { request }.to change(season.games, :count).by(1)
+            expect(Game.last.start_at.strftime('%Y-%m-%d %H:%M')).to eq '2024-01-31 12:51'
+            expect(response).to redirect_to admin_season_games_path
+          end
+        end
+
+        context 'with week' do
+          let(:request) {
+            post :create, params: {
+              season_id: season.uuid,
+              game: {
+                week_id: week.id, home_season_team_id: seasons_team1.id, visitor_season_team_id: seasons_team2.id
+              },
+              locale: 'en'
+            }
+          }
+
+          it 'creates game', :aggregate_failures do
+            expect { request }.to change(season.games, :count).by(1)
+            expect(response).to redirect_to admin_season_games_path
+          end
         end
       end
     end
@@ -197,6 +221,17 @@ describe Admin::Seasons::GamesController do
 
           expect(game.reload.week_id).to eq week.id
           expect(response).to redirect_to edit_admin_season_game_path
+        end
+      end
+
+      context 'for empty week' do
+        it 'updates game', :aggregate_failures do
+          patch :update, params: {
+            season_id: season.uuid, id: game.uuid, game: { week_id: '' }, locale: 'en'
+          }
+
+          expect(game.reload.week_id).to be_nil
+          expect(response).to redirect_to admin_season_games_path
         end
       end
 

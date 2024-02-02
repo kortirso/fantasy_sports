@@ -7,7 +7,7 @@ nba2024 = nba.seasons.create(
   active: true,
   start_at: DateTime.new(2023, 10, 16, 0, 0, 0),
   members_count: 30,
-  Sourceable::SPORTS
+  main_external_source: Sourceable::SPORTS
 )
 
 overall_fantasy_nba_league = nba2024.all_fantasy_leagues.create leagueable: nba2024, name: 'Overall', global: true
@@ -171,6 +171,7 @@ games_rows.each do |row|
   result = FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: active_week.id,
+      season_id: active_week.season_id,
       home_season_team_id: seasons_teams[row[2]],
       visitor_season_team_id: seasons_teams[row[3]],
       start_at: game_time

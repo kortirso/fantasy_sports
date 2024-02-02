@@ -6,6 +6,10 @@
       <%= form.select :week_id, @weeks, class: 'form-value' %>
     </div>
     <div class="form-field">
+      <%= form.label :start_at, t('views.admin.seasons.games.index.start_at'), class: 'form-label' %>
+      <%= form.text_field :start_at, placeholder: '2024-01-31 12:13', class: 'form-value' %>
+    </div>
+    <div class="form-field">
       <%= form.label :home_season_team_id, t('views.admin.seasons.games.index.home_season_team'), class: 'form-label' %>
       <%= form.select :home_season_team_id, @season_teams.map { |season_team| [localized_value(season_team.team.name), season_team.id] }, class: 'form-value' %>
     </div>

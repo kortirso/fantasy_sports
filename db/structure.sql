@@ -708,7 +708,7 @@ ALTER SEQUENCE public.feedbacks_id_seq OWNED BY public.feedbacks.id;
 
 CREATE TABLE public.games (
     id bigint NOT NULL,
-    week_id bigint NOT NULL,
+    week_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     home_season_team_id bigint NOT NULL,
@@ -718,7 +718,8 @@ CREATE TABLE public.games (
     start_at timestamp(6) without time zone,
     uuid uuid DEFAULT gen_random_uuid() NOT NULL,
     points integer[] DEFAULT '{}'::integer[] NOT NULL,
-    difficulty integer[] DEFAULT '{3,3}'::integer[] NOT NULL
+    difficulty integer[] DEFAULT '{3,3}'::integer[] NOT NULL,
+    season_id bigint
 );
 
 
@@ -2359,6 +2360,13 @@ CREATE INDEX index_games_external_sources_on_game_id ON public.games_external_so
 
 
 --
+-- Name: index_games_on_season_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_games_on_season_id ON public.games USING btree (season_id);
+
+
+--
 -- Name: index_games_on_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2599,6 +2607,8 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240202104609'),
+('20240202102420'),
 ('20240131085828'),
 ('20240131082218'),
 ('20231229085758'),
