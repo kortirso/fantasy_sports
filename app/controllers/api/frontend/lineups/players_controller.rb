@@ -22,12 +22,14 @@ module Api
 
         def lineup_players
           Rails.cache.fetch(
-            ['api_frontend_lineups_players_show_v1', @lineup.id, @lineup.updated_at, params[:fields]],
+            ['api_frontend_lineups_players_show_v2', @lineup.id, @lineup.updated_at, params[:fields]],
             expires_in: 12.hours,
             race_condition_ttl: 10.seconds
           ) do
             ::Lineups::PlayerSerializer.new(
-              @lineup.lineups_players.includes(teams_player: [:players_season, :player, { seasons_team: :team }]),
+              @lineup
+                .lineups_players
+                .includes(:lineup, teams_player: [:players_season, :player, { seasons_team: :team }]),
               params: {
                 injuries: injuries,
                 games_players: games_players,
@@ -64,7 +66,7 @@ module Api
               .find_by(weeks: { season_id: @lineup.week.season_id, position: @lineup.week.position - 1 })
           return unless lineup
 
-          lineup.lineups_players.hashable_pluck(:id, :points, :status)
+          lineup.lineups_players.hashable_pluck(:teams_player_id, :points, :status)
         end
 
         def teams_players_ids
