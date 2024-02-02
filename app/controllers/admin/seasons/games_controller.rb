@@ -22,6 +22,8 @@ module Admin
       def edit; end
 
       def create
+        # commento: games.week_id, games.home_season_team_id,
+        # commento: games.season_id, games.visitor_season_team_id, games.start_at
         case create_form.call(params: game_create_params.to_h.symbolize_keys)
         in { errors: errors } then redirect_to new_admin_season_game_path(@season.uuid), alert: errors
         else
@@ -30,6 +32,7 @@ module Admin
       end
 
       def update
+        # commento: games.week_id, games.start_at
         case update_form.call(game: @game, params: game_update_params.to_h.symbolize_keys)
         in { errors: errors } then redirect_to edit_admin_season_game_path(@season.uuid, @game.uuid), alert: errors
         else
@@ -69,7 +72,8 @@ module Admin
           .to_h
           .merge(
             start_at: params[:game][:start_at].present? ? DateTime.parse(params[:game][:start_at]) : nil,
-            week_id: params[:game][:week_id].presence
+            week_id: params[:game][:week_id].presence,
+            season_id: @season.id
           )
       end
       # rubocop: enable Metrics/AbcSize

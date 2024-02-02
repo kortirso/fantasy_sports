@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - BannedEmail model for saving banned emails
 - disabling access for banned users
 - editing game start_at for admins
+- editing week deadline_at for admins
 
 ### Modified
 - saving games without week

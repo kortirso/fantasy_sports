@@ -6,7 +6,7 @@
       <%= form.select :week_id, @weeks, class: 'form-value', include_blank: true %>
     </div>
     <div class="form-field">
-      <%= form.label :start_at, t('views.admin.seasons.games.index.start_at'), class: 'form-label' %>
+      <%= form.label :start_at, t('views.admin.seasons.games.index.start_time'), class: 'form-label' %>
       <%= form.text_field :start_at, value: @game.start_at.strftime('%Y-%m-%d %H:%M'), placeholder: '2024-01-31 12:13', class: 'form-value' %>
     </div>
     <%= form.submit t('views.admin.seasons.games.new.save'), class: 'btn-primary' %>

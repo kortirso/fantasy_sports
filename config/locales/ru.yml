@@ -37,6 +37,9 @@ ru:
           achievements: Достижения
   controllers:
     admin:
+      weeks:
+        update:
+          success: Неделя обновлена
       leagues:
         create:
           success: Лига создана
@@ -128,6 +131,15 @@ ru:
         wildcard_active: Джокер активен
   views:
     admin:
+      weeks:
+        index:
+          header: Игровые недели
+          position: Порядковый номер
+          deadline_time: Дедлайн
+          edit: Изменить
+        edit:
+          title: Редактирование недели
+          save: Сохранить
       users:
         index:
           header: Пользователи
@@ -188,6 +200,7 @@ ru:
           teams_players: Игроки команд
           seasons_teams: Команды
           seasons_injuries: Травмы
+          weeks: Игровые недели
         new:
           name: Название
           active: Активность

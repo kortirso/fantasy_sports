@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         resources :injuries, only: %i[index new create edit update destroy]
       end
     end
+    resources :weeks, only: %i[index edit update]
   end
 
   namespace :api do
