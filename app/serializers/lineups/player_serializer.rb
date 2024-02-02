@@ -53,7 +53,7 @@ module Lineups
     end
 
     attribute :last_points, if: proc { |_, params| params[:last_points] } do |object, params|
-      result = params[:last_points].find { |element| element[:id] == object.id }
+      result = params[:last_points].find { |element| element[:teams_player_id] == object.id }
 
       result&.slice(:points, :status)
     end

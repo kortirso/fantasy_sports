@@ -49,7 +49,12 @@ describe Api::Frontend::Lineups::PlayersController do
 
       context 'for existing lineup of user' do
         let!(:fantasy_team) { create :fantasy_team, user: @current_user }
-        let!(:lineup) { create :lineup, fantasy_team: fantasy_team }
+        let!(:season) { create :season }
+        let!(:week1) { create :week, position: 1, season: season }
+        let!(:week2) { create :week, position: 2, season: season }
+        let!(:teams_player) { create :teams_player }
+        let!(:lineup) { create :lineup, fantasy_team: fantasy_team, week: week2 }
+        let!(:lineup2) { create :lineup, fantasy_team: fantasy_team, week: week1 }
 
         context 'without additional fields' do
           before { create :lineups_player, lineup: lineup }
@@ -68,7 +73,7 @@ describe Api::Frontend::Lineups::PlayersController do
           before { create :lineups_player, lineup: lineup }
 
           it 'returns status 200', :aggregate_failures do
-            get :show, params: { lineup_id: lineup.uuid, fields: 'week_statistic' }
+            get :show, params: { lineup_id: lineup.uuid, fields: 'week_statistic,last_points' }
 
             expect(response).to have_http_status :ok
             %w[uuid change_order points player team teams_player week_statistic].each do |attr|
@@ -78,13 +83,16 @@ describe Api::Frontend::Lineups::PlayersController do
         end
 
         context 'with fixtures additional field' do
-          before { create :lineups_player, lineup: lineup }
+          before do
+            create :lineups_player, lineup: lineup, teams_player: teams_player, points: 2
+            create :lineups_player, lineup: lineup2, teams_player: teams_player, points: 1
+          end
 
           it 'returns status 200', :aggregate_failures do
-            get :show, params: { lineup_id: lineup.uuid, fields: 'fixtures' }
+            get :show, params: { lineup_id: lineup.uuid, fields: 'fixtures,last_points' }
 
             expect(response).to have_http_status :ok
-            %w[uuid change_order points player team teams_player fixtures].each do |attr|
+            %w[uuid change_order points player team teams_player fixtures last_points].each do |attr|
               expect(response.body).to have_json_path("lineup_players/data/0/attributes/#{attr}")
             end
           end

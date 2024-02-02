@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - saving games without week
 
+### Fixed
+- rendering last points for list view at squad page
+
 ## [1.1.5] - 2023-12-29
 ### Added
 - table view for squad views
