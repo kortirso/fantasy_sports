@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - disabling access for banned users
 - editing game start_at for admins
 - editing week deadline_at for admins
+- basis for E2E tests with Cypress
 
 ### Modified
 - saving games without week
