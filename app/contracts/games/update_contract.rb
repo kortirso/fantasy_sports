@@ -5,7 +5,8 @@ module Games
     config.messages.namespace = :game
 
     params do
-      required(:week_id).filled(:integer)
+      optional(:week_id)
+      optional(:start_at)
     end
   end
 end

@@ -8,6 +8,7 @@ module Users
     ]
 
     skip_before_action :authenticate
+    skip_before_action :check_email_confirmation
 
     def new
       @user = User.new

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - hour limit for re-restoring password
 - BannedEmail model for saving banned emails
 - disabling access for banned users
+- editing game start_at for admins
+
+### Modified
+- saving games without week
 
 ## [1.1.5] - 2023-12-29
 ### Added

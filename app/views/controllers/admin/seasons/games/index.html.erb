@@ -18,7 +18,7 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.id %></td>
-        <td><%= game.week.position %></td>
+        <td><%= game.week&.position %></td>
         <td><%= localized_value(game.home_season_team.team.name) %></td>
         <td><%= localized_value(game.visitor_season_team.team.name) %></td>
         <td><%= game.points.join('-') %></td>

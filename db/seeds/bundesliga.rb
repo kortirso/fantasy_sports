@@ -113,6 +113,7 @@ games_rows.each do |row|
   result = FantasySports::Container['forms.games.create'].call(
     params: {
       week_id: weeks_positions[row[2].to_i],
+      season_id: Week.find(weeks_positions[row[2].to_i]).season_id,
       home_season_team_id: seasons_teams[row[3]],
       visitor_season_team_id: seasons_teams[row[4]],
       start_at: DateTime.parse(row[1])

@@ -8,6 +8,7 @@ module Games
       required(:home_season_team_id).filled(:integer)
       required(:visitor_season_team_id).filled(:integer)
       required(:week_id).filled(:integer)
+      optional(:start_at)
     end
 
     rule(:home_season_team_id, :visitor_season_team_id) do

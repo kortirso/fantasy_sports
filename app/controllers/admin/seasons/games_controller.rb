@@ -61,12 +61,24 @@ module Admin
         @season_teams = @season.seasons_teams.includes(:team)
       end
 
+      # rubocop: disable Metrics/AbcSize
       def game_create_params
-        params.require(:game).permit(:week_id, :home_season_team_id, :visitor_season_team_id)
+        params
+          .require(:game)
+          .permit(:home_season_team_id, :visitor_season_team_id)
+          .to_h
+          .merge(
+            start_at: params[:game][:start_at].present? ? DateTime.parse(params[:game][:start_at]) : nil,
+            week_id: params[:game][:week_id].presence
+          )
       end
+      # rubocop: enable Metrics/AbcSize
 
       def game_update_params
-        params.require(:game).permit(:week_id)
+        {
+          start_at: params[:game][:start_at].present? ? DateTime.parse(params[:game][:start_at]) : nil,
+          week_id: params[:game][:week_id].presence
+        }
       end
     end
   end
