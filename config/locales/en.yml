@@ -37,6 +37,9 @@ en:
           achievements: Achievements
   controllers:
     admin:
+      weeks:
+        update:
+          success: Week is updated
       leagues:
         create:
           success: League is created
@@ -128,6 +131,15 @@ en:
         wildcard_active: Wildcard is active
   views:
     admin:
+      weeks:
+        index:
+          header: Weeks
+          position: Position
+          deadline_time: Deadline time
+          edit: Edit
+        edit:
+          title: Editing week
+          save: Save
       users:
         index:
           header: Users
@@ -188,6 +200,7 @@ en:
           teams_players: Teams players
           seasons_teams: Teams
           seasons_injuries: Injuries
+          weeks: Weeks
         new:
           name: Name
           active: Active

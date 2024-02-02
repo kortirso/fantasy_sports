@@ -1,0 +1,10 @@
+<h1><%= t('views.admin.weeks.edit.title') %></h1>
+<section>
+  <%= form_with model: @week, url: admin_week_path(@week.id), method: :patch do |form| %>
+    <div class="form-field">
+      <%= form.label :deadline_at, t('views.admin.weeks.index.deadline_time'), class: 'form-label' %>
+      <%= form.text_field :deadline_at, value: @week.deadline_at.strftime('%Y-%m-%d %H:%M'), placeholder: '2024-01-31 12:13', class: 'form-value' %>
+    </div>
+    <%= form.submit t('views.admin.weeks.edit.save'), class: 'btn-primary' %>
+  <% end %>
+</section>

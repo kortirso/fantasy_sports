@@ -1,0 +1,25 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.weeks.index.header') %></h1>
+</div>
+<table class="table" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.weeks.index.position') %></th>
+      <th><%= t('views.admin.weeks.index.deadline_time') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @weeks.each do |week| %>
+      <tr>
+        <td><%= week.id %></td>
+        <td><%= week.position %></td>
+        <td><%= week.deadline_at.strftime('%Y-%m-%d %H:%M') %></td>
+        <td>
+          <%= link_to t('views.admin.weeks.index.edit'), edit_admin_week_path(week.id), class: 'btn-primary btn-small' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

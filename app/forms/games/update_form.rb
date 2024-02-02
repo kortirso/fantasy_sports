@@ -14,7 +14,6 @@ module Games
 
       ActiveRecord::Base.transaction do
         game.games_players.destroy_all if new_week.nil? || new_week.status == Week::INACTIVE
-        # commento: games.week_id, games.start_at
         game.update!(params)
       end
 

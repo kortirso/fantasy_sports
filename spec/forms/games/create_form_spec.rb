@@ -7,6 +7,7 @@ describe Games::CreateForm, type: :service do
   let(:params) {
     {
       week_id: week.id,
+      season_id: week.season_id,
       home_season_team_id: season_team1.id,
       visitor_season_team_id: season_team2.id
     }
