@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Modified
 - saving games without week
+- rendering championships data
 
 ### Fixed
 - rendering last points for list view at squad page

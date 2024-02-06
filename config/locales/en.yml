@@ -26,7 +26,7 @@ en:
           logout: Logout
           change_locale: Change locale
         fantasy_team_navigation_component:
-          home: Home
+          home: Championships
           team: Team squad
           transfers: Transfers
           points: Points

@@ -1,15 +1,61 @@
 <% if @fantasy_team %>
   <% if @fantasy_team[:completed] %>
     <%= link_to fantasy_team_points_path(@fantasy_team[:uuid]), class: 'season-link' do %>
-      <%= content %>
+      <%= image_tag league_background(@season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
+      <div class="text-center py-1 bg-amber-200 border-t border-amber-300 font-semibold">
+        <%= @fantasy_team[:name] %>
+      </div>
+      <% if @deadline %>
+        <div class="badge-light badge-small absolute right-2 top-2">
+          <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+        </div>
+      <% end %>
+      <% if @lineup %>
+        <div class="badge-light badge-small absolute right-2 bottom-10">
+          <% if @lineup[:final_points] %>
+            <span>Week final points <%= @lineup[:points] %></span>
+          <% else %>
+            <span>Week points <%= @lineup[:points] %></span>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="badge-light badge-small absolute right-2 bottom-10">
+          <span>No active week</span>
+        </div>
+      <% end %>
+      <div class="season-link-content">
+        <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
+      </div>
     <% end %>
   <% else %>
     <%= link_to fantasy_team_transfers_path(@fantasy_team[:uuid]), class: 'season-link' do %>
-      <%= content %>
+      <%= image_tag league_background(@season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
+      <div class="text-center py-1 border-t border-stone-300 font-semibold">
+        Make transfers
+      </div>
+      <% if @deadline %>
+        <div class="badge-light badge-small absolute right-2 top-2">
+          <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+        </div>
+      <% end %>
+      <div class="season-link-content">
+        <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
+      </div>
     <% end %>
   <% end %>
 <% else %>
-  <%= button_to fantasy_teams_path(season_id: @season_uuid), class: 'season-link inline-block w-full' do %>
-    <%= content %>
+  <%= button_to fantasy_teams_path(season_id: @season[:uuid]), class: 'season-link inline-block w-full' do %>
+    <%= image_tag league_background(@season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
+    <div class="text-center py-1 border-t border-stone-300">
+      <strong>Join league</strong> (<%= @overall_league[:fantasy_leagues_teams_count] %> members)
+    </div>
+    <% if @deadline %>
+      <div class="badge-light badge-small absolute right-2 top-2">
+        <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+      </div>
+    <% end %>
+    <div class="season-link-content">
+      <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
+    </div>
   <% end %>
 <% end %>

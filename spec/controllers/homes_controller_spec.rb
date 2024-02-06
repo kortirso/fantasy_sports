@@ -9,6 +9,14 @@ describe HomesController do
     context 'for logged users' do
       sign_in_user
 
+      before do
+        season = create :season, active: true
+        create :fantasy_league, season: season, leagueable: season, name: 'Overall'
+        fantasy_team = create :fantasy_team, season: season, user: @current_user
+        week = create :week, status: Week::ACTIVE
+        create :lineup, week: week, fantasy_team: fantasy_team
+      end
+
       it 'renders show template' do
         do_request
 

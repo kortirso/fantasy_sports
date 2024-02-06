@@ -26,7 +26,7 @@ ru:
           logout: Выход
           change_locale: Изменить локаль
         fantasy_team_navigation_component:
-          home: Главная
+          home: Чемпионаты
           team: Состав команды
           transfers: Трансферы
           points: Результаты

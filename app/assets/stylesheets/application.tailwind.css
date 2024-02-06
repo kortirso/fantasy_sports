@@ -313,7 +313,7 @@
   }
 
   .season-link {
-    @apply relative h-40;
+    @apply relative;
   }
 
   .season-link .season-link-background {
@@ -346,6 +346,10 @@
 
   .badge-danger {
     @apply badge bg-orange-700 border border-orange-800 text-white;
+  }
+
+  .badge-small {
+    @apply px-1 py-0.5 text-xs;
   }
 
   .modal {
