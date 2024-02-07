@@ -7,20 +7,20 @@
       </div>
       <% if @deadline %>
         <div class="badge-light badge-small absolute right-2 top-2">
-          <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+          <span><%= t('components.views.homes.show.fantasy_team_link_component.deadline', time: @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M')) %></span>
         </div>
       <% end %>
       <% if @lineup %>
         <div class="badge-light badge-small absolute right-2 bottom-10">
           <% if @lineup[:final_points] %>
-            <span>Week final points <%= @lineup[:points] %></span>
+            <span><%= t('components.views.homes.show.fantasy_team_link_component.week_final_points', value: @lineup[:points]) %></span>
           <% else %>
-            <span>Week points <%= @lineup[:points] %></span>
+            <span><%= t('components.views.homes.show.fantasy_team_link_component.week_points', value: @lineup[:points]) %></span>
           <% end %>
         </div>
       <% else %>
         <div class="badge-light badge-small absolute right-2 bottom-10">
-          <span>No active week</span>
+          <span><%= t('components.views.homes.show.fantasy_team_link_component.no_active') %></span>
         </div>
       <% end %>
       <div class="season-link-content">
@@ -31,11 +31,11 @@
     <%= link_to fantasy_team_transfers_path(@fantasy_team[:uuid]), class: 'season-link' do %>
       <%= image_tag league_background(@season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
       <div class="text-center py-1 border-t border-stone-300 font-semibold">
-        Make transfers
+        <%= t('components.views.homes.show.fantasy_team_link_component.transfers') %>
       </div>
       <% if @deadline %>
         <div class="badge-light badge-small absolute right-2 top-2">
-          <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+          <span><%= t('components.views.homes.show.fantasy_team_link_component.deadline', time: @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M')) %></span>
         </div>
       <% end %>
       <div class="season-link-content">
@@ -47,11 +47,11 @@
   <%= button_to fantasy_teams_path(season_id: @season[:uuid]), class: 'season-link inline-block w-full' do %>
     <%= image_tag league_background(@season[:leagues_name]['en']), alt: 'league-background', class: 'season-link-background' %>
     <div class="text-center py-1 border-t border-stone-300">
-      <strong>Join league</strong> (<%= @overall_league[:fantasy_leagues_teams_count] %> members)
+      <strong><%= t('components.views.homes.show.fantasy_team_link_component.join') %></strong> <%= t('components.views.homes.show.fantasy_team_link_component.members', count: @overall_league[:fantasy_leagues_teams_count]) %>
     </div>
     <% if @deadline %>
       <div class="badge-light badge-small absolute right-2 top-2">
-        <span>Next week starts at <%= @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M') %></span>
+        <span><%= t('components.views.homes.show.fantasy_team_link_component.deadline', time: @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M')) %></span>
       </div>
     <% end %>
     <div class="season-link-content">

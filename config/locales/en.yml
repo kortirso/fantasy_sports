@@ -21,6 +21,16 @@ en:
       page_component:
         logout: Logout
     views:
+      homes:
+        show:
+          fantasy_team_link_component:
+            week_points: Week points %{value}
+            week_final_points: Week final points %{value}
+            deadline: Next week starts at %{time} UTC
+            no_active: No active week
+            transfers: Make transfers
+            join: Join league
+            members: "(%{count} members)"
       shared:
         navigation_component:
           logout: Logout

@@ -21,6 +21,16 @@ ru:
       page_component:
         logout: Выход
     views:
+      homes:
+        show:
+          fantasy_team_link_component:
+            week_points: Заработано очков %{value}
+            week_final_points: Всего очков %{value}
+            deadline: Дедлайн в %{time} UTC
+            no_active: Нет активной недели
+            transfers: Трансферы
+            join: Присоединиться
+            members: "(участников - %{count})"
       shared:
         navigation_component:
           logout: Выход
