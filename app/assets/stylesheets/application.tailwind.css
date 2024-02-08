@@ -313,22 +313,14 @@
   }
 
   .season-link {
-    @apply relative;
+    @apply relative pt-4;
   }
 
-  .season-link .season-link-background {
-    @apply w-full h-40 object-contain;
+  .season-link-background {
+    @apply w-full h-40 object-contain mb-4;
   }
 
-  .season-link-content {
-    @apply absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-center items-center text-black text-center;
-  }
-
-  .season-link-content h2 {
-    @apply m-0 font-semibold hyphens-none;
-  }
-
-  .season-link .season-link-sport {
+  .season-link-sport {
     @apply absolute top-2 left-2 w-8 h-8;
   }
 
