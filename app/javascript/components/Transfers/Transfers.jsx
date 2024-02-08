@@ -98,13 +98,11 @@ export const Transfers = ({
     sortBy: 'points',
     page: 0,
     search: '',
-    openDropdown: null,
     onlyWatched: false
   });
 
   const [teamState, setTeamState] = useState({
     uuid: null,
-    openDropdown: false
   })
 
   // fields for initial squad
@@ -489,10 +487,7 @@ export const Transfers = ({
                   result[key] = localizeValue(values.name);
                   return result;
                 }, {})}
-                isOpen={teamState.openDropdown}
-                onOpen={() => setTeamState({ ...teamState, openDropdown: true })}
-                onClose={() => setTeamState({ ...teamState, openDropdown: false })}
-                onSelect={(value) => setTeamState({ ...teamState, uuid: value, openDropdown: false })}
+                onSelect={(value) => setTeamState({ ...teamState, uuid: value })}
                 selectedValue={teamState.uuid}
                 placeholder={strings.transfers.selectFavouriteTeam}
               />
@@ -641,10 +636,7 @@ export const Transfers = ({
                 },
                 { all: strings.transfers.allPlayers },
               )}
-              isOpen={filterState.openDropdown === 'position'}
-              onOpen={() => setFilterState({ ...filterState, openDropdown: 'position' })}
-              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
-              onSelect={(value) => setFilterState({ ...filterState, position: value, page: 0, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, position: value, page: 0 })}
               selectedValue={filterState.position}
             />
             <Dropdown
@@ -656,19 +648,13 @@ export const Transfers = ({
                 },
                 { all: strings.transfers.allTeams },
               )}
-              isOpen={filterState.openDropdown === 'team'}
-              onOpen={() => setFilterState({ ...filterState, openDropdown: 'team' })}
-              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
-              onSelect={(value) => setFilterState({ ...filterState, team: value, page: 0, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, team: value, page: 0 })}
               selectedValue={filterState.team}
             />
             <Dropdown
               title={strings.transfers.sort}
               items={pageState.sortItems}
-              isOpen={filterState.openDropdown === 'sortBy'}
-              onOpen={() => setFilterState({ ...filterState, openDropdown: 'sortBy' })}
-              onClose={() => setFilterState({ ...filterState, openDropdown: null })}
-              onSelect={(value) => setFilterState({ ...filterState, sortBy: value, page: 0, openDropdown: null })}
+              onSelect={(value) => setFilterState({ ...filterState, sortBy: value, page: 0 })}
               selectedValue={filterState.sortBy}
             />
             <div className="form-field mb-4">

@@ -103,7 +103,19 @@
     min-height: 42px;
   }
 
-  .form-dropdown {
+  .dropdown .dropdown-content {
+    @apply hidden;
+  }
+
+  .dropdown-toggle-icon {
+    @apply transition-transform rotate-0;
+  }
+
+  .dropdown.opened .dropdown-toggle-icon {
+    @apply rotate-180;
+  }
+
+  .dropdown.opened .dropdown-content {
     @apply block absolute z-10 left-0 w-full border border-stone-200 rounded-sm max-h-72 overflow-x-scroll;
 
     top: 42px;

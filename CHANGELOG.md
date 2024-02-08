@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Modified
 - navigation styles for better mobile
+- closing dropdowns after outside click
 
 ## [1.1.6] - 2024-02-06
 ### Added
