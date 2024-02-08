@@ -53,7 +53,7 @@
   }
 
   .user-navigation-link {
-    @apply flex flex-row items-center p-2 pl-2 lg:pl-4 text-white;
+    @apply flex flex-row items-center p-2 pl-4 text-white;
   }
 
   .user-navigation-link img {
@@ -425,5 +425,9 @@
 
   .player-info-alert {
     @apply player-info bg-orange-700 hover:bg-orange-800 border border-orange-800 text-white;
+  }
+
+  .navigation-menu:not(.hidden) {
+    @apply absolute w-full z-10 bg-stone-700 top-14;
   }
 }

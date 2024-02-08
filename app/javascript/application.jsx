@@ -50,4 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
   });
+
+  // mobile navigation toggle
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', () => {
+      document.querySelector('.navigation-menu').classList.toggle('hidden');
+    });
+  };
 });
