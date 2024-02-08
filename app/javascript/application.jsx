@@ -58,4 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.navigation-menu').classList.toggle('hidden');
     });
   };
+
+  // Clicking outside of an open dropdown menu closes it
+  window.addEventListener('click', function (e) {
+    if (!e.target.matches('.dropdown-toggle')) {
+      document.querySelectorAll('.dropdown.opened').forEach((form) => {
+        if (!form.contains(e.target)) {
+          form.classList.remove('opened')
+        }
+      })
+    }
+  })
 });
