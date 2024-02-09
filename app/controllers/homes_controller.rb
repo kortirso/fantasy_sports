@@ -14,7 +14,7 @@ class HomesController < ApplicationController
 
   def find_seasons
     @seasons =
-      Rails.cache.fetch('homes_show_seasons_v1', expires_in: 24.hours, race_condition_ttl: 10.seconds) do
+      Rails.cache.fetch('homes_show_seasons_v2', expires_in: 4.hours, race_condition_ttl: 10.seconds) do
         Season.active.or(Season.coming)
           .joins(:league)
           .hashable_pluck(:id, :uuid, :start_at, :name, :updated_at, 'leagues.name', 'leagues.sport_kind')
