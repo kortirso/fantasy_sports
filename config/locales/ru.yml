@@ -81,6 +81,7 @@ ru:
     users:
       registrations:
         success_create: Вы зарегистрированы
+        failed_recaptcha: Провалена проверка reCaptcha
       sessions:
         success_create: Вы вошли
         success_destroy: Вы вышли

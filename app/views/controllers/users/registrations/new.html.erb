@@ -21,6 +21,9 @@
         <%= t('views.users.registrations.new.have_account') %>
         <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'underline text-blue-600' %>
       </div>
+      <div class="form-field">
+        <%= recaptcha_tags %>
+      </div>
       <%= form.submit t('views.users.registrations.new.create'), class: 'btn-primary' %>
     <% end %>
   </div>

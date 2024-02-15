@@ -81,6 +81,7 @@ en:
     users:
       registrations:
         success_create: You are signed up
+        failed_recaptcha: Failed reCaptcha validation
       sessions:
         success_create: You are logged in
         success_destroy: You are logged out
