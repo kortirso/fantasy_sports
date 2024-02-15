@@ -9,6 +9,7 @@ module Users
 
     skip_before_action :authenticate
     skip_before_action :check_email_confirmation
+    before_action :check_recaptcha, only: %i[create]
 
     def new
       @user = User.new
@@ -24,6 +25,10 @@ module Users
     def confirm; end
 
     private
+
+    def check_recaptcha
+      failed_create_response([t('controllers.users.registrations.failed_recaptcha')]) unless verify_recaptcha
+    end
 
     def success_create_response(user)
       cookies[:fantasy_sports_token] = {
