@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class SeasonsController < AdminController
+  class SeasonsController < Admin::BaseController
     include Deps[
       create_form: 'forms.seasons.create',
       to_bool: 'to_bool'

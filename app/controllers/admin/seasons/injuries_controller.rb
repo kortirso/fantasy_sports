@@ -2,7 +2,7 @@
 
 module Admin
   module Seasons
-    class InjuriesController < AdminController
+    class InjuriesController < Admin::BaseController
       include Deps[
         create_form: 'forms.injuries.create',
         update_form: 'forms.injuries.update'

@@ -59,6 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  const mobileMenuCloseButton = document.querySelector('#navigation-menu-close-button');
+  if (mobileMenuCloseButton) {
+    mobileMenuCloseButton.addEventListener('click', () => {
+      document.querySelector('.navigation-menu').classList.toggle('hidden');
+    });
+  };
+
+  const mobileMenuBackground = document.querySelector('.navigation-menu-background');
+  if (mobileMenuBackground) {
+    mobileMenuBackground.addEventListener('click', () => {
+      document.querySelector('.navigation-menu').classList.toggle('hidden');
+    });
+  };
+
   // Clicking outside of an open dropdown menu closes it
   window.addEventListener('click', function (e) {
     if (!e.target.matches('.dropdown-toggle')) {

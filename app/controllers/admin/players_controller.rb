@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class PlayersController < AdminController
+  class PlayersController < Admin::BaseController
     include Deps[
       create_form: 'forms.players.create',
       update_form: 'forms.players.update',

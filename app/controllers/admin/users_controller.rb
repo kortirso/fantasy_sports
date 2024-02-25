@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class UsersController < AdminController
+  class UsersController < Admin::BaseController
     before_action :find_users, only: %i[index]
 
     def index; end

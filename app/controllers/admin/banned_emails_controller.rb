@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class BannedEmailsController < AdminController
+  class BannedEmailsController < Admin::BaseController
     include Deps[
       create_form: 'forms.banned_emails.create',
       update_service: 'services.persisters.users.update'

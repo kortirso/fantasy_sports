@@ -1,6 +1,6 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <% cache(['welcome_privacy_v1', I18n.locale], expires_in: 24.hours) do %>
-    <section class="mx-auto my-12">
+    <section class="mx-auto p-4 bg-white border border-stone-300 rounded">
       <h1><%= t('views.privacy.title') %></h1>
       <h2 class="mt-4"><%= t('views.privacy.h1') %></h2>
       <p><%= t('views.privacy.p1') %></p>

@@ -1,4 +1,6 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <h1><%= t('views.profile.achievements.index.title') %></h1>
-  <%= react_component 'Achievements' %>
+  <div class="p-4 bg-white rounded border border-stone-300">
+    <h1><%= t('views.profile.achievements.index.title') %></h1>
+    <%= react_component 'Achievements' %>
+  </div>
 <% end %>

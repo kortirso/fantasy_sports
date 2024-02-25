@@ -1,6 +1,6 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <div class="flex-1 flex justify-center items-center">
-    <%= form_with model: @user, url: users_recovery_path(email: @user.email, restore_token: @user.restore_token), method: :post do |form| %>
+    <%= form_with model: @user, url: users_recovery_path(email: @user.email, restore_token: @user.restore_token), method: :post, class: 'p-4 bg-white rounded border border-stone-300' do |form| %>
       <h2><%= t('views.users.recovery.new.title') %></h2>
       <div class="form-field">
         <%= form.label :password, t('views.users.registrations.new.password'), class: 'form-label' %>

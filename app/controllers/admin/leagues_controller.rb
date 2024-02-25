@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class LeaguesController < AdminController
+  class LeaguesController < Admin::BaseController
     include Deps[create_form: 'forms.leagues.create']
 
     before_action :find_leagues, only: %i[index]

@@ -4,6 +4,8 @@
     <%= react_component 'BestPlayers', weekUuid: @week.uuid, seasonUuid: @season.uuid, sportKind: @season.league.sport_kind %>
     <%= react_component 'TransfersStatus', weekUuid: @week.uuid, seasonUuid: @season.uuid, sportKind: @season.league.sport_kind %>
   <% else %>
-    <h2><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
+    <div class="p-4 bg-white border border-stone-300 rounded">
+      <h2 class="m-0"><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
+    </div>
   <% end %>
 <% end %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class WeeksController < AdminController
+  class WeeksController < Admin::BaseController
     include Deps[update_form: 'forms.weeks.update']
 
     before_action :find_weeks, only: %i[index]

@@ -29,7 +29,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-amber-200 border border-amber-300 hover:bg-amber-300 text-stone-700;
+    @apply btn bg-goldeen-support border border-goldeen-supportMiddle text-stone-700;
   }
 
   .btn-info {
@@ -46,26 +46,22 @@
 
   .btn-transfer {
     @apply flex justify-center items-center text-stone-700 cursor-pointer rounded;
-    @apply bg-amber-200 hover:bg-amber-300 border border-amber-300;
+    @apply bg-goldeen-support border border-goldeen-supportMiddle;
 
     width: 26px;
     height: 26px;
   }
 
   .user-navigation-link {
-    @apply flex flex-row items-center p-2 pl-4 text-white;
-  }
-
-  .user-navigation-link img {
-    @apply w-8 h-8 mr-2;
+    @apply flex flex-row items-center p-2 border-b-2 border-transparent;
   }
 
   .user-navigation-link:hover {
-    @apply bg-amber-200 text-stone-700;
+    @apply text-stone-700 border-goldeen-gray;
   }
 
   .user-navigation-link.active {
-    @apply bg-amber-300 shadow text-stone-700;
+    @apply text-stone-700 border-goldeen-supportMiddle;
   }
 
   .form-field {
@@ -349,7 +345,7 @@
   }
 
   .badge-danger {
-    @apply badge bg-orange-700 border border-orange-800 text-white;
+    @apply badge bg-goldeen-supportDark border border-orange-800 text-white;
   }
 
   .badge-small {
@@ -432,6 +428,17 @@
   }
 
   .navigation-menu:not(.hidden) {
-    @apply absolute w-full z-10 bg-stone-700 top-14;
+    @apply fixed left-0 top-0 bottom-0 w-full z-10;
+  }
+
+  .navigation-menu-background {
+    @apply absolute left-0 top-0 bottom-0 w-full;
+
+    background: #000;
+    opacity: .5;
+  }
+
+  .navigation-menu-content {
+    @apply absolute left-0 top-0 bottom-0 bg-goldeen-dark w-full sm:w-80;
   }
 }

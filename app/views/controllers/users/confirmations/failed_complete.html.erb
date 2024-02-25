@@ -1,6 +1,8 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <div class="flex-1 flex justify-center items-center">
-    <h2><%= t('views.users.confirmations.failed_complete.title') %></h2>
-    <p><%= t('views.users.confirmations.failed_complete.description') %></p>
+    <div class="p-4 bg-white rounded border border-stone-300">
+      <h2><%= t('views.users.confirmations.failed_complete.title') %></h2>
+      <p><%= t('views.users.confirmations.failed_complete.description') %></p>
+    </div>
   </div>
 <% end %>

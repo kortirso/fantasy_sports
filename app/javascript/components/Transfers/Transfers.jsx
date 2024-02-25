@@ -463,8 +463,8 @@ export const Transfers = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-10 xl:gap-8">
-      <div className="xl:col-span-7">
+    <div className="xl:grid xl:grid-cols-10 xl:gap-8">
+      <div className="xl:col-span-7 p-4 bg-white border border-stone-300 rounded">
         <span className="badge-dark inline-block">
           {strings.formatString(strings.transfers.week, { number: weekPosition })}
         </span>
@@ -512,13 +512,13 @@ export const Transfers = ({
           <section className="relative">
             <div className="absolute w-full top-0 flex flex-row justify-center">
               <p
-                className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer mr-2"
+                className="btn-primary btn-small mr-2"
                 onClick={() => setPageState({ ...pageState, viewMode: 'field' })}
               >
                 {strings.squadPoints.fieldView}
               </p>
               <p
-                className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+                className="btn-primary btn-small"
                 onClick={() => setPageState({ ...pageState, viewMode: 'list' })}
               >
                 {strings.squadPoints.listView}
@@ -617,120 +617,122 @@ export const Transfers = ({
         ) : null}
       </div>
       {pageState.visibleMode === 'all' || pageState.visibleMode === 'seasonPlayers' ? (
-        <div className="lg:col-span-3">
-          {pageState.visibleMode === 'seasonPlayers' ? (
-            <span
-              className="inline-block mb-2 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
-              onClick={() => setPageState({ ...pageState, visibleMode: 'lineup' })}
-            >
-              {strings.transfers.showLineup}
-            </span>
-          ) : null}
-          <div className="sm:grid sm:grid-cols-2 xl:grid-cols-1 sm:gap-x-4 sm:mb-4">
-            <Dropdown
-              title={strings.transfers.positionView}
-              items={Object.entries(sportPositions).reduce(
-                (result, [key, values]) => {
-                  result[key] = localizeValue(values.name);
-                  return result;
-                },
-                { all: strings.transfers.allPlayers },
-              )}
-              onSelect={(value) => setFilterState({ ...filterState, position: value, page: 0 })}
-              selectedValue={filterState.position}
-            />
-            <Dropdown
-              title={strings.transfers.teamView}
-              items={Object.entries(pageState.teamNames).reduce(
-                (result, [key, values]) => {
-                  result[key] = localizeValue(values.name);
-                  return result;
-                },
-                { all: strings.transfers.allTeams },
-              )}
-              onSelect={(value) => setFilterState({ ...filterState, team: value, page: 0 })}
-              selectedValue={filterState.team}
-            />
-            <Dropdown
-              title={strings.transfers.sort}
-              items={pageState.sortItems}
-              onSelect={(value) => setFilterState({ ...filterState, sortBy: value, page: 0 })}
-              selectedValue={filterState.sortBy}
-            />
-            <div className="form-field mb-4">
-              <label className="form-label">{strings.transfers.search}</label>
-              <input
-                className="form-value w-full"
-                value={filterState.search}
-                onChange={(e) => setFilterState({ ...filterState, search: e.target.value, page: 0 })}
+        <div class="lg:col-span-3">
+          <div className="p-4 bg-white border border-stone-300 rounded">
+            {pageState.visibleMode === 'seasonPlayers' ? (
+              <span
+                className="inline-block mb-2 bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded shadow cursor-pointer"
+                onClick={() => setPageState({ ...pageState, visibleMode: 'lineup' })}
+              >
+                {strings.transfers.showLineup}
+              </span>
+            ) : null}
+            <div className="sm:grid sm:grid-cols-2 xl:grid-cols-1 sm:gap-x-4 sm:mb-4">
+              <Dropdown
+                title={strings.transfers.positionView}
+                items={Object.entries(sportPositions).reduce(
+                  (result, [key, values]) => {
+                    result[key] = localizeValue(values.name);
+                    return result;
+                  },
+                  { all: strings.transfers.allPlayers },
+                )}
+                onSelect={(value) => setFilterState({ ...filterState, position: value, page: 0 })}
+                selectedValue={filterState.position}
               />
-            </div>
-            <div>
-              <Checkbox
-                label={strings.transfers.fromWatchlist}
-                checked={filterState.onlyWatched}
-                onClick={() => setFilterState({ ...filterState, onlyWatched: !filterState.onlyWatched })}
+              <Dropdown
+                title={strings.transfers.teamView}
+                items={Object.entries(pageState.teamNames).reduce(
+                  (result, [key, values]) => {
+                    result[key] = localizeValue(values.name);
+                    return result;
+                  },
+                  { all: strings.transfers.allTeams },
+                )}
+                onSelect={(value) => setFilterState({ ...filterState, team: value, page: 0 })}
+                selectedValue={filterState.team}
               />
+              <Dropdown
+                title={strings.transfers.sort}
+                items={pageState.sortItems}
+                onSelect={(value) => setFilterState({ ...filterState, sortBy: value, page: 0 })}
+                selectedValue={filterState.sortBy}
+              />
+              <div className="form-field mb-4">
+                <label className="form-label">{strings.transfers.search}</label>
+                <input
+                  className="form-value w-full"
+                  value={filterState.search}
+                  onChange={(e) => setFilterState({ ...filterState, search: e.target.value, page: 0 })}
+                />
+              </div>
+              <div>
+                <Checkbox
+                  label={strings.transfers.fromWatchlist}
+                  checked={filterState.onlyWatched}
+                  onClick={() => setFilterState({ ...filterState, onlyWatched: !filterState.onlyWatched })}
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1">
-            <div className="flex-1"></div>
-            <div className="w-12 flex flex-row items-center justify-center text-sm">
-              {filterState.sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
+            <div className="flex flex-row items-center pt-0 px-1 pb-1 mb-1">
+              <div className="flex-1"></div>
+              <div className="w-12 flex flex-row items-center justify-center text-sm">
+                {filterState.sortBy === 'price' ? strings.transfers.points : strings.transfers.price}
+              </div>
+              <div className="w-12 flex flex-row items-center justify-center text-sm">
+                {renderShortSortBy()}
+              </div>
+              <div className="w-6"></div>
             </div>
-            <div className="w-12 flex flex-row items-center justify-center text-sm">
-              {renderShortSortBy()}
-            </div>
-            <div className="w-6"></div>
-          </div>
-          {filteredSlicedPlayers.map((item) => (
-            <div
-              className={`flex flex-row items-center px-1 py-1 border-b border-stone-200 ${isExistingTeamMember(item) ? 'bg-stone-100' : ''}`}
-              key={item.uuid}
-            >
+            {filteredSlicedPlayers.map((item) => (
               <div
-                className={`mr-2 ${injuryLevelClass(item.injury)}`}
-                onClick={() => setPlayerUuid(item.uuid)}
+                className={`flex flex-row items-center px-1 py-1 border-b border-stone-200 ${isExistingTeamMember(item) ? 'bg-stone-100' : ''}`}
+                key={item.uuid}
               >
-                ?
+                <div
+                  className={`mr-2 ${injuryLevelClass(item.injury)}`}
+                  onClick={() => setPlayerUuid(item.uuid)}
+                >
+                  ?
+                </div>
+                <div className="flex-1">
+                  <span className="text-lg mr-4">
+                    {localizeValue(item.player.shirt_name)}
+                  </span>
+                  {false ? (
+                    <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>
+                  ) : null}
+                  <span className="text-sm">
+                    {localizeValue(sportPositions[item.player.position_kind].short_name)}
+                  </span>
+                </div>
+                <div className="w-12 flex flex-row items-center justify-center">
+                  {filterState.sortBy === 'price' ? item.points : item.team.price}
+                </div>
+                <div className="w-12 flex flex-row items-center justify-center">
+                  {sortValue(item)}
+                </div>
+                {renderChangeButton(item)}
               </div>
-              <div className="flex-1">
-                <span className="text-lg mr-4">
-                  {localizeValue(item.player.shirt_name)}
+            ))}
+            {pageState.seasonPlayers.length > PER_PAGE && (
+              <div className="py-2 px-0 flex flex-row justify-center items-center">
+                <span
+                  className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
+                  onClick={pageDown}
+                >
+                  -
                 </span>
-                {false ? (
-                  <span className="uppercase text-sm mr-4">{pageState.teamNames[item.team.uuid]?.short_name}</span>
-                ) : null}
-                <span className="text-sm">
-                  {localizeValue(sportPositions[item.player.position_kind].short_name)}
+                <span className="mx-4">{`${filterState.page + 1} of ${lastPageIndex}`}</span>
+                <span
+                  className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
+                  onClick={pageUp}
+                >
+                  +
                 </span>
               </div>
-              <div className="w-12 flex flex-row items-center justify-center">
-                {filterState.sortBy === 'price' ? item.points : item.team.price}
-              </div>
-              <div className="w-12 flex flex-row items-center justify-center">
-                {sortValue(item)}
-              </div>
-              {renderChangeButton(item)}
-            </div>
-          ))}
-          {pageState.seasonPlayers.length > PER_PAGE && (
-            <div className="py-2 px-0 flex flex-row justify-center items-center">
-              <span
-                className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
-                onClick={pageDown}
-              >
-                -
-              </span>
-              <span className="mx-4">{`${filterState.page + 1} of ${lastPageIndex}`}</span>
-              <span
-                className="w-8 h-8 rounded-full cursor-pointer bg-white border border-gray-200 flex flex-row justify-center items-center"
-                onClick={pageUp}
-              >
-                +
-              </span>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       ) : null}
       <PlayerModal

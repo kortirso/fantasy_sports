@@ -1,6 +1,6 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <div class="flex-1 flex justify-center items-center">
-    <%= form_with model: User.new, url: users_login_path, method: :post do |form| %>
+    <%= form_with model: User.new, url: users_login_path, method: :post, class: 'p-4 bg-white rounded border border-stone-300' do |form| %>
       <h2><%= t('views.users.sessions.new.login') %></h2>
       <div class="form-field">
         <%= form.label :email, 'Email', class: 'form-label' %>

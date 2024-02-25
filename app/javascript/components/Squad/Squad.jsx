@@ -393,13 +393,13 @@ export const Squad = ({
       <section className="relative">
         <div className="absolute w-full top-0 flex flex-row justify-center">
           <p
-            className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer mr-2"
+            className="btn-primary btn-small mr-2"
             onClick={() => setPageState({ ...pageState, viewMode: 'field' })}
           >
             {strings.squadPoints.fieldView}
           </p>
           <p
-            className="bg-amber-200 hover:bg-amber-300 border border-amber-300 text-sm py-1 px-2 rounded cursor-pointer"
+            className="btn-primary btn-small"
             onClick={() => setPageState({ ...pageState, viewMode: 'list' })}
           >
             {strings.squadPoints.listView}

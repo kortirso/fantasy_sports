@@ -17,6 +17,16 @@ module.exports = {
       },
       maxWidth: {
         '8xl': '90rem',
+      },
+      colors: {
+        goldeen: {
+          light: '#f8f8f8',
+          support: '#ffc57b',
+          supportMiddle: '#ee7b41',
+          supportDark: '#d54110',
+          gray: '#d5d5de',
+          dark: '#0e0e0e'
+        }
       }
     },
   },
@@ -27,3 +37,4 @@ module.exports = {
     require('@tailwindcss/container-queries'),
   ]
 }
+

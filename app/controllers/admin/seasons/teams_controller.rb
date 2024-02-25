@@ -2,7 +2,7 @@
 
 module Admin
   module Seasons
-    class TeamsController < AdminController
+    class TeamsController < Admin::BaseController
       before_action :find_season, only: %i[index show]
       before_action :find_seasons_teams, only: %i[index]
       before_action :find_seasons_team, only: %i[show]

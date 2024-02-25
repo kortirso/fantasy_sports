@@ -36,13 +36,14 @@ en:
           logout: Logout
           change_locale: Change locale
         fantasy_team_navigation_component:
-          home: Championships
           team: Team squad
           transfers: Transfers
           points: Points
           rules: Rules
           status: Status
           profile: Profile
+          leagues_center: Leagues center
+          existing_teams: Existing teams
         profile_navigation_component:
           achievements: Achievements
   controllers:
@@ -283,8 +284,9 @@ en:
         identity_created: identity is created
         notifications_title: Notifications
     welcome:
+      title: Free to play fantasy sport games with friends
       home: View fantasy leagues
-      description: Fantasy sports engine system. Fantasy Sports gives you the opportunity to run your own teams of professional players. You draft your teams of the best players from across the leagues and receive points based on those players' performance in games each week.
+      description: Fantasy Sports gives you the opportunity to run your own teams of professional players from across the leagues and receive points based on their performance in games each week. Join with friends in leagues and find whose team is the best.
       active_leagues: Active fantasy leagues
       active_leagues_list: List of active fantasy leagues changes through the time. All active and supported leagues you can see below.
       privacy: Privacy

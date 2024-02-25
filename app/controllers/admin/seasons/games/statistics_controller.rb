@@ -3,7 +3,7 @@
 module Admin
   module Seasons
     module Games
-      class StatisticsController < AdminController
+      class StatisticsController < Admin::BaseController
         before_action :find_game
 
         def index

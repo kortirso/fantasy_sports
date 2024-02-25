@@ -1,24 +1,28 @@
 <%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
   <% if @week %>
-    <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-10 gap-8">
-      <%=
-        react_component 'SquadPoints',
-          component_class: 'xl:col-span-7',
-          seasonUuid: @season.uuid,
-          sportKind: @season.league.sport_kind,
-          lineupUuid: @lineup&.uuid,
-          activeChips: @lineup&.active_chips,
-          weekUuid: @week.uuid,
-          weekPosition: @week.position,
-          points: @lineup&.points,
-          averagePoints: @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size).round(1) : 0,
-          maxPoints: @lineups_data.max,
-          previousPointsUrl: @week.position > 1 && @week.opponent_visible? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position - 1) : nil,
-          nextPointsUrl: @week.finished? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position + 1) : nil
-      %>
+    <div class="grid grid-cols-1 xl:grid-cols-10 gap-8">
+      <div class="xl:col-span-7">
+        <%=
+          react_component 'SquadPoints',
+            component_class: 'p-4 bg-white border border-stone-300 rounded',
+            seasonUuid: @season.uuid,
+            sportKind: @season.league.sport_kind,
+            lineupUuid: @lineup&.uuid,
+            activeChips: @lineup&.active_chips,
+            weekUuid: @week.uuid,
+            weekPosition: @week.position,
+            points: @lineup&.points,
+            averagePoints: @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size).round(1) : 0,
+            maxPoints: @lineups_data.max,
+            previousPointsUrl: @week.position > 1 && @week.opponent_visible? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position - 1) : nil,
+            nextPointsUrl: @week.finished? ? fantasy_team_points_url(@fantasy_team.uuid, week: @week.position + 1) : nil
+        %>
+      </div>
       <%= render Views::Shared::StatisticComponent.new(fantasy_team: @fantasy_team, week: @week) %>
     </div>
   <% else %>
-    <h2><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
+    <div class="p-4 bg-white border border-stone-300 rounded">
+      <h2 class="m-0"><%= t('views.fantasy_teams.points.index.no_lineups') %></h2>
+    </div>
   <% end %>
 <% end %>

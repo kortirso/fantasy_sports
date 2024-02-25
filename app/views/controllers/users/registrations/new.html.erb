@@ -1,18 +1,18 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <div class="flex-1 flex justify-center items-center">
-    <%= form_with model: @user, url: users_sign_up_path, method: :post do |form| %>
+    <%= form_with model: @user, url: users_sign_up_path, method: :post, class: 'p-4 bg-white rounded border border-stone-300' do |form| %>
       <h2><%= t('views.users.registrations.new.sign_up') %></h2>
       <div class="form-field">
         <%= form.label :email, 'Email', class: 'form-label' %>
-        <%= form.text_field :email, class: 'form-value' %>
+        <%= form.text_field :email, class: 'form-value w-full' %>
       </div>
       <div class="form-field">
         <%= form.label :password, t('views.users.registrations.new.password', value: Rails.application.config.minimum_password_length), class: 'form-label' %>
-        <%= form.password_field :password, class: 'form-value' %>
+        <%= form.password_field :password, class: 'form-value w-full' %>
       </div>
       <div class="form-field">
         <%= form.label :password_confirmation, t('views.users.registrations.new.password_confirmation'), class: 'form-label' %>
-        <%= form.password_field :password_confirmation, class: 'form-value' %>
+        <%= form.password_field :password_confirmation, class: 'form-value w-full' %>
       </div>
       <div class="mb-2 flex flex-row">
         <%= link_to image_tag('google.svg', width: 20, height: 20, alt: 'google'), omniauth_link(:google), 'aria-label': 'Login with Google', class: 'flex justify-center mr-4' %>

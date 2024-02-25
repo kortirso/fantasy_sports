@@ -2,7 +2,7 @@
 
 module Admin
   module Seasons
-    class GamesController < AdminController
+    class GamesController < Admin::BaseController
       include Deps[
         create_form: 'forms.games.create',
         update_form: 'forms.games.update'

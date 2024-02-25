@@ -93,7 +93,7 @@ export const Week = ({ uuid, teamNames }) => {
           ) : null}
         </div>
       </div>
-      <div className="bg-white mb-4">
+      <div>
         {Object.entries(pageState.games).map(([key, games]) => (
           <div key={key}>
             <div

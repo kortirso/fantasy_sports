@@ -6,7 +6,7 @@ export const Modal = ({ size = "default", show, onClose, children }) => {
     <div className="fixed top-0 left-0 w-full h-full z-50 bg-stone-700/75 flex items-center justify-center">
       <div className={`modal ${size}`}>
         <div className={`modal-content ${size}`}>
-          <div className="btn-primary btn-small absolute top-4 right-4 px-3 rounded z-10" onClick={onClose}>
+          <div className="btn-primary btn-small absolute top-4 right-4 px-3 z-10" onClick={onClose}>
             X
           </div>
           {children}

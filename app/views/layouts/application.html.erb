@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="keywords" content="fantasy, sport, football, basketball, fantasy league, premier league, serie a, la liga, nba">
-    <meta name="description" content="Fantasy Sports - fantasy game management system. Free to play fantasy games with friends, set up your fantasy team in different sport: football, basketball">
+    <meta name="description" content="Fantasy Sports - fantasy game management system. Free to play fantasy sport games with friends, set up your fantasy team in different sport: football, basketball">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <%= csrf_meta_tags %>
@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag 'tailwind', 'inter-font' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body class="relative flex flex-col m-0 p-0 min-h-screen">
+  <body class="relative flex flex-col m-0 p-0 min-h-screen bg-goldeen-light">
     <input type="hidden" id="current_locale" value="<%= I18n.locale %>" />
     <% if @watches %>
       <input type="hidden" id="watches" value="<%= @watches %>" />

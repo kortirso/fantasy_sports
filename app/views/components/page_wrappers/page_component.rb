@@ -8,5 +8,13 @@ module PageWrappers
 
       super()
     end
+
+    def global_user_fantasy_teams
+      @global_user_fantasy_teams ||=
+        Current.user
+          .fantasy_teams.completed
+          .joins(season: :league)
+          .hashable_pluck(:uuid, :name, 'leagues.sport_kind')
+    end
   end
 end
