@@ -111,7 +111,7 @@ Rails.application.routes.draw do
   end
   resources :achievement_groups, only: %i[index]
   resources :achievements, only: %i[index]
-  resources :cups, only: %i[show]
+  resources :fantasy_cups, only: %i[show]
   resources :identities, only: %i[destroy]
 
   get 'privacy', to: 'welcome#privacy'

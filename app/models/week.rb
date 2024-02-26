@@ -23,8 +23,8 @@ class Week < ApplicationRecord
   has_many :teams_players, -> { distinct }, through: :lineups
   has_many :transfers, through: :lineups
 
-  has_many :cups_rounds, class_name: '::Cups::Round', dependent: :destroy
-  has_many :cups_pairs, class_name: '::Cups::Pair', through: :cups_rounds
+  has_many :fantasy_cups_rounds, class_name: '::FantasyCups::Round', dependent: :destroy
+  has_many :fantasy_cups_pairs, class_name: '::FantasyCups::Pair', through: :cups_rounds
 
   scope :active, -> { where(status: ACTIVE) }
   scope :future, -> { where(status: [COMING, INACTIVE]) }

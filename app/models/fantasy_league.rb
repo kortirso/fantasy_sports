@@ -16,7 +16,7 @@ class FantasyLeague < ApplicationRecord
   has_many :fantasy_teams, through: :fantasy_leagues_teams, source: :pointable, source_type: 'FantasyTeam'
   has_many :lineups, through: :fantasy_leagues_teams, source: :pointable, source_type: 'Lineup'
 
-  has_one :cup, dependent: :destroy
+  has_one :fantasy_cup, dependent: :destroy
 
   scope :invitational, -> { where(leagueable_type: 'User') }
   scope :general, -> { where.not(leagueable_type: 'User') }

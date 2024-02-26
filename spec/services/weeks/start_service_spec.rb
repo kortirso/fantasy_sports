@@ -77,7 +77,7 @@ describe Weeks::StartService, type: :service do
       end
 
       context 'when cup already exists' do
-        before { create :cup, fantasy_league: fantasy_league }
+        before { create :fantasy_cup, fantasy_league: fantasy_league }
 
         it 'calls services', :aggregate_failures do
           service = service_call

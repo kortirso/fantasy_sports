@@ -8,8 +8,8 @@ module Weeks
 
     def initialize(
       price_change_service: Teams::Players::CorrectPriceService,
-      cup_create_service: Cups::CreateService,
-      cups_pairs_generate_service: Cups::Pairs::GenerateService,
+      cup_create_service: FantasyCups::CreateService,
+      cups_pairs_generate_service: FantasyCups::Pairs::GenerateService,
       generate_week_position: GENERATE_WEEK_POSITION,
       refresh_selected_by_teams: FantasySports::Container['services.players.seasons.refresh_selected']
     )
@@ -43,7 +43,7 @@ module Weeks
       return if week.position != @generate_week_position
 
       week.season.all_fantasy_leagues.general.each do |fantasy_league|
-        next if fantasy_league.cup
+        next if fantasy_league.fantasy_cup
 
         @cup_create_service.call(fantasy_league: fantasy_league)
       end

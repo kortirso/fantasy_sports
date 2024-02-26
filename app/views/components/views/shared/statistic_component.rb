@@ -3,7 +3,7 @@
 module Views
   module Shared
     class StatisticComponent < ApplicationViewComponent
-      def initialize(fantasy_team:, week: nil, score_detect_service: ::Cups::Pairs::ScoreDetectService)
+      def initialize(fantasy_team:, week: nil, score_detect_service: ::FantasyCups::Pairs::ScoreDetectService)
         @fantasy_team = fantasy_team
         @week = week
         @season = fantasy_team.season

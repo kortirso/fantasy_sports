@@ -1,0 +1,31 @@
+<%= render PageWrappers::PageComponent.new(fantasy_team: @fantasy_team) do %>
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <h2><%= @cup.name %></h2>
+      <% if @cups_pairs.any? %>
+        <% @cups_pairs.each do |cups_pair| %>
+          <div class="flex flex-row mb-2 py-2 border-b border-gray-200 items-end">
+            <div class="basis-2/5 text-right pb-2">
+              <%= link_to @fantasy_team.name, fantasy_team_path(@fantasy_team.uuid) %>
+            </div>
+            <div class="basis-1/5 flex flex-col items-center">
+              <span>GW <%= cups_pair.cups_round.week.position %> - <%= cups_pair.fantasy_cups_round.name %></span>
+              <%=
+                render Views::Cups::Show::PairScoreComponent.new(cups_pair: cups_pair, fantasy_team: @fantasy_team)
+              %>
+            </div>
+            <div class="basis-2/5 pb-2">
+              <%= cups_pair.home_lineup.fantasy_team_id == @fantasy_team.id ? link_to(cups_pair.visitor_lineup.fantasy_team.name, fantasy_team_path(cups_pair.visitor_lineup.fantasy_team.uuid)) : link_to(cups_pair.home_lineup.fantasy_team, fantasy_team_path(cups_pair.home_lineup.fantasy_team.uuid)) %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <% if @cup.fantasy_cups_rounds.exists? %>
+          <p>This cup is not started yet.</p>
+        <% else %>
+          <p>This cup does not have game with your fantasy team.</p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

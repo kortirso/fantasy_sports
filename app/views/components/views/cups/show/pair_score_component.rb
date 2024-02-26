@@ -4,7 +4,7 @@ module Views
   module Cups
     module Show
       class PairScoreComponent < ApplicationViewComponent
-        def initialize(cups_pair:, fantasy_team:, score_detect_service: ::Cups::Pairs::ScoreDetectService)
+        def initialize(cups_pair:, fantasy_team:, score_detect_service: ::FantasyCups::Pairs::ScoreDetectService)
           @cups_pair = cups_pair
           @fantasy_team = fantasy_team
           @score_detect_service = score_detect_service
