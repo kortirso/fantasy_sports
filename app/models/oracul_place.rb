@@ -9,4 +9,7 @@ class OraculPlace < ApplicationRecord
   has_many :oraculs, dependent: :destroy
 
   scope :active, -> { where(active: true) }
+
+  def season? = placeable_type == 'Season'
+  def cup? = placeable_type == 'Cup'
 end

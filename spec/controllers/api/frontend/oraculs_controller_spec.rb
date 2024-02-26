@@ -18,9 +18,15 @@ describe Api::Frontend::OraculsController do
       end
 
       context 'for existing oracul place' do
-        let!(:oracul_place) { create :oracul_place }
+        let!(:season) { create :season }
+        let!(:week) { create :week, season: season, status: Week::COMING }
+        let!(:oracul_place) { create :oracul_place, placeable: season }
 
-        before { create :oracul_league, leagueable: nil, oracul_place: oracul_place, name: 'Delphi' }
+        before do
+          create :oracul_league, leagueable: nil, oracul_place: oracul_place, name: 'Delphi'
+
+          create_list :game, 3, week: week
+        end
 
         context 'for invalid params' do
           let(:request) {
@@ -54,7 +60,11 @@ describe Api::Frontend::OraculsController do
           }
 
           it 'creates oracul', :aggregate_failures do
-            expect { request }.to change(@current_user.oraculs, :count).by(1)
+            expect { request }.to(
+              change(@current_user.oraculs, :count).by(1)
+                .and(change(Oraculs::Lineup, :count).by(1))
+                .and(change(Oraculs::Forecast, :count).by(3))
+            )
             expect(response).to have_http_status :ok
             expect(response.parsed_body['errors']).to be_nil
           end

@@ -25,6 +25,7 @@ class Season < ApplicationRecord
   has_many :injuries, through: :players_seasons
 
   has_many :oracul_places, as: :placeable, dependent: :destroy
+  has_many :oraculs, -> { distinct }, through: :oracul_places
 
   scope :active, -> { where(active: true) }
   scope :coming, -> { where(active: false).where.not(start_at: nil) }
