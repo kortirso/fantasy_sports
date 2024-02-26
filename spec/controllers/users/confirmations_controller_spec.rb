@@ -46,7 +46,7 @@ describe Users::ConfirmationsController do
           get :complete, params: { email: user.email, confirmation_token: user.confirmation_token, locale: 'en' }
 
           expect(user.reload.confirmed_at).not_to be_nil
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
     end

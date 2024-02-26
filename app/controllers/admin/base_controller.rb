@@ -11,7 +11,7 @@ module Admin
     def authorize_admin
       return if Current.user.admin?
 
-      redirect_to home_path, alert: t('controllers.admin.permission')
+      redirect_to draft_players_path, alert: t('controllers.admin.permission')
     end
   end
 end

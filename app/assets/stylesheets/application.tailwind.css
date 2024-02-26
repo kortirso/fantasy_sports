@@ -439,6 +439,6 @@
   }
 
   .navigation-menu-content {
-    @apply absolute left-0 top-0 bottom-0 bg-goldeen-dark w-full sm:w-80;
+    @apply absolute left-0 top-0 bottom-0 bg-goldeen-dark w-full sm:w-80 flex flex-col;
   }
 }

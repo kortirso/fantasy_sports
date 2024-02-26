@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe HomesController do
+describe DraftPlayersController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'

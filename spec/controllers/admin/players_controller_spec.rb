@@ -17,7 +17,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           get :index, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 
@@ -59,7 +59,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           get :new, params: { locale: 'en', sport_kind: 'basketball' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 
@@ -93,7 +93,7 @@ describe Admin::PlayersController do
         it 'redirects to home path' do
           post :create, params: { player: {}, locale: 'en', sport_kind: 'basketball' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 

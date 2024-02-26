@@ -32,7 +32,7 @@ describe FantasyLeagues::JoinsController do
           it 'does not call join service', :aggregate_failures do
             expect { request }.not_to change(FantasyLeagues::Team, :count)
             expect(cookies[:fantasy_sports_invite_code]).to eq '1234'
-            expect(response).to redirect_to home_path
+            expect(response).to redirect_to draft_players_path
           end
         end
 
@@ -46,7 +46,7 @@ describe FantasyLeagues::JoinsController do
           it 'does not call join service', :aggregate_failures do
             expect { request }.not_to change(FantasyLeagues::Team, :count)
             expect(cookies[:fantasy_sports_invite_code]).to eq '1234'
-            expect(response).to redirect_to home_path
+            expect(response).to redirect_to draft_players_path
           end
         end
 
@@ -67,7 +67,7 @@ describe FantasyLeagues::JoinsController do
             it 'does not call join service', :aggregate_failures do
               expect { request }.not_to change(FantasyLeagues::Team, :count)
               expect(cookies[:fantasy_sports_invite_code]).to eq fantasy_league.invite_code
-              expect(response).to redirect_to home_path
+              expect(response).to redirect_to draft_players_path
             end
           end
 
@@ -94,7 +94,7 @@ describe FantasyLeagues::JoinsController do
               it 'does not call join service', :aggregate_failures do
                 expect { request }.not_to change(FantasyLeagues::Team, :count)
                 expect(cookies[:fantasy_sports_invite_code]).to eq fantasy_league.invite_code
-                expect(response).to redirect_to home_path
+                expect(response).to redirect_to draft_players_path
               end
             end
           end

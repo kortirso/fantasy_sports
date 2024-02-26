@@ -12,7 +12,7 @@ module Users
     def complete
       # commento: users.confirmation_token, users.confirmed_at
       update_service.call(user: @user, params: { confirmation_token: nil, confirmed_at: DateTime.now })
-      redirect_to home_path, notice: t('controllers.users.confirmations.success')
+      redirect_to draft_players_path, notice: t('controllers.users.confirmations.success')
     end
 
     private

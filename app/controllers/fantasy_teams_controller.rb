@@ -23,7 +23,7 @@ class FantasyTeamsController < ApplicationController
         notice: t('controllers.fantasy_teams.success_create')
       )
     else
-      redirect_to home_path, alert: service_call.errors
+      redirect_to draft_players_path, alert: service_call.errors
     end
   end
 

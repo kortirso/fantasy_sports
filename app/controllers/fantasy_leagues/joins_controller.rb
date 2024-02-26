@@ -18,7 +18,7 @@ module FantasyLeagues
     def index
       result = join_fantasy_league.call(fantasy_team: @fantasy_team, fantasy_league_uuid: params[:fantasy_league_id])
       case result
-      in { errors: errors } then redirect_to home_path, alert: errors[0]
+      in { errors: errors } then redirect_to draft_players_path, alert: errors[0]
       else
         cookies.delete(:fantasy_sports_invite_code)
         redirect_to(
@@ -44,14 +44,14 @@ module FantasyLeagues
     def validate_invite_code
       return if @fantasy_league.invite_code && @fantasy_league.invite_code == params[:invite_code]
 
-      redirect_to home_path, alert: t('controllers.fantasy_leagues.joins.invalid_code')
+      redirect_to draft_players_path, alert: t('controllers.fantasy_leagues.joins.invalid_code')
     end
 
     def find_fantasy_team
       @fantasy_team = @fantasy_league.season.fantasy_teams.find_by(user: Current.user)
       return if @fantasy_team
 
-      redirect_to home_path, alert: t('controllers.fantasy_leagues.joins.no_team')
+      redirect_to draft_players_path, alert: t('controllers.fantasy_leagues.joins.no_team')
     end
   end
 end

@@ -17,7 +17,7 @@ describe Admin::FeedbacksController do
         it 'redirects to home path' do
           get :index
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 

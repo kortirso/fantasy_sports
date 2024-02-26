@@ -91,7 +91,7 @@ describe FantasyTeamsController do
 
           it 'does not create fantasy team', :aggregate_failures do
             expect { request }.not_to change(FantasyTeam, :count)
-            expect(response).to redirect_to home_path
+            expect(response).to redirect_to draft_players_path
           end
         end
 

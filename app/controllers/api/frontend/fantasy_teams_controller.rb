@@ -7,7 +7,7 @@ module Api
 
       def destroy
         @fantasy_team.destroy
-        render json: { redirect_path: home_path }, status: :ok
+        render json: { redirect_path: draft_players_path }, status: :ok
       end
 
       private

@@ -42,8 +42,7 @@ en:
           rules: Rules
           status: Status
           profile: Profile
-          leagues_center: Leagues center
-          existing_teams: Existing teams
+          draft_players: Draft players
         profile_navigation_component:
           achievements: Achievements
   controllers:
@@ -285,7 +284,7 @@ en:
         notifications_title: Notifications
     welcome:
       title: Free to play fantasy sport games with friends
-      home: View fantasy leagues
+      home: Draft players
       description: Fantasy Sports gives you the opportunity to run your own teams of professional players from across the leagues and receive points based on their performance in games each week. Join with friends in leagues and find whose team is the best.
       active_leagues: Active fantasy leagues
       active_leagues_list: List of active fantasy leagues changes through the time. All active and supported leagues you can see below.

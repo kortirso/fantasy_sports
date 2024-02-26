@@ -17,7 +17,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           get :index, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 
@@ -53,7 +53,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           get :new, params: { locale: 'en' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 
@@ -87,7 +87,7 @@ describe Admin::SeasonsController do
         it 'redirects to home path' do
           post :create, params: { season: {}, locale: 'en' }
 
-          expect(response).to redirect_to home_path
+          expect(response).to redirect_to draft_players_path
         end
       end
 

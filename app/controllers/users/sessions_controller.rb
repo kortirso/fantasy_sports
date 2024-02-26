@@ -53,7 +53,7 @@ module Users
     end
 
     def after_login_path
-      home_path
+      draft_players_path
     end
 
     def after_logout_path

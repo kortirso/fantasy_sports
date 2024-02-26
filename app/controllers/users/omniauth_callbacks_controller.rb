@@ -48,7 +48,7 @@ module Users
           value: generate_token.call(user: user)[:result],
           expires: 1.week.from_now
         }
-        redirect_to(attaching_identity ? profile_path : home_path)
+        redirect_to(attaching_identity ? profile_path : draft_players_path)
       else
         redirect_to root_path, flash: { manifesto_username: true }
       end

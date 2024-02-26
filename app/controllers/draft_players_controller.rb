@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HomesController < ApplicationController
+class DraftPlayersController < ApplicationController
   before_action :find_seasons
   before_action :find_overall_leagues
   before_action :find_user_fantasy_teams
@@ -14,7 +14,7 @@ class HomesController < ApplicationController
 
   def find_seasons
     @seasons =
-      Rails.cache.fetch('homes_show_seasons_v2', expires_in: 4.hours, race_condition_ttl: 10.seconds) do
+      Rails.cache.fetch('draft_players_show_seasons_v1', expires_in: 4.hours, race_condition_ttl: 10.seconds) do
         Season.active.or(Season.coming)
           .joins(:league)
           .hashable_pluck(:id, :uuid, :start_at, :name, :updated_at, 'leagues.name', 'leagues.sport_kind')
@@ -56,7 +56,7 @@ class HomesController < ApplicationController
     @deadlines =
       if @seasons.any?
         Rails.cache.fetch(
-          ['homes_show_deadlines_v1', @seasons.pluck(:updated_at).max],
+          ['draft_players_show_deadlines_v1', @seasons.pluck(:updated_at).max],
           expires_in: 24.hours,
           race_condition_ttl: 10.seconds
         ) do
