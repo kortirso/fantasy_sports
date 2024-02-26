@@ -75,9 +75,9 @@ describe FantasyTeams::TransfersController do
           create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
         end
 
-        context 'for league at maintenance' do
+        context 'for season at maintenance' do
           before do
-            fantasy_league.season.league.update(maintenance: true)
+            fantasy_league.season.update!(maintenance: true)
 
             patch :update, params: { fantasy_team_id: fantasy_team.uuid, locale: 'en' }
           end

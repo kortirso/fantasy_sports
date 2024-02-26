@@ -5,15 +5,17 @@ module Maintenable
 
   private
 
-  def check_league_maintenance
-    return if @season.nil? || !@season.league.maintenance?
+  def check_season_maintenance
+    return if @season.nil? || !@season.maintenance?
 
     flash[:warning] = t('controllers.maintenable.maintenance')
   end
 
-  def validate_league_maintenance
-    return unless @league.maintenance?
+  # rubocop: disable Metrics/CyclomaticComplexity
+  def validate_season_maintenance
+    return unless @fantasy_team&.season&.maintenance? || @lineup&.week&.season&.maintenance?
 
     json_response_with_errors([t('controllers.maintenable.maintenance')], 422)
   end
+  # rubocop: enable Metrics/CyclomaticComplexity
 end

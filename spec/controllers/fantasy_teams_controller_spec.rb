@@ -45,8 +45,8 @@ describe FantasyTeamsController do
           expect(response).to render_template :show
         end
 
-        context 'for maintenable league' do
-          before { fantasy_leagues_team.fantasy_league.season.league.update!(maintenance: true) }
+        context 'for maintenable season' do
+          before { fantasy_leagues_team.fantasy_league.season.update!(maintenance: true) }
 
           it 'renders show page' do
             get :show, params: { id: fantasy_team.uuid, locale: 'en' }
@@ -154,9 +154,9 @@ describe FantasyTeamsController do
           create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
         end
 
-        context 'for league at maintenance' do
+        context 'for season at maintenance' do
           before do
-            fantasy_team.season.league.update(maintenance: true)
+            fantasy_team.season.update!(maintenance: true)
 
             patch :update, params: {
               id: fantasy_team.uuid, locale: 'en', fantasy_team: { name: 'New name', budget_cents: 50_000 }

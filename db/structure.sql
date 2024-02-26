@@ -1041,7 +1041,6 @@ CREATE TABLE public.leagues (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    maintenance boolean DEFAULT false NOT NULL,
     points_system jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
@@ -1334,7 +1333,8 @@ CREATE TABLE public.seasons (
     uuid uuid NOT NULL,
     start_at timestamp(6) without time zone,
     members_count integer DEFAULT 1 NOT NULL,
-    main_external_source character varying
+    main_external_source character varying,
+    maintenance boolean DEFAULT false NOT NULL
 );
 
 
@@ -2607,6 +2607,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240226070753'),
 ('20240202104609'),
 ('20240202102420'),
 ('20240131085828'),

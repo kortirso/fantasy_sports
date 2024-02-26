@@ -7,6 +7,27 @@
   <body>
     <div class='table'>
       <div class='table-header'>
+        <h3>banned_emails</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>banned_emails.value: </p>
+          <div class='column-data'>
+            <span>app/controllers/admin/banned_emails_controller.rb:20</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>banned_emails.reason: </p>
+          <div class='column-data'>
+            <span>app/controllers/admin/banned_emails_controller.rb:20</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
         <h3>cups</h3>
         <p></p>
       </div>
@@ -305,19 +326,19 @@
         <div class='column-body'>
           <p>games.week_id: </p>
           <div class='column-data'>
-            <span>app/forms/games/create_form.rb:28</span>            <span>app/forms/games/update_form.rb:16</span>
+            <span>app/controllers/admin/seasons/games_controller.rb:25</span>            <span>app/controllers/admin/seasons/games_controller.rb:35</span>
           </div>
         </div>
         <div class='column-body'>
           <p>games.home_season_team_id: </p>
           <div class='column-data'>
-            <span>app/forms/games/create_form.rb:28</span>
+            <span>app/controllers/admin/seasons/games_controller.rb:25</span>
           </div>
         </div>
         <div class='column-body'>
           <p>games.visitor_season_team_id: </p>
           <div class='column-data'>
-            <span>app/forms/games/create_form.rb:28</span>
+            <span>app/controllers/admin/seasons/games_controller.rb:26</span>
           </div>
         </div>
         <div class='column-body'>
@@ -335,7 +356,7 @@
         <div class='column-body'>
           <p>games.start_at: </p>
           <div class='column-data'>
-
+            <span>app/controllers/admin/seasons/games_controller.rb:26</span>            <span>app/controllers/admin/seasons/games_controller.rb:35</span>
           </div>
         </div>
         <div class='column-body'>
@@ -348,6 +369,39 @@
           <p>games.difficulty: Game difficulty for teams</p>
           <div class='column-data'>
             <span>app/services/games/difficulty_update_service.rb:11</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games.season_id: </p>
+          <div class='column-data'>
+            <span>app/controllers/admin/seasons/games_controller.rb:26</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>games_external_sources</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>games_external_sources.game_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_external_sources.source: External source name</p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>games_external_sources.external_id: External ID</p>
+          <div class='column-data'>
+
           </div>
         </div>
 
@@ -400,6 +454,45 @@
     </div>
     <div class='table'>
       <div class='table-header'>
+        <h3>identities</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>identities.user_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>identities.uid: </p>
+          <div class='column-data'>
+            <span>app/services/auth/attach_identity_service.rb:12</span>            <span>app/services/auth/login_user_service.rb:15</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>identities.provider: </p>
+          <div class='column-data'>
+            <span>app/services/auth/login_user_service.rb:15</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>identities.login: </p>
+          <div class='column-data'>
+            <span>app/services/auth/attach_identity_service.rb:12</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>identities.email: </p>
+          <div class='column-data'>
+            <span>app/services/auth/attach_identity_service.rb:12</span>            <span>app/services/auth/login_user_service.rb:15</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
         <h3>injuries</h3>
         <p></p>
       </div>
@@ -433,57 +526,6 @@
     </div>
     <div class='table'>
       <div class='table-header'>
-        <h3>players_seasons</h3>
-        <p></p>
-      </div>
-      <div class='table-body'>
-        <div class='column-body'>
-          <p>players_seasons.player_id: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.season_id: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.points: </p>
-          <div class='column-data'>
-            <span>app/services/players/seasons/mass_update_service.rb:30</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.statistic: </p>
-          <div class='column-data'>
-            <span>app/services/players/seasons/mass_update_service.rb:30</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.average_points: </p>
-          <div class='column-data'>
-            <span>app/services/players/seasons/mass_update_service.rb:31</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.form: </p>
-          <div class='column-data'>
-            <span>app/services/players/seasons/mass_update_service.rb:31</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>players_seasons.selected_by_teams_ratio: </p>
-          <div class='column-data'>
-            <span>app/services/players/seasons/refresh_selected_service.rb:22</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class='table'>
-      <div class='table-header'>
         <h3>leagues</h3>
         <p></p>
       </div>
@@ -498,12 +540,6 @@
           <p>leagues.name: </p>
           <div class='column-data'>
             <span>app/forms/leagues/create_form.rb:11</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>leagues.maintenance: </p>
-          <div class='column-data'>
-
           </div>
         </div>
         <div class='column-body'>
@@ -619,6 +655,39 @@
     </div>
     <div class='table'>
       <div class='table-header'>
+        <h3>notifications</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>notifications.notifyable_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>notifications.notifyable_type: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>notifications.notification_type: </p>
+          <div class='column-data'>
+            <span>app/controllers/api/frontend/notifications_controller.rb:14</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>notifications.target: </p>
+          <div class='column-data'>
+            <span>app/controllers/api/frontend/notifications_controller.rb:14</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
         <h3>players</h3>
         <p></p>
       </div>
@@ -658,6 +727,57 @@
     </div>
     <div class='table'>
       <div class='table-header'>
+        <h3>players_seasons</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>players_seasons.player_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.season_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.points: </p>
+          <div class='column-data'>
+            <span>app/services/players/seasons/mass_update_service.rb:30</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.statistic: </p>
+          <div class='column-data'>
+            <span>app/services/players/seasons/mass_update_service.rb:30</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.average_points: </p>
+          <div class='column-data'>
+            <span>app/services/players/seasons/mass_update_service.rb:31</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.form: </p>
+          <div class='column-data'>
+            <span>app/services/players/seasons/mass_update_service.rb:31</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>players_seasons.selected_by_teams_ratio: </p>
+          <div class='column-data'>
+            <span>app/services/players/seasons/refresh_selected_service.rb:22</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
         <h3>seasons_teams</h3>
         <p></p>
       </div>
@@ -672,6 +792,57 @@
           <p>seasons_teams.team_id: </p>
           <div class='column-data'>
 
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class='table'>
+      <div class='table-header'>
+        <h3>seasons</h3>
+        <p></p>
+      </div>
+      <div class='table-body'>
+        <div class='column-body'>
+          <p>seasons.league_id: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.name: </p>
+          <div class='column-data'>
+            <span>app/forms/seasons/create_form.rb:15</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.active: </p>
+          <div class='column-data'>
+            <span>app/forms/seasons/create_form.rb:15</span>
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.start_at: </p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.members_count: Amount of teams in tournament</p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.main_external_source: Main external source at the moment</p>
+          <div class='column-data'>
+
+          </div>
+        </div>
+        <div class='column-body'>
+          <p>seasons.maintenance: </p>
+          <div class='column-data'>
+            <span>app/services/weeks/change_service.rb:47</span>
           </div>
         </div>
 
@@ -772,51 +943,6 @@
     </div>
     <div class='table'>
       <div class='table-header'>
-        <h3>seasons</h3>
-        <p></p>
-      </div>
-      <div class='table-body'>
-        <div class='column-body'>
-          <p>seasons.league_id: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>seasons.name: </p>
-          <div class='column-data'>
-            <span>app/forms/seasons/create_form.rb:15</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>seasons.active: </p>
-          <div class='column-data'>
-            <span>app/forms/seasons/create_form.rb:15</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>seasons.start_at: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>seasons.members_count: Amount of teams in tournament</p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>seasons.main_external_source: Main external source at the moment</p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class='table'>
-      <div class='table-header'>
         <h3>users_sessions</h3>
         <p></p>
       </div>
@@ -890,13 +1016,13 @@
         <div class='column-body'>
           <p>users.confirmation_token: </p>
           <div class='column-data'>
-            <span>app/services/persisters/users/update_service.rb:11</span>
+            <span>app/controllers/users/confirmations_controller.rb:13</span>            <span>app/forms/identities/create_form.rb:15</span>
           </div>
         </div>
         <div class='column-body'>
           <p>users.confirmed_at: </p>
           <div class='column-data'>
-            <span>app/services/persisters/users/update_service.rb:11</span>
+            <span>app/controllers/users/confirmations_controller.rb:13</span>            <span>app/forms/identities/create_form.rb:15</span>
           </div>
         </div>
         <div class='column-body'>
@@ -911,103 +1037,16 @@
 
           </div>
         </div>
-
-      </div>
-    </div>
-    <div class='table'>
-      <div class='table-header'>
-        <h3>games_external_sources</h3>
-        <p></p>
-      </div>
-      <div class='table-body'>
         <div class='column-body'>
-          <p>games_external_sources.game_id: </p>
+          <p>users.reset_password_sent_at: </p>
           <div class='column-data'>
-
+            <span>app/services/users/restore_service.rb:8</span>
           </div>
         </div>
         <div class='column-body'>
-          <p>games_external_sources.source: External source name</p>
+          <p>users.banned_at: </p>
           <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>games_external_sources.external_id: External ID</p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class='table'>
-      <div class='table-header'>
-        <h3>identities</h3>
-        <p></p>
-      </div>
-      <div class='table-body'>
-        <div class='column-body'>
-          <p>identities.user_id: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>identities.uid: </p>
-          <div class='column-data'>
-            <span>app/services/auth/attach_identity_service.rb:12</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>identities.provider: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>identities.login: </p>
-          <div class='column-data'>
-            <span>app/services/auth/attach_identity_service.rb:12</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>identities.email: </p>
-          <div class='column-data'>
-            <span>app/services/auth/attach_identity_service.rb:12</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class='table'>
-      <div class='table-header'>
-        <h3>notifications</h3>
-        <p></p>
-      </div>
-      <div class='table-body'>
-        <div class='column-body'>
-          <p>notifications.notifyable_id: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>notifications.notifyable_type: </p>
-          <div class='column-data'>
-
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>notifications.notification_type: </p>
-          <div class='column-data'>
-            <span>app/controllers/api/frontend/notifications_controller.rb:14</span>
-          </div>
-        </div>
-        <div class='column-body'>
-          <p>notifications.target: </p>
-          <div class='column-data'>
-            <span>app/controllers/api/frontend/notifications_controller.rb:14</span>
+            <span>app/controllers/admin/banned_emails_controller.rb:47</span>            <span>app/forms/banned_emails/create_form.rb:15</span>
           </div>
         </div>
 

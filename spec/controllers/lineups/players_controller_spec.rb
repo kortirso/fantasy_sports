@@ -34,11 +34,11 @@ describe Lineups::PlayersController do
         let!(:lineup) { create :lineup, fantasy_team: fantasy_team, week: week }
         let!(:lineups_player) { create :lineups_player, lineup: lineup }
 
-        context 'for league at maintenance' do
+        context 'for season at maintenance' do
           before do
             create :fantasy_leagues_team, fantasy_league: fantasy_league, pointable: fantasy_team
 
-            fantasy_league.season.league.update(maintenance: true)
+            fantasy_league.season.update!(maintenance: true)
 
             patch :update, params: {
               lineup_id: lineup.uuid,

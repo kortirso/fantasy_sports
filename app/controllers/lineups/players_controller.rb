@@ -5,8 +5,7 @@ module Lineups
     include Maintenable
 
     before_action :find_user_lineup, only: %i[update]
-    before_action :find_league, only: %i[update]
-    before_action :validate_league_maintenance, only: %i[update]
+    before_action :validate_season_maintenance, only: %i[update]
 
     def update
       service_call = Lineups::Players::UpdateService.call(
@@ -24,10 +23,6 @@ module Lineups
 
     def find_user_lineup
       @lineup = Current.user.lineups.find_by!(uuid: params[:lineup_id])
-    end
-
-    def find_league
-      @league = @lineup.week.league
     end
 
     def lineups_players_params

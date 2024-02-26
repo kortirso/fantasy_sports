@@ -8,7 +8,7 @@ module FantasyTeams
     before_action :find_week
     before_action :find_fantasy_team_relationships
     before_action :set_watchable_players
-    before_action :check_league_maintenance
+    before_action :check_season_maintenance
 
     def index; end
 
