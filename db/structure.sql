@@ -1335,6 +1335,41 @@ ALTER SEQUENCE public.oraculs_id_seq OWNED BY public.oraculs.id;
 
 
 --
+-- Name: oraculs_lineups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.oraculs_lineups (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    oracul_id bigint NOT NULL,
+    periodable_id bigint NOT NULL,
+    periodable_type character varying NOT NULL,
+    points integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: oraculs_lineups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.oraculs_lineups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: oraculs_lineups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.oraculs_lineups_id_seq OWNED BY public.oraculs_lineups.id;
+
+
+--
 -- Name: players; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1962,6 +1997,13 @@ ALTER TABLE ONLY public.oraculs ALTER COLUMN id SET DEFAULT nextval('public.orac
 
 
 --
+-- Name: oraculs_lineups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs_lineups ALTER COLUMN id SET DEFAULT nextval('public.oraculs_lineups_id_seq'::regclass);
+
+
+--
 -- Name: players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2268,6 +2310,14 @@ ALTER TABLE ONLY public.oracul_leagues
 
 ALTER TABLE ONLY public.oracul_places
     ADD CONSTRAINT oracul_places_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oraculs_lineups oraculs_lineups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs_lineups
+    ADD CONSTRAINT oraculs_lineups_pkey PRIMARY KEY (id);
 
 
 --
@@ -2713,6 +2763,13 @@ CREATE INDEX index_oracul_places_on_uuid ON public.oracul_places USING btree (uu
 
 
 --
+-- Name: index_oraculs_lineups_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oraculs_lineups_on_uuid ON public.oraculs_lineups USING btree (uuid);
+
+
+--
 -- Name: index_oraculs_on_oracul_place_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2839,6 +2896,13 @@ CREATE INDEX que_poll_idx ON public.que_jobs USING btree (job_schema_version, qu
 
 
 --
+-- Name: unique_oraculs_lineups_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_oraculs_lineups_index ON public.oraculs_lineups USING btree (oracul_id, periodable_id, periodable_type);
+
+
+--
 -- Name: que_jobs que_job_notify; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -2883,6 +2947,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240226155550'),
 ('20240226113330'),
 ('20240226110142'),
 ('20240226104528'),

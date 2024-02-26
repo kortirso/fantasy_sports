@@ -12,5 +12,6 @@ describe Oracul do
     it { is_expected.to belong_to(:oracul_place) }
     it { is_expected.to have_many(:oracul_leagues_members).class_name('::OraculLeagues::Member').dependent(:destroy) }
     it { is_expected.to have_many(:oracul_leagues).through(:oracul_leagues_members) }
+    it { is_expected.to have_many(:oraculs_lineups).class_name('::Oraculs::Lineup').dependent(:destroy) }
   end
 end

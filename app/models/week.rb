@@ -26,6 +26,11 @@ class Week < ApplicationRecord
   has_many :fantasy_cups_rounds, class_name: '::FantasyCups::Round', dependent: :destroy
   has_many :fantasy_cups_pairs, class_name: '::FantasyCups::Pair', through: :cups_rounds
 
+  has_many :oraculs_lineups,
+           class_name: '::Oraculs::Lineup',
+           as: :periodable,
+           dependent: :destroy
+
   scope :active, -> { where(status: ACTIVE) }
   scope :future, -> { where(status: [COMING, INACTIVE]) }
   scope :opponent_visible, -> { where(status: [ACTIVE, FINISHED]) }

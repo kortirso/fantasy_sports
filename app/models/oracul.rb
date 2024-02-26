@@ -12,4 +12,9 @@ class Oracul < ApplicationRecord
            dependent: :destroy
 
   has_many :oracul_leagues, through: :oracul_leagues_members
+
+  has_many :oraculs_lineups,
+           class_name: '::Oraculs::Lineup',
+           foreign_key: :oracul_id,
+           dependent: :destroy
 end
