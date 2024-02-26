@@ -3,15 +3,17 @@
 module Sportable
   extend ActiveSupport::Concern
 
-  FOOTBALL   = 'football'
+  FOOTBALL = 'football'
   BASKETBALL = 'basketball'
-  HOCKEY     = 'hockey'
+  HOCKEY = 'hockey'
+  TENNIS = 'tennis'
 
   included do
     enum sport_kind: {
       FOOTBALL => 0,
       BASKETBALL => 1,
-      HOCKEY => 2
+      HOCKEY => 2,
+      TENNIS => 3
     }
   end
 end

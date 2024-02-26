@@ -43,6 +43,7 @@ ru:
           status: Статус недели
           profile: Профиль
           draft_players: Драфт игроков
+          oracul_places: Пресказание результатов
         profile_navigation_component:
           achievements: Достижения
   controllers:
@@ -195,7 +196,6 @@ ru:
           header: Лиги
           new_league: Добавить новую лигу
           name: Название
-          maintenance: Режим обслуживания
         new:
           name_en: Название (en)
           name_ru: Название (ru)

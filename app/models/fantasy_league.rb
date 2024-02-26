@@ -5,7 +5,7 @@ class FantasyLeague < ApplicationRecord
 
   has_secure_token :invite_code, length: 24
 
-  belongs_to :leagueable, polymorphic: true
+  belongs_to :leagueable, polymorphic: true # User/Season/Week
   belongs_to :season
 
   has_many :fantasy_leagues_teams,

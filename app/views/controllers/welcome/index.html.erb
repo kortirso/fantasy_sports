@@ -11,7 +11,8 @@
           </div>
         <% else %>
           <div class="flex mb-4">
-            <%= link_to t('views.welcome.home'), draft_players_path, class: 'btn-primary' %>
+            <%= link_to t('views.welcome.home'), draft_players_path, class: 'btn-primary mr-4' %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'btn-primary mr-4' %>
           </div>
         <% end %>
       </div>

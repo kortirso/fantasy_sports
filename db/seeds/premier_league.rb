@@ -13,6 +13,8 @@ league2024 = league.seasons.create(
   main_external_source: Sourceable::SPORTS
 )
 
+OraculPlace.create placeable: league2024, name: { en: 'FA Cup', ru: 'Кубок Лиги' }, active: true
+
 overall_league = league2024.all_fantasy_leagues.create leagueable: league2024, name: 'Overall', global: true
 
 tottenham = Team.create name: { en: 'Tottenham Hotspur', ru: 'Тоттенхэм' }, short_name: 'TOT'

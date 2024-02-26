@@ -1189,6 +1189,41 @@ ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 
 
 --
+-- Name: oracul_places; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.oracul_places (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    placeable_id integer,
+    placeable_type character varying,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: oracul_places_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.oracul_places_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: oracul_places_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.oracul_places_id_seq OWNED BY public.oracul_places.id;
+
+
+--
 -- Name: players; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1788,6 +1823,13 @@ ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: oracul_places id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oracul_places ALTER COLUMN id SET DEFAULT nextval('public.oracul_places_id_seq'::regclass);
+
+
+--
 -- Name: players id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2070,6 +2112,14 @@ ALTER TABLE ONLY public.lineups_players
 
 ALTER TABLE ONLY public.notifications
     ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oracul_places oracul_places_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oracul_places
+    ADD CONSTRAINT oracul_places_pkey PRIMARY KEY (id);
 
 
 --
@@ -2458,6 +2508,20 @@ CREATE UNIQUE INDEX index_lineups_on_fantasy_team_id_and_week_id ON public.lineu
 
 
 --
+-- Name: index_oracul_places_on_placeable_id_and_placeable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oracul_places_on_placeable_id_and_placeable_type ON public.oracul_places USING btree (placeable_id, placeable_type);
+
+
+--
+-- Name: index_oracul_places_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oracul_places_on_uuid ON public.oracul_places USING btree (uuid);
+
+
+--
 -- Name: index_players_seasons_on_player_id_and_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2607,6 +2671,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240226091134'),
 ('20240226072155'),
 ('20240226070753'),
 ('20240202104609'),

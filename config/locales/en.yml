@@ -43,6 +43,7 @@ en:
           status: Status
           profile: Profile
           draft_players: Draft players
+          oracul_places: Match predictions
         profile_navigation_component:
           achievements: Achievements
   controllers:
@@ -195,7 +196,6 @@ en:
           header: Leagues
           new_league: Add new league
           name: Name
-          maintenance: Maintenance mode
         new:
           name_en: Name (en)
           name_ru: Name (ru)
