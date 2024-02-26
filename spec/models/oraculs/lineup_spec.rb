@@ -10,5 +10,6 @@ describe Oraculs::Lineup do
   describe 'associations' do
     it { is_expected.to belong_to(:oracul).class_name('::Oracul') }
     it { is_expected.to belong_to(:periodable) }
+    it { is_expected.to have_many(:oraculs_forecasts).class_name('::Oraculs::Forecast').dependent(:destroy) }
   end
 end

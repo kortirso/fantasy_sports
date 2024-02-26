@@ -1316,6 +1316,41 @@ COMMENT ON COLUMN public.oraculs.points IS 'Total points of oracul in place';
 
 
 --
+-- Name: oraculs_forecasts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.oraculs_forecasts (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    oraculs_lineup_id bigint NOT NULL,
+    forecastable_id bigint NOT NULL,
+    forecastable_type character varying NOT NULL,
+    value integer[] DEFAULT '{}'::integer[] NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: oraculs_forecasts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.oraculs_forecasts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: oraculs_forecasts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.oraculs_forecasts_id_seq OWNED BY public.oraculs_forecasts.id;
+
+
+--
 -- Name: oraculs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1997,6 +2032,13 @@ ALTER TABLE ONLY public.oraculs ALTER COLUMN id SET DEFAULT nextval('public.orac
 
 
 --
+-- Name: oraculs_forecasts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs_forecasts ALTER COLUMN id SET DEFAULT nextval('public.oraculs_forecasts_id_seq'::regclass);
+
+
+--
 -- Name: oraculs_lineups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2310,6 +2352,14 @@ ALTER TABLE ONLY public.oracul_leagues
 
 ALTER TABLE ONLY public.oracul_places
     ADD CONSTRAINT oracul_places_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oraculs_forecasts oraculs_forecasts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs_forecasts
+    ADD CONSTRAINT oraculs_forecasts_pkey PRIMARY KEY (id);
 
 
 --
@@ -2763,6 +2813,13 @@ CREATE INDEX index_oracul_places_on_uuid ON public.oracul_places USING btree (uu
 
 
 --
+-- Name: index_oraculs_forecasts_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oraculs_forecasts_on_uuid ON public.oraculs_forecasts USING btree (uuid);
+
+
+--
 -- Name: index_oraculs_lineups_on_uuid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2896,6 +2953,13 @@ CREATE INDEX que_poll_idx ON public.que_jobs USING btree (job_schema_version, qu
 
 
 --
+-- Name: unique_oraculs_forecasts_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_oraculs_forecasts_index ON public.oraculs_forecasts USING btree (oraculs_lineup_id, forecastable_id, forecastable_type);
+
+
+--
 -- Name: unique_oraculs_lineups_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2947,6 +3011,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240226160940'),
 ('20240226155550'),
 ('20240226113330'),
 ('20240226110142'),
