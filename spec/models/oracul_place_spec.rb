@@ -10,5 +10,6 @@ describe OraculPlace do
   describe 'associations' do
     it { is_expected.to belong_to(:placeable) }
     it { is_expected.to have_many(:oracul_leagues).dependent(:destroy) }
+    it { is_expected.to have_many(:oraculs).dependent(:destroy) }
   end
 end

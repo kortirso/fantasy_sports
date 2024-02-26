@@ -115,6 +115,9 @@ en:
       permission: Email is not confirmed yet
       ban: Account is banned
   services:
+    oraculs:
+      create:
+        not_unique: Oracul already exists
     auth:
       fetch_session:
         forbidden: Forbidden

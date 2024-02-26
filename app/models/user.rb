@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :feedbacks, dependent: :destroy
   has_many :identities, dependent: :destroy
   has_many :notifications, as: :notifyable, dependent: :destroy
+  has_many :oraculs, dependent: :destroy
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :not_confirmed, -> { where(confirmed_at: nil) }

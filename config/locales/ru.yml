@@ -43,7 +43,7 @@ ru:
           status: Статус недели
           profile: Профиль
           draft_players: Драфт игроков
-          oracul_places: Пресказание результатов
+          oracul_places: Предсказание результатов
         profile_navigation_component:
           achievements: Достижения
   controllers:
@@ -115,6 +115,9 @@ ru:
       permission: Необходимо подтвердить электронную почту
       ban: Аккаунт заблокирован
   services:
+    oraculs:
+      create:
+        not_unique: Оракл уже создан
     auth:
       fetch_session:
         forbidden: Доступ запрещён

@@ -3,6 +3,7 @@
 class OraculPlacesController < ApplicationController
   before_action :find_leagues
   before_action :find_oracul_places
+  before_action :find_user_oraculs
 
   def show; end
 
@@ -14,5 +15,9 @@ class OraculPlacesController < ApplicationController
 
   def find_oracul_places
     @oracul_places = OraculPlace.active.load
+  end
+
+  def find_user_oraculs
+    @user_oraculs = Current.user.oraculs.hashable_pluck(:uuid, :name, :oracul_place_id)
   end
 end

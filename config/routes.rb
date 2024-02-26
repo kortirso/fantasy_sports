@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     namespace :frontend do
       resource :notifications, only: %i[create destroy]
       resource :feedback, only: %i[create]
+      resource :oracul, only: %i[create]
       resources :fantasy_teams, only: %i[destroy] do
         scope module: :fantasy_teams do
           resources :fantasy_leagues, only: %i[index create]
@@ -82,6 +83,11 @@ Rails.application.routes.draw do
     scope module: :fantasy_teams do
       resource :transfers, only: %i[show update]
       resources :status, only: %i[index]
+      resources :points, only: %i[index]
+    end
+  end
+  resources :oraculs, only: %i[] do
+    scope module: :oraculs do
       resources :points, only: %i[index]
     end
   end

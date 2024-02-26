@@ -1201,7 +1201,8 @@ CREATE TABLE public.oracul_leagues (
     name character varying NOT NULL,
     invite_code character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    oracul_leagues_members_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1222,6 +1223,38 @@ CREATE SEQUENCE public.oracul_leagues_id_seq
 --
 
 ALTER SEQUENCE public.oracul_leagues_id_seq OWNED BY public.oracul_leagues.id;
+
+
+--
+-- Name: oracul_leagues_members; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.oracul_leagues_members (
+    id bigint NOT NULL,
+    oracul_league_id bigint NOT NULL,
+    oracul_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: oracul_leagues_members_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.oracul_leagues_members_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: oracul_leagues_members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.oracul_leagues_members_id_seq OWNED BY public.oracul_leagues_members.id;
 
 
 --
@@ -1257,6 +1290,48 @@ CREATE SEQUENCE public.oracul_places_id_seq
 --
 
 ALTER SEQUENCE public.oracul_places_id_seq OWNED BY public.oracul_places.id;
+
+
+--
+-- Name: oraculs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.oraculs (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    name character varying,
+    user_id bigint NOT NULL,
+    oracul_place_id bigint NOT NULL,
+    points integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN oraculs.points; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.oraculs.points IS 'Total points of oracul in place';
+
+
+--
+-- Name: oraculs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.oraculs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: oraculs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.oraculs_id_seq OWNED BY public.oraculs.id;
 
 
 --
@@ -1866,10 +1941,24 @@ ALTER TABLE ONLY public.oracul_leagues ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: oracul_leagues_members id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oracul_leagues_members ALTER COLUMN id SET DEFAULT nextval('public.oracul_leagues_members_id_seq'::regclass);
+
+
+--
 -- Name: oracul_places id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.oracul_places ALTER COLUMN id SET DEFAULT nextval('public.oracul_places_id_seq'::regclass);
+
+
+--
+-- Name: oraculs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs ALTER COLUMN id SET DEFAULT nextval('public.oraculs_id_seq'::regclass);
 
 
 --
@@ -2158,6 +2247,14 @@ ALTER TABLE ONLY public.notifications
 
 
 --
+-- Name: oracul_leagues_members oracul_leagues_members_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oracul_leagues_members
+    ADD CONSTRAINT oracul_leagues_members_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oracul_leagues oracul_leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2171,6 +2268,14 @@ ALTER TABLE ONLY public.oracul_leagues
 
 ALTER TABLE ONLY public.oracul_places
     ADD CONSTRAINT oracul_places_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oraculs oraculs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.oraculs
+    ADD CONSTRAINT oraculs_pkey PRIMARY KEY (id);
 
 
 --
@@ -2559,6 +2664,13 @@ CREATE UNIQUE INDEX index_lineups_on_fantasy_team_id_and_week_id ON public.lineu
 
 
 --
+-- Name: index_oracul_leagues_members_on_oracul_league_id_and_oracul_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_oracul_leagues_members_on_oracul_league_id_and_oracul_id ON public.oracul_leagues_members USING btree (oracul_league_id, oracul_id);
+
+
+--
 -- Name: index_oracul_leagues_on_invite_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2598,6 +2710,27 @@ CREATE INDEX index_oracul_places_on_placeable_id_and_placeable_type ON public.or
 --
 
 CREATE INDEX index_oracul_places_on_uuid ON public.oracul_places USING btree (uuid);
+
+
+--
+-- Name: index_oraculs_on_oracul_place_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oraculs_on_oracul_place_id ON public.oraculs USING btree (oracul_place_id);
+
+
+--
+-- Name: index_oraculs_on_user_id_and_oracul_place_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_oraculs_on_user_id_and_oracul_place_id ON public.oraculs USING btree (user_id, oracul_place_id);
+
+
+--
+-- Name: index_oraculs_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_oraculs_on_uuid ON public.oraculs USING btree (uuid);
 
 
 --
@@ -2750,6 +2883,8 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240226113330'),
+('20240226110142'),
 ('20240226104528'),
 ('20240226091134'),
 ('20240226072155'),
