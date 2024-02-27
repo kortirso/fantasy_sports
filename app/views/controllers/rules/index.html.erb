@@ -1,9 +1,9 @@
 <%= render PageWrappers::PageComponent.new do %>
   <div class="p-4 bg-white rounded border border-stone-300">
-    <h1><%= t('views.rules.index.title') %></h1>
+    <h2><%= t('views.rules.index.title') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8">
       <div class="mb-8 md:mb-0">
-        <h2><%= t('views.rules.index.basketball') %></h2>
+        <h3><%= t('views.rules.index.basketball') %></h3>
         <div class="border border-b-0 border-stone-300 rounded overflow-hidden">
           <%=
             react_component 'Toggle',
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div>
-        <h2><%= t('views.rules.index.football') %></h2>
+        <h3><%= t('views.rules.index.football') %></h3>
         <div class="border border-b-0 border-stone-300 rounded overflow-hidden">
           <%=
             react_component 'Toggle',
@@ -63,6 +63,35 @@
               children: render(partial: 'points_football').html_safe
           %>
         </div>
+      </div>
+    </div>
+
+    <h2 class="mt-8"><%= t('views.rules.index.prediction.title') %></h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8">
+      <div class="p-4 bg-white rounded border border-stone-300">
+        <p class="mb-4"><%= t('views.rules.index.prediction.description') %></p>
+        <table class="table">
+          <thead>
+            <tr>
+              <td class="px-2"><%= t('views.rules.index.table.action') %></td>
+              <td class="px-2"><%= t('views.rules.index.table.points') %></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= t('views.rules.index.prediction.full_match') %></td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td><%= t('views.rules.index.prediction.difference') %></td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td><%= t('views.rules.index.prediction.winner') %></td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

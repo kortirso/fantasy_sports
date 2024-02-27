@@ -43,7 +43,7 @@ en:
           status: Status
           profile: Profile
           draft_players: Draft players
-          oracul_places: Match predictions
+          oracul_places: Predictions mode
         profile_navigation_component:
           achievements: Achievements
   controllers:
@@ -369,7 +369,13 @@ en:
           description: Invalid credentials for email confirmation
     rules:
       index:
-        title: Rules
+        prediction:
+          title: Prediction mode rules
+          description: During the season your game score predictions will bring points to your team
+          full_match: Totally guessed result and scores
+          difference: Guessed game result and difference of scores
+          winner: Guessed game result
+        title: Draft players rules
         football: Football
         basketball: Basketball
         squad: Select squad
