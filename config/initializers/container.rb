@@ -116,6 +116,11 @@ module FantasySports
     register('services.weeks.finish') { Weeks::FinishService.new }
     register('services.players.seasons.refresh_selected') { Players::Seasons::RefreshSelectedService.new }
     register('services.games.difficulty_update') { Games::DifficultyUpdateService.new }
+    register('services.oraculs.points.update') { Oraculs::Points::UpdateService.new }
+    register('services.oraculs.lineups.points.update') { Oraculs::Lineups::Points::UpdateService.new }
+    register('services.oracul_leagues.members.update_current_place') {
+      OraculLeagues::Members::CurrentPlaceUpdateService.new
+    }
   end
 end
 

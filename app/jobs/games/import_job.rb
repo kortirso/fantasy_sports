@@ -20,6 +20,10 @@ module Games
         team_player_ids: week.teams_players.ids,
         week_id: week.id
       )
+
+      ::Oraculs::Lineups::Points::UpdateJob.perform_later(
+        week_id: week.id
+      )
     end
   end
 end
