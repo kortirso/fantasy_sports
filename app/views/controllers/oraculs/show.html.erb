@@ -42,6 +42,7 @@
       </div>
     </div>
     <div class="xl:col-span-3">
+      <%= render Views::Shared::OraculStatisticComponent.new(oracul: @oracul, periodable: @periodable) %>
     </div>
   </div>
 <% end %>

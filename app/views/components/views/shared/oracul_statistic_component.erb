@@ -1,0 +1,32 @@
+<section class="xl:col-span-3">
+  <div class="p-4 bg-white border border-stone-300 rounded">
+    <div class="mb-4">
+      <div class="p-2 pt-0">
+        <h3 class="m-0 py-2"><%= t('views.shared.statistic.title') %></h3>
+      </div>
+      <div class="p-2 border-b border-stone-300 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.overall') %></p>
+        <p class="basis-2/5"><%= overall_points %></p>
+      </div>
+      <div class="p-2 border-b border-stone-300 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.rank') %></p>
+        <p class="basis-2/5"><%= overall_rank %></p>
+      </div>
+      <div class="p-2 border-b border-stone-300 flex">
+        <p class="basis-3/5"><%= t('views.shared.statistic.players') %></p>
+        <p class="basis-2/5"><%= oraculs_amount %></p>
+      </div>
+    </div>
+    <div class="mb-4">
+      <div class="p-2 pt-0">
+        <h3 class="my-2"><%= t('views.shared.statistic.leagues') %></h3>
+      </div>
+      <% oraculs_leagues.each do |oraculs_league| %>
+        <div class="p-2 border-b border-stone-300 flex">
+          <p class="basis-3/5"><%= link_to oraculs_league[:name], oracul_league_path(oraculs_league[:uuid]), class: 'simple-link' %></p>
+          <p class="basis-2/5"><%= oraculs_league[:place] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

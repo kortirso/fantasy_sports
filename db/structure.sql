@@ -1234,7 +1234,8 @@ CREATE TABLE public.oracul_leagues_members (
     oracul_league_id bigint NOT NULL,
     oracul_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    current_place integer DEFAULT 1 NOT NULL
 );
 
 
@@ -3011,6 +3012,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240227151458'),
 ('20240226160940'),
 ('20240226155550'),
 ('20240226113330'),

@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   resources :fantasy_leagues, only: %i[show] do
     resources :joins, only: %i[index], module: 'fantasy_leagues'
   end
+  resources :oracul_leagues, only: %i[show]
   resources :rules, only: %i[index]
   resources :lineups, only: %i[show update]
   resources :games, only: %i[] do
