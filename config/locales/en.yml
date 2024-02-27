@@ -47,6 +47,10 @@ en:
         profile_navigation_component:
           achievements: Achievements
   controllers:
+    oracul_leagues:
+      joins:
+        joined: You already joined
+        not_found: League is not found
     admin:
       weeks:
         update:
@@ -145,6 +149,16 @@ en:
         not_enough_chips: You can not active these chips
         wildcard_active: Wildcard is active
   views:
+    oraculs:
+      show:
+        week: Gameweek %{value}
+        title: Squad points
+        description: This page contains results of predictions, in addition you can make prediction for future events.
+        points: Total points
+        average_points: Average points
+        best_points: Hightest points
+        previous: Previous period
+        next: Next period
     admin:
       weeks:
         index:

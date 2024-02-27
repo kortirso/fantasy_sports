@@ -47,6 +47,10 @@ ru:
         profile_navigation_component:
           achievements: Достижения
   controllers:
+    oracul_leagues:
+      joins:
+        joined: Вы уже присоединились
+        not_found: Лига не найдена
     admin:
       weeks:
         update:
@@ -145,6 +149,16 @@ ru:
         not_enough_chips: Вы не можете активировать эти бонусы
         wildcard_active: Джокер активен
   views:
+    oraculs:
+      show:
+        week: Игровая неделя %{value}
+        title: Результаты недели
+        description: На этой странице представлены результаты прогнозов, также можно сделать прогнозы на неначавшиеся события.
+        points: Всего очков
+        average_points: Средний результат
+        best_points: Лучший результат
+        previous: Прошлый период
+        next: Следующий период
     admin:
       weeks:
         index:
