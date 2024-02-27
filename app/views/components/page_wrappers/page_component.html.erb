@@ -7,6 +7,10 @@
           <h2 class="p-4 pl-4 text-xl m-0">
             <%= @fantasy_team.name %>
           </h2>
+        <% elsif @oracul %>
+          <h2 class="p-4 pl-4 text-xl m-0">
+            <%= @oracul.name %>
+          </h2>
         <% else %>
           <div class="flex items-center">
             <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'p-4 text-xl mr-2' %>
