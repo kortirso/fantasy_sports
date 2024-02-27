@@ -4,6 +4,7 @@ class OraculsController < ApplicationController
   before_action :find_oracul
   before_action :find_periodable
   before_action :find_oraculs_lineup
+  before_action :calculate_lineups_data
 
   def show; end
 
@@ -19,6 +20,12 @@ class OraculsController < ApplicationController
 
   def find_oraculs_lineup
     @oraculs_lineup = @oracul.oraculs_lineups.find_by(periodable: @periodable)
+  end
+
+  def calculate_lineups_data
+    return if @periodable.nil?
+
+    @lineups_data = @periodable.oraculs_lineups.pluck(:points)
   end
 
   def find_week
