@@ -155,6 +155,9 @@
     },
     "profile": {
       "deadlinesData": "Deadlines data"
+    },
+    "oraculWeek": {
+      "forecast": "Forecast"
     }
   },
   "ru": {
@@ -313,6 +316,9 @@
     },
     "profile": {
       "deadlinesData": "Дедлайны"
+    },
+    "oraculWeek": {
+      "forecast": "Прогноз"
     }
   }
 }

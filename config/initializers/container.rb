@@ -86,6 +86,7 @@ module FantasySports
     register('forms.banned_emails.create') { BannedEmails::CreateForm.new }
     register('forms.weeks.update') { Weeks::UpdateForm.new }
     register('forms.oraculs.create') { Oraculs::CreateForm.new }
+    register('forms.oraculs.forecasts.update') { Oraculs::Forecasts::UpdateForm.new }
 
     # notifiers
     register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }

@@ -91,7 +91,7 @@
             <div>
               <% global_user_oraculs.each do |global_user_oracul| %>
                 <div>
-                  <%= link_to oracul_points_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
+                  <%= link_to oracul_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
                     <span class="text-xl text-white"><%= global_user_oracul[:name] %></span>
                   <% end %>
                 </div>

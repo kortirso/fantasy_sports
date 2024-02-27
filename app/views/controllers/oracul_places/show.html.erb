@@ -5,7 +5,7 @@
         <%- league = @leagues.find { |league| league[:id] == oracul_place.placeable.league_id } %>
         <%- user_oracul = @user_oraculs.find { |element| element[:oracul_place_id] == oracul_place.id } %>
         <% if user_oracul %>
-          <%= link_to oracul_points_path(user_oracul[:uuid]), class: 'season-link flex flex-col justify-between bg-white rounded overflow-hidden border border-stone-300 cursor-pointer' do %>
+          <%= link_to oracul_path(user_oracul[:uuid]), class: 'season-link flex flex-col justify-between bg-white rounded overflow-hidden border border-stone-300 cursor-pointer' do %>
             <%= image_tag league_background(league[:name]['en']), alt: 'league-background', class: 'season-link-background' %>
             <div class="text-center py-1 bg-goldeen-support border-t border-stone-300 font-semibold">
               <%= user_oracul[:name] %>

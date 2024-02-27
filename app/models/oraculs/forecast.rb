@@ -6,7 +6,7 @@ module Oraculs
 
     include Uuidable
 
-    belongs_to :oraculs_lineup, class_name: '::Oraculs::Lineup', foreign_key: :oraculs_lineup_id
+    belongs_to :oraculs_lineup, class_name: '::Oraculs::Lineup', foreign_key: :oraculs_lineup_id, touch: true
     belongs_to :forecastable, polymorphic: true # Game/Cups::Pair
   end
 end

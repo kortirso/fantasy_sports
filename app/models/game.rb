@@ -27,4 +27,8 @@ class Game < ApplicationRecord
 
     'L'
   end
+
+  def predictable?
+    start_at && DateTime.now < start_at - 2.hours
+  end
 end

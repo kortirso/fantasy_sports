@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe Oraculs::PointsController do
-  describe 'GET#index' do
+describe OraculsController do
+  describe 'GET#show' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
@@ -20,16 +20,16 @@ describe Oraculs::PointsController do
       context 'for existing user oracul' do
         let!(:oracul) { create :oracul }
 
-        it 'renders index page' do
-          get :index, params: { oracul_id: oracul.uuid, locale: 'en' }
+        it 'renders show page' do
+          get :show, params: { id: oracul.uuid, locale: 'en' }
 
-          expect(response).to render_template :index
+          expect(response).to render_template :show
         end
       end
     end
 
     def do_request
-      get :index, params: { oracul_id: 'unexisting', locale: 'en' }
+      get :show, params: { id: 'unexisting', locale: 'en' }
     end
   end
 end

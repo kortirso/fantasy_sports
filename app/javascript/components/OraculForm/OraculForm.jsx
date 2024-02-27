@@ -17,7 +17,7 @@ export const OraculForm = ({ placeName, placeId, leagueBackground, sportKind }) 
 
   const onSubmit = async () => {
     const result = await apiRequest({
-      url: '/api/frontend/oracul.json',
+      url: '/api/frontend/oraculs.json',
       options: {
         method: 'POST',
         headers: {
