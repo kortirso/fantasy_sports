@@ -159,6 +159,7 @@ en:
         best_points: Hightest points
         previous: Previous period
         next: Next period
+        no_data: No data
     admin:
       weeks:
         index:

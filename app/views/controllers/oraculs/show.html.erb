@@ -13,7 +13,7 @@
         <div class="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
           <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p class="text-center"><%= t('views.oraculs.show.points') %></p>
-            <p class="ml-4 md:ml-0 text-xl"><%= @oraculs_lineup.points %></p>
+            <p class="ml-4 md:ml-0 text-xl"><%= @oraculs_lineup ? @oraculs_lineup.points : <%= t('views.oraculs.show.no_data') %> %></p>
           </div>
           <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
             <p class="text-center"><%= t('views.oraculs.show.average_points') %></p>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <% if @oracul.oracul_place.season? %>
-          <%= react_component 'OraculWeek', uuid: @periodable.uuid, lineupUuid: @oraculs_lineup.uuid %>
+          <%= react_component 'OraculWeek', uuid: @periodable.uuid, lineupUuid: @oraculs_lineup&.uuid %>
         <% else %>
         <% end %>
       </div>

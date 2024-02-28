@@ -159,6 +159,7 @@ ru:
         best_points: Лучший результат
         previous: Прошлый период
         next: Следующий период
+        no_data: Нет данных
     admin:
       weeks:
         index:
