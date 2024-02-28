@@ -17,5 +17,8 @@ describe Season do
     it { is_expected.to have_many(:fantasy_leagues).dependent(:destroy) }
     it { is_expected.to have_many(:players_seasons).class_name('Players::Season').dependent(:destroy) }
     it { is_expected.to have_many(:players).through(:players_seasons) }
+    it { is_expected.to have_many(:oracul_places).dependent(:destroy) }
+    it { is_expected.to have_many(:oracul_leagues).through(:oracul_places) }
+    it { is_expected.to have_many(:oraculs).through(:oracul_places) }
   end
 end
