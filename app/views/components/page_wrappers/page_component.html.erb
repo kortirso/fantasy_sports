@@ -7,8 +7,15 @@
           <h2 class="p-4 pl-4 text-xl m-0">
             <%= @fantasy_team.name %>
           </h2>
+        <% elsif @oracul %>
+          <h2 class="p-4 pl-4 text-xl m-0">
+            <%= @oracul.name %>
+          </h2>
         <% else %>
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'p-4 text-xl' %>
+          <div class="flex items-center">
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'p-4 text-xl mr-2' %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'p-4 text-xl' %>
+          </div>
         <% end %>
         <!-- mobile menu icon -->
         <div class="flex items-center">
@@ -58,9 +65,9 @@
               Fantasy<span class="text-goldeen-supportMiddle">Sports</span>
             <% end %>
           </div>
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'text-xl text-white p-4' %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'text-xl text-white p-4 inline-block' %>
+          <div class="border-t border-white mx-4 mb-2 mt-0"></div>
           <% if global_user_fantasy_teams.any? %>
-            <div class="border-t border-white m-4 mb-2"></div>
             <div>
               <% global_user_fantasy_teams.each do |user_fantasy_team| %>
                 <div>
@@ -77,6 +84,19 @@
                       <% end %>
                       <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
                     </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'text-xl text-white p-4 inline-block' %>
+          <div class="border-t border-white mx-4 mb-2 mt-0"></div>
+          <% if global_user_oraculs.any? %>
+            <div>
+              <% global_user_oraculs.each do |global_user_oracul| %>
+                <div>
+                  <%= link_to oracul_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
+                    <span class="text-xl text-white"><%= global_user_oracul[:name] %></span>
                   <% end %>
                 </div>
               <% end %>

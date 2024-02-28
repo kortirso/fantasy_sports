@@ -132,10 +132,16 @@
       "title": "Title",
       "description": "Description",
       "new": "New feedback",
-      "save": "Seed feedback",
+      "save": "Send feedback",
       "send": "You can directly send your question/feedback/bug report to ",
       "leave": " or just leave here.",
       "telegram": "Telegram"
+    },
+    "oraculForm": {
+      "new": "New oracul",
+      "description": "In this form you need to set name of your oracul",
+      "name": "Oracul's name",
+      "save": "Save oracul"
     },
     "playerActions": {
       "makeCaptain": "Make captain (x2 points)",
@@ -149,6 +155,9 @@
     },
     "profile": {
       "deadlinesData": "Deadlines data"
+    },
+    "oraculWeek": {
+      "forecast": "Forecast"
     }
   },
   "ru": {
@@ -289,6 +298,12 @@
       "leave": " или оставьте тут.",
       "telegram": "Телеграм"
     },
+    "oraculForm": {
+      "new": "Новый оракл",
+      "description": "В этой форме вам необходимо указать имя вашего оракла",
+      "name": "Имя",
+      "save": "Сохранить"
+    },
     "playerActions": {
       "makeCaptain": "Назначить капитаном (x2 очки)",
       "makeAssistant": "Назначить помощником капитана"
@@ -301,6 +316,9 @@
     },
     "profile": {
       "deadlinesData": "Дедлайны"
+    },
+    "oraculWeek": {
+      "forecast": "Прогноз"
     }
   }
 }

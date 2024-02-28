@@ -34,6 +34,11 @@ Rails.application.routes.draw do
     namespace :frontend do
       resource :notifications, only: %i[create destroy]
       resource :feedback, only: %i[create]
+      resource :oraculs, only: %i[create] do
+        scope module: :oraculs do
+          resources :forecasts, only: %i[index update]
+        end
+      end
       resources :fantasy_teams, only: %i[destroy] do
         scope module: :fantasy_teams do
           resources :fantasy_leagues, only: %i[index create]
@@ -77,6 +82,7 @@ Rails.application.routes.draw do
   end
 
   resource :draft_players, only: %i[show]
+  resource :oracul_places, only: %i[show]
   resources :fantasy_teams, only: %i[show create update] do
     scope module: :fantasy_teams do
       resource :transfers, only: %i[show update]
@@ -84,6 +90,7 @@ Rails.application.routes.draw do
       resources :points, only: %i[index]
     end
   end
+  resources :oraculs, only: %i[show]
   resources :lineups, only: %i[] do
     resource :players, only: %i[update], module: 'lineups'
   end
@@ -104,6 +111,7 @@ Rails.application.routes.draw do
   resources :fantasy_leagues, only: %i[show] do
     resources :joins, only: %i[index], module: 'fantasy_leagues'
   end
+  resources :oracul_leagues, only: %i[show]
   resources :rules, only: %i[index]
   resources :lineups, only: %i[show update]
   resources :games, only: %i[] do

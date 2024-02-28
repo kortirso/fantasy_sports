@@ -43,9 +43,14 @@ ru:
           status: Статус недели
           profile: Профиль
           draft_players: Драфт игроков
+          oracul_places: Предсказание результатов
         profile_navigation_component:
           achievements: Достижения
   controllers:
+    oracul_leagues:
+      joins:
+        joined: Вы уже присоединились
+        not_found: Лига не найдена
     admin:
       weeks:
         update:
@@ -114,6 +119,9 @@ ru:
       permission: Необходимо подтвердить электронную почту
       ban: Аккаунт заблокирован
   services:
+    oraculs:
+      create:
+        not_unique: Оракл уже создан
     auth:
       fetch_session:
         forbidden: Доступ запрещён
@@ -141,6 +149,16 @@ ru:
         not_enough_chips: Вы не можете активировать эти бонусы
         wildcard_active: Джокер активен
   views:
+    oraculs:
+      show:
+        week: Игровая неделя %{value}
+        title: Результаты недели
+        description: На этой странице представлены результаты прогнозов, также можно сделать прогнозы на неначавшиеся события. Дедлайн для прогноза - 2 часа до начала события.
+        points: Всего очков
+        average_points: Средний результат
+        best_points: Лучший результат
+        previous: Прошлый период
+        next: Следующий период
     admin:
       weeks:
         index:
@@ -195,7 +213,6 @@ ru:
           header: Лиги
           new_league: Добавить новую лигу
           name: Название
-          maintenance: Режим обслуживания
         new:
           name_en: Название (en)
           name_ru: Название (ru)
@@ -352,7 +369,13 @@ ru:
           description: Неверные данные при подтверждении email
     rules:
       index:
-        title: Правила
+        prediction:
+          title: Правила режима предсказаний
+          description: В течение сезона ваши предсказания счёта будут приносить очки вашей команде
+          full_match: Точно угаданный исход и счёт
+          difference: Угадан исход и разница счёта
+          winner: Угадан исход
+        title: Правила драфта игроков
         football: Футбол
         basketball: Баскетбол
         squad: Выбор начального состава

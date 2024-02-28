@@ -1,0 +1,48 @@
+<%= render PageWrappers::PageComponent.new(oracul: @oracul) do %>
+  <div class="grid grid-cols-1 xl:grid-cols-10 gap-8">
+    <div class="xl:col-span-7">
+      <div class="p-4 bg-white border border-stone-300 rounded">
+        <span class="badge-dark inline-block">
+          <% if @oracul.oracul_place.season? %>
+            <%= t('views.oraculs.show.week', value: @periodable.position) %>
+          <% else %>
+          <% end %>
+        </span>
+        <h1 class="mb-2"><%= t('views.oraculs.show.title') %></h1>
+        <p class="mb-4"><%= t('views.oraculs.show.description') %></p>
+        <div class="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
+          <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
+            <p class="text-center"><%= t('views.oraculs.show.points') %></p>
+            <p class="ml-4 md:ml-0 text-xl"><%= @oraculs_lineup.points %></p>
+          </div>
+          <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
+            <p class="text-center"><%= t('views.oraculs.show.average_points') %></p>
+            <p class="ml-4 md:ml-0 text-xl"><%= @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size).round(1) : 0 %></p>
+          </div>
+          <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10">
+            <p class="text-center"><%= t('views.oraculs.show.best_points') %></p>
+            <p class="ml-4 md:ml-0 text-xl"><%= @lineups_data.max %></p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <% if @periodable.position > 1 %>
+              <%= link_to t('views.oraculs.show.previous'), oracul_url(@oracul.uuid, week: @periodable.position - 1), class: 'btn-primary btn-small' %>
+            <% end %>
+          </div>
+          <div></div>
+          <div>
+            <%= link_to t('views.oraculs.show.next'), oracul_url(@oracul.uuid, week: @periodable.position + 1), class: 'btn-primary btn-small' %>
+          </div>
+        </div>
+        <% if @oracul.oracul_place.season? %>
+          <%= react_component 'OraculWeek', uuid: @periodable.uuid, lineupUuid: @oraculs_lineup.uuid %>
+        <% else %>
+        <% end %>
+      </div>
+    </div>
+    <div class="xl:col-span-3">
+      <%= render Views::Shared::OraculStatisticComponent.new(oracul: @oracul, periodable: @periodable) %>
+    </div>
+  </div>
+<% end %>

@@ -41,6 +41,7 @@ module FantasySports
     register('contracts.notification') { NotificationContract.new }
     register('contracts.banned_email') { BannedEmailContract.new }
     register('contracts.weeks.update') { Weeks::UpdateContract.new }
+    register('contracts.oracul') { OraculContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -62,6 +63,7 @@ module FantasySports
     register('validators.notification') { NotificationValidator.new }
     register('validators.banned_email') { BannedEmailValidator.new }
     register('validators.weeks.update') { Weeks::UpdateValidator.new }
+    register('validators.oracul') { OraculValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -83,6 +85,8 @@ module FantasySports
     register('forms.notifications.create') { Notifications::CreateForm.new }
     register('forms.banned_emails.create') { BannedEmails::CreateForm.new }
     register('forms.weeks.update') { Weeks::UpdateForm.new }
+    register('forms.oraculs.create') { Oraculs::CreateForm.new }
+    register('forms.oraculs.forecasts.update') { Oraculs::Forecasts::UpdateForm.new }
 
     # notifiers
     register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }
@@ -103,12 +107,20 @@ module FantasySports
     register('services.persisters.fantasy_teams.join_fantasy_league') {
       Persisters::FantasyTeams::JoinFantasyLeagueService.new
     }
+    register('services.persisters.oraculs.join_oracul_league') {
+      Persisters::Oraculs::JoinOraculLeagueService.new
+    }
     register('services.persisters.users.update') { Persisters::Users::UpdateService.new }
     register('services.users.restore') { Users::RestoreService.new }
     register('services.weeks.bench_substitutions') { Weeks::BenchSubstitutionsService.new }
     register('services.weeks.finish') { Weeks::FinishService.new }
     register('services.players.seasons.refresh_selected') { Players::Seasons::RefreshSelectedService.new }
     register('services.games.difficulty_update') { Games::DifficultyUpdateService.new }
+    register('services.oraculs.points.update') { Oraculs::Points::UpdateService.new }
+    register('services.oraculs.lineups.points.update') { Oraculs::Lineups::Points::UpdateService.new }
+    register('services.oracul_leagues.members.update_current_place') {
+      OraculLeagues::Members::CurrentPlaceUpdateService.new
+    }
   end
 end
 

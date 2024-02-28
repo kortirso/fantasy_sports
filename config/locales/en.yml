@@ -43,9 +43,14 @@ en:
           status: Status
           profile: Profile
           draft_players: Draft players
+          oracul_places: Predictions mode
         profile_navigation_component:
           achievements: Achievements
   controllers:
+    oracul_leagues:
+      joins:
+        joined: You already joined
+        not_found: League is not found
     admin:
       weeks:
         update:
@@ -114,6 +119,9 @@ en:
       permission: Email is not confirmed yet
       ban: Account is banned
   services:
+    oraculs:
+      create:
+        not_unique: Oracul already exists
     auth:
       fetch_session:
         forbidden: Forbidden
@@ -141,6 +149,16 @@ en:
         not_enough_chips: You can not active these chips
         wildcard_active: Wildcard is active
   views:
+    oraculs:
+      show:
+        week: Gameweek %{value}
+        title: Squad points
+        description: This page contains results of predictions, in addition you can make prediction for future events. Deadline for prediction - 2 hours before event.
+        points: Total points
+        average_points: Average points
+        best_points: Hightest points
+        previous: Previous period
+        next: Next period
     admin:
       weeks:
         index:
@@ -195,7 +213,6 @@ en:
           header: Leagues
           new_league: Add new league
           name: Name
-          maintenance: Maintenance mode
         new:
           name_en: Name (en)
           name_ru: Name (ru)
@@ -352,7 +369,13 @@ en:
           description: Invalid credentials for email confirmation
     rules:
       index:
-        title: Rules
+        prediction:
+          title: Prediction mode rules
+          description: During the season your game score predictions will bring points to your team
+          full_match: Totally guessed result and scores
+          difference: Guessed game result and difference of scores
+          winner: Guessed game result
+        title: Draft players rules
         football: Football
         basketball: Basketball
         squad: Select squad

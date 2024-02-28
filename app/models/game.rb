@@ -13,6 +13,11 @@ class Game < ApplicationRecord
   has_many :teams_players, through: :games_players
   has_many :external_sources, class_name: '::Games::ExternalSource', foreign_key: :game_id, dependent: :destroy
 
+  has_many :oraculs_forecasts,
+           class_name: '::Oraculs::Forecast',
+           as: :forecastable,
+           dependent: :destroy
+
   def result_for_team(team_index)
     return if points.blank?
     return 'D' if points[0] == points[1]
@@ -21,5 +26,9 @@ class Game < ApplicationRecord
     return 'W' if team_index.zero? ? home_win : !home_win
 
     'L'
+  end
+
+  def predictable?
+    start_at && DateTime.now < start_at - 2.hours
   end
 end

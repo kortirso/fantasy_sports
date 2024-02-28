@@ -1,0 +1,33 @@
+<%= render PageWrappers::PageComponent.new do %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <div class="p-4 bg-white rounded border border-stone-300">
+        <h2><%= @oracul_league.name %></h2>
+        <table cellSpacing="0" class="table">
+          <thead>
+            <tr>
+              <th><%= t('views.fantasy_leagues.show.rank') %></th>
+              <th><%= t('views.fantasy_leagues.show.team_name') %></th>
+              <th><%= t('views.fantasy_leagues.show.points') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @oracul_leagues_members.each.with_index(1) do |member, index| %>
+              <tr>
+                <td><%= index %></td>
+                <td>
+                  <% if @oracul&.id === member[:id] %>
+                    <%= member[:name] %>
+                  <% else %>
+                    <%= link_to member[:name], oracul_path(member[:uuid]), class: 'text-blue-500 underline' %>
+                  <% end %>
+                </td>
+                <td><%= member[:points] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

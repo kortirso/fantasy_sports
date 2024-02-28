@@ -3,17 +3,21 @@
 class GameSerializer < ApplicationSerializer
   attributes :uuid, :points, :start_at
 
+  attribute :predictable, &:predictable?
+
   attribute :home_team do |object|
-    seasons_team = object.home_season_team
+    team = object.home_season_team.team
     {
-      uuid: seasons_team.team.uuid
+      uuid: team.uuid,
+      name: team.name
     }
   end
 
   attribute :visitor_team do |object|
-    seasons_team = object.visitor_season_team
+    team = object.visitor_season_team.team
     {
-      uuid: seasons_team.team.uuid
+      uuid: team.uuid,
+      name: team.name
     }
   end
 end

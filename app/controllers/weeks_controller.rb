@@ -15,7 +15,7 @@ class WeeksController < ApplicationController
 
   def week
     Rails.cache.fetch(
-      [(request_fields ? request_fields.join(',') : :week), 'show_v1', @week.id, @week.updated_at],
+      [(request_fields ? request_fields.join(',') : :week), 'show_v2', @week.id, @week.updated_at],
       expires_in: 12.hours,
       race_condition_ttl: 10.seconds
     ) do
