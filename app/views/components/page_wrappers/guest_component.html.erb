@@ -1,8 +1,9 @@
 <div class="flex flex-col flex-1 h-screen overflow-x-hidden bg-white">
   <header class="flex flex-col sm:flex-row justify-between sm:items-center p-4 border-b border-gray-200">
     <div class="mb-4 sm:mb-0">
-      <%= link_to root_path, class: 'text-2xl font-normal tracking-tighter' do %>
-        Fantasy<span class="text-goldeen-supportMiddle">Sports</span>
+      <%= link_to root_path, class: 'flex items-center inline-block' do %>
+        <%= image_tag 'logo-black.webp', class: 'w-6 h-6 mr-2' %>
+        <p class="text-2xl font-normal tracking-tighter">Fantasy<span class="text-goldeen-supportMiddle">Sports</span><p>
       <% end %>
     </div>
     <div class="flex grid-x gap-8">
