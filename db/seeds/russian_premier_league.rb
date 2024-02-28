@@ -3,7 +3,8 @@ require 'csv'
 league = League.create(
   sport_kind: 'football',
   name: { en: 'Russian Premier League', ru: 'Российская Премьер-Лига' },
-  points_system: { W: 3, D: 1, L: 0 }
+  points_system: { W: 3, D: 1, L: 0 },
+  background_url: 'leagues/rpl.webp'
 )
 
 league2024 = league.seasons.create(

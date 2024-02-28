@@ -10,11 +10,11 @@ class OraculPlacesController < ApplicationController
   private
 
   def find_leagues
-    @leagues = League.hashable_pluck(:id, :name, :sport_kind)
+    @leagues = League.hashable_pluck(:id, :background_url, :sport_kind)
   end
 
   def find_oracul_places
-    @oracul_places = OraculPlace.active.load
+    @oracul_places = OraculPlace.active.includes(:placeable).load
   end
 
   def find_user_oraculs

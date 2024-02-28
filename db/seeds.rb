@@ -11,3 +11,12 @@ Season.active.each do |season|
   )
   oracul_place.oracul_leagues.create name: 'Delphi'
 end
+
+Cup.active.each do |cup|
+  oracul_place = OraculPlace.create(
+    placeable: cup,
+    name: { en: cup.name['en'], ru: cup.name['ru'] },
+    active: true
+  )
+  oracul_place.oracul_leagues.create name: 'Delphi'
+end
