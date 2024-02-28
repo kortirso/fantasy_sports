@@ -11,7 +11,11 @@ module Auth
       email = auth[:email]
       return { errors: ['Email is required'] } if email.nil?
 
-      user = User.find_or_create_by!(email: email)
+      # commento: users.password, users.confirmed_at
+      user =
+        User
+          .create_with(password: SecureRandom.hex, confirmed_at: DateTime.now)
+          .find_or_create_by!(email: email)
       # commento: identities.uid, identities.provider, identities.email
       create_form.call(user: user, params: auth)
 

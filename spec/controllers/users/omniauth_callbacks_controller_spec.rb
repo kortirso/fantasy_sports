@@ -14,6 +14,59 @@ describe Users::OmniauthCallbacksController do
       end
     end
 
+    context 'for google' do
+      let(:request) { post :create, params: { provider: provider, code: code } }
+      let(:code) { nil }
+      let(:provider) { Identity::GOOGLE }
+
+      context 'for blank code' do
+        it 'redirects to login path', :aggregate_failures do
+          expect { request }.not_to change(User, :count)
+          expect(response).to redirect_to users_login_path
+        end
+      end
+
+      context 'for present code' do
+        let(:code) { 'code' }
+
+        before do
+          allow(FantasySports::Container.resolve('services.auth.providers.google')).to(
+            receive(:call).and_return(google_auth_result)
+          )
+        end
+
+        context 'for invalid id' do
+          let(:google_auth_result) { { result: nil } }
+
+          it 'redirects to login path', :aggregate_failures do
+            expect { request }.not_to change(User, :count)
+            expect(response).to redirect_to users_login_path
+          end
+        end
+
+        context 'for valid id' do
+          let(:google_auth_result) { { result: auth_payload } }
+
+          context 'for not logged user' do
+            context 'for valid payload' do
+              let(:auth_payload) do
+                {
+                  uid: '1',
+                  provider: 'google',
+                  email: 'email'
+                }
+              end
+
+              it 'redirects to draft_players_path', :aggregate_failures do
+                expect { request }.to change(User, :count)
+                expect(response).to redirect_to draft_players_path
+              end
+            end
+          end
+        end
+      end
+    end
+
     context 'for telegram' do
       let(:request) { post :create, params: { provider: provider, id: id } }
       let(:id) { nil }
@@ -76,9 +129,9 @@ describe Users::OmniauthCallbacksController do
                 }
               end
 
-              it 'redirects to profile path', :aggregate_failures do
+              it 'redirects to draft_players_path', :aggregate_failures do
                 expect { request }.to change(Identity, :count).by(1)
-                expect(response).to redirect_to profile_path
+                expect(response).to redirect_to draft_players_path
               end
             end
           end
