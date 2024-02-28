@@ -327,6 +327,41 @@ ALTER SEQUENCE public.cups_id_seq OWNED BY public.cups.id;
 
 
 --
+-- Name: cups_rounds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups_rounds (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    cup_id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_rounds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_rounds_id_seq OWNED BY public.cups_rounds.id;
+
+
+--
 -- Name: emailbutler_messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1878,6 +1913,13 @@ ALTER TABLE ONLY public.cups ALTER COLUMN id SET DEFAULT nextval('public.cups_id
 
 
 --
+-- Name: cups_rounds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds ALTER COLUMN id SET DEFAULT nextval('public.cups_rounds_id_seq'::regclass);
+
+
+--
 -- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2186,6 +2228,14 @@ ALTER TABLE ONLY public.banned_emails
 
 ALTER TABLE ONLY public.cups
     ADD CONSTRAINT cups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups_rounds cups_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds
+    ADD CONSTRAINT cups_rounds_pkey PRIMARY KEY (id);
 
 
 --
@@ -2580,6 +2630,20 @@ CREATE INDEX index_cups_on_league_id ON public.cups USING btree (league_id);
 --
 
 CREATE INDEX index_cups_on_uuid ON public.cups USING btree (uuid);
+
+
+--
+-- Name: index_cups_rounds_on_cup_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_cup_id ON public.cups_rounds USING btree (cup_id);
+
+
+--
+-- Name: index_cups_rounds_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_uuid ON public.cups_rounds USING btree (uuid);
 
 
 --
@@ -3075,6 +3139,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240228160732'),
 ('20240228155258'),
 ('20240227151458'),
 ('20240226160940'),
