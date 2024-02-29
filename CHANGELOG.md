@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - cups competitions for match prediction
+- footer
 
 ### Fixed
 - bug with rendering oracul page without lineup

@@ -1,0 +1,20 @@
+<div class="footer border-t border-gray-200">
+  <div class="max-w-8xl mx-auto py-4 px-4 xl:px-0 flex flex-row justify-between">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <div class="flex items-center">
+        <%= image_tag 'logo-black.webp', class: 'w-6 h-6 mr-2' %>
+        <p>2024</p>
+        <p class="ml-2 font-normal tracking-tighter">Fantasy<span class="text-goldeen-supportMiddle">Sports</span></p>
+      </div>
+      <%= link_to t('views.welcome.privacy'), privacy_path, class: 'md:ml-8', data: { 'test-id' => 'privacy-link' } %>
+      <% if Current.user %>
+        <%= react_component 'FeedbackForm', component_class: 'md:ml-8' %>
+      <% end %>
+    </div>
+    <div>
+      <% I18n.available_locales.each do |locale| %>
+        <%= link_to locale, change_locale(locale), class: 'ml-4', aria: { label: t('components.page_wrappers.users_component.change_locale') } %>
+      <% end %>
+    </div>
+  </div>
+</div>

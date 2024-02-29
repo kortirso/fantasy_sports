@@ -36,7 +36,7 @@ export const FeedbackForm = () => {
   return (
     <>
       <p
-        className="user-navigation-link cursor-pointer"
+        className="cursor-pointer"
         onClick={() => setPageState({ ...pageState, isOpen: true })}
       >{strings.feedbackForm.create}</p>
       <Modal

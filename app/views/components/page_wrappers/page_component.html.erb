@@ -1,119 +1,116 @@
-<div class="min-h-screen">
-  <nav>
-    <div class="relative px-4 md:flex items-center gap-6">
-      <!-- always visible -->
-      <div class="flex flex-row items-center justify-between md:flex-row-reverse md:justify-end w-full md:w-auto">
-        <% if @fantasy_team&.completed? %>
-          <h2 class="p-4 pl-4 text-xl m-0">
-            <%= @fantasy_team.name %>
-          </h2>
-        <% elsif @oracul %>
-          <h2 class="p-4 pl-4 text-xl m-0">
-            <%= @oracul.name %>
-          </h2>
-        <% else %>
-          <div class="flex items-center">
-            <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'p-4 text-xl mr-2' %>
-            <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'p-4 text-xl' %>
-          </div>
-        <% end %>
-        <!-- mobile menu icon -->
+<nav>
+  <div class="relative px-4 md:flex items-center gap-6">
+    <!-- always visible -->
+    <div class="flex flex-row items-center justify-between md:flex-row-reverse md:justify-end w-full md:w-auto">
+      <% if @fantasy_team&.completed? %>
+        <h2 class="p-4 pl-4 text-xl m-0">
+          <%= @fantasy_team.name %>
+        </h2>
+      <% elsif @oracul %>
+        <h2 class="p-4 pl-4 text-xl m-0">
+          <%= @oracul.name %>
+        </h2>
+      <% else %>
         <div class="flex items-center">
-          <button type="button" class="mobile-menu-button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
-            </svg>
-          </button>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'p-4 text-xl mr-2' %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'p-4 text-xl' %>
         </div>
+      <% end %>
+      <!-- mobile menu icon -->
+      <div class="flex items-center">
+        <button type="button" class="mobile-menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+          </svg>
+        </button>
       </div>
-      <div class="flex-1 hidden md:flex md:justify-between">
-        <% if @fantasy_team&.completed? %>
-          <div class="flex border-l border-stone-300 pl-4">
-            <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
-            <% if @fantasy_team.user_id == Current.user.id %>
-              <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
-              <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>
-            <% end %>
-            <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
-          </div>
-        <% else %>
-          <div class="flex-1"></div>
+    </div>
+    <div class="flex-1 hidden md:flex md:justify-between">
+      <% if @fantasy_team&.completed? %>
+        <div class="flex border-l border-stone-300 pl-4">
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
+          <% if @fantasy_team.user_id == Current.user.id %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
+            <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>
+          <% end %>
+          <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "user-navigation-link #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
+        </div>
+      <% else %>
+        <div class="flex-1"></div>
+      <% end %>
+      <div class="flex">
+        <%= link_to t('components.views.shared.fantasy_team_navigation_component.profile'), profile_path, class: "user-navigation-link #{'active' if current_page?(profile_path)}" %>
+        <%= link_to profile_achievements_path, class: "user-navigation-link #{'active' if current_page?(profile_achievements_path)}" do %>
+          <%= t('components.views.shared.profile_navigation_component.achievements') %>
+          <% if @unread_achievements_count.positive? %>
+            (<%= @unread_achievements_count %>)
+          <% end %>
         <% end %>
-        <div class="flex">
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.profile'), profile_path, class: "user-navigation-link #{'active' if current_page?(profile_path)}" %>
-          <%= link_to profile_achievements_path, class: "user-navigation-link #{'active' if current_page?(profile_achievements_path)}" do %>
-            <%= t('components.views.shared.profile_navigation_component.achievements') %>
-            <% if @unread_achievements_count.positive? %>
-              (<%= @unread_achievements_count %>)
-            <% end %>
-          <% end %>
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), rules_path, class: "user-navigation-link #{'active' if current_page?(rules_path)}" %>
-          <%= react_component 'FeedbackForm' %>
-          <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
-        </div>
+        <%= link_to t('components.views.shared.fantasy_team_navigation_component.rules'), rules_path, class: "user-navigation-link #{'active' if current_page?(rules_path)}" %>
+        <%= link_to t('components.views.shared.navigation_component.logout'), users_logout_path, class: 'user-navigation-link' %>
       </div>
     </div>
-    <div class="navigation-menu hidden">
-      <div class="navigation-menu-background"></div>
-      <div class="navigation-menu-content">
-        <div class="flex-1">
-          <div class="p-4 flex items-center mb-4">
-            <span id="navigation-menu-close-button" class="mr-4 text-white">
-              <%= image_tag 'icons/close.svg', class: 'w-6 h-6 cursor-pointer' %>
-            </span>
-            <%= link_to root_path, class: 'text-2xl font-normal tracking-tighter text-white' do %>
-              Fantasy<span class="text-goldeen-supportMiddle">Sports</span>
-            <% end %>
-          </div>
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'text-xl text-white p-4 inline-block' %>
-          <div class="border-t border-white mx-4 mb-2 mt-0"></div>
-          <% if global_user_fantasy_teams.any? %>
-            <div>
-              <% global_user_fantasy_teams.each do |user_fantasy_team| %>
-                <div>
-                  <%= link_to fantasy_team_points_path(user_fantasy_team[:uuid]), class: 'flex items-center px-4 py-2' do %>
-                    <%= image_tag "icons/#{user_fantasy_team[:leagues_sport_kind]}.svg", class: 'w-8 h-8 mr-2' %>
-                    <span class="text-xl text-white"><%= user_fantasy_team[:name] %></span>
-                  <% end %>
-                  <% if user_fantasy_team[:uuid] == @fantasy_team&.uuid %>
-                    <div class="flex flex-col">
-                      <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
-                      <% if @fantasy_team.user_id == Current.user.id %>
-                        <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
-                        <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>
-                      <% end %>
-                      <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-          <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'text-xl text-white p-4 inline-block' %>
-          <div class="border-t border-white mx-4 mb-2 mt-0"></div>
-          <% if global_user_oraculs.any? %>
-            <div>
-              <% global_user_oraculs.each do |global_user_oracul| %>
-                <div>
-                  <%= link_to oracul_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
-                    <span class="text-xl text-white"><%= global_user_oracul[:name] %></span>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-        <div>
-          <div class="flex items-center p-4">
-            <% I18n.available_locales.each do |locale| %>
-              <%= link_to locale, change_locale(locale), aria: { label: t('components.views.shared.navigation_component.change_locale') }, class: 'text-white mr-2' %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class="w-full h-full max-w-8xl mx-auto px-4 pb-4 md:pt-4">
-    <%= content %>
   </div>
+  <div class="navigation-menu hidden">
+    <div class="navigation-menu-background"></div>
+    <div class="navigation-menu-content">
+      <div class="flex-1">
+        <div class="p-4 flex items-center mb-4">
+          <span id="navigation-menu-close-button" class="mr-4 text-white">
+            <%= image_tag 'icons/close.svg', class: 'w-6 h-6 cursor-pointer' %>
+          </span>
+          <%= link_to root_path, class: 'text-2xl font-normal tracking-tighter text-white' do %>
+            Fantasy<span class="text-goldeen-supportMiddle">Sports</span>
+          <% end %>
+        </div>
+        <%= link_to t('components.views.shared.fantasy_team_navigation_component.draft_players'), draft_players_path, class: 'text-xl text-white p-4 inline-block' %>
+        <div class="border-t border-white mx-4 mb-2 mt-0"></div>
+        <% if global_user_fantasy_teams.any? %>
+          <div>
+            <% global_user_fantasy_teams.each do |user_fantasy_team| %>
+              <div>
+                <%= link_to fantasy_team_points_path(user_fantasy_team[:uuid]), class: 'flex items-center px-4 py-2' do %>
+                  <%= image_tag "icons/#{user_fantasy_team[:leagues_sport_kind]}.svg", class: 'w-8 h-8 mr-2' %>
+                  <span class="text-xl text-white"><%= user_fantasy_team[:name] %></span>
+                <% end %>
+                <% if user_fantasy_team[:uuid] == @fantasy_team&.uuid %>
+                  <div class="flex flex-col">
+                    <%= link_to t('components.views.shared.fantasy_team_navigation_component.points'), fantasy_team_points_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_points_path(@fantasy_team.uuid))}" %>
+                    <% if @fantasy_team.user_id == Current.user.id %>
+                      <%= link_to t('components.views.shared.fantasy_team_navigation_component.team'), fantasy_team_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_path(@fantasy_team.uuid))}" %>
+                      <%= link_to t('components.views.shared.fantasy_team_navigation_component.transfers'), fantasy_team_transfers_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_transfers_path(@fantasy_team.uuid))}" %>
+                    <% end %>
+                    <%= link_to t('components.views.shared.fantasy_team_navigation_component.status'), fantasy_team_status_index_path(@fantasy_team.uuid), class: "pl-8 py-1 text-white #{'active' if current_page?(fantasy_team_status_index_path(@fantasy_team.uuid))}" %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'text-xl text-white p-4 inline-block' %>
+        <div class="border-t border-white mx-4 mb-2 mt-0"></div>
+        <% if global_user_oraculs.any? %>
+          <div>
+            <% global_user_oraculs.each do |global_user_oracul| %>
+              <div>
+                <%= link_to oracul_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
+                  <span class="text-xl text-white"><%= global_user_oracul[:name] %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <div class="flex items-center p-4">
+          <% I18n.available_locales.each do |locale| %>
+            <%= link_to locale, change_locale(locale), aria: { label: t('components.views.shared.navigation_component.change_locale') }, class: 'text-white mr-2' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="flex-1 w-full h-full max-w-8xl mx-auto px-4 pb-4 md:pt-4 bg-goldeen-light">
+  <%= content %>
 </div>

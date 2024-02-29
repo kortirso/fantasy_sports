@@ -19,6 +19,7 @@
       <input type="hidden" id="watches" value="<%= @watches %>" />
     <% end %>
     <%= yield %>
+    <%= render 'controllers/shared/footer' %>
     <div id="modal-root"></div>
     <%= react_component 'Flash', content: flash.to_h %>
     <%= javascript_include_tag 'application' %>
