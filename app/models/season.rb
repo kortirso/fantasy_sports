@@ -3,6 +3,7 @@
 class Season < ApplicationRecord
   include Uuidable
   include Leagueable
+  include Placeable
 
   belongs_to :league
 
@@ -23,10 +24,6 @@ class Season < ApplicationRecord
   has_many :players_seasons, class_name: 'Players::Season', dependent: :destroy
   has_many :players, through: :players_seasons
   has_many :injuries, through: :players_seasons
-
-  has_many :oracul_places, as: :placeable, dependent: :destroy
-  has_many :oracul_leagues, -> { distinct }, through: :oracul_places
-  has_many :oraculs, -> { distinct }, through: :oracul_places
 
   scope :active, -> { where(active: true) }
   scope :coming, -> { where(active: false).where.not(start_at: nil) }

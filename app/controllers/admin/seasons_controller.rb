@@ -7,7 +7,8 @@ module Admin
       to_bool: 'to_bool'
     ]
 
-    before_action :find_leagues, only: %i[index new]
+    before_action :find_seasons, only: %i[index]
+    before_action :find_leagues, only: %i[new]
 
     def index; end
 
@@ -23,6 +24,14 @@ module Admin
     end
 
     private
+
+    def find_seasons
+      @seasons =
+        Season.joins(:league)
+          .order(id: :desc)
+          .hashable_pluck(:id, :uuid, :name, :active, 'leagues.name')
+          .group_by { |season| season[:leagues_name] }
+    end
 
     def find_leagues
       @leagues = League.all

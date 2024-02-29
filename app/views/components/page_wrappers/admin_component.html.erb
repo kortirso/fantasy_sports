@@ -1,13 +1,14 @@
 <div class="flex flex-1 max-h-screen">
   <div class="w-64 bg-zinc-800 flex flex-col">
-    <%= link_to t('components.page_wrappers.admin.home'), draft_players_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.welcome'), admin_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.leagues'), admin_leagues_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.seasons'), admin_seasons_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.players'), admin_players_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.feedbacks'), admin_feedbacks_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.users'), admin_users_path, class: 'user-navigation-link' %>
-    <%= link_to t('components.page_wrappers.admin.banned_emails'), admin_banned_emails_path, class: 'user-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.home'), draft_players_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.welcome'), admin_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.leagues'), admin_leagues_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.seasons'), admin_seasons_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.cups'), admin_cups_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.players'), admin_players_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.feedbacks'), admin_feedbacks_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.users'), admin_users_path, class: 'admin-navigation-link' %>
+    <%= link_to t('components.page_wrappers.admin.banned_emails'), admin_banned_emails_path, class: 'admin-navigation-link' %>
     <section class="flex-1 flex items-end pl-8">
       <% I18n.available_locales.each do |locale| %>
         <%= link_to locale, change_locale(locale), aria: { label: t('components.page_wrappers.users_component.change_locale') }, class: 'text-white px-2 py-4' %>

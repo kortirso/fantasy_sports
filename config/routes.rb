@@ -27,6 +27,20 @@ Rails.application.routes.draw do
         resources :injuries, only: %i[index new create edit update destroy]
       end
     end
+    resources :cups, only: %i[index new create] do
+      scope module: :cups do
+        resources :rounds, only: %i[index new create]
+      end
+    end
+    resources :cups_rounds, only: %i[] do
+      scope module: :cups do
+        resources :pairs, only: %i[index new edit create update]
+      end
+    end
+    scope module: :cups do
+      get 'cups_rounds/:cups_round_id/refresh_oraculs_points', to: 'rounds#refresh_oraculs_points',
+                                                               as: :refresh_oraculs_points
+    end
     resources :weeks, only: %i[index edit update]
   end
 
@@ -54,6 +68,9 @@ Rails.application.routes.draw do
       end
       resources :lineups, only: %i[] do
         resource :players, only: %i[show], module: 'lineups'
+      end
+      resource :cups, only: %i[] do
+        resources :rounds, only: %i[show], module: 'cups'
       end
     end
   end

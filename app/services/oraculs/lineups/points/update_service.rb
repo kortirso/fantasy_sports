@@ -7,16 +7,16 @@ module Oraculs
         include Deps[oraculs_update_points: 'services.oraculs.points.update']
 
         # rubocop: disable Metrics/AbcSize
-        def call(week_id:)
+        def call(periodable_id:, periodable_type:)
           oracul_ids = []
-          games = games(week_id)
-          grouped_forecasts = forecasts(games.pluck(:id))
+          forecastables = forecastables(periodable_id, periodable_type)
+          grouped_forecasts = forecasts(forecastables.pluck(:id), periodable_type)
 
-          lineups = oraculs_lineups(week_id).map do |lineup|
+          lineups = oraculs_lineups(periodable_id, periodable_type).map do |lineup|
             oracul_ids << lineup[:oracul_id]
             lineup.merge(
-              points: games.each_with_index.inject(0) { |acc, (game, index)|
-                acc + find_points(game, grouped_forecasts[lineup[:id]][index])
+              points: forecastables.each_with_index.inject(0) { |acc, (forecastable, index)|
+                acc + find_points(forecastable, grouped_forecasts[lineup[:id]][index])
               }
             )
           end
@@ -29,41 +29,47 @@ module Oraculs
 
         private
 
-        def oraculs_lineups(week_id)
+        def oraculs_lineups(periodable_id, periodable_type)
           Oraculs::Lineup
-            .where(periodable_id: week_id, periodable_type: 'Week')
+            .where(periodable_id: periodable_id, periodable_type: periodable_type)
             .hashable_pluck(:id, :uuid, :oracul_id, :periodable_id, :periodable_type)
         end
 
-        def games(week_id)
-          Game
-            .where(week_id: week_id)
+        def forecastables(periodable_id, periodable_type)
+          games_relation(periodable_id, periodable_type)
             .where.not(points: [])
             .order(id: :asc)
             .hashable_pluck(:id, :points)
         end
 
-        def forecasts(game_ids)
+        def games_relation(periodable_id, periodable_type)
+          return Game.where(week_id: periodable_id) if periodable_type == 'Week'
+
+          Cups::Pair.where(cups_round_id: periodable_id)
+        end
+
+        def forecasts(forecastable_ids, periodable_type)
+          forecastable_type = periodable_type == 'Week' ? 'Game' : 'Cups::Pair'
           Oraculs::Forecast
-            .where(forecastable_id: game_ids, forecastable_type: 'Game')
+            .where(forecastable_id: forecastable_ids, forecastable_type: forecastable_type)
             .order(forecastable_id: :asc)
             .hashable_pluck(:oraculs_lineup_id, :forecastable_id, :value)
             .group_by { |element| element[:oraculs_lineup_id] }
         end
 
         # rubocop: disable Metrics/AbcSize
-        def find_points(game, forecast)
+        def find_points(forecastable, forecast)
           return 0 if forecast[:value].empty?
 
-          game_home_score = game[:points][0]
+          game_home_score = forecastable[:points][0]
           forecast_home_score = forecast[:value][0]
 
-          game_difference = game[:points][0] - game[:points][1]
+          game_difference = forecastable[:points][0] - forecastable[:points][1]
           forecast_difference = forecast[:value][0] - forecast[:value][1]
 
           return 3 if game_home_score == forecast_home_score && game_difference == forecast_difference
           return 2 if game_difference == forecast_difference
-          return 1 if difference_result(game[:points]) == difference_result(forecast[:value])
+          return 1 if difference_result(forecastable[:points]) == difference_result(forecast[:value])
 
           0
         end

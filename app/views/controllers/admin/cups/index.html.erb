@@ -1,0 +1,29 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.cups.index.header') %></h1>
+  <%= link_to t('views.admin.cups.index.new_cup'), new_admin_cup_path, class: 'btn-primary' %>
+</div>
+<% @cups.each do |leagues_name, cups| %>
+  <h3><%= localized_value(leagues_name) %></h3>
+  <table class="table mb-4" cellSpacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th><%= t('views.admin.seasons.index.name') %></th>
+        <th><%= t('views.admin.seasons.index.active') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cups.each do |cup| %>
+        <tr>
+          <td><%= cup[:id] %></td>
+          <td><%= cup[:name] %></td>
+          <td><%= cup[:active] %></td>
+          <td>
+            <%= link_to t('views.admin.cups.index.rounds'), admin_cup_rounds_path(cup_id: cup[:id]), class: 'btn-primary btn-small' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

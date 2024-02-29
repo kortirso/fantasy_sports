@@ -42,6 +42,9 @@ module FantasySports
     register('contracts.banned_email') { BannedEmailContract.new }
     register('contracts.weeks.update') { Weeks::UpdateContract.new }
     register('contracts.oracul') { OraculContract.new }
+    register('contracts.cup') { CupContract.new }
+    register('contracts.cups.round') { Cups::RoundContract.new }
+    register('contracts.cups.pair') { Cups::PairContract.new }
 
     # validators
     register('validators.games.create') { Games::CreateValidator.new }
@@ -64,6 +67,9 @@ module FantasySports
     register('validators.banned_email') { BannedEmailValidator.new }
     register('validators.weeks.update') { Weeks::UpdateValidator.new }
     register('validators.oracul') { OraculValidator.new }
+    register('validators.cup') { CupValidator.new }
+    register('validators.cups.round') { Cups::RoundValidator.new }
+    register('validators.cups.pair') { Cups::PairValidator.new }
 
     # forms
     register('forms.teams.players.create') { Teams::Players::CreateForm.new }
@@ -87,6 +93,10 @@ module FantasySports
     register('forms.weeks.update') { Weeks::UpdateForm.new }
     register('forms.oraculs.create') { Oraculs::CreateForm.new }
     register('forms.oraculs.forecasts.update') { Oraculs::Forecasts::UpdateForm.new }
+    register('forms.cups.create') { Cups::CreateForm.new }
+    register('forms.cups.rounds.create') { Cups::Rounds::CreateForm.new }
+    register('forms.cups.pairs.create') { Cups::Pairs::CreateForm.new }
+    register('forms.cups.pairs.update') { Cups::Pairs::UpdateForm.new }
 
     # notifiers
     register('notifiers.telegram.user.deadline_report_payload') { Telegram::User::DeadlineReportPayload.new }

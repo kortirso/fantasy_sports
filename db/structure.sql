@@ -293,6 +293,111 @@ ALTER SEQUENCE public.banned_emails_id_seq OWNED BY public.banned_emails.id;
 
 
 --
+-- Name: cups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    league_id bigint NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_id_seq OWNED BY public.cups.id;
+
+
+--
+-- Name: cups_pairs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups_pairs (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    cups_round_id bigint NOT NULL,
+    home_name jsonb,
+    visitor_name jsonb,
+    start_at timestamp(6) without time zone,
+    points integer[] DEFAULT '{}'::integer[] NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_pairs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_pairs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_pairs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_pairs_id_seq OWNED BY public.cups_pairs.id;
+
+
+--
+-- Name: cups_rounds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cups_rounds (
+    id bigint NOT NULL,
+    uuid uuid NOT NULL,
+    cup_id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cups_rounds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cups_rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cups_rounds_id_seq OWNED BY public.cups_rounds.id;
+
+
+--
 -- Name: emailbutler_messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1041,7 +1146,8 @@ CREATE TABLE public.leagues (
     name jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    points_system jsonb DEFAULT '{}'::jsonb NOT NULL
+    points_system jsonb DEFAULT '{}'::jsonb NOT NULL,
+    background_url character varying DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -1837,6 +1943,27 @@ ALTER TABLE ONLY public.banned_emails ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: cups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups ALTER COLUMN id SET DEFAULT nextval('public.cups_id_seq'::regclass);
+
+
+--
+-- Name: cups_pairs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_pairs ALTER COLUMN id SET DEFAULT nextval('public.cups_pairs_id_seq'::regclass);
+
+
+--
+-- Name: cups_rounds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds ALTER COLUMN id SET DEFAULT nextval('public.cups_rounds_id_seq'::regclass);
+
+
+--
 -- Name: emailbutler_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2137,6 +2264,30 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.banned_emails
     ADD CONSTRAINT banned_emails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups_pairs cups_pairs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_pairs
+    ADD CONSTRAINT cups_pairs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups cups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups
+    ADD CONSTRAINT cups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cups_rounds cups_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cups_rounds
+    ADD CONSTRAINT cups_rounds_pkey PRIMARY KEY (id);
 
 
 --
@@ -2517,6 +2668,48 @@ CREATE UNIQUE INDEX idx_on_notifyable_id_notifyable_type_notification_t_a2f7d791
 --
 
 CREATE UNIQUE INDEX index_banned_emails_on_value ON public.banned_emails USING btree (value);
+
+
+--
+-- Name: index_cups_on_league_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_on_league_id ON public.cups USING btree (league_id);
+
+
+--
+-- Name: index_cups_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_on_uuid ON public.cups USING btree (uuid);
+
+
+--
+-- Name: index_cups_pairs_on_cups_round_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_cups_round_id ON public.cups_pairs USING btree (cups_round_id);
+
+
+--
+-- Name: index_cups_pairs_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_uuid ON public.cups_pairs USING btree (uuid);
+
+
+--
+-- Name: index_cups_rounds_on_cup_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_cup_id ON public.cups_rounds USING btree (cup_id);
+
+
+--
+-- Name: index_cups_rounds_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_uuid ON public.cups_rounds USING btree (uuid);
 
 
 --
@@ -3012,6 +3205,10 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240228183340'),
+('20240228162958'),
+('20240228160732'),
+('20240228155258'),
 ('20240227151458'),
 ('20240226160940'),
 ('20240226155550'),

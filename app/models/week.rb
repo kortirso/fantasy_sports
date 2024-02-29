@@ -3,6 +3,7 @@
 class Week < ApplicationRecord
   include Leagueable
   include Uuidable
+  include Periodable
 
   INACTIVE = 'inactive'
   COMING   = 'coming'
@@ -26,11 +27,6 @@ class Week < ApplicationRecord
   has_many :fantasy_cups_rounds, class_name: '::FantasyCups::Round', dependent: :destroy
   has_many :fantasy_cups_pairs, class_name: '::FantasyCups::Pair', through: :cups_rounds
 
-  has_many :oraculs_lineups,
-           class_name: '::Oraculs::Lineup',
-           as: :periodable,
-           dependent: :destroy
-
   scope :active, -> { where(status: ACTIVE) }
   scope :future, -> { where(status: [COMING, INACTIVE]) }
   scope :opponent_visible, -> { where(status: [ACTIVE, FINISHED]) }
@@ -38,6 +34,8 @@ class Week < ApplicationRecord
   enum status: { INACTIVE => 0, COMING => 1, ACTIVE => 2, FINISHED => 3 }
 
   delegate :league, to: :season
+
+  alias placeable season
 
   def previous
     Week.find_by(season_id: season_id, position: position - 1)

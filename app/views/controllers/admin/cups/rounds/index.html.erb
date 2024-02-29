@@ -1,0 +1,27 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.cups.rounds.index.header') %></h1>
+  <%= link_to t('views.admin.cups.rounds.index.new_cups_round'), new_admin_cup_round_path, class: 'btn-primary' %>
+</div>
+<table class="table mb-4" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.cups.rounds.index.name') %></th>
+      <th><%= t('views.admin.cups.rounds.index.position') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cups_rounds.each do |cups_round| %>
+      <tr>
+        <td><%= cups_round[:id] %></td>
+        <td><%= cups_round[:name] %></td>
+        <td><%= cups_round[:position] %></td>
+        <td>
+          <%= link_to t('views.admin.cups.rounds.index.pairs'), admin_cups_round_pairs_path(cups_round_id: cups_round[:id]), class: 'btn-primary btn-small' %>
+          <%= link_to t('views.admin.cups.rounds.index.refresh_oraculs_points'), admin_refresh_oraculs_points_path(cups_round_id: cups_round[:id]), class: 'btn-primary btn-small' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

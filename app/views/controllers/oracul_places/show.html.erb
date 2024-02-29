@@ -2,11 +2,11 @@
   <% if @oracul_places.any? %>
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       <% @oracul_places.each do |oracul_place| %>
-        <%- league = @leagues.find { |league| league[:id] == oracul_place.placeable.league_id } %>
-        <%- user_oracul = @user_oraculs.find { |element| element[:oracul_place_id] == oracul_place.id } %>
+        <%- league = @leagues.find { |league| league[:id] == @oracul_places_leagues[oracul_place[:id]] } %>
+        <%- user_oracul = @user_oraculs.find { |element| element[:oracul_place_id] == oracul_place[:id] } %>
         <% if user_oracul %>
           <%= link_to oracul_path(user_oracul[:uuid]), class: 'season-link flex flex-col justify-between bg-white rounded overflow-hidden border border-stone-300 cursor-pointer' do %>
-            <%= image_tag league_background(league[:name]['en']), alt: 'league-background', class: 'season-link-background' %>
+            <%= image_tag league[:background_url], alt: 'league-background', class: 'season-link-background' %>
             <div class="text-center py-1 bg-goldeen-support border-t border-stone-300 font-semibold">
               <%= user_oracul[:name] %>
             </div>
@@ -17,7 +17,7 @@
             react_component 'OraculForm',
                             placeName: oracul_place[:name]['en'],
                             placeId: oracul_place[:uuid],
-                            leagueBackground: image_path(league_background(league[:name]['en'])).to_s,
+                            leagueBackground: image_url(league[:background_url]),
                             sportKind: image_path("icons/#{league[:sport_kind]}.svg").to_s
           %>
         <% end %>

@@ -1,6 +1,11 @@
 require 'csv'
 
-nba = League.create(sport_kind: 'basketball', name: { en: 'NBA', ru: 'НБА' }, points_system: { W: 1, L: 0 })
+nba = League.create(
+  sport_kind: 'basketball',
+  name: { en: 'NBA', ru: 'НБА' },
+  points_system: { W: 1, L: 0 },
+  background_url: 'leagues/nba.webp'
+)
 
 nba2024 = nba.seasons.create(
   name: '2023/2024',

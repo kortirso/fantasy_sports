@@ -1,0 +1,7 @@
+<h1><%= t('views.admin.cups.pairs.index.new_cups_pair') %></h1>
+<section>
+  <%= form_with model: @cups_pair, url: admin_cups_round_pairs_path(cups_round_id: params[:cups_round_id]), method: :post do |form| %>
+    <%= render 'form', form: form %>
+    <%= form.submit t('views.admin.cups.pairs.new.create'), class: 'btn-primary' %>
+  <% end %>
+</section>

@@ -15,7 +15,9 @@ class OraculsController < ApplicationController
   end
 
   def find_periodable
-    @periodable = @oracul.oracul_place.season? ? find_week : nil
+    placeable = @oracul.oracul_place.placeable
+    relation = @oracul.oracul_place.season? ? placeable.weeks : placeable.cups_rounds
+    @periodable = params[:week] ? relation.find_by!(position: params[:week]) : (relation.active.first || relation.first)
   end
 
   def find_oraculs_lineup
@@ -26,10 +28,5 @@ class OraculsController < ApplicationController
     return if @periodable.nil?
 
     @lineups_data = @periodable.oraculs_lineups.pluck(:points)
-  end
-
-  def find_week
-    weeks = @oracul.oracul_place.placeable.weeks
-    params[:week] ? weeks.find_by!(position: params[:week]) : (weeks.active.first || weeks.first)
   end
 end

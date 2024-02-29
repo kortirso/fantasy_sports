@@ -13,6 +13,7 @@ ru:
         home: Главная
         welcome: Админ панель
         leagues: Лиги
+        cups: Кубки
         seasons: Сезоны
         players: Игроки
         feedbacks: Отзывы
@@ -58,6 +59,18 @@ ru:
       leagues:
         create:
           success: Лига создана
+      cups:
+        create:
+          success: Кубок создан
+        rounds:
+          create:
+            success: Кубковый раунд создан
+          refresh_oraculs_points: Обновление оракулов начато
+        pairs:
+          create:
+            success: Кубковая игры создана
+          update:
+            success: Кубковая игры обновлена
       seasons:
         create:
           success: Сезон создан
@@ -119,6 +132,9 @@ ru:
       permission: Необходимо подтвердить электронную почту
       ban: Аккаунт заблокирован
   services:
+    cups:
+      create:
+        league_does_not_exist: Лига не существует
     oraculs:
       create:
         not_unique: Оракл уже создан
@@ -153,6 +169,7 @@ ru:
       show:
         week: Игровая неделя %{value}
         title: Результаты недели
+        cup_title: Результаты раунда
         description: На этой странице представлены результаты прогнозов, также можно сделать прогнозы на неначавшиеся события. Дедлайн для прогноза - 2 часа до начала события.
         points: Всего очков
         average_points: Средний результат
@@ -161,6 +178,41 @@ ru:
         next: Следующий период
         no_data: Нет данных
     admin:
+      cups:
+        index:
+          header: Кубки
+          new_cup: Новый кубок
+          rounds: Раунды
+        new:
+          name_en: Название (en)
+          name_ru: Название (ru)
+          active: Активность
+          league_id: Лига
+          create: Создать новый кубок
+        rounds:
+          index:
+            header: Кубковые раунды
+            new_cups_round: Новый кубковый раунд
+            name: Название
+            position: Положение
+            pairs: Игры
+            refresh_oraculs_points: Обновить оракулов
+          new:
+            create: Создать новый раунд
+        pairs:
+          index:
+            header: Игры раунда
+            new_cups_pair: Новая игры
+            home_name: Первое название
+            visitor_name: Второе название
+            start_at: Время начала
+            points: Результат
+            edit: Изменить
+          new:
+            create: Создать новую игру
+          edit:
+            title: Редактирование игры
+            update: Обновить игру
       weeks:
         index:
           header: Игровые недели
@@ -310,6 +362,7 @@ ru:
       modes: Режимы фэнтези игр
       oraculs_leagues: Предсказание результатов
       oraculs_leagues_description: В отличие от драфт лиг, где успех зависит от выбора игроков, то в этом режиме вы можете соревноваться в успешности предсказаний результатов игр в различных видах спорта.
+      oraculs_cup_leagues: Предсказывать результаты игр можно как для лиг, доступных для драфта игроков, так и в дополнительных турнирах по кубковой системе.
     homes:
       show:
         no_season: Для выбранного спорта нет активного сезона. Скоро будет добавлен.

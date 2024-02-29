@@ -18,12 +18,48 @@ describe OraculsController do
       end
 
       context 'for existing user oracul' do
-        let!(:oracul) { create :oracul }
+        context 'for season' do
+          let!(:season) { create :season }
+          let!(:oracul_place) { create :oracul_place, placeable: season }
+          let!(:oracul) { create :oracul, oracul_place: oracul_place }
 
-        it 'renders show page' do
-          get :show, params: { id: oracul.uuid, locale: 'en' }
+          before { create :week, season: season }
 
-          expect(response).to render_template :show
+          it 'renders show page' do
+            get :show, params: { id: oracul.uuid, locale: 'en' }
+
+            expect(response).to render_template :show
+          end
+
+          context 'with week_id' do
+            it 'renders show page' do
+              get :show, params: { id: oracul.uuid, week_id: 'unexisting', locale: 'en' }
+
+              expect(response).to render_template :show
+            end
+          end
+        end
+
+        context 'for cup' do
+          let!(:cup) { create :cup }
+          let!(:oracul_place) { create :oracul_place, placeable: cup }
+          let!(:oracul) { create :oracul, oracul_place: oracul_place }
+
+          before { create :cups_round, cup: cup }
+
+          it 'renders show page' do
+            get :show, params: { id: oracul.uuid, locale: 'en' }
+
+            expect(response).to render_template :show
+          end
+
+          context 'with week_id' do
+            it 'renders show page' do
+              get :show, params: { id: oracul.uuid, week_id: 'unexisting', locale: 'en' }
+
+              expect(response).to render_template :show
+            end
+          end
         end
       end
     end

@@ -22,17 +22,6 @@ module ApplicationHelper
     ) { '' }
   end
 
-  def league_background(league_name)
-    case league_name
-    when 'English Premier League', 'Premier League' then 'leagues/epl.webp'
-    when 'Russian Premier League' then 'leagues/rpl.webp'
-    when 'Seria A' then 'leagues/seria_a.webp'
-    when 'La Liga' then 'leagues/la_liga.webp'
-    when 'Bundesliga' then 'leagues/bundesliga.webp'
-    when 'NBA' then 'leagues/nba.webp'
-    end
-  end
-
   def omniauth_link(provider)
     case provider
     when :google then google_oauth_link
