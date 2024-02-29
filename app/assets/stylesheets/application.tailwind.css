@@ -52,6 +52,10 @@
     height: 26px;
   }
 
+  .admin-navigation-link {
+    @apply flex flex-row items-center p-2 border-b-2 border-transparent text-white;
+  }
+
   .user-navigation-link {
     @apply flex flex-row items-center p-2 border-b-2 border-transparent;
   }

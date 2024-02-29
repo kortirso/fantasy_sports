@@ -39,6 +39,11 @@ en:
         rules:
           name:
             filled?: can't be blank
+      cup:
+        rules:
+          name:
+            filled?: can't be blank
+            invalid: is invalid
       league:
         rules:
           name:

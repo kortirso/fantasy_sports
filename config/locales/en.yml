@@ -13,6 +13,7 @@ en:
         home: Home
         welcome: Welcome
         leagues: Leagues
+        cups: Cups
         seasons: Seasons
         players: Players
         feedbacks: Feedbacks
@@ -58,6 +59,9 @@ en:
       leagues:
         create:
           success: League is created
+      cups:
+        create:
+          success: Cup is created
       seasons:
         create:
           success: Season is created
@@ -162,6 +166,16 @@ en:
         next: Next period
         no_data: No data
     admin:
+      cups:
+        index:
+          header: Cups
+          new_cup: New cup
+        new:
+          name_en: Name (en)
+          name_ru: Name (ru)
+          active: Active
+          league_id: League
+          create: Create new season
       weeks:
         index:
           header: Weeks

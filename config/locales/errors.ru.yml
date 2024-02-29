@@ -42,6 +42,11 @@ ru:
         rules:
           name:
             filled?: не может быть пустым
+      cup:
+        rules:
+          name:
+            filled?: не может быть пустым
+            invalid: не может быть пустым
       league:
         rules:
           name:

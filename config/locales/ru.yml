@@ -13,6 +13,7 @@ ru:
         home: Главная
         welcome: Админ панель
         leagues: Лиги
+        cups: Кубки
         seasons: Сезоны
         players: Игроки
         feedbacks: Отзывы
@@ -58,6 +59,9 @@ ru:
       leagues:
         create:
           success: Лига создана
+      cups:
+        create:
+          success: Кубок создан
       seasons:
         create:
           success: Сезон создан
@@ -162,6 +166,16 @@ ru:
         next: Следующий период
         no_data: Нет данных
     admin:
+      cups:
+        index:
+          header: Кубки
+          new_cup: Новый кубок
+        new:
+          name_en: Название (en)
+          name_ru: Название (ru)
+          active: Активность
+          league_id: Лига
+          create: Создать новый кубок
       weeks:
         index:
           header: Игровые недели

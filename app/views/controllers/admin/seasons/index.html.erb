@@ -2,8 +2,8 @@
   <h1><%= t('views.admin.seasons.index.header') %></h1>
   <%= link_to t('views.admin.seasons.index.new_season'), new_admin_season_path, class: 'btn-primary' %>
 </div>
-<% @leagues.each do |league| %>
-  <h3><%= localized_value(league.name) %></h3>
+<% @seasons.each do |leagues_name, seasons| %>
+  <h3><%= localized_value(leagues_name) %></h3>
   <table class="table mb-4" cellSpacing="0">
     <thead>
       <tr>
@@ -14,17 +14,17 @@
       </tr>
     </thead>
     <tbody>
-      <% league.seasons.order(id: :desc).each do |season| %>
+      <% seasons.each do |season| %>
         <tr>
-          <td><%= season.id %></td>
-          <td><%= season.name %></td>
-          <td><%= season.active %></td>
+          <td><%= season[:id] %></td>
+          <td><%= season[:name] %></td>
+          <td><%= season[:active] %></td>
           <td>
-            <%= link_to t('views.admin.seasons.index.weeks'), admin_weeks_path(season_id: season.id), class: 'btn-primary btn-small' %>
-            <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season.uuid), class: 'btn-primary btn-small' %>
-            <%= link_to t('views.admin.seasons.index.teams_players'), admin_season_teams_players_path(season.uuid), class: 'btn-primary btn-small' %>
-            <%= link_to t('views.admin.seasons.index.seasons_teams'), admin_season_teams_path(season.uuid), class: 'btn-primary btn-small' %>
-            <%= link_to t('views.admin.seasons.index.seasons_injuries'), admin_season_injuries_path(season.id), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.weeks'), admin_weeks_path(season_id: season[:id]), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season[:uuid]), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.teams_players'), admin_season_teams_players_path(season[:uuid]), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.seasons_teams'), admin_season_teams_path(season[:uuid]), class: 'btn-primary btn-small' %>
+            <%= link_to t('views.admin.seasons.index.seasons_injuries'), admin_season_injuries_path(season[:id]), class: 'btn-primary btn-small' %>
           </td>
         </tr>
       <% end %>
