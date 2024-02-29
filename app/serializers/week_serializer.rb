@@ -5,8 +5,7 @@ class WeekSerializer < ApplicationSerializer
 
   attribute :games, if: proc { |_, params| params_with_field?(params, 'games') } do |object|
     GameSerializer
-      .new(object.games.includes(home_season_team: :team, visitor_season_team: :team)
-      .order(start_at: :asc))
+      .new(object.games.includes(home_season_team: :team, visitor_season_team: :team).order(start_at: :asc))
       .serializable_hash
   end
 

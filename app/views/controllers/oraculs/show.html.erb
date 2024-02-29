@@ -6,9 +6,16 @@
           <% if @oracul.oracul_place.season? %>
             <%= t('views.oraculs.show.week', value: @periodable.position) %>
           <% else %>
+            <%= @periodable.name %>
           <% end %>
         </span>
-        <h1 class="mb-2"><%= t('views.oraculs.show.title') %></h1>
+        <h1 class="mb-2">
+          <% if @oracul.oracul_place.season? %>
+            <%= t('views.oraculs.show.title') %>
+          <% else %>
+            <%= t('views.oraculs.show.cup_title') %>
+          <% end %>
+        </h1>
         <p class="mb-4"><%= t('views.oraculs.show.description') %></p>
         <div class="flex flex-col md:flex-row justify-between mt-2 bg-stone-200 border border-stone-300 rounded mb-4">
           <div class="flex flex-row md:flex-col items-center justify-center md:justify-between flex-1 py-2 px-10 border-b md:border-b-0 md:border-r border-stone-300">
@@ -35,10 +42,12 @@
             <%= link_to t('views.oraculs.show.next'), oracul_url(@oracul.uuid, week: @periodable.position + 1), class: 'btn-primary btn-small' %>
           </div>
         </div>
-        <% if @oracul.oracul_place.season? %>
-          <%= react_component 'OraculWeek', uuid: @periodable.uuid, lineupUuid: @oraculs_lineup&.uuid %>
-        <% else %>
-        <% end %>
+        <%=
+          react_component 'OraculWeek',
+                          uuid: @periodable.uuid,
+                          lineupUuid: @oraculs_lineup&.uuid,
+                          isForWeek: @oracul.oracul_place.season?
+        %>
       </div>
     </div>
     <div class="xl:col-span-3">

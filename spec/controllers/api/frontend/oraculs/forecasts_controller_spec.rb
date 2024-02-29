@@ -18,23 +18,12 @@ describe Api::Frontend::Oraculs::ForecastsController do
       end
 
       context 'for existing lineup of another user' do
-        let!(:week) { create :week }
-        let!(:game) { create :game, week: week, start_at: 3.hours.after }
-        let!(:oraculs_lineup) { create :oraculs_lineup, periodable: week }
+        context 'for season' do
+          let!(:week) { create :week }
+          let!(:game) { create :game, week: week, start_at: 3.hours.after }
+          let!(:oraculs_lineup) { create :oraculs_lineup, periodable: week }
 
-        before { create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: game }
-
-        it 'returns json ok status', :aggregate_failures do
-          get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
-
-          expect(response).to have_http_status :ok
-          %w[uuid owner value forecastable].each do |attr|
-            expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
-          end
-        end
-
-        context 'for user lineup' do
-          before { oraculs_lineup.oracul.update!(user: @current_user) }
+          before { create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: game }
 
           it 'returns json ok status', :aggregate_failures do
             get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
@@ -42,6 +31,49 @@ describe Api::Frontend::Oraculs::ForecastsController do
             expect(response).to have_http_status :ok
             %w[uuid owner value forecastable].each do |attr|
               expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
+            end
+          end
+
+          context 'for user lineup' do
+            before { oraculs_lineup.oracul.update!(user: @current_user) }
+
+            it 'returns json ok status', :aggregate_failures do
+              get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+
+              expect(response).to have_http_status :ok
+              %w[uuid owner value forecastable].each do |attr|
+                expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
+              end
+            end
+          end
+        end
+
+        context 'for cup' do
+          let!(:cups_round) { create :cups_round }
+          let!(:cups_pair) { create :cups_pair, cups_round: cups_round, start_at: 3.hours.after }
+          let!(:oraculs_lineup) { create :oraculs_lineup, periodable: cups_round }
+
+          before { create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: cups_pair }
+
+          it 'returns json ok status', :aggregate_failures do
+            get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+
+            expect(response).to have_http_status :ok
+            %w[uuid owner value forecastable].each do |attr|
+              expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
+            end
+          end
+
+          context 'for user lineup' do
+            before { oraculs_lineup.oracul.update!(user: @current_user) }
+
+            it 'returns json ok status', :aggregate_failures do
+              get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+
+              expect(response).to have_http_status :ok
+              %w[uuid owner value forecastable].each do |attr|
+                expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
+              end
             end
           end
         end

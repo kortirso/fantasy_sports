@@ -13,5 +13,9 @@ module Oraculs
              class_name: '::Oraculs::Forecast',
              foreign_key: :oraculs_lineup_id,
              dependent: :destroy
+
+    def week?
+      periodable_type == 'Week'
+    end
   end
 end

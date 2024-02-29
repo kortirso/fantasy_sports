@@ -18,55 +18,111 @@ describe Api::Frontend::OraculsController do
       end
 
       context 'for existing oracul place' do
-        let!(:season) { create :season }
-        let!(:week) { create :week, season: season, status: Week::COMING }
-        let!(:oracul_place) { create :oracul_place, placeable: season }
+        context 'for season' do
+          let!(:season) { create :season }
+          let!(:week) { create :week, season: season, status: Week::COMING }
+          let!(:oracul_place) { create :oracul_place, placeable: season }
 
-        before do
-          create :oracul_league, leagueable: nil, oracul_place: oracul_place, name: 'Delphi'
+          before do
+            create :oracul_league, leagueable: nil, oracul_place: oracul_place, name: 'Delphi'
 
-          create_list :game, 3, week: week
-        end
+            create_list :game, 3, week: week
+          end
 
-        context 'for invalid params' do
-          let(:request) {
-            post :create, params: { oracul: { name: '' }, oracul_place_id: oracul_place.uuid }, format: :json
-          }
+          context 'for invalid params' do
+            let(:request) {
+              post :create, params: { oracul: { name: '' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
 
-          it 'does not create oracul', :aggregate_failures do
-            expect { request }.not_to change(Oracul, :count)
-            expect(response).to have_http_status :ok
-            expect(response.parsed_body.dig('errors', 0)).to eq 'Name must be filled'
+            it 'does not create oracul', :aggregate_failures do
+              expect { request }.not_to change(Oracul, :count)
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body.dig('errors', 0)).to eq 'Name must be filled'
+            end
+          end
+
+          context 'for existing oracul' do
+            let(:request) {
+              post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
+
+            before { create :oracul, user: @current_user, oracul_place: oracul_place }
+
+            it 'does not create oracul', :aggregate_failures do
+              expect { request }.not_to change(Oracul, :count)
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body.dig('errors', 0)).to eq 'Oracul already exists'
+            end
+          end
+
+          context 'for valid params' do
+            let(:request) {
+              post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
+
+            it 'creates oracul', :aggregate_failures do
+              expect { request }.to(
+                change(@current_user.oraculs, :count).by(1)
+                  .and(change(Oraculs::Lineup, :count).by(1))
+                  .and(change(Oraculs::Forecast, :count).by(3))
+              )
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body['errors']).to be_nil
+            end
           end
         end
 
-        context 'for existing oracul' do
-          let(:request) {
-            post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
-          }
+        context 'for cup' do
+          let!(:cup) { create :cup }
+          let!(:cups_round) { create :cups_round, cup: cup, status: Week::COMING }
+          let!(:oracul_place) { create :oracul_place, placeable: cup }
 
-          before { create :oracul, user: @current_user, oracul_place: oracul_place }
+          before do
+            create :oracul_league, leagueable: nil, oracul_place: oracul_place, name: 'Delphi'
 
-          it 'does not create oracul', :aggregate_failures do
-            expect { request }.not_to change(Oracul, :count)
-            expect(response).to have_http_status :ok
-            expect(response.parsed_body.dig('errors', 0)).to eq 'Oracul already exists'
+            create_list :cups_pair, 3, cups_round: cups_round
           end
-        end
 
-        context 'for valid params' do
-          let(:request) {
-            post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
-          }
+          context 'for invalid params' do
+            let(:request) {
+              post :create, params: { oracul: { name: '' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
 
-          it 'creates oracul', :aggregate_failures do
-            expect { request }.to(
-              change(@current_user.oraculs, :count).by(1)
-                .and(change(Oraculs::Lineup, :count).by(1))
-                .and(change(Oraculs::Forecast, :count).by(3))
-            )
-            expect(response).to have_http_status :ok
-            expect(response.parsed_body['errors']).to be_nil
+            it 'does not create oracul', :aggregate_failures do
+              expect { request }.not_to change(Oracul, :count)
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body.dig('errors', 0)).to eq 'Name must be filled'
+            end
+          end
+
+          context 'for existing oracul' do
+            let(:request) {
+              post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
+
+            before { create :oracul, user: @current_user, oracul_place: oracul_place }
+
+            it 'does not create oracul', :aggregate_failures do
+              expect { request }.not_to change(Oracul, :count)
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body.dig('errors', 0)).to eq 'Oracul already exists'
+            end
+          end
+
+          context 'for valid params' do
+            let(:request) {
+              post :create, params: { oracul: { name: 'Name' }, oracul_place_id: oracul_place.uuid }, format: :json
+            }
+
+            it 'creates oracul', :aggregate_failures do
+              expect { request }.to(
+                change(@current_user.oraculs, :count).by(1)
+                  .and(change(Oraculs::Lineup, :count).by(1))
+                  .and(change(Oraculs::Forecast, :count).by(3))
+              )
+              expect(response).to have_http_status :ok
+              expect(response.parsed_body['errors']).to be_nil
+            end
           end
         end
       end

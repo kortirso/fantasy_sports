@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import { currentLocale, localizeValue, convertTime, csrfToken } from '../../helpers';
 import { strings } from '../../locales';
@@ -7,9 +7,18 @@ import { apiRequest } from '../../requests/helpers/apiRequest';
 
 strings.setLanguage(currentLocale);
 
-export const Game = ({ item, forecast, last }) => {
-  const [homeForecast, setHomeForecast] = useState(forecast.value.length === 0 ? null : forecast.value[0]);
-  const [visitorForecast, setVisitorForecast] = useState(forecast.value.length === 0 ? null : forecast.value[1]);
+export const Game = ({ item, isForWeek, forecast, last }) => {
+  const [homeForecast, setHomeForecast] = useState(
+    forecast === undefined || forecast.value.length === 0 ? null : forecast.value[0]
+  );
+  const [visitorForecast, setVisitorForecast] = useState(
+    forecast === undefined || forecast.value.length === 0 ? null : forecast.value[1]
+  );
+
+  const localizeTeamName = (team, name) => {
+    if (isForWeek) return localizeValue(team.name);
+    return localizeValue(name) || localizeValue({ en: 'unknown', ru: 'Неизвестно' });
+  }
 
   useEffect(() => {
     if (parseInt(homeForecast) >= 0 && parseInt(visitorForecast) >= 0) {
@@ -27,12 +36,15 @@ export const Game = ({ item, forecast, last }) => {
         options: requestOptions,
       });
     };
-  }, [homeForecast, visitorForecast]);
+  }, [homeForecast, visitorForecast, forecast.uuid]);
+
+  const homeTeamName = useMemo(() => localizeTeamName(item.home_team, item.home_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps
+  const visitorTeamName = useMemo(() => localizeTeamName(item.visitor_team, item.visitor_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <div className={`flex justify-center items-center p-2 ${last ? '' : 'border-b border-stone-200'}`}>
-        <p className="lg:text-lg flex-1 text-right">{localizeValue(item.home_team.name)}</p>
+        <p className="lg:text-lg flex-1 text-right">{homeTeamName}</p>
         <div className="mx-4 flex items-end gap-2">
           {item.points.length > 0 ? (
             <div>
@@ -43,7 +55,7 @@ export const Game = ({ item, forecast, last }) => {
           ) : (
             <p className="py-2 px-4 border border-stone-200 rounded">{convertTime(item.start_at)}</p>
           )}
-          {item.predictable && forecast.owner ? (
+          {item.predictable && forecast && forecast.owner ? (
             <div className="flex flex-col justify-center ml-2">
               <span className="text-xs text-center">{strings.oraculWeek.forecast}</span>
               <div className="flex items-center">
@@ -61,14 +73,14 @@ export const Game = ({ item, forecast, last }) => {
               </div>
             </div>
           ) : null}
-          {!item.predictable && forecast.value.length > 0 ? (
+          {!item.predictable && forecast && forecast.value.length > 0 ? (
             <div className="flex flex-col justify-center ml-2">
               <span className="text-xs text-center">{strings.oraculWeek.forecast}</span>
               <p className="py-0 px-4 border border-stone-200 rounded bg-stone-100">{homeForecast} - {visitorForecast}</p>
             </div>
           ) : null}
         </div>
-        <p className="lg:text-lg flex-1">{localizeValue(item.visitor_team.name)}</p>
+        <p className="lg:text-lg flex-1">{visitorTeamName}</p>
       </div>
     </>
   );

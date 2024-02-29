@@ -37,7 +37,7 @@ module Api
               @oraculs_lineup.oraculs_forecasts,
               params: {
                 owner: owner,
-                forecastables: @oraculs_lineup.periodable.games.to_a
+                forecastables: forecastables
               }
             ).serializable_hash
           end
@@ -49,6 +49,10 @@ module Api
 
         def find_oraculs_forecast
           @oraculs_forecast = ::Oraculs::Forecast.find_by!(uuid: params[:id])
+        end
+
+        def forecastables
+          @oraculs_lineup.week? ? @oraculs_lineup.periodable.games.to_a : @oraculs_lineup.periodable.cups_pairs.to_a
         end
 
         def oraculs_forecast_params

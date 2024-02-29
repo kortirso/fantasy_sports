@@ -152,7 +152,8 @@ en:
     oraculs:
       show:
         week: Gameweek %{value}
-        title: Squad points
+        title: Points per week
+        cup_title: Points per round
         description: This page contains results of predictions, in addition you can make prediction for future events. Deadline for prediction - 2 hours before event.
         points: Total points
         average_points: Average points

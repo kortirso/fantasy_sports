@@ -55,6 +55,9 @@ Rails.application.routes.draw do
       resources :lineups, only: %i[] do
         resource :players, only: %i[show], module: 'lineups'
       end
+      resource :cups, only: %i[] do
+        resources :rounds, only: %i[show], module: 'cups'
+      end
     end
   end
 

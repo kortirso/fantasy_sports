@@ -332,9 +332,10 @@ ALTER SEQUENCE public.cups_id_seq OWNED BY public.cups.id;
 
 CREATE TABLE public.cups_pairs (
     id bigint NOT NULL,
+    uuid uuid NOT NULL,
     cups_round_id bigint NOT NULL,
-    home_name jsonb DEFAULT '{}'::jsonb NOT NULL,
-    visitor_name jsonb DEFAULT '{}'::jsonb NOT NULL,
+    home_name jsonb,
+    visitor_name jsonb,
     start_at timestamp(6) without time zone,
     points integer[] DEFAULT '{}'::integer[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -367,6 +368,7 @@ ALTER SEQUENCE public.cups_pairs_id_seq OWNED BY public.cups_pairs.id;
 
 CREATE TABLE public.cups_rounds (
     id bigint NOT NULL,
+    uuid uuid NOT NULL,
     cup_id bigint NOT NULL,
     name character varying NOT NULL,
     "position" integer NOT NULL,
@@ -2690,10 +2692,24 @@ CREATE INDEX index_cups_pairs_on_cups_round_id ON public.cups_pairs USING btree 
 
 
 --
+-- Name: index_cups_pairs_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_pairs_on_uuid ON public.cups_pairs USING btree (uuid);
+
+
+--
 -- Name: index_cups_rounds_on_cup_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_cups_rounds_on_cup_id ON public.cups_rounds USING btree (cup_id);
+
+
+--
+-- Name: index_cups_rounds_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cups_rounds_on_uuid ON public.cups_rounds USING btree (uuid);
 
 
 --

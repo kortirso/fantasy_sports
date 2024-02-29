@@ -125,3 +125,19 @@ round1.cups_pairs.create(
   visitor_name: { en: 'PSV', ru: 'ПСВ' },
   start_at: DateTime.new(2024, 3, 13, 20, 0, 0)
 )
+
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+round2.cups_pairs.create
+
+round3.cups_pairs.create
+round3.cups_pairs.create
+round3.cups_pairs.create
+round3.cups_pairs.create
+
+round4.cups_pairs.create

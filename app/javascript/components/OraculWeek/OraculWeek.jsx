@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 
-import { currentLocale, convertDateTime, convertDate } from '../../helpers';
+import { currentLocale, convertDate, localizeValue } from '../../helpers';
 import { strings } from '../../locales';
 import { Arrow } from '../../assets';
 
 import { Game } from './Game';
 import { weekRequest } from './requests/weekRequest';
+import { cupsRoundRequest } from './requests/cupsRoundRequest';
 import { forecastsRequest } from './requests/forecastsRequest';
 
 strings.setLanguage(currentLocale);
 
-export const OraculWeek = ({ uuid, lineupUuid }) => {
+export const OraculWeek = ({ uuid, lineupUuid, isForWeek }) => {
   const [pageState, setPageState] = useState({
     loading: true,
-    week: null,
     games: [],
     collapseData: {},
     forecasts: []
   });
 
   useEffect(() => {
-    const fetchWeek = async () => await weekRequest(uuid);
+    const fetchWeek = async () => await (isForWeek ? weekRequest(uuid) : cupsRoundRequest(uuid));
     const fetchForecasts = async () => await forecastsRequest(lineupUuid);
 
     Promise.all([fetchWeek(), fetchForecasts()]).then(([weekData, forecastsData]) => {
       const games = weekData.games.data.map((element) => element.attributes);
       const groupedGames = games.reduce((result, game) => {
-        const convertedTime = convertDate(game.start_at);
+        const convertedTime = game.start_at ? convertDate(game.start_at) : localizeValue({ en: 'unknown', ru: 'Неизвестно' });
 
         if (result[convertedTime] === undefined) result[convertedTime] = [game];
         else result[convertedTime].push(game);
@@ -48,19 +48,19 @@ export const OraculWeek = ({ uuid, lineupUuid }) => {
 
       setPageState({
         loading: false,
-        week: weekData,
         games: groupedGames,
         collapseData: collapseData,
         forecasts: forecastsData
       });
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderGames = (games) => {
     return games.map((game, index) => {
       return (
         <Game
           item={game}
+          isForWeek={isForWeek}
           forecast={pageState.forecasts.find((element) => element.forecastable.uuid === game.uuid)}
           last={index === games.length - 1}
         />
@@ -72,7 +72,7 @@ export const OraculWeek = ({ uuid, lineupUuid }) => {
     setPageState({ ...pageState, collapseData: { ...pageState.collapseData, [key]: !pageState.collapseData[key] } });
   };
 
-  if (pageState.loading || pageState.week === null) return <></>;
+  if (pageState.loading) return <></>;
 
   return (
     <div>

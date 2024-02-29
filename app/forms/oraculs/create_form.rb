@@ -32,7 +32,7 @@ module Oraculs
         if oracul_place.season?
           [Week.future.where(season_id: oracul_place.placeable_id).pluck(:id), 'Week']
         else
-          [[], 'Cups::Round']
+          [Cups::Round.future.where(cup_id: oracul_place.placeable_id).pluck(:id), 'Cups::Round']
         end
 
       objects = ids.map do |id|
@@ -76,7 +76,14 @@ module Oraculs
           'Game'
         ]
       else
-        [[], 'Cups::Pair']
+        [
+          Cups::Pair
+            .where(cups_round_id: periodable_ids)
+            .hashable_pluck(:id, :cups_round_id)
+            .group_by { |e| e[:cups_round_id] }
+            .transform_values { |values| values.pluck(:id) },
+          'Cups::Pair'
+        ]
       end
     end
   end
