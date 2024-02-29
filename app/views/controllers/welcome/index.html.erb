@@ -1,6 +1,6 @@
 <%= render PageWrappers::GuestComponent.new do %>
   <% cache(['welcome_index_v2', Current.user&.id, I18n.locale], expires_in: 24.hours) do %>
-    <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-8 xl:my-24">
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-16 xl:my-28">
       <div class="flex-1 flex flex-col justify-center lg:pr-16">
         <h1 class="text-center lg:text-left"><%= t('views.welcome.title') %></h1>
         <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
@@ -10,7 +10,7 @@
             <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'btn-primary' %>
           </div>
         <% else %>
-          <div class="flex mb-4">
+          <div class="flex mb-4 justify-center md:justify-start">
             <%= link_to t('views.welcome.home'), draft_players_path, class: 'btn-primary mr-4' %>
             <%= link_to t('components.views.shared.fantasy_team_navigation_component.oracul_places'), oracul_places_path, class: 'btn-primary mr-4' %>
           </div>
@@ -22,28 +22,33 @@
     </section>
     <section class="mx-auto mb-8 xl:mb-24">
       <h2 class="text-center text-4xl mb-12"><%= t('views.welcome.modes') %></h2>
-      <div class="flex flex-col md:flex-row md:gap-20 mb-16">
+      <div class="flex flex-col md:flex-row md:gap-20 mb-12 xl:mb-20">
         <div class="flex-1 mb-8 md:mb-0 pt-0 md:pt-12">
           <h3 class="text-3xl"><%= t('views.welcome.active_leagues') %></h3>
           <p class="mb-4"><%= t('views.welcome.active_leagues_list') %></p>
         </div>
-        <div class="flex-1 w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
-          <%= image_tag 'leagues/epl.webp', alt: 'fantasy premier league', class: 'h-32' %>
-          <%= image_tag 'leagues/la_liga.webp', alt: 'fantasy la liga', class: 'h-32' %>
-          <%= image_tag 'leagues/nba.webp', alt: 'fantasy nba', class: 'h-32' %>
-          <%= image_tag 'leagues/seria_a.webp', alt: 'fantasy serie a', class: 'h-32' %>
-          <%= image_tag 'leagues/rpl.webp', alt: 'fantasy russian premier league', class: 'h-32' %>
-          <%= image_tag 'leagues/bundesliga.webp', alt: 'fantasy bundesliga', class: 'h-32' %>
+        <div class="flex-1 w-full grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <%= image_tag 'leagues/epl.webp', alt: 'fantasy premier league', class: 'h-32 mx-auto' %>
+          <%= image_tag 'leagues/la_liga.webp', alt: 'fantasy la liga', class: 'h-32 mx-auto' %>
+          <%= image_tag 'leagues/nba.webp', alt: 'fantasy nba', class: 'h-32 mx-auto' %>
+          <%= image_tag 'leagues/seria_a.webp', alt: 'fantasy serie a', class: 'h-32 mx-auto' %>
+          <%= image_tag 'leagues/rpl.webp', alt: 'fantasy russian premier league', class: 'h-32 mx-auto' %>
+          <%= image_tag 'leagues/bundesliga.webp', alt: 'fantasy bundesliga', class: 'h-32 mx-auto' %>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row md:gap-20">
+      <div class="flex flex-col-reverse md:flex-row md:gap-20">
         <div class="flex-1">
           <%= image_tag 'predictions.webp', width: 593, height: 340, alt: 'predictions-example', class: 'border border-stone-200 rounded' %>
         </div>
-        <div class="flex-1 mb-8 md:mb-0 pt-0 md:pt-12">
+        <div class="flex-1 mb-8 md:mb-0">
           <h3 class="text-3xl"><%= t('views.welcome.oraculs_leagues') %></h3>
           <p class="mb-4"><%= t('views.welcome.oraculs_leagues_description') %></p>
+          <p class="mb-4"><%= t('views.welcome.oraculs_cup_leagues') %></p>
+          <div class="mt-8 w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <%= image_tag 'leagues/champions_league.webp', alt: 'fantasy champions league', class: 'h-32' %>
+          </div>
         </div>
+      </div>
       </div>
     </section>
   <% end %>
