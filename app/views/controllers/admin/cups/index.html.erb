@@ -20,7 +20,7 @@
           <td><%= cup[:name] %></td>
           <td><%= cup[:active] %></td>
           <td>
-            
+            <%= link_to t('views.admin.cups.index.rounds'), admin_cup_rounds_path(cup_id: cup[:id]), class: 'btn-primary btn-small' %>
           </td>
         </tr>
       <% end %>

@@ -62,6 +62,9 @@ ru:
       cups:
         create:
           success: Кубок создан
+        rounds:
+          create:
+            success: Кубковый раунд создан
       seasons:
         create:
           success: Сезон создан
@@ -170,12 +173,21 @@ ru:
         index:
           header: Кубки
           new_cup: Новый кубок
+          rounds: Раунды
         new:
           name_en: Название (en)
           name_ru: Название (ru)
           active: Активность
           league_id: Лига
           create: Создать новый кубок
+        rounds:
+          index:
+            header: Кубковые раунды
+            new_cups_round: Новый кубковый раунд
+            name: Название
+            position: Положение
+          new:
+            create: Создать новый раунд
       weeks:
         index:
           header: Игровые недели

@@ -27,7 +27,11 @@ Rails.application.routes.draw do
         resources :injuries, only: %i[index new create edit update destroy]
       end
     end
-    resources :cups, only: %i[index new create]
+    resources :cups, only: %i[index new create] do
+      scope module: :cups do
+        resources :rounds, only: %i[index new create]
+      end
+    end
     resources :weeks, only: %i[index edit update]
   end
 

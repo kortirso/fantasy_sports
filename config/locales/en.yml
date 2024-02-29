@@ -62,6 +62,9 @@ en:
       cups:
         create:
           success: Cup is created
+        rounds:
+          create:
+            success: Cups round is created
       seasons:
         create:
           success: Season is created
@@ -170,12 +173,21 @@ en:
         index:
           header: Cups
           new_cup: New cup
+          rounds: Rounds
         new:
           name_en: Name (en)
           name_ru: Name (ru)
           active: Active
           league_id: League
           create: Create new season
+        rounds:
+          index:
+            header: Cups rounds
+            new_cups_round: New cups round
+            name: Name
+            position: Position
+          new:
+            create: Create new cups round
       weeks:
         index:
           header: Weeks
