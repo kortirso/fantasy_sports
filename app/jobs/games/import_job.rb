@@ -22,7 +22,8 @@ module Games
       )
 
       ::Oraculs::Lineups::Points::UpdateJob.perform_later(
-        week_id: week.id
+        periodable_id: week.id,
+        periodable_type: 'Week'
       )
     end
   end

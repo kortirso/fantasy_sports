@@ -18,5 +18,7 @@ module Cups
     scope :future, -> { where(status: [ACTIVE, COMING]) }
 
     enum status: { COMING => 0, ACTIVE => 1, FINISHED => 2 }
+
+    alias placeable cup
   end
 end

@@ -65,6 +65,7 @@ en:
         rounds:
           create:
             success: Cups round is created
+          refresh_oraculs_points: Refreshing is started
         pairs:
           create:
             success: Cups pair is created
@@ -195,6 +196,7 @@ en:
             name: Name
             position: Position
             pairs: Games
+            refresh_oraculs_points: Refresh oraculs
           new:
             create: Create new cups round
         pairs:

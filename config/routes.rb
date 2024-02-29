@@ -37,6 +37,10 @@ Rails.application.routes.draw do
         resources :pairs, only: %i[index new edit create update]
       end
     end
+    scope module: :cups do
+      get 'cups_rounds/:cups_round_id/refresh_oraculs_points', to: 'rounds#refresh_oraculs_points',
+                                                               as: :refresh_oraculs_points
+    end
     resources :weeks, only: %i[index edit update]
   end
 

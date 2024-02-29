@@ -6,10 +6,9 @@ module Oraculs
       class UpdateJob < ApplicationJob
         queue_as :default
 
-        def perform(week_id:)
-          update_points.call(week_id: week_id)
-
-          Week.find_by(id: week_id)&.season&.oracul_leagues&.each do |oracul_league|
+        def perform(periodable_id:, periodable_type:)
+          update_points.call(periodable_id: periodable_id, periodable_type: periodable_type)
+          periodable_type.constantize.find_by(id: periodable_id)&.placeable&.oracul_leagues&.each do |oracul_league|
             update_current_place.call(oracul_league: oracul_league)
           end
         end

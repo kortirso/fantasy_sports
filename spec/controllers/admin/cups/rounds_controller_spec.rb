@@ -98,4 +98,42 @@ describe Admin::Cups::RoundsController do
       post :create, params: { cup_id: 'unexisting', cups_round: { name: '1/8', position: '1' } }
     end
   end
+
+  describe 'GET#refresh_oraculs_points' do
+    it_behaves_like 'required auth'
+    it_behaves_like 'required email confirmation'
+    it_behaves_like 'required available email'
+    it_behaves_like 'required admin'
+
+    context 'for admin' do
+      sign_in_admin
+
+      before { allow(Oraculs::Lineups::Points::UpdateJob).to receive(:perform_later) }
+
+      context 'for unexisting cups round' do
+        it 'render not found page' do
+          do_request
+
+          expect(response).to render_template 'shared/404'
+        end
+      end
+
+      context 'for existing cups round' do
+        let!(:cups_round) { create :cups_round, cup: cup }
+
+        it 'runs background job', :aggregate_failures do
+          get :refresh_oraculs_points, params: { cups_round_id: cups_round.id, locale: 'en' }
+
+          expect(Oraculs::Lineups::Points::UpdateJob).to(
+            have_received(:perform_later).with(periodable_id: cups_round.id, periodable_type: 'Cups::Round')
+          )
+          expect(response).to redirect_to admin_cup_rounds_path(cup_id: cup.id)
+        end
+      end
+    end
+
+    def do_request
+      get :refresh_oraculs_points, params: { cups_round_id: 'unexisting', locale: 'en' }
+    end
+  end
 end

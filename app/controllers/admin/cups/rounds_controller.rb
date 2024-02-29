@@ -7,6 +7,7 @@ module Admin
 
       before_action :find_cups_rounds, only: %i[index]
       before_action :find_cup, only: %i[new create]
+      before_action :find_cups_round, only: %i[refresh_oraculs_points]
 
       def index; end
 
@@ -24,6 +25,17 @@ module Admin
         end
       end
 
+      def refresh_oraculs_points
+        ::Oraculs::Lineups::Points::UpdateJob.perform_later(
+          periodable_id: @cups_round.id,
+          periodable_type: 'Cups::Round'
+        )
+        redirect_to(
+          admin_cup_rounds_path(cup_id: @cups_round.cup_id),
+          notice: t('controllers.admin.cups.rounds.refresh_oraculs_points')
+        )
+      end
+
       private
 
       def find_cups_rounds
@@ -36,6 +48,10 @@ module Admin
 
       def find_cup
         @cup = Cup.find(params[:cup_id])
+      end
+
+      def find_cups_round
+        @cups_round = ::Cups::Round.find(params[:cups_round_id])
       end
 
       def cup_params

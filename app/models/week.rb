@@ -35,6 +35,8 @@ class Week < ApplicationRecord
 
   delegate :league, to: :season
 
+  alias placeable season
+
   def previous
     Week.find_by(season_id: season_id, position: position - 1)
   end
