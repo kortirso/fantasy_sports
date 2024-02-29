@@ -1,0 +1,16 @@
+<div class="form-field">
+  <%= form.label :home_name, t('views.admin.cups.pairs.index.home_name'), class: 'form-label' %>
+  <%= form.text_field :home_name, value: @cups_pair.home_name, class: 'form-value' %>
+</div>
+<div class="form-field">
+  <%= form.label :visitor_name, t('views.admin.cups.pairs.index.visitor_name'), class: 'form-label' %>
+  <%= form.text_field :visitor_name, value: @cups_pair.visitor_name, class: 'form-value' %>
+</div>
+<div class="form-field">
+  <%= form.label :start_at, t('views.admin.cups.pairs.index.start_at'), class: 'form-label' %>
+  <%= form.text_field :start_at, value: @cups_pair.start_at&.strftime('%Y-%m-%d %H:%M'), placeholder: '2024-01-31 12:13', class: 'form-value' %>
+</div>
+<div class="form-field">
+  <%= form.label :points, t('views.admin.cups.pairs.index.points'), class: 'form-label' %>
+  <%= form.text_field :points, value: @cups_pair.points&.join('-'), placeholder: '2-1', class: 'form-value' %>
+</div>

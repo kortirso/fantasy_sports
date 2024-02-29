@@ -65,6 +65,11 @@ ru:
         rounds:
           create:
             success: Кубковый раунд создан
+        pairs:
+          create:
+            success: Кубковая игры создана
+          update:
+            success: Кубковая игры обновлена
       seasons:
         create:
           success: Сезон создан
@@ -126,6 +131,9 @@ ru:
       permission: Необходимо подтвердить электронную почту
       ban: Аккаунт заблокирован
   services:
+    cups:
+      create:
+        league_does_not_exist: Лига не существует
     oraculs:
       create:
         not_unique: Оракл уже создан
@@ -186,8 +194,23 @@ ru:
             new_cups_round: Новый кубковый раунд
             name: Название
             position: Положение
+            pairs: Игры
           new:
             create: Создать новый раунд
+        pairs:
+          index:
+            header: Игры раунда
+            new_cups_pair: Новая игры
+            home_name: Первое название
+            visitor_name: Второе название
+            start_at: Время начала
+            points: Результат
+            edit: Изменить
+          new:
+            create: Создать новую игру
+          edit:
+            title: Редактирование игры
+            update: Обновить игру
       weeks:
         index:
           header: Игровые недели

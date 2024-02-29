@@ -65,6 +65,11 @@ en:
         rounds:
           create:
             success: Cups round is created
+        pairs:
+          create:
+            success: Cups pair is created
+          update:
+            success: Cups pair is updated
       seasons:
         create:
           success: Season is created
@@ -126,6 +131,9 @@ en:
       permission: Email is not confirmed yet
       ban: Account is banned
   services:
+    cups:
+      create:
+        league_does_not_exist: League does not exist
     oraculs:
       create:
         not_unique: Oracul already exists
@@ -186,8 +194,23 @@ en:
             new_cups_round: New cups round
             name: Name
             position: Position
+            pairs: Games
           new:
             create: Create new cups round
+        pairs:
+          index:
+            header: Round games
+            new_cups_pair: New round game
+            home_name: Home name
+            visitor_name: Visitor name
+            start_at: Start at
+            points: Points
+            edit: Edit
+          new:
+            create: Create new pair
+          edit:
+            title: Editing pair
+            update: Update pair
       weeks:
         index:
           header: Weeks

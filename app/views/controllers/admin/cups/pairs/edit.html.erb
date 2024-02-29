@@ -1,0 +1,7 @@
+<h1><%= t('views.admin.cups.pairs.edit.title') %></h1>
+<section>
+  <%= form_with model: @cups_pair, url: admin_cups_round_pair_path(cups_round_id: params[:cups_round_id], id: params[:id]), method: :patch do |form| %>
+    <%= render 'form', form: form %>
+    <%= form.submit t('views.admin.cups.pairs.edit.update'), class: 'btn-primary' %>
+  <% end %>
+</section>

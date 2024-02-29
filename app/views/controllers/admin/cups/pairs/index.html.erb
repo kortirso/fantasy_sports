@@ -1,0 +1,30 @@
+<div class="flex flex-row justify-between items-center">
+  <h1><%= t('views.admin.cups.pairs.index.header') %></h1>
+  <%= link_to t('views.admin.cups.pairs.index.new_cups_pair'), new_admin_cups_round_pair_path(cups_round_id: params[:cups_round_id]), class: 'btn-primary' %>
+</div>
+<table class="table mb-4" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('views.admin.cups.pairs.index.home_name') %></th>
+      <th><%= t('views.admin.cups.pairs.index.visitor_name') %></th>
+      <th><%= t('views.admin.cups.pairs.index.start_at') %></th>
+      <th><%= t('views.admin.cups.pairs.index.points') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cups_pairs.each do |cups_pair| %>
+      <tr>
+        <td><%= cups_pair[:id] %></td>
+        <td><%= cups_pair[:home_name] %></td>
+        <td><%= cups_pair[:visitor_name] %></td>
+        <td><%= cups_pair[:start_at] %></td>
+        <td><%= cups_pair[:points]&.join('-') %></td>
+        <td>
+          <%= link_to t('views.admin.cups.pairs.index.edit'), edit_admin_cups_round_pair_path(cups_round_id: params[:cups_round_id], id: cups_pair[:id]), class: 'btn-primary btn-small' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

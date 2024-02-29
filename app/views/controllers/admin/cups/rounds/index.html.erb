@@ -18,7 +18,7 @@
         <td><%= cups_round[:name] %></td>
         <td><%= cups_round[:position] %></td>
         <td>
-
+          <%= link_to t('views.admin.cups.rounds.index.pairs'), admin_cups_round_pairs_path(cups_round_id: cups_round[:id]), class: 'btn-primary btn-small' %>
         </td>
       </tr>
     <% end %>

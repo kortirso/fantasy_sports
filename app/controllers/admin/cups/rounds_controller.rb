@@ -27,7 +27,11 @@ module Admin
       private
 
       def find_cups_rounds
-        @cups_rounds = ::Cups::Round.where(cup_id: params[:cup_id]).order(position: :asc)
+        @cups_rounds =
+          ::Cups::Round
+            .where(cup_id: params[:cup_id])
+            .order(position: :asc)
+            .hashable_pluck(:id, :name, :position)
       end
 
       def find_cup

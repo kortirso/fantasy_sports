@@ -32,6 +32,11 @@ Rails.application.routes.draw do
         resources :rounds, only: %i[index new create]
       end
     end
+    resources :cups_rounds, only: %i[] do
+      scope module: :cups do
+        resources :pairs, only: %i[index new edit create update]
+      end
+    end
     resources :weeks, only: %i[index edit update]
   end
 
