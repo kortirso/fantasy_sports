@@ -10,7 +10,7 @@ league = League.create(
 league2024 = league.seasons.create(
   name: '2023/2024',
   active: true,
-  members_count: 20,
+  members_count: 16,
   main_external_source: Sourceable::SPORTS
 )
 
