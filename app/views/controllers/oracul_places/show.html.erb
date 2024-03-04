@@ -15,7 +15,7 @@
         <% else %>
           <%=
             react_component 'OraculForm',
-                            placeName: oracul_place[:name]['en'],
+                            placeName: localized_value(oracul_place[:name]),
                             placeId: oracul_place[:uuid],
                             leagueBackground: image_url(league[:background_url]),
                             sportKind: image_path("icons/#{league[:sport_kind]}.svg").to_s

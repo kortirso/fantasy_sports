@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def change_locale(locale)
-    url_for(request.params.merge(locale: locale.to_s))
+    url_for(request.params.merge(switch_locale: locale.to_s))
   end
 
   def localized_value(value)
