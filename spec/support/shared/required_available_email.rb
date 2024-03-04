@@ -7,7 +7,7 @@ shared_examples_for 'required available email' do
     it 'redirects to home page' do
       do_request
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to root_en_path
     end
   end
 end

@@ -52,6 +52,7 @@ gem 'jsonapi-serializer', '2.2.0'
 
 # translating
 gem 'i18n-tasks', '~> 1.0.13'
+gem 'route_translator'
 
 # active jobs adapter
 gem 'que', '~> 2.3'
