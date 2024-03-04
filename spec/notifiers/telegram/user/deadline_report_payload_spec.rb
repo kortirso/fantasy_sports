@@ -28,7 +28,7 @@ describe Telegram::User::DeadlineReportPayload, type: :service do
       expect(service_call).to include('До дедлайна осталось 23h 59m')
       expect(service_call).to(
         include(
-          "Для выполнения трансферов перейдите по ссылке http://localhost:5000/fantasy_teams/#{fantasy_team.uuid}/transfers"
+          "Для выполнения трансферов перейдите по ссылке http://localhost:5000/ru/fantasy_teams/#{fantasy_team.uuid}/transfers"
         )
       )
     end

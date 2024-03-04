@@ -10,17 +10,22 @@ module Localization
 
   private
 
-  # rubocop: disable Metrics/AbcSize
   def update_locale
-    return if params[:locale].blank?
-    return if I18n.available_locales.exclude?(params[:locale].to_sym)
+    switch_locale = params[:switch_locale]
+    return if switch_locale.blank?
+    return if I18n.available_locales.exclude?(switch_locale.to_sym)
 
-    Current.user&.update(locale: params[:locale])
-    cookies.permanent[:fantasy_sports_locale] = params[:locale]
+    Current.user&.update(locale: switch_locale)
+    cookies.permanent[:fantasy_sports_locale] = switch_locale
   end
-  # rubocop: enable Metrics/AbcSize
 
   def set_locale
-    I18n.locale = Current.user&.locale.presence || cookies[:fantasy_sports_locale].presence || I18n.default_locale
+    locale = params[:locale]&.to_sym
+    I18n.locale =
+      if I18n.available_locales.include?(locale)
+        locale
+      else
+        Current.user&.locale.presence || cookies[:fantasy_sports_locale].presence || I18n.default_locale
+      end
   end
 end

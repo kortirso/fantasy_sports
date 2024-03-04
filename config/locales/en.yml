@@ -165,6 +165,10 @@ en:
         not_enough_chips: You can not active these chips
         wildcard_active: Wildcard is active
   views:
+    layout:
+      title: Fantasy Sports | Join fantasy leagues in different sports | Predict match results
+      keywords: fantasy, sport, football, basketball, hockey, fantasy league, premier league, predict match results, draft players
+      description: Fantasy Sports - draft fantasy leagues, predict match outcomes. Free to play fantasy sport games with friends, set up your fantasy team in different sports.
     oraculs:
       show:
         week: Gameweek %{value}

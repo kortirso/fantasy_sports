@@ -18,7 +18,10 @@ module Telegram
             ),
             I18n.t(
               'notifiers.telegram.user.deadline_report_payload.link',
-              value: Rails.application.routes.url_helpers.fantasy_team_transfers_url(fantasy_team.uuid)
+              value: Rails.application.routes.url_helpers.fantasy_team_transfers_url(
+                fantasy_team_id: fantasy_team.uuid,
+                locale: locale.to_sym == I18n.default_locale ? nil : locale
+              )
             )
           ].join("\n")
         end
