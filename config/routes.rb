@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resources :weeks, only: %i[index edit update]
   end
 
-  scope '(:locale)', defaults: { locale: nil } do
+  scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/, defaults: { locale: nil } do
     namespace :api do
       namespace :frontend do
         resource :notifications, only: %i[create destroy]
@@ -141,8 +141,7 @@ Rails.application.routes.draw do
     resources :identities, only: %i[destroy]
 
     get 'privacy', to: 'welcome#privacy'
-  end
 
-  get '/ru', to: 'welcome#index', as: 'root_ru'
-  get '/', to: 'welcome#index', as: 'root'
+    root 'welcome#index'
+  end
 end
