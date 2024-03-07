@@ -11,7 +11,15 @@
         <%= react_component 'FeedbackForm', component_class: 'md:ml-8' %>
       <% end %>
     </div>
-    <div>
+    <div class="flex">
+      <div class="flex">
+        <a href="https://vk.com/fantasy_sports_org" target="_blank" rel="noopener noreferrer" class="opacity-75 hover:opacity-100">
+          <%= image_tag 'icons/socials/vk.svg', class: 'w-6 h-6 mr-2', alt: 'vk', width: 24, height: 24 %>
+        </a>
+        <a href="https://t.me/fantasy_sports_org" target="_blank" rel="noopener noreferrer" class="opacity-75 hover:opacity-100">
+          <%= image_tag 'icons/socials/telegram.svg', class: 'w-6 h-6 mr-2', alt: 'telegram', width: 24, height: 24 %>
+        </a>
+      </div>
       <% I18n.available_locales.each do |locale| %>
         <%= link_to locale, change_locale(locale), class: 'ml-4', aria: { label: t('components.page_wrappers.users_component.change_locale') }, data: { 'test-id' => "switch-locale-link-#{locale}" } %>
       <% end %>
