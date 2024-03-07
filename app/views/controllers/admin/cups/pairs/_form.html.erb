@@ -1,10 +1,22 @@
-<div class="form-field">
-  <%= form.label :home_name, t('views.admin.cups.pairs.index.home_name'), class: 'form-label' %>
-  <%= form.text_field :home_name, value: @cups_pair.home_name, class: 'form-value' %>
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :home_name_en, t('views.admin.cups.pairs.new.home_name_en'), class: 'form-label' %>
+    <%= form.text_field :home_name_en, value: @cups_pair ? @cups_pair.home_name['en'] : nil, class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :home_name_ru, t('views.admin.cups.pairs.new.home_name_ru'), class: 'form-label' %>
+    <%= form.text_field :home_name_ru, value: @cups_pair ? @cups_pair.home_name['ru'] : nil, class: 'form-value' %>
+  </div>
 </div>
-<div class="form-field">
-  <%= form.label :visitor_name, t('views.admin.cups.pairs.index.visitor_name'), class: 'form-label' %>
-  <%= form.text_field :visitor_name, value: @cups_pair.visitor_name, class: 'form-value' %>
+<div class="flex">
+  <div class="form-field mr-4">
+    <%= form.label :visitor_name_en, t('views.admin.cups.pairs.new.visitor_name_en'), class: 'form-label' %>
+    <%= form.text_field :visitor_name_en, value: @cups_pair ? @cups_pair.visitor_name['en'] : nil, class: 'form-value' %>
+  </div>
+  <div class="form-field">
+    <%= form.label :visitor_name_ru, t('views.admin.cups.pairs.new.visitor_name_ru'), class: 'form-label' %>
+    <%= form.text_field :visitor_name_ru, value: @cups_pair ? @cups_pair.visitor_name['ru'] : nil, class: 'form-value' %>
+  </div>
 </div>
 <div class="form-field">
   <%= form.label :start_at, t('views.admin.cups.pairs.index.start_at'), class: 'form-label' %>

@@ -67,14 +67,16 @@ module Admin
 
       # rubocop: disable Metrics/AbcSize
       def cups_pair_params
-        params
-          .require(:cups_pair)
-          .permit(:home_name, :visitor_name)
-          .to_h
-          .merge(
-            start_at: params[:cups_pair][:start_at].present? ? DateTime.parse(params[:cups_pair][:start_at]) : nil,
-            points: params[:cups_pair][:points].present? ? params[:cups_pair][:points].split('-') : []
-          )
+        {
+          home_name: {
+            en: params[:cups_pair][:home_name_en] || nil, ru: params[:cups_pair][:home_name_ru] || nil
+          },
+          visitor_name: {
+            en: params[:cups_pair][:visitor_name_en] || nil, ru: params[:cups_pair][:visitor_name_ru] || nil
+          },
+          start_at: params[:cups_pair][:start_at].present? ? DateTime.parse(params[:cups_pair][:start_at]) : nil,
+          points: params[:cups_pair][:points].present? ? params[:cups_pair][:points].split('-') : []
+        }
       end
       # rubocop: enable Metrics/AbcSize
     end

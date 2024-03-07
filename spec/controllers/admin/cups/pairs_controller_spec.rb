@@ -120,7 +120,7 @@ describe Admin::Cups::PairsController do
       context 'for existing cups round' do
         let(:request) {
           post :create, params: {
-            cups_round_id: cups_round.id, cups_pair: { home_name: 'Home', visitor_name: 'Visitor' }
+            cups_round_id: cups_round.id, cups_pair: { home_name_en: 'Home', visitor_name_en: 'Visitor' }
           }
         }
 
@@ -155,7 +155,7 @@ describe Admin::Cups::PairsController do
 
       context 'for unexisting cups pair' do
         it 'redirects to not found page' do
-          patch :update, params: { cups_round_id: cups_round.id, id: 'unexisting', cups_pair: { home_name: 'Home' } }
+          patch :update, params: { cups_round_id: cups_round.id, id: 'unexisting', cups_pair: { home_name_en: 'Home' } }
 
           expect(response).to render_template 'shared/404'
         end
@@ -165,14 +165,14 @@ describe Admin::Cups::PairsController do
         let!(:cups_pair) { create :cups_pair, cups_round: cups_round, home_name: 'Old home', points: [3, 1] }
         let(:request) {
           patch :update, params: {
-            cups_round_id: cups_round.id, id: cups_pair.id, cups_pair: { home_name: 'Home', points: '2-1' }
+            cups_round_id: cups_round.id, id: cups_pair.id, cups_pair: { home_name_en: 'Home', points: '2-1' }
           }
         }
 
         it 'updates cups pair', :aggregate_failures do
           request
 
-          expect(cups_pair.reload.home_name).to eq 'Home'
+          expect(cups_pair.reload.home_name['en']).to eq 'Home'
           expect(cups_pair.reload.points).to eq([2, 1])
           expect(response).to redirect_to admin_cups_round_pairs_path(cups_round_id: cups_round.id)
         end
@@ -181,7 +181,7 @@ describe Admin::Cups::PairsController do
 
     def do_request
       patch :update, params: {
-        cups_round_id: 'unexisting', id: 'unexisting', cups_pair: { home_name: 'Home', visitor_name: 'Visitor' }
+        cups_round_id: 'unexisting', id: 'unexisting', cups_pair: { home_name_en: 'Home', visitor_name_en: 'Visitor' }
       }
     end
   end
