@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Modified
 - user navigation
+- icons for fantasy teams in navigation
 
 ## [1.2.1] - 2024-02-29
 ### Added
