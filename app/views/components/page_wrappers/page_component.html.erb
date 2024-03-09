@@ -75,7 +75,7 @@
             <% global_user_fantasy_teams.each do |user_fantasy_team| %>
               <div>
                 <%= link_to fantasy_team_points_path(user_fantasy_team[:uuid]), class: 'flex items-center px-4 py-2' do %>
-                  <%= image_tag "icons/#{user_fantasy_team[:leagues_sport_kind]}.svg", class: 'w-8 h-8 mr-2' %>
+                  <%= image_tag background_urls.dig('Season', user_fantasy_team[:season_id]).split('/').join('/no_text_'), class: 'w-8 h-8 mr-2 bg-white rounded-full' %>
                   <span class="text-xl text-white"><%= user_fantasy_team[:name] %></span>
                 <% end %>
                 <% if user_fantasy_team[:uuid] == @fantasy_team&.uuid %>
@@ -99,6 +99,7 @@
             <% global_user_oraculs.each do |global_user_oracul| %>
               <div>
                 <%= link_to oracul_path(global_user_oracul[:uuid]), class: 'flex items-center px-4 py-2' do %>
+                  <%= image_tag background_urls.dig(global_user_oracul[:placeable_type], global_user_oracul[:placeable_id]).split('/').join('/no_text_'), class: 'w-8 h-8 mr-2 bg-white rounded-full' %>
                   <span class="text-xl text-white"><%= global_user_oracul[:name] %></span>
                 <% end %>
               </div>
