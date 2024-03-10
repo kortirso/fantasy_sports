@@ -46,6 +46,13 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/, defaults: { locale: nil } do
     namespace :api do
+      namespace :v1 do
+        namespace :users do
+          resource :access_tokens, only: %i[create]
+        end
+        resources :users, only: %i[create]
+      end
+
       namespace :frontend do
         resource :notifications, only: %i[create destroy]
         resource :feedback, only: %i[create]
