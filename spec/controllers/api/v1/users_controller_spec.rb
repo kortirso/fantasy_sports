@@ -49,7 +49,7 @@ describe Api::V1::UsersController do
         expect { request }.to change(User, :count).by(1)
         expect(User.last.email).to eq 'user@gmail.com'
         expect(response).to have_http_status :created
-        expect(response.parsed_body['access_token']).not_to be_blank
+        expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).not_to be_blank
       end
 
       context 'for banned email' do

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         namespace :users do
+          resources :me, only: %i[index]
           resource :access_tokens, only: %i[create]
         end
         resources :users, only: %i[create]

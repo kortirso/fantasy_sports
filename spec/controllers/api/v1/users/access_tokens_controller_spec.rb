@@ -7,7 +7,7 @@ describe Api::V1::Users::AccessTokensController do
         post :create, params: { user: { email: 'unexisting@gmail.com', password: '1' } }
 
         expect(response).to have_http_status :not_found
-        expect(response.parsed_body['access_token']).to be_blank
+        expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).to be_blank
       end
     end
 
@@ -21,7 +21,7 @@ describe Api::V1::Users::AccessTokensController do
           post :create, params: { user: { email: user.email.upcase, password: user.password } }
 
           expect(response).to have_http_status :created
-          expect(response.parsed_body['access_token']).not_to be_blank
+          expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).not_to be_blank
         end
       end
 
@@ -30,7 +30,7 @@ describe Api::V1::Users::AccessTokensController do
           post :create, params: { user: { email: user.email, password: 'invalid_password' } }
 
           expect(response).to have_http_status :bad_request
-          expect(response.parsed_body['access_token']).to be_blank
+          expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).to be_blank
         end
       end
 
@@ -39,7 +39,7 @@ describe Api::V1::Users::AccessTokensController do
           post :create, params: { user: { email: user.email, password: '' } }
 
           expect(response).to have_http_status :bad_request
-          expect(response.parsed_body['access_token']).to be_blank
+          expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).to be_blank
         end
       end
 
@@ -48,7 +48,7 @@ describe Api::V1::Users::AccessTokensController do
           post :create, params: { user: { email: user.email, password: user.password } }
 
           expect(response).to have_http_status :created
-          expect(response.parsed_body['access_token']).not_to be_blank
+          expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).not_to be_blank
         end
       end
 
@@ -57,7 +57,7 @@ describe Api::V1::Users::AccessTokensController do
           post :create, params: { user: { email: user.email.upcase, password: user.password } }
 
           expect(response).to have_http_status :created
-          expect(response.parsed_body['access_token']).not_to be_blank
+          expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).not_to be_blank
         end
 
         context 'for banned user' do
@@ -67,7 +67,7 @@ describe Api::V1::Users::AccessTokensController do
             post :create, params: { user: { email: user.email.upcase, password: user.password } }
 
             expect(response).to have_http_status :not_found
-            expect(response.parsed_body['access_token']).to be_blank
+            expect(response.parsed_body.dig('user', 'data', 'attributes', 'access_token')).to be_blank
           end
         end
       end

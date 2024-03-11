@@ -2,11 +2,8 @@
 
 module Api
   module V1
-    class UsersController < Api::V1::BaseController
-      include Deps[
-        generate_token: 'services.auth.generate_token',
-        create_form: 'forms.users.create'
-      ]
+    class UsersController < Api::V1Controller
+      include Deps[create_form: 'forms.users.create']
 
       skip_before_action :authenticate, only: %i[create]
       skip_before_action :check_email_confirmation, only: %i[create]
@@ -16,7 +13,9 @@ module Api
         case create_form.call(params: user_params.to_h.symbolize_keys)
         in { errors: errors } then render json: { errors: errors }, status: :bad_request
         in { result: result }
-          render json: { access_token: generate_token.call(user: result)[:result] }, status: :created
+          render json: {
+            user: Api::V1::UserSerializer.new(result, params: { access_token: true }).serializable_hash
+          }, status: :created
         end
       end
 

@@ -3,9 +3,7 @@
 module Api
   module V1
     module Users
-      class AccessTokensController < Api::V1::BaseController
-        include Deps[generate_token: 'services.auth.generate_token']
-
+      class AccessTokensController < Api::V1Controller
         skip_before_action :authenticate, only: %i[create]
         skip_before_action :check_email_confirmation, only: %i[create]
         skip_before_action :check_email_ban, only: %i[create]
@@ -14,7 +12,9 @@ module Api
         before_action :authenticate_user, only: %i[create]
 
         def create
-          render json: { access_token: generate_token.call(user: @user)[:result] }, status: :created
+          render json: {
+            user: Api::V1::UserSerializer.new(@user, params: { access_token: true }).serializable_hash
+          }, status: :created
         end
 
         private
