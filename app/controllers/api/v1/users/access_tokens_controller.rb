@@ -11,9 +11,11 @@ module Api
         before_action :find_user, only: %i[create]
         before_action :authenticate_user, only: %i[create]
 
+        SERIALIZER_FIELDS = %w[confirmed banned access_token].freeze
+
         def create
           render json: {
-            user: Api::V1::UserSerializer.new(@user, params: { access_token: true }).serializable_hash
+            user: UserSerializer.new(@user, params: { fields: SERIALIZER_FIELDS }).serializable_hash
           }, status: :created
         end
 

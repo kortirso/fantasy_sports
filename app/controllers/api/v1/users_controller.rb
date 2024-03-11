@@ -5,6 +5,8 @@ module Api
     class UsersController < Api::V1Controller
       include Deps[create_form: 'forms.users.create']
 
+      SERIALIZER_FIELDS = %w[confirmed banned access_token].freeze
+
       skip_before_action :authenticate, only: %i[create]
       skip_before_action :check_email_confirmation, only: %i[create]
       skip_before_action :check_email_ban, only: %i[create]
@@ -14,7 +16,7 @@ module Api
         in { errors: errors } then render json: { errors: errors }, status: :bad_request
         in { result: result }
           render json: {
-            user: Api::V1::UserSerializer.new(result, params: { access_token: true }).serializable_hash
+            user: UserSerializer.new(result, params: { fields: SERIALIZER_FIELDS }).serializable_hash
           }, status: :created
         end
       end

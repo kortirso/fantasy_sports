@@ -8,4 +8,8 @@ class ApplicationSerializer
   def self.params_with_field?(params, field_name)
     params[:fields].present? && params[:fields]&.include?(field_name)
   end
+
+  def self.required_field?(params, field_name)
+    params[:fields]&.include?(field_name)
+  end
 end
