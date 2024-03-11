@@ -15,7 +15,9 @@ module Api
 
         def create
           render json: {
-            user: UserSerializer.new(@user, params: { fields: SERIALIZER_FIELDS }).serializable_hash
+            user: UserSerializer.new(
+              @user, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS)
+            ).serializable_hash
           }, status: :created
         end
 

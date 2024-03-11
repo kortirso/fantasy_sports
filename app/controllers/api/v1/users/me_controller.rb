@@ -11,7 +11,9 @@ module Api
 
         def index
           render json: {
-            user: UserSerializer.new(current_user, params: { fields: SERIALIZER_FIELDS }).serializable_hash
+            user: UserSerializer.new(
+              current_user, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS)
+            ).serializable_hash
           }, status: :ok
         end
       end

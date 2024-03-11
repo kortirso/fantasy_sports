@@ -10,6 +10,6 @@ class ApplicationSerializer
   end
 
   def self.required_field?(params, field_name)
-    params[:fields]&.include?(field_name)
+    params[:include_fields]&.include?(field_name) || params[:exclude_fields]&.exclude?(field_name)
   end
 end

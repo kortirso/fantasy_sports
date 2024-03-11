@@ -3,7 +3,7 @@
 class UserSerializer < ApplicationSerializer
   extend Helpers::AccessToken
 
-  set_id nil
+  set_id { SecureRandom.hex }
 
   attribute :confirmed, if: proc { |_, params| required_field?(params, 'confirmed') }, &:confirmed?
   attribute :banned, if: proc { |_, params| required_field?(params, 'banned') }, &:banned?

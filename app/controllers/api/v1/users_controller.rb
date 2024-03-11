@@ -16,7 +16,9 @@ module Api
         in { errors: errors } then render json: { errors: errors }, status: :bad_request
         in { result: result }
           render json: {
-            user: UserSerializer.new(result, params: { fields: SERIALIZER_FIELDS }).serializable_hash
+            user: UserSerializer.new(
+              result, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS)
+            ).serializable_hash
           }, status: :created
         end
       end
