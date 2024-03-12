@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SeasonSerializer < ApplicationSerializer
+class CupSerializer < ApplicationSerializer
   set_id :uuid
 
   attribute :id, if: proc { |_, params| required_field?(params, 'id') }, &:id
