@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe UserSerializer do
-  subject(:serializer) do
-    described_class.new(
-      user, params: serializer_fields
-    ).serializable_hash
-  end
+  subject(:serializer) { described_class.new(user, params: serializer_fields).serializable_hash }
 
   let!(:user) { create :user }
 

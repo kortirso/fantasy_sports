@@ -15,7 +15,7 @@ module Api
       Current.user ||= auth_call[:result].user
     end
 
-    def serializer_fields(serializer_class, default_include_fields)
+    def serializer_fields(serializer_class, default_include_fields=[])
       @serializer_attributes = serializer_class.attributes_to_serialize.keys.map(&:to_s)
       return {} if response_include_fields.any? && response_exclude_fields.any?
       return { include_fields: response_include_fields } if response_include_fields.any?

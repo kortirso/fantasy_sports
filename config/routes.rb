@@ -52,6 +52,7 @@ Rails.application.routes.draw do
           resource :access_tokens, only: %i[create]
         end
         resources :users, only: %i[create]
+        resources :leagues, only: %i[index]
       end
 
       namespace :frontend do
