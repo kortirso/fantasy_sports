@@ -3,7 +3,7 @@
 module Api
   module V1
     class LeaguesController < Api::V1Controller
-      SERIALIZER_FIELDS = %w[background_url sport_kind].freeze
+      SERIALIZER_FIELDS = %w[name background_url sport_kind].freeze
 
       def index
         render json: { leagues: leagues }, status: :ok

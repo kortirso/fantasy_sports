@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LeagueSerializer < ApplicationSerializer
-  extend Helpers::AccessToken
   extend ActionView::Helpers::AssetUrlHelper
 
   set_id :id

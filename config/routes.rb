@@ -53,6 +53,7 @@ Rails.application.routes.draw do
         end
         resources :users, only: %i[create]
         resources :leagues, only: %i[index]
+        resources :seasons, only: %i[index]
       end
 
       namespace :frontend do
