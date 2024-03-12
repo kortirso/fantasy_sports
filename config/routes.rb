@@ -56,6 +56,7 @@ Rails.application.routes.draw do
         resources :seasons, only: %i[index]
         resources :cups, only: %i[index]
         resources :oracul_places, only: %i[index]
+        resources :oraculs, only: %i[index]
       end
 
       namespace :frontend do
