@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         resources :leagues, only: %i[index]
         resources :seasons, only: %i[index]
         resources :cups, only: %i[index]
+        resources :oracul_places, only: %i[index]
       end
 
       namespace :frontend do
