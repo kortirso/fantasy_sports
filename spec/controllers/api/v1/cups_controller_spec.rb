@@ -3,6 +3,8 @@
 describe Api::V1::CupsController do
   describe 'GET#index' do
     it_behaves_like 'required api auth'
+    it_behaves_like 'required api email confirmation'
+    it_behaves_like 'required api available email'
 
     context 'for logged users' do
       let!(:user) { create :user }
@@ -24,8 +26,8 @@ describe Api::V1::CupsController do
       end
     end
 
-    def do_request
-      get :index
+    def do_request(access_token=nil)
+      get :index, params: { access_token: access_token }.compact
     end
   end
 end

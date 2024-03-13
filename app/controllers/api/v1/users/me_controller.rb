@@ -8,11 +8,12 @@ module Api
         skip_before_action :check_email_ban, only: %i[index]
 
         SERIALIZER_FIELDS = %w[confirmed banned].freeze
+        FORBIDDEN_FIELDS = %w[access_token].freeze
 
         def index
           render json: {
             user: UserSerializer.new(
-              current_user, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS)
+              current_user, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS, FORBIDDEN_FIELDS)
             ).serializable_hash
           }, status: :ok
         end

@@ -15,11 +15,11 @@ module Api
       Current.user ||= auth_call[:result].user
     end
 
-    def serializer_fields(serializer_class, default_include_fields=[])
+    def serializer_fields(serializer_class, default_include_fields=[], forbidden_fields=[])
       @serializer_attributes = serializer_class.attributes_to_serialize.keys.map(&:to_s)
       return {} if response_include_fields.any? && response_exclude_fields.any?
-      return { include_fields: response_include_fields } if response_include_fields.any?
-      return { exclude_fields: response_exclude_fields } if response_exclude_fields.any?
+      return { include_fields: response_include_fields - forbidden_fields } if response_include_fields.any?
+      return { exclude_fields: response_exclude_fields + forbidden_fields } if response_exclude_fields.any?
 
       { include_fields: default_include_fields }
     end
@@ -41,11 +41,11 @@ module Api
     end
 
     def confirmation_error
-      render json: { errors: [t('controllers.confirmation.permission')] }, status: :unauthorized
+      render json: { errors: [t('controllers.confirmation.permission')] }, status: :forbidden
     end
 
     def ban_error
-      render json: { errors: [t('controllers.confirmation.ban')] }, status: :unauthorized
+      render json: { errors: [t('controllers.confirmation.ban')] }, status: :forbidden
     end
   end
 end

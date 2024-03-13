@@ -32,4 +32,24 @@ module ControllerMacros
         FantasySports::Container['services.auth.generate_token'].call(user: @current_user)[:result]
     end
   end
+
+  def sign_in_api_unconfirmed_user
+    before do
+      @current_user = create :user, :not_confirmed
+      @request.params[:access_token] =
+        FantasySports::Container['services.auth.generate_token'].call(user: @current_user)[:result]
+    end
+  end
+
+  def sign_in_api_banned_user
+    before do
+      @current_user = create :user, :banned
+
+      # ap @request
+      # ap @request.params
+      @request.params[:access_token] =
+        FantasySports::Container['services.auth.generate_token'].call(user: @current_user)[:result]
+      # ap @request.params
+    end
+  end
 end
