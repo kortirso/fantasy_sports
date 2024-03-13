@@ -22,8 +22,8 @@ describe Api::V1::OraculsController do
 
         expect(response).to have_http_status :ok
 
-        attributes = response.parsed_body.dig('oracul', 'data', 0, 'attributes')
-        expect(response.parsed_body.dig('oracul', 'data').size).to eq 1
+        attributes = response.parsed_body.dig('oraculs', 'data', 0, 'attributes')
+        expect(response.parsed_body.dig('oraculs', 'data').size).to eq 1
         expect(attributes['uuid']).to be_nil
         expect(attributes['name']).not_to be_nil
         expect(attributes['oracul_place_id']).not_to be_nil

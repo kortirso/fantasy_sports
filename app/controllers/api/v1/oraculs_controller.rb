@@ -6,12 +6,12 @@ module Api
       SERIALIZER_FIELDS = %w[uuid name oracul_place_id].freeze
 
       def index
-        render json: { oracul: oracul }, status: :ok
+        render json: { oraculs: oraculs }, status: :ok
       end
 
       private
 
-      def oracul
+      def oraculs
         OraculSerializer.new(
           Current.user.oraculs.order(id: :desc), params: serializer_fields(OraculSerializer, SERIALIZER_FIELDS)
         ).serializable_hash
