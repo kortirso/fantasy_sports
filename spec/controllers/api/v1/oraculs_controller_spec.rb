@@ -17,7 +17,7 @@ describe Api::V1::OraculsController do
 
       it 'returns oracul data', :aggregate_failures do
         get :index, params: {
-          access_token: access_token, response_include_fields: 'name,oracul_place_id'
+          api_access_token: access_token, response_include_fields: 'name,oracul_place_id'
         }
 
         expect(response).to have_http_status :ok
@@ -31,7 +31,7 @@ describe Api::V1::OraculsController do
     end
 
     def do_request(access_token=nil)
-      get :index, params: { access_token: access_token }.compact
+      get :index, params: { api_access_token: access_token }.compact
     end
   end
 end

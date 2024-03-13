@@ -9,7 +9,7 @@ describe Api::V1::Users::MeController do
       let(:access_token) { Auth::GenerateTokenService.new.call(user: user)[:result] }
 
       it 'returns user data', :aggregate_failures do
-        get :index, params: { access_token: access_token }
+        get :index, params: { api_access_token: access_token }
 
         expect(response).to have_http_status :ok
 
@@ -22,7 +22,7 @@ describe Api::V1::Users::MeController do
 
       context 'with forbidden field in response include fields' do
         it 'returns user data except forbidden fields', :aggregate_failures do
-          get :index, params: { access_token: access_token, response_include_fields: 'email,access_token' }
+          get :index, params: { api_access_token: access_token, response_include_fields: 'email,access_token' }
 
           expect(response).to have_http_status :ok
 
@@ -36,7 +36,7 @@ describe Api::V1::Users::MeController do
 
       context 'with forbidden field in response exclude fields' do
         it 'returns user data except forbidden fields', :aggregate_failures do
-          get :index, params: { access_token: access_token, response_exclude_fields: 'email' }
+          get :index, params: { api_access_token: access_token, response_exclude_fields: 'email' }
 
           expect(response).to have_http_status :ok
 

@@ -12,4 +12,8 @@ class UserSerializer < ApplicationSerializer
   attribute :access_token, if: proc { |_, params| required_field?(params, 'access_token') } do |object|
     generate_token_service.call(user: object)[:result]
   end
+
+  attribute :gravatar, if: proc { |_, params| required_field?(params, 'gravatar') } do |object|
+    "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(object.email)}"
+  end
 end

@@ -7,9 +7,9 @@ module Api
     private
 
     def current_user
-      return unless params[:access_token]
+      return unless params[:api_access_token]
 
-      auth_call = FantasySports::Container['services.auth.fetch_session'].call(token: params[:access_token])
+      auth_call = FantasySports::Container['services.auth.fetch_session'].call(token: params[:api_access_token])
       return if auth_call[:errors].present?
 
       Current.user ||= auth_call[:result].user

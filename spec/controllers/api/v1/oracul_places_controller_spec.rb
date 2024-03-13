@@ -14,7 +14,7 @@ describe Api::V1::OraculPlacesController do
 
       it 'returns oracul_places data', :aggregate_failures do
         get :index, params: {
-          access_token: access_token, response_include_fields: 'id,name,placeable_id,placeable_type'
+          api_access_token: access_token, response_include_fields: 'id,name,placeable_id,placeable_type'
         }
 
         expect(response).to have_http_status :ok
@@ -28,7 +28,7 @@ describe Api::V1::OraculPlacesController do
     end
 
     def do_request(access_token=nil)
-      get :index, params: { access_token: access_token }.compact
+      get :index, params: { api_access_token: access_token }.compact
     end
   end
 end
