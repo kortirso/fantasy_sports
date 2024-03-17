@@ -6,6 +6,7 @@ class UserSerializer < ApplicationSerializer
   set_id { SecureRandom.hex }
 
   attribute :email, if: proc { |_, params| required_field?(params, 'email') }, &:email
+  attribute :locale, if: proc { |_, params| required_field?(params, 'locale') }, &:locale
   attribute :confirmed, if: proc { |_, params| required_field?(params, 'confirmed') }, &:confirmed?
   attribute :banned, if: proc { |_, params| required_field?(params, 'banned') }, &:banned?
 
