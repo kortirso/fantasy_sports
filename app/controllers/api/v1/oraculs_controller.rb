@@ -3,7 +3,7 @@
 module Api
   module V1
     class OraculsController < Api::V1Controller
-      SERIALIZER_FIELDS = %w[uuid name oracul_place_id].freeze
+      SERIALIZER_FIELDS = %w[id name oracul_place_id].freeze
 
       def index
         render json: { oraculs: oraculs }, status: :ok

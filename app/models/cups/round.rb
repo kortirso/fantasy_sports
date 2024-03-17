@@ -20,5 +20,14 @@ module Cups
     enum status: { COMING => 0, ACTIVE => 1, FINISHED => 2 }
 
     alias placeable cup
+    alias games cups_pairs
+
+    def previous
+      Cups::Round.find_by(cup_id: cup_id, position: position - 1)
+    end
+
+    def next
+      Cups::Round.find_by(cup_id: cup_id, position: position + 1)
+    end
   end
 end

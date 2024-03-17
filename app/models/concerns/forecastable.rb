@@ -11,6 +11,6 @@ module Forecastable
   end
 
   def predictable?
-    start_at && DateTime.now < start_at - 2.hours
+    start_at.present? && DateTime.now < start_at - 2.hours
   end
 end

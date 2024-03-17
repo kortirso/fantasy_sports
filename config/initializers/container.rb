@@ -131,6 +131,10 @@ module FantasySports
     register('services.oracul_leagues.members.update_current_place') {
       OraculLeagues::Members::CurrentPlaceUpdateService.new
     }
+
+    # queries
+    register('queries.games') { GamesQuery.new }
+    register('queries.cups.pairs') { Cups::PairsQuery.new }
   end
 end
 

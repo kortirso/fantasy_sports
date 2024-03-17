@@ -54,9 +54,19 @@ Rails.application.routes.draw do
         resources :users, only: %i[create]
         resources :leagues, only: %i[index]
         resources :seasons, only: %i[index]
+        resources :weeks, only: %i[show]
+        resources :games, only: %i[index]
         resources :cups, only: %i[index]
+        namespace :cups do
+          resources :rounds, only: %i[show]
+          resources :pairs, only: %i[index]
+        end
         resources :oracul_places, only: %i[index]
         resources :oraculs, only: %i[index]
+        namespace :oraculs do
+          resource :lineup, only: %i[show]
+          resources :forecasts, only: %i[update]
+        end
       end
 
       namespace :frontend do

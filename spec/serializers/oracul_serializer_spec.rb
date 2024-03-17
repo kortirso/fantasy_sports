@@ -11,7 +11,7 @@ RSpec.describe OraculSerializer do
     it 'returns all included values', :aggregate_failures do
       attributes = serializer.dig(:data, :attributes)
 
-      expect(attributes[:uuid]).to be_nil
+      expect(attributes[:id]).to be_nil
       expect(attributes[:name]).not_to be_nil
       expect(attributes[:oracul_place_id]).to be_nil
     end
