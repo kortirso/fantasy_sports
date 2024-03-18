@@ -19,7 +19,7 @@ module Api
         private
 
         def find_cups_pairs
-          @cups_pairs = cups_pairs_query.resolve(params: params)
+          @cups_pairs = cups_pairs_query.resolve(params: params).order(start_at: :asc)
         end
       end
     end

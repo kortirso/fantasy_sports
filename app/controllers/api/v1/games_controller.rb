@@ -20,7 +20,7 @@ module Api
       private
 
       def find_games
-        @games = games_query.resolve(params: params)
+        @games = games_query.resolve(params: params).order(start_at: :asc)
 
         response_include_fields = params[:response_include_fields]
         @games = @games.includes(home_season_team: :team) if response_include_fields&.include?('home_team')

@@ -18,7 +18,11 @@ module Api
       private
 
       def find_games
-        @games = games_query.resolve(params: params).includes(home_season_team: :team, visitor_season_team: :team)
+        @games =
+          games_query
+            .resolve(params: params)
+            .includes(home_season_team: :team, visitor_season_team: :team)
+            .order(start_at: :asc)
       end
     end
   end
