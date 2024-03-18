@@ -62,7 +62,7 @@ Rails.application.routes.draw do
           resources :pairs, only: %i[index]
         end
         resources :oracul_places, only: %i[index]
-        resources :oraculs, only: %i[index]
+        resources :oraculs, only: %i[index create]
         namespace :oraculs do
           resource :lineup, only: %i[show]
           resources :forecasts, only: %i[update]

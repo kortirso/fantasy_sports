@@ -19,6 +19,10 @@ ru:
       status: Статус
       notification_type: Тип уведомления
     errors:
+      oracul:
+        rules:
+          name:
+            filled?: не может быть пустым
       user:
         password_length: должен быть больше или равняться %{length} символам
         banned: забанен
