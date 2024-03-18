@@ -17,7 +17,7 @@ export const SquadPoints = ({
   sportKind,
   lineupUuid,
   activeChips,
-  weekUuid,
+  weekId,
   weekPosition,
   points,
   averagePoints,
@@ -273,7 +273,7 @@ export const SquadPoints = ({
         </section>
       ) : null}
       {Object.keys(pageState.teamNames).length > 0 ? (
-        <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+        <Week id={weekId} teamNames={pageState.teamNames} />
       ) : null}
       <PlayerModal
         sportKind={sportKind}

@@ -10,7 +10,7 @@ module Oraculs
     attribute :points, if: proc { |_, params| required_field?(params, 'points') }, &:points
 
     attribute :forecasts, if: proc { |_, params| required_field?(params, 'forecasts') } do |object, params|
-      Oraculs::ForecastApiSerializer.new(
+      Oraculs::ForecastSerializer.new(
         object.oraculs_forecasts, params: {
           owner: params[:owner],
           forecastables: params[:owner] ? [] : object.periodable.games.to_a,

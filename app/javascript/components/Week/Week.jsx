@@ -6,24 +6,25 @@ import { Arrow } from '../../assets';
 
 import { Game } from './Game';
 import { weekRequest } from './requests/weekRequest';
+import { gamesRequest } from './requests/gamesRequest';
 
 strings.setLanguage(currentLocale);
 
-export const Week = ({ uuid, teamNames }) => {
+export const Week = ({ id, teamNames }) => {
   const [pageState, setPageState] = useState({
     loading: true,
     week: null,
     games: [],
     collapseData: {},
   });
-  const [weekUuid, setWeekUuid] = useState(uuid);
+  const [weekId, setWeekId] = useState(id);
 
   useEffect(() => {
-    const fetchWeek = async () => await weekRequest(weekUuid);
+    const fetchWeek = async () => await weekRequest(weekId);
+    const fetchGames = async () => await gamesRequest(weekId);
 
-    Promise.all([fetchWeek()]).then(([weekData]) => {
-      const games = weekData.games.data.map((element) => element.attributes);
-      const groupedGames = games.reduce((result, game) => {
+    Promise.all([fetchWeek(), fetchGames()]).then(([weekData, gamesData]) => {
+      const groupedGames = gamesData.reduce((result, game) => {
         const convertedTime = convertDate(game.start_at);
 
         if (result[convertedTime] === undefined) result[convertedTime] = [game];
@@ -51,7 +52,7 @@ export const Week = ({ uuid, teamNames }) => {
         collapseData: collapseData
       })
     });
-  }, [weekUuid]);
+  }, [weekId]);
 
   const renderGames = (games) => {
     return games.map((game, index) => <Game item={game} teamNames={teamNames} last={index === games.length - 1} />);
@@ -67,10 +68,10 @@ export const Week = ({ uuid, teamNames }) => {
     <div>
       <div className="flex justify-between items-center my-4 mx-0">
         <div className="w-48">
-          {pageState.week.previous.uuid ? (
+          {pageState.week.previous_id ? (
             <button
               className="btn-primary btn-small w-full"
-              onClick={() => setWeekUuid(pageState.week.previous.uuid)}
+              onClick={() => setWeekId(pageState.week.previous_id)}
             >
               {strings.week.previous}
             </button>
@@ -83,10 +84,10 @@ export const Week = ({ uuid, teamNames }) => {
           <p className="text-sm">{strings.week.localTime}</p>
         </div>
         <div className="w-48">
-          {pageState.week.next.uuid ? (
+          {pageState.week.next_id ? (
             <button
               className="btn-primary btn-small w-full"
-              onClick={() => setWeekUuid(pageState.week.next.uuid)}
+              onClick={() => setWeekId(pageState.week.next_id)}
             >
               {strings.week.next}
             </button>

@@ -9,7 +9,7 @@
             sportKind: @season.league.sport_kind,
             lineupUuid: @lineup&.uuid,
             activeChips: @lineup&.active_chips,
-            weekUuid: @week.uuid,
+            weekId: @week.id,
             weekPosition: @week.position,
             points: @lineup&.points,
             averagePoints: @lineups_data.any? ? (@lineups_data.sum(0) / @lineups_data.size).round(1) : 0,

@@ -27,12 +27,12 @@ export const Game = ({ item, teamNames, last }) => {
 
   useEffect(() => {
     const fetchGameStatistics = async () => {
-      const data = await gameStatisticsRequest(item.uuid);
+      const data = await gameStatisticsRequest(item.id);
       setGameStatistics(data);
     };
 
     if (isOpen && !gameStatistics) fetchGameStatistics();
-  }, [isOpen, item.uuid, gameStatistics]);
+  }, [isOpen, item.id, gameStatistics]);
 
   const expandeable = useMemo(() => {
     return item.points.length > 0;

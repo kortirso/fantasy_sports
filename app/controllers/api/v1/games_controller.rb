@@ -11,8 +11,8 @@ module Api
 
       def index
         render json: {
-          games: GameApiSerializer.new(
-            @games, params: serializer_fields(GameApiSerializer, SERIALIZER_FIELDS)
+          games: GameSerializer.new(
+            @games, params: serializer_fields(GameSerializer, SERIALIZER_FIELDS)
           ).serializable_hash
         }, status: :ok
       end

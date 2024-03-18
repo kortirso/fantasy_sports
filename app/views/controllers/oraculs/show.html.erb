@@ -33,20 +33,22 @@
         </div>
         <div class="flex justify-between items-center mb-4">
           <div>
-            <% if @periodable.position > 1 %>
-              <%= link_to t('views.oraculs.show.previous'), oracul_url(@oracul.uuid, week: @periodable.position - 1), class: 'btn-primary btn-small' %>
+            <% if @periodable.previous %>
+              <%= link_to t('views.oraculs.show.previous'), oracul_url(@oracul.uuid, week: @periodable.previous.position), class: 'btn-primary btn-small' %>
             <% end %>
           </div>
           <div></div>
           <div>
-            <%= link_to t('views.oraculs.show.next'), oracul_url(@oracul.uuid, week: @periodable.position + 1), class: 'btn-primary btn-small' %>
+            <% if @periodable.next %>
+              <%= link_to t('views.oraculs.show.next'), oracul_url(@oracul.uuid, week: @periodable.next.position), class: 'btn-primary btn-small' %>
+            <% end %>
           </div>
         </div>
         <%=
           react_component 'OraculWeek',
-                          uuid: @periodable.uuid,
-                          lineupUuid: @oraculs_lineup&.uuid,
-                          isForWeek: @oracul.oracul_place.season?
+                          periodableId: @periodable.id,
+                          lineupId: @oraculs_lineup&.id,
+                          isForWeek: @periodable.is_a?(Week)
         %>
       </div>
     </div>

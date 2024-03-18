@@ -21,6 +21,7 @@ module Api
 
         private
 
+        # rubocop: disable Metrics/AbcSize
         def forecasts
           owner = @oraculs_lineup.oracul.user_id == Current.user.id
           Rails.cache.fetch(
@@ -37,22 +38,20 @@ module Api
               @oraculs_lineup.oraculs_forecasts,
               params: {
                 owner: owner,
-                forecastables: forecastables
+                forecastables: params[:owner] ? [] : @oraculs_lineup.periodable.games.to_a,
+                include_fields: %w[id owner forecastable_id value]
               }
             ).serializable_hash
           end
         end
+        # rubocop: enable Metrics/AbcSize
 
         def find_oraculs_lineup
-          @oraculs_lineup = ::Oraculs::Lineup.find_by!(uuid: params[:oraculs_lineup_id])
+          @oraculs_lineup = ::Oraculs::Lineup.find(params[:oraculs_lineup_id])
         end
 
         def find_oraculs_forecast
-          @oraculs_forecast = ::Oraculs::Forecast.find_by!(uuid: params[:id])
-        end
-
-        def forecastables
-          @oraculs_lineup.week? ? @oraculs_lineup.periodable.games.to_a : @oraculs_lineup.periodable.cups_pairs.to_a
+          @oraculs_forecast = ::Oraculs::Forecast.find(params[:id])
         end
 
         def oraculs_forecast_params

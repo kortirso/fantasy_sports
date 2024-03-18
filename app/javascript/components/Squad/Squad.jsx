@@ -21,6 +21,7 @@ export const Squad = ({
   sportKind,
   lineupUuid,
   activeChips,
+  weekId,
   weekUuid,
   weekPosition,
   weekDeadlineAt,
@@ -516,7 +517,7 @@ export const Squad = ({
         </div>
       ) : null}
       {Object.keys(pageState.teamNames).length > 0 ? (
-        <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+        <Week id={weekId} teamNames={pageState.teamNames} />
       ) : null}
       <Flash content={alerts} />
       <PlayerModal

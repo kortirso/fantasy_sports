@@ -93,9 +93,13 @@ Rails.application.routes.draw do
         resources :lineups, only: %i[] do
           resource :players, only: %i[show], module: 'lineups'
         end
-        resource :cups, only: %i[] do
-          resources :rounds, only: %i[show], module: 'cups'
+        namespace :cups do
+          resources :pairs, only: %i[index]
         end
+        resources :games, only: %i[index] do
+          resources :statistics, only: %i[index], module: 'games'
+        end
+        resources :weeks, only: %i[show]
       end
     end
 
@@ -143,7 +147,7 @@ Rails.application.routes.draw do
       resources :players, only: %i[index show], module: 'seasons'
       resources :best_players, only: %i[index], module: 'seasons'
     end
-    resources :weeks, only: %i[show] do
+    resources :weeks, only: %i[] do
       scope module: :weeks do
         resources :opponents, only: %i[index]
         resources :transfers, only: %i[index]
@@ -155,9 +159,6 @@ Rails.application.routes.draw do
     resources :oracul_leagues, only: %i[show]
     resources :rules, only: %i[index]
     resources :lineups, only: %i[show update]
-    resources :games, only: %i[] do
-      resources :statistics, only: %i[index], module: 'games'
-    end
     resources :achievement_groups, only: %i[index]
     resources :achievements, only: %i[index]
     resources :fantasy_cups, only: %i[show]

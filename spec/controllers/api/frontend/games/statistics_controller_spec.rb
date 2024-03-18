@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Games::StatisticsController do
+describe Api::Frontend::Games::StatisticsController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
     it_behaves_like 'required email confirmation'
@@ -21,7 +21,7 @@ describe Games::StatisticsController do
         let!(:game) { create :game }
 
         it 'returns status 200' do
-          get :index, params: { game_id: game.uuid, locale: 'en' }
+          get :index, params: { game_id: game.id, format: :json }
 
           expect(response).to have_http_status :ok
         end
@@ -29,7 +29,7 @@ describe Games::StatisticsController do
     end
 
     def do_request
-      get :index, params: { game_id: 'unexisting', locale: 'en' }
+      get :index, params: { game_id: 'unexisting', format: :json }
     end
   end
 end

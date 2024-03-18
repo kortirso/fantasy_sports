@@ -9,8 +9,8 @@ module Api
 
       def show
         render json: {
-          week: WeekApiSerializer.new(
-            @week, params: serializer_fields(WeekApiSerializer, SERIALIZER_FIELDS)
+          week: WeekSerializer.new(
+            @week, params: serializer_fields(WeekSerializer, SERIALIZER_FIELDS)
           ).serializable_hash
         }, status: :ok
       end

@@ -47,7 +47,7 @@ export const Transfers = ({
   fantasyTeamUuid,
   fantasyTeamCompleted,
   fantasyTeamBudgetCents,
-  weekUuid,
+  weekId,
   weekPosition,
   weekDeadlineAt,
   transfersLimited,
@@ -611,7 +611,7 @@ export const Transfers = ({
               </button>
             </div>
             {Object.keys(pageState.teamNames).length > 0 ? (
-              <Week uuid={weekUuid} teamNames={pageState.teamNames} />
+              <Week id={weekId} teamNames={pageState.teamNames} />
             ) : null}
           </section>
         ) : null}

@@ -16,8 +16,8 @@ export const Game = ({ item, isForWeek, forecast, last }) => {
   );
 
   const localizeTeamName = (team, name) => {
-    if (isForWeek) return localizeValue(team.name);
-    return localizeValue(name) || localizeValue({ en: 'unknown', ru: 'Неизвестно' });
+    if (isForWeek) return team.name;
+    return name || localizeValue({ en: 'unknown', ru: 'Неизвестно' });
   }
 
   useEffect(() => {
@@ -32,11 +32,11 @@ export const Game = ({ item, isForWeek, forecast, last }) => {
       };
 
       apiRequest({
-        url: `/api/frontend/oraculs/forecasts/${forecast.uuid}.json`,
+        url: `/api/frontend/oraculs/forecasts/${forecast.id}.json`,
         options: requestOptions,
       });
     };
-  }, [homeForecast, visitorForecast, forecast.uuid]);
+  }, [homeForecast, visitorForecast, forecast.id]);
 
   const homeTeamName = useMemo(() => localizeTeamName(item.home_team, item.home_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps
   const visitorTeamName = useMemo(() => localizeTeamName(item.visitor_team, item.visitor_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps

@@ -3,7 +3,12 @@
 RSpec.describe Oraculs::ForecastSerializer do
   subject(:serializer) do
     described_class.new(
-      oraculs_forecast, params: { owner: owner, forecastables: oraculs_lineup.periodable.games.to_a }
+      oraculs_forecast,
+      params: {
+        owner: owner,
+        forecastables: oraculs_lineup.periodable.games.to_a,
+        include_fields: %w[id owner value forecastable_id]
+      }
     ).serializable_hash
   end
 

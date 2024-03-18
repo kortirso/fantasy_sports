@@ -2,12 +2,18 @@
 
 module Cups
   class RoundSerializer < ApplicationSerializer
-    attributes :uuid
+    set_id :id
 
-    attribute :games do |object|
-      Cups::PairSerializer
-        .new(object.cups_pairs.order(start_at: :asc))
-        .serializable_hash
+    attribute :id, if: proc { |_, params| required_field?(params, 'id') }, &:id
+    attribute :position, if: proc { |_, params| required_field?(params, 'position') }, &:position
+    attribute :name, if: proc { |_, params| required_field?(params, 'name') }, &:name
+
+    attribute :previous_id, if: proc { |_, params| required_field?(params, 'previous_id') } do |object|
+      object.previous&.id
+    end
+
+    attribute :next_id, if: proc { |_, params| required_field?(params, 'next_id') } do |object|
+      object.next&.id
     end
   end
 end

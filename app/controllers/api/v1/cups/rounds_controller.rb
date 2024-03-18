@@ -10,8 +10,8 @@ module Api
 
         def show
           render json: {
-            cups_round: ::Cups::RoundApiSerializer.new(
-              @cups_round, params: serializer_fields(::Cups::RoundApiSerializer, SERIALIZER_FIELDS)
+            cups_round: ::Cups::RoundSerializer.new(
+              @cups_round, params: serializer_fields(::Cups::RoundSerializer, SERIALIZER_FIELDS)
             ).serializable_hash
           }, status: :ok
         end

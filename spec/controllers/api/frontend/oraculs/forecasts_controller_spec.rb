@@ -26,10 +26,10 @@ describe Api::Frontend::Oraculs::ForecastsController do
           before { create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: game }
 
           it 'returns json ok status', :aggregate_failures do
-            get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+            get :index, params: { oraculs_lineup_id: oraculs_lineup.id }
 
             expect(response).to have_http_status :ok
-            %w[uuid owner value forecastable].each do |attr|
+            %w[id owner value forecastable_id].each do |attr|
               expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
             end
           end
@@ -38,10 +38,10 @@ describe Api::Frontend::Oraculs::ForecastsController do
             before { oraculs_lineup.oracul.update!(user: @current_user) }
 
             it 'returns json ok status', :aggregate_failures do
-              get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+              get :index, params: { oraculs_lineup_id: oraculs_lineup.id }
 
               expect(response).to have_http_status :ok
-              %w[uuid owner value forecastable].each do |attr|
+              %w[id owner value forecastable_id].each do |attr|
                 expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
               end
             end
@@ -56,10 +56,10 @@ describe Api::Frontend::Oraculs::ForecastsController do
           before { create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: cups_pair }
 
           it 'returns json ok status', :aggregate_failures do
-            get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+            get :index, params: { oraculs_lineup_id: oraculs_lineup.id }
 
             expect(response).to have_http_status :ok
-            %w[uuid owner value forecastable].each do |attr|
+            %w[id owner value forecastable_id].each do |attr|
               expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
             end
           end
@@ -68,10 +68,10 @@ describe Api::Frontend::Oraculs::ForecastsController do
             before { oraculs_lineup.oracul.update!(user: @current_user) }
 
             it 'returns json ok status', :aggregate_failures do
-              get :index, params: { oraculs_lineup_id: oraculs_lineup.uuid }
+              get :index, params: { oraculs_lineup_id: oraculs_lineup.id }
 
               expect(response).to have_http_status :ok
-              %w[uuid owner value forecastable].each do |attr|
+              %w[id owner value forecastable_id].each do |attr|
                 expect(response.body).to have_json_path("forecasts/data/0/attributes/#{attr}")
               end
             end
@@ -109,7 +109,7 @@ describe Api::Frontend::Oraculs::ForecastsController do
           create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: game, value: [3, 0]
         end
 
-        let(:request) { patch :update, params: { id: oraculs_forecast.uuid, oraculs_forecast: { value: [3, 1] } } }
+        let(:request) { patch :update, params: { id: oraculs_forecast.id, oraculs_forecast: { value: [3, 1] } } }
 
         it 'does not update forecast', :aggregate_failures do
           request
