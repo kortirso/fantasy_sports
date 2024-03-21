@@ -3,7 +3,10 @@
 module Api
   module V1
     class UsersController < Api::V1Controller
-      include Deps[create_form: 'forms.users.create']
+      include Deps[
+        create_form: 'forms.users.create',
+        update_form: 'forms.users.update'
+      ]
 
       SERIALIZER_FIELDS = %w[confirmed banned access_token].freeze
 
@@ -23,6 +26,19 @@ module Api
         end
       end
 
+      def update
+        # commento: users.locale
+        case update_form.call(user: Current.user, params: user_update_params)
+        in { errors: errors } then render json: { errors: errors }, status: :bad_request
+        else
+          render json: {
+            user: UserSerializer.new(
+              Current.user.reload, params: serializer_fields(UserSerializer, SERIALIZER_FIELDS)
+            ).serializable_hash
+          }, status: :ok
+        end
+      end
+
       def destroy
         ::Users::DestroyJob.perform_later(id: Current.user.id)
         render json: { result: 'ok' }, status: :ok
@@ -34,6 +50,10 @@ module Api
         params_hash = params.require(:user).permit(:email, :password, :password_confirmation)
         params_hash[:email] = params_hash[:email].strip.downcase
         params_hash
+      end
+
+      def user_update_params
+        params.require(:user).permit(:locale)
       end
     end
   end

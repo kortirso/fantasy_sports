@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Users::UpdateForm, type: :service do
+describe Users::UpdatePasswordForm, type: :service do
   subject(:form) { instance.call(user: user, params: params) }
 
   let!(:instance) { described_class.new }

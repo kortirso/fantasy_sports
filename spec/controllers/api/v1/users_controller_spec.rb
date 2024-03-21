@@ -63,7 +63,7 @@ describe Api::V1::UsersController do
     end
   end
 
-  describe 'DELETE#destroy' do
+  describe 'PATCH#update' do
     it_behaves_like 'required api auth'
 
     context 'for logged users' do
@@ -82,6 +82,39 @@ describe Api::V1::UsersController do
 
     def do_request(access_token=nil)
       delete :destroy, params: { api_access_token: access_token }.compact
+    end
+  end
+
+  describe 'DELETE#destroy' do
+    it_behaves_like 'required api auth'
+    it_behaves_like 'required api email confirmation'
+    it_behaves_like 'required api available email'
+
+    context 'for logged users' do
+      let!(:user) { create :user, locale: 'en' }
+      let(:access_token) { Auth::GenerateTokenService.new.call(user: user)[:result] }
+
+      context 'for invalid params' do
+        it 'does not update user', :aggregate_failures do
+          patch :update, params: { user: { locale: 'es' }, api_access_token: access_token }
+
+          expect(user.reload.locale).to eq 'en'
+          expect(response).to have_http_status :bad_request
+        end
+      end
+
+      context 'for valid params' do
+        it 'updates user', :aggregate_failures do
+          patch :update, params: { user: { locale: 'ru' }, api_access_token: access_token }
+
+          expect(user.reload.locale).to eq 'ru'
+          expect(response).to have_http_status :ok
+        end
+      end
+    end
+
+    def do_request(access_token=nil)
+      patch :update, params: { user: { locale: 'en' }, api_access_token: access_token }.compact
     end
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Users
-  class UpdateForm
-    include Deps[validator: 'validators.users.update']
+  class UpdatePasswordForm
+    include Deps[validator: 'validators.users.update_password']
 
     def call(user:, params:)
       errors = validator.call(params: params)

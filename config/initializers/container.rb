@@ -29,6 +29,7 @@ module FantasySports
     register('contracts.teams.players.update') { Teams::Players::UpdateContract.new }
     register('contracts.users.create') { Users::CreateContract.new }
     register('contracts.users.update') { Users::UpdateContract.new }
+    register('contracts.users.update_password') { Users::UpdatePasswordContract.new }
     register('contracts.fantasy_league') { FantasyLeagueContract.new }
     register('contracts.fantasy_team') { FantasyTeamContract.new }
     register('contracts.league') { LeagueContract.new }
@@ -54,6 +55,7 @@ module FantasySports
     register('validators.teams.players.update') { Teams::Players::UpdateValidator.new }
     register('validators.users.create') { Users::CreateValidator.new }
     register('validators.users.update') { Users::UpdateValidator.new }
+    register('validators.users.update_password') { Users::UpdatePasswordValidator.new }
     register('validators.fantasy_league') { FantasyLeagueValidator.new }
     register('validators.fantasy_team') { FantasyTeamValidator.new }
     register('validators.league') { LeagueValidator.new }
@@ -82,6 +84,7 @@ module FantasySports
     register('forms.seasons.create') { Seasons::CreateForm.new }
     register('forms.users.create') { Users::CreateForm.new }
     register('forms.users.update') { Users::UpdateForm.new }
+    register('forms.users.update_password') { Users::UpdatePasswordForm.new }
     register('forms.games.create') { Games::CreateForm.new }
     register('forms.games.update') { Games::UpdateForm.new }
     register('forms.feedbacks.create') { Feedbacks::CreateForm.new }

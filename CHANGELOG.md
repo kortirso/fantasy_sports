@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - api endpoint for deleting user
+- api endpoint for updating user
 
 ## [1.2.2] - 2024-03-18
 ### Added

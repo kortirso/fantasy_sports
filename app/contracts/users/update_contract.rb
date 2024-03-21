@@ -5,22 +5,12 @@ module Users
     config.messages.namespace = :user
 
     params do
-      required(:password).filled(:string)
-      required(:password_confirmation).filled(:string)
+      optional(:locale).filled(:string)
     end
 
-    rule(:password, :password_confirmation) do
-      key(:passwords).failure(:different) if values[:password] != values[:password_confirmation]
-    end
-
-    rule(:password) do
-      if values[:password].size < Rails.configuration.minimum_password_length
-        key.failure(
-          I18n.t(
-            'dry_validation.errors.user.password_length',
-            length: Rails.configuration.minimum_password_length
-          )
-        )
+    rule(:locale) do
+      if I18n.available_locales.exclude?(values[:locale].to_sym)
+        key.failure(I18n.t('dry_validation.errors.user.available_locales'))
       end
     end
   end

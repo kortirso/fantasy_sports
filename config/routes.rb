@@ -51,7 +51,7 @@ Rails.application.routes.draw do
           resources :me, only: %i[index]
           resource :access_tokens, only: %i[create]
         end
-        resource :users, only: %i[create destroy]
+        resource :users, only: %i[create update destroy]
         resources :leagues, only: %i[index]
         resources :seasons, only: %i[index]
         resources :weeks, only: %i[show]
