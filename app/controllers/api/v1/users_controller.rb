@@ -8,8 +8,8 @@ module Api
       SERIALIZER_FIELDS = %w[confirmed banned access_token].freeze
 
       skip_before_action :authenticate, only: %i[create]
-      skip_before_action :check_email_confirmation, only: %i[create]
-      skip_before_action :check_email_ban, only: %i[create]
+      skip_before_action :check_email_confirmation, only: %i[create destroy]
+      skip_before_action :check_email_ban, only: %i[create destroy]
 
       def create
         case create_form.call(params: user_params.to_h.symbolize_keys)
@@ -21,6 +21,11 @@ module Api
             ).serializable_hash
           }, status: :created
         end
+      end
+
+      def destroy
+        ::Users::DestroyJob.perform_later(id: Current.user.id)
+        render json: { result: 'ok' }, status: :ok
       end
 
       private

@@ -62,4 +62,26 @@ describe Api::V1::UsersController do
       end
     end
   end
+
+  describe 'DELETE#destroy' do
+    it_behaves_like 'required api auth'
+
+    context 'for logged users' do
+      let!(:user) { create :user }
+      let(:access_token) { Auth::GenerateTokenService.new.call(user: user)[:result] }
+
+      before { allow(Users::DestroyJob).to receive(:perform_later) }
+
+      it 'destroys user', :aggregate_failures do
+        do_request(access_token)
+
+        expect(Users::DestroyJob).to have_received(:perform_later).with(id: user.id)
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    def do_request(access_token=nil)
+      delete :destroy, params: { api_access_token: access_token }.compact
+    end
+  end
 end

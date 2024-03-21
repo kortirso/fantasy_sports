@@ -14,7 +14,7 @@ module Api
           render json: {
             oraculs_lineup: ::Oraculs::LineupSerializer.new(
               @oraculs_lineup, params: serializer_fields(::Oraculs::LineupSerializer, SERIALIZER_FIELDS).merge({
-                owner: @oracul.user_id == current_user.id,
+                owner: @oracul.user_id == Current.user.id,
                 periodable: @periodable
               })
             ).serializable_hash

@@ -15,7 +15,7 @@ module Api
 
       def create
         # commento: oraculs.name
-        case create_form.call(user: current_user, oracul_place: @oracul_place, params: oracul_params)
+        case create_form.call(user: Current.user, oracul_place: @oracul_place, params: oracul_params)
         in { errors: errors } then render json: { errors: errors }, status: :ok
         in { result: result }
           render json: {
