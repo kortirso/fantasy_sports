@@ -32,8 +32,8 @@ module PageWrappers
     def background_urls
       @background_urls ||=
         {
-          'Season' => Season.joins(:league).pluck(:id, 'leagues.background_url').to_h.symbolize_keys,
-          'Cup' => Cup.joins(:league).pluck(:id, 'leagues.background_url').to_h.symbolize_keys
+          'Season' => Season.joins(:league).pluck(:id, 'leagues.slug').to_h.symbolize_keys,
+          'Cup' => Cup.joins(:league).pluck(:id, 'leagues.slug').to_h.symbolize_keys
         }
     end
   end

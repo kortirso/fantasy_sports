@@ -14,7 +14,7 @@ describe Api::V1::LeaguesController do
 
       it 'returns leagues data', :aggregate_failures do
         get :index, params: {
-          api_access_token: access_token, response_include_fields: 'id,name,sport_kind,background_url'
+          api_access_token: access_token, response_include_fields: 'id,name,sport_kind,slug'
         }
 
         expect(response).to have_http_status :ok
@@ -23,7 +23,7 @@ describe Api::V1::LeaguesController do
         expect(attributes['id']).not_to be_nil
         expect(attributes['name']).not_to be_nil
         expect(attributes['sport_kind']).not_to be_nil
-        expect(attributes['background_url']).not_to be_nil
+        expect(attributes['slug']).not_to be_nil
       end
     end
 

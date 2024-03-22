@@ -14,7 +14,7 @@ RSpec.describe LeagueSerializer do
       expect(attributes[:id]).to be_nil
       expect(attributes[:name]).to be_nil
       expect(attributes[:sport_kind]).to be_nil
-      expect(attributes[:background_url]).to be_nil
+      expect(attributes[:slug]).to be_nil
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe LeagueSerializer do
       expect(attributes[:id]).to be_nil
       expect(attributes[:name]).not_to be_nil
       expect(attributes[:sport_kind]).to be_nil
-      expect(attributes[:background_url]).to be_nil
+      expect(attributes[:slug]).to be_nil
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe LeagueSerializer do
       expect(attributes[:id]).not_to be_nil
       expect(attributes[:name]).not_to be_nil
       expect(attributes[:sport_kind]).to be_nil
-      expect(attributes[:background_url]).not_to be_nil
+      expect(attributes[:slug]).not_to be_nil
     end
   end
 end

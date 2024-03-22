@@ -1,7 +1,7 @@
 <% if @fantasy_team %>
   <% if @fantasy_team[:completed] %>
     <%= link_to fantasy_team_points_path(@fantasy_team[:uuid]), class: 'season-link' do %>
-      <%= image_tag @season[:leagues_background_url], alt: 'league-background', class: 'season-link-background' %>
+      <%= image_tag "leagues/#{@season[:leagues_slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
       <div class="text-center py-1 bg-goldeen-support border-t border-stone-300 font-semibold">
         <%= @fantasy_team[:name] %>
       </div>
@@ -27,7 +27,7 @@
     <% end %>
   <% else %>
     <%= link_to fantasy_team_transfers_path(@fantasy_team[:uuid]), class: 'season-link' do %>
-      <%= image_tag @season[:leagues_background_url], alt: 'league-background', class: 'season-link-background' %>
+      <%= image_tag "leagues/#{@season[:leagues_slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
       <div class="text-center py-1 border-t border-stone-300 font-semibold">
         <%= t('components.views.homes.show.fantasy_team_link_component.transfers') %>
       </div>
@@ -41,7 +41,7 @@
   <% end %>
 <% else %>
   <%= button_to fantasy_teams_path(season_id: @season[:uuid]), class: 'season-link inline-block w-full' do %>
-    <%= image_tag @season[:leagues_background_url], alt: 'league-background', class: 'season-link-background' %>
+    <%= image_tag "leagues/#{@season[:leagues_slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
     <div class="text-center py-1 border-t border-stone-300">
       <strong><%= t('components.views.homes.show.fantasy_team_link_component.join') %></strong> <%= t('components.views.homes.show.fantasy_team_link_component.members', count: @overall_league[:fantasy_leagues_teams_count]) %>
     </div>

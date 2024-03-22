@@ -6,7 +6,7 @@
         <%- user_oracul = @user_oraculs.find { |element| element[:oracul_place_id] == oracul_place[:id] } %>
         <% if user_oracul %>
           <%= link_to oracul_path(user_oracul[:uuid]), class: 'season-link flex flex-col justify-between bg-white rounded overflow-hidden border border-stone-300 cursor-pointer' do %>
-            <%= image_tag league[:background_url], alt: 'league-background', class: 'season-link-background' %>
+            <%= image_tag "leagues/#{league[:slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
             <div class="text-center py-1 bg-goldeen-support border-t border-stone-300 font-semibold">
               <%= user_oracul[:name] %>
             </div>
@@ -17,7 +17,7 @@
             react_component 'OraculForm',
                             placeName: localized_value(oracul_place[:name]),
                             placeId: oracul_place[:uuid],
-                            leagueBackground: image_url(league[:background_url]),
+                            leagueBackground: image_url("leagues/#{league[:slug]}.webp"),
                             sportKind: image_path("icons/#{league[:sport_kind]}.svg").to_s
           %>
         <% end %>

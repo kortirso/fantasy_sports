@@ -12,8 +12,8 @@ class OraculPlacesController < ApplicationController
 
   def find_leagues
     @leagues =
-      Rails.cache.fetch('oracul_places_show_leagues_v1', expires_in: 24.hours, race_condition_ttl: 10.seconds) do
-        League.hashable_pluck(:id, :background_url, :sport_kind)
+      Rails.cache.fetch('oracul_places_show_leagues_v2', expires_in: 24.hours, race_condition_ttl: 10.seconds) do
+        League.hashable_pluck(:id, :slug, :sport_kind)
       end
   end
 

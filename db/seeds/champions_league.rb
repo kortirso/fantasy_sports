@@ -4,7 +4,7 @@ league = League.create(
   sport_kind: 'football',
   name: { en: 'Champions League', ru: 'Лига чемпионов' },
   points_system: { W: 3, D: 1, L: 0 },
-  background_url: 'leagues/champions_league.webp'
+  slug: 'champions_league'
 )
 
 group_stage2024 = league.cups.create(

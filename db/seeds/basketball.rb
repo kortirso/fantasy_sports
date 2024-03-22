@@ -4,7 +4,7 @@ nba = League.create(
   sport_kind: 'basketball',
   name: { en: 'NBA', ru: 'НБА' },
   points_system: { W: 1, L: 0 },
-  background_url: 'leagues/nba.webp'
+  slug: 'nba'
 )
 
 nba2024 = nba.seasons.create(

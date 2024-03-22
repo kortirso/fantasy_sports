@@ -16,7 +16,7 @@
             %>
           <% else %>
             <div class="season-link">
-              <%= image_tag season[:leagues_background_url], alt: 'league-background', class: 'season-link-background' %>
+              <%= image_tag "leagues/#{season[:leagues_slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
               <div class="season-link-content">
                 <%= image_tag "icons/#{season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
                 <p class="badge-light absolute top-2 right-2">

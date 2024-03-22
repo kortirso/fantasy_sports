@@ -4,7 +4,7 @@ league = League.create(
   sport_kind: 'football',
   name: { en: 'La Liga', ru: 'Примера' },
   points_system: { W: 3, D: 1, L: 0 },
-  background_url: 'leagues/la_liga.webp'
+  slug: 'la_liga'
 )
 
 league2024 = league.seasons.create(
