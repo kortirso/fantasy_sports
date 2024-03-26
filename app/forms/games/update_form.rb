@@ -9,7 +9,7 @@ module Games
       errors = validator.call(params: params)
       return { errors: errors } if errors.any?
 
-      new_week = Week.future.find_by(season_id: game.week.season_id, id: params[:week_id]) if params[:week_id].present?
+      new_week = Week.future.find_by(id: params[:week_id]) if params[:week_id].present?
       return { errors: ['Week does not exist'] } if params[:week_id].present? && new_week.nil?
 
       ActiveRecord::Base.transaction do
