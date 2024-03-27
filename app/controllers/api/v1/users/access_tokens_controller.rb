@@ -34,7 +34,7 @@ module Api
         end
 
         def failed_sign_in
-          render json: { errors: [t('controllers.users.sessions.invalid')] }, status: :bad_request
+          render json: { errors: [t('controllers.users.sessions.invalid')] }, status: :unprocessable_entity
         end
 
         def user_params

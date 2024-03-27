@@ -7,7 +7,7 @@ describe Api::V1::UsersController do
 
       it 'does not create user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :unprocessable_entity
       end
     end
 
@@ -16,7 +16,7 @@ describe Api::V1::UsersController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :unprocessable_entity
       end
     end
 
@@ -25,7 +25,7 @@ describe Api::V1::UsersController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :unprocessable_entity
       end
     end
 
@@ -37,7 +37,7 @@ describe Api::V1::UsersController do
 
       it 'does not create new user', :aggregate_failures do
         expect { request }.not_to change(User, :count)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :unprocessable_entity
       end
     end
 
@@ -57,7 +57,7 @@ describe Api::V1::UsersController do
 
         it 'does not create new user', :aggregate_failures do
           expect { request }.not_to change(User, :count)
-          expect(response).to have_http_status :bad_request
+          expect(response).to have_http_status :unprocessable_entity
         end
       end
     end
@@ -99,7 +99,7 @@ describe Api::V1::UsersController do
           patch :update, params: { user: { locale: 'es' }, api_access_token: access_token }
 
           expect(user.reload.locale).to eq 'en'
-          expect(response).to have_http_status :bad_request
+          expect(response).to have_http_status :unprocessable_entity
         end
       end
 

@@ -339,7 +339,9 @@ CREATE TABLE public.cups_pairs (
     start_at timestamp(6) without time zone,
     points integer[] DEFAULT '{}'::integer[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    elimination_kind integer DEFAULT 0 NOT NULL,
+    required_wins integer
 );
 
 
@@ -3205,6 +3207,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240327061925'),
 ('20240322135806'),
 ('20240228183340'),
 ('20240228162958'),

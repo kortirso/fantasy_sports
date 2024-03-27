@@ -213,6 +213,12 @@ en:
             points: Points
             edit: Edit
           new:
+            home_name_en: Home name (en)
+            home_name_ru: Home name (ru)
+            visitor_name_en: Visitor name (en)
+            visitor_name_ru: Visitor name (ru)
+            elimination_kind: Elimination kind
+            required_wins: Required wins
             create: Create new pair
           edit:
             title: Editing pair
@@ -538,3 +544,11 @@ en:
           title: Deadline is coming for your fantasy team %{value}
           time_left: Time left is - %{value}
           link: For making transfers please visit %{value}
+
+  forms:
+    oraculs:
+      forecasts:
+        update:
+          invalid: Invalid forecast
+          not_predictable: Forecast can not be updated
+          required_wins: "One opponent's value should be equal and another less than %{count}"

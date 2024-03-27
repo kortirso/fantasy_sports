@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { currentLocale, localizeValue, convertTime, csrfToken } from '../../helpers';
+import { Flash } from '../../components/atoms';
+import { currentLocale, localizeValue, convertTime } from '../../helpers';
 import { strings } from '../../locales';
 
-import { apiRequest } from '../../requests/helpers/apiRequest';
+import { forecastUpdateRequest } from './requests/forecastUpdateRequest';
 
 strings.setLanguage(currentLocale);
 
@@ -14,6 +15,7 @@ export const Game = ({ item, isForWeek, forecast, last }) => {
   const [visitorForecast, setVisitorForecast] = useState(
     forecast === undefined || forecast.value.length === 0 ? null : forecast.value[1]
   );
+  const [alerts, setAlerts] = useState({});
 
   const localizeTeamName = (team, name) => {
     if (isForWeek) return team.name;
@@ -21,22 +23,15 @@ export const Game = ({ item, isForWeek, forecast, last }) => {
   }
 
   useEffect(() => {
-    if (parseInt(homeForecast) >= 0 && parseInt(visitorForecast) >= 0) {
-      const requestOptions = {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': csrfToken(),
-        },
-        body: JSON.stringify({ oraculs_forecast: { value: [parseInt(homeForecast), parseInt(visitorForecast)] } }),
-      };
-
-      apiRequest({
-        url: `/api/frontend/oraculs/forecasts/${forecast.id}.json`,
-        options: requestOptions,
-      });
+    const onUpdateForecast = async (params) => await forecastUpdateRequest(forecast.id, params);
+    if (parseInt(homeForecast) >= 0 && parseInt(visitorForecast) >= 0 && (parseInt(homeForecast) !== forecast.value[0] || parseInt(visitorForecast) !== forecast.value[1])) {
+      Promise.all([onUpdateForecast({ value: [parseInt(homeForecast), parseInt(visitorForecast)] })]).then(([response]) => {
+        if (response.errors) {
+          setAlerts({ alert: response.errors })
+        }
+      })
     };
-  }, [homeForecast, visitorForecast, forecast.id]);
+  }, [homeForecast, visitorForecast, forecast]);
 
   const homeTeamName = useMemo(() => localizeTeamName(item.home_team, item.home_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps
   const visitorTeamName = useMemo(() => localizeTeamName(item.visitor_team, item.visitor_name), [item]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -82,6 +77,7 @@ export const Game = ({ item, isForWeek, forecast, last }) => {
         </div>
         <p className="lg:text-lg flex-1">{visitorTeamName}</p>
       </div>
+      <Flash content={alerts} />
     </>
   );
 };
