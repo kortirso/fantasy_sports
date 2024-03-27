@@ -17,6 +17,7 @@ describe User do
     it { is_expected.to have_many(:kudos_achievements).through(:kudos_users_achievements) }
     it { is_expected.to have_many(:feedbacks).dependent(:destroy) }
     it { is_expected.to have_many(:identities).dependent(:destroy) }
+    it { is_expected.to have_many(:likes).dependent(:destroy) }
   end
 
   describe 'roles?' do

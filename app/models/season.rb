@@ -4,6 +4,7 @@ class Season < ApplicationRecord
   include Uuidable
   include Leagueable
   include Placeable
+  include Likeable
 
   belongs_to :league
 

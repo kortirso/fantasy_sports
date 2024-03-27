@@ -140,3 +140,6 @@ RSpec/IndexedLet:
 
 FactoryBot/ExcessiveCreateList:
   Enabled: false
+
+Metrics/ParameterLists:
+  Max: 6

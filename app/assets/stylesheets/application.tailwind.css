@@ -332,8 +332,12 @@
     @apply w-full h-40 object-contain mb-4;
   }
 
-  .season-link-sport {
-    @apply absolute top-2 left-2 w-8 h-8;
+  .like-link {
+    @apply absolute top-2 left-2;
+  }
+
+  .like-link img {
+    @apply w-6 h-6;
   }
 
   .badge {

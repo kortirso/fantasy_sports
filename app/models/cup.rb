@@ -3,6 +3,7 @@
 class Cup < ApplicationRecord
   include Uuidable
   include Placeable
+  include Likeable
 
   belongs_to :league
 

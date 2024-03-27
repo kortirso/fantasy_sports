@@ -24,7 +24,7 @@ class AchievementsController < ApplicationController
   end
 
   def base_achievements
-    @achievements = current_user.kudos_users_achievements.order(rank: :desc)
+    @achievements = Current.user.kudos_users_achievements.order(rank: :desc)
     @achievements_points = @achievements.sum(:points)
   end
 
@@ -64,6 +64,6 @@ class AchievementsController < ApplicationController
   end
 
   def received_achievements_ids
-    current_user.kudos_users_achievements.select(:kudos_achievement_id)
+    Current.user.kudos_users_achievements.select(:kudos_achievement_id)
   end
 end

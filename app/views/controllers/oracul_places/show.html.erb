@@ -5,20 +5,28 @@
         <%- league = @leagues.find { |league| league[:id] == @oracul_places_leagues[oracul_place[:id]] } %>
         <%- user_oracul = @user_oraculs.find { |element| element[:oracul_place_id] == oracul_place[:id] } %>
         <% if user_oracul %>
+          <%- like = @likeables.find { |element| element[:likeable_id] == oracul_place[:placeable_id] && element[:likeable_type] == oracul_place[:placeable_type] } %>
           <%= link_to oracul_path(user_oracul[:uuid]), class: 'season-link flex flex-col justify-between bg-white rounded overflow-hidden border border-stone-300 cursor-pointer' do %>
             <%= image_tag "leagues/#{league[:slug]}.webp", alt: 'league-background', class: 'season-link-background' %>
             <div class="text-center py-1 bg-goldeen-support border-t border-stone-300 font-semibold">
               <%= user_oracul[:name] %>
             </div>
-            <%= image_tag "icons/#{league[:sport_kind]}.svg", class: 'season-link-sport' %>
+            <% if like %>
+              <%= button_to like_path(id: like[:id], redirect: 'oracul_places'), class: 'like-link', method: :delete do %>
+                <%= image_tag 'icons/heart_like.svg' %>
+              <% end %>
+            <% else %>
+              <%= button_to likes_path(likeable_id: oracul_place[:placeable_id], likeable_type: oracul_place[:placeable_type], redirect: 'oracul_places'), class: 'like-link' do %>
+                <%= image_tag 'icons/heart.svg' %>
+              <% end %>
+            <% end %>
           <% end %>
         <% else %>
           <%=
             react_component 'OraculForm',
                             placeName: localized_value(oracul_place[:name]),
                             placeId: oracul_place[:uuid],
-                            leagueBackground: image_url("leagues/#{league[:slug]}.webp"),
-                            sportKind: image_path("icons/#{league[:sport_kind]}.svg").to_s
+                            leagueBackground: image_url("leagues/#{league[:slug]}.webp")
           %>
         <% end %>
       <% end %>

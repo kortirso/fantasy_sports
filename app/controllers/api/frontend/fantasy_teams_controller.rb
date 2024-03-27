@@ -13,7 +13,7 @@ module Api
       private
 
       def find_fantasy_team
-        @fantasy_team = current_user.fantasy_teams.find_by!(uuid: params[:id])
+        @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:id])
       end
     end
   end
