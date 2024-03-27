@@ -38,7 +38,7 @@ describe Api::V1::Oraculs::ForecastsController do
           request
 
           expect(oraculs_forecast.reload.value).to eq([3, 0])
-          expect(response).to have_http_status :ok
+          expect(response).to have_http_status :unprocessable_entity
         end
 
         context 'for user lineup' do
@@ -48,7 +48,7 @@ describe Api::V1::Oraculs::ForecastsController do
             request
 
             expect(oraculs_forecast.reload.value).to eq([3, 0])
-            expect(response).to have_http_status :ok
+            expect(response).to have_http_status :unprocessable_entity
           end
 
           context 'for predictable game' do
@@ -87,7 +87,7 @@ describe Api::V1::Oraculs::ForecastsController do
             request
 
             expect(oraculs_forecast.reload.value).to be_empty
-            expect(response).to have_http_status :ok
+            expect(response).to have_http_status :unprocessable_entity
           end
         end
 
