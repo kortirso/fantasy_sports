@@ -1180,6 +1180,39 @@ ALTER SEQUENCE public.leagues_id_seq OWNED BY public.leagues.id;
 
 
 --
+-- Name: likes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.likes (
+    id bigint NOT NULL,
+    likeable_id bigint NOT NULL,
+    likeable_type character varying NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.likes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.likes_id_seq OWNED BY public.likes.id;
+
+
+--
 -- Name: lineups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2113,6 +2146,13 @@ ALTER TABLE ONLY public.leagues ALTER COLUMN id SET DEFAULT nextval('public.leag
 
 
 --
+-- Name: likes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes ALTER COLUMN id SET DEFAULT nextval('public.likes_id_seq'::regclass);
+
+
+--
 -- Name: lineups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2458,6 +2498,14 @@ ALTER TABLE ONLY public.kudos_users_achievements
 
 ALTER TABLE ONLY public.leagues
     ADD CONSTRAINT leagues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
 
 
 --
@@ -2953,6 +3001,13 @@ CREATE INDEX index_kudos_users_achievements_on_user_id ON public.kudos_users_ach
 
 
 --
+-- Name: index_likes_on_user_id_and_likeable_id_and_likeable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_likes_on_user_id_and_likeable_id_and_likeable_type ON public.likes USING btree (user_id, likeable_id, likeable_type);
+
+
+--
 -- Name: index_lineups_on_fantasy_team_id_and_week_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3207,6 +3262,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240327093404'),
 ('20240327061925'),
 ('20240322135806'),
 ('20240228183340'),

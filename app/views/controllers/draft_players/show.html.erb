@@ -11,7 +11,8 @@
                 fantasy_team: fantasy_team,
                 lineup: fantasy_team ? @user_lineups.find { |element| element[:fantasy_team_id] == fantasy_team[:id] } : nil,
                 deadline: @deadlines.find { |element| element[:season_id] == season[:id] },
-                overall_league: @overall_leagues.find { |element| element[:leagueable_id] == season[:id] }
+                overall_league: @overall_leagues.find { |element| element[:leagueable_id] == season[:id] },
+                like: @likeables.find { |element| element[:likeable_id] == season[:id] }
               )
             %>
           <% else %>

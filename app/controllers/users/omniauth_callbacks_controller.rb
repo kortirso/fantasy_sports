@@ -57,8 +57,8 @@ module Users
     def user
       @user ||=
         if attaching_identity
-          attach_identity.call(user: current_user, auth: auth)
-          current_user
+          attach_identity.call(user: Current.user, auth: auth)
+          Current.user
         else
           login_user.call(auth: auth)[:result]
         end
@@ -76,7 +76,7 @@ module Users
     end
 
     def attaching_identity
-      @attaching_identity ||= current_user.present?
+      @attaching_identity ||= Current.user.present?
     end
   end
 end

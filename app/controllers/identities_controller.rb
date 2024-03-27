@@ -6,7 +6,7 @@ class IdentitiesController < ApplicationController
   def destroy
     ActiveRecord::Base.transaction do
       @identity.destroy
-      current_user.notifications.where(target: @identity.provider).destroy_all
+      Current.user.notifications.where(target: @identity.provider).destroy_all
     end
     redirect_to profile_path
   end
@@ -14,7 +14,7 @@ class IdentitiesController < ApplicationController
   private
 
   def find_identity
-    @identity = current_user.identities.find_by(id: params[:id])
+    @identity = Current.user.identities.find_by(id: params[:id])
     redirect_to profile_path if @identity.nil?
   end
 end

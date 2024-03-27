@@ -6,6 +6,7 @@ class DraftPlayersController < ApplicationController
   before_action :find_user_fantasy_teams
   before_action :find_user_lineups
   before_action :find_deadlines
+  before_action :find_user_likes
   before_action :sort_seasons
 
   def show; end
@@ -70,21 +71,23 @@ class DraftPlayersController < ApplicationController
       end
   end
 
-  def sort_seasons
-    return if @user_fantasy_teams.blank?
+  def find_user_likes
+    @likeables =
+      Rails.cache.fetch(['draft_players_show_likes_v1', Current.user.updated_at]) do
+        Current.user.likes.where(likeable_type: 'Season').hashable_pluck(:id, :likeable_id)
+      end
+  end
 
+  def sort_seasons
+    likeables = @likeables.pluck(:likeable_id)
     @seasons =
       @seasons
         .sort_by do |season|
-          team = @user_fantasy_teams.find { |element| element[:season_id] == season[:id] }
-          [completed_priority(team), week_deadline_priority(season[:id])]
+          [
+            likeables.include?(season[:id]) ? 0 : 1,
+            week_deadline_priority(season[:id])
+          ]
         end
-  end
-
-  def completed_priority(team)
-    return 2 unless team
-
-    team[:completed] ? 0 : 1
   end
 
   def week_deadline_priority(season_id)

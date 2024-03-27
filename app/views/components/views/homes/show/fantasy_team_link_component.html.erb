@@ -23,7 +23,15 @@
           <span><%= t('components.views.homes.show.fantasy_team_link_component.no_active') %></span>
         </div>
       <% end %>
-      <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
+      <% if @like %>
+        <%= button_to like_path(id: @like[:id], redirect: 'draft_players'), class: 'like-link', method: :delete do %>
+          <%= image_tag 'icons/heart_like.svg' %>
+        <% end %>
+      <% else %>
+        <%= button_to likes_path(likeable_id: @season[:id], likeable_type: 'Season', redirect: 'draft_players'), class: 'like-link' do %>
+          <%= image_tag 'icons/heart.svg' %>
+        <% end %>
+      <% end %>
     <% end %>
   <% else %>
     <%= link_to fantasy_team_transfers_path(@fantasy_team[:uuid]), class: 'season-link' do %>
@@ -36,7 +44,6 @@
           <span><%= t('components.views.homes.show.fantasy_team_link_component.deadline', time: @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M')) %></span>
         </div>
       <% end %>
-      <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
     <% end %>
   <% end %>
 <% else %>
@@ -50,6 +57,5 @@
         <span><%= t('components.views.homes.show.fantasy_team_link_component.deadline', time: @deadline[:deadline_at].strftime('%Y-%m-%d %H:%M')) %></span>
       </div>
     <% end %>
-    <%= image_tag "icons/#{@season[:leagues_sport_kind]}.svg", class: 'season-link-sport' %>
   <% end %>
 <% end %>

@@ -163,6 +163,7 @@ Rails.application.routes.draw do
     resources :achievements, only: %i[index]
     resources :fantasy_cups, only: %i[show]
     resources :identities, only: %i[destroy]
+    resources :likes, only: %i[create destroy]
 
     get 'privacy', to: 'welcome#privacy'
 

@@ -8,7 +8,7 @@ import { apiRequest } from '../../requests/helpers/apiRequest';
 
 strings.setLanguage(currentLocale);
 
-export const OraculForm = ({ placeName, placeId, leagueBackground, sportKind }) => {
+export const OraculForm = ({ placeName, placeId, leagueBackground }) => {
   const [pageState, setPageState] = useState({
     isOpen: false,
     name: '',
@@ -39,9 +39,6 @@ export const OraculForm = ({ placeName, placeId, leagueBackground, sportKind }) 
         onClick={() => setPageState({ ...pageState, isOpen: true })}
       >
         <img src={leagueBackground} alt="league-background" className="season-link-background" />
-        <div className="season-link-content">
-          <img src={sportKind} alt="league-background" className="season-link-sport" />
-        </div>
         <div class="text-center py-1 border-t border-stone-300">
           <strong>{placeName}</strong>
         </div>

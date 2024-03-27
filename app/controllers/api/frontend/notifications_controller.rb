@@ -29,7 +29,7 @@ module Api
       private
 
       def find_notifyable
-        @notifyable = current_user
+        @notifyable = Current.user
       end
 
       def find_notification
