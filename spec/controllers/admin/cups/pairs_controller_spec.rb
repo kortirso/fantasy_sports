@@ -173,8 +173,30 @@ describe Admin::Cups::PairsController do
           request
 
           expect(cups_pair.reload.home_name['en']).to eq 'Home'
-          expect(cups_pair.reload.points).to eq([2, 1])
+          expect(cups_pair.points).to eq([2, 1])
           expect(response).to redirect_to admin_cups_round_pairs_path(cups_round_id: cups_round.id)
+        end
+
+        context 'for best of elimination' do
+          let(:request) {
+            patch :update, params: {
+              cups_round_id: cups_round.id, id: cups_pair.id, cups_pair: {
+                home_name_en: 'Home',
+                points: '2-1',
+                elimination_kind: Cups::Pair::BEST_OF,
+                required_wins: '2'
+              }
+            }
+          }
+
+          it 'updates cups pair', :aggregate_failures do
+            request
+
+            expect(cups_pair.reload.home_name['en']).to eq 'Home'
+            expect(cups_pair.points).to eq([2, 1])
+            expect(cups_pair.required_wins).to eq 2
+            expect(response).to redirect_to admin_cups_round_pairs_path(cups_round_id: cups_round.id)
+          end
         end
       end
     end

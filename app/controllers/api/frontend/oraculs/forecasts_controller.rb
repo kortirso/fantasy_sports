@@ -15,8 +15,10 @@ module Api
 
         def update
           # commento: oraculs_forecasts.value
-          update_form.call(user: Current.user, forecast: @oraculs_forecast, params: oraculs_forecast_params)
-          render json: { result: 'ok' }, status: :ok
+          case update_form.call(user: Current.user, forecast: @oraculs_forecast, params: oraculs_forecast_params)
+          in { errors: errors } then render json: { errors: errors }, status: :ok
+          else render json: { result: 'ok' }, status: :ok
+          end
         end
 
         private

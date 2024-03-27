@@ -23,6 +23,14 @@
   <%= form.text_field :start_at, value: @cups_pair.start_at&.strftime('%Y-%m-%d %H:%M'), placeholder: '2024-01-31 12:13', class: 'form-value' %>
 </div>
 <div class="form-field">
+  <%= form.label :elimination_kind, t('views.admin.cups.pairs.new.elimination_kind'), class: 'form-label' %>
+  <%= form.select :elimination_kind, options_for_select(Cups::Pair.elimination_kinds.keys, @cups_pair.elimination_kind), class: 'form-value' %>
+</div>
+<div class="form-field">
+  <%= form.label :required_wins, t('views.admin.cups.pairs.new.required_wins'), class: 'form-label' %>
+  <%= form.text_field :required_wins, value: @cups_pair.required_wins, class: 'form-value' %>
+</div>
+<div class="form-field">
   <%= form.label :points, t('views.admin.cups.pairs.index.points'), class: 'form-label' %>
   <%= form.text_field :points, value: @cups_pair.points&.join('-'), placeholder: '2-1', class: 'form-value' %>
 </div>

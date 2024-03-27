@@ -91,6 +91,9 @@ describe Api::Frontend::Oraculs::ForecastsController do
     it_behaves_like 'required available email'
 
     context 'for logged users' do
+      let!(:oracul) { create :oracul }
+      let!(:oraculs_lineup) { create :oraculs_lineup, oracul: oracul }
+
       sign_in_user
 
       context 'for not existing forecast' do
@@ -102,8 +105,6 @@ describe Api::Frontend::Oraculs::ForecastsController do
       end
 
       context 'for existing forecast' do
-        let!(:oracul) { create :oracul }
-        let!(:oraculs_lineup) { create :oraculs_lineup, oracul: oracul }
         let!(:game) { create :game, start_at: 1.hour.after }
         let!(:oraculs_forecast) do
           create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: game, value: [3, 0]
@@ -137,6 +138,39 @@ describe Api::Frontend::Oraculs::ForecastsController do
               expect(oraculs_forecast.reload.value).to eq([3, 1])
               expect(response).to have_http_status :ok
             end
+          end
+        end
+      end
+
+      context 'for elimination cup' do
+        let!(:cups_pair) {
+          create :cups_pair, start_at: 3.hours.after, elimination_kind: Cups::Pair::BEST_OF, required_wins: 3
+        }
+        let!(:oraculs_forecast) do
+          create :oraculs_forecast, oraculs_lineup: oraculs_lineup, forecastable: cups_pair
+        end
+
+        before { oracul.update!(user: @current_user) }
+
+        context 'for invalid value of required_wins' do
+          let(:request) { patch :update, params: { id: oraculs_forecast.id, oraculs_forecast: { value: [4, 1] } } }
+
+          it 'does not update forecast', :aggregate_failures do
+            request
+
+            expect(oraculs_forecast.reload.value).to be_empty
+            expect(response).to have_http_status :ok
+          end
+        end
+
+        context 'for valid value of required_wins' do
+          let(:request) { patch :update, params: { id: oraculs_forecast.id, oraculs_forecast: { value: [3, 2] } } }
+
+          it 'updates forecast', :aggregate_failures do
+            request
+
+            expect(oraculs_forecast.reload.value).to eq([3, 2])
+            expect(response).to have_http_status :ok
           end
         end
       end

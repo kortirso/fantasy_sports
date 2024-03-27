@@ -65,8 +65,17 @@ module Admin
         @cups_pair = @cups_round.cups_pairs.find(params[:id])
       end
 
-      # rubocop: disable Metrics/AbcSize
       def cups_pair_params
+        params
+          .require(:cups_pair)
+          .permit(:elimination_kind, :required_wins)
+          .to_h
+          .symbolize_keys
+          .merge(transformed_cups_pair_params)
+      end
+
+      # rubocop: disable Metrics/AbcSize
+      def transformed_cups_pair_params
         {
           home_name: {
             en: params[:cups_pair][:home_name_en] || nil, ru: params[:cups_pair][:home_name_ru] || nil

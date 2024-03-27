@@ -36,16 +36,23 @@ module Oraculs
         end
 
         def forecastables(periodable_id, periodable_type)
-          games_relation(periodable_id, periodable_type)
+          periodable_type == 'Week' ? games_relation(periodable_id) : pairs_relation(periodable_id)
+        end
+
+        def games_relation(periodable_id)
+          Game
+            .where(week_id: periodable_id)
             .where.not(points: [])
             .order(id: :asc)
             .hashable_pluck(:id, :points)
         end
 
-        def games_relation(periodable_id, periodable_type)
-          return Game.where(week_id: periodable_id) if periodable_type == 'Week'
-
-          Cups::Pair.where(cups_round_id: periodable_id)
+        def pairs_relation(periodable_id)
+          Cups::Pair
+            .where(cups_round_id: periodable_id)
+            .where.not(points: [])
+            .order(id: :asc)
+            .hashable_pluck(:id, :points, :elimination_kind, :required_wins)
         end
 
         def forecasts(forecastable_ids, periodable_type)
@@ -57,9 +64,13 @@ module Oraculs
             .group_by { |element| element[:oraculs_lineup_id] }
         end
 
-        # rubocop: disable Metrics/AbcSize
+        # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/LineLength
         def find_points(forecastable, forecast)
           return 0 if forecast[:value].empty?
+
+          if forecastable[:elimination_kind] == Cups::Pair::BEST_OF && forecastable[:points].none?(forecastable[:required_wins])
+            return 0
+          end
 
           game_home_score = forecastable[:points][0]
           forecast_home_score = forecast[:value][0]
@@ -73,7 +84,7 @@ module Oraculs
 
           0
         end
-        # rubocop: enable Metrics/AbcSize
+        # rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/LineLength
 
         def difference_result(values)
           return 0 if values[0] == values[1]
