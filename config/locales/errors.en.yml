@@ -15,7 +15,12 @@ en:
       reason: Reason
       status: Status
       notification_type: Notification type
+      required_wins: Required wins
     errors:
+      cups_pair:
+        rules:
+          required_wins:
+            empty: can't be blank
       user:
         password_length: must be greater or equal %{length} characters
         banned: is banned

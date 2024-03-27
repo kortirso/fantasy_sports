@@ -18,7 +18,12 @@ ru:
       reason: Причина
       status: Статус
       notification_type: Тип уведомления
+      required_wins: Необходимые победы
     errors:
+      cups_pair:
+        rules:
+          required_wins:
+            empty: не может быть пустым
       oracul:
         rules:
           name:

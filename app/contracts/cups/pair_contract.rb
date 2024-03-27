@@ -14,7 +14,7 @@ module Cups
     end
 
     rule(:elimination_kind, :required_wins) do
-      if values[:elimination_kind] == Cups::Pair::BEST_OF && values[:required_wins].blank?
+      if values[:elimination_kind] == Cups::Pair::BEST_OF && !values[:required_wins].to_i.positive?
         key(:required_wins).failure(:empty)
       end
     end
