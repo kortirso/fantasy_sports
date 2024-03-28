@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - best_of elimination kind for cups pairs
 - likes for seasons/cups for better ordering
+- scraping injuries
 
 ## [1.2.3] - 2024-03-21
 ### Added

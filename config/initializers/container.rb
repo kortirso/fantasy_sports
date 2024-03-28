@@ -20,6 +20,7 @@ module FantasySports
     register('api.telegram.client') { TelegramApi::Client.new }
     register('api.google.auth_client') { GoogleAuthApi::Client.new }
     register('api.google.client') { GoogleApi::Client.new }
+    register('api.sportsgambler.client') { SportsgamblerApi::Client.new }
 
     # contracts
     register('contracts.games.create') { Games::CreateContract.new }
@@ -134,6 +135,7 @@ module FantasySports
     register('services.oracul_leagues.members.update_current_place') {
       OraculLeagues::Members::CurrentPlaceUpdateService.new
     }
+    register('scrapers.injuries.sportsgambler') { Scrapers::Injuries::Sportsgambler.new }
 
     # queries
     register('queries.games') { GamesQuery.new }
