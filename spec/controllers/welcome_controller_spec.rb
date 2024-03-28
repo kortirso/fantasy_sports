@@ -8,4 +8,12 @@ describe WelcomeController do
       expect(response).to render_template :index
     end
   end
+
+  describe 'GET#privacy' do
+    it 'renders privacy template' do
+      get :privacy, params: { locale: 'en' }
+
+      expect(response).to render_template :privacy
+    end
+  end
 end

@@ -14,6 +14,11 @@ every '0 0,12 * * *' do
   runner 'Weeks::BenchSubstitutionsJob.perform_later'
 end
 
+# At 00:00
+every '0 0 * * *' do
+  runner 'Injuries::ImportJob.perform_later'
+end
+
 # Clear expired things
 every 1.day do
   runner 'Users::Sessions::RemoveExpiredJob.perform_later'
