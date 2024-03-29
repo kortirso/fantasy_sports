@@ -105,6 +105,7 @@ Rails.application.routes.draw do
 
     namespace :users do
       get 'sign-up', to: 'registrations#new'
+      get 'sign-up-name', to: 'registrations#new_username'
       post 'sign-up', to: 'registrations#create'
       get 'confirm', to: 'registrations#confirm', as: :confirm
 

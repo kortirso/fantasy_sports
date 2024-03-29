@@ -3,7 +3,6 @@
 describe Admin::UsersController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 

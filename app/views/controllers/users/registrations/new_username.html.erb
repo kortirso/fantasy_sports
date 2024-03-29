@@ -3,8 +3,8 @@
     <%= form_with model: @user, url: users_sign_up_path, method: :post, class: 'p-4 bg-white rounded border border-stone-300' do |form| %>
       <h2><%= t('views.users.registrations.new.sign_up') %></h2>
       <div class="form-field">
-        <%= form.label :email, 'Email', class: 'form-label' %>
-        <%= form.text_field :email, class: 'form-value w-full' %>
+        <%= form.label :username, 'Username', class: 'form-label' %>
+        <%= form.text_field :username, class: 'form-value w-full' %>
       </div>
       <div class="form-field">
         <%= form.label :password, t('views.users.registrations.new.password', value: Rails.application.config.minimum_password_length), class: 'form-label' %>
@@ -22,8 +22,8 @@
         <%= link_to t('components.page_wrappers.users_component.login'), users_login_path, class: 'underline text-blue-600' %>
       </div>
       <div class="mb-2 flex items-center">
-        <span><%= t('views.users.registrations.new.no_email') %><span>
-        <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_name_path, class: 'underline text-blue-600' %>
+        <span><%= t('views.users.registrations.new.with_email') %><span>
+        <%= link_to t('components.page_wrappers.users_component.sign_up'), users_sign_up_path, class: 'underline text-blue-600' %>
       </div>
       <div class="form-field">
         <%= recaptcha_tags %>

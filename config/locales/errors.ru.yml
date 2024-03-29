@@ -19,6 +19,7 @@ ru:
       status: Статус
       notification_type: Тип уведомления
       required_wins: Необходимые победы
+      login: Email или Юзернейм
     errors:
       cups_pair:
         rules:
@@ -41,6 +42,10 @@ ru:
             filled?: не может быть пустым
           passwords:
             different: должны совпадать
+          login:
+            blank: должен присутствовать
+          username:
+            invalid: имеет неверный формат
       fantasy_team:
         rules:
           name:

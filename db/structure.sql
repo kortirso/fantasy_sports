@@ -1870,7 +1870,7 @@ ALTER SEQUENCE public.transfers_id_seq OWNED BY public.transfers.id;
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
+    email character varying DEFAULT ''::character varying,
     password_digest character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1880,7 +1880,8 @@ CREATE TABLE public.users (
     restore_token character varying,
     locale character varying DEFAULT 'en'::character varying NOT NULL,
     reset_password_sent_at timestamp(6) without time zone,
-    banned_at timestamp(6) without time zone
+    banned_at timestamp(6) without time zone,
+    username character varying
 );
 
 
@@ -3141,6 +3142,13 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
+-- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (username);
+
+
+--
 -- Name: index_users_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3262,6 +3270,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240329062740'),
 ('20240327093404'),
 ('20240327061925'),
 ('20240322135806'),

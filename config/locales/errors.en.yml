@@ -16,6 +16,7 @@ en:
       status: Status
       notification_type: Notification type
       required_wins: Required wins
+      login: Email or Username
     errors:
       cups_pair:
         rules:
@@ -34,6 +35,10 @@ en:
             filled?: can't be blank
           passwords:
             different: must be equal
+          login:
+            blank: must be present
+          username:
+            invalid: has invalid format
       fantasy_team:
         rules:
           name:

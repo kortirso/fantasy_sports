@@ -11,10 +11,10 @@ module Api
       SERIALIZER_FIELDS = %w[confirmed banned access_token].freeze
 
       skip_before_action :authenticate, only: %i[create]
-      skip_before_action :check_email_confirmation, only: %i[create destroy]
       skip_before_action :check_email_ban, only: %i[create destroy]
 
       def create
+        # commento: users.email, users.username, users.password
         case create_form.call(params: user_params.to_h.symbolize_keys)
         in { errors: errors } then render json: { errors: errors }, status: :unprocessable_entity
         in { result: result }
@@ -47,7 +47,7 @@ module Api
       private
 
       def user_params
-        params_hash = params.require(:user).permit(:email, :password, :password_confirmation)
+        params_hash = params.require(:user).permit(:email, :username, :password, :password_confirmation)
         params_hash[:email] = params_hash[:email].strip.downcase
         params_hash
       end

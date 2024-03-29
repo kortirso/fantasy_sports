@@ -11,7 +11,6 @@ describe Api::Frontend::FantasyTeams::FantasyLeaguesController do
     end
 
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

@@ -3,7 +3,6 @@
 describe FantasyTeams::TransfersController do
   describe 'GET#show' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do
@@ -49,7 +48,6 @@ describe FantasyTeams::TransfersController do
 
   describe 'PATCH#update' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

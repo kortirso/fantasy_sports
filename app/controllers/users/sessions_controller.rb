@@ -5,11 +5,9 @@ module Users
     include Deps[generate_token: 'services.auth.generate_token']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     skip_before_action :check_email_ban
     before_action :find_user, only: %i[create]
     before_action :authenticate_user, only: %i[create]
-    before_action :check_email_confirmation, only: %i[create]
 
     def new; end
 
@@ -30,22 +28,24 @@ module Users
     private
 
     def find_user
-      @user = User.not_banned.find_by(email: user_params[:email]&.strip&.downcase)
+      @user = find_by_email || find_by_username
       return if @user.present?
 
       failed_sign_in
+    end
+
+    def find_by_email
+      User.not_banned.find_by(email: user_params[:login]&.strip&.downcase)
+    end
+
+    def find_by_username
+      User.not_banned.find_by(username: user_params[:login])
     end
 
     def authenticate_user
       return if @user.authenticate(user_params[:password])
 
       failed_sign_in
-    end
-
-    def check_email_confirmation
-      return if @user.confirmed?
-
-      redirect_to users_confirm_path
     end
 
     def failed_sign_in
@@ -61,7 +61,7 @@ module Users
     end
 
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:login, :password)
     end
   end
 end

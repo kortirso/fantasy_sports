@@ -5,7 +5,6 @@ describe Admin::Seasons::TeamsPlayersController do
 
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -35,7 +34,6 @@ describe Admin::Seasons::TeamsPlayersController do
 
   describe 'GET#new' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -65,7 +63,6 @@ describe Admin::Seasons::TeamsPlayersController do
 
   describe 'GET#edit' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -98,7 +95,6 @@ describe Admin::Seasons::TeamsPlayersController do
 
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -156,7 +152,6 @@ describe Admin::Seasons::TeamsPlayersController do
 
   describe 'PATCH#update' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do

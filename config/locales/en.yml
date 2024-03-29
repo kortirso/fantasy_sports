@@ -152,7 +152,7 @@ en:
         record_is_not_exists: Week is not exist
     users:
       create:
-        email_exists: Email is already used
+        not_unique: Credentials is already used
         invalid: Credentials are invalid
     seasons:
       create:
@@ -411,6 +411,8 @@ en:
           password_confirmation: Password confirmation
           create: Sign up
           have_account: Already have account?
+          no_email: No email?
+          with_email: Already have email?
         confirm:
           title: Thank you for registration
           description: You need to check your mailbox to verify your email and gaining access to Fantasy Sports
@@ -418,6 +420,7 @@ en:
         new:
           login: Login
           sign_in: Sign in
+          email_username: Email or Username
           password: Password
           no_account: Don't have account?
           forgot: Forgot password?

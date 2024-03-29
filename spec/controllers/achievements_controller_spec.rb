@@ -13,7 +13,6 @@ describe AchievementsController do
     let!(:users_achievement3) { create :kudos_users_achievement, kudos_achievement: achievement3 }
 
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

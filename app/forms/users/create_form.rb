@@ -12,12 +12,11 @@ module Users
       error = validate_user(user)
       return { errors: [error] } if error.present?
 
-      # commento: users.email, users.password, users.password_confirmation
-      send_email_confirmation(user) if user.save && with_send_confirmation
+      send_email_confirmation(user) if user.save && user.email.present? && with_send_confirmation
 
       { result: user }
     rescue ActiveRecord::RecordNotUnique
-      { errors: [I18n.t('services.users.create.email_exists')] }
+      { errors: [I18n.t('services.users.create.not_unique')] }
     end
 
     private

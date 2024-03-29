@@ -5,7 +5,6 @@ describe Admin::Cups::RoundsController do
 
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -30,7 +29,6 @@ describe Admin::Cups::RoundsController do
 
   describe 'GET#new' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -61,7 +59,6 @@ describe Admin::Cups::RoundsController do
 
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -101,7 +98,6 @@ describe Admin::Cups::RoundsController do
 
   describe 'GET#refresh_oraculs_points' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 

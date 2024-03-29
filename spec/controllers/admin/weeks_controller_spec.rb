@@ -6,7 +6,6 @@ describe Admin::WeeksController do
 
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -37,7 +36,6 @@ describe Admin::WeeksController do
 
   describe 'GET#edit' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -68,7 +66,6 @@ describe Admin::WeeksController do
 
   describe 'PATCH#update' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 

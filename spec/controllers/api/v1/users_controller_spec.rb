@@ -87,7 +87,6 @@ describe Api::V1::UsersController do
 
   describe 'DELETE#destroy' do
     it_behaves_like 'required api auth'
-    it_behaves_like 'required api email confirmation'
     it_behaves_like 'required api available email'
 
     context 'for logged users' do
