@@ -3,7 +3,6 @@
 describe LikesController do
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do
@@ -19,7 +18,7 @@ describe LikesController do
         }
 
         it 'does not create like', :aggregate_failures do
-          expect { do_request }.not_to change(Like, :count)
+          expect { request }.not_to change(Like, :count)
           expect(response).to render_template 'shared/404'
         end
       end
@@ -85,7 +84,6 @@ describe LikesController do
 
   describe 'DELETE#destroy' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

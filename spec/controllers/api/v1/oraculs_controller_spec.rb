@@ -3,7 +3,6 @@
 describe Api::V1::OraculsController do
   describe 'GET#index' do
     it_behaves_like 'required api auth'
-    it_behaves_like 'required api email confirmation'
     it_behaves_like 'required api available email'
 
     context 'for logged users' do
@@ -37,7 +36,6 @@ describe Api::V1::OraculsController do
 
   describe 'POST#create' do
     it_behaves_like 'required api auth'
-    it_behaves_like 'required api email confirmation'
     it_behaves_like 'required api available email'
 
     context 'for logged users' do

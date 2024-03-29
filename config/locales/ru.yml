@@ -152,7 +152,7 @@ ru:
         record_is_not_exists: Неделя не существует
     users:
       create:
-        email_exists: Email уже используется
+        not_unique: Данные для входа уже используется
         invalid: Данные не верны
     seasons:
       create:
@@ -411,6 +411,8 @@ ru:
           password_confirmation: Подтверждение пароля
           create: Создать пользователя
           have_account: Уже есть аккаунт?
+          no_email: Нет почтового аккаунта?
+          with_email: Уже есть почтовый аккаунт?
         confirm:
           title: Спасибо за регистрацию
           description: Вам необходимо проверить почтовый ящик и подтвердить его для получения доступа к Fantasy Sports
@@ -418,6 +420,7 @@ ru:
         new:
           login: Вход
           sign_in: Войти
+          email_username: Email или Имя пользователя
           password: Пароль
           no_account: Нет аккаунта?
           forgot: Забыли пароль?

@@ -40,10 +40,6 @@ module Api
       render json: { errors: [t('controllers.authentication.permission')] }, status: :unauthorized
     end
 
-    def confirmation_error
-      render json: { errors: [t('controllers.confirmation.permission')] }, status: :forbidden
-    end
-
     def ban_error
       render json: { errors: [t('controllers.confirmation.ban')] }, status: :forbidden
     end

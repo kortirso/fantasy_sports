@@ -5,7 +5,6 @@ module Api
     module Users
       class AccessTokensController < Api::V1Controller
         skip_before_action :authenticate, only: %i[create]
-        skip_before_action :check_email_confirmation, only: %i[create]
         skip_before_action :check_email_ban, only: %i[create]
 
         before_action :find_user, only: %i[create]
@@ -24,7 +23,16 @@ module Api
         private
 
         def find_user
-          @user = User.not_banned.find_by!(email: user_params[:email]&.strip&.downcase)
+          @user = find_by_email || find_by_username
+          page_not_found unless @user
+        end
+
+        def find_by_email
+          User.not_banned.find_by(email: user_params[:login]&.strip&.downcase)
+        end
+
+        def find_by_username
+          User.not_banned.find_by(username: user_params[:login])
         end
 
         def authenticate_user
@@ -38,7 +46,7 @@ module Api
         end
 
         def user_params
-          params.require(:user).permit(:email, :password)
+          params.require(:user).permit(:login, :password)
         end
       end
     end

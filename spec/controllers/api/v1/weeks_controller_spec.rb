@@ -3,7 +3,6 @@
 describe Api::V1::WeeksController do
   describe 'GET#show' do
     it_behaves_like 'required api auth'
-    it_behaves_like 'required api email confirmation'
     it_behaves_like 'required api available email'
 
     context 'for logged users' do

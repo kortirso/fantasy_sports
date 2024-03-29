@@ -6,7 +6,6 @@ describe Api::Frontend::PlayersSeasons::WatchesController do
     let!(:players_season) { create :players_season, season: season }
 
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do
@@ -63,7 +62,6 @@ describe Api::Frontend::PlayersSeasons::WatchesController do
     let!(:players_season) { create :players_season, season: season }
 
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

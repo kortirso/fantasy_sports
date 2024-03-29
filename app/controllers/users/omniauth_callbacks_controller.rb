@@ -12,7 +12,6 @@ module Users
 
     skip_before_action :verify_authenticity_token
     skip_before_action :authenticate, only: %i[create]
-    skip_before_action :check_email_confirmation, only: %i[create]
     skip_before_action :check_email_ban, only: %i[create]
     before_action :validate_provider, only: %i[create]
     before_action :validate_auth, only: %i[create]

@@ -3,7 +3,6 @@
 describe Admin::BannedEmailsController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -24,7 +23,6 @@ describe Admin::BannedEmailsController do
 
   describe 'GET#new' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -44,7 +42,6 @@ describe Admin::BannedEmailsController do
 
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do
@@ -81,7 +78,6 @@ describe Admin::BannedEmailsController do
 
   describe 'DELETE#destroy' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required admin'
 
     context 'for admin' do

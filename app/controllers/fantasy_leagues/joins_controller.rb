@@ -5,11 +5,9 @@ module FantasyLeagues
     include Deps[join_fantasy_league: 'services.persisters.fantasy_teams.join_fantasy_league']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     skip_before_action :check_email_ban
     before_action :remember_invite_code
     before_action :authenticate
-    before_action :check_email_confirmation
     before_action :check_email_ban
     before_action :find_fantasy_league
     before_action :validate_invite_code

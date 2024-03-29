@@ -5,7 +5,6 @@ module Users
     include Deps[update_service: 'services.persisters.users.update']
 
     skip_before_action :authenticate
-    skip_before_action :check_email_confirmation
     before_action :find_user
     before_action :check_confirmation_token
 

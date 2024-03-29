@@ -3,7 +3,6 @@
 describe Api::Frontend::NotificationsController do
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do
@@ -57,7 +56,6 @@ describe Api::Frontend::NotificationsController do
 
   describe 'DELETE#destroy' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
 
     context 'for logged users' do
       sign_in_user

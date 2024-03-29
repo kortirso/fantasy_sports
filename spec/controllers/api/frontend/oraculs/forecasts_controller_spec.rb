@@ -3,7 +3,6 @@
 describe Api::Frontend::Oraculs::ForecastsController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do
@@ -87,7 +86,6 @@ describe Api::Frontend::Oraculs::ForecastsController do
 
   describe 'PATCH#update' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
 
     context 'for logged users' do

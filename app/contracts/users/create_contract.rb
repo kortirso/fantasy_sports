@@ -5,17 +5,30 @@ module Users
     config.messages.namespace = :user
 
     params do
-      required(:email).filled(:string)
+      optional(:email)
+      optional(:username)
       required(:password).filled(:string)
       required(:password_confirmation).filled(:string)
     end
 
+    rule(:email, :username) do
+      key(:login).failure(:blank) if values[:email].blank? && values[:username].blank?
+    end
+
     rule(:email) do
-      unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
+      if value
+        unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
+          key.failure(:invalid)
+        end
+
+        key.failure(I18n.t('dry_validation.errors.user.banned')) if BannedEmail.exists?(value: value)
+      end
+    end
+
+    rule(:username) do
+      if value && !/[\w+\-\_]+/i.match?(value)
         key.failure(:invalid)
       end
-
-      key.failure(I18n.t('dry_validation.errors.user.banned')) if BannedEmail.exists?(value: value)
     end
 
     rule(:password, :password_confirmation) do

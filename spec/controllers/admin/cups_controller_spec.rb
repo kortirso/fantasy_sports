@@ -3,7 +3,6 @@
 describe Admin::CupsController do
   describe 'GET#index' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -28,7 +27,6 @@ describe Admin::CupsController do
 
   describe 'GET#new' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
@@ -49,7 +47,6 @@ describe Admin::CupsController do
 
   describe 'POST#create' do
     it_behaves_like 'required auth'
-    it_behaves_like 'required email confirmation'
     it_behaves_like 'required available email'
     it_behaves_like 'required admin'
 
