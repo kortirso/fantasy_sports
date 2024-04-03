@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { currentLocale, convertDateTime, convertDate } from '../../helpers';
+import { currentLocale, convertDateTime, convertDate, fetchFromCache } from '../../helpers';
 import { strings } from '../../locales';
 import { Arrow } from '../../assets';
 
@@ -20,8 +20,15 @@ export const Week = ({ id, teamNames }) => {
   const [weekId, setWeekId] = useState(id);
 
   useEffect(() => {
-    const fetchWeek = async () => await weekRequest(weekId);
-    const fetchGames = async () => await gamesRequest(weekId);
+    const fetchWeek = async () =>
+      await fetchFromCache(`week_${weekId}`, () =>
+        weekRequest(weekId)
+      );
+
+    const fetchGames = async () =>
+      await fetchFromCache(`week_games_${weekId}`, () =>
+        gamesRequest(weekId)
+      );
 
     Promise.all([fetchWeek(), fetchGames()]).then(([weekData, gamesData]) => {
       const groupedGames = gamesData.reduce((result, game) => {

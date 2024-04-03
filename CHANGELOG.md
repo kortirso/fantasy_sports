@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - create users with only username
+- caching for frontend
 
 ## [1.2.4] - 2024-03-28
 ### Added
