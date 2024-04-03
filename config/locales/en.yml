@@ -363,6 +363,7 @@ en:
         identity_created: identity is created
         notifications_title: Notifications
     welcome:
+      beta: Fantasy Sports is in beta testing
       title: Free to play fantasy sport games with friends
       home: Draft players
       description: Fantasy Sports gives you the opportunity to run your own teams of professional players from across the leagues and receive points based on their performance in games each week. Join with friends in leagues and find whose team is the best.

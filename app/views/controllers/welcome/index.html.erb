@@ -1,6 +1,9 @@
 <%= render PageWrappers::GuestComponent.new do %>
-  <% cache(['welcome_index_v3', Current.user&.id, I18n.locale], expires_in: 24.hours) do %>
-    <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-16 xl:my-28">
+  <% cache(['welcome_index_v4', Current.user&.id, I18n.locale], expires_in: 24.hours) do %>
+    <section class="flex">
+      <p class="mt-4 mx-auto py-4 px-8 border border-stone-200 rounded"><%= t('views.welcome.beta') %></p>
+    </section>
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-8 mx-auto mt-16 mb-16 xl:mt-20 xl:mb-28">
       <div class="flex-1 flex flex-col justify-center lg:pr-16">
         <h1 class="text-center lg:text-left"><%= t('views.welcome.title') %></h1>
         <p class="text-lg leading-8 mb-4 text-center lg:text-left"><%= t('views.welcome.description') %></p>
