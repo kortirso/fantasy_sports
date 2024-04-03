@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { sportsData } from '../../data';
-import { currentLocale, localizeValue, csrfToken, convertDateTime } from '../../helpers';
+import { currentLocale, localizeValue, csrfToken, convertDateTime, fetchFromCache } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Flash } from '../../components/atoms';
@@ -47,10 +47,18 @@ export const Squad = ({
   })
 
   useEffect(() => {
+    const fetchTeams = async () =>
+      await fetchFromCache(`season_teams_${seasonUuid}`, () =>
+        teamsRequest(seasonUuid),
+      );
+
+    const fetchWeekOpponents = async () =>
+      await fetchFromCache(`week_opponents_${weekUuid}`, () =>
+        weekOpponentsRequest(weekUuid),
+      );
+
     const fetchLineup = async () => await lineupRequest(lineupUuid);
-    const fetchTeams = async () => await teamsRequest(seasonUuid);
     const fetchLineupPlayers = async () => await lineupPlayersRequest(lineupUuid);
-    const fetchWeekOpponents = async () => await weekOpponentsRequest(weekUuid);
 
     Promise.all([fetchLineup(), fetchTeams(), fetchLineupPlayers(), fetchWeekOpponents()]).then(
       ([lineupData, teamsData, lineupPlayersData, weekOpponentsData]) =>

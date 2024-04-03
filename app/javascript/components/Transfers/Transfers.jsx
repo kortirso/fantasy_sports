@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
 import { sportsData } from '../../data';
-import { currentLocale, localizeValue, csrfToken, convertDateTime, currentWatches } from '../../helpers';
+import { currentLocale, localizeValue, csrfToken, convertDateTime, currentWatches, fetchFromCache } from '../../helpers';
 import { strings } from '../../locales';
 
 import { Dropdown, Modal, Flash, Checkbox } from '../../components/atoms';
@@ -116,8 +116,15 @@ export const Transfers = ({
   const sport = sportsData.sports[sportKind];
 
   useEffect(() => {
-    const fetchTeams = async () => await teamsRequest(seasonUuid);
-    const fetchSeasonPlayers = async () => await seasonPlayersRequest(seasonUuid);
+    const fetchTeams = async () =>
+      await fetchFromCache(`season_teams_${seasonUuid}`, () =>
+        teamsRequest(seasonUuid),
+      );
+
+    const fetchSeasonPlayers = async () =>
+      await fetchFromCache(`season_players_${seasonUuid}`, () =>
+        seasonPlayersRequest(seasonUuid),
+      );
 
     const fetchFantasyTeamPlayers = async () => {
       if (!fantasyTeamCompleted) return [];

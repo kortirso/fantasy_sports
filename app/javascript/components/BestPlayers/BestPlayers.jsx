@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { currentLocale, localizeValue } from '../../helpers';
+import { currentLocale, localizeValue, fetchFromCache } from '../../helpers';
 import { strings } from '../../locales';
 import { sportsData } from '../../data';
 
@@ -23,7 +23,11 @@ export const BestPlayers = ({ weekUuid, seasonUuid, sportKind }) => {
   const sportPositions = sportsData.positions[sportKind];
 
   useEffect(() => {
-    const fetchTeams = async () => await teamsRequest(seasonUuid);
+    const fetchTeams = async () =>
+      await fetchFromCache(`season_teams_${seasonUuid}`, () =>
+        teamsRequest(seasonUuid),
+      );
+
     const fetchBestSeasonPlayers = async () => await bestSeasonPlayersRequest(seasonUuid);
     const fetchBestWeekPlayers = async () => await bestWeekPlayersRequest(seasonUuid, weekUuid);
 

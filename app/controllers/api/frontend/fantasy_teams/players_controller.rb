@@ -27,7 +27,8 @@ module Api
               players(players_season_id_ids),
               params: {
                 injuries: injuries(players_season_id_ids),
-                last_points: last_points
+                last_points: last_points,
+                week_id: week_id
               }
             ).serializable_hash
           end
@@ -49,6 +50,10 @@ module Api
             .where(lineups: { fantasy_team_id: @fantasy_team })
             .where(weeks: { status: Week::ACTIVE })
             .hashable_pluck('teams_players.players_season_id', :points)
+        end
+
+        def week_id
+          Week.where(season_id: @fantasy_team.season_id).coming.first.id
         end
       end
     end

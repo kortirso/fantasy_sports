@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { sportsData } from '../../data';
-import { currentLocale, localizeValue } from '../../helpers';
+import { sportsData, statisticsOrder } from '../../data';
+import { currentLocale, localizeValue, fetchFromCache } from '../../helpers';
 import { strings } from '../../locales';
-import { statisticsOrder } from '../../data';
 
 import { Week, PlayerModal, PlayerCard } from '../../components';
 import { teamsRequest } from '../../requests/teamsRequest';
@@ -34,7 +33,11 @@ export const SquadPoints = ({
   const [playerUuid, setPlayerUuid] = useState();
 
   useEffect(() => {
-    const fetchTeams = async () => await teamsRequest(seasonUuid);
+    const fetchTeams = async () =>
+      await fetchFromCache(`season_teams_${seasonUuid}`, () =>
+        teamsRequest(seasonUuid),
+      );
+
     const fetchLineupPlayers = async () => await lineupPlayersRequest(lineupUuid);
 
     Promise.all([fetchTeams(), fetchLineupPlayers()]).then(
