@@ -25,10 +25,7 @@ export const Week = ({ id, teamNames }) => {
         weekRequest(weekId)
       );
 
-    const fetchGames = async () =>
-      await fetchFromCache(`week_games_${weekId}`, () =>
-        gamesRequest(weekId)
-      );
+    const fetchGames = async () => gamesRequest(weekId);
 
     Promise.all([fetchWeek(), fetchGames()]).then(([weekData, gamesData]) => {
       const groupedGames = gamesData.reduce((result, game) => {
