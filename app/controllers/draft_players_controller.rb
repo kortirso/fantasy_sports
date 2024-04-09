@@ -86,13 +86,13 @@ class DraftPlayersController < ApplicationController
           [
             likeables.include?(season[:id]) ? 0 : 1,
             week_deadline_priority(season[:id])
-          ]
+          ].compact
         end
   end
 
   def week_deadline_priority(season_id)
     week = @deadlines.find { |element| element[:season_id] == season_id }
-    return 0 unless week
+    return unless week
 
     week[:deadline_at]
   end
