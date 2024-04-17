@@ -11,11 +11,7 @@ module Seasons
       errors = validator.call(params: params)
       return { errors: errors } if errors.any?
 
-      result = ActiveRecord::Base.transaction do
-        # commento: seasons.name, seasons.active
-        league.seasons.active.update!(active: false) if params[:active]
-        league.seasons.create!(params)
-      end
+      result = league.seasons.create!(params)
 
       { result: result }
     end

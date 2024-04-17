@@ -6,6 +6,11 @@ class Season < ApplicationRecord
   include Placeable
   include Likeable
 
+  INACTIVE = 'inactive'
+  ACTIVE = 'active'
+  FINISHING = 'finishing'
+  FINISHED = 'finished'
+
   belongs_to :league
 
   has_many :seasons_teams, class_name: 'Seasons::Team', foreign_key: :season_id, dependent: :destroy
@@ -26,6 +31,12 @@ class Season < ApplicationRecord
   has_many :players, through: :players_seasons
   has_many :injuries, through: :players_seasons
 
-  scope :active, -> { where(active: true) }
-  scope :coming, -> { where(active: false).where.not(start_at: nil) }
+  scope :in_progress, -> { where(status: [ACTIVE, FINISHING]) }
+  scope :coming, -> { where(status: INACTIVE).where.not(start_at: nil) }
+
+  enum status: { INACTIVE => 0, ACTIVE => 1, FINISHING => 2, FINISHED => 3 }
+
+  def in_progress?
+    [ACTIVE, FINISHING].include?(status)
+  end
 end

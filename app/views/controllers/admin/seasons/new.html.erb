@@ -6,8 +6,8 @@
       <%= form.text_field :name, class: 'form-value' %>
     </div>
     <div class="form-field">
-      <%= form.label :active, t('views.admin.seasons.new.active'), class: 'form-label' %>
-      <%= form.check_box :active, class: 'form-value' %>
+      <%= form.label :status, t('views.admin.seasons.new.active'), class: 'form-label' %>
+      <%= form.select :status, options_for_select(Season.statuses.keys), class: 'form-value' %>
     </div>
     <div class="form-field">
       <%= form.label :league_id, t('views.admin.seasons.new.league_id'), class: 'form-label' %>

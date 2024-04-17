@@ -118,7 +118,7 @@ describe Admin::SeasonsController do
 
         context 'for valid params' do
           let(:request) {
-            post :create, params: { season: { name: 'En', league_id: league.id }, locale: 'en' }
+            post :create, params: { season: { name: 'En', status: 'active', league_id: league.id }, locale: 'en' }
           }
 
           it 'creates season', :aggregate_failures do

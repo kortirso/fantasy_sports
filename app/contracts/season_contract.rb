@@ -5,5 +5,6 @@ class SeasonContract < ApplicationContract
 
   params do
     required(:name).filled(:string)
+    required(:status).filled(:string)
   end
 end

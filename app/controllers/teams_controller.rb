@@ -11,7 +11,7 @@ class TeamsController < ApplicationController
   private
 
   def find_teams
-    @teams = Season.active.find_by!(uuid: params[:season_uuid]).teams
+    @teams = Season.in_progress.find_by!(uuid: params[:season_uuid]).teams
   end
 
   def teams
