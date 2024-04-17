@@ -17,6 +17,7 @@ module Admin
     end
 
     def create
+      # commento: seasons.name, seasons.status
       case create_form.call(params: season_params)
       in { errors: errors } then redirect_to new_admin_season_path, alert: errors
       else redirect_to admin_seasons_path, notice: t('controllers.admin.seasons.create.success')
@@ -29,7 +30,7 @@ module Admin
       @seasons =
         Season.joins(:league)
           .order(id: :desc)
-          .hashable_pluck(:id, :uuid, :name, :active, 'leagues.name')
+          .hashable_pluck(:id, :uuid, :name, :status, 'leagues.name')
           .group_by { |season| season[:leagues_name] }
     end
 
@@ -38,12 +39,7 @@ module Admin
     end
 
     def season_params
-      params
-        .require(:season)
-        .permit(:name, :league_id)
-        .to_h
-        .symbolize_keys
-        .merge(active: to_bool.call(params[:season][:active]))
+      params.require(:season).permit(:name, :league_id, :status)
     end
   end
 end

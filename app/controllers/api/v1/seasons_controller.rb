@@ -18,7 +18,7 @@ module Api
           expires_in: 24.hours,
           race_condition_ttl: 10.seconds
         ) do
-          SeasonSerializer.new(Season.active.order(id: :desc), params: serializer_fields).serializable_hash
+          SeasonSerializer.new(Season.in_progress.order(id: :desc), params: serializer_fields).serializable_hash
         end
       end
     end

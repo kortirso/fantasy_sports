@@ -5,6 +5,7 @@ class FantasyTeamsController < ApplicationController
   include Maintenable
 
   before_action :find_fantasy_team, only: %i[show update]
+  before_action :validate_season_finishing, only: %i[show]
   before_action :find_fantasy_team_relationships, only: %i[show]
   before_action :find_season, only: %i[create]
   before_action :check_season_maintenance, only: %i[show]
@@ -47,13 +48,19 @@ class FantasyTeamsController < ApplicationController
     @fantasy_team = Current.user.fantasy_teams.find_by!(uuid: params[:id])
   end
 
+  def validate_season_finishing
+    return if @fantasy_team.season.open_transfers?
+
+    page_not_found
+  end
+
   def find_fantasy_team_relationships
     @lineup = @fantasy_team.lineups.joins(:week).where(weeks: { status: Week::COMING }).first
     @season = @fantasy_team.season
   end
 
   def find_season
-    @season = Season.active.find_by!(uuid: params[:season_id])
+    @season = Season.in_progress.find_by!(uuid: params[:season_id])
   end
 
   def fantasy_team_params

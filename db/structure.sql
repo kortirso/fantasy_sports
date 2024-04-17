@@ -1692,7 +1692,8 @@ CREATE TABLE public.seasons (
     start_at timestamp(6) without time zone,
     members_count integer DEFAULT 1 NOT NULL,
     main_external_source character varying,
-    maintenance boolean DEFAULT false NOT NULL
+    maintenance boolean DEFAULT false NOT NULL,
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -3270,6 +3271,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240417155344'),
 ('20240329062740'),
 ('20240327093404'),
 ('20240327061925'),

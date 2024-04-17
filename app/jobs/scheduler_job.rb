@@ -13,7 +13,7 @@ class SchedulerJob < ApplicationJob
 
   def start_seasons
     # start season with updating first week as coming
-    Season.active.where('start_at < ? AND start_at > ?', 15.minutes.after, 15.minutes.ago).each do |season|
+    Season.in_progress.where('start_at < ? AND start_at > ?', 15.minutes.after, 15.minutes.ago).each do |season|
       season.weeks.inactive.order(position: :asc).first.update(status: Week::COMING)
     end
   end
@@ -29,7 +29,7 @@ class SchedulerJob < ApplicationJob
     # fetch game statistics 1 time, 3 hours after game start and no points before
     # game started at 5:00 will be fetched at 8:00
     # game started at 5:30 will be fetched at 8:30
-    Season.active.hashable_pluck(:id, :main_external_source).each do |season|
+    Season.in_progress.hashable_pluck(:id, :main_external_source).each do |season|
       game_ids =
         Game
           .joins(:week)

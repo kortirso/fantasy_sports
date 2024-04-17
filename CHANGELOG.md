@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - editing cups rounds for admins
+- disable transfers for finishing season
 
 ### Fixed
 - bug with creating oracul

@@ -106,7 +106,10 @@ module Games
     end
 
     def update_players
-      @players_seasons_mass_update_job.perform_later(season_id: @game.week.season_id, player_ids: @player_ids)
+      @players_seasons_mass_update_job.perform_later(
+        season_id: @game.week.season_id,
+        player_ids: @player_ids.sort
+      )
     end
   end
 end

@@ -18,7 +18,7 @@
         <tr>
           <td><%= season[:id] %></td>
           <td><%= season[:name] %></td>
-          <td><%= season[:active] %></td>
+          <td><%= season[:status] %></td>
           <td>
             <%= link_to t('views.admin.seasons.index.weeks'), admin_weeks_path(season_id: season[:id]), class: 'btn-primary btn-small' %>
             <%= link_to t('views.admin.seasons.index.games'), admin_season_games_path(season[:uuid]), class: 'btn-primary btn-small' %>

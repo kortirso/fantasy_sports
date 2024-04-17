@@ -27,6 +27,10 @@ module PageWrappers
           .hashable_pluck(:uuid, :name, :placeable_id, :placeable_type)
     end
 
+    def season_in_progress?
+      @fantasy_team.season.open_transfers?
+    end
+
     private
 
     def background_urls
