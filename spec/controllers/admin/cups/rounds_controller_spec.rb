@@ -57,6 +57,38 @@ describe Admin::Cups::RoundsController do
     end
   end
 
+  describe 'GET#edit' do
+    it_behaves_like 'required auth'
+    it_behaves_like 'required available email'
+    it_behaves_like 'required admin'
+
+    context 'for admin' do
+      let!(:cups_round) { create :cups_round, cup: cup }
+
+      sign_in_admin
+
+      context 'for unexisting cup' do
+        it 'render not found page' do
+          do_request
+
+          expect(response).to render_template 'shared/404'
+        end
+      end
+
+      context 'for existing cup' do
+        it 'renders edit page' do
+          get :edit, params: { cup_id: cup.id, id: cups_round.id, locale: 'en' }
+
+          expect(response).to render_template :edit
+        end
+      end
+    end
+
+    def do_request
+      get :edit, params: { cup_id: 'unexisting', id: 'unexisting', locale: 'en' }
+    end
+  end
+
   describe 'POST#create' do
     it_behaves_like 'required auth'
     it_behaves_like 'required available email'
@@ -93,6 +125,51 @@ describe Admin::Cups::RoundsController do
 
     def do_request
       post :create, params: { cup_id: 'unexisting', cups_round: { name: '1/8', position: '1' } }
+    end
+  end
+
+  describe 'PATCH#update' do
+    it_behaves_like 'required auth'
+    it_behaves_like 'required available email'
+    it_behaves_like 'required admin'
+
+    context 'for admin' do
+      let!(:cups_round) { create :cups_round, cup: cup }
+
+      sign_in_admin
+
+      context 'for unexisting cup' do
+        it 'does not create cups round', :aggregate_failures do
+          expect { do_request }.not_to change(Cups::Round, :count)
+          expect(response).to render_template 'shared/404'
+        end
+      end
+
+      context 'for invalid params' do
+        let(:request) { patch :update, params: { cup_id: cup.id, id: cups_round.id, cups_round: { name: '' } } }
+
+        it 'does not update cups round', :aggregate_failures do
+          request
+
+          expect(cups_round.reload.name).not_to eq '123'
+          expect(response).to redirect_to edit_admin_cup_round_path(cup_id: cup.id, id: cups_round.id)
+        end
+      end
+
+      context 'for valid params' do
+        let(:request) { patch :update, params: { cup_id: cup.id, id: cups_round.id, cups_round: { name: '123' } } }
+
+        it 'updates cups round', :aggregate_failures do
+          request
+
+          expect(cups_round.reload.name).to eq '123'
+          expect(response).to redirect_to admin_cup_rounds_path(cup_id: cup.id)
+        end
+      end
+    end
+
+    def do_request
+      patch :update, params: { cup_id: 'unexisting', id: 'unexisting', cups_round: { name: '1/8' } }
     end
   end
 

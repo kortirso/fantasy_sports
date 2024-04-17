@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
     resources :cups, only: %i[index new create] do
       scope module: :cups do
-        resources :rounds, only: %i[index new create]
+        resources :rounds, only: %i[index new edit create update]
       end
     end
     resources :cups_rounds, only: %i[] do

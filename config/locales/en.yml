@@ -65,6 +65,8 @@ en:
         rounds:
           create:
             success: Cups round is created
+          update:
+            success: Cups round is update
           refresh_oraculs_points: Refreshing is started
         pairs:
           create:
@@ -129,7 +131,6 @@ en:
       update:
         success: Lineup is updated
     confirmation:
-      permission: Email is not confirmed yet
       ban: Account is banned
   services:
     cups:
@@ -201,8 +202,13 @@ en:
             position: Position
             pairs: Games
             refresh_oraculs_points: Refresh oraculs
+            edit: Edit
+            edit_cups_round: Editing cups round
+            status: Status
           new:
             create: Create new cups round
+          edit:
+            update: Update
         pairs:
           index:
             header: Round games

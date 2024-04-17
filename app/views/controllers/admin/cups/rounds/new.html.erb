@@ -9,6 +9,10 @@
       <%= form.label :position, t('views.admin.cups.rounds.index.position'), class: 'form-label' %>
       <%= form.text_field :position, class: 'form-value' %>
     </div>
+    <div class="form-field">
+      <%= form.label :status, t('views.admin.cups.rounds.index.status'), class: 'form-label' %>
+      <%= form.select :status, options_for_select(Cups::Round.statuses.keys), class: 'form-value' %>
+    </div>
     <%= form.submit t('views.admin.cups.rounds.new.create'), class: 'btn-primary' %>
   <% end %>
 </section>

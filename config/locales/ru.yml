@@ -65,6 +65,8 @@ ru:
         rounds:
           create:
             success: Кубковый раунд создан
+          update:
+            success: Кубковый раунд обновлен
           refresh_oraculs_points: Обновление оракулов начато
         pairs:
           create:
@@ -129,7 +131,6 @@ ru:
       update:
         success: Состав обновлён
     confirmation:
-      permission: Необходимо подтвердить электронную почту
       ban: Аккаунт заблокирован
   services:
     cups:
@@ -201,8 +202,13 @@ ru:
             position: Положение
             pairs: Игры
             refresh_oraculs_points: Обновить оракулов
+            edit: Изменить
+            edit_cups_round: Изменение кубкового раунда
+            status: Статус
           new:
             create: Создать новый раунд
+          edit:
+            update: Обновить
         pairs:
           index:
             header: Игры раунда

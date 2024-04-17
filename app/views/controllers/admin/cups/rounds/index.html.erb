@@ -8,6 +8,7 @@
       <th>ID</th>
       <th><%= t('views.admin.cups.rounds.index.name') %></th>
       <th><%= t('views.admin.cups.rounds.index.position') %></th>
+      <th><%= t('views.admin.cups.rounds.index.status') %></th>
       <th></th>
     </tr>
   </thead>
@@ -17,7 +18,9 @@
         <td><%= cups_round[:id] %></td>
         <td><%= cups_round[:name] %></td>
         <td><%= cups_round[:position] %></td>
+        <td><%= cups_round[:status] %></td>
         <td>
+          <%= link_to t('views.admin.cups.rounds.index.edit'), edit_admin_cup_round_path(cup: params[:cup_id], id: cups_round[:id]), class: 'btn-primary btn-small' %>
           <%= link_to t('views.admin.cups.rounds.index.pairs'), admin_cups_round_pairs_path(cups_round_id: cups_round[:id]), class: 'btn-primary btn-small' %>
           <%= link_to t('views.admin.cups.rounds.index.refresh_oraculs_points'), admin_refresh_oraculs_points_path(cups_round_id: cups_round[:id]), class: 'btn-primary btn-small' %>
         </td>
