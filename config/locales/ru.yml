@@ -137,7 +137,7 @@ ru:
         league_does_not_exist: Лига не существует
     oraculs:
       create:
-        not_unique: Оракл уже создан
+        not_unique: Оракул уже создан
     auth:
       fetch_session:
         forbidden: Доступ запрещён

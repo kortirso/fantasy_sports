@@ -52,7 +52,7 @@ module Oraculs
       grouped_ids, forecastable_type = find_grouped_ids(oracul_place, periodable_ids)
       objects = []
       oracul.oraculs_lineups.hashable_pluck(:id, :periodable_id).each do |oraculs_lineup|
-        grouped_ids[oraculs_lineup[:periodable_id]].each do |forecastable_id|
+        grouped_ids[oraculs_lineup[:periodable_id]]&.each do |forecastable_id|
           objects << {
             uuid: SecureRandom.uuid,
             oraculs_lineup_id: oraculs_lineup[:id],
