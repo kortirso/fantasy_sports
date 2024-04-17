@@ -40,7 +40,7 @@ module Weeks
 
     def refresh_data(week_id)
       Achievements::RefreshAfterWeekChangeJob.perform_later(week_id: week_id)
-      Teams::Players::CorrectPricesJob.perform_later(week_id: week_id)
+      # Teams::Players::CorrectPricesJob.perform_later(week_id: week_id)
     end
 
     def update_league_maintenance(maintenance)
