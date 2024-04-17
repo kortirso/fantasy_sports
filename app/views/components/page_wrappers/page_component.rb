@@ -28,7 +28,7 @@ module PageWrappers
     end
 
     def season_in_progress?
-      @fantasy_team.season.in_progress?
+      @fantasy_team.season.open_transfers?
     end
 
     private

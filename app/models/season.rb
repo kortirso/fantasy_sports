@@ -39,4 +39,12 @@ class Season < ApplicationRecord
   def in_progress?
     [ACTIVE, FINISHING].include?(status)
   end
+
+  def open_transfers?
+    [INACTIVE, ACTIVE].include?(status)
+  end
+
+  def closed_transfers?
+    [FINISHING, FINISHED].include?(status)
+  end
 end

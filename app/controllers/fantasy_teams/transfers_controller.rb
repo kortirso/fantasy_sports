@@ -6,6 +6,7 @@ module FantasyTeams
 
     before_action :find_fantasy_team
     before_action :find_season, only: %i[show]
+    before_action :validate_season_finishing, only: %i[show]
     before_action :find_lineup, only: %i[show]
     before_action :check_season_maintenance, only: %i[show]
     before_action :set_watchable_players, only: %i[show]
@@ -36,6 +37,12 @@ module FantasyTeams
 
     def find_season
       @season = @fantasy_team.season
+    end
+
+    def validate_season_finishing
+      return if @season.open_transfers?
+
+      page_not_found
     end
 
     def find_lineup

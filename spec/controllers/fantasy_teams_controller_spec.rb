@@ -53,6 +53,16 @@ describe FantasyTeamsController do
             expect(response).to render_template :show
           end
         end
+
+        context 'for finishing season' do
+          before { fantasy_team.season.update!(status: Season::FINISHING) }
+
+          it 'renders 404 page' do
+            get :show, params: { id: fantasy_team.uuid, locale: 'en' }
+
+            expect(response).to render_template 'shared/404'
+          end
+        end
       end
     end
 
