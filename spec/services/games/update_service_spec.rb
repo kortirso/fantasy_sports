@@ -45,7 +45,7 @@ describe Games::UpdateService, type: :service do
       expect(game.reload.points).to eq([1, 2])
       expect(Players::Seasons::MassUpdateJob).to have_received(:perform_later).with(
         season_id: game.week.season_id,
-        player_ids: [teams_player1.player_id, teams_player3.player_id, teams_player2.player_id]
+        player_ids: [teams_player1.player_id, teams_player3.player_id, teams_player2.player_id].sort
       )
     end
   end
