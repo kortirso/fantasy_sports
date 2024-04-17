@@ -15,7 +15,7 @@ class DraftPlayersController < ApplicationController
 
   def find_seasons
     @seasons =
-      Rails.cache.fetch('draft_players_show_seasons_v3', expires_in: 4.hours, race_condition_ttl: 10.seconds) do
+      Rails.cache.fetch('draft_players_show_seasons_v4', expires_in: 4.hours, race_condition_ttl: 10.seconds) do
         Season.in_progress.or(Season.coming)
           .joins(:league)
           .hashable_pluck(:id, :uuid, :start_at, :name, :updated_at, 'leagues.slug', 'leagues.sport_kind')
