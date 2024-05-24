@@ -48,6 +48,12 @@ $ rails server -e test -p 5002
 $ yarn run cypress run --project ./spec/e2e
 ```
 
+### Sensitive information leaks
+
+```bash
+$ bearer scan .
+```
+
 ## Process
 
 ### Starting new week

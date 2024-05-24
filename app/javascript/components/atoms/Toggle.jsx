@@ -12,7 +12,10 @@ export const Toggle = ({ header, children }) => {
         <Chevron className={isOpen ? 'transition-transform rotate-180' : 'transition-transform rotate-0'} />
       </div>
       {children && isOpen ? (
-        <div dangerouslySetInnerHTML={{ __html: children }} className="px-4 pb-4 bg-white border-t border-stone-300"></div>
+        <div
+          dangerouslySetInnerHTML={{ __html: sanitize(children) }}
+          className="px-4 pb-4 bg-white border-t border-stone-300"
+        ></div>
       ) : null}
     </div>
   );

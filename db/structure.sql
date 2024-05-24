@@ -950,7 +950,7 @@ CREATE TABLE public.identities (
     uid character varying NOT NULL,
     provider integer DEFAULT 0 NOT NULL,
     login character varying,
-    email character varying,
+    email text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1871,7 +1871,7 @@ ALTER SEQUENCE public.transfers_id_seq OWNED BY public.transfers.id;
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying,
+    email text DEFAULT ''::character varying,
     password_digest character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1882,7 +1882,7 @@ CREATE TABLE public.users (
     locale character varying DEFAULT 'en'::character varying NOT NULL,
     reset_password_sent_at timestamp(6) without time zone,
     banned_at timestamp(6) without time zone,
-    username character varying
+    username text
 );
 
 
@@ -3271,6 +3271,7 @@ ALTER TABLE ONLY public.kudos_achievements
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240524064924'),
 ('20240417155344'),
 ('20240329062740'),
 ('20240327093404'),

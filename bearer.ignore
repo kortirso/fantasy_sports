@@ -1,0 +1,44 @@
+{
+  "e5e17cede9a731da09a639c9c78af007_0": {
+    "author": "Bogdanov Anton",
+    "comment": "Application-level encryption is used",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:55:59Z"
+  },
+  "e5e17cede9a731da09a639c9c78af007_1": {
+    "author": "Bogdanov Anton",
+    "comment": "Player information, not a sensitive data",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:56:47Z"
+  },
+  "e5e17cede9a731da09a639c9c78af007_2": {
+    "author": "Bogdanov Anton",
+    "comment": "Player information, not a sensitive data",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:57:08Z"
+  },
+  "e5e17cede9a731da09a639c9c78af007_3": {
+    "author": "Bogdanov Anton",
+    "comment": "Player information, not a sensitive data",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:57:44Z"
+  },
+  "e5e17cede9a731da09a639c9c78af007_4": {
+    "author": "Bogdanov Anton",
+    "comment": "Application-level encryption is used",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:58:32Z"
+  },
+  "e5e17cede9a731da09a639c9c78af007_5": {
+    "author": "Bogdanov Anton",
+    "comment": "Application-level encryption is used",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:58:54Z"
+  },
+  "ef0222913dafff59dac28ef69eba306a_0": {
+    "author": "Bogdanov Anton",
+    "comment": "using default md5 hashing",
+    "false_positive": true,
+    "ignored_at": "2024-05-24T06:43:49Z"
+  }
+}

@@ -5,6 +5,9 @@ class User < ApplicationRecord
   include Leagueable
   include Kudos::Achievementable
 
+  encrypts :email, deterministic: true
+  encrypts :username, deterministic: true
+
   has_secure_password
   has_secure_token :confirmation_token, length: 24
   has_secure_token :restore_token, length: 24
