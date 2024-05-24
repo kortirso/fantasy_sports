@@ -54,7 +54,7 @@ module FantasyTeams
       def grouped_teams_players
         @season
           .active_teams_players
-          .where('price_cents <= ?', @price_cents_per_player)
+          .where(price_cents: ..@price_cents_per_player)
           .includes(:player)
           .group_by(&:seasons_team_id)
           .sort_by { rand }

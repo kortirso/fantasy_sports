@@ -16,7 +16,7 @@ module Controllers
             seasons_team
               .games
               .includes(:week, :home_season_team)
-              .where('weeks.id >= ?', params[:week_id])
+              .where(weeks: { id: params[:week_id].. })
               .order('weeks.position ASC', 'start_at ASC')
               .limit(4)
               .hashable_pluck(:difficulty, :home_season_team_id)

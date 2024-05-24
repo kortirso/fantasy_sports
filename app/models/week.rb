@@ -48,7 +48,7 @@ class Week < ApplicationRecord
   def weeks_ids_for_form_calculation
     Week
       .where(season_id: season_id)
-      .where('position <= ?', position)
+      .where(position: ..position)
       .where('position > ?', position - WEEKS_COUNT_FOR_FORM[season.league.sport_kind])
       .order(position: :desc)
       .ids

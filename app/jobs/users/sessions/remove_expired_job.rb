@@ -7,7 +7,7 @@ module Users
 
       def perform
         Users::Session
-          .where('created_at < ?', JwtEncoder::EXPIRATION_SECONDS.seconds.ago)
+          .where(created_at: ...JwtEncoder::EXPIRATION_SECONDS.seconds.ago)
           .destroy_all
       end
     end

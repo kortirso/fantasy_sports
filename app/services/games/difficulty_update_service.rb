@@ -33,7 +33,7 @@ module Games
     end
 
     def finished_week_ids(week)
-      week.season.weeks.where('position < ?', week.position - 1).select(:id)
+      week.season.weeks.where(position: ...week.position - 1).select(:id)
     end
 
     def points_for_game(game, points_system)
@@ -74,7 +74,7 @@ module Games
 
     def next_week_ids(week)
       week.season.weeks
-        .where('position >= ? AND position <= ?', week.position, week.position + 3)
+        .where(position: week.position..week.position + 3)
         .select(:id)
     end
 

@@ -34,7 +34,7 @@ class SchedulerJob < ApplicationJob
         Game
           .joins(:week)
           .where(weeks: { status: Week::ACTIVE, season_id: season[:id] })
-          .where('start_at < ?', 165.minutes.ago)
+          .where(start_at: ...165.minutes.ago)
           .where(points: [])
           .pluck(:id)
       next if game_ids.blank?

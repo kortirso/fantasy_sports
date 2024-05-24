@@ -89,7 +89,7 @@ gem 'skylight'
 gem 'bugsnag'
 
 # view pagination
-gem 'pagy', '~> 6.0'
+gem 'pagy', '~> 8.0'
 
 # notification layer
 gem 'active_delivery'

@@ -42,7 +42,7 @@ module Teams
 
       def update_lazy_players
         scope
-          .where('price_cents >= ?', 1_000)
+          .where(price_cents: 1_000..)
           .hashable_pluck(:id, :price_cents, :seasons_team_id, :player_id, :players_season_id)
           .each do |teams_player|
             coef = low_price_players[teams_player[:id]].to_f
@@ -71,7 +71,7 @@ module Teams
         @low_price_players ||=
           scope
             .joins(:players_season)
-            .where('price_cents < ?', 1_500)
+            .where(price_cents: ...1_500)
             .where.not(players_seasons: { average_points: 0 })
             .hashable_pluck(:id, :price_cents, 'players_seasons.average_points')
             .each_with_object({}) do |teams_player, acc|
